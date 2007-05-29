@@ -1,0 +1,8 @@
+<?php
+$STENDHAL_VERSION='0.60';
+
+$STENDHAL_HOSTNAME='127.0.0.1';
+$STENDHAL_USERNAME='stendhal_user';
+$STENDHAL_PASSWORD='password';
+
+?>
