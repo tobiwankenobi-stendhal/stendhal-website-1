@@ -7,14 +7,6 @@ body
 	font-family: Geneva, Tahoma, Arial, Helvetica, Sans-serif; 
 	font-size:12pt; 
   }
-  /*
-  #precontainer 
-  {
-	margin: 0;
-	padding: 0;
-	width 100%;
-	background: url("mainpage_title_up.png") no-repeat fixed right top;	
-  }*/
   
   #container
   {
@@ -64,82 +56,100 @@ body
   
   /* Top horizontal menu */
   #topMenu
-  { /*border: 1px solid red;*/
+  {/*border: 1px solid red;*/
 	clear:none;
-	position: relative;
-	height:77px;
+	height:85px;
 	padding:0;
 	margin: 0 190px 0 190px;
 	background-image:url("images/menu.png");
 	background-repeat:no-repeat;
   } 
-  #topMenu ul
+  #layer1 
   {
-	list-style-type: none;
-	display: inline;
-	margin: 0 auto 0 auto;
+	  text-align:center;
+	  margin:0;
+	  padding:25px 0 0 0;
+	  margin: 0 10% 0 10%;  
   }
+  
+  #layer2 
+  {  
+	  text-align:center;
+	  margin:0;
+	  padding:4px 0 0 0;
+	  margin: 0 10% 0 10%;
+  }
+ 
   #topMenu li 
   {
-	padding: 0;
-	margin: 0;
-    float:left;
-	position:relative;
-	top:40px;
-	left: 50px;
+    list-style: none;
+    text-align: center;
+	display: inline;
+	padding: 3px;
+    /*border: 1px solid black;
+    background-color: black;*/
+    margin:0 3px 2px 0;
+
   }
-  #topMenu .button {
-	text-indent: -5000px;  
-	margin-left: 1px;
-	margin-right: 1px;
+
+  #topMenu a 
+  {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;	
   }
-  
-  /*#downloads_button {
-	height:30px;
-	width: 80px;
-	background:url("supportbut1.png") no-repeat; 
-  }*/
-  #manual_button {
-	height:30px;
-	width: 107px;
-	background:url("images/manualbut1.png") no-repeat; 
-  }
-  #support_button {
-	height:30px;
-	width: 107px;
-	background:url("images/supportbut1.png") no-repeat; 
-  }/*
-  #forum_button {
-	height:30px;
-	width: 80px;
-	background:url("supportbut1.png") no-repeat; 
-  }*/
-  #hof_button {
-	height:30px;
-	width: 129px;
-	background:url("images/hofbut1.png") no-repeat; 
-  }
-  #stats_button {
-	height:30px;
-	width: 129px;
-	background:url("images/statsbut1.png") no-repeat; 
+  #topMenu a:hover
+  {
+	  color:black;
   }
   
-  /* Side menus */
+  #topMenu img {
+	  position: relative;
+	  top: -1px;
+	  margin:0 5px 0 0;
+	  border:0;
+  }
   
+  /* LEFT PANE */
   #leftArea
   {/*border: 1px solid red;*/
 	padding:0;
-	margin:-80 3px 0 0;
+	margin:-80px 3px 0 0;
 	position: relative;
 	float: left;
 	text-align: left;
 	width: 180px;	
   }
   
+  #leftMenu {	  
+    list-style-type: none
+  }
+  #leftMenu li {
+	width: 135px;
+	height:25px;
+	margin:3px 0 0 -30px;
+	padding: 0 0 3px 0;
+	border-bottom: 1px solid black;	  
+  }
+  #leftMenu a {
+	  text-decoration: none;
+	  color: black;
+	padding:3px;
+	font-size: 12px;
+  }
+  #leftMenu a:hover {
+	  color:blue;
+  }
+  #leftMenu img {
+	border:0;
+	margin:0 6px -6px -3px;
+	padding:0;	  
+  }
+  
+  /* RIGHT PANE */
   #rightArea
   {/*border: 1px solid red;*/
-	margin:-80 0 0 3px;
+	margin:-80px 0 0 3px;
 	padding:0;
 	position: relative;
 	right:0;
@@ -149,6 +159,33 @@ body
 	width: 180px;
   }
   
+  #rightMenu {	  
+    list-style-type: none
+  }
+  #rightMenu li {
+	width: 135px;
+	height:25px;
+	margin:3px 0 0 -30px;
+	padding: 0 0 3px 0;
+	border-bottom: 1px solid black;	  
+  }
+  #rightMenu a {
+    text-decoration: none;
+    color: black;
+    padding:3px;
+    font-size: 12px;
+  }
+  #rightMenu a:hover {
+	color:blue;	  
+  }
+  #rightMenu img {
+	border:0;
+	margin:0 6px -6px -3px;
+	padding:0;	  
+  }
+  
+  
+  /* big buttons */
   #playArea
   {
 	background-image: url("images/playbut1.png");
@@ -352,6 +389,7 @@ body
 	font-size: 60%;
 	padding:0;
 	margin: 10px 0 0 0;
+	clear:both;
   }
   
   /* HOF */

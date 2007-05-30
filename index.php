@@ -36,14 +36,15 @@ if(isset($_REQUEST["arianne_url"]))
         <a href="">Login</a> - <a href="">Create account</a>
       </div>
       <div id="topMenu">
-        <ul>
-          <!-- These links doesn't work -->
-          <li id="downloads_button" class="button">Downloads</li>
-          <li id="manual_button" class="button">Manual</li>
-          <li id="support_button" class="button">Support</li>
-          <li id="forum_button" class="button">Forum</li>
-          <li id="hof_button" class="button">Hall of Fame</li>
-          <li id="stats_button" class="button">Statistics</li>
+        <ul id="layer1">
+          <li id="manual_button"><a href="#"><img src="images/blob.png" alt="Manual">Manual</a></li>
+          <li id="support_button"><a href="#"><img src="images/blob.png" alt="Support">Support</a></li>
+          <li id="forum_button"><a href="#"><img src="images/blob.png" alt="Forum">Forum</a></li>
+        </ul>
+        <ul id="layer2">
+          <li id="downloads_button"><a href="#"><img src="images/blob.png" alt="Download">Downloads</a></li>
+          <li id="hof_button"><a href="#"><img src="images/blob.png" alt="Hall of Fame">Hall of Fame</a></li>
+          <li id="stats_button"><a href="#"><img src="images/blob.png" alt="StatisticsS">Statistics</a></li>
         </ul>
       </div>
       <div id="leftArea">
@@ -64,14 +65,14 @@ if(isset($_REQUEST["arianne_url"]))
         ?>
         
         <?php startBox('Game System'); ?>
-          <ul>
-          <!-- These li should be links, that doesn't work yet -->
-            <li id="game_history">History</li>
-            <li id="game_atlas">Atlas</li>
-            <li id="game_rp">RP System</li>
-            <li id="game_creatures">Creatures</li>
-            <li id="game_items">Items</li>
-            <li id="game_quests">Quests</li>
+          <ul id="leftMenu">
+
+            <li><a href="#"><img src="images/vertical_menu_button.png">History</a></li>
+            <li><a href="#"><img src="images/vertical_menu_button.png">Atlas</a></li>
+            <li><a href="#"><img src="images/vertical_menu_button.png">RP System</a></li>
+            <li><a href="#"><img src="images/vertical_menu_button.png">Creatures</a></li>
+            <li><a href="#"><img src="images/vertical_menu_button.png">Items</a></li>
+            <li><a href="#"><img src="images/vertical_menu_button.png">Quests</a></li>
           </ul>
         <?php endBox(); ?>
       </div>
@@ -95,17 +96,16 @@ if(isset($_REQUEST["arianne_url"]))
         ?>
 
         <?php startBox('Collaborate'); ?>
-        <ul>
-          <!-- These li should be links, that doesn't work yet -->
-          <li><span id="maps_coll">Maps</span></li>
-          <li><span id="quests_coll">Quests</span></li>
-          <li><span id="creatures_coll">Creatures</span></li>
-          <li><span id="items_coll">Items</span></li>
-          <li><span id="gfx_coll">Graphics</span></li>
-          <li><span id="snd_coll">Sounds and Music</span></li>
-          <li><span id="webpage_coll">Webpage</span></li>
-          <li><span id="code_coll">Code</span></li>
-          <li><span id="donations_coll">Donations</span></li>
+        <ul  id="rightMenu">
+          <li><a href="#"><img src="images/vertical_menu_button.png">Maps</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Quests</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Creatures</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Items</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Graphics</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Sounds &amp; Music</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Webpage</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Code</a></li>
+          <li><a href="#"><img src="images/vertical_menu_button.png">Donations</a></li>
         </ul>          
         <?php endBox(); ?>
       </div>
