@@ -68,15 +68,16 @@ body
   {
 	  text-align:center;
 	  margin:0;
-	  padding:25px 0 0 0;
+	  padding:25px 0 2px 0;
 	  margin: 0 10% 0 10%;  
   }
   
   #layer2 
   {  
+	  border-top:1px black solid;
 	  text-align:center;
 	  margin:0;
-	  padding:4px 0 0 0;
+	  padding:2px 0 0 0;
 	  margin: 0 10% 0 10%;
   }
  
@@ -397,7 +398,7 @@ body
   {
 	margin: 0 auto 0 auto;
 	padding:0;
-	background: url("images/HOFbackground.gif") repeat-y;
+	background: url("images/HOFbackground.jpg") repeat-y;
 	width: 410px; 
   }
   .hallOfFame H1

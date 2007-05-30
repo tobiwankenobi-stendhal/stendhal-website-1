@@ -67,12 +67,12 @@ if(isset($_REQUEST["arianne_url"]))
         <?php startBox('Game System'); ?>
           <ul id="leftMenu">
 
-            <li><a href="#"><img src="images/vertical_menu_button.png">History</a></li>
-            <li><a href="#"><img src="images/vertical_menu_button.png">Atlas</a></li>
-            <li><a href="#"><img src="images/vertical_menu_button.png">RP System</a></li>
-            <li><a href="#"><img src="images/vertical_menu_button.png">Creatures</a></li>
-            <li><a href="#"><img src="images/vertical_menu_button.png">Items</a></li>
-            <li><a href="#"><img src="images/vertical_menu_button.png">Quests</a></li>
+            <li><a href="#"><img src="images/history_button.png">History</a></li>
+            <li><a href="#"><img src="images/atlas_button.png">Atlas</a></li>
+            <li><a href="#"><img src="images/rpsystem_button.png">RP System</a></li>
+            <li><a href="#"><img src="images/creatures_button.png">Creatures</a></li>
+            <li><a href="#"><img src="images/items_button.png">Items</a></li>
+            <li><a href="#"><img src="images/quests_button.png">Quests</a></li>
           </ul>
         <?php endBox(); ?>
       </div>
@@ -97,15 +97,15 @@ if(isset($_REQUEST["arianne_url"]))
 
         <?php startBox('Collaborate'); ?>
         <ul  id="rightMenu">
-          <li><a href="#"><img src="images/vertical_menu_button.png">Maps</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Quests</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Creatures</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Items</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Graphics</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Sounds &amp; Music</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Webpage</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Code</a></li>
-          <li><a href="#"><img src="images/vertical_menu_button.png">Donations</a></li>
+          <li><a href="#"><img src="images/atlas_button.png">Maps</a></li>
+          <li><a href="#"><img src="images/quests_button.png">Quests</a></li>
+          <li><a href="#"><img src="images/creatures_button.png">Creatures</a></li>
+          <li><a href="#"><img src="images/items_button.png">Items</a></li>
+          <li><a href="#"><img src="images/c_gfx_button.png">Graphics</a></li>
+          <li><a href="#"><img src="images/c_snd_button.png">Sounds &amp; Music</a></li>
+          <li><a href="#"><img src="images/c_website_button.png">Webpage</a></li>
+          <li><a href="#"><img src="images/c_code_button.png">Code</a></li>
+          <li><a href="#"><img src="images/donate_button.png">Donations</a></li>
         </ul>          
         <?php endBox(); ?>
       </div>
