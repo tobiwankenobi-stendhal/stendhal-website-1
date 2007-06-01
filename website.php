@@ -223,7 +223,7 @@ class Player {
   /* Equipment the player has in slots in a array slot=>item */
   public $equipment;
   
-  function __construct($name, $sentence, $level, $outfit, $xp, $attributes, $money, $equipment) {
+  function __construct($name, $sentence, $age, $level, $xp, $outfit, $money, $attributes, $equipment) {
     $this->name=$name;
     $this->sentence=$sentence;
     $this->level=$level;
@@ -252,28 +252,38 @@ class Player {
   }
 }
   
-
 /**
   * Returns a list of players online and offline that meet the given condition.
   */
-function getPlayers($where='', $sortby='created desc', $cond='limit 2') {
-    $result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+function getPlayers($where='', $sortby='name', $cond='limit 2') {
+    $result = mysql_query('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
     $list=array();
     
-    while($row=mysql_fetch_assoc($result)) {      
-      $resultimages = mysql_query('select * from news_images where news_id='.$row['id'].' order by created desc', getGameDB());
-      $images=array();
+    while($row=mysql_fetch_assoc($result)) {            
+      $attributes=array();
+      $attributes['atk']=$row['atk'];
+      $attributes['def']=$row['def'];
+      $attributes['hp']=$row['hp'];
+      $attributes['karma']=$row['karma'];
       
-      while($rowimages=mysql_fetch_assoc($resultimages)) {      
-        $images[]=$rowimages['url'];
-      }
-      mysql_free_result($resultimages);
+      $equipment=array();
+      $equipment['head']=$row['head'];
+      $equipment['armor']=$row['armor'];
+      $equipment['lhand']=$row['lhand'];
+      $equipment['rhand']=$row['rhand'];
+      $equipment['legs']=$row['legs'];
+      $equipment['feet']=$row['feet'];
+      $equipment['cloak']=$row['cloak'];
       
-      $list[]=new News($row['title'],
-                     $row['created'],
-                     $row['shortDescription'],
-                     $row['extendedDescription'],
-                     $images);
+      $list[]=new Player($row['name'],
+                     $row['sentence'],
+                     $row['age'],
+                     $row['level'],
+                     $row['xp'],
+                     $row['outfit'],
+                     $row['money'],
+                     $attributes,
+                     $equipment);
     }
     
     mysql_free_result($result);
@@ -286,16 +296,8 @@ function getPlayers($where='', $sortby='created desc', $cond='limit 2') {
   * Returns the player of the week.
   */
 function getPlayerOfTheWeek() {
-  return new Player("test","This is a test sentence",120, "10101010", 12181921, 
-    array("atk" => 45,
-	      "def" => 120,
-		  "hp" => 1300), 
-	13123,
-	array("head" => "black_helmet",
-	  	  "armor" => "black_armor",
-		  "lhand" => "black_sword")
-	);
-	 
+  $player=getPlayers('', 'xp', 'limit 1');	   
+  return $player[0];
   }
 
 
