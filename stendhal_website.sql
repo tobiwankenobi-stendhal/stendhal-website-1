@@ -71,3 +71,40 @@ create table news_images (
   
   primary key(id, news_id)
 );
+
+
+
+/*************************************************************************************************************
+**************************************************************************************************************
+**************************************************************************************************************
+*********************** Until Marauroa 2.0 and Stendhal using it are released, use this **********************
+**************************************************************************************************************
+**************************************************************************************************************
+**************************************************************************************************************/
+CREATE TABLE `character_stats` (
+  `name` varchar(32) NOT NULL,
+  `sentence` varchar(256) default NULL,
+  `age` int(11) default NULL,
+  `level` int(11) default NULL,
+  `outfit` varchar(32) default NULL,
+  `xp` int(11) default NULL,
+  `money` int(11) default NULL,
+  `married` varchar(32) default NULL,
+  `atk` int(11) default NULL,
+  `def` int(11) default NULL,
+  `hp` int(11) default NULL,
+  `karma` int(11) default NULL,
+  `head` varchar(32) default NULL,
+  `armor` varchar(32) default NULL,
+  `lhand` varchar(32) default NULL,
+  `rhand` varchar(32) default NULL,
+  `legs` varchar(32) default NULL,
+  `feet` varchar(32) default NULL,
+  `cloak` varchar(32) default NULL,
+  PRIMARY KEY  (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `character_stats` */
+
+insert into `character_stats` (`name`,`sentence`,`age`,`level`,`outfit`,`xp`,`money`,`married`,`atk`,`def`,`hp`,`karma`,`head`,`armor`,`lhand`,`rhand`,`legs`,`feet`,`cloak`) values ('miguel','',37,216,'1012701',100000035,101,NULL,226,226,2260,0,'null','black_armor','null','club','null','null','null');
+

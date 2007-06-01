@@ -11,8 +11,9 @@ function getWebsiteDB() {
 }
 
 function getGameDB() {
+  global $websitedb;
   global $gamedb;
-  return $gamedb;
+  return $websitedb;
 }
 
 function connect() {
@@ -20,13 +21,13 @@ function connect() {
     $websitedb=mysql_connect(STENDHAL_WEB_HOSTNAME,STENDHAL_WEB_USERNAME,STENDHAL_WEB_PASSWORD, true);
     @mysql_select_db(STENDHAL_WEB_DB, $websitedb) or die( "Unable to select Website database");
 
-    $gamedb=mysql_connect(STENDHAL_GAME_HOSTNAME,STENDHAL_GAME_USERNAME,STENDHAL_GAME_PASSWORD, true);
-    @mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( "Unable to select Game database");
+    //$gamedb=mysql_connect(STENDHAL_GAME_HOSTNAME,STENDHAL_GAME_USERNAME,STENDHAL_GAME_PASSWORD, true);
+    //@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( "Unable to select Game database");
 }
 
 function disconnect() {
     global $websitedb,$gamedb;
     mysql_close($websitedb);
-    mysql_close($gamedb);
+    //mysql_close($gamedb);
 }
 ?>

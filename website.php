@@ -47,6 +47,7 @@ function getLatestScreenshot() {
   * - Quiz
   */
 class Event {
+  public $id;
   /* Date of the event in ISO Format  YYYY/MM/DD HH:mm*/
   public $date;
   /* Type of the event from the above */
@@ -60,7 +61,8 @@ class Event {
   /* The full description of the event with perhaps the result of it. */
   public $extendedDescription;
   
-  function __construct($date, $type, $location, $image, $shortDesc, $longDesc) {
+  function __construct($id, $date, $type, $location, $image, $shortDesc, $longDesc) {
+    $this->id=$id;
     $this->date=$date;
     $this->type=$type;
     $this->location=$location;
@@ -75,7 +77,9 @@ class Event {
     echo '<div class="event'.($this->type).'"><span>'.($this->type).'</span></div>';
     echo '<div class="eventDate">'.($this->date).'</div>';
     echo '<div class="eventLocation">'.($this->location).'</div>';
+    echo ' <a href="?id=content/scripts/event&event_id='.$this->id.'">';
     echo '<div class="eventDescription">'.($this->oneLineDescription).'</div>';
+    echo ' </a>';
     echo '</div>';
     /* END NOTE */
   }
@@ -97,7 +101,9 @@ function getEvents($where='', $sortby='created desc', $cond='limit 2') {
       }
       mysql_free_result($resultimages);
       
-      $list[]=new Event($row['date'],
+      $list[]=new Event(
+                     $row['id'],
+                     $row['date'],
                      ucfirst($row['type']),
                      $row['location'],
                      $images,
@@ -240,7 +246,9 @@ class Player {
   function show() {
     echo '<div class="playerBox">';
     echo '  <div class="playerBoxImage"><img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/></div>';
+    echo ' <a href="?id=content/scripts/character&name='.$this->name.'">';
     echo '  <div class="playerBoxName">'.$this->name.'</div>';
+    echo ' </a>';
     echo '  <div class="playerBoxXP">'.$this->xp.'</div>';
     echo '  <div class="playerBoxQuote">"'.$this->sentence.'"</div>';
     echo '</div>';
