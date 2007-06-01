@@ -32,7 +32,7 @@ if(isset($_REQUEST["id"]))
   <body>
     <div id="container">
       <div id="header">
-        <img src="images/logo.gif" alt="Logotype"/>
+        <a href="?"><img style="border: 0;" src="images/logo.gif" alt="Logotype"/></a>
       </div>
       <div id="account">
         <a href="">Login</a> - <a href="">Create account</a>

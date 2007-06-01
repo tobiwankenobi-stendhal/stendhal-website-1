@@ -88,7 +88,7 @@ class Event {
 /**
   * Returns a list of events.
   */
-function getEvents($where='', $sortby='created desc', $cond='limit 2') {    
+function getEvents($where='', $sortby='date desc', $cond='limit 2') {    
     $result = mysql_query('select * from events '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
@@ -241,6 +241,10 @@ class Player {
   }
 
   function showExtended() {
+    echo '<h1>'.$this->name.'</h1>';
+    echo '<img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/>';
+    
+    /* TODO */
   }
   
   function show() {
