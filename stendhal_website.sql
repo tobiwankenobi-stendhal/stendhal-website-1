@@ -60,7 +60,7 @@ We are interested in testing:<ul>
 <li>New items</li>
 <li>Quests</li>
 </ul>
-Please if you have any suggestion, post it at http://sourceforge.net/tracker/?func=add&group_id=1111&atid=351111", null);
+Please if you have any suggestion, post it at <a href=\"http://sourceforge.net/tracker/?func=add&group_id=1111&atid=351111\">http://sourceforge.net/tracker/?func=add&group_id=1111&atid=351111</a>", null);
 
 create table news_images (
   id int auto_increment not null,
