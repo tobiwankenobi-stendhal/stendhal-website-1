@@ -146,16 +146,13 @@ class News {
   public $extendedDescription;
   /* Images of the news item */
   public $images;
-  /* Links related to the news post */
-  public $links;
   
-  function __construct($title, $date, $shortDesc, $longDesc, $images, $links) {
+  function __construct($title, $date, $shortDesc, $longDesc, $images) {
     $this->title=$title;
     $this->date=$date;
     $this->oneLineDescription=$shortDesc;
     $this->extendedDescription=$longDesc;
     $this->images=$images;
-    $this->links=$links;
   }
 
   function show() {
@@ -173,34 +170,36 @@ class News {
 /**
   * Returns a list of news.
   */
-function getNews() {
-  $list= array(
-	new News('Stendhal BETA Testers server','2007/05/24','An important milestone for 0.70','
-    Welcome to this beta server.<p>
-    Please if you find any problem report it at <a href=\"http://sourceforge.net/tracker/?func=add&group_id=1111&atid=101111\">http://sourceforge.net/tracker/?func=add&group_id=1111&atid=101111</a>.<p>
-    We are interested in testing:<ul>
-    <li>Maps
-    <li>Monster
-    <li>New items
-    <li>Quests
-    </ul>
-    Please if you have any suggestion, post it at <a href=\"http://sourceforge.net/tracker/?func=add&group_id=1111&atid=351111\">http://sourceforge.net/tracker/?func=add&group_id=1111&atid=351111</a>',
-    array(),
-    array())
-    );	
+function getNews($where='', $sortby='created desc', $cond='limit 2') {
+    $result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond);
+    $list=array();
+    
+    while($row=mysql_fetch_assoc($result)) {      
+      $resultimages = mysql_query('select * from news_images where news_id='.$row['id'].' order by created desc');
+      $images=array();
+      
+      while($rowimages=mysql_fetch_assoc($resultimages)) {      
+        $images[]=$rowimages['url'];
+      }
+      mysql_free_result($resultimages);
+      
+      $list[]=new News($row['title'],
+                     $row['created'],
+                     $row['shortDescription'],
+                     $row['extendedDescription'],
+                     $images);
+    }
+    
+    mysql_free_result($result);
 	
-  return $list;
+    return $list;
   }
 
 /**
   * Returns a list of news between adate and bdate both inclusive
   */
 function getNewsBetween($adate, $bdate) {
-  $list= array(
-	News('Stendhal 0.60 released','2007/06/01','A very important release','blablablablabla')
-    );	
-	
-  return $list;
+  return getNews('where date between '.$adate.' and '.$bdate);
   }
 
 /**
