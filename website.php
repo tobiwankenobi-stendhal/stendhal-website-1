@@ -21,7 +21,7 @@ function endBox() {
   * Each screenshot is a URL to the image.
   */
 function getScreenshots($cond='') {
-    $result = mysql_query('select * from screenshots order by created desc '.$cond);
+    $result = mysql_query('select * from screenshots order by created desc '.$cond, getWebsiteDB());
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {
@@ -85,11 +85,11 @@ class Event {
   * Returns a list of events.
   */
 function getEvents($where='', $sortby='created desc', $cond='limit 2') {    
-    $result = mysql_query('select * from events '.$where.' order by '.$sortby.' '.$cond);
+    $result = mysql_query('select * from events '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {      
-      $resultimages = mysql_query('select * from event_images where event_id='.$row['id'].' order by created desc');
+      $resultimages = mysql_query('select * from event_images where event_id='.$row['id'].' order by created desc', getWebsiteDB());
       $images=array();
       
       while($rowimages=mysql_fetch_assoc($resultimages)) {      
@@ -171,11 +171,11 @@ class News {
   * Returns a list of news.
   */
 function getNews($where='', $sortby='created desc', $cond='limit 2') {
-    $result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond);
+    $result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {      
-      $resultimages = mysql_query('select * from news_images where news_id='.$row['id'].' order by created desc');
+      $resultimages = mysql_query('select * from news_images where news_id='.$row['id'].' order by created desc', getWebsiteDB());
       $images=array();
       
       while($rowimages=mysql_fetch_assoc($resultimages)) {      
@@ -252,6 +252,36 @@ class Player {
   }
 }
   
+
+/**
+  * Returns a list of players online and offline that meet the given condition.
+  */
+function getPlayers($where='', $sortby='created desc', $cond='limit 2') {
+    $result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+    $list=array();
+    
+    while($row=mysql_fetch_assoc($result)) {      
+      $resultimages = mysql_query('select * from news_images where news_id='.$row['id'].' order by created desc', getGameDB());
+      $images=array();
+      
+      while($rowimages=mysql_fetch_assoc($resultimages)) {      
+        $images[]=$rowimages['url'];
+      }
+      mysql_free_result($resultimages);
+      
+      $list[]=new News($row['title'],
+                     $row['created'],
+                     $row['shortDescription'],
+                     $row['extendedDescription'],
+                     $images);
+    }
+    
+    mysql_free_result($result);
+	
+    return $list;
+}
+
+
 /**
   * Returns the player of the week.
   */
@@ -268,21 +298,6 @@ function getPlayerOfTheWeek() {
 	 
   }
 
-/**
-  * Returns a list of players online and offline that meet the given condition.
-  */
-function getPlayers($condition) {
-  return array(new Player("test","This is a test sentence",120, "10101010", 12181921, 
-    array("atk" => 45,
-	      "def" => 120,
-		  "hp" => 1300), 
-	13123,
-	array("head" => "black_helmet",
-	  	  "armor" => "black_armor",
-		  "lhand" => "black_sword")
-	)
-	);
-  }
 
 /**
   * Returns a list of players that are online right now.
