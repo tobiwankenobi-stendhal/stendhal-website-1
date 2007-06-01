@@ -21,7 +21,7 @@ function endBox() {
   * Each screenshot is a URL to the image.
   */
 function getScreenshots($cond='') {
-    $result = mysql_query('select * from screenshots order by date desc '.$cond);
+    $result = mysql_query('select * from screenshots order by created desc '.$cond);
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {
@@ -84,25 +84,53 @@ class Event {
 /**
   * Returns a list of events.
   */
-function getEvents($sortby='', $limit=2) {
-  $list=array(
-    new Event('2007/06/01','Raid', 'Nalwor', 'image.png','Drows plan to attack at the nalwor city', 'blablablablabla'),
-    new Event('2007/06/01','Raid', 'Nalwor', 'image.png','Drows plan to attack at the nalwor city', 'blablablablabla')
-    );
+function getEvents($where='', $sortby='created desc', $cond='limit 2') {    
+    $result = mysql_query('select * from events '.$where.' order by '.$sortby.' '.$cond);
+    $list=array();
+    
+    while($row=mysql_fetch_assoc($result)) {      
+      $resultimages = mysql_query('select * from event_images where event_id='.$row['id'].' order by created desc');
+      $images=array();
+      
+      while($rowimages=mysql_fetch_assoc($resultimages)) {      
+        $images[]=$rowimages['url'];
+      }
+      mysql_free_result($resultimages);
+      
+      $list[]=new Event($row['date'],
+                     ucfirst($row['type']),
+                     $row['location'],
+                     $images,
+                     $row['shortDescription'],
+                     $row['extendedDescription']);
+    }
+    
+    mysql_free_result($result);
 	
-  return $list;
-  }
+    return $list;
+    }
 
 /**
   * Returns a list of events that happens between adate and bdate both inclusive.
   */
 function getEventsBetween($adate, $bdate) {
-  $list=array(
-    new Event('2007/06/01','Raid', 'Nalwor', 'image.png','Drows plan to attack at the nalwor city', 'blablablablabla')
-    );
-	
-  return $list;
+  return getEvents('where date between '.$adate.' and '.$bdate);
   }
+  
+/**
+  * Returns a list of events that happened or are going to happed on this week.
+  */
+function getEventsOnWeek() {
+  return getEvents('where week(date)=week(current_date())');
+  }
+  
+/**
+  * Returns a list of events that happened or are going to happed on this month.
+  */
+function getEventsOnMonth() {
+  return getEvents('where month(date)=month(current_date())');
+  }
+  
 
 /**
   * A class representing a news item without comments.
