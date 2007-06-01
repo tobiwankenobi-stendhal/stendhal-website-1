@@ -3,6 +3,7 @@
  * This file is the PHP code that generate each of the website sections. 
  */
 include('configuration.inc'); 
+include('mysql.php');
 
 
 function startBox($title) {
@@ -19,19 +20,22 @@ function endBox() {
   * Return a list of of the screenshots.
   * Each screenshot is a URL to the image.
   */
-function getScreenshots() {
-  $list=array(
-     "http://arianne.sourceforge.net/stendhal/image.jpg",
-     "http://arianne.sourceforge.net/stendhal/image.jpg",
-     "http://arianne.sourceforge.net/stendhal/image.jpg",
-     "http://arianne.sourceforge.net/stendhal/image.jpg"
-	 );
-     
-     return $list;
+function getScreenshots($cond='') {
+    $result = mysql_query('select * from screenshots order by date desc '.$cond);
+    $list=array();
+    
+    while($row=mysql_fetch_assoc($result)) {
+      $list[]=$row['url'];
+    }
+    
+    mysql_free_result($result);
+    
+    return $list;
   }
 
 function getLatestScreenshot() {
-  return "/screenshots/screenshot.jpg";
+  $list=getScreenshots('limit 1');
+  return $list[0];
 }
 
 /**
