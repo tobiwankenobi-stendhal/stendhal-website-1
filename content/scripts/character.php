@@ -2,9 +2,33 @@
 $name=$_REQUEST["name"];
 $players=getPlayers('where name="'.$name.'"', 'name');
 $choosen=$players[0];
-
-$choosen->showExtended();
-
-
-
 ?>
+
+<div>
+  <div>
+    <div>
+      <img src=createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+    </div>
+    <div>
+      <div><?php echo $choosen->name; ?></div>
+      <div><?php echo $choosen->level; ?></div>
+      <div><?php echo $choosen->xp; ?></div>
+      <div><?php echo $choosen->sentence; ?></div>
+    </div>          
+    <div>
+      <div>Statistics and attributes</div>
+      <?php foreach($choosen->attributes as $key=>$value) { ?>
+      <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
+      <?php } ?>
+    </div>
+    <div>
+      <div>Equipment</div>
+      <?php foreach($choosen->equipment as $key=>$value) { 
+              if($value!="null") {?>
+      <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
+      <?php 
+                 }
+              } ?>
+    </div>
+  </div>
+</div>  
