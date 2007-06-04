@@ -348,7 +348,26 @@ body
 	padding:0;
 	margin:0 0 0 14px;
   }
-  
+
+  /* Content*/
+  .area
+  {
+	background: white;
+	border: 1px solid black;
+	padding:0;
+	margin: 5px 0 0 0;
+  }
+  .title
+  {
+	margin: 0;
+	padding: 4px 4px 2px 4px;
+	color: white;
+	font-weight: bolder;
+	background-image:url("images/panelwood003.jpg");
+	background-repeat:repeat;
+	border: brown 2px outset;
+  }
+    
   /* news */
   #newsArea
   {
