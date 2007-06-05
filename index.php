@@ -13,10 +13,11 @@ if(isset($_REQUEST["id"]))
   $page_url=$_REQUEST["id"];
   
   if(!(
-      (strpos($page_url,".")===false)&&
-      (strpos($page_url,"//")===false)&&
-      (strpos($page_url,"http")===false)&&
-      (strpos($page_url,"/")!=1))
+      (strpos($page_url,".")===false)||
+      (strpos($page_url,"//")===false)||
+      (strpos($page_url,"http")===false)||
+      (strpos($page_url,"/")!=1))||
+      !file_exists($page_url.'.php')
       )
     {    
     $page_url="content/main";
@@ -28,6 +29,11 @@ if(isset($_REQUEST["id"]))
   <head>
     <title>Stendhal</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<?php
+	  if(file_exists($page_url.'.css')) {
+	    echo '	<link rel="stylesheet" type="text/css" href="'.$page_url.'.css" />';
+	  }
+	?>
   </head>
   <body>
     <div id="container">

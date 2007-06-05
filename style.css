@@ -217,6 +217,41 @@ body
   margin-right: 4px;
   margin-bottom: 4px;
   }
+.extendedplayerBoxImage
+  {
+  //float: right;
+  display: inline;
+  border: 1px black solid;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  width: 96px;
+  height: 128px;
+  }
+.extendedplayerBoxImage img
+  {
+  width: 96px;
+  height: 128px;
+  }
+.extendedplayerName 
+  {
+  font-family: Arial, sans;
+  font-size: 130%;
+  border-bottom: 2px dotted black;
+  }
+.extendedplayerBoxQuote
+  {
+  border: 1px green solid;
+  font-size: 10px;
+  line-height: 12px;
+  background-color: rgb(180,180,180);
+  padding: 2px 0 0 2px;
+  font-family: Courier New;
+  }
+.extendedplayerStats
+  {
+  margin-top: 24px;
+  border-bottom: 2px dotted black;
+  }  
 .playerBoxName
   {
   font-weight: bolder;
@@ -367,6 +402,10 @@ body
 	background-repeat:repeat;
 	border: brown 2px outset;
   }
+  .content
+   {
+	padding: 4px 4px 4px 4px;
+   }
     
   /* news */
   #newsArea
