@@ -152,16 +152,18 @@ body
 	background-image: url("images/playbutton.png");
 	width: 170px;
 	height: 42px;
-	margin: 2px;
+	margin: 4px;
 	text-align: center;
+	border: 2px black solid;
   }
   #downloadArea
   {
 	background-image: url("images/downloadbutton.png");
 	width: 170px;
 	height: 42px;
-	margin: 2px;
+	margin: 4px;
 	text-align: center;
+	border: 2px black solid;
   }
   
 .playerBox
