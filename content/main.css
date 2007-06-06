@@ -1,0 +1,90 @@
+  .page
+  {
+	text-align: left;
+	padding: 10px;
+	margin: 0px 20px 0 190px;
+  }
+  #description
+  {
+	font-size: 12pt;
+	color: white;
+	background: gray;
+	border:solid 1px black;
+	margin:0;
+	padding: 3px 6px 3px 6px;
+  }
+  
+  #oneLineDescription
+  {
+	background-image:url("../images/onelinedesc.png");
+	background-position: center;
+	background-repeat:no-repeat;
+	
+	color: Black;
+	text-align: center;
+	font-size: 17px;
+	font-family: Verdana;
+	width:544px;
+	height:83px;
+	padding:0;
+	margin:0 0 0 14px;
+  }
+
+  /* Content*/
+  .area
+  {
+	background: white;
+	border: 1px solid black;
+	padding:0;
+	margin: 5px 0 0 0;
+  }
+  .title
+  {
+	margin: 0;
+	padding: 4px 4px 2px 4px;
+	color: white;
+	font-weight: bolder;
+	background-image:url("../images/panelwood003.jpg");
+	background-repeat:repeat;
+	border: brown 2px outset;
+  }
+  .content
+   {
+	padding: 4px 4px 4px 4px;
+   }
+    
+  /* news */
+  #newsArea
+  {
+	background: white;
+	border: 1px solid black;
+	padding:0;
+	margin: 5px 0 0 0;
+  }
+  .newsDate
+  {
+	padding:0;margin:0;
+	color:#fff; 
+	text-align:left; 
+	float:right;
+	position:relative;
+	top: 6px; 
+	right:10px; 
+  }
+  
+  .newsTitle
+  {
+	margin: 0;
+	padding: 4px 4px 2px 4px;
+	color: white;
+	font-weight: bolder;
+	background-image:url("../images/panelwood003.jpg");
+	background-repeat:repeat;
+	border: brown 2px outset;
+  }
+  .newsContent
+  {
+	padding: 0 4px 4px 4px;
+	margin:0;
+  }
+  
