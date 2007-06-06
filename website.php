@@ -249,8 +249,8 @@ class Player {
   
   function show() {
     echo '<div class="playerBox">';
-    echo '  <div class="playerBoxImage"><img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/></div>';
-    echo ' <a href="?id=content/scripts/character&name='.$this->name.'">';
+    echo '  <img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/>';
+    echo '  <a href="?id=content/scripts/character&name='.$this->name.'">';
     echo '  <div class="playerBoxName">'.$this->name.'</div>';
     echo ' </a>';
     echo '  <div class="playerBoxXP">'.$this->xp.'</div>';
