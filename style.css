@@ -66,7 +66,7 @@ body
   {
 	text-align:center;
 	margin:0;
-	padding:45px 0 2px 0;
+	padding: 45px 0 2px 0;
 	margin: 0 10% 0 10%;  
   }
  
@@ -74,27 +74,31 @@ body
   {
    list-style: none;
    text-align: center;
-  	display: inline;
+   display: inline;
    padding: 3px;
    margin:0 3px 2px 0;
   }
   
   #topMenu a 
   {
-	text-decoration: none;
-	color: white;
-	font-weight: bold;	
-  }
-  #topMenu a:hover
-  {
-	color:black;
+  font-family: Arial sans;
+  font-size: 18px;
+  font-weight: bolder;
+  text-decoration: none;
+  color: white;
   }
   
-  #topMenu img {
-	  position: relative;
-	  top: -1px;
-	  margin:0 5px 0 0;
-	  border:0;
+  #topMenu a:hover
+  {
+  color:black;
+  }
+  
+  #topMenu img 
+  {
+  position: relative;
+  top: -1px;
+  margin:0 5px 0 0;
+  border:0;
   }
   
   /* LEFT PANE */
@@ -179,6 +183,10 @@ body
   margin-right: 4px;
   margin-bottom: 4px;
   }
+.playerBox a 
+  {
+	  text-decoration: none;
+  }
 .playerBoxName
   {
   font-weight: bolder;
@@ -234,40 +242,27 @@ body
   }
   .eventDate
   {
-	text-align: right;
 	font-family: Lucida Console, Arial, sans;
 	font-size: 60%;
   }
-  .eventRaid
+  .event img 
   {
-	background-image: url("images/eventRaid.png");
-	width: 48px;
-	height: 49px;
-	margin: 3px;
-	float: left;
-  }
-  .eventGift
-  {
-	background-image: url("images/eventGift.png");
-	width: 48px;
-	height: 49px;
-	margin: 3px;
-	float: left;
-  }
-  .eventRaid span
-  {
-    display: none;
+   float: right;
+   margin: 2px 2px 4px 2px;
+   border: 1px solid black;
   }
   .eventLocation
   {
 	font-family: Arial;
-	font-weight: bolder;  
-	text-align: right;
+	font-size: 70%;
   }
   .eventDescription
   {
-	clear: both;
-	font-size: 80%;
+	font-size: 90%;
+  }
+  .eventDescription a
+  {
+    text-decoration: none;
   }
   
   /* content area */
@@ -285,6 +280,11 @@ body
 	padding:0;
 	margin: 10px 0 0 0;
 	clear:both;
+  }
+  
+  #eXTReMe
+  {
+	  display: inline;
   }
   
   

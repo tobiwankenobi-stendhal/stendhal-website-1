@@ -74,12 +74,11 @@ class Event {
   function show() {
     /* NOTE: Fill this note with the HTML code needed to draw an Event box. */
     echo '<div class="event">';
-    echo '<div class="event'.($this->type).'"><span>'.($this->type).'</span></div>';
+    echo '<img src="images/event'.($this->type).'.png" alt="event logo"/>';
+    echo '<div class="eventDescription"><a href="?id=content/scripts/event&event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
     echo '<div class="eventDate">'.($this->date).'</div>';
     echo '<div class="eventLocation">'.($this->location).'</div>';
-    echo ' <a href="?id=content/scripts/event&event_id='.$this->id.'">';
-    echo '<div class="eventDescription">'.($this->oneLineDescription).'</div>';
-    echo ' </a>';
+    echo '<span style="clear: left;"></span>';
     echo '</div>';
     /* END NOTE */
   }
