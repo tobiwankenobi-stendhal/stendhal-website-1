@@ -1,5 +1,8 @@
 <?php 
+session_start();
+
 include('website.php');
+include('login/login_function.php');
 
 connect();
 
@@ -48,7 +51,7 @@ if(isset($_REQUEST["id"]))
         <a href="?"><img style="border: 0;" src="images/logo.gif" alt="Logotype"/></a>
       </div>
       <div id="account">
-        <a href="">Login</a> - <a href="">Create account</a>
+        <?php displayLogin(); ?>
       </div>
       <div id="topMenu">
         <ul>

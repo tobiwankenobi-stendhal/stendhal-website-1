@@ -35,11 +35,12 @@ body
 	padding: 4px;
 	position: relative;
 	float:right;
-	top: -100px;
-	width: 160px;
+	top: -105px;
+	width: 240px;
 	font-family: Optima, Arial, sans;
 	font-size: 75%;
 	text-decoration: none;
+	text-align: right;
 	color: white;
   }
   #account a
