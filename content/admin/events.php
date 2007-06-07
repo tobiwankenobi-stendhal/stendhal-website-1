@@ -6,11 +6,11 @@ if(getAdminLevel()<5000) {
 if(isset($_REQUEST['action'])) {
   if($_REQUEST['action']=='submit') {
     startBox("Adding Event");
-      addEvent(/* TODO */);
+      addEvent($_REQUEST['date'],$_REQUEST['location'],$_REQUEST['type'],$_REQUEST['onelinedescription'],$_REQUEST['description'],$_REQUEST['images']);
     endBox();
   } elseif($_REQUEST['action']=='update') {
     startBox("Updating event");
-      updateEvent(/* TODO */);
+      updateEvent($_REQUEST['event_id'],$_REQUEST['date'],$_REQUEST['location'],$_REQUEST['type'],$_REQUEST['onelinedescription'],$_REQUEST['description'],$_REQUEST['images']);
     endBox();
   } elseif($_REQUEST['action']=='delete') {
     startBox("Deleting event");
