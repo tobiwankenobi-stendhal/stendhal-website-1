@@ -4,7 +4,7 @@ $players=getPlayers('where name="'.$name.'"', 'name');
 $choosen=$players[0];
 ?>
 
-  <?php startBox($choosen->name); ?>
+  <?php startBox('Character info for '.$choosen->name); ?>
     <div>
     <div class="extendedplayerBoxImage">
       <img src=createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
@@ -16,19 +16,25 @@ $choosen=$players[0];
       <div class="extendedplayerBoxQuote"><?php echo $choosen->sentence; ?></div>
     </div>
     </div>    
-    <div>
+  <?php endBox(); ?>
+
+  <?php startBox('Account information');?>
+  <?php endBox(); ?>
+  
+  <?php startBox('Attributes and statistics');?>
       <div class="extendedplayerStats">Statistics and attributes</div>
       <?php foreach($choosen->attributes as $key=>$value) { ?>
-      <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
+        <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
       <?php } ?>
-    </div>
-    <div>
+  <?php endBox(); ?>
+
+  <?php startBox('Equipment');?>
       <div class="extendedplayerStats">Equipment</div>
       <?php foreach($choosen->equipment as $key=>$value) { 
               if($value!="null") {?>
-      <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
+                 <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
       <?php 
                  }
-              } ?>
-    </div>
+              } 
+       ?>
   <?php endBox(); ?>
