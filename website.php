@@ -135,7 +135,61 @@ function getEventsOnWeek() {
 function getEventsOnMonth() {
   return getEvents('where month(date)=month(current_date())');
   }
-  
+
+function addEvent($date, $location, $type, $oneline, $body, $images, $approved=false) {
+    $date=mysql_real_escape_string($date);
+    $location=mysql_real_escape_string($location);
+    $type=mysql_real_escape_string($type);
+    $oneline=mysql_real_escape_string($oneline);
+    $body=mysql_real_escape_string($body);
+    
+    $query='insert into events values(null,"'.$date.'","'.$type.'","'.$location.'","'.$oneline.'","'.$body.'", null)';
+    mysql_query($query, getWebsiteDB());
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while inserting event: '.mysql_affected_rows().'</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+        return;
+    }
+    
+    $result=mysql_query('select LAST_INSERT_ID() as lastid from events;', getWebsiteDB());
+    while($rowimages=mysql_fetch_assoc($result)) {      
+        $newsid=$rowimages['lastid'];
+    }
+    mysql_free_result($result);
+    
+    foreach(explode("\n",$images) as $image) {
+      mysql_query('insert into events_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
+    }
+    
+}
+
+function deleteEvent($id) {
+    $query='delete from events where id='.mysql_real_escape_string($id);
+    mysql_query($query, getWebsiteDB());
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while deleting events.</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+        return;
+    }
+}
+
+function updateEvent($id, $date, $location, $type, $oneline, $body, $images, $approved=false) {
+    $id=mysql_real_escape_string($id);
+    $date=mysql_real_escape_string($date);
+    $location=mysql_real_escape_string($location);
+    $type=mysql_real_escape_string($type);
+    $oneline=mysql_real_escape_string($oneline);
+    $body=mysql_real_escape_string($body);
+    
+    $query='update events set date="'.$date.'", type="'.$type.'",location="'.$location.'",shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id='.$id;
+    mysql_query($query, getWebsiteDB());
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while updating news.</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+        return;
+    }
+}
+
 
 /**
   * A class representing a news item without comments.
@@ -208,20 +262,21 @@ function addNews($title, $oneline, $body, $images, $approved=false) {
     $body=mysql_real_escape_string($body);
     
     $query='insert into news values(null,"'.$title.'","'.$oneline.'","'.$body.'", null)';
-    mysql_query($query);
+    mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while inserting news.</span>';
         echo '<span class="error_cause">'.$query.'</span>';
+        return;
     }
     
-    $result=mysql_query('select LAST_INSERT_ID()as lastid from news;');
+    $result=mysql_query('select LAST_INSERT_ID()as lastid from news;', getWebsiteDB());
     while($rowimages=mysql_fetch_assoc($result)) {      
         $newsid=$rowimages['lastid'];
     }
     mysql_free_result($result);
     
     foreach(explode("\n",$images) as $image) {
-      mysql_query('insert into news_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null');
+      mysql_query('insert into news_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
     }
     
 }
@@ -232,6 +287,7 @@ function deleteNews($id) {
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while deleting news.</span>';
         echo '<span class="error_cause">'.$query.'</span>';
+        return;
     }
 }
 
@@ -246,6 +302,7 @@ function updateNews($id, $title, $oneline, $body, $images, $approved=false) {
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while updating news.</span>';
         echo '<span class="error_cause">'.$query.'</span>';
+        return;
     }
 }
 /**

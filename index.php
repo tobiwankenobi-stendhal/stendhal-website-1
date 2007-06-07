@@ -114,6 +114,7 @@ if(isset($_REQUEST["id"]))
           startBox('Administration'); ?>
           <ul id="menu">
             <li><a href="?id=content/admin/news"><img src="images/buttons/news_button.png">News</a></li>
+            <li><a href="?id=content/admin/events"><img src="images/buttons/events_button.png">Events</a></li>
           </ul>
         <?php 
           endBox();
