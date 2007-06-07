@@ -69,6 +69,17 @@ function checkLogin(){
    }
 }
 
+function getAdminLevel() {
+  if(!checkLogin()) {
+    return -1;
+  }
+  
+  $result = mysql_query('select admin from character_stats where name="'.mysql_real_escape_string($_SESSION['username']).'"', getGameDB());
+  while($row=mysql_fetch_assoc($result)) {            
+    return (int)$row['admin'];
+  }
+}
+
 /**
  * Determines whether or not to display the login
  * form or to show the user that he is logged in

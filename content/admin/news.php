@@ -1,6 +1,3 @@
-<pre>
-<?php print_r($_REQUEST); ?>
-</pre>
 <?php
    
 if(isset($_REQUEST['action'])) {

@@ -110,6 +110,17 @@ if(isset($_REQUEST["id"]))
         ?>
         
         <?php 
+        if(getAdminLevel()>=5000) {
+          startBox('Administration'); ?>
+          <ul id="menu">
+            <li><a href="?id=content/admin/news"><img src="images/buttons/news_button.png">News</a></li>
+          </ul>
+        <?php 
+          endBox();
+          }       
+        ?>
+
+        <?php 
           startBox('Poll');
           $poll=getLatestPoll();
           $poll->show();
