@@ -28,33 +28,21 @@
   }
    
   /* news */
-  #newsArea
-  {
-	background: white;
-	border: 2px solid black;
-	padding: 0;
-	margin: 5px 0 0 0;
-  }
   .newsDate
   {
-	padding:0;margin:0;
+	padding:0;
+	margin:0;
 	color:#fff; 
 	text-align:left; 
 	float:right;
 	position:relative;
-	top: 6px; 
 	right:10px; 
   }
   
   .newsTitle
   {
-	margin: 0;
-	padding: 4px 4px 2px 4px;
 	color: white;
 	font-weight: bolder;
-	background-image:url("../images/panelwood003.jpg");
-	background-repeat:repeat;
-	border: brown 2px outset;
   }
   .newsContent
   {

@@ -283,6 +283,14 @@ body
 	clear:both;
   }
   
+  .copyright
+  {
+	  text-align: left;
+	  position: relative;
+	  top: 40px;
+	  left: 2px;
+  }
+  
   #eXTReMe
   {
 	  display: inline;

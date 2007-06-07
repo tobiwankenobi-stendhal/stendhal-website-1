@@ -141,6 +141,7 @@ function getEventsOnMonth() {
   * A class representing a news item without comments.
   */
 class News {
+  public $id;
   /* Title of the news item */
   public $title;
   /* Date in ISO format YYYY/MM/DD HH:mm */
@@ -152,7 +153,8 @@ class News {
   /* Images of the news item */
   public $images;
   
-  function __construct($title, $date, $shortDesc, $longDesc, $images) {
+  function __construct($id, $title, $date, $shortDesc, $longDesc, $images) {
+    $this->id=$id;
     $this->title=$title;
     $this->date=$date;
     $this->oneLineDescription=$shortDesc;
@@ -162,12 +164,10 @@ class News {
 
   function show() {
     /* NOTE: Fill this note with the HTML code needed to draw an News item. */
-    echo '<div class="newsItem">';
-    echo '<div class="newsDate">'.$this->date.'</div>';
-    echo '<div class="newsTitle">'.$this->title.'</div>';
+    startBox('<div class="newsDate">'.$this->date.'</div><div class="newsTitle">'.$this->title.'</div>');
     echo '<div class="newsContent">'.$this->oneLineDescription.'</div>';
     echo '<div class="newsContent">'.$this->extendedDescription.'</div>';
-    echo '</div>';
+    endBox();
     /* END NOTE */
    }
 };
@@ -188,7 +188,9 @@ function getNews($where='', $sortby='created desc', $cond='limit 2') {
       }
       mysql_free_result($resultimages);
       
-      $list[]=new News($row['title'],
+      $list[]=new News(
+                     $row['id'],
+                     $row['title'],
                      $row['created'],
                      $row['shortDescription'],
                      $row['extendedDescription'],
@@ -200,6 +202,29 @@ function getNews($where='', $sortby='created desc', $cond='limit 2') {
     return $list;
   }
 
+function addNews($title, $oneline, $body, $images, $approved=false) {
+    $title=mysql_real_escape_string($title);
+    $oneline=mysql_real_escape_string($oneline);
+    $body=mysql_real_escape_string($body);
+    
+    $query='insert into news values(null,"'.$title.'","'.$oneline.'","'.$body.'", null)';
+    mysql_query($query);
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while inserting news.</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+    }
+    
+    $result=mysql_query('select LAST_INSERT_ID()as lastid from news;');
+    while($rowimages=mysql_fetch_assoc($result)) {      
+        $newsid=$rowimages['lastid'];
+    }
+    mysql_free_result($result);
+    
+    foreach(explode("\n",$images) as $image) {
+      mysql_query('insert into news_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null');
+    }
+    
+}
 /**
   * Returns a list of news between adate and bdate both inclusive
   */
