@@ -165,7 +165,7 @@ class News {
     echo '<div class="newsItem">';
     echo '<div class="newsDate">'.$this->date.'</div>';
     echo '<div class="newsTitle">'.$this->title.'</div>';
-    echo '<div class="newsOneLineContent">'.$this->oneLineDescription.'</div>';
+    echo '<div class="newsContent">'.$this->oneLineDescription.'</div>';
     echo '<div class="newsContent">'.$this->extendedDescription.'</div>';
     echo '</div>';
     /* END NOTE */
