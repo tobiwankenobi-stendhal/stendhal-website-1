@@ -132,6 +132,7 @@ if(isset($_REQUEST["id"]))
         <?php include($page_url.".php");  ?>
       </div>
       <div id="footerArea">
+        © 1999-2007 Arianne RPG
         <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
         <span>
 <div id="eXTReMe"><a href="http://extremetracking.com/open?login=mblanch">
@@ -152,7 +153,6 @@ EXd.write("<img src=http://e1.extreme-dm.com",
 src="http://e1.extreme-dm.com/s10.g?login=mblanch&amp;j=n&amp;jv=n" />
 </div></noscript>
         </span>
-        <p style="text-align: right;">© 1999-2007 Arianne RPG</p>
       </div>
     </div>
   </body>

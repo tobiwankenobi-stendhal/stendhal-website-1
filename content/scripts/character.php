@@ -4,9 +4,7 @@ $players=getPlayers('where name="'.$name.'"', 'name');
 $choosen=$players[0];
 ?>
 
-<div class="area">
-  <div class="title"><?php echo $choosen->name; ?></div>
-  <div class="content">
+  <?php startBox($choosen->name); ?>
     <div>
     <div class="extendedplayerBoxImage">
       <img src=createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
@@ -33,5 +31,4 @@ $choosen=$players[0];
                  }
               } ?>
     </div>
-  </div>
-</div>  
+  <?php endBox(); ?>
