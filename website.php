@@ -225,6 +225,29 @@ function addNews($title, $oneline, $body, $images, $approved=false) {
     }
     
 }
+
+function deleteNews($id) {
+    $query='delete from news where id='.mysql_real_escape_string($id);
+    mysql_query($query);
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while deleting news.</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+    }
+}
+
+function updateNews($id, $title, $oneline, $body, $images, $approved=false) {
+    $id=mysql_real_escape_string($id);
+    $title=mysql_real_escape_string($title);
+    $oneline=mysql_real_escape_string($oneline);
+    $body=mysql_real_escape_string($body);
+    
+    $query='update news set title="'.$title.'", shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id='.$id;
+    mysql_query($query);
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while updating news.</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+    }
+}
 /**
   * Returns a list of news between adate and bdate both inclusive
   */

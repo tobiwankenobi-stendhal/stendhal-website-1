@@ -16,6 +16,10 @@
   {
    width: 120px;
   }
+.news input[type="checkbox"]
+  {
+   width: 32px;
+  }
 .news textarea
   {
    width: 100%;
@@ -26,12 +30,10 @@
     border-bottom: 1px grey dotted;
     margin-bottom: 4px;
   }
-.id
+.news_list a
   {
-    padding: 2px;
-    margin-right: 12px;
-    font-size: 8px;
-    color: grey;
+  text-decoration: none;
+  font-size: 12pt;  
   }
 .date
   {

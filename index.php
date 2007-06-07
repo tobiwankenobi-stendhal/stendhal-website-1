@@ -84,7 +84,7 @@ if(isset($_REQUEST["id"]))
         
         <?php startBox('Game System'); ?>
           <ul id="menu">
-            <li><a href="?id=content/game/FAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
+            <li><a href="?id=content/FAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
             <li><a href="?id=content/game/history"><img src="images/buttons/history_button.png">History</a></li>
             <li><a href="?id=content/game/atlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
             <li><a href="?id=content/game/rp"><img src="images/buttons/rpsystem_button.png">RP System</a></li>
