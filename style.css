@@ -276,11 +276,12 @@ body
   
   #footerArea
   {
-	padding-top: 16px;
+	border-top: 2px black dotted;
+	padding-top: 8px;
 	text-align: right;
 	font-size: 60%;
 	padding:0;
-	margin: 10px 0 0 0;
+	margin: 16px 0 0 0;
 	clear:both;
   }
   

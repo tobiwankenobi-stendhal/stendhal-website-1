@@ -1,4 +1,7 @@
 <?php
+if(getAdminLevel()<5000) {
+ die("Ooops!");
+}
    
 if(isset($_REQUEST['action'])) {
   if($_REQUEST['action']=='submit') {
