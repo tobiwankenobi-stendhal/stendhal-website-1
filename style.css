@@ -113,8 +113,8 @@ body
 	width: 180px;	
   }
   
-  #leftArea a img {
-	  text-decoration: none;
+  img.screenshot {
+      text-decoration: none;
 	  border: 1px solid black;
   }
   

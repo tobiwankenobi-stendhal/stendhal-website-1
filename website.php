@@ -34,11 +34,11 @@ class Screenshot {
   }
   
   function showThumbnail() {
-    echo '<img src="thumbnail.php?img='.$this->url.'" alt="'.$this->description.'"/>';  
+    echo '<img class="screenshot" src="thumbnail.php?img='.$this->url.'" alt="'.$this->description.'"/>';  
   }
   
   function show() {
-    echo '<img src="'.$this->url.'" alt="'.$this->description.'"/>';
+    echo '<img class="screenshot" src="'.$this->url.'" alt="'.$this->description.'"/>';
   }
 };
 
