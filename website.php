@@ -428,7 +428,16 @@ class Player {
   * Returns a list of players online and offline that meet the given condition.
   */
 function getPlayers($where='', $sortby='name', $cond='limit 2') {
-    $result = mysql_query('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+    return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+}
+
+function getBestPlayer() {
+    $player=_getPlayers('select  *,xp/(age+1) as xp_age_rel from character_stats order by xp_age_rel desc limit 1', getGameDB());
+    return $player[0];
+}
+
+function _getPlayers($query) {
+    $result = mysql_query($query);
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {            

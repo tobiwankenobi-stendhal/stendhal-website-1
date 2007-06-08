@@ -1,4 +1,19 @@
-<div style="float: left; width: 33%">
+<?php startBox("Best player"); 
+  $choosen=getBestPlayer();
+ ?>
+    <div class="hofBest">
+    <img src=createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+    <div>
+      <div class="bestName"><?php echo $choosen->name; ?></div>
+      <div class="bestLevel">Level: <?php echo $choosen->level; ?></div>
+      <div class="bestXP">XP: <?php echo $choosen->xp; ?></div>
+      <div class="bestSentence"><?php echo $choosen->sentence; ?></div>
+    </div>
+    </div>    
+<?php endBox(); ?>
+
+
+<div style="float: left; width: 34%">
 <?php
 
 startBox("Strongest players");

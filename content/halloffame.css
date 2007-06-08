@@ -1,3 +1,15 @@
+  .hofBest img 
+  {
+	width: 96px;
+    height: 128px;	
+	display: inline;
+	margin: 2px 8px 8px 2px;
+  }
+  .bestName
+  {
+	font-weight: bolder;
+  }
+  
   .hofLine
   {
   position: relative;
