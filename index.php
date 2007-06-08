@@ -66,7 +66,7 @@ if(isset($_REQUEST["id"]))
         <?php 
           startBox('Screenshot');
           $screen=getLatestScreenshot();
-          echo '<img src="'.$screen.'" alt="screenshot"/>';
+          $screen->showThumbnail();
           endBox() 
         ?>
         
@@ -115,6 +115,8 @@ if(isset($_REQUEST["id"]))
           <ul id="menu">
             <li><a href="?id=content/admin/news"><img src="images/buttons/news_button.png">News</a></li>
             <li><a href="?id=content/admin/events"><img src="images/buttons/events_button.png">Events</a></li>
+            <li><a href="?id=content/admin/screenshots"><img src="images/buttons/screenshots_button.png">Screenshots</a></li>
+            <li><a href="?id=content/admin/movies"><img src="images/buttons/movies_button.png">Movies</a></li>
           </ul>
         <?php 
           endBox();

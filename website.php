@@ -16,27 +16,92 @@ function endBox() {
   echo '</div></div>';
   }
   
+
+/**
+  * This represent a Screenshot.
+  */
+class Screenshot {
+  public $id;
+  /* URL of the screenshot. */
+  public $url;
+  /* One line description of the event. */
+  public $description;
+  
+  function __construct($id, $url, $description) {
+    $this->id=$id;
+    $this->url=$url;    
+    $this->description=$description;
+  }
+  
+  function showThumbnail() {
+    echo '<img src="thumbnail.php?img='.$this->url.'" alt="'.$this->description.'"/>';  
+  }
+  
+  function show() {
+    echo '<img src="'.$this->url.'" alt="'.$this->description.'"/>';
+  }
+};
+
 /**
   * Return a list of of the screenshots.
   * Each screenshot is a URL to the image.
   */
-function getScreenshots($cond='') {
-    $result = mysql_query('select * from screenshots order by created desc '.$cond, getWebsiteDB());
+function getScreenshots($where='', $cond='') {
+    $query='select * from screenshots '.$where.' order by created desc '.$cond;
+    $result = mysql_query($query, getWebsiteDB());
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {
-      $list[]=$row['url'];
+      $list[]=new Screenshot($row['id'],$row['url'],$row['description']);
     }
     
     mysql_free_result($result);
     
     return $list;
-  }
+}
 
 function getLatestScreenshot() {
-  $list=getScreenshots('limit 1');
+  $list=getScreenshots('','limit 1');
   return $list[0];
 }
+
+function addScreenshot($url, $description, $approved=false) {
+    $url=mysql_real_escape_string($url);
+    $description=mysql_real_escape_string($description);
+    
+    $query='insert into screenshots values(null,"'.$url.'","'.$description.'", null, true)';
+    mysql_query($query, getWebsiteDB());
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while inserting screenshot: '.mysql_affected_rows().'</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+        return;
+    }
+}
+
+function deleteScreenshot($id) {
+    $query='delete from screenshots where id='.mysql_real_escape_string($id);
+    mysql_query($query, getWebsiteDB());
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while deleting screenshots.</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+        return;
+    }
+}
+
+function updateScreenshot($id, $url, $description, $approved=false) {
+    $id=mysql_real_escape_string($id);
+    $url=mysql_real_escape_string($url);
+    $description=mysql_real_escape_string($description);
+    
+    $query='update screenshots set url="'.$url.'", description="'.$description.'" where id='.$id;
+    mysql_query($query, getWebsiteDB());
+    if(mysql_affected_rows()!=1) {
+        echo '<span class="error">There has been a problem while updating screenshots.</span>';
+        echo '<span class="error_cause">'.$query.'</span>';
+        return;
+    }
+}
+
 
 /**
   * This represent a Event.
