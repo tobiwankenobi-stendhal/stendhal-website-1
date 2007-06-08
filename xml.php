@@ -8,12 +8,6 @@
 # Read the license at http://keithdevens.com/software/license
 #
 ###################################################################################
-if(isset($HTTP_GET_VARS['url']))
- {
-echo '<pre>';
-print_r(XML_unserialize(implode('',file($HTTP_GET_VARS['url']))));
-echo '</pre>';
- }
 
 ###################################################################################
 # XML_unserialize: takes raw XML as a parameter (a string)

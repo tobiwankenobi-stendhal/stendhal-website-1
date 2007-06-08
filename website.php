@@ -4,7 +4,7 @@
  */
 include('configuration.inc'); 
 include('mysql.php');
-
+include('xml.php');
 
 function startBox($title) {
   echo '<div class="box">';
@@ -543,6 +543,8 @@ function getServerStats() {
  * A class representing a monster.
  */
 class Monster {
+  public static $classes=array();
+  
   /* Name of the monster */
   public $name;
   /* Description of the monster */
@@ -564,22 +566,23 @@ class Monster {
   /* Locations where this monster is found. */
   public $locations;
 
-  function __construct($name, $description, $class, $gfx, $level,$kills, $killed, $attributes, $equipment, $location) {
-    $this->id=$name;
+  function __construct($name, $description, $class, $gfx, $level,$attributes) {
+    $this->name=$name;
     $this->description=$description;
     $this->class=$class;
+    self::$classes[$class]=0;
     $this->gfx=$gfx;
     $this->level=$level;
-    $this->kills=$kills;
-    $this->killed=$killed;
     $this->attributes=$attributes;
-    $this->equipment=$equipment;
-    $this->locations=$location;
   }
   
   function show() {
      /* NOTE: Fill this note with the HTML code needed to draw an News item. */
      /* END NOTE */
+  }
+  
+  function getClasses() {
+    return self::$classes;
   }
 }
 
@@ -587,9 +590,48 @@ class Monster {
   * Returns a list of Monsters
   */
 function getMonsters() {
-  return array(
-    Monster('rat','A little rat','rat','rat.png','0',10,1210,array('atk'=>10, 'def'=>3, 'hp'=>'10'),array(), 'At Semos')
-	);
-}
+  $creatures=XML_unserialize(implode('',file('data/creatures.xml')));
+  $creatures=$creatures['creatures'][0]['creature'];
+  
+  $list=array();
 
+  for($i=0;$i<sizeof($creatures)/2;$i++) {
+    $name=$creatures[$i.' attr']['name'];
+    
+    if(isset($creatures[$i]['description'])) {
+      $description=$creatures[$i]['description']['0'];
+    } else {
+      $description='';
+    }
+    
+    $class=$creatures[$i]['type']['0 attr']['class'];
+    $gfx='data/monsters/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png';
+    list($w,$h)=explode(",",$creatures[$i]['attributes'][0]['size']['0 attr']['value']);
+    $gfx='monsterimage.php?url='.$gfx.'&w='.$w.'&h='.$h;
+    
+    $attributes=array();
+    $attributes['atk']=$creatures[$i]['attributes'][0]['atk']['0 attr']['value'];
+    $attributes['def']=$creatures[$i]['attributes'][0]['def']['0 attr']['value'];
+    $attributes['speed']=$creatures[$i]['attributes'][0]['speed']['0 attr']['value'];
+    $attributes['hp']=$creatures[$i]['attributes'][0]['hp']['0 attr']['value'];
+    
+    $level=$creatures[$i]['level']['0 attr']['value'];
+    
+    /*
+    echo '<h1>Creature: '.$name.'</h1><br>';
+    echo 'Description: "'.$description.'"<br>';
+    echo 'Class: "'.$class.'"<br>';
+    echo 'Level: '.$level.'<br>';
+    echo 'GFX: "'.$gfx.'" w='.$w.' h='.$h.' <br>';    
+    echo '<img src="monsterimage.php?url='.$gfx.'&w='.$w.'&h='.$h.'"/><br>';
+    echo 'Attributes: <br>';
+    //print_r($attributes);
+    
+    //print_r($creatures[$i]);
+    */
+    $list[]=new Monster($name, $description, $class, $gfx,$level, $attributes);
+  } 
+  
+  return $list;
+}
 ?>
