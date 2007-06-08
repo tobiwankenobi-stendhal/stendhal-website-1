@@ -66,7 +66,7 @@ function printAge($minutes) {
   $h=$minutes/60;
   $m=$minutes%60;
   
-  return round($h).' hours and '.round($m).' minutes';
+  return round($h).':'.round($m);
 }
 ?>
 </div>

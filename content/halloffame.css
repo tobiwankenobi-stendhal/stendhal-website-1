@@ -1,9 +1,11 @@
   .hofLine
   {
+  position: relative;
+  padding-bottom: 4px;
   border-bottom: 2px dotted grey;
   margin-bottom: 8px;
   width: 178px;
-  height: 70px;
+  height: auto;
   }
   .hofPosition
   {
@@ -26,15 +28,14 @@
   .hofName
   {
     font-weight: bolder;
-    position: relative;
+    position: absolute;
     left: 54px;
-    top: -40px;  
+    top: 0px;  
   }
   .hofVariable
   {
-    position: relative;
+    position: absolute;
     left: 54px;
-    top: -40px;  
-    overflow: auto;
-    width: 100px;
+    top: 44px;  
+    width: 120px;
   }
