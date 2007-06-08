@@ -1,0 +1,26 @@
+div.creature
+  {
+  /* border: 1px solid black; */
+  min-height: 114px;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+  float: left;
+  }
+div.creature_name
+  {
+  font-weight: bolder;
+  }
+div.creatures_less
+  {
+  text-align: right;
+  padding: 5px;
+  margin: 5px;
+  }
+div.creatures_more
+  {
+  text-align: right;
+  padding: 5px;
+  margin: 5px;
+  }
+ 
