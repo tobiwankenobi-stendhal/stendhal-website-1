@@ -7,6 +7,10 @@ div.creature
   margin: 5px;
   float: left;
   }
+div.creature img
+  {
+  min-height: 64px;
+  }
 div.creature_name
   {
   font-weight: bolder;
