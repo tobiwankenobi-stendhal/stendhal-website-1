@@ -34,7 +34,7 @@ $width = imagesx($image);
 $height = imagesy($image);
 
 // New width and height
-$new_width = 160;
+$new_width = 158;
 $new_height = $height * ($new_width/$width);
 
 // Resample

@@ -10,6 +10,16 @@ create table screenshots (
 
 insert into screenshots values(null, "screenshots/screenshot.jpg", "Test image", null, null);
 
+create table movies (
+  id int auto_increment not null,
+  url varchar(256),
+  description text,
+  created timestamp default CURRENT_TIMESTAMP,
+  approved boolean default false,
+  
+  primary key(id)
+);
+
 
 create table events (
   id int auto_increment not null,

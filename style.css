@@ -113,6 +113,11 @@ body
 	width: 180px;	
   }
   
+  #leftArea a img {
+	  text-decoration: none;
+	  border: 1px solid black;
+  }
+  
   #menu {	  
     list-style-type: none
   }
