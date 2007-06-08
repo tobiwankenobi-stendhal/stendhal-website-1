@@ -55,10 +55,10 @@ if(isset($_REQUEST["id"]))
       </div>
       <div id="topMenu">
         <ul>
-          <li id="manual_button"><a href="?id=content/manual"><img src="images/menu/manual.png" alt="Manual"/></a></li>
-          <li id="support_button"><a href="?id=content/support"><img src="images/menu/support.png" alt="Support"/></a></li>
-          <li id="forum_button"><a href="?id=content/forum"><img src="images/menu/forum.png" alt="Forum"/></a></li>
-          <li id="downloads_button"><a href="?id=content/download"><img src="images/menu/download.png" alt="Downloads"/></a></li>
+          <li id="manual_button"><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalManual"><img src="images/menu/manual.png" alt="Manual"/></a></li>
+          <li id="support_button"><a href="http://sourceforge.net/tracker/?func=add&group_id=1111&atid=201111"><img src="images/menu/support.png" alt="Support"/></a></li>
+          <li id="forum_button"><a href="http://sourceforge.net/forum/forum.php?forum_id=3190"><img src="images/menu/forum.png" alt="Forum"/></a></li>
+          <li id="downloads_button"><a href="http://sourceforge.net/project/platformdownload.php?group_id=1111&sel_platform=410"><img src="images/menu/download.png" alt="Downloads"/></a></li>
           <li id="hof_button"><a href="?id=content/halloffame"><img src="images/menu/halloffame.png" alt="Hall of Fame"/></a></li>
         </ul>
       </div>

@@ -1,0 +1,40 @@
+  .hofLine
+  {
+  border-bottom: 2px dotted grey;
+  margin-bottom: 8px;
+  width: 178px;
+  height: 70px;
+  }
+  .hofPosition
+  {
+    margin: 2px;
+	background: url("../images/HOFnumberbox.png") no-repeat;
+	width: 26px;
+	height: 25px;
+    
+    float: right;
+
+    font-size: 15px;
+    font-weight: bolder;
+	text-align:center;
+	color: white;
+  }
+  .hofOutfit img
+  {
+      border: 1px solid black;
+  }      
+  .hofName
+  {
+    font-weight: bolder;
+    position: relative;
+    left: 54px;
+    top: -40px;  
+  }
+  .hofVariable
+  {
+    position: relative;
+    left: 54px;
+    top: -40px;  
+    overflow: auto;
+    width: 100px;
+  }

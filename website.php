@@ -389,6 +389,8 @@ class Player {
   public $level;
   /* An outfit representing the player look in game. */
   public $outfit;
+  /* The age of the player
+  public $age
   /* XP of the player. It is a special attribute. */
   public $xp;
   /* Attributes the player has as a array key=>value */
@@ -401,6 +403,7 @@ class Player {
   function __construct($name, $sentence, $age, $level, $xp, $outfit, $money, $attributes, $equipment) {
     $this->name=$name;
     $this->sentence=$sentence;
+    $this->age=$age;
     $this->level=$level;
     $this->outfit=$outfit;
     $this->xp=$xp;
@@ -409,13 +412,6 @@ class Player {
     $this->equipment=$equipment;
   }
 
-  function showExtended() {
-    echo '<h1>'.$this->name.'</h1>';
-    echo '<img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/>';
-    
-    /* TODO */
-  }
-  
   function show() {
     echo '<div class="playerBox">';
     echo '  <img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/>';
@@ -425,11 +421,6 @@ class Player {
     echo '  <div class="playerBoxXP">'.$this->xp.'</div>';
     echo '  <div class="playerBoxQuote">"'.$this->sentence.'"</div>';
     echo '</div>';
-  }
-  
-  function showBrief() {
-     /* NOTE: Fill this note with the HTML code needed to draw an News item. */
-     /* END NOTE */
   }
 }
   

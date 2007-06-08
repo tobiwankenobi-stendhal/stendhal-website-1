@@ -310,64 +310,6 @@ body
   ******************************************************************************
   ******************************************************************************
   *****************************************************************************/
-  
-  /* HOF */
-  .hallOfFame
-  {
-	margin: 0 auto 0 auto;
-	padding:0;
-	background: url("images/HOFbackground.jpg") repeat-y;
-	width: 410px; 
-  }
-  .hallOfFame H1
-  {
-	margin:0;
-	padding:3px;
-	text-align:center;
-	background-color:Black;
-	color:White;
-	font-family:Verdana;
-  }  
-  .hofEntry0, .hofEntry1 
-  {	
-	margin:5px auto 5px auto;
-	padding:0;
-	width: 380px;
-	height: 70px;
-	background: url("images/HOFplack.png") no-repeat;
-	border-collapse:collapse;
-  }
-  .hofPosition
-  {
-	margin:0;
-	padding:5px 0 0 0;
-	height: 55px;
-	width: 55px;
-	font-size: 30px;
-	text-align:center;
-	text-indent: -5px;
-	background: url("images/HOFnumberbox.png") no-repeat;
-	color: white;
-	position: relative;
-	float:left;
-	top: 8px;
-	left: 35px;
-  }
-  .hofOutfit
-  {
-	padding: 0;
-	margin: 5px 0 0 0;
-	height: 55px;
-	width: 55px;
-	position: relative;
-	float: left;
-	left:230px;
-	border: 1px solid green;
-  }
-  .hofName
-  {
-    font-weight: bolder;
-  }
 
   /* stats table */
   #statistics
