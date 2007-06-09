@@ -23,9 +23,10 @@ echo '<div style="position: relative; min-height: auto;">';
   for($i=$base;$i<min(sizeof($monsters),$base+AMOUNT);$i++) {
       $m=$monsters[$i];
       
-      echo '<div class="creature">';
-      echo '  <img src="'.$m->gfx.'" alt="'.$m->name.'"/>';
+      echo '<div class="creature"><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'">';
+      echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
       echo '  <div class="creature_name">'.$m->name.'</div>';
+      echo ' </a>';
       echo '  <div>Level '.$m->level.'</div>';
       echo '</div>';
   }

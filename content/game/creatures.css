@@ -7,9 +7,15 @@ div.creature
   margin: 5px;
   float: left;
   }
-div.creature img
+a.creature
+  {
+  text-decoration: none;
+  }
+img.creature
   {
   min-height: 64px;
+  text-decoration: none;
+  border: none;
   }
 div.creature_name
   {
