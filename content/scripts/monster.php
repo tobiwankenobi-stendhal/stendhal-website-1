@@ -18,6 +18,13 @@ foreach($monsters as $m) {
       echo '</div>';
       echo '</div>';
     endBox();      
+    
+    $m->fillKillKilledData();
+    startBox("Killed by Player");
+      foreach($m->kills as $day=>$amount) {
+        echo $day.' '.$amount.'<br>';
+      }
+    endBox();
   }
 }
 

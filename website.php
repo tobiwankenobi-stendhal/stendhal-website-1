@@ -578,6 +578,18 @@ class Monster {
   function getClasses() {
     return self::$classes;
   }
+  
+  function fillKillKilledData() {       
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<=7 and event="killed" and param1="'.$this->name.'" group by dayofyear(timedate)', getGameDB());
+
+    $this->kills=array();
+
+    while($row=mysql_fetch_assoc($result)) {      
+      $this->kills[$row['day']]=$row['amount'];
+    }
+    
+    mysql_free_result($result);
+  }
 }
 
 /**

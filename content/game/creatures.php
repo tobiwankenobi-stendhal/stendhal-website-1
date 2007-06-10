@@ -1,6 +1,6 @@
 <?php
 
-define('AMOUNT',28);
+define('AMOUNT',24);
 
 if(isset($_REQUEST['base'])) {
   $base=$_REQUEST['base'];
