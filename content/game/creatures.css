@@ -14,7 +14,7 @@ a.creature
   }
 img.creature
   {
-  min-height: 64px;
+  height: 64px;
   text-decoration: none;
   border: none;
   }
