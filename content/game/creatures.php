@@ -1,6 +1,6 @@
 <?php
 
-define('AMOUNT',29);
+define('AMOUNT',28);
 
 if(isset($_REQUEST['base'])) {
   $base=$_REQUEST['base'];
@@ -27,7 +27,7 @@ echo '<div style="position: relative; min-height: auto;">';
       echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
       echo '  <div class="creature_name">'.$m->name.'</div>';
       echo ' </a>';
-      echo '  <div>Level '.$m->level.'</div>';
+      echo '  <div class="creature_level">Level '.$m->level.'</div>';
       echo '</div>';
   }
 

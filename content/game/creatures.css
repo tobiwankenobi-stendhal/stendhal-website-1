@@ -2,6 +2,7 @@ div.creature
   {
   /* border: 1px solid black; */
   min-height: 114px;
+  min-width: 120px;
   text-align: center;
   padding: 5px;
   margin: 5px;
@@ -19,7 +20,12 @@ img.creature
   }
 div.creature_name
   {
+  font-size: 12px;
   font-weight: bolder;
+  }
+div.creature_level
+  {
+  font-size: 12px;
   }
 div.creatures_less
   {
