@@ -436,6 +436,13 @@ function getBestPlayer() {
     return $player[0];
 }
 
+/**
+  * Returns a list of players that are online right now.
+  */
+function getOnlinePlayers() {
+    return _getPlayers('select * from character_stats where online=1');
+}
+
 function _getPlayers($query) {
     $result = mysql_query($query,getGameDB());
     $list=array();
@@ -482,13 +489,6 @@ function getPlayerOfTheWeek() {
   }
 
 
-/**
-  * Returns a list of players that are online right now.
-  */
-function getOnlinePlayers() {
-  return getPlayers();
-  }
-
 /*
  * A Poll
  */
@@ -531,12 +531,6 @@ function getPoll($id) {
 
 function getLatestPoll() {
   return new Poll("dummy", "Question?", "pollprocess.php", array("Yes", "No"));
-}
-
-/**
-  * Returns an array with the key=>value of stats from server.
-  */
-function getServerStats() {
 }
 
 /*
@@ -634,4 +628,53 @@ function getMonsters() {
   
   return $list;
 }
+
+class ServerStatistics {
+  public $diff;
+  public $date;
+  public $bytes_send;
+  public $bytes_recv;
+  public $players_online;
+  
+  function __construct($diff, $date, $send, $recv, $online) {
+    $this->diff=$diff;
+    $this->date=$date;
+    $this->bytes_send=$send;
+    $this->bytes_recv=$recv;
+    $this->players_online=$online;
+  }
+  
+  function isOnline() {
+    if($this->diff<300) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+function getServerStats() {
+    $result = mysql_query('select *,now()-timedate as diff from statistics order by timedate desc limit 1', getGameDB());
+    
+    while($row=mysql_fetch_assoc($result)) {      
+      $server=new ServerStatistics($row['diff'],$row['timedate'],$row['bytes_send'],$row['bytes_recv'],$row['players_online']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $server;
+}
+
+function getAmountOfPlayersOnline() {
+    $result = mysql_query('select count(*) as amount from character_stats where online=1', getGameDB());
+    
+    while($row=mysql_fetch_assoc($result)) {      
+      $amount=$row['amount'];
+    }
+    
+    mysql_free_result($result);
+	
+    return $amount;
+}
+
 ?>

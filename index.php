@@ -106,6 +106,17 @@ if(isset($_REQUEST["id"]))
         <a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo $STENDHAL_VERSION; ?>.zip?use_mirror=mesh"><div id="downloadArea"></div></a>
 
         <?php 
+          startBox('Server stats');
+          $stats=getServerStats();
+          if(!$stats->isOnline()) {
+            echo '<div class="status">Server is offline</div>';
+          }
+          
+          echo '<a href="?id=content/scripts/online"><span class="stats">'.getAmountOfPlayersOnline().'</span> players online.</a>';
+          endBox(); 
+        ?>
+
+        <?php 
           startBox('<span style="font-size: 90%;">Player of the week</span>');
           $player=getPlayerOfTheWeek();
           $player->show();

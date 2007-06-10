@@ -175,6 +175,16 @@ body
 	text-align: center;
 	border: 2px black solid;
   }
+.status
+  {
+	padding: 4px;
+    color: red;
+  }
+.stats
+  {
+	padding: 4px;
+	font-weight: bolder;
+  }
   
 .playerBox
   {
