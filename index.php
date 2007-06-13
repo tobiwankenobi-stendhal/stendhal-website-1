@@ -102,8 +102,8 @@ if(isset($_REQUEST["id"]))
       </div>
       
       <div id="rightArea">
-        <a href="http://mblanch.homeip.net/jnlp/stendhal-cvs.jnlp"><div id="playArea"></div></a>        
-        <a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo $STENDHAL_VERSION; ?>.zip?use_mirror=mesh"><div id="downloadArea"></div></a>
+        <a href="http://mblanch.homeip.net/jnlp/stendhal-unstable.jnlp"><div id="playArea"></div></a>        
+        <a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo $STENDHAL_VERSION; ?>.zip"><div id="downloadArea"></div></a>
 
         <?php 
           startBox('Server stats');

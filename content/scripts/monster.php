@@ -21,9 +21,21 @@ foreach($monsters as $m) {
     
     $m->fillKillKilledData();
     startBox("Killed by Player");
+      $data='';
       foreach($m->kills as $day=>$amount) {
-        echo $day.' '.$amount.'<br>';
+        $data=$data.$amount.',';
       }
+      
+      echo '<img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data='.$data.'"/>';
+    endBox();
+
+    startBox("Killed by ".$m->name);
+      $data='';
+      foreach($m->killed as $day=>$amount) {
+        $data=$data.$amount.',';
+      }
+      
+      echo '<img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data='.$data.'"/>';
     endBox();
   }
 }
