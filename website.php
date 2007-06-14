@@ -294,7 +294,7 @@ class News {
 /**
   * Returns a list of news.
   */
-function getNews($where='', $sortby='created desc', $cond='limit 2') {
+function getNews($where='', $sortby='created desc', $cond='limit 3') {
     $result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
