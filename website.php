@@ -422,6 +422,19 @@ class Player {
     echo '  <div class="playerBoxQuote">"'.$this->sentence.'"</div>';
     echo '</div>';
   }
+  
+  function getDeaths() {       
+    $result = mysql_query('select timedate, source from gameevents where datediff(now(),timedate)<=7*52 and event="killed" and param1="'.$this->name.'" limit 4', getGameDB());
+
+    $kills=array();
+
+    while($row=mysql_fetch_assoc($result)) {      
+      $kills[$row['timedate']]=$row['source'];
+    }
+    
+    mysql_free_result($result);
+    return $kills;
+    }
 }
   
 /**
@@ -484,7 +497,7 @@ function _getPlayers($query) {
   * Returns the player of the week.
   */
 function getPlayerOfTheWeek() {
-  $player=getPlayers('', 'xp', 'limit 1');	   
+  $player=_getPlayers('select  *,xp/(age+1) as xp_age_rel from character_stats order by xp_age_rel desc limit 1', getGameDB());
   return $player[0];
   }
 
@@ -538,6 +551,7 @@ function getLatestPoll() {
  */
 class Monster {
   public static $classes=array();
+  public static $monsters=array();
   
   /* Name of the monster */
   public $name;
@@ -580,12 +594,14 @@ class Monster {
   }
   
   function fillKillKilledData() {       
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<=7 and event="killed" and param1="'.$this->name.'" group by dayofyear(timedate)', getGameDB());
+    $numberOfDays=14;
+    
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and param1="'.$this->name.'" group by dayofyear(timedate)', getGameDB());
 
     $this->kills=array();
     
     $base=date('z')+1;
-    for($i=0;$i<7;$i++) {
+    for($i=0;$i<$numberOfDays;$i++) {
       $this->kills[$base-$i]=0;
     }
 
@@ -595,12 +611,12 @@ class Monster {
     
     mysql_free_result($result);
 
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<=7 and event="killed" and source="'.$this->name.'" group by dayofyear(timedate)', getGameDB());
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and source="'.$this->name.'" group by dayofyear(timedate)', getGameDB());
 
     $this->killed=array();
     
     $base=date('z')+1;
-    for($i=0;$i<7;$i++) {
+    for($i=0;$i<$numberOfDays;$i++) {
       $this->killed[$base-$i]=0;
     }
 
@@ -610,6 +626,17 @@ class Monster {
     
     mysql_free_result($result);
   }
+}
+
+function existsMonster($name) {
+  $monsters=getMonsters();
+  foreach($monsters as $m) {
+    if($m->name==$name) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function listOfMonsters($monsters) {
@@ -657,6 +684,10 @@ function getBestKillerMonster($monsters) {
   * Returns a list of Monsters
   */
 function getMonsters() {
+  if(sizeof(Monster::$monsters)!=0) {
+    return Monster::$monsters;
+  }
+  
   $creatures=XML_unserialize(implode('',file('data/creatures.xml')));
   $creatures=$creatures['creatures'][0]['creature'];
   
@@ -699,6 +730,7 @@ function getMonsters() {
     $list[]=new Monster($name, $description, $class, $gfx,$level, $attributes);
   } 
   
+  Monster::$monsters=$list;
   return $list;
 }
 

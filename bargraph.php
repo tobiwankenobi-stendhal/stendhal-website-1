@@ -11,7 +11,7 @@
 
 // Get the height and width of the final image
 
-    $width = 300;
+    $width = 560;
     $height = 200;
 
 // Set the amount of space between each column

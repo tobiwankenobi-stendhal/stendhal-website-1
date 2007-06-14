@@ -24,8 +24,10 @@ foreach($players as $player) {
   echo '<div class="hofLine">';  
   echo '<div class="hofPosition">'.$i.'</div>';
   echo '<div class="hofPlayer">';
+  echo '<a href="?id=content/scripts/character&name='.$player->name.'">';
   echo ' <div class="hofOutfit"><img src="createoutfit.php?outfit='.$player->outfit.'" alt="outfit"/></div>';
   echo ' <div class="hofName">'.$player->name.'</div>';
+  echo '</a>';
   echo ' <div class="hofVariable">Level: '.$player->level.'</div>';
   echo '</div>';
   echo '</div>';
@@ -46,8 +48,10 @@ foreach($players as $player) {
   echo '<div class="hofLine">';  
   echo '<div class="hofPosition">'.$i.'</div>';
   echo '<div class="hofPlayer">';
+  echo '<a href="?id=content/scripts/character&name='.$player->name.'">';
   echo ' <div class="hofOutfit"><img src="createoutfit.php?outfit='.$player->outfit.'" alt="outfit"/></div>';
   echo ' <div class="hofName">'.$player->name.'</div>';
+  echo '</a>';
   echo ' <div class="hofVariable">Money: '.$player->money.'</div>';
   echo '</div>';
   echo '</div>';
@@ -68,8 +72,10 @@ foreach($players as $player) {
   echo '<div class="hofLine">';  
   echo '<div class="hofPosition">'.$i.'</div>';
   echo '<div class="hofPlayer">';
+  echo '<a href="?id=content/scripts/character&name='.$player->name.'">';
   echo ' <div class="hofOutfit"><img src="createoutfit.php?outfit='.$player->outfit.'" alt="outfit"/></div>';
   echo ' <div class="hofName">'.$player->name.'</div>';
+  echo '</a>';
   echo ' <div class="hofVariable">Age: <small>'.printAge($player->age).'</small></div>';
   echo '</div>';
   echo '</div>';

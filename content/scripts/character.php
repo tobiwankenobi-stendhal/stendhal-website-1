@@ -20,6 +20,23 @@ $choosen=$players[0];
 
   <?php startBox('Account information');?>
   <?php endBox(); ?>
+
+  <?php 
+    startBox('Deaths');
+    $deaths=$choosen->getDeaths();
+    foreach($deaths as $date=>$source) {
+      if(existsMonster($source)) {
+        $source='<a class="creature" href="?id=content/scripts/monster&name='.$source.'">'.$source.'</a>';
+      } else {
+        $source='<a href="?id=content/scripts/character&name='.$source.'">'.$source.'</a>';
+      }
+      
+      echo '<div>Killed by '.$source.' at '.$date.'</div>';
+    }
+
+  ?>
+  
+  <?php endBox(); ?>
   
   <?php startBox('Attributes and statistics');?>
       <div class="extendedplayerStats">Statistics and attributes</div>
