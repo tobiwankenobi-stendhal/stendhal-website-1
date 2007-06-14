@@ -87,7 +87,7 @@ function getAdminLevel() {
  */
 function displayLogin(){
    if(checkLogin()){
-      echo "Logged as <b>$_SESSION[username]</b>. <a href=\"?id=login/logout\">Logout</a>";
+      echo 'Logged as <b>'.$_SESSION['username'].'</b>. <a href="?id=login/changepassword">Change password</a> - <a href="?id=login/logout">Logout</a>';
    }
    else{
      echo '<a href="?id=login/login">Login</a>';
