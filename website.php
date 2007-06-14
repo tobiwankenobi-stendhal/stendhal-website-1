@@ -612,6 +612,47 @@ class Monster {
   }
 }
 
+function listOfMonsters($monsters) {
+  $data='';
+  foreach($monsters as $m) {
+    $data=$data.'"'.$m->name.'",';
+  }
+  
+  return substr($data, 0, strlen($data)-1);
+}
+
+function getMostKilledMonster($monsters) {
+    $query='select param1, count(*) as amount from gameevents where datediff(now(),timedate)<=7 and event="killed" and param1 in ('.listOfMonsters($monsters).') group by param1 order by amount desc limit 1';
+    $result = mysql_query($query, getGameDB());
+   
+    while($row=mysql_fetch_assoc($result)) {      
+      foreach($monsters as $m) {
+        if($m->name==$row['param1']) {
+          $monster=array($m, $row['amount']);        
+        }
+      }
+    }
+    
+    mysql_free_result($result);
+    return $monster;
+}
+
+function getBestKillerMonster($monsters) {
+    $query='select source, count(*) as amount from gameevents where datediff(now(),timedate)<=7 and event="killed" and source in ('.listOfMonsters($monsters).') group by source order by amount desc limit 1';
+    $result = mysql_query($query, getGameDB());
+   
+    while($row=mysql_fetch_assoc($result)) {      
+      foreach($monsters as $m) {
+        if($m->name==$row['source']) {
+          $monster=array($m, $row['amount']);        
+        }
+      }
+    }
+    
+    mysql_free_result($result);
+    return $monster;
+}
+
 /**
   * Returns a list of Monsters
   */
