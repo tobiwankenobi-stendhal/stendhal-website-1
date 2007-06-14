@@ -1,6 +1,9 @@
 <?php 
 session_start();
 
+$starttime = explode(' ', microtime());
+$starttime = $starttime[1] + $starttime[0];
+   
 include('website.php');
 include('login/login_function.php');
 
@@ -163,7 +166,12 @@ if(isset($_REQUEST["id"]))
         <?php include($page_url.".php");  ?>
       </div>
       <div id="footerArea">
-        <div class="copyright">© 1999-2007 Arianne RPG</div>
+    <?php
+    $mtime = explode(' ', microtime());
+    $totaltime = $mtime[0] + $mtime[1] - $starttime;
+    printf(' (Page loaded in %.3f seconds.)', $totaltime);
+    ?>
+    <div class="copyright">© 1999-2007 Arianne RPG</div>
         <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
         <span>
 <div id="eXTReMe"><a href="http://extremetracking.com/open?login=mblanch">
