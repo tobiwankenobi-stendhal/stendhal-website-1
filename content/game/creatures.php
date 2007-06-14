@@ -25,7 +25,6 @@ startBox('Most killed');
     echo '</div>';
 endBox();
 ?>
-
 </div>
 <div style="float: left; width: 50%">
 
@@ -40,7 +39,6 @@ startBox('Best killer');
     echo '</div>';
 endBox();
 ?>
-
 </div>
 <div style="float: left; width: 100%">
 <?php
