@@ -44,10 +44,12 @@ endBox();
 <?php
 
 startBox('Creatures');
-if($base-AMOUNT>=0) {
-echo '<div class="creatures_less">
-      <a href="?id=content/game/creatures&base='.($base-AMOUNT).'">Previous creatures</a>
+$i=0;
+while($i<sizeof($monsters)) {
+  echo '<div style="display: inline;" class="creatures_less">
+      <a href="?id=content/game/creatures&base='.$i.'">'.($i==$base?'<b>':'').$i.($i==$base?'</b>':'').'</a>
       </div>';
+  $i=$i+AMOUNT;
 }
 
 echo '<div style="position: relative; min-height: auto;">';
@@ -64,12 +66,6 @@ echo '<div style="position: relative; min-height: auto;">';
   }
 
 echo '</div><div style="clear: left;"></div>';
-
-if($base+AMOUNT<sizeof($monsters)) {
-echo '<div class="creatures_more">
-      <a href="?id=content/game/creatures&base='.($base+AMOUNT).'">Next creatures</a>
-      </div>';
-}
 
 endBox();
 ?>
