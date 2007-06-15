@@ -1,6 +1,6 @@
 <?php
 $name=$_REQUEST["name"];
-$players=getPlayers('where name="'.$name.'"', 'name');
+$players=getPlayers('where name="'.addslashes($name).'"', 'name');
 
 if(sizeof($players)==0) {
   die();

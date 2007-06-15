@@ -424,8 +424,7 @@ class Player {
   }
   
   function getDeaths() {       
-    $result = mysql_query('select timedate, source from gameevents where datediff(now(),timedate)<=7*52 and event="killed" and param1="'.$this->name.'" limit 4', getGameDB());
-
+    $result = mysql_query('select timedate, source from gameevents where datediff(now(),timedate)<=7*52 and event="killed" and param1="'.addslashes($this->name).'" limit 4', getGameDB());
     $kills=array();
 
     while($row=mysql_fetch_assoc($result)) {      
@@ -596,7 +595,7 @@ class Monster {
   function fillKillKilledData() {       
     $numberOfDays=14;
     
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and param1="'.$this->name.'" group by dayofyear(timedate)', getGameDB());
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and param1="'.addslashes($this->name).'" group by dayofyear(timedate)', getGameDB());
 
     $this->kills=array();
     
@@ -611,7 +610,7 @@ class Monster {
     
     mysql_free_result($result);
 
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and source="'.$this->name.'" group by dayofyear(timedate)', getGameDB());
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameevents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and source="'.addslashes($this->name).'" group by dayofyear(timedate)', getGameDB());
 
     $this->killed=array();
     

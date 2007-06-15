@@ -1,6 +1,6 @@
 <?php
 $event_id=$_REQUEST["event_id"];
-$events=getEvents('where id='.$event_id);
+$events=getEvents('where id='.addslashes($event_id));
 $choosen=$events[0];
 ?>
 
