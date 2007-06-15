@@ -35,7 +35,7 @@ startBox('Best killer');
     echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
     echo '  <div class="creature_name">'.$m->name.'</div>';
     echo ' </a>';
-    echo '  <div class="creature_killed">It has killed '.$amount.' creatures</div>';
+    echo '  <div class="creature_killed">It has killed '.$amount.' players</div>';
     echo '</div>';
 endBox();
 ?>
