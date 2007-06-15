@@ -453,7 +453,7 @@ function getBestPlayer() {
   * Returns a list of players that are online right now.
   */
 function getOnlinePlayers() {
-    return _getPlayers('select * from character_stats where online=1');
+    return _getPlayers('select * from character_stats where online=1 order by name');
 }
 
 function _getPlayers($query) {
@@ -731,6 +731,91 @@ function getMonsters() {
   } 
   
   Monster::$monsters=$list;
+  return $list;
+}
+
+/*
+ * A class representing a monster.
+ */
+class Item {
+  public static $classes=array();
+  public static $items=array();
+  
+  /* Name of the item */
+  public $name;
+  /* Description of the item */
+  public $description;
+  /* Class of the item */
+  public $class;
+  /* GFX URL of the item. */
+  public $gfx;
+  /* Attributes of the item as an array attribute=>value */
+  public $attributes;
+  /* Where the item can be wore as an array slot=>item */
+  public $equipableat;
+
+  function __construct($name, $description, $class, $gfx,$attributes, $equipableat) {
+    $this->name=$name;
+    $this->description=$description;
+    $this->class=$class;
+    self::$classes[$class]=0;
+    $this->gfx=$gfx;
+    $this->attributes=$attributes;
+    $this->equipableat=$equipableat;
+  }
+  
+  function getClasses() {
+    return self::$classes;
+  }
+}
+
+/**
+  * Returns a list of Monsters
+  */
+function getItems() {
+  if(sizeof(Item::$items)!=0) {
+    return Item::$items;
+  }
+  
+  $items=XML_unserialize(implode('',file('data/items.xml')));
+  $items=$items['items'][0]['item'];
+  
+  $list=array();
+
+  for($i=0;$i<sizeof($items)/2;$i++) {
+    $name=$items[$i.' attr']['name'];
+    
+    if(isset($items[$i]['description'])) {
+      $description=$items[$i]['description']['0'];
+    } else {
+      $description='';
+    }
+    
+    $class=$items[$i]['type']['0 attr']['class'];
+    $gfx='data/items/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png';
+    $gfx='itemimage.php?url='.$gfx;
+    
+    $attributes=array();
+    if(is_array($items[$i]['attributes'][0])) {
+      foreach($items[$i]['attributes'][0] as $attr=>$val) {
+        $attributes[$attr]=$val['0 attr']['value'];
+      }
+    }
+    
+    /*
+    echo '<h1>Item: '.$name.'</h1><br>';
+    echo 'Description: "'.$description.'"<br>';
+    echo 'Class: "'.$class.'"<br>';
+    echo 'GFX: "'.$gfx.'"<br>';    
+    echo '<img src="'.$gfx.'"/><br>';
+    echo 'Attributes: <br>';
+    print_r($attributes);
+    */
+    
+    $list[]=new Item($name, $description, $class, $gfx, $attributes, null);
+  } 
+  
+  Item::$items=$list;
   return $list;
 }
 

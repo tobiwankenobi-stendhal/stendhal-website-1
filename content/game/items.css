@@ -1,0 +1,44 @@
+div.item
+  {
+  /* border: 1px solid black; */
+  height: 130px;
+  min-height: 130px;
+  width: 160px;
+  min-width: 160px;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+  float: left;
+  }
+a.item
+  {
+  text-decoration: none;
+  }
+img.item
+  {
+  height: 48px;
+  text-decoration: none;
+  border: none;
+  }
+div.item_name
+  {
+  font-size: 12px;
+  font-weight: bolder;
+  }
+div.item_description
+  {
+  font-size: 10px;
+  }
+div.items_less
+  {
+  text-align: right;
+  padding: 5px;
+  margin: 5px;
+  }
+div.items_more
+  {
+  text-align: right;
+  padding: 5px;
+  margin: 5px;
+  }
+ 
