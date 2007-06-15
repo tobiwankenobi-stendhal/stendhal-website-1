@@ -1,6 +1,10 @@
 <?php
 $name=$_REQUEST["name"];
 $players=getPlayers('where name="'.$name.'"', 'name');
+
+if(sizeof($players)==0) {
+  die();
+}
 $choosen=$players[0];
 ?>
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once('configuration.inc');
+include_once('configuration.php');
 
 $websitedb=-1;
 $gamedb=-1;

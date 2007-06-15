@@ -2,7 +2,7 @@
 /*
  * This file is the PHP code that generate each of the website sections. 
  */
-include('configuration.inc'); 
+include('configuration.php'); 
 include('mysql.php');
 include('xml.php');
 
