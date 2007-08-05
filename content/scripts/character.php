@@ -14,9 +14,9 @@ $choosen=$players[0];
       <img src=createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
     </div>
     <div>
-      <div class="extendedplayerName"><?php echo $choosen->name; ?></div>
-      <div>Level: <?php echo $choosen->level; ?></div>
-      <div>XP: <?php echo $choosen->xp; ?></div>
+      <div class="extendedplayerName"><b>Name:</b> <?php echo $choosen->name; ?></div>
+      <div><b>Level:</b> <?php echo $choosen->level; ?></div>
+      <div><b>XP:</b> <?php echo $choosen->xp; ?></div>
       <div class="extendedplayerBoxQuote"><?php echo $choosen->sentence; ?></div>
     </div>
     </div>    
@@ -45,7 +45,18 @@ $choosen=$players[0];
   <?php startBox('Attributes and statistics');?>
       <div class="extendedplayerStats">Statistics and attributes</div>
       <?php foreach($choosen->attributes as $key=>$value) { ?>
-        <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
+	<?php 
+	//replace text
+	$old = array("atk", "def", "hp", "karma");
+	$new = array("Attack Level", "defense level", "max health", "karma");
+	$key = str_replace($old, $new, $key);
+	
+	// "_" -> " "
+	$value = str_replace("_", " ", $value);
+	
+	//tada! 
+	?>
+        <div><span><b><?php echo ucwords($key) ?>:</b> </span><span><i><?php echo ucwords($value) ?></i></span></div>
       <?php } ?>
   <?php endBox(); ?>
 
@@ -53,7 +64,19 @@ $choosen=$players[0];
       <div class="extendedplayerStats">Equipment</div>
       <?php foreach($choosen->equipment as $key=>$value) { 
               if($value!="null") {?>
-                 <div><span><?php echo $key ?></span><span><?php echo $value ?></span></div>
+	<?php 
+	//replace text
+	$old = array("head", "lhand", "rhand", "legs", "feet", "cloak", "finger");
+	$new = array("head", "left hand", "right hand", "legs", "feet", "cloak", "finger");
+	$key = str_replace($old, $new, $key);
+	
+	// "_" -> " "
+	$value = str_replace("_", " ", $value);
+	
+	//tada! 
+	?>
+
+                 <div><span><b><?php echo ucwords($key) ?>:</b> </span><span><i><?php echo ucwords($value) ?></i></span></div>
       <?php 
                  }
               } 
