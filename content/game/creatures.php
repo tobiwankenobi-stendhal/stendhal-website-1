@@ -16,7 +16,12 @@ $classes=Monster::getClasses();
 
 <?php
 startBox('Most killed');
-    list($m, $amount)=getMostKilledMonster($monsters);
+    $result=getMostKilledMonster($monsters);
+    if($result==null) {
+      $result=array($monsters[0],0);
+    }
+    
+    list($m, $amount)=$result;
     echo '<div><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'">';
     echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
     echo '  <div class="creature_name">'.$m->name.'</div>';
@@ -30,7 +35,12 @@ endBox();
 
 <?php
 startBox('Best killer');
-    list($m, $amount)=getBestKillerMonster($monsters);
+    $result=getBestKillerMonster($monsters);
+    if($result==null) {
+      $result=array($monsters[0],0);
+    }
+    
+    list($m, $amount)=$result;
     echo '<div><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'">';
     echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
     echo '  <div class="creature_name">'.$m->name.'</div>';
