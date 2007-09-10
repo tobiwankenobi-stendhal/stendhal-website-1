@@ -2,22 +2,24 @@
 
 header("Content-type: image/png");
 $url = $_GET['url'];
-$w = $_GET['w'];
-$h = $_GET['h'];
 
-if($w==1 and $h==2) {
-  $factor=48;
-} else {
-  $factor=32;
-}
+$size=getimagesize($url);
+$w=$size[0];
+$h=$size[1];
 
-$result=imagecreate($factor*$w,32*$h);
+/*
+ * Images are tiles of 3x4 so we choose a single tile.
+ */
+$w=$w/3;
+$h=$h/4;
+
+$result=imagecreate($w,$h);
 
 $white=imagecolorallocate($result,255,255,255);
-imagefilledrectangle($result, 0,0,$factor*$w,32*$h,$white);
+imagefilledrectangle($result, 0,0,$w,$h,$white);
 
 $baseIm=imagecreatefrompng($url);
-imagecopy($result,$baseIm,0,0,0,32*$h*2,$factor*$w,32*$h);
+imagecopy($result,$baseIm,0,0,0,$h*2,$w,$h);
 
 imagepng($result);
 
