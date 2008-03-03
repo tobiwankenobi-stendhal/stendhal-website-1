@@ -34,8 +34,8 @@ create table events (
   primary key(id)
 );
 
-insert into events values(null, "2007/06/01 18:50", "raid", "miguel's house", "Website reading from database", "No extended description", null);
-insert into events values(null, "2007/06/01 21:50", "raid", "Semos", "Goblins!", "No extended description", null);
+insert into events values(null, "2008/06/01 18:50", "raid", "Ados", "Website reading from database", "No extended description", null);
+insert into events values(null, "2008/06/01 21:50", "raid", "Semos", "Goblins!", "No extended description", null);
 
 create table event_images (
   id int auto_increment not null,
@@ -58,19 +58,8 @@ create table news (
   primary key(id)
 );
 
-insert into news values(null, "Stendhal BETA Testers server", "one line description one line description one line description one line description ", 
-"An important milestone for 0.70<br/>
-Welcome to this beta server.
-<p/>
-Please if you find any problem report it at <a href=\"http://sourceforge.net/tracker/?func=add&group_id=1111&atid=101111\">http://sourceforge.net/tracker/?func=add&group_id=1111&atid=101111</a>.
-<p/>
-We are interested in testing:<ul>
-<li>Maps</li>
-<li>Monster</li>
-<li>New items</li>
-<li>Quests</li>
-</ul>
-Please if you have any suggestion, post it at <a href=\"http://sourceforge.net/tracker/?func=add&group_id=1111&atid=351111\">http://sourceforge.net/tracker/?func=add&group_id=1111&atid=351111</a>", null);
+insert into news values(null, "Edit this with your news title", "one line description one line description one line description one line description ", 
+"An html formatted extended description can go here.", null);
 
 create table news_images (
   id int auto_increment not null,
