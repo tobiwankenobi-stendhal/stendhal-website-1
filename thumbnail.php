@@ -8,12 +8,14 @@ function open_image ($file) {
         switch($extension) {
                 case '.jpg':
                 case '.jpeg':
-                        $im = @imagecreatefromjpeg($file);
+                        $im = imagecreatefromjpeg($file);
                         break;
                 case '.gif':
-                        $im = @imagecreatefromgif($file);
+                        $im = imagecreatefromgif($file);
                         break;
-
+		case '.png':
+			$im = imagecreatefrompng($file);
+			break;
                 // ... etc
 
                 default:
