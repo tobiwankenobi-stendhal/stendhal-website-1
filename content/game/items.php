@@ -29,7 +29,7 @@ echo '<div style="position: relative; min-height: auto;">';
       echo '<div class="item">';
       echo '  <img class="item" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
       echo '  <div class="item_name">'.$m->name.'</div>';
-      echo '  <div class="item_description">Level '.$m->description.'</div>';
+      echo '  <div class="item_description">'.$m->description.'</div>';
       echo '</div>';
   }
 

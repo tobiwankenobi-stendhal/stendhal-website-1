@@ -1,5 +1,5 @@
 <?php 
-/*
+/*
  * This file is the PHP code that generate each of the website sections. 
  */
 include('configuration.php'); 
@@ -778,43 +778,53 @@ function getItems() {
     return Item::$items;
   }
   
-  $items=XML_unserialize(implode('',file('data/items.xml')));
-  $items=$items['items'][0]['item'];
-  
+  $itemfiles = XML_unserialize(implode('',file('data/items.xml')));
+  $itemfiles = $itemfiles['groups'][0]['group'];
+
   $list=array();
 
-  for($i=0;$i<sizeof($items)/2;$i++) {
-    $name=$items[$i.' attr']['name'];
+  foreach( $itemfiles as $file )
+  {
+	if(isset($file['uri']))
+    {
+	  $items =  XML_unserialize(implode('',file('data/'.$file['uri'])));
+	  $items = $items['items'][0]['item'];
+	    
+      for($i=0;$i<sizeof($items)/2;$i++) {
+        $name=$items[$i.' attr']['name'];
     
-    if(isset($items[$i]['description'])) {
-      $description=$items[$i]['description']['0'];
-    } else {
-      $description='';
-    }
+        if(isset($items[$i]['description'])) {
+          $description=$items[$i]['description']['0'];
+        } else {
+          $description='';
+	    }
     
-    $class=$items[$i]['type']['0 attr']['class'];
-    $gfx='data/items/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png';
-    $gfx='itemimage.php?url='.$gfx;
+        $class=$items[$i]['type']['0 attr']['class'];
+        $gfx='data/items/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png';
+        $gfx='itemimage.php?url='.$gfx;
     
-    $attributes=array();
-    if(is_array($items[$i]['attributes'][0])) {
-      foreach($items[$i]['attributes'][0] as $attr=>$val) {
-        $attributes[$attr]=$val['0 attr']['value'];
+        $attributes=array();
+        if(is_array($items[$i]['attributes'][0])) {
+          foreach($items[$i]['attributes'][0] as $attr=>$val) {
+            $attributes[$attr]=$val['0 attr']['value'];
+          }
+        }
+	  
+    
+        /*
+        echo '<h1>Item: '.$name.'</h1><br>';
+        echo 'Description: "'.$description.'"<br>';
+        echo 'Class: "'.$class.'"<br>';
+        echo 'GFX: "'.$gfx.'"<br>';    
+        echo '<img src="'.$gfx.'"/><br>';
+        echo 'Attributes: <br>';
+        print_r($attributes);
+        */
+
+        $list[]=new Item($name, $description, $class, $gfx, $attributes, null);
       }
-    }
-    
-    /*
-    echo '<h1>Item: '.$name.'</h1><br>';
-    echo 'Description: "'.$description.'"<br>';
-    echo 'Class: "'.$class.'"<br>';
-    echo 'GFX: "'.$gfx.'"<br>';    
-    echo '<img src="'.$gfx.'"/><br>';
-    echo 'Attributes: <br>';
-    print_r($attributes);
-    */
-    
-    $list[]=new Item($name, $description, $class, $gfx, $attributes, null);
-  } 
+	}
+  }
   
   Item::$items=$list;
   return $list;
