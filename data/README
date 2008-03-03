@@ -1,4 +1,6 @@
-Copy here:
+Copy here, into the data/ folder
 * creatures.xml
-* items.xml
+* items.xml and items/*.xml
 * monsters folder ( you can find at stendhal/data/sprites/ )
+
+(Don't keep the conf/ or sprites/ folder structures! Just data/monsters/class/subclass.png and data/creatures.xml etc)
