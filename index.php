@@ -96,7 +96,7 @@ if(isset($_REQUEST["id"]))
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalAtlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
-            <li><a href="?id=content/game/rp"><img src="images/buttons/rpsystem_button.png">RP System</a></li>
+   <!--         <li><a href="?id=content/game/rp"><img src="images/buttons/rpsystem_button.png">RP System</a></li>-->
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
@@ -150,15 +150,17 @@ if(isset($_REQUEST["id"]))
 
        <?php startBox('Collaborate'); ?>
         <ul  id="menu">
-          <li><a href="?id=content/dev/maps"><img src="images/buttons/atlas_button.png">Maps</a></li>
-          <li><a href="?id=content/dev/quests"><img src="images/buttons/quests_button.png">Quests</a></li>
-          <li><a href="?id=content/dev/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
-          <li><a href="?id=content/dev/items"><img src="images/buttons/items_button.png">Items</a></li>
-          <li><a href="?id=content/dev/graphics"><img src="images/buttons/c_gfx_button.png">Graphics</a></li>
-          <li><a href="?id=content/dev/music"><img src="images/buttons/c_snd_button.png">Sounds &amp; Music</a></li>
-          <li><a href="?id=content/dev/web"><img src="images/buttons/c_website_button.png">Webpage</a></li>
-          <li><a href="?id=content/dev/code"><img src="images/buttons/c_code_button.png">Code</a></li>
-          <li><a href="?id=content/donations"><img src="images/buttons/donate_button.png">Donations</a></li>
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringAtlas"><img src="images/buttons/atlas_button.png">Maps</a></li>
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRPProposal"><img src="images/buttons/rpsystem_button.png">RP System</a></li>
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringQuests"><img src="images/buttons/quests_button.png">Quests</a></li>
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringCreatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=HowToAddItemsStendhal"><img src="images/buttons/items_button.png">Items</a></li>
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringGraphics"><img src="images/buttons/c_gfx_button.png">Graphics</a></li>
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalOpenTasks#SFX"><img src="images/buttons/c_snd_button.png">Sounds &amp; Music</a></li>
+          <li><a href="http://sourceforge.net/cvs/?group_id=1111"><img src="images/buttons/history_button.png">CVS</a></li>
+<!--          <li><a href=""><img src="images/buttons/c_website_button.png">Webpage</a></li>-->
+          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalCodeDesign"><img src="images/buttons/c_code_button.png">Code</a></li>
+      <!--    <li><a href=""><img src="images/buttons/donate_button.png">Donations</a></li>-->
         </ul>          
         <?php endBox(); ?>
       </div>
