@@ -100,6 +100,8 @@ if(isset($_REQUEST["id"]))
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
+            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRuleSystem"><img src="images/buttons/rules_button.png">Rules</a></li>
+            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=AskForHelp"><img src="images/buttons/help_button.png">Help</a></li>
           </ul>
         <?php endBox(); ?>
       </div>
