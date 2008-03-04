@@ -27,7 +27,7 @@ if(isset($_REQUEST["id"]))
       )
     {    
     /*
-     * If page_url contains something suspicius we reset it to main page.
+     * If page_url contains something suspicious we reset it to main page.
      */
     $page_url="content/main";
     }
@@ -129,7 +129,7 @@ if(isset($_REQUEST["id"]))
         ?>
         
         <?php 
-        if(getAdminLevel()>=5000) {
+        if(getAdminLevel()>=400) {
           startBox('Administration'); ?>
           <ul id="menu">
             <li><a href="?id=content/admin/news"><img src="images/buttons/news_button.png">News</a></li>
