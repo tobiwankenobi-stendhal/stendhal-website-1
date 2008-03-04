@@ -20,3 +20,5 @@ You will find a README in the data/ folder which tells you what to add there.
 To make outfit create script work you need gd installed, if you haven't got it already. The correct program name for apt types is php5-gd.
 
 To edit news and events just go into mysql and edit the appropriate tables.
+Or if you have an account on the game server with adminlevel >= 400 you can login to the website (top right) and edit the news and events using the 
+GUI.
