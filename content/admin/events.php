@@ -1,5 +1,5 @@
 <?php
-if(getAdminLevel()<5000) {
+if(getAdminLevel()<400) {
  die("Ooops!");
 }
    
