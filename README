@@ -22,3 +22,4 @@ To make outfit create script work you need gd installed, if you haven't got it a
 To edit news and events just go into mysql and edit the appropriate tables.
 Or if you have an account on the game server with adminlevel >= 400 you can login to the website (top right) and edit the news and events using the 
 GUI.
+To allow people to upload screenshots you need to chmod a+w on your screenshots directory. 
