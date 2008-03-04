@@ -736,7 +736,7 @@ function getMonsters() {
 }
 
 /*
- * A class representing a monster.
+ * A class representing an item.
  */
 class Item {
   public static $classes=array();
@@ -771,7 +771,7 @@ class Item {
 }
 
 /**
-  * Returns a list of Monsters
+  * Returns a list of Items
   */
 function getItems() {
   if(sizeof(Item::$items)!=0) {
