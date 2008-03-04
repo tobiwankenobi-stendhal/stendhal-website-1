@@ -93,13 +93,13 @@ if(isset($_REQUEST["id"]))
         
         <?php startBox('Game System'); ?>
           <ul id="menu">
-            <li><a href="?id=content/FAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
-            <li><a href="?id=content/game/history"><img src="images/buttons/history_button.png">History</a></li>
-            <li><a href="?id=content/game/atlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
+            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
+            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
+            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalAtlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
             <li><a href="?id=content/game/rp"><img src="images/buttons/rpsystem_button.png">RP System</a></li>
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
-            <li><a href="?id=content/game/quests"><img src="images/buttons/quests_button.png">Quests</a></li>
+            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
           </ul>
         <?php endBox(); ?>
       </div>
@@ -139,15 +139,16 @@ if(isset($_REQUEST["id"]))
           endBox();
           }       
         ?>
-
-        <?php 
+<!-- TODO: If there's no poll this shouldn't just fail! Fix it!
+	Commenting out for now as I don't think polls work yet.
+	 <?php 
           startBox('Poll');
           $poll=getLatestPoll();
           $poll->show();
           endBox(); 
-        ?>
+        ?> -->
 
-        <?php startBox('Collaborate'); ?>
+       <?php startBox('Collaborate'); ?>
         <ul  id="menu">
           <li><a href="?id=content/dev/maps"><img src="images/buttons/atlas_button.png">Maps</a></li>
           <li><a href="?id=content/dev/quests"><img src="images/buttons/quests_button.png">Quests</a></li>
