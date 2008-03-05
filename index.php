@@ -1,5 +1,16 @@
 <?php 
-session_start();
+/***************************************************************************
+ *                      (C) Copyright 2008 - Stendhal                      *
+ ***************************************************************************
+ ***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+ session_start();
 
 $starttime = explode(' ', microtime());
 $starttime = $starttime[1] + $starttime[0];
@@ -44,7 +55,9 @@ if(isset($_REQUEST["id"]))
 	   * Yes? Load it.
 	   */
 	  if(file_exists($page_url.'.css')) {
-	    echo '	<link rel="stylesheet" type="text/css" href="'.$page_url.'.css" />';
+	    ?>
+	    <link rel="stylesheet" type="text/css" href="<?php echo $page_url; ?>.css" />
+	    <?php
 	  }
 	?>
   </head>
@@ -176,7 +189,7 @@ if(isset($_REQUEST["id"]))
     $totaltime = $mtime[0] + $mtime[1] - $starttime;
     printf(' (Page loaded in %.3f seconds.)', $totaltime);
     ?>
-    <div class="copyright">© 1999-2007 Arianne RPG</div>
+    <div class="copyright">© 1999-2008 Arianne RPG</div>
         <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
         <span>
 <div id="eXTReMe"><a href="http://extremetracking.com/open?login=mblanch">
