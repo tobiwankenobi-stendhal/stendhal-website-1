@@ -1,15 +1,23 @@
 <?php
-/***************************************************************************
- *                      (C) Copyright 2008 - Stendhal                      *
- ***************************************************************************
- ***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+    Stendhal website - a website to manage and ease playing of Stendhal game
+    Copyright (C) 2008  Miguel Angel Blanch Lardin
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+  
+$OUTFITS_BASE="images/outfit";
  
 function conditionalAddToImage($index, &$baseIm, $path)
   {
@@ -38,7 +46,7 @@ imagefill($result,0,0,$white);
 
 $baseIndex=($outfit % 100);
 $outfit=$outfit/100;
-$baseIm=imagecreatefrompng('images/outfit/player_base_'.$baseIndex.'.png');
+$baseIm=imagecreatefrompng($OUTFITS_BASE.'/player_base_'.$baseIndex.'.png');
 $transColor=imagecolorat($baseIm, 0,0);
 imagecolortransparent($baseIm, $transColor);
 imagecopymerge($result,$baseIm,0,0,0,128,48,64,100);
@@ -46,15 +54,15 @@ imagedestroy($baseIm);
 
 $dressIndex=($outfit % 100);
 $outfit=$outfit/100;
-conditionalAddToImage($dressIndex,$result,'images/outfit/dress_');
+conditionalAddToImage($dressIndex,$result,$OUTFITS_BASE.'/dress_');
 
 $headIndex=($outfit % 100);
 $outfit=$outfit/100;
-addToImage($headIndex,$result,'images/outfit/head_');
+addToImage($headIndex,$result,$OUTFITS_BASE.'/head_');
 
 $hairIndex=($outfit % 100);
 $outfit=$outfit/100;
-conditionalAddToImage($hairIndex,$result,'images/outfit/hair_');
+conditionalAddToImage($hairIndex,$result,$OUTFITS_BASE.'/hair_');
 
 imagepng($result);
 
