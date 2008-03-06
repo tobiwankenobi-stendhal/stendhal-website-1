@@ -8,7 +8,7 @@ In case you have forgotten your new password or your account information we can 
 <form action="" method="post">
 <table>
   <tr><td>Email address:</td><td><input type="text" name="email" maxlength="90"></td></tr>
-  <tr><td colspan="2" align="right"><input type="submit" name="lostpassword" value="Get new password"></td></tr>
+  <tr><td colspan="2" align="right"><input type="submit" name="forgotpassword" value="Get new password"></td></tr>
 </table>
 </form>
 
