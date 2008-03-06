@@ -154,7 +154,6 @@ class Event {
   }
 
   function show() {
-    /* NOTE: Fill this note with the HTML code needed to draw an Event box. */
     echo '<div class="event">';
     echo '<img src="images/event'.($this->type).'.png" alt="event logo"/>';
     echo '<div class="eventDescription"><a href="?id=content/scripts/event&event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
@@ -162,7 +161,6 @@ class Event {
     echo '<div class="eventLocation">'.($this->location).'</div>';
     echo '<span style="clear: left;"></span>';
     echo '</div>';
-    /* END NOTE */
   }
 };
 
@@ -665,7 +663,9 @@ function listOfMonsters($monsters) {
 }
 
 function getMostKilledMonster($monsters) {
-    $query='select param1, count(*) as amount from gameEvents where datediff(now(),timedate)<=7 and event="killed" and param1 in ('.listOfMonsters($monsters).') group by param1 order by amount desc limit 1';
+    $numOfDays=7;
+   
+    $query='select param1, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numOfDays.' and event="killed" and param1 in ('.listOfMonsters($monsters).') group by param1 order by amount desc limit 1';
     $result = mysql_query($query, getGameDB());
    
     $monster=null;
@@ -682,7 +682,9 @@ function getMostKilledMonster($monsters) {
 }
 
 function getBestKillerMonster($monsters) {
-    $query='select source, count(*) as amount from gameEvents where datediff(now(),timedate)<=7 and event="killed" and source in ('.listOfMonsters($monsters).') and param1 not in ('.listOfMonsters($monsters).') group by source order by amount desc limit 1';
+    $numOfDays=7;
+
+    $query='select source, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numOfDays.' and event="killed" and source in ('.listOfMonsters($monsters).') and param1 not in ('.listOfMonsters($monsters).') group by source order by amount desc limit 1';
     $result = mysql_query($query, getGameDB());
    
     $monster=null;
@@ -706,7 +708,9 @@ function getMonsters() {
     return Monster::$monsters;
   }
   
-  $creatures=XML_unserialize(implode('',file('data/creatures.xml')));
+  $monstersXMLConfigurationFile="data/conf/creatures.xml";
+  
+  $creatures=XML_unserialize(implode('',file($monstersXMLConfigurationFile)));
   $creatures=$creatures['creatures'][0]['creature'];
   
   $list=array();
@@ -721,7 +725,7 @@ function getMonsters() {
     }
     
     $class=$creatures[$i]['type']['0 attr']['class'];
-    $gfx='data/monsters/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png';
+    $gfx='data/sprites/monsters/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png';
     list($w,$h)=explode(",",$creatures[$i]['attributes'][0]['size']['0 attr']['value']);
     $gfx='monsterimage.php?url='.$gfx.'&w='.$w.'&h='.$h;
     
@@ -733,7 +737,7 @@ function getMonsters() {
     
     $level=$creatures[$i]['level']['0 attr']['value'];
     
-    /*
+    /* DEBUGING
     echo '<h1>Creature: '.$name.'</h1><br>';
     echo 'Description: "'.$description.'"<br>';
     echo 'Class: "'.$class.'"<br>';
@@ -795,7 +799,10 @@ function getItems() {
     return Item::$items;
   }
   
-  $itemfiles = XML_unserialize(implode('',file('data/items.xml')));
+  $itemsXMLConfigurationFile="data/conf/items.xml";
+  $itemsXMLConfigurationBase='data/conf/';
+
+  $itemfiles = XML_unserialize(implode('',file($itemsXMLConfigurationFile)));
   $itemfiles = $itemfiles['groups'][0]['group'];
 
   $list=array();
@@ -804,7 +811,7 @@ function getItems() {
   {
 	if(isset($file['uri']))
     {
-	  $items =  XML_unserialize(implode('',file('data/'.$file['uri'])));
+	  $items =  XML_unserialize(implode('',file($itemsXMLConfigurationBase.$file['uri'])));
 	  $items = $items['items'][0]['item'];
 	    
       for($i=0;$i<sizeof($items)/2;$i++) {
@@ -817,7 +824,7 @@ function getItems() {
 	    }
     
         $class=$items[$i]['type']['0 attr']['class'];
-        $gfx='data/items/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png';
+        $gfx='data/sprites/items/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png';
         $gfx='itemimage.php?url='.$gfx;
     
         $attributes=array();
@@ -828,7 +835,7 @@ function getItems() {
         }
 	  
     
-        /*
+        /* DEBUGGING
         echo '<h1>Item: '.$name.'</h1><br>';
         echo 'Description: "'.$description.'"<br>';
         echo 'Class: "'.$class.'"<br>';

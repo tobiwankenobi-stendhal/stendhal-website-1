@@ -17,8 +17,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
   
-$OUTFITS_BASE="images/outfit";
- 
+$OUTFITS_BASE="data/sprites/outfit";
+
+/**
+  * Adds the image pointed by index to base image if the index != 0
+  */
 function conditionalAddToImage($index, &$baseIm, $path)
   {
   if($index!=0)
@@ -27,6 +30,9 @@ function conditionalAddToImage($index, &$baseIm, $path)
     }
   }
   
+/**
+  * Add an image to the base image.
+  */
 function addToImage($index, &$baseIm, $path)
   {
   $tmpIm=imagecreatefrompng($path.$index.'.png');
@@ -35,7 +41,12 @@ function addToImage($index, &$baseIm, $path)
   imagecopymerge($baseIm,$tmpIm,0,0,0,128,48,64,100);
   imagedestroy($tmpIm);  
   }
-  
+
+/**
+  * Generates a character outfit based on the outfit number.
+  * An outfit is made is a mandatory base image and optional
+  * head, hair and dress images.
+  */
 
 header("Content-type: image/png");
 $outfit = $_GET['outfit'];

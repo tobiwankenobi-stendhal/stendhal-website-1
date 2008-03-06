@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
- session_start();
+session_start();
 
 $starttime = explode(' ', microtime());
 $starttime = $starttime[1] + $starttime[0];
@@ -98,7 +98,9 @@ if(isset($_REQUEST["id"]))
         
         <?php 
           startBox('Movie');
-          echo '<object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/U5JaD4qlmwM"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/U5JaD4qlmwM" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>';
+          ?>
+          <object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/U5JaD4qlmwM"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/U5JaD4qlmwM" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
+        <?php
           endBox() 
         ?>
 
@@ -116,7 +118,6 @@ if(isset($_REQUEST["id"]))
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalAtlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
-   <!--         <li><a href="?id=content/game/rp"><img src="images/buttons/rpsystem_button.png">RP System</a></li>-->
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
@@ -180,9 +181,7 @@ if(isset($_REQUEST["id"]))
           <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringGraphics"><img src="images/buttons/c_gfx_button.png">Graphics</a></li>
           <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalOpenTasks#SFX"><img src="images/buttons/c_snd_button.png">Sounds &amp; Music</a></li>
           <li><a href="http://sourceforge.net/cvs/?group_id=1111"><img src="images/buttons/history_button.png">CVS</a></li>
-<!--          <li><a href=""><img src="images/buttons/c_website_button.png">Webpage</a></li>-->
           <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalCodeDesign"><img src="images/buttons/c_code_button.png">Code</a></li>
-      <!--    <li><a href=""><img src="images/buttons/donate_button.png">Donations</a></li>-->
         </ul>          
         <?php endBox(); ?>
       </div>

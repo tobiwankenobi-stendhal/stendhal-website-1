@@ -1,28 +1,90 @@
-I am assuming you have php installed. I am assuming your apache server knows how to deal with php. You might not have php5-myql installed, you need 
-that too.
-Also I assume that you already have a stendhal server set up, with a database created for the game.
+			Stendhal Website README
+==============================================================================
+    Copyright (C) 2008  Miguel Angel Blanch Lardin
 
-The stendhal website connects to the stendhal game database to get up to the minute game data.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-You will need to edit configuration.php with the username, pw and db name of the stendhal game db on your system. 
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+==============================================================================
+
+
+  If you just want to play Stendhal you are on the wrong place.
+  Please go to http://arianne.sourceforge.net
+
+
+Hello Stendhal Admin.
+This document guide you about how to setup a Linux box to make Stendhal website 
+works together with your stendhal server, so your players can visualize pretty stats
+and get interesting stats about game.
+
+### Getting Apache, PHP and MySQL (LAMP)
+
+I am assuming you have php installed. I am assuming your apache server knows how
+to deal with php. You might not have php5-mysql installed, you need that too.
+You can install them by writting:
+  
+  apt-get install apache2 php5 php5-mysql mysql-server mysql
+
+
+### Getting Stendhal Server
+
+Also I assume that you already have a stendhal server set up, with a database 
+created for the game.
+The stendhal website connects to the stendhal game database to get up to the 
+minute game data.
+
+
+### Configuring
+
+You will need to edit configuration.php with the username, pw and db name of the 
+stendhal game db on your system. 
 You won't have a stendhal website db yet.
-So log in to mysql: mysql -u NAME -p (you may need to be root to create databases!)
-create database stendhal_website;
-grant all on stendhal_website.* to 'FOO'@'localhost' identified by 'BAR';
+So log in to mysql: 
+  
+  mysql -u NAME -p (you may need to be root to create databases!)
 
-Check the username, pw and database name again match those for the website database in configuration.php.
+And write there this:
 
-Now in the stendhal_website directory run the command  mysql stendhal_website -u FOO -p <stendhal_website.sql and enter the password when prompted. 
-It should return silently. It has some example news items and events in it already so I guess if you don't like them, edit them first!
+  create database stendhal_website;
+  grant all on stendhal_website.* to 'FOO'@'localhost' identified by 'BAR';
 
-You will find a README in the data/ folder which tells you what to add there.
+Check the username, pw and database name again match those for the website
+database in configuration.php.
 
-To make outfit create script work you need gd installed, if you haven't got it already. The correct program name for apt types is php5-gd.
+Now in the stendhal_website directory run the command  
+
+  mysql stendhal_website -u FOO -p <stendhal_website.sql 
+
+Enter the password when prompted. 
+It should return silently. It has some example news items and events in it already 
+so I guess if you don't like them, edit them first!
+
+Create a link to stendhal/data folder or copy it here so website knows how to access
+stuff like sprites, items, configurations, etc...
+
+### Extra tips
+
+To make outfit create script work you need gd installed, if you haven't got it already.
+The correct program name for apt types is php5-gd.
+
+  apt-get install php5-gd
 
 To edit news and events just go into mysql and edit the appropriate tables.
-Or if you have an account on the game server with adminlevel >= 400 you can login to the website (top right) and edit the news and events using the 
-GUI.
+Or if you have an account on the game server with adminlevel >= 400 you can login
+to the website (top right) and edit the news and events using the GUI.
 To allow people to upload screenshots you need to chmod a+w on your screenshots directory. 
 
-You should probably deactivate magic quotes. Open /etc/php5/apache2/php.ini (well, that's where it lives for me!) and search for magic_quotes. Turn 
-them off. 
+  chmod a+w screenshots
+
+You should probably deactivate magic quotes to avoid double escape of quotes.
+Open /etc/php5/apache2/php.ini (well, that's where it lives for me!) and search for magic_quotes. 
+Turn them off. 
