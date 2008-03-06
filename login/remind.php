@@ -7,6 +7,36 @@ include_once('login_function.php');
    a) User click new password and we email a md5(rand()) to him IF the account is registered with stendhal.
    b) The user confirms the link and we effectively change the password.
  */
+ 
+if(isset($_POST["forgotpassword"])) {
+  if(!isset($_POST["email"])) {
+    die('You didn\'t fill in a required field.');
+  }
+  
+  $email=$_POST["email"];
+  
+  if(existsUser($email)) {
+    $signature=md5(rand());
+    
+    /* Good, store it... */
+    
+    /* ...and email */
+    $body=
+"""
+Hi
+
+You, or someone posing as you, has requested a new password for
+your Stendhal account. 
+
+To reset your password, please click on the link below.
+You will need to enter this email address, enter and confirm your new password.  
+
+http://$server/$location?id=$signature
+
+The Stendhal Team    
+""";
+  }
+}
 
 startBox("Forgot your password?");
 ?>

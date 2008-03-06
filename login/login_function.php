@@ -39,6 +39,25 @@ function confirmUser($username, $password){
 }
 
 /**
+ * Checks whether or not the given email is in the
+ * database.
+ */
+function existsUser($email){
+   $conn=getGameDB();
+   
+   /* Add slashes if necessary (for query) */
+   if(!get_magic_quotes_gpc()) {
+	$email = addslashes($email);
+   }
+
+   /* Verify that user email is in database */
+   $q = "select * from account where email = '$email'";
+   $result = mysql_query($q,$conn);
+   
+   return $result and mysql_numrows($result)==1;
+}
+
+/**
  * checkLogin - Checks if the user has already previously
  * logged in, and a session with the user has already been
  * established. Also checks to see if user has been remembered.
