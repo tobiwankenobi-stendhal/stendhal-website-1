@@ -87,12 +87,10 @@ function getAdminLevel() {
  */
 function displayLogin(){
    if(checkLogin()){ 
-   // change password doesn't seem to work , comment out.
-   //   echo 'Logged as <b>'.$_SESSION['username'].'</b>. <a href="?id=login/changepassword">Change password</a> - <a href="?id=login/logout">Logout</a>';
-     echo 'Logged as <b>'.$_SESSION['username'].'</b>. <a href="?id=login/logout">Logout</a>';
+     echo 'Logged as <b>'.$_SESSION['username'].'</b>. <a href="?id=login/changepassword">Change password</a> - <a href="?id=login/logout">Logout</a>';
    }
    else{
-     echo '<a href="?id=login/login">Login</a>';
+     echo '<a href="?id=login/login">Login</a> - <a href="?id=login/remind">Forgot your Password?</a>';
    }
  }
 ?>

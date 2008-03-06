@@ -48,7 +48,7 @@ if(isset($_POST['sublogin'])){
       setcookie("cookpass", $_SESSION['password'], time()+60*60*24*100, "/");
    }
    
-   echo "<meta http-equiv=\"Refresh\" content=\"0;url=?\">";
+   echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
    startBox("Login");
      echo '<h1>Login correct.</h1> Moving to main page.';
    endBox();

@@ -55,7 +55,7 @@ if(isset($_POST['sublogin'])){
    $_SESSION['username'] = $_POST['user'];
    $_SESSION['password'] = $md5newpass;
   
-   //echo "<meta http-equiv=\"Refresh\" content=\"0;url=?\">";
+   //echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
    startBox("Login");
      echo '<h1>Change password correct.</h1> Moving to main page.';
    endBox();
