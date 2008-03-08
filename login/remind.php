@@ -51,7 +51,8 @@ http://$server/$location?id=$signature
 This request originated from $clientip
  
 Sincerely,
-The Stendhal Team";
+The Stendhal Team
+";
 
     print nl2br($body);
   
