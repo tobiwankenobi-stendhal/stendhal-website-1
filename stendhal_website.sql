@@ -70,3 +70,12 @@ create table news_images (
   
   primary key(id, news_id)
 );
+
+create table remind_password (
+  username varchar(32) not null,
+  confirmhash varchar(32) not null,
+  
+  requested timestamp default CURRENT_TIMESTAMP,
+  
+  primary key(username, confirmhash)
+);

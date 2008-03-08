@@ -99,6 +99,12 @@ function getAdminLevel() {
   }
 }
 
+function getUser($email) {
+  $result = mysql_query('select username from account where email="'.mysql_real_escape_string($email).'"', getGameDB());
+  while($row=mysql_fetch_assoc($result)) {            
+    return $row['username'];
+  }}
+
 /**
  * Determines whether or not to display the login
  * form or to show the user that he is logged in
