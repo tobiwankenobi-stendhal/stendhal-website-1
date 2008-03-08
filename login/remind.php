@@ -22,7 +22,7 @@ if(isset($_POST["forgotpassword"])) {
     
     /* ...and email */
     $body=
-"""
+"
 Hi
 
 You, or someone posing as you, has requested a new password for
@@ -34,7 +34,7 @@ You will need to enter this email address, enter and confirm your new password.
 http://$server/$location?id=$signature
 
 The Stendhal Team    
-""";
+";
   }
 }
 
