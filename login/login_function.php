@@ -1,5 +1,6 @@
 <?php 
 include_once('mysql.php');
+
 /**
  * Checks whether or not the given username is in the
  * database, if so it checks if the given password is

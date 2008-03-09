@@ -31,7 +31,6 @@ if(isset($_POST["forgotpassword"])) {
     
     /* ...and email */
     $server=$_SERVER["SERVER_NAME"];
-    $location="login/approve.php";
     $clientip=$_SERVER['REMOTE_ADDR'];
     
     $body="
@@ -46,35 +45,41 @@ worry about your account being taken over.
  
 To choose a new password, please go to the following URL:
  
-http://$server/$location?id=$signature
+http://$server/?id=login/approve&sign=$signature
  
 This request originated from $clientip
  
 Sincerely,
 The Stendhal Team
 ";
-
-    print nl2br($body);
   
     $headers = 'From: noreply@stendhal.game-host.org';  
-    if(mail($email,"Password reset request",$body,$headers)) {
+    if(!mail($email,"Password reset request",$body,$headers)) {
       echo '<span class="error">There has been a problem while sending your password email.</span>';
       return;
     }
+    
+    startBox("Password reset link emailed");
+    ?>
+    We have just sent you a link to reset your password.<br>
+    Check you inbox and follow the email instructions.
+    <p>
+    Back to <a href="?">Main</a>
+    <?php
+    endBox();
   }
-}
+} else {
+  startBox("Forgot your password?");
+  ?>
+  In case you have forgotten your new password or your account information we can send you it to your email account that you used to create your stendhal account.<p>
+  <form action="" method="post">
+  <table>
+    <tr><td>Email address:</td><td><input type="text" name="email" maxlength="90"></td></tr>
+    <tr><td colspan="2" align="right"><input type="submit" name="forgotpassword" value="Get new password"></td></tr>
+  </table>
+  </form>
 
-startBox("Forgot your password?");
-?>
-In case you have forgotten your new password or your account information we can send you it to your email account that you used to create your stendhal account.<p>
-<form action="" method="post">
-<table>
-  <tr><td>Email address:</td><td><input type="text" name="email" maxlength="90"></td></tr>
-  <tr><td colspan="2" align="right"><input type="submit" name="forgotpassword" value="Get new password"></td></tr>
-</table>
-</form>
-
-<?php
-endBox();
-
+  <?php
+  endBox();
+  }
 ?>

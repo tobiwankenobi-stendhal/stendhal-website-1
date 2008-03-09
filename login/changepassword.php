@@ -18,14 +18,14 @@ if(isset($_POST['sublogin'])){
       die('You didn\'t fill in a required field.');
    }
    /* Spruce up username, check length */
-   $_POST['user'] = trim($_SESSION['username']);
+   $username = trim($_SESSION['username']);
    if(strlen($_POST['user']) > 30){
       die("Sorry, the username is longer than 30 characters, please shorten it.");
    }
 
    /* Checks that username is in database and password is correct */
    $md5pass = strtoupper(md5($_POST['pass']));
-   $result = confirmUser($_POST['user'], $md5pass);
+   $result = confirmUser($username, $md5pass);
 
    /* Check error codes */
    if($result == 1){
@@ -40,6 +40,7 @@ if(isset($_POST['sublogin'])){
    }
 
    $conn=getGameDB();   
+   
    /* Add slashes if necessary (for query) */
    if(!get_magic_quotes_gpc()) {
 	$username = addslashes($_SESSION['username']);
@@ -48,6 +49,7 @@ if(isset($_POST['sublogin'])){
    /* Verify that user is in database */
    $md5newpass = strtoupper(md5($_POST['newpass']));
    $q = "update account set password='$md5newpass' where username = '$username'";
+   echo $q;
    $result = mysql_query($q,$conn);
 
    /* Username and password correct, register session variables */
@@ -55,7 +57,7 @@ if(isset($_POST['sublogin'])){
    $_SESSION['username'] = $_POST['user'];
    $_SESSION['password'] = $md5newpass;
   
-   //echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
+   echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
    startBox("Login");
      echo '<h1>Change password correct.</h1> Moving to main page.';
    endBox();
