@@ -49,7 +49,6 @@ if(isset($_POST['sublogin'])){
    /* Verify that user is in database */
    $md5newpass = strtoupper(md5($_POST['newpass']));
    $q = "update account set password='$md5newpass' where username = '$username'";
-   echo $q;
    $result = mysql_query($q,$conn);
 
    /* Username and password correct, register session variables */

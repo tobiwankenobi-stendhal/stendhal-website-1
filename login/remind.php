@@ -13,58 +13,51 @@ if(isset($_POST["forgotpassword"])) {
     die('You didn\'t fill in a required field.');
   }
   
-  $email=$_POST["email"];
-  $email=mysql_real_escape_string($email);
+  $email=mysql_real_escape_string($_POST["email"]);
   
   if(existsUser($email)) {
-    $signature=md5(rand());
+    $signature=strtoupper(md5(rand()));
     
     /* Good, store it... */
     $username=getUser($email);
     
     $query='insert into remind_password values("'.$username.'","'.$signature.'",null)';
     if(!mysql_query($query, getWebsiteDB())) {
-        echo '<span class="error">There has been a problem while sending your password.</span>';
-        echo '<span class="error_cause">'.$query.'</span>';
-        return;
+      echo '<span class="error">There has been a problem while sending your password.</span>';
+      echo '<span class="error_cause">'.$query.'</span>';
+      die();
     }    
     
     /* ...and email */
     $server=$_SERVER["SERVER_NAME"];
+    $location=str_replace("/index.php","",$_SERVER["PHP_SELF"]);
+    
     $clientip=$_SERVER['REMOTE_ADDR'];
     
-    $body="
-Hi
-
-Someone has requested that the password for your account be reset.  
- 
-If you did not make this request, please simply disregard this
-e-mail; it is sent only to the address on file for your account,
-and will become invalid after 48 hours, so you do not have to
-worry about your account being taken over.
- 
-To choose a new password, please go to the following URL:
- 
-http://$server/?id=login/approve&sign=$signature
- 
-This request originated from $clientip
- 
-Sincerely,
-The Stendhal Team
-";
+    $body=file_get_contents("login/remindpassword.email");
+    
+    /* Fill variables */
+    $body=str_replace("[SERVER]",$server.$location,$body);
+    $body=str_replace("[SIGNATURE]",$signature,$body);
+    $body=str_replace("[CLIENTIP]",$clientip,$body);
+    
+    if($body==false) {
+      echo '<span class="error">There has been a problem while getting password email template.</span>';
+      die();
+    }
   
     $headers = 'From: noreply@stendhal.game-host.org';  
     if(!mail($email,"Password reset request",$body,$headers)) {
       echo '<span class="error">There has been a problem while sending your password email.</span>';
-      return;
+      die();
     }
     
     startBox("Password reset link emailed");
     ?>
-    We have just sent you a link to reset your password.<br>
-    Check you inbox and follow the email instructions.
-    <p>
-    Back to <a href="?">Main</a>
+      We have just sent you a link to reset your password.<br>
+      Check you inbox and follow the email instructions.
+      <p>
+      Back to <a href="?">Main</a>
     <?php
     endBox();
   }
