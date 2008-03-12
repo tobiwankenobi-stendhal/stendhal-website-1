@@ -24,7 +24,6 @@ if(isset($_POST["forgotpassword"])) {
     $query='insert into remind_password values("'.$username.'","'.$signature.'",null)';
     if(!mysql_query($query, getWebsiteDB())) {
       echo '<span class="error">There has been a problem while sending your password.</span>';
-      echo '<span class="error_cause">'.$query.'</span>';
       die();
     }
         
