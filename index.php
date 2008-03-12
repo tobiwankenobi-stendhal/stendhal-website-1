@@ -17,12 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-$authors= array(
-  "miguel" => "08130401",
-  "kymara" => "23071707",
-  /* Keep adding them */
-);
-
 session_start();
 
 $starttime = explode(' ', microtime());
@@ -30,6 +24,7 @@ $starttime = $starttime[1] + $starttime[0];
    
 include('website.php');
 include('login/login_function.php');
+include('authors.php');
 
 connect();
 
