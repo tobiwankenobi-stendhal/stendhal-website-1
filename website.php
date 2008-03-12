@@ -339,7 +339,10 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 function addNews($title, $oneline, $body, $images, $approved=false) {
     $title=mysql_real_escape_string($title);
     $oneline=mysql_real_escape_string($oneline);
-    $body=mysql_real_escape_string($body);
+    
+    if(!get_magic_quotes_gpc()) {
+      $body=mysql_real_escape_string($body);
+    }
     
     $query='insert into news values(null,"'.$title.'","'.$oneline.'","'.$body.'", null)';
     mysql_query($query, getWebsiteDB());
@@ -375,7 +378,10 @@ function updateNews($id, $title, $oneline, $body, $images, $approved=false) {
     $id=mysql_real_escape_string($id);
     $title=mysql_real_escape_string($title);
     $oneline=mysql_real_escape_string($oneline);
-    $body=mysql_real_escape_string($body);
+    
+    if(!get_magic_quotes_gpc()) {
+      $body=mysql_real_escape_string($body);
+    }
     
     $query='update news set title="'.$title.'", shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id='.$id;
     mysql_query($query, getWebsiteDB());
