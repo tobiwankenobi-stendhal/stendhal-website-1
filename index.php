@@ -218,6 +218,9 @@ src="http://e1.extreme-dm.com/s10.g?login=mblanch&amp;j=n&amp;jv=n" />
 </div>
         </span>
       </div>
+      <div class="author">
+        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=08130401" alt="authors"/></a>
+      </div>
     </div>
   </body>
 </html>

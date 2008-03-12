@@ -52,8 +52,11 @@ header("Content-type: image/png");
 $outfit = $_GET['outfit'];
 
 $result=imagecreatetruecolor(48,64);
-$white=imagecolorallocate($result,255,255,255);
+$white=imagecolorallocate($result,255,255,0);
 imagefill($result,0,0,$white);
+
+$transColor=imagecolorat($result, 0,0);
+imagecolortransparent($result, $transColor);
 
 $baseIndex=($outfit % 100);
 $outfit=$outfit/100;

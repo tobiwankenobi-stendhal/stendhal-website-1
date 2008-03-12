@@ -331,6 +331,19 @@ body
 	  display: inline;
   }
   
+  .author 
+  {
+      position: fixed;
+      bottom: 2px;
+      right: 2px;
+  }
+  
+  .author a, .author img
+  {
+      text-decoration: none;
+      border: 0;
+  }
+  
   
   /*****************************************************************************
   ******************************************************************************
