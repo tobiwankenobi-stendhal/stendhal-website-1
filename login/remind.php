@@ -26,7 +26,11 @@ if(isset($_POST["forgotpassword"])) {
       echo '<span class="error">There has been a problem while sending your password.</span>';
       echo '<span class="error_cause">'.$query.'</span>';
       die();
-    }    
+    }
+        
+    /* Remove the entry or anything 48 hours old.*/
+    $q = "delete from remind_password where datediff(now(),requested)>2";
+    $result = mysql_query($q,getWebsiteDB());
     
     /* ...and email */
     $server=$_SERVER["SERVER_NAME"];
@@ -60,7 +64,17 @@ if(isset($_POST["forgotpassword"])) {
       Back to <a href="?">Main</a>
     <?php
     endBox();
-  }
+  } else {
+    startBox("Unregistered account");
+    ?>
+    The email that you have written is not registered in this server.<p>
+    If you don't remind your email there is no way of reseting your password.
+    <p>
+    Back to <a href="?">Main</a>
+
+    <?php
+    endBox();
+  	}
 } else {
   startBox("Forgot your password?");
   ?>

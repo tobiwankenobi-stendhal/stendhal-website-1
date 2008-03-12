@@ -48,7 +48,7 @@ if(mysql_numrows($result)!=1) {
   
   /* Remove the entry or anything 48 hours old.*/
   $q = "delete from remind_password where username = '$username' or  datediff(now(),requested)>2";
-  $result = mysql_query($q,getGameDB());
+  $result = mysql_query($q,getWebsiteDB());
 
   /*
    * Create a random password for it and set it.

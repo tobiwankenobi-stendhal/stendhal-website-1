@@ -43,4 +43,3 @@ echo '<div class="items_more">
 
 endBox();
 ?>
-?>
