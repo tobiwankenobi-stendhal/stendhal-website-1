@@ -45,6 +45,8 @@ minute game data.
 
 ### Configuring
 
+###### MySQL
+
 You will need to edit configuration.php with the username, pw and db name of the 
 stendhal game db on your system. 
 You won't have a stendhal website db yet.
@@ -68,6 +70,10 @@ Enter the password when prompted.
 It should return silently. It has some example news items and events in it already 
 so I guess if you don't like them, edit them first!
 
+###### Postfix
+TODO: You need postfix to send emails to remind passwords.
+
+###### Stendhal data
 Create a link to stendhal/data folder or copy it here so website knows how to access
 stuff like sprites, items, configurations, etc...
 
