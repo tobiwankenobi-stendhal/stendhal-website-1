@@ -17,6 +17,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+$authors= array(
+  "miguel" => "08130401",
+  "kymara" => "23071707",
+  /* Keep adding them */
+);
+
 session_start();
 
 $starttime = explode(' ', microtime());
@@ -219,7 +225,10 @@ src="http://e1.extreme-dm.com/s10.g?login=mblanch&amp;j=n&amp;jv=n" />
         </span>
       </div>
       <div class="author">
-        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=08130401" alt="authors"/></a>
+      <?php
+        $name=array_rand($authors);
+      ?>
+        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo $authors[$name]; ?>" alt="<?php echo $name; ?>"/></a>
       </div>
     </div>
   </body>
