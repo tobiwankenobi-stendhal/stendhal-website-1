@@ -71,7 +71,21 @@ It should return silently. It has some example news items and events in it alrea
 so I guess if you don't like them, edit them first!
 
 ###### Postfix
-TODO: You need postfix to send emails to remind passwords.
+You need postfix to send emails to remind passwords.
+Just do:
+
+  apt-get install postfix
+
+Configure it so that you have a valid hostname for it.
+Then edit your php.ini file so that:
+
+  ; For Unix only.  You may supply arguments as well (default: "sendmail -t -i"). 
+  sendmail_path = /usr/sbin/sendmail -t -i
+
+When you install postfix it should create the appropiate link in /usr/bin.
+
+If you are using Windows you need ot setup a SMTP and configure the php.ini to point
+to there.
 
 ###### Stendhal data
 Create a link to stendhal/data folder or copy it here so website knows how to access
