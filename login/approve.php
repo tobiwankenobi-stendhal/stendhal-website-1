@@ -1,5 +1,5 @@
 <?php
-include_once('mysql.php');
+include_once('scripts/mysql.php');
 
 function createRandomPassword() {
     $chars = "abcdefghijkmnopqrstuvwxyz023456789";

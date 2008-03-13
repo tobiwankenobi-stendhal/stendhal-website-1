@@ -22,34 +22,48 @@ session_start();
 $starttime = explode(' ', microtime());
 $starttime = $starttime[1] + $starttime[0];
    
-include('website.php');
+include('scripts/website.php');
 include('login/login_function.php');
-include('authors.php');
-
-connect();
+include('scripts/authors.php');
 
 /*
- * This code decide the page to load.
- */ 
-$page_url="content/main";
+ * Open connection to both databases.
+ */
+connect();
 
-if(isset($_REQUEST["id"]))
-  {  
-  $page_url=$_REQUEST["id"];
+/**
+ * Scan the name module to load and reset it to safe default if something strange appears.
+ *
+ * @param string $url The name of the module to load without .php
+ * @return string the name of the module to load.
+ */
+function decidePageToLoad($url) {
+  $result=$url;
   
   if(!(
-      (strpos($page_url,".")===false)||
-      (strpos($page_url,"//")===false)||
-      (strpos($page_url,"http")===false)||
-      (strpos($page_url,"/")!=1))||
-      !file_exists($page_url.'.php')
+      (strpos($url,".")===false)||
+      (strpos($url,"//")===false)||
+      (strpos($url,"http")===false)||
+      (strpos($url,"/")!=1))||
+      !file_exists($url.'.php')
       )
     {    
     /*
      * If page_url contains something suspicious we reset it to main page.
      */
-    $page_url="content/main";
+    $result="content/main";
     }
+    
+    return $result;	
+}
+
+/*
+ * This code decide the page to load.
+ */ 
+$page_url="content/main";
+if(isset($_REQUEST["id"]))
+  {  
+  $page_url=decidePageToLoad($_REQUEST["id"]);  
   }
 
 ?>
@@ -163,14 +177,6 @@ if(isset($_REQUEST["id"]))
           endBox();
           }       
         ?>
-<!-- TODO: If there's no poll this shouldn't just fail! Fix it!
-	Commenting out for now as I don't think polls work yet.
-	 <?php 
-          startBox('Poll');
-          $poll=getLatestPoll();
-          $poll->show();
-          endBox(); 
-        ?> -->
 
        <?php startBox('Collaborate'); ?>
         <ul  id="menu">
@@ -196,7 +202,7 @@ if(isset($_REQUEST["id"]))
     $totaltime = $mtime[0] + $mtime[1] - $starttime;
     printf(' (Page loaded in %.3f seconds.)', $totaltime);
     ?>
-    <div class="copyright">© 1999-2008 Arianne RPG</div>
+    <div class="copyright">ï¿½ 1999-2008 Arianne RPG</div>
         <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
         <span>
 <div id="eXTReMe"><a href="http://extremetracking.com/open?login=mblanch">
@@ -223,7 +229,7 @@ src="http://e1.extreme-dm.com/s10.g?login=mblanch&amp;j=n&amp;jv=n" />
       <?php
         $name=array_rand($authors);
       ?>
-        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo $authors[$name]; ?>" alt="<?php echo $name; ?>"/></a>
+        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo $authors[$name]; ?>" alt="<?php echo $name; ?>"/><br><?php echo ucfirst($name); ?></a>
       </div>
     </div>
   </body>

@@ -322,6 +322,10 @@ img.screenshot {
 
 .author a,.author img {
 	text-decoration: none;
+	
+	color: white;
+	font-size: 10px;
+	
 	border: 0;
 }
 

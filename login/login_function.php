@@ -1,5 +1,5 @@
 <?php 
-include_once('mysql.php');
+include_once('scripts/mysql.php');
 
 /**
  * Checks whether or not the given username is in the

@@ -1,52 +1,46 @@
-  #oneLineDescription
-  {
-	background-image:url("../images/onelinedesc.png");
+#oneLineDescription {
+	background-image: url("../images/onelinedesc.png");
 	background-position: center;
-	background-repeat:no-repeat;
-	
+	background-repeat: no-repeat;
 	color: Black;
 	text-align: left;
 	font-size: 14px;
 	font-family: Arial sans;
 	font-weight: bold;
-	width:546px;
-	height:84px;
+	width: 546px;
+	height: 84px;
 	padding: 0;
-	margin:0 0 0 15px;
-  }
-  #oneLineDescription img 
-  {
-  margin: 14px 0 0 10px;
-  float: left;
-  }
+	margin: 0 0 0 15px;
+}
 
-  #oneLineDescription span
-  {
-  position: relative;
-  top: 10px;
-  padding: 0px 8px 0 0;
-  }
-   
-  /* news */
-  .newsDate
-  {
-	padding:0;
-	margin:0;
-	color: rgb(211,211,211); 
-	text-align:left; 
-    font-size: 12px;
-	float:right;
-	position:relative;
-	right:8px; 
-  }
-  
-  .newsTitle
-  {
+#oneLineDescription img {
+	margin: 14px 0 0 10px;
+	float: left;
+}
+
+#oneLineDescription span {
+	position: relative;
+	top: 10px;
+	padding: 0px 8px 0 0;
+}
+
+/* news */
+.newsDate {
+	padding: 0;
+	margin: 0;
+	color: rgb(211, 211, 211);
+	text-align: left;
+	font-size: 12px;
+	float: right;
+	position: relative;
+	right: 8px;
+}
+
+.newsTitle {
 	color: white;
 	font-weight: bolder;
-  }
-  .newsContent
-  {
+}
+
+.newsContent {
 	padding: 4px 4px 6px 4px;
-  }
-  
+}
