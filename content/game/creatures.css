@@ -1,59 +1,46 @@
-.monster_class
-  {
-  font-size: 24px;
-  text-align: right;
-  font-weight: bolder;
-  font-family: Tahoma monospace;
-  
-  border-bottom: 1px solid black;
-  }
-
 form {
 	text-align: right;
 	padding: 4px;
-	}
-  
-div.creature
-  {
-  /* border: 1px solid black; */
-  height: 114px;
-  min-height: 114px;
-  width: 75px;
-  min-width: 75x;
-  text-align: center;
-  padding: 5px;
-  margin: 5px;
-  float: left;
-  }
-a.creature
-  {
-  text-decoration: none;
-  }
-img.creature
-  {
-  height: 64px;
-  text-decoration: none;
-  border: none;
-  }
-div.creature_name
-  {
-  font-size: 12px;
-  font-weight: bolder;
-  }
-div.creature_level
-  {
-  font-size: 12px;
-  }
-div.creatures_less
-  {
-  text-align: right;
-  padding: 5px;
-  margin: 5px;
-  }
-div.creatures_more
-  {
-  text-align: right;
-  padding: 5px;
-  margin: 5px;
-  }
- 
+}
+
+div.creature { 
+	height: 114px;
+	min-height: 114px;
+	width: 75px;
+	min-width: 75x;
+	text-align: center;
+	padding: 5px;
+	margin: 5px;
+	float: left;
+}
+
+a.creature {
+	text-decoration: none;
+}
+
+img.creature {
+	height: 64px;
+	text-decoration: none;
+	border: none;
+}
+
+div.creature_name {
+	font-size: 12px;
+	font-weight: bolder;
+}
+
+div.creature_level {
+	font-size: 12px;
+}
+
+div.creatures_less {
+	text-align: right;
+	padding: 5px;
+	margin: 5px;
+}
+
+div.creatures_more {
+	text-align: right;
+	padding: 5px;
+	margin: 5px;
+}
