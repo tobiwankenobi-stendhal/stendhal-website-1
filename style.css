@@ -1,4 +1,9 @@
 /*
+  TODO: Refactor, clean and simplify this CSS.
+  TODO: Split it in simpler stylesheets
+ */
+
+/*
     Stendhal website - a website to manage and ease playing of Stendhal game
     Copyright (C) 2008  Miguel Angel Blanch Lardin
 
@@ -19,8 +24,9 @@ body {
 	margin: 0;
 	padding: 0;
 	background-image: url("images/background.jpg");
-	text-align: center;
 	/* must do this to center body as IE doesnt like auto margin on body */
+	text-align: center;
+	
 	font-family: Geneva, Tahoma, Arial, Helvetica, Sans-serif;
 	font-size: 12pt;
 }
@@ -31,6 +37,7 @@ body {
 	padding: 0;
 	width: 970px;
 	border: 4px solid black;
+	
 	/* Some browsers don't like body element to have this propierties set */
 	background-image: url("images/header_background.jpg");
 	background-position: top center;
@@ -304,6 +311,7 @@ img.screenshot {
 }
 
 .copyright {
+	display: block;
 	text-align: left;
 	position: relative;
 	top: 40px;

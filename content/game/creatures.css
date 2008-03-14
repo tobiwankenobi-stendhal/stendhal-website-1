@@ -1,10 +1,25 @@
+.monster_class
+  {
+  font-size: 24px;
+  text-align: right;
+  font-weight: bolder;
+  font-family: Tahoma monospace;
+  
+  border-bottom: 1px solid black;
+  }
+
+form {
+	text-align: right;
+	padding: 4px;
+	}
+  
 div.creature
   {
   /* border: 1px solid black; */
   height: 114px;
   min-height: 114px;
-  width: 120px;
-  min-width: 120px;
+  width: 93px;
+  min-width: 93x;
   text-align: center;
   padding: 5px;
   margin: 5px;

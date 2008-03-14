@@ -88,9 +88,11 @@ if(isset($_REQUEST["id"]))
       <div id="header">
         <a href="?"><img style="border: 0;" src="images/logo.gif" alt="Logotype"/></a>
       </div>
+      
       <div id="account">
         <?php displayLogin(); ?>
       </div>
+      
       <div id="topMenu">
         <ul>
           <li id="manual_button"><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalManual"><img src="images/menu/manual.png" alt="Manual"/></a></li>
@@ -100,9 +102,13 @@ if(isset($_REQUEST["id"]))
           <li id="hof_button"><a href="?id=content/halloffame"><img src="images/menu/halloffame.png" alt="Hall of Fame"/></a></li>
         </ul>
       </div>
+      
       <div id="leftArea">
         <?php 
           startBox('Screenshot');
+          /*
+           * Return the latest screenshot added to the webpage.
+           */
           $screen=getLatestScreenshot();
           
           echo '<a href="'.$screen->url.'" target="_blank">';
@@ -113,6 +119,7 @@ if(isset($_REQUEST["id"]))
         
         <?php 
           startBox('Movie');
+          // TODO: Refactor so it uses a screenshot-like method.
           ?>
           <object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/U5JaD4qlmwM"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/U5JaD4qlmwM" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
         <?php
@@ -121,6 +128,10 @@ if(isset($_REQUEST["id"]))
 
         <?php 
           startBox('Events');
+          /*
+           * Return the two latest events added to the website.
+           * Even if they have already happened.
+           */
           $events=getEvents();
           foreach($events as $i) {
             $i->show();
@@ -148,6 +159,9 @@ if(isset($_REQUEST["id"]))
 
         <?php 
           startBox('Server stats');
+          /*
+           * Load server stats about online players, bytes send/recv and other from database.
+           */
           $stats=getServerStats();
           if(!$stats->isOnline()) {
             echo '<div class="status">Server is offline</div>';
@@ -158,13 +172,20 @@ if(isset($_REQUEST["id"]))
         ?>
 
         <?php 
-          startBox('<span style="font-size: 90%;">Player of the week</span>');
+          startBox('Best Player');
+          /*
+           * Get the best player related to the amount of XP earn against its age.
+           */
           $player=getPlayerOfTheWeek();
           $player->show();
           endBox(); 
         ?>
         
         <?php 
+        /*
+         * Show the admin menu only if player is really an admin.
+         * Admins are designed using the stendhal standard way.
+         */
         if(getAdminLevel()>=400) {
           startBox('Administration'); ?>
           <ul id="menu">
@@ -194,41 +215,36 @@ if(isset($_REQUEST["id"]))
       </div>
       
       <div id="contentArea">
-        <?php include($page_url.".php");  ?>
+        <?php
+        /*
+         * The central area of the website.
+         * We append .php so that we avoid easy hacks on this.
+         */ 
+        include($page_url.".php");  
+        ?>
       </div>
+      
       <div id="footerArea">
-    <?php
-    $mtime = explode(' ', microtime());
-    $totaltime = $mtime[0] + $mtime[1] - $starttime;
-    printf(' (Page loaded in %.3f seconds.)', $totaltime);
-    ?>
-    <div class="copyright">� 1999-2008 Arianne RPG</div>
+        <?php
+        /*
+         * Compute how much time we took to render the page.
+         */
+        $mtime = explode(' ', microtime());
+        $totaltime = $mtime[0] + $mtime[1] - $starttime;
+        printf(' (Page loaded in %.3f seconds.)', $totaltime);
+        ?>
+        <span class="copyright">&copy; 1999-2008 Arianne RPG</span>
         <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
-        <span>
-<div id="eXTReMe"><a href="http://extremetracking.com/open?login=mblanch">
-<img src="http://t1.extreme-dm.com/i.gif" style="border: 0;"
-height="38" width="41" id="EXim" alt="eXTReMe Tracker" /></a>
-<script type="text/javascript"><!--
-var EXlogin='mblanch' // Login
-var EXvsrv='s10' // VServer
-EXs=screen;EXw=EXs.width;navigator.appName!="Netscape"?
-EXb=EXs.colorDepth:EXb=EXs.pixelDepth;
-navigator.javaEnabled()==1?EXjv="y":EXjv="n";
-EXd=document;EXw?"":EXw="na";EXb?"":EXb="na";
-EXd.write("<img src=http://e1.extreme-dm.com",
-"/"+EXvsrv+".g?login="+EXlogin+"&amp;",
-"jv="+EXjv+"&amp;j=y&amp;srw="+EXw+"&amp;srb="+EXb+"&amp;",
-"l="+escape(EXd.referrer)+" height=1 width=1>");//-->
-</script><noscript><div id="neXTReMe"><img height="1" width="1" alt=""
-src="http://e1.extreme-dm.com/s10.g?login=mblanch&amp;j=n&amp;jv=n" />
-</noscript>
-</div>
-        </span>
+        <span><?php include('counter.php'); ?></span>
       </div>
+      
       <div class="author">
-      <?php
+        <?php
+        /*
+         * Shows a little chara of the authors.
+         */
         $name=array_rand($authors);
-      ?>
+        ?>
         <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo $authors[$name]; ?>" alt="<?php echo $name; ?>"/><br><?php echo ucfirst($name); ?></a>
       </div>
     </div>
@@ -236,5 +252,8 @@ src="http://e1.extreme-dm.com/s10.g?login=mblanch&amp;j=n&amp;jv=n" />
 </html>
 
 <?php
+/*
+ * Close connection to databases.
+ */
 disconnect();
 ?>

@@ -4,8 +4,8 @@ $name=$_REQUEST['name'];
 
 $monsters=getMonsters();
 foreach($monsters as $m) {
-  if($m->name==$name) {
-    startBox($name);
+  if($m->name==$name || strpos($m->name,$name)!=false) {
+    startBox($m->name);
       echo '<div class="creature">';
       echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
       echo '  <div class="creature_name">'.$m->name.'</div>';
