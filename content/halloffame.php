@@ -2,7 +2,7 @@
   $choosen=getBestPlayer();
  ?>
     <div class="hofBest">
-    <img src=createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+    <img src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
     <div>
       <div class="bestName"><?php echo $choosen->name; ?></div>
       <div class="bestLevel">Level: <?php echo $choosen->level; ?></div>
