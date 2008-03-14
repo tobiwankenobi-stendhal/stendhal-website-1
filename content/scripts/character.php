@@ -11,7 +11,7 @@ $choosen=$players[0];
   <?php startBox('Character info for '.$choosen->name); ?>
     <div>
     <div class="extendedplayerBoxImage">
-      <img src=createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+      <img src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
     </div>
     <div>
       <div class="extendedplayerName"><b>Name:</b> <?php echo $choosen->name; ?></div>
