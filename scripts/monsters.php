@@ -172,6 +172,13 @@ function getMonsters() {
   $list=array();
 
   for($i=0;$i<sizeof($creatures)/2;$i++) {
+    /*
+     * We omit hidden creatures.
+     */
+    if(isset($creatures[$i]['hidden'])) {
+      continue;
+    }
+    
     $name=$creatures[$i.' attr']['name'];
     
     if(isset($creatures[$i]['description'])) {
