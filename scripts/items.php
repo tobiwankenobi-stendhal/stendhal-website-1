@@ -46,9 +46,24 @@ class Item {
     $this->equipableat=$equipableat;
   }
   
+  function showImage() {
+  	return $this->gfx;
+  }
+  
   function getClasses() {
     return self::$classes;
   }
+}
+
+function getItem($name) {
+  $items=getItems();
+  foreach($items as $i) {
+    if($i->name==$name) {
+      return $i;
+    }
+  }
+
+  return null;
 }
 
 /**

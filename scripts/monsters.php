@@ -33,30 +33,33 @@ class Monster {
   public $gfx;
   /* Level of the monster */
   public $level;
+  /* XP value of the monster */
+  public $xp;
   /* Times this monster has been killed */
   public $kills;
   /* Players killed by this monster class */
   public $killed;
   /* Attributes of the monster as an array attribute=>value */
   public $attributes;
-  /* Stuff this creature wears as an array slot=>item */
-  public $equipment;
+  /* Stuff this creature drops as an array (item, quantity, probability) */
+  public $drops;
   /* Locations where this monster is found. */
   public $locations;
 
-  function __construct($name, $description, $class, $gfx, $level,$attributes) {
+  function __construct($name, $description, $class, $gfx, $level, $xp, $attributes, $drops) {
     $this->name=$name;
     $this->description=$description;
     $this->class=$class;
     self::$classes[$class]=0;
     $this->gfx=$gfx;
     $this->level=$level;
+    $this->xp=$xp;
     $this->attributes=$attributes;
+    $this->drops=$drops;
   }
   
-  function show() {
-     /* NOTE: Fill this note with the HTML code needed to draw an News item. */
-     /* END NOTE */
+  function showImage() {
+  	return $this->gfx;
   }
   
   function getClasses() {
@@ -109,6 +112,16 @@ function existsMonster($name) {
   return false;
 }
 
+function getMonster($name) {
+  $monsters=getMonsters();
+  foreach($monsters as $m) {
+    if($m->name==$name) {
+      return $m;
+    }
+  }
+
+  return null;
+}
 function listOfMonsters($monsters) {
   $data='';
   foreach($monsters as $m) {
@@ -199,7 +212,21 @@ function getMonsters() {
     $attributes['hp']=$creatures[$i]['attributes'][0]['hp']['0 attr']['value'];
     
     $level=$creatures[$i]['level']['0 attr']['value'];
+    $xp=$creatures[$i]['experience']['0 attr']['value'];
     
+    $drops=array();
+    /*
+    <drops>
+      <item value="meat" quantity="[1,3]" probability="60.0"/>
+      <item value="ham" quantity="[1,2]" probability="30.0"/>
+      <item value="antidote" quantity="[1,1]" probability="5.0"/>
+    </drops>
+     */
+    foreach($creatures[$i]['drops'][0]['item'] as $drop) {
+    	if(is_array($drop)) {
+    		$drops[]=array("name"=>$drop['value'],"quantity"=>$drop['quantity'], "probability"=>$drop['probability']);
+    	}
+    }
     /* DEBUGING
     echo '<h1>Creature: '.$name.'</h1><br>';
     echo 'Description: "'.$description.'"<br>';
@@ -212,7 +239,7 @@ function getMonsters() {
     
     //print_r($creatures[$i]);
     */
-    $list[]=new Monster($name, $description, $class, $gfx,$level, $attributes);
+    $list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $attributes, $drops);
   } 
   
   Monster::$monsters=$list;

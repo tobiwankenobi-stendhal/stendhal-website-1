@@ -29,7 +29,8 @@ if($result==null) {
 }
 
 list($m, $amount)=$result;
-echo '<div><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'">';
+echo '<div style="text-align: center;">';
+echo '  <a class="creature" href="?id=content/scripts/monster&name='.$m->name.'&exact">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
 echo '  <div class="creature_name">'.$m->name.'</div>';
 echo ' </a>';
@@ -37,6 +38,7 @@ echo '  <div class="creature_killed">It was killed '.$amount.' times</div>';
 echo '</div>';
 endBox();
 ?></div>
+
 <div style="float: left; width: 50%"><?php
 startBox('Best Player killer');
 $result=getBestKillerMonster($monsters);
@@ -45,7 +47,8 @@ if($result==null) {
 }
 
 list($m, $amount)=$result;
-echo '<div><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'">';
+echo '<div style="text-align: center;">';
+echo '  <a class="creature" href="?id=content/scripts/monster&name='.$m->name.'&exact">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
 echo '  <div class="creature_name">'.$m->name.'</div>';
 echo ' </a>';
@@ -66,7 +69,7 @@ startBox('Creatures');
 
 <?php 
 foreach($monsters as $m) {
-	echo '<div class="creature"><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'">';
+	echo '<div class="creature"><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'&exact">';
 	echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
 	echo '  <div class="creature_name">'.$m->name.'</div>';
 	echo ' </a>';

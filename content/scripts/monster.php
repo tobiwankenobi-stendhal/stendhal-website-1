@@ -1,41 +1,103 @@
 <?php 
 
 $name=$_REQUEST['name'];
+$isExact=isset($REQUEST['exact']);
 
 $monsters=getMonsters();
+
+function renderAmount($amount) {
+  $amount=str_replace("[","",$amount);
+  $amount=str_replace("]","",$amount);
+  list($min,$max)=explode(",",$amount);
+  
+  if($min!=$max) {
+    return "between $min and $max.";
+  } else {
+  	return "exactly $min.";
+  }
+}
+
 foreach($monsters as $m) {
-  if($m->name==$name || strpos($m->name,$name)!=false) {
-    startBox($m->name);
-      echo '<div class="creature">';
-      echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
-      echo '  <div class="creature_name">'.$m->name.'</div>';
-      echo '  <div>Level '.$m->level.'</div>';
-      echo '  <div>'.$m->description.'</div>';
-      echo '<div>';
-      foreach($m->attributes as $k=>$v) {
-        echo '<div><span>'.$k.'</span><span>'.$v.'</span></div>';
-      }
-      echo '</div>';
-      echo '</div>';
+  /*
+   * If name of the creature match or contains part of the name.
+   */
+  if($m->name==$name || (!$isExact and strpos($m->name,$name)!=false)) {
+    startBox("Detailed information");
+    ?>
+    <div class="creature">
+      <div class="name"><?php echo ucfirst($m->name); ?></div>
+      <img class="creature" src="<?php echo $m->gfx; ?>" alt="<?php echo $m->name; ?>"/>
+      <div class="level">Level <?php echo $m->level; ?></div>
+      <div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
+      <div class="description">
+        <?php 
+          if($m->description=="") {
+            echo "No description. Would you like to write one?";
+          } else {
+            echo $m->description;
+          }
+        ?>
+      </div>
+      
+      <div class="table">
+        <div class="title">Attributes</div>
+          <?php
+          foreach($m->attributes as $label=>$data) {
+            ?>
+            <div class="row">
+              <div class="label"><?php echo strtoupper($label); ?></div>
+              <div class="data"><?php echo $data; ?></div>
+            </div>
+            <?php
+          }
+          ?>
+        </div>      
+      
+      <div class="table">
+        <div class="title">Creature drops</div>
+          <?php
+          foreach($m->drops as $k) {
+          	?>
+            <div class="row">
+              <a href="?id=content/scripts/item&name=<?php echo $k["name"]; ?>&exact">
+              <img src="<?php echo getItem($k["name"])->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
+              <div class="label"><?php echo ucfirst($k["name"]); ?></div>
+              </a>
+              <div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
+              <div class="data">Probability: <?php echo $k["probability"]; ?>%</div>
+            </div>
+            <?php 
+          }
+          ?>
+        </div>
+      </div>
+            
+    <?php      
     endBox();      
     
+    /*
+     * Obtain data from database
+     */
     $m->fillKillKilledData();
-    startBox("Killed by Player");
+    
+    startBox(ucfirst($m->name)." killed by Player");
       $data='';
       foreach($m->kills as $day=>$amount) {
         $data=$data.$amount.',';
       }
-      
-      echo '<img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data='.$data.'"/>';
+    ?>  
+    <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>';
+    <?php
     endBox();
 
-    startBox("Killed by ".$m->name);
+    startBox("Players killed by ".$m->name);
       $data='';
       foreach($m->killed as $day=>$amount) {
         $data=$data.$amount.',';
       }
-      
-      echo '<img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data='.$data.'"/>';
+    ?>  
+    <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>';
+    <?php
     endBox();
   }
 }
