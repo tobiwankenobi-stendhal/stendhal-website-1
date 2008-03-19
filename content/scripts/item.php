@@ -1,7 +1,7 @@
 <?php 
 
 $name=$_REQUEST['name'];
-$isExact=isset($REQUEST['exact']);
+$isExact=isset($_REQUEST['exact']);
 
 $items=getItems();
 

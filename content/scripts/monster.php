@@ -1,7 +1,7 @@
 <?php 
 
 $name=$_REQUEST['name'];
-$isExact=isset($REQUEST['exact']);
+$isExact=isset($_REQUEST['exact']);
 
 $monsters=getMonsters();
 
@@ -86,7 +86,7 @@ foreach($monsters as $m) {
         $data=$data.$amount.',';
       }
     ?>  
-    <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>';
+    <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>
     <?php
     endBox();
 
@@ -96,9 +96,12 @@ foreach($monsters as $m) {
         $data=$data.$amount.',';
       }
     ?>  
-    <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>';
+    <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>
     <?php
     endBox();
+    ?>
+    <div style="margin-bottom: 48px;"></div>
+    <?php
   }
 }
 
