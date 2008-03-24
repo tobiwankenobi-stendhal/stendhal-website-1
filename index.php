@@ -111,9 +111,11 @@ if(isset($_REQUEST["id"]))
            */
           $screen=getLatestScreenshot();
           
-          echo '<a href="'.$screen->url.'" target="_blank">';
-            $screen->showThumbnail();
-          echo '</a>';
+          ?>
+          <a href="<? echo $screen->url; ?>" target="_blank">
+            <?php $screen->showThumbnail(); ?>
+          </a>
+          <?php
           endBox() 
         ?>
         
@@ -164,10 +166,19 @@ if(isset($_REQUEST["id"]))
            */
           $stats=getServerStats();
           if(!$stats->isOnline()) {
-            echo '<div class="status">Server is offline</div>';
+            ?>
+            <div class="status">Server is offline</div>
+            <?php
           }
-          
-          echo '<a href="?id=content/scripts/online"><span class="stats">'.getAmountOfPlayersOnline().'</span> players online.</a>';
+          ?>
+          <a href="?id=content/scripts/online">
+            <div class="stats"><?php echo getAmountOfPlayersOnline(); ?></div> players online.
+          </a>
+          <div class="small_notice">
+            <a href="?id=content/scripts/serverstats">[Detailed stats]</a><br>
+            <a href="?id=content/scripts/killedstats">[Killed stats]</a>
+          </div>
+          <?php
           endBox(); 
         ?>
 
@@ -233,7 +244,7 @@ if(isset($_REQUEST["id"]))
         $totaltime = $mtime[0] + $mtime[1] - $starttime;
         printf(' (Page loaded in %.3f seconds.)', $totaltime);
         ?>
-        <span class="copyright">&copy; 1999-2008 Arianne RPG</span>
+        <span class="copyright">&copy; 1999-2008 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
         <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
         <span><?php include('counter.php'); ?></span>
       </div>

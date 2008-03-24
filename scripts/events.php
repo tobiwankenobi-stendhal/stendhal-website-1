@@ -52,10 +52,10 @@ class Event {
 
   function show() {
     echo '<div class="event">';
-    echo '<img src="images/event'.($this->type).'.png" alt="event logo"/>';
-    echo '<div class="eventDescription"><a href="?id=content/scripts/event&event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
-    echo '<div class="eventDate">'.($this->date).'</div>';
-    echo '<div class="eventLocation">'.($this->location).'</div>';
+    echo '<img src="images/events/event'.($this->type).'.png" alt="event logo"/>';
+    echo '<div class="description"><a href="?id=content/scripts/event&event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
+    echo '<div class="date">'.($this->date).'</div>';
+    echo '<div class="location">'.($this->location).'</div>';
     echo '<span style="clear: left;"></span>';
     echo '</div>';
   }

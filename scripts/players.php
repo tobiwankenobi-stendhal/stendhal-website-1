@@ -55,10 +55,10 @@ class Player {
     echo '<div class="playerBox">';
     echo '  <img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/>';
     echo '  <a href="?id=content/scripts/character&name='.$this->name.'">';
-    echo '  <div class="playerBoxName">'.$this->name.'</div>';
+    echo '  <div class="name">'.$this->name.'</div>';
     echo ' </a>';
-    echo '  <div class="playerBoxXP">'.$this->xp.'</div>';
-    echo '  <div class="playerBoxQuote">"'.$this->sentence.'"</div>';
+    echo '  <div class="xp">'.$this->xp.' xp</div>';
+    echo '  <div class="quote">"'.$this->sentence.'"</div>';
     echo '</div>';
   }
   

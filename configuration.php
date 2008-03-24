@@ -25,6 +25,11 @@
 $STENDHAL_VERSION='0.67';
 
 #
+# Location of the statistics file of Stendhal server.
+#
+define('STENDHAL_SERVER_STATS_XML','server_stats.xml');
+
+#
 # Website database to store news, events and other useful stuff.
 #
 define('STENDHAL_WEB_HOSTNAME','127.0.0.1');

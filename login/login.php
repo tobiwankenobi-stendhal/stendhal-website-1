@@ -55,7 +55,10 @@ if(isset($_POST['sublogin'])){
 } else {
 startBox("Login");
 ?>
-
+<div class="bubble">
+  Remember not to disclose your username or password to anyone, not even friends or administrators.<br>
+  Check that this webpage URL matchs your game server name.
+</div>
 <form action="" method="post">
 <table>
   <tr><td>Username:</td><td><input type="text" name="user" maxlength="30"></td></tr>
