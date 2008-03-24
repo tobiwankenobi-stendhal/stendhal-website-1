@@ -1,0 +1,9 @@
+.bubble {
+	background-color: yellow;
+	color: black;
+	border: 1px solid black;
+	font-family: arial;
+	font-size: 10px;
+	padding: 3px;
+	margin: 6px;
+}

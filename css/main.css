@@ -1,0 +1,193 @@
+body {
+	margin: 0;
+	padding: 0;
+	/* 
+	 * TODO: Replace with an smaller image. 
+	 * 95KB is too much for a background. 
+	 */
+	background-image: url("../images/background_small.jpg");
+	/* must do this to center body as IE doesnt like auto margin on body */
+	text-align: center;
+	font-family: Geneva, Tahoma, Arial, Helvetica, Sans-serif;
+	font-size: 12pt;
+}
+
+#container {
+	width: 970px;
+	margin: 5px auto 5px auto;
+	border: 4px solid black;
+	/* As background overflow header it needs to be placed here for best effect. */
+	background-image: url("../images/header_background.jpg");
+	background-position: top center;
+	background-repeat: repeat-x;
+}
+
+#header {
+	margin: 0;
+	text-align: left;
+	padding: 20px 0 20px 20px;
+}
+
+/* Account system links on top-right area */
+#account {
+	margin: 0;
+	padding: 4px;
+	position: relative;
+	float: right;
+	top: -105px;
+	width: 340px;
+	font-family: Optima, Arial, sans;
+	font-size: 75%;
+	text-align: right;
+	color: white;
+}
+
+#account a {
+	color: white;
+	text-decoration: none;
+}
+
+#account a:hover {
+	color: blue;
+}
+
+/* Top horizontal menu */
+#topMenu {
+	height: 85px;
+	margin: 0 190px 4px 190px;
+	background-image: url("../images/menu.gif");
+	background-repeat: no-repeat;
+}
+
+#topMenu ul {
+	text-align: center;
+	padding: 45px 0 2px 0;
+	margin: 0 10% 0 10%;
+}
+
+#topMenu li {
+	list-style: none;
+	text-align: center;
+	display: inline;
+	padding: 3px;
+	margin: 0 3px 2px 0;
+}
+
+#topMenu img {
+	border: 0;
+}
+
+/* LEFT PANE */
+#leftArea {
+	width: 180px;
+	margin: -80px 3px 0 0;
+	position: relative;
+	float: left;
+	text-align: left;
+}
+
+img.screenshot {
+	text-decoration: none;
+	border: 1px solid black;
+}
+
+#menu {
+	list-style-type: none;
+	font-size: 13px;
+}
+
+#menu li {
+	width: 135px;
+	height: 25px;
+	margin: 3px 0 0 -30px;
+	padding: 0 0 3px 0;
+	border-bottom: 1px solid black;
+}
+
+#menu a {
+	text-decoration: none;
+	color: black;
+}
+
+#menu a:hover {
+	text-decoration: underline;
+	color: blue;
+}
+
+#menu img {
+	border: 0;
+	margin: 0 6px -6px -3px;
+}
+
+/* RIGHT PANE */
+#rightArea { /*border: 1px solid red;*/
+	width: 180px;
+	margin: -80px 0 0 3px;
+	position: relative;
+	float: right;
+	text-align: left;
+}
+
+/* big buttons */
+#playArea,#downloadArea {
+	width: 170px;
+	height: 42px;
+	margin: 4px;
+	border: 2px black solid;
+}
+
+#playArea {
+	background-image: url("../images/playbutton.png");
+}
+
+#downloadArea {
+	background-image: url("../images/downloadbutton.png");
+}
+
+/* content area */
+#contentArea {
+	text-align: left;
+	margin: 0px 190px 0 190px;
+}
+
+#footerArea {
+	border-top: 2px black dotted;
+	padding-top: 8px;
+	text-align: right;
+	font-size: 60%;
+	margin: 16px 0 0 0;
+	clear: both;
+}
+
+.copyright {
+	display: block;
+	text-align: left;
+	position: relative;
+	top: 40px;
+	left: 2px;
+}
+
+.copyright a {
+	text-decoration: none;
+	color: black;
+}
+
+#eXTReMe {
+	display: inline;
+}
+
+.author {
+	position: fixed;
+	bottom: 2px;
+	right: 2px;
+}
+
+.author a {
+	text-decoration: none;
+	color: white;
+	font-size: 10px;
+}
+
+.author img {
+	border: 0;
+}
