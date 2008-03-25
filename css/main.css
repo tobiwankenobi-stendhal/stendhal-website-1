@@ -1,11 +1,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	/* 
-	 * TODO: Replace with an smaller image. 
-	 * 95KB is too much for a background. 
-	 */
-	background-image: url("../images/background_small.jpg");
+	background-image: url("../images/background.png");
 	/* must do this to center body as IE doesnt like auto margin on body */
 	text-align: center;
 	font-family: Geneva, Tahoma, Arial, Helvetica, Sans-serif;
