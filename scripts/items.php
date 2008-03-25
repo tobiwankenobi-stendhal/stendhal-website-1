@@ -131,7 +131,7 @@ function getItems() {
   /*
    * Sort it alphabetically.
    */
-  usort($list, compare);
+  usort($list, 'compare');
   
   Item::$items=$list;
   return $list;
