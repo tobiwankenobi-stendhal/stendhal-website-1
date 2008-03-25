@@ -23,9 +23,24 @@
 $authors= array(
   "miguel" => "08130401",
   "kymara" => "23071707",
-  "dontbugme" => "00000101",
+  "durkham" => "00000101",
   "hendrik" => "06129901",
   "tigertoes" => "36115012",
+  "bleutailfly" => "24154407", 
+  "kiheru" => "9071101",
+  "Teiv" => "21033211",
+  "danter" => "12109901",
+  "dine" => "3011407",
+  "mort" => "08071105",
+  "berserkerA3" => "05010301",
+  "chad3f" => "08090201",
+  "kawn" => "120101",
+  "seather" => "14101101",
+  "steve" => "08090101",
+  "martinf" => "29130501",
+  "timothyb89" => "000301",
+  "sshk5" => "08071401",
+  "johnnnny" => "32071101",
 /* Keep adding them */
 );
 
