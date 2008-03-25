@@ -37,7 +37,12 @@
  /*
  * This file is the PHP code that generate each of the website sections. 
  */
-include('configuration.php'); 
+if(file_exists('configuration.php')) {
+  include('configuration.php'); 	
+} else {
+  include('configuration.default.php'); 
+}
+	
 include('scripts/mysql.php');
 include('scripts/xml.php');
 
