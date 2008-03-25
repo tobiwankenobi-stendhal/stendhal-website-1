@@ -24,7 +24,7 @@ startBox("Detailed statistics");
 <div class="variable">
   <div class="title">Bytes managed</div>
   <div class="table">
-    <div class="label">Recieved</div>
+    <div class="label">Received</div>
     <div class="data"><?php echo getVariable($xmlStats,"Bytes recv"); ?></div>
   </div>
   <div class="table">
@@ -36,7 +36,7 @@ startBox("Detailed statistics");
 <div class="variable">
   <div class="title">Messages managed</div>
   <div class="table">
-    <div class="label">Recieved</div>
+    <div class="label">Received</div>
     <div class="data"><?php echo getVariable($xmlStats,"Message recv"); ?></div>
   </div>
   <div class="table">
