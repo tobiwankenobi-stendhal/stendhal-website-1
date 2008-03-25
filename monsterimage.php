@@ -23,11 +23,22 @@ $size=getimagesize($url);
 $w=$size[0];
 $h=$size[1];
 
-/*
- * Images are tiles of 3x4 so we choose a single tile.
- */
-$w=$w/3;
-$h=$h/4;
+if(strpos($url,"/boss")!=false) {
+  /*
+   * Boss images are tiles of 1x2 so we choose a single tile.
+   */	
+  $w=$w;
+  $h=$h/2;	
+  $loc=0;
+} else {
+  /*
+   * Images are tiles of 3x4 so we choose a single tile.
+   */
+  $w=$w/3;
+  $h=$h/4;
+  
+  $loc=$h*2;
+}
 
 $result=imagecreate($w,$h);
 
@@ -35,7 +46,7 @@ $white=imagecolorallocate($result,255,255,255);
 imagefilledrectangle($result, 0,0,$w,$h,$white);
 
 $baseIm=imagecreatefrompng($url);
-imagecopy($result,$baseIm,0,0,0,$h*2,$w,$h);
+imagecopy($result,$baseIm,0,0,0,$loc,$w,$h);
 
 header("Content-type: image/png");
 imagepng($result);
