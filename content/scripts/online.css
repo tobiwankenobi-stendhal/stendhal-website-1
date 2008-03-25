@@ -1,6 +1,15 @@
-.onlinePlayer 
-  {
-  width: 80px;
-  height: 100px;
-  float: left;
-  }
+.onlinePlayer {
+	width: 80px;
+	height: 100px;
+	text-align: center;
+	float: left;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.onlinePlayer a {
+	text-decoration: none;
+	color: black;
+}

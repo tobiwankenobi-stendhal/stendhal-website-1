@@ -1,84 +1,135 @@
 <?php
+function printAge($minutes) {
+  return round($minutes/60,2);
+}
+
 $name=$_REQUEST["name"];
 $players=getPlayers('where name="'.addslashes($name).'"', 'name');
 
 if(sizeof($players)==0) {
-  die();
+  startBox("No such player");
+  ?>
+  There is no such player at Stendhal.<br>
+  Please make sure you spelled it correctly.
+  <?php
+  endBox();
+  return;
 }
 $choosen=$players[0];
 ?>
 
-  <?php startBox('Character info for '.$choosen->name); ?>
-    <div>
-    <div class="extendedplayerBoxImage">
-      <img src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
-    </div>
-    <div>
-      <div class="extendedplayerName"><b>Name:</b> <?php echo $choosen->name; ?></div>
-      <div><b>Level:</b> <?php echo $choosen->level; ?></div>
-      <div><b>XP:</b> <?php echo $choosen->xp; ?></div>
-      <div class="extendedplayerBoxQuote"><?php echo $choosen->sentence; ?></div>
-    </div>
-    </div>    
-  <?php endBox(); ?>
+<?php startBox('Character info for '.$choosen->name); ?>
+<div class="table">
+  <div class="title">Details</div>
+  <img class="bordered_image" src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+  <div class="statslabel">Name:</div><div class="data"><?php echo $choosen->name; ?></div>
+  <div class="statslabel">Age:</div><div class="data"><?php echo printAge($choosen->age); ?> hours</div>
+  <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
+  <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
+  <div class="sentence"><?php echo $choosen->sentence; ?></div> 
+</div>
 
-  <?php startBox('Account information');?>
-  <?php endBox(); ?>
+<div class="table">
+  <div class="title">Account information</div>
+  <?php
+  $account=$choosen->getAccountInfo();
+  ?>
+  <div class="register">Registered at <?php echo $account["register"]; ?></div>
+  <div class="account_status">
+    This account is <span class="<?php echo $account["status"]; ?>"><?php echo $account["status"]; ?></span>
+  </div> 
+</div>
+
+<div class="table">
+  <div class="title">Deaths</div>
+  <?php
+  $deaths=$choosen->getDeaths();
+  foreach($deaths as $date=>$source) {
+    if(existsMonster($source)) {
+      /*
+       * It was killed by a monster.
+       */
+      $monsters=getMonsters();
+      foreach($monsters as $monster) {
+        if($monster->name==$source) {
+          ?>
+          <div class="row">
+            <a href="?id=content/scripts/monster&name=<?php echo $monster->name; ?>&exact">
+            <img class="creature" src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
+            Killed by a <div style="display: inline;" class="label"><?php echo $monster->name; ?></div>
+            <div class="data">Happened at <?php echo $date; ?>.</div>
+            <div style="margin-bottom: 50px;"></div>
+            </a>
+          </div>
+          <?php
+        }
+      }
+    } else {
+      /*
+       * It was killed by a player.
+       */
+      ?>
+      <div class="row">
+        <a href="?id=content/scripts/character&name=<?php echo $source; ?>">
+        <?php
+        $killer=getPlayer($source);
+        ?>
+        <img class="creature" src="createoutfit.php?outfit=<?php echo $killer->outfit; ?>" alt="<?php echo $source; ?>"/>
+        Killed by <div style="display: inline;" class="label"><?php echo $source; ?></div>
+        <div class="data">Happened at <?php echo $date; ?>.</div>
+        <div style="margin-bottom: 50px;"></div>
+        </a>
+      </div>
+    <?php
+    }
+  }
+?>
+</div>
+  
+<div class="table">
+  <div class="title">Attributes and statistics</div>
 
   <?php 
-    startBox('Deaths');
-    $deaths=$choosen->getDeaths();
-    foreach($deaths as $date=>$source) {
-      if(existsMonster($source)) {
-        $source='<a class="creature" href="?id=content/scripts/monster&name='.$source.'">'.$source.'</a>';
-      } else {
-        $source='<a href="?id=content/scripts/character&name='.$source.'">'.$source.'</a>';
-      }
-      
-      echo '<div>Killed by '.$source.' at '.$date.'</div>';
-    }
+  foreach($choosen->attributes as $key=>$value) {  
+    $old = array("atk", "def", "hp", "karma");
+    $new = array("Attack Level", "Defense level", "Max health", "Karma");
+    $key = str_replace($old, $new, $key);
+    ?>
+    <div class="statslabel"><?php echo ucwords($key) ?>:</div>
+    <div class="data"><?php echo ucwords($value) ?></div>
+    <?php } ?>
+</div>
 
-  ?>
-  
-  <?php endBox(); ?>
-  
-  <?php startBox('Attributes and statistics');?>
-      <div class="extendedplayerStats">Statistics and attributes</div>
-      <?php foreach($choosen->attributes as $key=>$value) { ?>
-	<?php 
-	//replace text
-	$old = array("atk", "def", "hp", "karma");
-	$new = array("Attack Level", "defense level", "max health", "karma");
-	$key = str_replace($old, $new, $key);
-	
-	// "_" -> " "
-	$value = str_replace("_", " ", $value);
-	
-	//tada! 
-	?>
-        <div><span><b><?php echo ucwords($key) ?>:</b> </span><span><i><?php echo ucwords($value) ?></i></span></div>
-      <?php } ?>
-  <?php endBox(); ?>
-
-  <?php startBox('Equipment');?>
-      <div class="extendedplayerStats">Equipment</div>
-      <?php foreach($choosen->equipment as $key=>$value) { 
-              if($value!="null") {?>
-	<?php 
-	//replace text
+<div class="table">
+  <div class="title">Equipment</div>
+  <?php
+  foreach($choosen->equipment as $slot=>$content) { 
 	$old = array("head", "lhand", "rhand", "legs", "feet", "cloak", "finger");
 	$new = array("head", "left hand", "right hand", "legs", "feet", "cloak", "finger");
-	$key = str_replace($old, $new, $key);
-	
-	// "_" -> " "
-	$value = str_replace("_", " ", $value);
-	
-	//tada! 
-	?>
-
-                 <div><span><b><?php echo ucwords($key) ?>:</b> </span><span><i><?php echo ucwords($value) ?></i></span></div>
+	$slot = str_replace($old, $new, $slot);
+    ?>
+    <div class="row">
       <?php 
-                 }
-              } 
-       ?>
-  <?php endBox(); ?>
+      if($content!="") { ?>
+        <a href="?id=content/scripts/item&name=<?php echo $content; ?>&exact">
+        <img src="<?php echo getItem($content)->showImage(); ?>" alt="<?php echo ucfirst($content); ?>"/>
+        <div class="label"><?php echo ucwords($slot) ?></div>
+        <div class="data"><?php echo ucfirst($content); ?></div>
+        </a>
+        <?php 
+      } else {
+        ?>
+        <div class="emptybox"></div>
+        <div class="label"><?php echo ucwords($slot) ?></div>
+        <div class="data">Empty</div>
+        <?php
+      }
+    ?>
+    </div>
+    <?php 
+    } 
+   ?>
+</div>
+<?php
+endBox();
+?>

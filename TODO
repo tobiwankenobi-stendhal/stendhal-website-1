@@ -1,5 +1,4 @@
 * Remove Tables from webpage and use CSS.
 * Movies should be handled from database.
 * Refactor Events, Screenshots and movies as the database handling code is almost equal.
-* Create server stats entry.
 * Boss creatures doesn't render properly.

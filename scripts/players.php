@@ -28,8 +28,8 @@ class Player {
   public $level;
   /* An outfit representing the player look in game. */
   public $outfit;
-  /* The age of the player
-  public $age
+  /* The age of the player */
+  public $age;
   /* XP of the player. It is a special attribute. */
   public $xp;
   /* Attributes the player has as a array key=>value */
@@ -63,7 +63,7 @@ class Player {
   }
   
   function getDeaths() {       
-    $result = mysql_query('select timedate, source from gameEvents where datediff(now(),timedate)<=7*52 and event="killed" and param1="'.addslashes($this->name).'" limit 4', getGameDB());
+    $result = mysql_query('select timedate, source from gameEvents where datediff(now(),timedate)<=7*52 and event="killed" and param1="'.addslashes($this->name).'" order by timedate desc limit 4', getGameDB());
     $kills=array();
 
     while($row=mysql_fetch_assoc($result)) {      
@@ -72,7 +72,21 @@ class Player {
     
     mysql_free_result($result);
     return $kills;
-    }
+  }
+    
+  function getAccountInfo() {
+  	$result=mysql_query('select timedate,status from account where username="'.mysql_real_escape_string($this->name).'"',getGameDB());
+    $account=array();
+
+    $row=mysql_fetch_assoc($result);
+    
+    $account["register"]=$row["timedate"];
+    $account["status"]=$row["status"];
+    
+    mysql_free_result($result);
+    
+    return $account;
+  }
 }
   
 /**
@@ -80,6 +94,11 @@ class Player {
   */
 function getPlayers($where='', $sortby='name', $cond='limit 2') {
     return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+}
+
+function getPlayer($name) {
+    $player=_getPlayers('select * from character_stats where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
+    return $player[0];	
 }
 
 function getBestPlayer() {

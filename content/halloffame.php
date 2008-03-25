@@ -1,62 +1,75 @@
-<?php startBox("Best player"); 
+<?php 
+
+define('TOTAL_HOF_PLAYERS',10);
+
+startBox("Best player"); 
   $choosen=getBestPlayer();
  ?>
-    <div class="hofBest">
-    <img src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
-    <div>
-      <div class="bestName"><?php echo $choosen->name; ?></div>
-      <div class="bestLevel">Level: <?php echo $choosen->level; ?></div>
-      <div class="bestXP">XP: <?php echo $choosen->xp; ?></div>
-      <div class="bestSentence"><?php echo $choosen->sentence; ?></div>
-    </div>
-    </div>    
-<?php endBox(); ?>
+  <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
+  <div class="best">
+    <a href="?id=content/scripts/character&name=<?php echo $choosen->name; ?>">
+    <div class="statslabel">Name:</div><div class="data"><?php echo $choosen->name; ?></div>
+    <div class="statslabel">Age:</div><div class="data"><?php echo printAge($choosen->age); ?> hours</div>
+    <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
+    <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
+    <div class="sentence"><?php echo $choosen->sentence; ?></div>
+    </a>
+  </div> 
+  <img class="bordered_image" src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+ <?php endBox(); ?>
 
 
 <div style="float: left; width: 34%">
 <?php
 
-startBox("Strongest players");
-$players= getPlayers('','xp desc', 'limit 10');
+function renderListOfPlayers($list, $f, $postfix='') {
+  $i=1;
+  foreach($list as $player) {
+    ?>
+    <div class="row">
+      <div class="position"><?php echo $i; ?></div>
+      <a href="?id=content/scripts/character&name=<?php echo $player->name; ?>">
+      <img class="small_image" src="createoutfit.php?outfit=<?php echo $player->outfit; ?>" alt="Player outfit"/>
+      <div class="label"><?php echo $player->name; ?></div>
+      <?php
+      $var=$f($player);
+      ?>
+      <div class="data"><?php echo $var.$postfix; ?></div>    
+      </a>
+      <div style="clear: left;"></div>
+    </div>
 
-$i=1;
-foreach($players as $player) {
-  echo '<div class="hofLine">';  
-  echo '<div class="hofPosition">'.$i.'</div>';
-  echo '<div class="hofPlayer">';
-  echo '<a href="?id=content/scripts/character&name='.$player->name.'">';
-  echo ' <div class="hofOutfit"><img src="createoutfit.php?outfit='.$player->outfit.'" alt="outfit"/></div>';
-  echo ' <div class="hofName">'.$player->name.'</div>';
-  echo '</a>';
-  echo ' <div class="hofVariable">Level: '.$player->level.'</div>';
-  echo '</div>';
-  echo '</div>';
-  $i++;  
+    <?php
+    $i++;  
+  }	
 }
+
+function getXP($player) {
+  return $player->xp;
+}
+
+startBox("Strongest players");
+  ?>
+  <div class="bubble">Based on the amount of XP</div>
+  <?php
+  $players= getPlayers('','xp desc', 'limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, getXP, " xp");
 endBox();
 
 ?>
 </div>
 <div style="float: left; width: 33%">
 <?php
+function getWealth($player) {
+  return $player->money;
+}
 
 startBox("Richest players");
-$players= getPlayers('','money desc', 'limit 10');
-
-$i=1;
-foreach($players as $player) {
-  echo '<div class="hofLine">';  
-  echo '<div class="hofPosition">'.$i.'</div>';
-  echo '<div class="hofPlayer">';
-  echo '<a href="?id=content/scripts/character&name='.$player->name.'">';
-  echo ' <div class="hofOutfit"><img src="createoutfit.php?outfit='.$player->outfit.'" alt="outfit"/></div>';
-  echo ' <div class="hofName">'.$player->name.'</div>';
-  echo '</a>';
-  echo ' <div class="hofVariable">Money: '.$player->money.'</div>';
-  echo '</div>';
-  echo '</div>';
-  $i++;  
-}
+  ?>
+  <div class="bubble">Based on the amount of money</div>
+  <?php
+  $players= getPlayers('','money desc', 'limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, getWealth, ' coins');
 endBox();
 
 ?>
@@ -64,27 +77,20 @@ endBox();
 <div style="float: left; width: 33%">
 <?php
 
-startBox("Oldest players");
-$players= getPlayers('','age desc', 'limit 10');
-
-$i=1;
-foreach($players as $player) {
-  echo '<div class="hofLine">';  
-  echo '<div class="hofPosition">'.$i.'</div>';
-  echo '<div class="hofPlayer">';
-  echo '<a href="?id=content/scripts/character&name='.$player->name.'">';
-  echo ' <div class="hofOutfit"><img src="createoutfit.php?outfit='.$player->outfit.'" alt="outfit"/></div>';
-  echo ' <div class="hofName">'.$player->name.'</div>';
-  echo '</a>';
-  echo ' <div class="hofVariable">Age: <small>'.printAge($player->age).'</small></div>';
-  echo '</div>';
-  echo '</div>';
-  $i++;  
-}
+startBox("Eldest players");
+  ?>
+  <div class="bubble">Based on the age in hours</div>
+  <?php
+  $players= getPlayers('','age desc', 'limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, getAge, ' hours');
 endBox();
 
+function getAge($player) {
+  return round($player->age/60,2);
+}
+
 function printAge($minutes) {
-  $h=$minutes/60;
+  $h=$minu;
   $m=$minutes%60;
   
   return round($h).':'.round($m);

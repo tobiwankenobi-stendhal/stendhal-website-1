@@ -16,7 +16,6 @@ form {
 
 a.item {
 	text-decoration: none;
-	color: black;
 }
 
 .title {
@@ -36,6 +35,7 @@ a.item {
 
 .item_name {
 	font-size: 12px;
+	font-weight: bolder;
 }
 
 .item_description {

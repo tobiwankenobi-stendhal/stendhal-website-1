@@ -193,6 +193,18 @@ if(isset($_REQUEST["id"]))
         ?>
         
         <?php 
+          startBox('Who is');
+          ?>
+          <form method="get" action="">
+            <input type="hidden" name="id" value="content/scripts/character">
+            <input type="text" name="name" maxlength="32">
+            <input type="submit" name="search" value="Search">
+          </form>
+          <?php
+          endBox(); 
+        ?>
+        
+        <?php 
         /*
          * Show the admin menu only if player is really an admin.
          * Admins are designed using the stendhal standard way.
