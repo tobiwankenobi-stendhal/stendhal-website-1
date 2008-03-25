@@ -45,6 +45,8 @@ minute game data.
 
 ### Configuring
 
+First of all copy configuration.default.php to configuration.php
+
 ###### MySQL
 
 You will need to edit configuration.php with the username, pw and db name of the 
