@@ -239,11 +239,30 @@ if(isset($_REQUEST["id"]))
       
       <div id="contentArea">
         <?php
-        /*
-         * The central area of the website.
-         * We append .php so that we avoid easy hacks on this.
-         */ 
-        include($page_url.".php");  
+        $cache=new Cache(array(
+            'login',
+            '/online',
+            '/admin',
+          ));
+        
+        $isCached=false;
+        
+        if(STENDHAL_CACHE_ENABLED) {
+          $isCached=$cache->start($page_url);
+        }
+        
+        if(!$isCached) {
+          /*
+           * The central area of the website.
+           * We append .php so that we avoid easy hacks on this.
+           */ 
+          include($page_url.".php");
+        } else {
+		  ?>
+		  <div class="notice">Using a cached webpage.</div>
+		  <?php        	
+        }
+        $cache->end();          
         ?>
       </div>
       

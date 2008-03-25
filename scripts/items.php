@@ -125,6 +125,14 @@ function getItems() {
 	}
   }
   
+  function compare($a, $b) {
+    return strcmp($a->name,$b->name);
+  }
+  /*
+   * Sort it alphabetically.
+   */
+  usort($list, compare);
+  
   Item::$items=$list;
   return $list;
 }

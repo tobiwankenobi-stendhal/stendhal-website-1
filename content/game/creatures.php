@@ -20,7 +20,7 @@
 $monsters=getMonsters();
 $classes=Monster::getClasses();
 ?>
-
+<div>
 <div style="float: left; width: 50%"><?php
 startBox('Most killed');
 $result=getMostKilledMonster($monsters);
@@ -81,4 +81,7 @@ foreach($monsters as $m) {
 <?php
 
 endBox();
-?></div>
+?>
+</div>
+<div style="clear: left;"></div>
+</div>

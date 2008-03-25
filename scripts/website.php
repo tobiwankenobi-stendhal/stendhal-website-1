@@ -37,12 +37,6 @@
  /*
  * This file is the PHP code that generate each of the website sections. 
  */
-if(file_exists('configuration.php')) {
-  include('configuration.php'); 	
-} else {
-  include('configuration.default.php'); 
-}
-	
 include('scripts/mysql.php');
 include('scripts/xml.php');
 
@@ -63,5 +57,6 @@ include('scripts/players.php');
 include('scripts/monsters.php');
 include('scripts/items.php');
 include('scripts/statistics.php');
+include('scripts/cache.php');
 
 ?>

@@ -1,4 +1,6 @@
-* Remove Tables from webpage and use CSS.
+* Remove Tables from webpage and use CSS (only a few missing)
+* Clean HTML code a bit, some parts can render in a simpler way.
 * Movies should be handled from database.
 * Refactor Events, Screenshots and movies as the database handling code is almost equal.
-* Boss creatures doesn't render properly.
+* The Top Menu is failing for IE 6 and 7.
+

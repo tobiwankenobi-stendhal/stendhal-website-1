@@ -19,10 +19,9 @@
 
 
 if(file_exists('configuration.php')) {
-  include_once('configuration.php'); 	
-} else {
-  include_once('configuration.default.php'); 
+  include('configuration.php'); 	
 }
+include('configuration.default.php'); 
 
 $websitedb=-1;
 $gamedb=-1;

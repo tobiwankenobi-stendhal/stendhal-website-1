@@ -1,15 +1,15 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008  Miguel Angel Blanch Lardin
+ Copyright (C 2008  Miguel Angel Blanch Lardin
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+ (at your option any later version.
 
  This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
+ but WITHOUT ANY WARRANTY); without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU Affero General Public License for more details.
 
@@ -22,7 +22,7 @@
 #
 # Please change to match your system configuration.
 #
-$STENDHAL_VERSION='0.67';
+define('STENDHAL_VERSION','0.67');
 
 #
 # Location of the statistics file of Stendhal server.
@@ -30,23 +30,31 @@ $STENDHAL_VERSION='0.67';
 define('STENDHAL_SERVER_STATS_XML','server_stats.xml');
 
 #
+# Define how to handle the cache.
+# If you are not sure don't change these.
+#
+define('STENDHAL_CACHE_ENABLED',false);
+define('STENDHAL_PATH_TO_CACHE','tmp/');
+define('STENDHAL_CACHE_TIMEOUT',3600);
+
+#
 # Website database to store news, events and other useful stuff.
 #
 define('STENDHAL_WEB_HOSTNAME','127.0.0.1');
-define('STENDHAL_WEB_USERNAME','FOO');
-define('STENDHAL_WEB_PASSWORD','BAR');
+define('STENDHAL_WEB_USERNAME','username');
+define('STENDHAL_WEB_PASSWORD','password');
 define('STENDHAL_WEB_DB','stendhal_website');
 
 #
 # This user should only be able to read the tables but the account table that should be read/write
 # in order for change password to work.
 #
-#  grant read on stendhal.* to FOO@localhost identified by 'BAR';
-#  grant write on stendhal.account to FOO@localhost identified by 'BAR';
+#  grant read on stendhal.* to FOO@localhost identified by 'BAR');
+#  grant write on stendhal.account to FOO@localhost identified by 'BAR');
 #
 define('STENDHAL_GAME_HOSTNAME','127.0.0.1');
-define('STENDHAL_GAME_USERNAME','FOO');
-define('STENDHAL_GAME_PASSWORD','BAR');
+define('STENDHAL_GAME_USERNAME','username');
+define('STENDHAL_GAME_PASSWORD','password');
 define('STENDHAL_GAME_DB','stendhal');
 
 ?>

@@ -2,6 +2,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background-image: url("../images/background.png");
+
 	/* must do this to center body as IE doesnt like auto margin on body */
 	text-align: center;
 	font-family: Geneva, Tahoma, Arial, Helvetica, Sans-serif;
@@ -12,6 +13,7 @@ body {
 	width: 970px;
 	margin: 5px auto 5px auto;
 	border: 4px solid black;
+	
 	/* As background overflow header it needs to be placed here for best effect. */
 	background-image: url("../images/header_background.jpg");
 	background-position: top center;
@@ -187,3 +189,13 @@ img.screenshot {
 .author img {
 	border: 0;
 }
+
+.notice {
+	margin: 4px;
+	border: 1px solid black;
+	background: #fbf186;
+	font-size: 9px;
+	text-align: center;
+}
+
+
