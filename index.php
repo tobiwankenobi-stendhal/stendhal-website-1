@@ -145,7 +145,7 @@ if(isset($_REQUEST["id"]))
           <ul id="menu">
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
-            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalAtlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
+            <li><a href="?id=content/game/atlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
@@ -167,18 +167,19 @@ if(isset($_REQUEST["id"]))
           $stats=getServerStats();
           if(!$stats->isOnline()) {
             ?>
-            <div class="status">Server is offline</div>
+            <div class="status"><a href="?id=content/offline">Server is offline</a></div>
             <?php
-          }
-          ?>
-          <a href="?id=content/scripts/online">
-            <div class="stats"><?php echo getAmountOfPlayersOnline(); ?></div> players online.
-          </a>
-          <div class="small_notice">
-            <a href="?id=content/scripts/serverstats">[Detailed stats]</a><br>
-            <a href="?id=content/scripts/killedstats">[Killed stats]</a>
-          </div>
+          } else {
+            ?>
+            <a href="?id=content/scripts/online">
+              <div class="stats"><?php echo getAmountOfPlayersOnline(); ?></div> players online.
+            </a>
+            <div class="small_notice">
+              <a href="?id=content/scripts/serverstats">[Detailed stats]</a><br>
+              <a href="?id=content/scripts/killedstats">[Killed stats]</a>
+            </div>
           <?php
+          }
           endBox(); 
         ?>
 
@@ -193,7 +194,7 @@ if(isset($_REQUEST["id"]))
         ?>
         
         <?php 
-          startBox('Who is');
+          startBox('Who is...');
           ?>
           <form method="get" action="">
             <input type="hidden" name="id" value="content/scripts/character">

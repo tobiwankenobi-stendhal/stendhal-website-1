@@ -3,5 +3,8 @@
 * Movies should be handled from database.
 * Refactor Events, Screenshots and movies as the database handling code is almost equal.
 * The Top Menu is failing for IE 6 and 7.
-* Queries to get kills and player kills are bogus.
+* Automate creation of world map and split scaled up parts of the world map.
+  * Alternatively develop using Google earth or similar something to browse the world map.
+* Create a script that shows a part of the world map in a good scale given x,y and level position.
+  It would be really useful for events.
 

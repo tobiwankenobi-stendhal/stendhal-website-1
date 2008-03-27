@@ -1,6 +1,12 @@
 .status {
 	padding: 4px;
 	color: red;
+	background: url('../images/questionmark.png') no-repeat;
+	padding-left: 26px;
+}
+
+.status a {
+	color: red;
 }
 
 .stats {
