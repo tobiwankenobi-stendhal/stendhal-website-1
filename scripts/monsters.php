@@ -69,6 +69,9 @@ class Monster {
   function fillKillKilledData() {       
     $numberOfDays=14;
     
+    /*
+     * Amount of times this creature has been killed by a player or another creature.
+     */
     $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and param1="'.addslashes($this->name).'" group by dayofyear(timedate)', getGameDB());
 
     $this->kills=array();
@@ -84,7 +87,10 @@ class Monster {
     
     mysql_free_result($result);
 
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and source="'.addslashes($this->name).'" group by dayofyear(timedate)', getGameDB());
+    /*
+     * Amount of times this creature has killed a player.
+     */
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and source="'.addslashes($this->name).'" and param1 not in ('.listOfMonsters(getMonsters()).') group by dayofyear(timedate)', getGameDB());
 
     $this->killed=array();
     
