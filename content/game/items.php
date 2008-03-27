@@ -20,35 +20,57 @@
 $items=getItems();
 $classes=Item::getClasses();
 
-startBox('Items');
-?>
-<form method="get" action="">
-  <input type="hidden" name="id" value="content/scripts/item">
-  <input type="text" name="name" maxlength="60">
-  <input type="submit" name="sublogin" value="Search">
-</form>
-<?php
-foreach($classes as $class=>$zero) {
+
+if(!isset($_GET['class'])) {
+  startBox('Items classes');
   ?>
-  <div style="float: left; width: 100%;">
-  <div class="title"><?php echo ucfirst($class); ?></div>
+  <form method="get" action="">
+    <input type="hidden" name="id" value="content/scripts/item">
+    <input type="text" name="name" maxlength="60">
+    <input type="submit" name="sublogin" value="Search">
+  </form>
+  <div style="margin-bottom: 10px;">
+    <?php echo sizeof($items); ?> items so far.
+  </div>
   <?php
+  foreach($classes as $class=>$zero) {
+    foreach($items as $item) {
+   	  if($item->class==$class) {
+   	    $choosen=$item;   	      
+   	  }
+    }
+	?>
+    <div class="f3cols">
+      <a href="?id=content/game/items&class=<?php echo $class; ?>">
+        <img src="<?php echo $choosen->gfx; ?>"/><br>
+        <?php echo ucfirst($class); ?>
+      <a>
+    </div>
+    <?php
+  }  
+  ?>
+  <div style="clear: left;"></div>
+  <?php
+  endBox();
+  return;
+}
+
+?>
+<?php
+//foreach($classes as $class=>$zero) {
+$class=$_GET['class'];
+startBox(ucfirst($class).' Items');
   foreach($items as $item) {
 	if($item->class==$class) {
 	  ?>
   	  <div class="item">
-        <a class="item" href="?id=content/scripts/item&name=<?php echo $item->name; ?>&exact">
+        <a class="item" href="?id=content/scripts/item&name=<?php echo $item->name; ?>&exact">        
  	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt="<?php echo $item->name; ?>"/>
 	      <div class="item_name"><?php echo $item->name; ?></div>
 	    </a>
 	  </div>
 	  <?php
 	}
-  }
-  ?>
-  <div style="clear: left;"></div>
-  </div>
-  <?php
   }
   ?>
   <div style="clear: left;"></div>

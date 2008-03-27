@@ -17,8 +17,48 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * There is a Quest that request the player to identify a fish.
+ * So to avoid revealing the quest the fish image is replaced 
+ * with a generic one.
+ *
+ * @param string $resource
+ */
+function hideFishes($resource) {
+  $shouldHide=false;
+  
+  $listOfFishes=array(
+    '/arctic_char.png',
+    '/clown-fish.png',
+    '/cod.png',
+    '/mackerel.png',
+    '/perch.png',
+    '/roach.png',
+    '/surgeonfish.png',
+    '/trout.png',
+  );
+
+  foreach($listOfFishes as $fish) {
+    if(!(strpos($resource,$fish)===false)) {
+      $shouldHide=true;
+      break;
+    }
+  }
+  
+  $result=$resource;
+  if($shouldHide) {
+    $result="images/game/generic_fish.png";
+  }
+  
+  return $result;
+}
 
 $url = $_GET['url'];
+
+/*
+ * We want to hide the fishes so we don't spoil the fisherman quest.
+ */
+$url = hideFishes($url);
 
 $result=imagecreate(32,32);
 

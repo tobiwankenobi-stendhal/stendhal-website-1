@@ -3,4 +3,5 @@
 * Movies should be handled from database.
 * Refactor Events, Screenshots and movies as the database handling code is almost equal.
 * The Top Menu is failing for IE 6 and 7.
+* Queries to get kills and player kills are bogus.
 

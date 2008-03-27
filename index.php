@@ -287,7 +287,7 @@ if(isset($_REQUEST["id"]))
          */
         $name=array_rand($authors);
         ?>
-        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo $authors[$name]; ?>" alt="<?php echo $name; ?>"/><br><?php echo ucfirst($name); ?></a>
+        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo $authors[$name]; ?>" alt="<?php echo $name; ?>"/><br><?php echo $name; ?></a>
       </div>
     </div>
   </body>

@@ -66,6 +66,9 @@ startBox('Creatures');
   <input type="text" name="name" maxlength="60">
   <input type="submit" name="sublogin" value="Search">
 </form>
+<div>
+  <?php echo sizeof($monsters); ?> creatures so far.
+</div>
 
 <?php 
 foreach($monsters as $m) {

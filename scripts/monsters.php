@@ -157,12 +157,8 @@ function getBestKillerMonster($monsters) {
     $result = mysql_query($query, getGameDB());
    
     $monster=null;
-    while($row=mysql_fetch_assoc($result)) {      
-      foreach($monsters as $m) {
-        if($m->name==$row['source']) {
-          $monster=array($m, $row['amount']);        
-        }
-      }
+    while($row=mysql_fetch_assoc($result)) {   
+      $monster=array(getMonster($row['source']), $row['amount']);        
     }
     
     mysql_free_result($result);
@@ -215,13 +211,7 @@ function getMonsters() {
     $xp=$creatures[$i]['experience']['0 attr']['value'];
     
     $drops=array();
-    /*
-    <drops>
-      <item value="meat" quantity="[1,3]" probability="60.0"/>
-      <item value="ham" quantity="[1,2]" probability="30.0"/>
-      <item value="antidote" quantity="[1,1]" probability="5.0"/>
-    </drops>
-     */
+
     foreach($creatures[$i]['drops'][0]['item'] as $drop) {
     	if(is_array($drop)) {
     		$drops[]=array("name"=>$drop['value'],"quantity"=>$drop['quantity'], "probability"=>$drop['probability']);
