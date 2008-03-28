@@ -53,7 +53,7 @@ startBox("Strongest players");
   <div class="bubble">Based on the amount of XP</div>
   <?php
   $players= getPlayers('','xp desc', 'limit '.TOTAL_HOF_PLAYERS);
-  renderListOfPlayers($players, getXP, " xp");
+  renderListOfPlayers($players, 'getXP', " xp");
 endBox();
 
 ?>
@@ -69,7 +69,7 @@ startBox("Richest players");
   <div class="bubble">Based on the amount of money</div>
   <?php
   $players= getPlayers('','money desc', 'limit '.TOTAL_HOF_PLAYERS);
-  renderListOfPlayers($players, getWealth, ' coins');
+  renderListOfPlayers($players, 'getWealth', ' coins');
 endBox();
 
 ?>
@@ -82,7 +82,7 @@ startBox("Eldest players");
   <div class="bubble">Based on the age in hours</div>
   <?php
   $players= getPlayers('','age desc', 'limit '.TOTAL_HOF_PLAYERS);
-  renderListOfPlayers($players, getAge, ' hours');
+  renderListOfPlayers($players, 'getAge', ' hours');
 endBox();
 
 function getAge($player) {
@@ -90,7 +90,7 @@ function getAge($player) {
 }
 
 function printAge($minutes) {
-  $h=$minu;
+  $h=$minutes;
   $m=$minutes%60;
   
   return round($h).':'.round($m);
