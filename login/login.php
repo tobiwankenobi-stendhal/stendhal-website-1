@@ -16,7 +16,10 @@ if(isset($_POST['sublogin'])){
    /* Spruce up username, check length */
    $_POST['user'] = trim($_POST['user']);
    if(strlen($_POST['user']) > 30){
-      die("Sorry, the username is longer than 30 characters, please shorten it.");
+     startBox("Login failed");
+     echo "Sorry, the username is longer than 30 characters, please shorten it.";
+     endBox();
+     return;
    }
 
    /* Checks that username is in database and password is correct */
@@ -24,12 +27,12 @@ if(isset($_POST['sublogin'])){
    $result = confirmUser($_POST['user'], $md5pass);
 
    /* Check error codes */
-   if($result == 1){
-      die('That username doesn\'t exist in our database.');
-   }
-   else if($result == 2){
-      die('Incorrect password, please try again.');
-   }
+   if($result != 0){
+     startBox("Login failed");
+     echo "Sorry. You mispelled either username or password.<br>Make sure you have an account at Stendhal.";
+     endBox();
+     return;
+     }
 
    /* Username and password correct, register session variables */
    $_POST['user'] = stripslashes($_POST['user']);
