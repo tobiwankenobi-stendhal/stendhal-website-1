@@ -28,10 +28,7 @@ if(isset($_POST['sublogin'])){
    $result = confirmUser($username, $md5pass);
 
    /* Check error codes */
-   if($result == 1){
-      die('That username doesn\'t exist in our database.');
-   }
-   else if($result == 2){
+   if($result != 0){
       die('Incorrect password, please try again.');
    }
    
@@ -39,8 +36,6 @@ if(isset($_POST['sublogin'])){
       die('Password incorrectly typed.');
    }
 
-   $conn=getGameDB();   
-   
    /* Add slashes if necessary (for query) */
    if(!get_magic_quotes_gpc()) {
 	$username = addslashes($_SESSION['username']);
@@ -49,7 +44,11 @@ if(isset($_POST['sublogin'])){
    /* Verify that user is in database */
    $md5newpass = strtoupper(md5($_POST['newpass']));
    $q = "update account set password='$md5newpass' where username = '$username'";
-   $result = mysql_query($q,$conn);
+   $result = mysql_query($q,getGameDB());
+   
+   if(mysql_affected_rows()!=1) {
+     die('Problem updating database');
+   }
 
    /* Username and password correct, register session variables */
    $_POST['user'] = stripslashes($username);
