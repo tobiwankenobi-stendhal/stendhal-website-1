@@ -274,7 +274,7 @@ if(isset($_REQUEST["id"]))
          */
         $mtime = explode(' ', microtime());
         $totaltime = $mtime[0] + $mtime[1] - $starttime;
-        printf(' (Page loaded in %.3f seconds.)', $totaltime);
+        printf(' (Page generated in %.3f seconds.)', $totaltime);
         ?>
         <span class="copyright">&copy; 1999-2008 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
         <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
