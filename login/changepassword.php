@@ -19,7 +19,7 @@ if(isset($_POST['sublogin'])){
    }
    /* Spruce up username, check length */
    $username = trim($_SESSION['username']);
-   if(strlen($_POST['user']) > 30){
+   if(strlen($username) > 30){
       die("Sorry, the username is longer than 30 characters, please shorten it.");
    }
 
@@ -52,8 +52,8 @@ if(isset($_POST['sublogin'])){
    $result = mysql_query($q,$conn);
 
    /* Username and password correct, register session variables */
-   $_POST['user'] = stripslashes($_POST['user']);
-   $_SESSION['username'] = $_POST['user'];
+   $_POST['user'] = stripslashes($username);
+   $_SESSION['username'] = $username;
    $_SESSION['password'] = $md5newpass;
   
    echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
