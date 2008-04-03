@@ -57,7 +57,7 @@ if(isset($_POST['sublogin'])){
   
    echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
    startBox("Login");
-     echo '<h1>Change password correct.</h1> Moving to main page.';
+     echo '<h1>Your password has been changed successfully.</h1> <h4>Remember to update and re-save any login profile you may have stored.</h4> Moving to main page.';
    endBox();
 } else {
 startBox("Change password");
