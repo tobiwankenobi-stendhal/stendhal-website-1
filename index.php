@@ -225,6 +225,7 @@ if(isset($_REQUEST["id"]))
 
        <?php startBox('Collaborate'); ?>
         <ul  id="menu">
+          <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png">Testing</a></li>
           <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringAtlas"><img src="images/buttons/atlas_button.png">Maps</a></li>
           <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRPProposal"><img src="images/buttons/rpsystem_button.png">RP System</a></li>
           <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringQuests"><img src="images/buttons/quests_button.png">Quests</a></li>
