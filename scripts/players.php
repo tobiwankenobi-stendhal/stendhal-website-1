@@ -63,6 +63,14 @@ class Player {
   }
   
   function getDeaths() {       
+    ##
+    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
+    ## 
+    return array();
+    ##
+    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
+    ##
+     
     $result = mysql_query('select timedate, source from gameEvents where datediff(now(),timedate)<=7*52 and event="killed" and param1="'.addslashes($this->name).'" order by timedate desc limit 4', getGameDB());
     $kills=array();
 
