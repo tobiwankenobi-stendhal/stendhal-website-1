@@ -47,7 +47,7 @@ startBox("Detailed statistics");
 
 <div class="variable">
   <div class="title">Players handled</div>
-  <?
+  <?php
   $list=array("login","invalid login","logout","timeout");
   
   foreach($list as $action) {
@@ -67,7 +67,7 @@ startBox("Detailed statistics");
     <div class="label">Total</div>
     <div class="data"><?php echo getVariable($xmlStats,"Actions added"); ?></div>
   </div>
-  <?
+  <?php
   $list=array("move","chat","attack","inspect","who","where");
   
   foreach($list as $action) {
