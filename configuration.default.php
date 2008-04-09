@@ -57,4 +57,9 @@ define('STENDHAL_GAME_USERNAME','username');
 define('STENDHAL_GAME_PASSWORD','password');
 define('STENDHAL_GAME_DB','stendhal');
 
+#
+# DEVEL switch
+#
+define('STENDHAL_PLEASE_MAKE_IT_FAST',true);
+
 ?>

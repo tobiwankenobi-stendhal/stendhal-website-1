@@ -84,12 +84,14 @@ class Monster {
     ##
     ## HACK: I am here to present fake data until queries are optimizied.
     ##
-    return;
+    if(STENDHAL_PLEASE_MAKE_IT_FAST) {
+      return;
+    }
     
     /*
      * Amount of times this creature has been killed by a player or another creature.
      */
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and param1="'.addslashes($this->name).'" group by dayofyear(timedate)', getGameDB());
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where event="killed" and datediff(now(),timedate)<='.$numberOfDays.' and param1="'.addslashes($this->name).'" group by dayofyear(timedate)', getGameDB());
 
     $this->kills=array();
     
@@ -107,7 +109,7 @@ class Monster {
     /*
      * Amount of times this creature has killed a player.
      */
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numberOfDays.' and event="killed" and source="'.addslashes($this->name).'" and param1 not in ('.listOfMonsters(getMonsters()).') group by dayofyear(timedate)', getGameDB());
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where event="killed" and datediff(now(),timedate)<='.$numberOfDays.' and source="'.addslashes($this->name).'" and param1 not in ('.listOfMonsters(getMonsters()).') group by dayofyear(timedate)', getGameDB());
 
     $this->killed=array();
     
@@ -160,7 +162,9 @@ function getMostKilledMonster($monsters) {
     ##
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
-    return array(getMonster("rat"),0);
+    if(STENDHAL_PLEASE_MAKE_IT_FAST) {
+      return array(getMonster("rat"),0);
+    }
     ##
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
@@ -187,7 +191,9 @@ function getBestKillerMonster($monsters) {
     ##
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
-    return array(getMonster("rat"),0);
+    if(STENDHAL_PLEASE_MAKE_IT_FAST) {
+      return array(getMonster("rat"),0);
+    }
     ##
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
