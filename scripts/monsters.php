@@ -91,8 +91,8 @@ class Monster {
     /*
      * Amount of times this creature has been killed by a player or another creature.
      */
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where event="killed" and datediff(now(),timedate)<='.$numberOfDays.' and param1="'.addslashes($this->name).'" group by dayofyear(timedate)', getGameDB());
-
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where event="killed" and param1="'.addslashes($this->name).'" and datediff(now(),timedate)<='.$numberOfDays.' group by dayofyear(timedate)', getGameDB());
+    
     $this->kills=array();
     
     $base=date('z')+1;
@@ -109,7 +109,7 @@ class Monster {
     /*
      * Amount of times this creature has killed a player.
      */
-    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where event="killed" and datediff(now(),timedate)<='.$numberOfDays.' and source="'.addslashes($this->name).'" and param1 not in ('.listOfMonsters(getMonsters()).') group by dayofyear(timedate)', getGameDB());
+    $result = mysql_query('select dayofyear(timedate) as day, count(*) as amount from gameEvents where event="killed" and source="'.addslashes($this->name).'" and datediff(now(),timedate)<='.$numberOfDays.' and param1 not in ('.listOfMonsters(getMonsters()).') group by dayofyear(timedate)', getGameDB());
 
     $this->killed=array();
     
