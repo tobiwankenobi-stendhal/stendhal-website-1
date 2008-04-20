@@ -188,7 +188,7 @@ if(isset($_REQUEST["id"]))
           /*
            * Get the best player related to the amount of XP earn against its age.
            */
-          $player=getPlayerOfTheWeek();
+          $player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
           $player->show();
           endBox(); 
         ?>

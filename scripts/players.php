@@ -125,8 +125,8 @@ function getPlayer($name) {
     return $player[0];	
 }
 
-function getBestPlayer() {
-    $player=_getPlayers('select  *,xp/(age+1) as xp_age_rel from character_stats order by xp_age_rel desc limit 1', getGameDB());
+function getBestPlayer($where='') {
+    $player=_getPlayers('select  *,xp/(age+1) as xp_age_rel from character_stats '.$where.' order by xp_age_rel desc limit 1', getGameDB());
     return $player[0];
 }
 
@@ -172,15 +172,5 @@ function _getPlayers($query) {
 	
     return $list;
 }
-
-
-/**
-  * Returns the player of the week.
-  */
-function getPlayerOfTheWeek() {
-  $player=_getPlayers('select  *,xp/(age+1) as xp_age_rel from character_stats order by xp_age_rel desc limit 1', getGameDB());
-  return $player[0];
-  }
-
 
 ?>

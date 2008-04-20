@@ -57,6 +57,13 @@ define('STENDHAL_GAME_USERNAME','username');
 define('STENDHAL_GAME_PASSWORD','password');
 define('STENDHAL_GAME_DB','stendhal');
 
+
+/*
+ * We remove postman of the list, just in case it appears.
+ * We remove admins of the list ( >100 ).
+ */
+define('REMOVE_ADMINS_AND_POSTMAN','where name!="postman" and admin<=100');
+
 #
 # DEVEL switch
 #

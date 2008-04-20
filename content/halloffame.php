@@ -3,7 +3,7 @@
 define('TOTAL_HOF_PLAYERS',10);
 
 startBox("Best player"); 
-  $choosen=getBestPlayer();
+$choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
  ?>
   <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
   <div class="best">
@@ -52,7 +52,7 @@ startBox("Strongest players");
   ?>
   <div class="bubble">Based on the amount of XP</div>
   <?php
-  $players= getPlayers('','xp desc', 'limit '.TOTAL_HOF_PLAYERS);
+  $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'xp desc', 'limit '.TOTAL_HOF_PLAYERS);
   renderListOfPlayers($players, 'getXP', " xp");
 endBox();
 
@@ -68,7 +68,7 @@ startBox("Richest players");
   ?>
   <div class="bubble">Based on the amount of money</div>
   <?php
-  $players= getPlayers('','money desc', 'limit '.TOTAL_HOF_PLAYERS);
+  $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'money desc', 'limit '.TOTAL_HOF_PLAYERS);
   renderListOfPlayers($players, 'getWealth', ' coins');
 endBox();
 
@@ -81,7 +81,7 @@ startBox("Eldest players");
   ?>
   <div class="bubble">Based on the age in hours</div>
   <?php
-  $players= getPlayers('','age desc', 'limit '.TOTAL_HOF_PLAYERS);
+  $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'age desc', 'limit '.TOTAL_HOF_PLAYERS);
   renderListOfPlayers($players, 'getAge', ' hours');
 endBox();
 
