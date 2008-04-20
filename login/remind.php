@@ -3,7 +3,7 @@
 include_once('login_function.php');
 
 /*
-   It has two alternatives:
+   It is composed of two steps:
    a) User click new password and we email a md5(rand()) to him IF the account is registered with stendhal.
    b) The user confirms the link and we effectively change the password.
  */
