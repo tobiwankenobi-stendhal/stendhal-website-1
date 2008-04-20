@@ -73,8 +73,22 @@ class Player {
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ##
      
-    $result = mysql_query('select timedate, source from gameEvents where event="killed" and param1="'.addslashes($this->name).'" and datediff(now(),timedate)<=7*52 order by timedate desc limit 4', getGameDB());
+    $result = mysql_query('
+    select 
+      timedate, 
+      source 
+    from gameEvents 
+    where 
+      event="killed" and 
+      param1="'.addslashes($this->name).'" and 
+      datediff(now(),timedate)<=7*52 
+    order by timedate 
+    desc limit 4', getGameDB());
     $kills=array();
+    
+    /*
+     * TODO: Refactor to use the new table.
+     */
 
     while($row=mysql_fetch_assoc($result)) {      
       $kills[$row['timedate']]=$row['source'];
