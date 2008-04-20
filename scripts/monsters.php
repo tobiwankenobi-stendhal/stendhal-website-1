@@ -210,7 +210,11 @@ function getMostKilledMonster($monsters) {
     
     $query='select param1, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numOfDays.' and event="killed" and param1 in ('.listOfMonsters($monsters).') group by param1 order by amount desc limit 1';
     $result = mysql_query($query, getGameDB());
-   
+    
+	/*
+     * TODO: Refactoring
+     */
+    
     $monster=null;
     while($row=mysql_fetch_assoc($result)) {      
       foreach($monsters as $m) {
@@ -239,7 +243,11 @@ function getBestKillerMonster($monsters) {
     
     $query='select source, count(*) as amount from gameEvents where datediff(now(),timedate)<='.$numOfDays.' and event="killed" and source in ('.listOfMonsters($monsters).') and param1 not in ('.listOfMonsters($monsters).') group by source order by amount desc limit 1';
     $result = mysql_query($query, getGameDB());
-   
+    
+	/*
+     * TODO: Refactoring
+     */
+    
     $monster=null;
     while($row=mysql_fetch_assoc($result)) {   
       $monster=array(getMonster($row['source']), $row['amount']);        
