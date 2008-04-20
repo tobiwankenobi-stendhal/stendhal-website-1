@@ -9,7 +9,7 @@ include_once('login_function.php');
  */
 
 if(isset($_POST["forgotpassword"])) {
-  if(!isset($_POST["email"])) {
+  if(!isset($_POST["email"]) or !isset($_POST["account"])) {
     die('You didn\'t fill in a required field.');
   }
   
@@ -81,6 +81,8 @@ if(isset($_POST["forgotpassword"])) {
   <form action="" method="post">
   <table>
     <tr><td>Email address:</td><td><input type="text" name="email" maxlength="90"></td></tr>
+    <tr><td>Account:</td><td><input type="text" name="account" maxlength="90"></td></tr>
+    <tr><td><input type="checkbox" name="knowaccount" checked>I do remember my account name.</td></tr>
     <tr><td colspan="2" align="right"><input type="submit" name="forgotpassword" value="Get new password"></td></tr>
   </table>
   </form>
