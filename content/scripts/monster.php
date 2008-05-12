@@ -76,9 +76,14 @@ foreach($monsters as $m) {
     endBox();      
     
     /*
+     * Let people know that this data is fake and it is a known bug.
+     */
+    showKnownBugNotice();
+    
+    /*
      * Obtain data from database
      */
-    $m->fillKillKilledData();
+    $m->fillKillKilledData();   
     
     startBox(ucfirst($m->name)." killed by Player");
       $data='';

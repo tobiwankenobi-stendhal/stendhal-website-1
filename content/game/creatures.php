@@ -21,6 +21,13 @@ $monsters=getMonsters();
 $classes=Monster::getClasses();
 ?>
 <div>
+<?php
+/*
+ * Let people know that this data is fake and it is a known bug.
+ */
+showKnownBugNotice();
+?>
+    
 <div style="float: left; width: 50%"><?php
 startBox('Most killed');
 $result=getMostKilledMonster($monsters);

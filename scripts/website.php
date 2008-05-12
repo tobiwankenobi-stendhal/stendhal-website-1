@@ -50,6 +50,16 @@ function endBox() {
   echo '</div></div>';
   }
   
+function showKnownBugNotice() {
+  ?>
+    <div class="notice">
+      The following data is not correct and that's a known bug.<br/>
+      Please don't report it.<br/>
+      As soon as we fix this problem you will see real data from game server.
+    </div>
+  <?php
+}
+  
 include('scripts/screenshots.php');
 include('scripts/events.php');
 include('scripts/news.php');

@@ -40,10 +40,18 @@ $choosen=$players[0];
   </div> 
 </div>
 
+<?php
+  /*
+   * Let people know that this data is fake and it is a known bug.
+   */
+  showKnownBugNotice();
+?>
+
 <div class="table">
   <div class="title">Deaths</div>
   <?php
-  $deaths=$choosen->getDeaths();
+  $deaths=$choosen->getDeaths(); 
+  
   foreach($deaths as $date=>$source) {
     if(existsMonster($source)) {
       /*
