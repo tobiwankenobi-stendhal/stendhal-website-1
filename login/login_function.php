@@ -116,7 +116,10 @@ function displayLogin(){
      echo 'Logged as <b>'.$_SESSION['username'].'</b>. <a href="?id=login/changepassword">Change password</a> - <a href="?id=login/logout">Logout</a>';
    }
    else{
+     echo '<a href="?id=login/login">Login</a>';
+     /* TODO: Reenable when fix the email problem at Durkham's server.
      echo '<a href="?id=login/login">Login</a> - <a href="?id=login/remind">Forgot your Password?</a>';
+     */
    }
  }
 ?>
