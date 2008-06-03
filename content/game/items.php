@@ -44,7 +44,7 @@ if(!isset($_GET['class'])) {
       <a href="?id=content/game/items&class=<?php echo $class; ?>">
         <img src="<?php echo $choosen->gfx; ?>"/><br>
         <?php echo ucfirst($class); ?>
-      <a>
+      </a>
     </div>
     <?php
   }  
