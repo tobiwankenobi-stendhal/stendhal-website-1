@@ -54,7 +54,13 @@ class Event {
     echo '<div class="event">';
     echo '<img src="images/events/event'.($this->type).'.png" alt="event logo"/>';
     echo '<div class="description"><a href="?id=content/scripts/event&event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
-    echo '<div class="date">'.($this->date).'</div>';
+    $date=date("M,j Y",strtotime($this->date));
+    
+    if($date==date("M,j Y")) {
+      $date="<b>Today</b>";
+    }
+    
+    echo '<div class="date">'.$date.'</div>';
     echo '<div class="location">'.($this->location).'</div>';
     echo '<span style="clear: left;"></span>';
     echo '</div>';
