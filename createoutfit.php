@@ -65,6 +65,7 @@ imagecolortransparent($result, $transColor);
  */
 $baseIndex=($outfit % 100);
 $outfit=$outfit/100;
+
 $baseIm=imagecreatefrompng($OUTFITS_BASE.'/player_base_'.$baseIndex.'.png');
 $transColor=imagecolorat($baseIm, 0,0);
 imagecolortransparent($baseIm, $transColor);
