@@ -25,6 +25,14 @@ if(isset($_POST['sublogin'])){
    /* Checks that username is in database and password is correct */
    $md5pass = strtoupper(md5($_POST['pass']));
    $result = confirmUser($_POST['user'], $md5pass);
+   
+   /*
+    * HACK: Old marauroa passwords where md5(md5(password))
+    */
+   if($result != 0) {
+     $md5pass = strtoupper(md5(md5($_POST['pass'])));
+     $result = confirmUser($_POST['user'], $md5pass);
+   }
 
    /* Check error codes */
    if($result != 0){
