@@ -26,14 +26,6 @@ if(isset($_POST['sublogin'])){
    $md5pass = strtoupper(md5($_POST['pass']));
    $result = confirmUser($_POST['user'], $md5pass);
    
-   /*
-    * HACK: Old marauroa passwords where md5(md5(password))
-    */
-   if($result != 0) {
-     $md5pass = strtoupper(md5(md5($_POST['pass'])));
-     $result = confirmUser($_POST['user'], $md5pass);
-   }
-
    /* Check error codes */
    if($result != 0){
      startBox("Login failed");
