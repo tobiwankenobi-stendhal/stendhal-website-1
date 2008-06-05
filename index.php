@@ -157,7 +157,7 @@ if(isset($_REQUEST["id"]))
       
       <div id="rightArea">
         <a href="http://arianne.sourceforge.net/jws/stendhal.jnlp"><div id="playArea"></div></a>        
-        <a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo $STENDHAL_VERSION; ?>.zip"><div id="downloadArea"></div></a>
+        <a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo STENDHAL_VERSION; ?>.zip"><div id="downloadArea"></div></a>
 
         <?php 
           startBox('Server stats');

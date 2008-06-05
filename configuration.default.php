@@ -22,7 +22,7 @@
 #
 # Please change to match your system configuration.
 #
-define('STENDHAL_VERSION','0.67');
+define('STENDHAL_VERSION','0.68');
 
 #
 # Location of the statistics file of Stendhal server.
