@@ -19,7 +19,7 @@ function getUserID($username)
 
 // log password changes for user from ip
 // returns boolean successfully logged
-function logUserPasswordChange($user, $ip)
+function logUserPasswordChange($user, $ip, $oldpass)
 {
      $userid = getUserID($username);
 
@@ -28,8 +28,8 @@ function logUserPasswordChange($user, $ip)
           return false;
      }
 
-     $q = "INSERT INTO passwordChange (player_id,address,service) values ".
-          "(".$userid.",'".$ip."','website')";
+     $q = "INSERT INTO passwordChange (player_id,address,oldpassword,service)".
+          " values (".$userid.",'".$ip."','".$oldpass."','website')";
 
      $result = mysql_query($q, getGameDB());
 
