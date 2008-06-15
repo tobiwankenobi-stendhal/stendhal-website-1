@@ -11,8 +11,9 @@ include_once('login_function.php');
 if(isset($_POST['sublogin'])){
    /* Check that all fields were typed in */
    if(!$_POST['user'] || !$_POST['pass']){
-      die('You didn\'t fill in a required field.');
-   }
+     die('You didn\'t fill in a required field.');
+     }
+     
    /* Spruce up username, check length */
    $_POST['user'] = trim($_POST['user']);
    if(strlen($_POST['user']) > 30){
@@ -20,27 +21,10 @@ if(isset($_POST['sublogin'])){
      echo "Sorry, the username is longer than 30 characters, please shorten it.";
      endBox();
      return;
-   }
-
-   /* Checks that username is in database and password is correct */
-   $md5pass = strtoupper(md5($_POST['pass']));
-   $result = confirmUser($_POST['user'], $md5pass);
-
-   if ($result === 2)
-   {
-     /* We need to check the pre-Marauroa 2.0 passwords */
-	 $md5pass = strtoupper(md5(md5($_POST['pass'],true)));
-	 $result = confirmUser($_POST['user'], $md5pass);
-   }
-
-   /* Check error codes */
-   if($result != 0){
-     startBox("Login failed");
-     echo "Sorry. You mispelled either username or password.<br>Make sure you have an account at Stendhal.";
-     endBox();
-     return;
      }
 
+   /* We first check that the username is not banned. 
+    */
    $result = confirmValidStatus($_POST['user']);
    
    /* Check error codes */
@@ -50,7 +34,24 @@ if(isset($_POST['sublogin'])){
      endBox();
      return;
      }
-     
+
+   /* Checks that username is in database and password is correct */
+   $md5pass = strtoupper(md5($_POST['pass']));
+   $result = confirmUser($_POST['user'], $md5pass);
+
+   if ($result === 2) {
+     /* We need to check the pre-Marauroa 2.0 passwords */
+	 $md5pass = strtoupper(md5(md5($_POST['pass'],true)));
+	 $result = confirmUser($_POST['user'], $md5pass);
+     }
+
+   /* Check error codes */
+   if($result != 0){
+     startBox("Login failed");
+     echo "Sorry. You mispelled either username or password.<br>Make sure you have an account at Stendhal.";
+     endBox();
+     return;
+     }
 
    /* Username and password correct, register session variables */
    $_POST['user'] = stripslashes($_POST['user']);
