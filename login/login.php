@@ -25,7 +25,14 @@ if(isset($_POST['sublogin'])){
    /* Checks that username is in database and password is correct */
    $md5pass = strtoupper(md5($_POST['pass']));
    $result = confirmUser($_POST['user'], $md5pass);
-   
+
+   if ($result === 2)
+   {
+     /* We need to check the pre-Marauroa 2.0 passwords */
+	 $oldpass = strtoupper(md5(md5($_POST['pass'],true)));
+	 $result = confirmUser($_POST['user'], $oldpass);
+   }
+
    /* Check error codes */
    if($result != 0){
      startBox("Login failed");
