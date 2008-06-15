@@ -31,7 +31,7 @@ if(isset($_POST['sublogin'])){
    {
      /* We need to check the pre-Marauroa 2.0 passwords */
 	 $md5pass = strtoupper(md5(md5($_POST['pass'],true)));
-	 $result = confirmUser($_POST['user'], $md5pass);
+	 $result = confirmUser($username, $md5pass);
    }
 
    /* Check error codes */
