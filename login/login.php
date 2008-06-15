@@ -28,7 +28,10 @@ if(isset($_POST['sublogin'])){
    $result = confirmValidStatus($_POST['user']);
    
    /* Check error codes */
-   if($result != 0){
+   if($result == 2){
+   	 /*
+   	  * If result==1 then username doesn't exist, so we let the password check handle it.
+   	  */
      startBox("Login failed");
      echo "Sorry. Your account is blocked by multiple passwords failures or it has been banned.";
      endBox();

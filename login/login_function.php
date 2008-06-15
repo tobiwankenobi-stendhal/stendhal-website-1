@@ -63,7 +63,7 @@ function confirmValidStatus($username){
    if($status=='active'){
       return 0; //Success!
    } else {
-      return 1; //Indicates password failure
+      return 2; //Indicates account is blocked or inactive.
    }
 }
 
