@@ -41,6 +41,17 @@ if(isset($_POST['sublogin'])){
      return;
      }
 
+   $result = confirmValidStatus($_POST['user']);
+   
+   /* Check error codes */
+   if($result != 0){
+     startBox("Login failed");
+     echo "Sorry. Your account is blocked by multiple passwords failures or it has been banned.";
+     endBox();
+     return;
+     }
+     
+
    /* Username and password correct, register session variables */
    $_POST['user'] = stripslashes($_POST['user']);
    $_SESSION['username'] = $_POST['user'];
@@ -57,7 +68,7 @@ if(isset($_POST['sublogin'])){
       setcookie("cookname", $_SESSION['username'], time()+60*60*24*100, "/");
       setcookie("cookpass", $_SESSION['password'], time()+60*60*24*100, "/");
    }
-   
+      
    echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
    startBox("Login");
      echo '<h1>Login correct.</h1> Moving to main page.';
@@ -65,6 +76,7 @@ if(isset($_POST['sublogin'])){
 } else {
 startBox("Login");
 ?>
+
 <div class="bubble">
   Remember not to disclose your username or password to anyone, not even friends or administrators.<br>
   Check that this webpage URL matchs your game server name.

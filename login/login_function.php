@@ -39,6 +39,36 @@ function confirmUser($username, $password){
    }
 }
 
+function confirmValidStatus($username){
+   $conn=getGameDB();
+   
+   /* Add slashes if necessary (for query) */
+   if(!get_magic_quotes_gpc()) {
+	$username = addslashes($username);
+   }
+
+   /* Verify that user is in database */
+   $q = "select status from account where username = '$username'";
+   $result = mysql_query($q,$conn);
+   if(!$result || (mysql_numrows($result) < 1)){
+      return 1; //Indicates username failure
+   }
+
+   /* Retrieve password from result, strip slashes */
+   $dbarray = mysql_fetch_array($result);
+   
+   $status=$dbarray['status'];
+   
+   /* Validate that password is correct */
+   if($status=='active'){
+      return 0; //Success!
+   } else {
+      return 1; //Indicates password failure
+   }
+}
+
+
+
 /**
  * Checks whether or not the given email is in the
  * database.
