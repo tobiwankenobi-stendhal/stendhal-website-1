@@ -1,6 +1,7 @@
 <?php
 
 include_once('login_function.php');
+require_once('logEvents.php');
 
 if(!checkLogin()){
   die("You need to login first");
@@ -56,6 +57,9 @@ if(isset($_POST['sublogin'])){
    if(mysql_affected_rows()!=1) {
      die('Problem updating database');
    }
+
+   /* Here we log the pw change, with user id, IP and hash of the old pass */
+   logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $md5pass);
 
    /* Username and password correct, register session variables */
    $_POST['user'] = stripslashes($username);
