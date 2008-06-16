@@ -100,7 +100,7 @@ $choosen=$players[0];
 
   if(count($deaths)==0) {
   	?>
-  	You have never been killed.
+  	Not recently killed.
   	<?php
   }
   
