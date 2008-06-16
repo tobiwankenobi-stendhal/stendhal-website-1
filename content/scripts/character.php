@@ -96,7 +96,13 @@ $choosen=$players[0];
 
  ?>
  <?php
-  $deaths=$choosen->getDeaths(); 
+  $deaths=$choosen->getDeaths();
+
+  if(count($deaths)==0) {
+  	?>
+  	You have never been killed.
+  	<?php
+  }
   
   foreach($deaths as $date=>$source) {
     if(existsMonster($source)) {
