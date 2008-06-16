@@ -40,60 +40,7 @@ $choosen=$players[0];
   </div> 
 </div>
 
-<?php
-  /*
-   * Let people know that this data is fake and it is a known bug.
-   */
-  showKnownBugNotice();
-?>
 
-<div class="table">
-  <div class="title">Deaths</div>
-  <?php
-  $deaths=$choosen->getDeaths(); 
-  
-  foreach($deaths as $date=>$source) {
-    if(existsMonster($source)) {
-      /*
-       * It was killed by a monster.
-       */
-      $monsters=getMonsters();
-      foreach($monsters as $monster) {
-        if($monster->name==$source) {
-          ?>
-          <div class="row">
-            <a href="?id=content/scripts/monster&name=<?php echo $monster->name; ?>&exact">
-            <img class="creature" src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
-            Killed by a <div style="display: inline;" class="label"><?php echo $monster->name; ?></div>
-            <div class="data">Happened at <?php echo $date; ?>.</div>
-            <div style="margin-bottom: 50px;"></div>
-            </a>
-          </div>
-          <?php
-        }
-      }
-    } else {
-      /*
-       * It was killed by a player.
-       */
-      ?>
-      <div class="row">
-        <a href="?id=content/scripts/character&name=<?php echo $source; ?>">
-        <?php
-        $killer=getPlayer($source);
-        ?>
-        <img class="creature" src="createoutfit.php?outfit=<?php echo $killer->outfit; ?>" alt="<?php echo $source; ?>"/>
-        Killed by <div style="display: inline;" class="label"><?php echo $source; ?></div>
-        <div class="data">Happened at <?php echo $date; ?>.</div>
-        <div style="margin-bottom: 50px;"></div>
-        </a>
-      </div>
-    <?php
-    }
-  }
-?>
-</div>
-  
 <div class="table">
   <div class="title">Attributes and statistics</div>
 
@@ -138,6 +85,62 @@ $choosen=$players[0];
     } 
    ?>
 </div>
+
+<div class="table">
+  <div class="title">Deaths</div>
+ <?php
+  /*
+   * Let people know that this data is fake and it is a known bug.
+   */
+   showKnownBugNotice();
+
+ ?>
+ <?php
+  $deaths=$choosen->getDeaths(); 
+  
+  foreach($deaths as $date=>$source) {
+    if(existsMonster($source)) {
+      /*
+       * It was killed by a monster.
+       */
+      $monsters=getMonsters();
+      foreach($monsters as $monster) {
+        if($monster->name==$source) {
+          ?>
+          <div class="row">
+            <a href="?id=content/scripts/monster&name=<?php echo $monster->name; ?>&exact">
+            <img class="creature" src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
+            Killed by a <div style="display: inline;" class="label"><?php echo $monster->name; ?></div>
+            <div class="data">Happened at <?php echo $date; ?>.</div>
+            <div style="margin-bottom: 50px;"></div>
+            </a>
+          </div>
+          <?php
+        }
+      }
+    } else {
+      /*
+       * It was killed by a player.
+       */
+      ?>
+      <div class="row">
+        <a href="?id=content/scripts/character&name=<?php echo $source; ?>">
+        <?php
+        $killer=getPlayer($source);
+        ?>
+        <img class="creature" src="createoutfit.php?outfit=<?php echo $killer->outfit; ?>" alt="<?php echo $source; ?>"/>
+        Killed by <div style="display: inline;" class="label"><?php echo $source; ?></div>
+        <div class="data">Happened at <?php echo $date; ?>.</div>
+        <div style="margin-bottom: 50px;"></div>
+        </a>
+      </div>
+    <?php
+    }
+  }
+?>
+</div>
+  
+
 <?php
 endBox();
 ?>
