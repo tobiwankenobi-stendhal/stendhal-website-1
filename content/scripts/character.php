@@ -47,7 +47,7 @@ $choosen=$players[0];
   <?php 
   foreach($choosen->attributes as $key=>$value) {  
     $old = array("atk", "def", "hp", "karma");
-    $new = array("Attack Level", "Defense level", "Max health", "Karma");
+    $new = array("Attack Level", "Defense level", "Current health", "Karma");
     $key = str_replace($old, $new, $key);
     ?>
     <div class="statslabel"><?php echo ucwords($key) ?>:</div>
