@@ -282,6 +282,15 @@ if(isset($_REQUEST["id"]))
         <span><?php include('counter.php'); ?></span>
       </div>
       
+	   <div class="time">
+ 		<?php
+ 		/*
+ 	     * Show the server time
+ 	     */
+     	echo 'Server time: '.date('G:i');
+ 		?>      
+	  </div>
+ 
       <div class="author">
         <?php
         /*
