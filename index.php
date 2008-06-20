@@ -71,6 +71,7 @@ if(isset($_REQUEST["id"]))
   <head>
     <title>Stendhal an open source online multiplayer adventures games</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="icon" type="image/png" href="images/favicon.png">
 	<?php
 	  /*
 	   * Does exists another style sheet for this page?
