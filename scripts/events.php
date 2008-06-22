@@ -71,6 +71,10 @@ class Event {
   * Returns a list of events.
   */
 function getEvents($where='', $sortby='date desc', $cond='limit 2') {    
+    $where=mysql_real_escape_string($where);
+	$sortby=mysql_real_escape_string($sortby);
+    $cond=mysql_real_escape_string($cond);
+	   
     $result = mysql_query('select * from events '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
@@ -147,7 +151,9 @@ function addEvent($date, $location, $type, $oneline, $body, $images, $approved=f
 }
 
 function deleteEvent($id) {
-    $query='delete from events where id='.mysql_real_escape_string($id);
+    $id=mysql_real_escape_string($id);
+    
+	$query='delete from events where id='.mysql_real_escape_string($id);
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while deleting events.</span>';

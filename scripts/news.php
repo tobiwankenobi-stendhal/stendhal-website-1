@@ -55,7 +55,11 @@ class News {
   * Returns a list of news.
   */
 function getNews($where='', $sortby='created desc', $cond='limit 3') {
-    $result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
+    $where=mysql_real_escape_string($where);
+	$sortby=mysql_real_escape_string($sortby);
+    $cond=mysql_real_escape_string($cond);
+    
+	$result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {      
@@ -110,7 +114,9 @@ function addNews($title, $oneline, $body, $images, $approved=false) {
 }
 
 function deleteNews($id) {
-    $query='delete from news where id='.mysql_real_escape_string($id);
+    $id=mysql_real_escape_string($id);
+    
+	$query='delete from news where id='.mysql_real_escape_string($id);
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while deleting news.</span>';

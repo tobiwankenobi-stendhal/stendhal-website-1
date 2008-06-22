@@ -47,7 +47,10 @@ class Screenshot {
   * Each screenshot is a URL to the image.
   */
 function getScreenshots($where='', $cond='') {
-    $query='select * from screenshots '.$where.' order by created desc '.$cond;
+    $where=mysql_real_escape_string($where);
+	$cond=mysql_real_escape_string($cond);
+    
+	$query='select * from screenshots '.$where.' order by created desc '.$cond;
     $result = mysql_query($query, getWebsiteDB());
     $list=array();
     
@@ -79,7 +82,9 @@ function addScreenshot($url, $description, $approved=false) {
 }
 
 function deleteScreenshot($id) {
-    $query='delete from screenshots where id='.mysql_real_escape_string($id);
+    $id=mysql_real_escape_string($id);
+    
+	$query='delete from screenshots where id='.mysql_real_escape_string($id);
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while deleting screenshots.</span>';
