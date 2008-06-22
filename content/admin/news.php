@@ -19,7 +19,8 @@ if(isset($_REQUEST['action'])) {
       }
     endBox();
   } elseif($_REQUEST['action']=='edit') {    
-    $newstoEdit=getNews('where id="'.$_REQUEST['edit'].'"');
+  	$id=mysql_real_escape_string($_REQUEST['edit']);  
+  	$newstoEdit=getNews('where id="'.$id.'"');
     if(sizeof($newstoEdit)==0) {
       startBox("Edit news item");
         echo '<div class="error">No such news item</div';

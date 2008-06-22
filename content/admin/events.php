@@ -18,8 +18,9 @@ if(isset($_REQUEST['action'])) {
         deleteEvent($id);
       }
     endBox();
-  } elseif($_REQUEST['action']=='edit') {    
-    $eventToEdit=getEvents('where id="'.$_REQUEST['edit'].'"');
+  } elseif($_REQUEST['action']=='edit') {  
+  	$id=mysql_real_escape_string($_REQUEST['edit']);  
+    $eventToEdit=getEvents('where id="'.$id.'"');
     if(sizeof($eventToEdit)==0) {
       startBox("Edit events");
         echo '<div class="error">No such event</div';
