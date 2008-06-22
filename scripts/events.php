@@ -79,7 +79,7 @@ function getEvents($where='', $sortby='date desc', $cond='limit 2') {
     $list=array();
     
     while($row=mysql_fetch_assoc($result)) {      
-      $resultimages = mysql_query('select * from event_images where event_id='.$row['id'].' order by created desc', getWebsiteDB());
+      $resultimages = mysql_query('select * from event_images where event_id="'.$row['id'].'" order by created desc', getWebsiteDB());
       $images=array();
       
       while($rowimages=mysql_fetch_assoc($resultimages)) {      
@@ -153,7 +153,7 @@ function addEvent($date, $location, $type, $oneline, $body, $images, $approved=f
 function deleteEvent($id) {
     $id=mysql_real_escape_string($id);
     
-	$query='delete from events where id='.mysql_real_escape_string($id);
+	$query='delete from events where id="'.mysql_real_escape_string($id).'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while deleting events.</span>';
@@ -170,7 +170,7 @@ function updateEvent($id, $date, $location, $type, $oneline, $body, $images, $ap
     $oneline=mysql_real_escape_string($oneline);
     $body=mysql_real_escape_string($body);
     
-    $query='update events set date="'.$date.'", type="'.$type.'",location="'.$location.'",shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id='.$id;
+    $query='update events set date="'.$date.'", type="'.$type.'",location="'.$location.'",shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id="'.$id.'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while updating news.</span>';

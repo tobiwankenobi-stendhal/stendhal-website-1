@@ -27,7 +27,7 @@ if(isset($_REQUEST['action'])) {
       }
     endBox();
   } elseif($_REQUEST['action']=='edit') {    
-    $screenshotToEdit=getScreenshots('where id='.$_REQUEST['edit']);
+    $screenshotToEdit=getScreenshots('where id="'.$_REQUEST['edit'].'"');
     if(sizeof($screenshotToEdit)==0) {
       startBox("Edit events");
         echo '<div class="error">No such screenshot</div';

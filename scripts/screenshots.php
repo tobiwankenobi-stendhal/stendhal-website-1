@@ -84,7 +84,7 @@ function addScreenshot($url, $description, $approved=false) {
 function deleteScreenshot($id) {
     $id=mysql_real_escape_string($id);
     
-	$query='delete from screenshots where id='.mysql_real_escape_string($id);
+	$query='delete from screenshots where id="'.mysql_real_escape_string($id).'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while deleting screenshots.</span>';
@@ -98,7 +98,7 @@ function updateScreenshot($id, $url, $description, $approved=false) {
     $url=mysql_real_escape_string($url);
     $description=mysql_real_escape_string($description);
     
-    $query='update screenshots set url="'.$url.'", description="'.$description.'" where id='.$id;
+    $query='update screenshots set url="'.$url.'", description="'.$description.'" where id="'.$id.'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while updating screenshots.</span>';
