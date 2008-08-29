@@ -9,7 +9,7 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
   <div class="best">
     <a href="?id=content/scripts/character&name=<?php echo $choosen->name; ?>">
     <div class="statslabel">Name:</div><div class="data"><?php echo $choosen->name; ?></div>
-    <div class="statslabel">Age:</div><div class="data"><?php echo printAge($choosen->age); ?> hours</div>
+    <div class="statslabel">Age:</div><div class="data"><?php echo getAge($choosen); ?> hours</div>
     <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
     <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
     <div class="sentence"><?php echo $choosen->sentence; ?></div>
@@ -95,5 +95,6 @@ function printAge($minutes) {
   
   return round($h).':'.round($m);
 }
+
 ?>
 </div>
