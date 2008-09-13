@@ -29,11 +29,11 @@ startBox("Detailed statistics");
   <div class="title">Bytes managed</div>
   <div class="table">
     <div class="label">Received</div>
-    <div class="data"><?php echo getVariable($xmlStats,"Bytes recv"); ?></div>
+    <div class="data"><?php echo number_format(getVariable($xmlStats,"Bytes recv"), 0, '.', ' '); ?></div>
   </div>
   <div class="table">
     <div class="label">Send</div>
-    <div class="data"><?php echo getVariable($xmlStats,"Bytes send"); ?></div>
+    <div class="data"><?php echo number_format(getVariable($xmlStats,"Bytes send"), 0, '.', ' '); ?></div>
   </div>
 </div>
 
@@ -41,11 +41,11 @@ startBox("Detailed statistics");
   <div class="title">Messages managed</div>
   <div class="table">
     <div class="label">Received</div>
-    <div class="data"><?php echo getVariable($xmlStats,"Message recv"); ?></div>
+    <div class="data"><?php echo number_format(getVariable($xmlStats,"Message recv"), 0, '.', ' '); ?></div>
   </div>
   <div class="table">
     <div class="label">Send</div>
-    <div class="data"><?php echo getVariable($xmlStats,"Message send"); ?></div>
+    <div class="data"><?php echo number_format(getVariable($xmlStats,"Message send"), 0, '.', ' '); ?></div>
   </div>
 </div>
 
@@ -58,7 +58,7 @@ startBox("Detailed statistics");
     ?>
     <div class="table">
       <div class="label"><?php echo ucfirst($action); ?></div>
-      <div class="data"><?php echo getVariable($xmlStats,"Players ".$action); ?></div>
+      <div class="data"><?php echo number_format(getVariable($xmlStats,"Players ".$action), 0, '.', ' '); ?></div>
     </div>
   <?php  
   } 
@@ -69,7 +69,7 @@ startBox("Detailed statistics");
   <div class="title">Actions managed</div>
   <div class="table">
     <div class="label">Total</div>
-    <div class="data"><?php echo getVariable($xmlStats,"Actions added"); ?></div>
+    <div class="data"><?php echo number_format(getVariable($xmlStats,"Actions added"), 0, '.', ' '); ?></div>
   </div>
   <?php
   $list=array("move","chat","attack","inspect","who","where");
@@ -78,7 +78,7 @@ startBox("Detailed statistics");
     ?>
     <div class="table">
       <div class="label"><?php echo ucfirst($action); ?></div>
-      <div class="data"><?php echo getVariable($xmlStats,"Actions ".$action); ?></div>
+      <div class="data"><?php echo number_format(getVariable($xmlStats,"Actions ".$action), 0, '.', ' '); ?></div>
     </div>
   <?php  
   } 
