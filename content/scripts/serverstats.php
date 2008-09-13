@@ -11,7 +11,7 @@ function getVariable($xmlStats, $type) {
 
 function getServerUptime($xmltree) {
 	$secs = $xmltree['statistics'][0]['uptime']['0 attr']['value'];
-	$hours = $secs/360;
+	$hours = $secs/3600;
 	$days = (int)($hours/24);
 	$remhours= $hours%24;
 	return $days.' days and '.$remhours.' hours';
