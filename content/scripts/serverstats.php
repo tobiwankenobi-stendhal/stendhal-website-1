@@ -10,7 +10,11 @@ function getVariable($xmlStats, $type) {
 }
 
 function getServerUptime($xmltree) {
-	return $xmltree['statistics'][0]['uptime']['0 attr']['value'];
+	$secs = $xmltree['statistics'][0]['uptime']['0 attr']['value'];
+	$hours = $secs/360;
+	$days = (int)($hours/24);
+	$remhours= $hours%24;
+	return $days.' days and '.$remhours.' hours';
 }
 
 $content=implode("",file(STENDHAL_SERVER_STATS_XML));
@@ -19,7 +23,7 @@ $xmlStats = XML_unserialize($content);
 startBox("Detailed statistics");
 ?>
 <div class="uptime">
-  <?php echo getServerUptime($xmlStats); ?> seconds since last server reset.
+  <?php echo getServerUptime($xmlStats); ?> since last server reset.
 </div>
 <div class="variable">
   <div class="title">Bytes managed</div>
