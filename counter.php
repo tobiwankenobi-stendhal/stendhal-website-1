@@ -1,3 +1,8 @@
+<?php
+
+if (STENDHAL_WEB_COUNTER)
+{
+?>
 <div id="eXTReMe">
   <a href="http://extremetracking.com/open?login=mblanch"> 
 	<img src="http://t1.extreme-dm.com/i.gif" style="border: 0;" height="38" width="41" id="EXim" alt="eXTReMe Tracker" />
@@ -21,3 +26,6 @@ EXd.write("<img src=http://e1.extreme-dm.com",
     </div>
   </noscript>
 </div>
+<?php
+}
+?>

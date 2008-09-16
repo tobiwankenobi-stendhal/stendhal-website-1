@@ -68,5 +68,8 @@ define('REMOVE_ADMINS_AND_POSTMAN','where name!="postman" and admin<=600');
 # DEVEL switch
 #
 define('STENDHAL_PLEASE_MAKE_IT_FAST',true);
+# Counter
+define('STENDHAL_WEB_COUNTER', true);
+
 
 ?>
