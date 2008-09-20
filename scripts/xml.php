@@ -14,7 +14,7 @@
 # and returns an equivalent PHP data structure
 ###################################################################################
 function & XML_unserialize(&$xml){
-	$xml_parser = &new XML();
+	$xml_parser = &new XMLSerializer();
 	$data = $xml_parser->parse($xml);
 	$xml_parser->destruct();
 	return $data;
@@ -51,14 +51,14 @@ function & XML_serialize(&$data, $level = 0, $prior_key = NULL){
 ###################################################################################
 # XML class: utility class to be used with PHP's XML handling functions
 ###################################################################################
-class XML{
+class XMLSerializer {
 	var $parser;   #a reference to the XML parser
 	var $document; #the entire XML structure built up so far
 	var $parent;   #a pointer to the current parent - the parent will be an array
 	var $stack;    #a stack of the most recent parent at each nesting level
 	var $last_opened_tag; #keeps track of the last tag opened.
 
-	function XML(){
+	function XMLSerializer(){
  		$this->parser = xml_parser_create();
 		xml_parser_set_option(&$this->parser, XML_OPTION_CASE_FOLDING, false);
 		xml_set_object(&$this->parser, &$this);
