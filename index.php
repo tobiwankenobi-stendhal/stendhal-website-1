@@ -38,30 +38,34 @@ connect();
  * @return string the name of the module to load.
  */
 function decidePageToLoad($url) {
-  $result=$url;
+function decidePageToLoad($url) {
+  $ERROR="content/main";
   
-  if(!(
-      /* No strings with . */
-      (strpos($url,".")===false)||
-      /* No strings with // */
-      (strpos($url,"//")===false)||
-      /* No strings with http */
-      (strpos($url,"http")===false)||
-      /* No strings with absolute directions */
-      (strpos($url,"/")!=1))||
-      /* Tricky strings bad boys! */
-      (strpos($url.'.php',".php")===false)||
-      /* File must exists */      
-      !file_exists($url.'.php')
-      )
-    {    
-    /*
-     * If page_url contains something suspicious we reset it to main page.
-     */
-    $result="content/main";
-    }
-    
-    return $result;	
+  if(strpos($url,".")!==false) {
+    return $ERROR;
+  }
+  
+  if(strpos($url,"//")!==false) {
+    return $ERROR;
+  }
+  
+  if(strpos($url,"http")!==false) {
+    return $ERROR;
+  }
+  
+  if(strpos($url,"/")==0) {
+    return $ERROR;
+  }
+  
+  if(strpos($url.'.php',".php")===false) {
+    return $ERROR;
+  }
+ 
+  if(!file_exists($url.'.php')) {
+    return $ERROR;
+  }
+  
+  return $url;	
 }
 
 /*
