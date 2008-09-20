@@ -41,10 +41,17 @@ function decidePageToLoad($url) {
   $result=$url;
   
   if(!(
+      /* No strings with . */
       (strpos($url,".")===false)||
+      /* No strings with // */
       (strpos($url,"//")===false)||
+      /* No strings with http */
       (strpos($url,"http")===false)||
+      /* No strings with absolute directions */
       (strpos($url,"/")!=1))||
+      /* Tricky strings bad boys! */
+      (strpos($url.'.php',".php")===false)||
+      /* File must exists */      
       !file_exists($url.'.php')
       )
     {    
