@@ -38,7 +38,6 @@ connect();
  * @return string the name of the module to load.
  */
 function decidePageToLoad($url) {
-function decidePageToLoad($url) {
   $ERROR="content/main";
   
   if(strpos($url,".")!==false) {
