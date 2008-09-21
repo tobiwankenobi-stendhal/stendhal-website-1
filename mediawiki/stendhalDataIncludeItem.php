@@ -1,0 +1,92 @@
+<?php
+if (!defined('MEDIAWIKI')) {
+	die("<b>Stendhal Data Include</b> is a MediaWiki extension not intended to be used on its own.");
+}
+
+require_once($IP.'/../scripts/xml.php');
+require_once($IP.'/../scripts/items.php');
+
+/**
+ * helper function to read the item with this name using the Stendhal website code
+ */
+function getItemByName($name) {
+	$items = getItems();
+
+	foreach($items as $item) {
+		if($item->name==$name) {
+			return $item;
+		}
+	}
+	return NULL;
+}
+
+
+/**
+ * reads the icon of a Stendhal items
+ */
+function stendhalDataIncludeItemIconOnly($item) {
+	$res .= '<span class="stendhalItemIcon"><a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
+	$res .= '<img src="/' . htmlspecialchars($item->gfx) . '" />';
+	$res .= '</a></span>';
+	return $res;
+}
+
+/**
+ * reads stats and optionally the icon and the description of Stendhal items
+ */
+function stendhalDataIncludeItemStats($item, $argv) {
+	$res .= '<div class="stendhalItem"><span class="stendhalItemIconNameBanner">';
+
+	if (!isset($argv['info'])) {
+		$res .= stendhalDataIncludeItemIconOnly($item);
+	}
+
+	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
+		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
+		$res .= $item->name;
+		$res .= '</a>';
+	}
+	$res .= '</span>';
+		
+	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
+		$res .= '<br />';
+		$res .= 'Class: ' . htmlspecialchars(ucfirst($item->class)) . '<br />';
+		foreach($item->attributes as $label=>$data) {
+			if ($label != "quantity") {
+				$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
+			}
+		}
+	}
+	if (!isset($argv['info'])) {
+		$res .= '<br />' . $item->description . '<br />';
+	}
+
+	$res .= '</div>';
+	return $res;
+}
+
+/**
+ * includes data about Stendhal items
+ */
+function stendhalDataIncludeItem($input, $argv, &$parser) {
+	$res = '';
+	$item = getItemByName($input);
+	if ($item == NULL) {
+		return '&lt;item "' . htmlspecialchars($input) . '" not found&gt;';
+	}
+
+	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
+		$res .= stendhalDataIncludeItemIconOnly($item);
+		$block = false;
+	} else {
+		$res .= stendhalDataIncludeItemStats($item, $argv);
+		$block = true;
+	}
+
+	$link = '/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact';
+	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $item->name, $res);
+
+	return $res;
+}
+
+?>
