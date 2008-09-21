@@ -80,9 +80,10 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 	$res .= '</span>';
 		
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<br />Class: ' . htmlspecialchars(strtoupper($item->class));
+		$res .= '<br />';
+		$res .= 'Class: ' . htmlspecialchars(strtoupper($item->class)) . '<br />';
 		foreach($item->attributes as $label=>$data) {
-			$res .= '<br />' . htmlspecialchars(strtoupper($label)) . ': ' . htmlspecialchars($data);
+			$res .= htmlspecialchars(strtoupper($label)) . ': ' . htmlspecialchars($data) . '<br />';
 		}
 	}
 	if (!isset($argv['info'])) {
