@@ -63,23 +63,13 @@ function stendhalDataIncludeItemIconOnly($item) {
 	return $res;
 }
 
-function stendhalDataIncludeItem($input, $argv, &$parser) {
-	$res = '';
-	$item = getItemByName($input);
-	if ($item == NULL) {
-		return '&lt;item not found&gt;';
-	}
+function stendhalDataIncludeItemStats($item, $argv) {
+	$res .= '<div class="stendhalItem"><span class="stendhalItemIconNameBanner">';
 
-	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
-		return stendhalDataIncludeItemIconOnly($item);
-	}
-	
-	$res .= '<div class="stendhalItem">';
 	if (!isset($argv['info'])) {
 		$res .= stendhalDataIncludeItemIconOnly($item);
 	}
 
-	$res .= '<span class="stendhalItemIconNameBanner">';
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
 		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
 		$res .= $item->name;
@@ -102,10 +92,62 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 	return $res;
 }
 
+function stendhalDataIncludeItem($input, $argv, &$parser) {
+	$res = '';
+	$item = getItemByName($input);
+	if ($item == NULL) {
+		return '&lt;item "' . htmlspecialchars($input) . '" not found&gt;';
+	}
+
+	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
+		$res .= stendhalDataIncludeItemIconOnly($item);
+		$block = false;
+	} else {
+		$res .= stendhalDataIncludeItemStats($item, $argv);
+		$block = true;
+	}
+
+	if (!isset($argv['type']) || ($argv['type'] == 'mouseover')) {
+		$popup = $res;
+		$res = '';
+		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact"';
+		$res .= ' onmouseover="return overlib(\''.rawurlencode($popup).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',';
+		$res .= 'DECODE, FULLHTML';
+		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
+		$res .= htmlspecialchars($item->name);
+		$res .= '</a>';
+
+/*
+		$popup = $res;
+		$res = '';
+		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact"';
+		$res .= ' onmouseover="return overlib(\''.rawurlencode($popup).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',  BORDER, \'0\', DECODE, CAPBELOW, FULLHTML, ';
+		$res .= '-AUTOSTATUS';
+		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
+		$res .= htmlspecialchars($item->name);
+		$res .= '</a>';
+*/
+/*
+		$popup = $res;
+		$res = '';
+		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact"';
+		$res .= ' onmouseover="return overlib(\''.rawurlencode($popup).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',  BORDER, \'0\', DECODE, CAPBELOW, FULLHTML, ';
+		$res .= ' FILTER, FILTEROPACITY,\'100\', FADETIME, \'1\', FADEIN, \'6\', FADEOUT, \'6\', -AUTOSTATUS';
+		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
+		$res .= htmlspecialchars($item->name);
+		$res .= '</a>';
+*/
+	}
+
+	return $res;
+}
+
 function stendhalDataIncludeSetup() {
-	global $wgParser;
+	global $wgParser, $wgScriptPath, $wgOut;
 	$wgParser->setHook( 'item', 'stendhalDataIncludeItem' );
-	$wgParser->ot['item'] = true;
+
+	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws.js"></script>');
+	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws_filter.js" /></script>');
 }
 
 ?>
