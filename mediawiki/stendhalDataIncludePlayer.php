@@ -57,7 +57,9 @@ function stendhalDataIncludePlayerStats($player, $argv) {
  */
 function stendhalDataIncludePlayer($input, $argv, &$parser) {
 	$res = '';
+	connect();
 	$player = getPlayer($input);
+	disconnect();
 	if ($player == NULL) {
 		return '&lt;player "' . htmlspecialchars($input) . '" not found&gt;';
 	}
