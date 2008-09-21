@@ -51,10 +51,9 @@ function stendhalDataIncludeCreatureStats($creature, $argv) {
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
 		$res .= '<br />';
 		$res .= 'Class: ' . htmlspecialchars(ucfirst($creature->class)) . '<br />';
+		$res .= 'Level: ' . htmlspecialchars($creature->level) . '<br />';
 		foreach($creature->attributes as $label=>$data) {
-			if ($label != "quantity") {
-				$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
-			}
+			$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
 		}
 	}
 	if (!isset($argv['info'])) {
