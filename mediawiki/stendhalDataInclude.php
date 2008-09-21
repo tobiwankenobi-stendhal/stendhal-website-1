@@ -79,9 +79,11 @@ function stendhalDataIncludeItemStats($item, $argv) {
 		
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
 		$res .= '<br />';
-		$res .= 'Class: ' . htmlspecialchars(strtoupper($item->class)) . '<br />';
+		$res .= 'Class: ' . htmlspecialchars(ucfirst($item->class)) . '<br />';
 		foreach($item->attributes as $label=>$data) {
-			$res .= htmlspecialchars(strtoupper($label)) . ': ' . htmlspecialchars($data) . '<br />';
+			if ($label != "quantity") {
+				$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
+			}
 		}
 	}
 	if (!isset($argv['info'])) {
@@ -116,27 +118,6 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
 		$res .= htmlspecialchars($item->name);
 		$res .= '</a>';
-
-/*
-		$popup = $res;
-		$res = '';
-		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact"';
-		$res .= ' onmouseover="return overlib(\''.rawurlencode($popup).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',  BORDER, \'0\', DECODE, CAPBELOW, FULLHTML, ';
-		$res .= '-AUTOSTATUS';
-		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
-		$res .= htmlspecialchars($item->name);
-		$res .= '</a>';
-*/
-/*
-		$popup = $res;
-		$res = '';
-		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact"';
-		$res .= ' onmouseover="return overlib(\''.rawurlencode($popup).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',  BORDER, \'0\', DECODE, CAPBELOW, FULLHTML, ';
-		$res .= ' FILTER, FILTEROPACITY,\'100\', FADETIME, \'1\', FADEIN, \'6\', FADEOUT, \'6\', -AUTOSTATUS';
-		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
-		$res .= htmlspecialchars($item->name);
-		$res .= '</a>';
-*/
 	}
 
 	return $res;
