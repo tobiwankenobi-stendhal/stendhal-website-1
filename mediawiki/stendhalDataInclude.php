@@ -55,6 +55,14 @@ object(Item)#256 (6) {
 }
 */
 
+
+function stendhalDataIncludeItemIconOnly($item) {
+	$res .= '<span class="stendhalItemIcon"><a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
+	$res .= '<img src="/' . htmlspecialchars($item->gfx) . '" />';
+	$res .= '</a></span>';
+	return $res;
+}
+
 function stendhalDataIncludeItem($input, $argv, &$parser) {
 	$res = '';
 	$item = getItemByName($input);
@@ -62,16 +70,16 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 		return '&lt;item not found&gt;';
 	}
 
-	$boxType = 'div';
-
-	$res .= '<' . $boxType . ' class="stendhalItem">';
+	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
+		return stendhalDataIncludeItemIconOnly($item);
+	}
+	
+	$res .= '<div class="stendhalItem">';
+	if (!isset($argv['info'])) {
+		$res .= stendhalDataIncludeItemIconOnly($item);
+	}
 
 	$res .= '<span class="stendhalItemIconNameBanner">';
-	if (!isset($argv['info']) || ($argv['info'] == 'icon')) {
-		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
-		$res .= '<img src="/' . htmlspecialchars($item->gfx) . '" />';
-		$res .= '</a>';
-	}
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
 		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
 		$res .= $item->name;
@@ -90,7 +98,7 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 		$res .= '<br />' . $item->description . '<br />';
 	}
 
-	$res .= '</'. $boxType . '>';
+	$res .= '</div>';
 	return $res;
 }
 
