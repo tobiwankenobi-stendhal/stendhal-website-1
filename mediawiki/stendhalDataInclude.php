@@ -5,6 +5,7 @@ if (!defined('MEDIAWIKI')) {
 
 require_once($IP.'/../scripts/xml.php');
 require_once($IP.'/extensions/stendhalDataIncludeItem.php');
+require_once($IP.'/extensions/stendhalDataIncludeCreature.php');
 
 $wgExtensionFunctions[] = "stendhalDataIncludeSetup";
 $wgExtensionCredits['other'][] = array(
@@ -28,16 +29,17 @@ $wgExtensionCredits['other'][] = array(
  * @param $argv arguments in the tag
  * @param $link link to include in the normal page
  * @param $name text to show on the link
+ * @param $cssclass name of ccs class to render the link
  * @param $html the html code to put into the box
  */
-function stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $name, $html) {
+function stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $name, $cssclass, $html) {
 	$res = $html;
 	if (!isset($argv['type']) || ($argv['type'] == 'mouseover')) {
 		$res = '';
 		$res .= '<a href="' . $link . '"';
 		$res .= ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',';
 		$res .= 'DECODE, FULLHTML';
-		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
+		$res .= ');" onmouseout="return nd();" class="' . $cssclass . '">';
 		$res .= htmlspecialchars($name);
 		$res .= '</a>';
 	}
@@ -51,7 +53,8 @@ function stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $name, $html) 
  */
 function stendhalDataIncludeSetup() {
 	global $wgParser, $wgScriptPath, $wgOut;
-	$wgParser->setHook( 'item', 'stendhalDataIncludeItem' );
+	$wgParser->setHook('item', 'stendhalDataIncludeItem');
+	$wgParser->setHook('creature', 'stendhalDataIncludeCreature');
 
 	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws.js"></script>');
 	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws_filter.js" /></script>');
