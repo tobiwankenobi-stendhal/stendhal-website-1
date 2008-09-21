@@ -18,9 +18,7 @@
  */
 
 
-if(file_exists('configuration.php')) {
-  include('configuration.php'); 	
-}
+include('configuration.php'); 	
 include('configuration.default.php'); 
 
 $websitedb=-1;
