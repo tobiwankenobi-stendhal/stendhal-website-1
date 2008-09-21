@@ -19,7 +19,9 @@ $wgExtensionCredits['other'][] = array(
 );
 
 
-
+/**
+ * helper function to read the item with this name using the Stendhal website code
+ */
 function getItemByName($name) {
 	$items = getItems();
 
@@ -32,6 +34,9 @@ function getItemByName($name) {
 }
 
 
+/**
+ * reads the icon of a Stendhal items
+ */
 function stendhalDataIncludeItemIconOnly($item) {
 	$res .= '<span class="stendhalItemIcon"><a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
 	$res .= '<img src="/' . htmlspecialchars($item->gfx) . '" />';
@@ -39,6 +44,9 @@ function stendhalDataIncludeItemIconOnly($item) {
 	return $res;
 }
 
+/**
+ * reads stats and optionally the icon and the description of Stendhal items
+ */
 function stendhalDataIncludeItemStats($item, $argv) {
 	$res .= '<div class="stendhalItem"><span class="stendhalItemIconNameBanner">';
 
@@ -70,6 +78,9 @@ function stendhalDataIncludeItemStats($item, $argv) {
 	return $res;
 }
 
+/**
+ * includes data about Stendhal items
+ */
 function stendhalDataIncludeItem($input, $argv, &$parser) {
 	$res = '';
 	$item = getItemByName($input);
@@ -91,6 +102,16 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 	return $res;
 }
 
+
+/**
+ * wraps the hmtl into a box if the "type" parameter is either undefined
+ * or set to "mouseover".
+ *
+ * @param $argv arguments in the tag
+ * @param $link link to include in the normal page
+ * @param $name text to show on the link
+ * @param $html the html code to put into the box
+ */
 function stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $name, $html) {
 	$res = $html;
 	if (!isset($argv['type']) || ($argv['type'] == 'mouseover')) {
@@ -105,6 +126,11 @@ function stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $name, $html) 
 	return $res;
 }
 
+
+/**
+ * setup the parser by telling it about the tags we can 
+ * handle and include the required java script
+ */
 function stendhalDataIncludeSetup() {
 	global $wgParser, $wgScriptPath, $wgOut;
 	$wgParser->setHook( 'item', 'stendhalDataIncludeItem' );
