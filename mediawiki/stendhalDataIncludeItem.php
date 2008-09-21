@@ -77,10 +77,8 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 
 	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
 		$res .= stendhalDataIncludeItemIconOnly($item);
-		$block = false;
 	} else {
 		$res .= stendhalDataIncludeItemStats($item, $argv);
-		$block = true;
 	}
 
 	$link = '/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact';
