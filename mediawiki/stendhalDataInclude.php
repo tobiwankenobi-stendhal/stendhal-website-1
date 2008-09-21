@@ -31,30 +31,6 @@ function getItemByName($name) {
 	return NULL;
 }
 
-/*
-object(Item)#256 (6) {
-  ["name"]=>
-  string(13) "rod of the gm"
-  ["description"]=>
-  string(129) "You see a rod of the GM.  This rod is reserved for those with special powers, be careful not to let it fall into the wrong hands."
-  ["class"]=>
-  string(4) "club"
-  ["gfx"]=>
-  string(59) "itemimage.php?url=data/sprites/items/club/rod_of_the_gm.png"
-  ["attributes"]=>
-  array(3) {
-    ["atk"]=>
-    string(3) "100"
-    ["def"]=>
-    string(3) "100"
-    ["rate"]=>
-    string(1) "2"
-  }
-  ["equipableat"]=>
-  NULL
-}
-*/
-
 
 function stendhalDataIncludeItemIconOnly($item) {
 	$res .= '<span class="stendhalItemIcon"><a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
@@ -109,17 +85,23 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 		$block = true;
 	}
 
+	$link = '/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact';
+	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $item->name, $res);
+
+	return $res;
+}
+
+function stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $name, $html) {
+	$res = $html;
 	if (!isset($argv['type']) || ($argv['type'] == 'mouseover')) {
-		$popup = $res;
 		$res = '';
-		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact"';
-		$res .= ' onmouseover="return overlib(\''.rawurlencode($popup).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',';
+		$res .= '<a href="' . $link . '"';
+		$res .= ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',';
 		$res .= 'DECODE, FULLHTML';
 		$res .= ');" onmouseout="return nd();" class="stendhalItemLink">';
-		$res .= htmlspecialchars($item->name);
+		$res .= htmlspecialchars($name);
 		$res .= '</a>';
 	}
-
 	return $res;
 }
 
