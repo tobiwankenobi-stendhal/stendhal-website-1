@@ -82,7 +82,7 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 	}
 
 	$link = '/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact';
-	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $item->name, $res);
+	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $item->name, "stendhalItemLink", $res);
 
 	return $res;
 }
