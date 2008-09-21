@@ -54,13 +54,19 @@ function getItemByName($name) {
 }
 
 function stendhalDataIncludeItem($input, $argv, &$parser) {
+	$res = '';
 	$item = getItemByName($input);
-	var_dump($item);
 	if ($item == NULL) {
 		return '&lt;item not found&gt;';
 	}
 
-	return $item->description;
+	if (!isset($argv['info']) || ($argv['info'] == 'icon')) {
+		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
+		$res .= '<img src="/' . htmlspecialchars($item->gfx) . '" />';
+		$res .= '</a>';
+	}
+
+	return $res;
 }
 
 function stendhalDataIncludeSetup() {
