@@ -6,6 +6,7 @@ if (!defined('MEDIAWIKI')) {
 require_once($IP.'/../scripts/xml.php');
 require_once($IP.'/extensions/stendhalDataIncludeItem.php');
 require_once($IP.'/extensions/stendhalDataIncludeCreature.php');
+require_once($IP.'/extensions/stendhalDataIncludePlayer.php');
 
 $wgExtensionFunctions[] = "stendhalDataIncludeSetup";
 $wgExtensionCredits['other'][] = array(
@@ -55,6 +56,7 @@ function stendhalDataIncludeSetup() {
 	global $wgParser, $wgScriptPath, $wgOut;
 	$wgParser->setHook('item', 'stendhalDataIncludeItem');
 	$wgParser->setHook('creature', 'stendhalDataIncludeCreature');
+	$wgParser->setHook('player', 'stendhalDataIncludePlayer');
 
 	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws.js"></script>');
 	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws_filter.js" /></script>');
