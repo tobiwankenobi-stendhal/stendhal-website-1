@@ -18,6 +18,19 @@ $wgExtensionCredits['other'][] = array(
 		. 'type="default" <em>or</em> type="mouseover" <em>or</em> type="include"<br>'
 );
 
+
+
+function getItemByName($name) {
+	$items = getItems();
+
+	foreach($items as $item) {
+		if($item->name==$name) {
+			return $item;
+		}
+	}
+	return NULL;
+}
+
 /*
 object(Item)#256 (6) {
   ["name"]=>
@@ -42,17 +55,6 @@ object(Item)#256 (6) {
 }
 */
 
-function getItemByName($name) {
-	$items = getItems();
-
-	foreach($items as $item) {
-		if($item->name==$name) {
-			return $item;
-		}
-	}
-	return NULL;
-}
-
 function stendhalDataIncludeItem($input, $argv, &$parser) {
 	$res = '';
 	$item = getItemByName($input);
@@ -60,12 +62,34 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 		return '&lt;item not found&gt;';
 	}
 
+	$boxType = 'div';
+
+	$res .= '<' . $boxType . ' class="stendhalItem">';
+
+	$res .= '<span class="stendhalItemIconNameBanner">';
 	if (!isset($argv['info']) || ($argv['info'] == 'icon')) {
 		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
 		$res .= '<img src="/' . htmlspecialchars($item->gfx) . '" />';
 		$res .= '</a>';
 	}
+	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
+		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
+		$res .= $item->name;
+		$res .= '</a>';
+	}
+	$res .= '</span>';
+		
+	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
+		$res .= '<br />Class: ' . htmlspecialchars(strtoupper($item->class));
+		foreach($item->attributes as $label=>$data) {
+			$res .= '<br />' . htmlspecialchars(strtoupper($label)) . ': ' . htmlspecialchars($data);
+		}
+	}
+	if (!isset($argv['info'])) {
+		$res .= '<br />' . $item->description . '<br />';
+	}
 
+	$res .= '</'. $boxType . '>';
 	return $res;
 }
 
