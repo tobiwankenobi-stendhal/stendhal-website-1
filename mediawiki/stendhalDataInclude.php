@@ -8,7 +8,7 @@ require_once($IP.'/../scripts/items.php');
 
 $wgExtensionFunctions[] = "stendhalDataIncludeSetup";
 $wgExtensionCredits['other'][] = array(
-	'version' => '0.1',
+	'version' => '0.5',
 	'name' => 'StendhalDataInclude',
 	'author' => 'Hendrik Brummermann',
 	'url' => 'http://arianne.sf.net',
