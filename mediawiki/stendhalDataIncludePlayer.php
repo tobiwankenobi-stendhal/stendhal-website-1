@@ -18,6 +18,10 @@ function stendhalDataIncludePlayerIconOnly($player) {
 	return $res;
 }
 
+function getAge($minutes) {
+  return round($minutes/60,2);
+}
+
 /**
  * reads stats and optionally the icon and the description of Stendhal players
  */
@@ -37,15 +41,15 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 		
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
 		$res .= '<br />';
-		$res .= 'Class: ' . htmlspecialchars(ucfirst($player->class)) . '<br />';
+		$res .= 'Age: ' . htmlspecialchars(getAge($player->age)) . '<br />';
+		$res .= 'Level: ' . htmlspecialchars($player->level) . '<br />';
+		$res .= 'XP: ' . htmlspecialchars($player->xp) . '<br />';
 		foreach($player->attributes as $label=>$data) {
-			if ($label != "quantity") {
-				$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
-			}
+			$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
 		}
 	}
 	if (!isset($argv['info'])) {
-		$res .= '<br />' . $player->description . '<br />';
+		$res .= '<br />"' . $player->sentence . '"<br />';
 	}
 
 	$res .= '</div>';
