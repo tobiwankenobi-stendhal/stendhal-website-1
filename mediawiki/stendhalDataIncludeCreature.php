@@ -69,10 +69,12 @@ function stendhalDataIncludeCreatureStats($creature, $argv) {
  * includes data about Stendhal creatures
  */
 function stendhalDataIncludeCreature($input, $argv, &$parser) {
+	$parsedInput = stendhalDataIncludeParseInput($input);
+
 	$res = '';
-	$creature = getCreatureByName($input);
+	$creature = getCreatureByName($parsedInput['name']);
 	if ($creature == NULL) {
-		return '&lt;creature "' . htmlspecialchars($input) . '" not found&gt;';
+		return '&lt;creature "' . htmlspecialchars($parsedInput['name']) . '" not found&gt;';
 	}
 
 	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
@@ -82,7 +84,7 @@ function stendhalDataIncludeCreature($input, $argv, &$parser) {
 	}
 
 	$link = '/?id=content/scripts/monster&name=' . urlencode($creature->name) . '&exact';
-	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $creature->name, "stendhalCreatureLink", $res);
+	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalCreatureLink", $res);
 
 	return $res;
 }

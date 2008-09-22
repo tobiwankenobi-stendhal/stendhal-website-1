@@ -47,6 +47,15 @@ function stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $name, $csscla
 	return $res;
 }
 
+/**
+ * parses the tag content into the name and an optional display test
+ */
+function stendhalDataIncludeParseInput($input) {
+	$res = array();
+	$res['name'] = $input;
+	$res['display'] = $input;
+	return $res;
+}
 
 /**
  * setup the parser by telling it about the tags we can 

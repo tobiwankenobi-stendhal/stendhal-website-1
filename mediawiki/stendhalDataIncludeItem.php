@@ -70,10 +70,12 @@ function stendhalDataIncludeItemStats($item, $argv) {
  * includes data about Stendhal items
  */
 function stendhalDataIncludeItem($input, $argv, &$parser) {
+	$parsedInput = stendhalDataIncludeParseInput($input);
+
 	$res = '';
-	$item = getItemByName($input);
+	$item = getItemByName($parsedInput['name']);
 	if ($item == NULL) {
-		return '&lt;item "' . htmlspecialchars($input) . '" not found&gt;';
+		return '&lt;item "' . htmlspecialchars($parsedInput['name']) . '" not found&gt;';
 	}
 
 	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
@@ -83,7 +85,7 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 	}
 
 	$link = '/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact';
-	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $item->name, "stendhalItemLink", $res);
+	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalItemLink", $res);
 
 	return $res;
 }

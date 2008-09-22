@@ -60,14 +60,16 @@ function stendhalDataIncludePlayerStats($player, $argv) {
  * includes data about Stendhal players
  */
 function stendhalDataIncludePlayer($input, $argv, &$parser) {
+	$parsedInput = stendhalDataIncludeParseInput($input);
+
 	$parser->disableCache();
 
 	$res = '';
 	connect();
-	$player = getPlayer($input);
+	$player = getPlayer($parsedInput['name']);
 	disconnect();
 	if ($player == NULL) {
-		return '&lt;player "' . htmlspecialchars($input) . '" not found&gt;';
+		return '&lt;player "' . htmlspecialchars($parsedInput['name']) . '" not found&gt;';
 	}
 
 	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
@@ -77,7 +79,7 @@ function stendhalDataIncludePlayer($input, $argv, &$parser) {
 	}
 
 	$link = '/?id=content/scripts/player&character=' . urlencode($player->name) . '&exact';
-	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $player->name, "stendhalPlayerLink", $res);
+	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalPlayerLink", $res);
 
 	return $res;
 }
