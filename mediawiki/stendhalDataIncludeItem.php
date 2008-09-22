@@ -10,6 +10,7 @@ require_once($IP.'/../scripts/items.php');
  * helper function to read the item with this name using the Stendhal website code
  */
 function getItemByName($name) {
+	$name = strtolower($name);
 	$items = getItems();
 
 	foreach($items as $item) {

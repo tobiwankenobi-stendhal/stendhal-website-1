@@ -10,6 +10,7 @@ require_once($IP.'/../scripts/monsters.php');
  * helper function to read the creature with this name using the Stendhal website code
  */
 function getCreatureByName($name) {
+	$name = strtolower($name);
 	$creatures = getMonsters();
 
 	foreach($creatures as $creature) {
