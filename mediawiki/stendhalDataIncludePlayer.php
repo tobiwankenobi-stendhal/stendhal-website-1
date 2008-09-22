@@ -60,6 +60,8 @@ function stendhalDataIncludePlayerStats($player, $argv) {
  * includes data about Stendhal players
  */
 function stendhalDataIncludePlayer($input, $argv, &$parser) {
+	$parser->disableCache();
+
 	$res = '';
 	connect();
 	$player = getPlayer($input);
