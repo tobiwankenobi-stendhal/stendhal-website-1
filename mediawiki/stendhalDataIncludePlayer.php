@@ -12,7 +12,7 @@ require_once($IP.'/../scripts/players.php');
  * reads the icon of a Stendhal players
  */
 function stendhalDataIncludePlayerIconOnly($player) {
-	$res .= '<span class="stendhalPlayerIcon"><a href="/?id=content/scripts/character&name=' . urlencode($player->name) . '&exact">';
+	$res .= '<span class="stendhalPlayerIcon"><a href="/?id=content/scripts/character&name&name=' . urlencode($player->name) . '&exact">';
 	$res .= '<img src="/createoutfit.php?outfit=' . htmlspecialchars($player->outfit) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -33,7 +33,7 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="/?id=content/scripts/player&character=' . urlencode($player->name) . '&exact">';
+		$res .= '<a href="/?id=content/scripts/character&name=' . urlencode($player->name) . '&exact">';
 		$res .= $player->name;
 		$res .= '</a>';
 	}
@@ -78,7 +78,7 @@ function stendhalDataIncludePlayer($input, $argv, &$parser) {
 		$res .= stendhalDataIncludePlayerStats($player, $argv);
 	}
 
-	$link = '/?id=content/scripts/player&character=' . urlencode($player->name) . '&exact';
+	$link = '/?id=content/scripts/character&name=' . urlencode($player->name) . '&exact';
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalPlayerLink", $res);
 
 	return $res;
