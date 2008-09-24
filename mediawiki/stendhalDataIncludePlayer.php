@@ -47,9 +47,14 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 		foreach($player->attributes as $label=>$data) {
 			$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
 		}
+		if ($player->adminlevel > 0) {
+			$res .= '<span class="stendhalAdmin">Admin-Level: ' . htmlspecialchars($player->adminlevel) . '</span>' . '<br />';
+		}
 	}
 	if (!isset($argv['info'])) {
-		$res .= '<br />"' . $player->sentence . '"<br />';
+		if (strlen($player->sentence) > 0) {
+			$res .= '<br />"' . $player->sentence . '"<br />';
+		}
 	}
 
 	$res .= '</div>';
