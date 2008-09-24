@@ -48,7 +48,15 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 			$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
 		}
 		if ($player->adminlevel > 0) {
-			$res .= '<span class="stendhalAdmin">Admin-Level: ' . htmlspecialchars($player->adminlevel) . '</span>' . '<br />';
+			if ($player->adminlevel >= 800) {
+				$classSuffix = "High";
+			} else if ($player->adminlevel >= 400) {
+				$classSuffix = "Middle";
+			} else {
+				$classSuffix = "Low";
+			}
+			$res .= '<span class="stendhalAdmin stendhalAdmin' . $classSuffix . '">';
+			$res .= 'Admin-Level: ' . htmlspecialchars($player->adminlevel) . '</span>' . '<br />';
 		}
 	}
 	if (!isset($argv['info'])) {
