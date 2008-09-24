@@ -32,6 +32,8 @@ class Player {
   public $age;
   /* XP of the player. It is a special attribute. */
   public $xp;
+  /* adminlevel */
+  public $adminlevel;
   /* Attributes the player has as a array key=>value */
   public $attributes;
   /* Money the player has. */
@@ -39,7 +41,7 @@ class Player {
   /* Equipment the player has in slots in a array slot=>item */
   public $equipment;
   
-  function __construct($name, $sentence, $age, $level, $xp, $outfit, $money, $attributes, $equipment) {
+  function __construct($name, $sentence, $age, $level, $xp, $outfit, $money, $adminlevel, $attributes, $equipment) {
     $this->name=$name;
     $this->sentence=$sentence;
     $this->age=$age;
@@ -47,6 +49,7 @@ class Player {
     $this->outfit=$outfit;
     $this->xp=$xp;
     $this->attributes=$attributes;
+    $this->adminlevel=$adminlevel;
     $this->money=$money;
     $this->equipment=$equipment;
   }
@@ -164,6 +167,7 @@ function _getPlayers($query) {
                      $row['xp'],
                      $row['outfit'],
                      $row['money'],
+                     $row['adminlevel'],
                      $attributes,
                      $equipment);
     }
