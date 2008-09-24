@@ -167,7 +167,7 @@ function _getPlayers($query) {
                      $row['xp'],
                      $row['outfit'],
                      $row['money'],
-                     $row['adminlevel'],
+                     $row['admin'],
                      $attributes,
                      $equipment);
     }
