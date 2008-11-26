@@ -200,7 +200,14 @@ if(isset($_REQUEST["id"]))
            * Get the best player related to the amount of XP earn against its age.
            */
           $player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
-          $player->show();
+          if($player!=NULL) {
+            $player->show();
+          } else {
+          	?>
+          	<div class="small_notice">
+          		No players registered.
+          	</div>
+          	<?          }
           endBox(); 
         ?>
         
