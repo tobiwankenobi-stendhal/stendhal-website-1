@@ -22,6 +22,11 @@
 	font-size: 14px;
 }
 
+.creature .respawn {
+	text-align: left;
+	font-size: 14px;
+}
+
 .creature .description {
 	padding: 5px;
 	border: 1px solid #BBBBBB;

@@ -1,5 +1,8 @@
 <?php 
 
+function printRespawn($turns) {
+  return round($turns *0.3/60,2);
+}
 $name=$_REQUEST['name'];
 $isExact=isset($_REQUEST['exact']);
 
@@ -29,6 +32,7 @@ foreach($monsters as $m) {
       <img class="creature" src="<?php echo $m->gfx; ?>" alt="<?php echo $m->name; ?>"/>
       <div class="level">Level <?php echo $m->level; ?></div>
       <div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
+      <div class="respawn">Respawns on average in <?php echo printRespawn($m->respawn); ?> minutes.</div>
       <div class="description">
         <?php 
           if($m->description=="") {

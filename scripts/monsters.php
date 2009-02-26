@@ -35,6 +35,8 @@ class Monster {
   public $level;
   /* XP value of the monster */
   public $xp;
+  /* respawn value of the monster */
+  public $respawn;
   /* Times this monster has been killed */
   public $kills;
   /* Players killed by this monster class */
@@ -46,7 +48,7 @@ class Monster {
   /* Locations where this monster is found. */
   public $locations;
 
-  function __construct($name, $description, $class, $gfx, $level, $xp, $attributes, $drops) {
+  function __construct($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops) {
     $this->name=$name;
     $this->description=$description;
     $this->class=$class;
@@ -54,6 +56,7 @@ class Monster {
     $this->gfx=$gfx;
     $this->level=$level;
     $this->xp=$xp;
+    $this->respawn=$respawn;
     $this->attributes=$attributes;
     $this->drops=$drops;
   }
@@ -301,7 +304,8 @@ function getMonsters() {
     
     $level=$creatures[$i]['level']['0 attr']['value'];
     $xp=$creatures[$i]['experience']['0 attr']['value'];
-    
+    $respawn=$creatures[$i]['respawn']['0 attr']['value'];
+
     $drops=array();
 
     foreach($creatures[$i]['drops'][0]['item'] as $drop) {
@@ -321,7 +325,7 @@ function getMonsters() {
     
     //print_r($creatures[$i]);
     */
-    $list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $attributes, $drops);
+    $list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops);
   } 
   
   Monster::$monsters=$list;
