@@ -114,6 +114,21 @@ class Player {
     
     return $account;
   }
+
+  function getDMScore() {
+   $result=mysql_query('select points from halloffame where charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
+      
+    while($row=mysql_fetch_assoc($result)) {      
+      $points=$row['points'];
+    }
+    
+    mysql_free_result($result);
+    if(sizeof($points)==0){
+	$points=0;
+	}
+    return $points;
+    
+  }
 }
   
 /**

@@ -26,6 +26,7 @@ $choosen=$players[0];
   <div class="statslabel">Age:</div><div class="data"><?php echo printAge($choosen->age); ?> hours</div>
   <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
   <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
+  <div class="statslabel">DM Score:</div><div class="data"><?php echo $choosen->getDMScore(); ?></div>
   <div class="sentence"><?php echo $choosen->sentence; ?></div> 
 </div>
 
