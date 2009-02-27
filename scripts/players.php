@@ -148,6 +148,11 @@ function getBestPlayer($where='') {
     return $player[0];
 }
 
+function getDMHeroes($cond='limit 2') {
+  return _getPlayers('select character_stats.* from character_stats join halloffame on charname=name order by points desc '.$cond, getGameDB());
+
+}
+
 /**
   * Returns a list of players that are online right now.
   */

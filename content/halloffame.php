@@ -84,7 +84,6 @@ startBox("Eldest players");
   $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'age desc', 'limit '.TOTAL_HOF_PLAYERS);
   renderListOfPlayers($players, 'getAge', ' hours');
 endBox();
-
 function getAge($player) {
   return round($player->age/60,2);
 }
@@ -94,6 +93,20 @@ function printAge($minutes) {
   $m=$minutes%60;
   
   return round($h).':'.round($m);
+}
+?>
+</div>
+<div style="float: left; width: 33%">
+<?php
+startBox("Deathmatch heroes");
+  ?>
+  <div class="bubble">Based on the deathmatch score</div>
+  <?php
+  $players= getDMHeroes('limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, 'getDMScore',' points');
+endBox();
+function getDMScore($player) {
+  return $player->getDMScore();
 }
 
 ?>
