@@ -111,3 +111,33 @@ function getDMScore($player) {
 
 ?>
 </div>
+<div style="float: left; width: 33%">
+<?php
+startBox("Best attackers");
+  ?>
+  <div class="bubble">Based on the base ATK</div>
+  <?php
+    $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'atk desc', 'limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, 'getAtk', " ");
+endBox();
+function getAtk($player) {
+  return $player->attributes['atk'];
+}
+
+?>
+</div>
+<div style="float: left; width: 33%">
+<?php
+startBox("Best defenders");
+  ?>
+  <div class="bubble">Based on the base DEF</div>
+  <?php
+   $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'def desc', 'limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, 'getDef', " ");
+endBox();
+function getDef($player) {
+  return $player->attributes['def'];
+}
+
+?>
+</div>
