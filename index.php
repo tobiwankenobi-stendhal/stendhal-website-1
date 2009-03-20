@@ -297,7 +297,7 @@ if(isset($_REQUEST["id"]))
         printf(' (Page generated in %.3f seconds.)', $totaltime);
         ?>
         <span class="copyright">&copy; 1999-2008 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
-        <span><a href="http://sourceforge.net"><img style="border: 1px solid black;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></span>
+        <span><a href="http://sourceforge.net/projects/arianne"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
         <span><?php include('counter.php'); ?></span>
       </div>
       
