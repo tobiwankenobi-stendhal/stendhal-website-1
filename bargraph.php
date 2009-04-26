@@ -27,7 +27,7 @@ $values = explode(",",$data);
 
 // Get the total number of columns we are going to plot
 
-$columns  = count($values)-1;
+$columns  = count($values)-1; // HACK: "fake away" the terminating comma
 
 // Get the height and width of the final image
 
@@ -36,7 +36,7 @@ $height = 200;
 
 // Set the amount of space between each column
 
-$padding = 2;
+$padding = 5;
 
 // set the height needed to pad above column for number data
 // and below for extra data string
@@ -61,16 +61,48 @@ imagefilledrectangle($im,0,0,$width,$height+$verticalpadding +$verticalpadding ,
 
 $maxv = 1;
 
-// Calculate the maximum value we are going to plot
+// Parse date and value/amount from list of values and
+// calculate the maximum value we are going to plot as well.
 
 for($i=0;$i<$columns;$i++) {
-	$maxv = max($values[$i],$maxv);
+
+  // $pair[0] contains a date string like for example "-mm-dd".
+  // $pair[1] contains the actual amount to be plotted for example "15".
+
+  $pair = explode('_', $values[$i]);
+
+  if (count($pair) !== 2) {
+
+    // There is not exactly one underscore in the value.
+    // Ignore it.
+
+    $values[$i] = NULL;
+  }
+  else {
+    $maxv = max($pair[1],$maxv);
+
+    $values[$i] = $pair;
+  }
 }
+
+// $values now looks like this:
+// array[day_offset] => array(
+//  0 => date string
+//  1 => amount/value
+// )
 
 // Now plot each column
 
 for($i=0;$i<$columns;$i++) {
-	$column_height = ($height / 100) * (( $values[$i] / $maxv) *100);
+  if (is_null($values[$i])) {
+
+    // The value for this index was not considered valid.
+    // Ignore it completely.
+
+    continue;
+  }
+
+	$column_height = ($height / 100) * (( $values[$i][1] / $maxv) *100);
 
 	$x1 = ($columns-1-$i)*$column_width;
 	$y1 = $height-$column_height + $verticalpadding ;
@@ -79,7 +111,8 @@ for($i=0;$i<$columns;$i++) {
 
 	imagefilledrectangle($im,$x1,$y1,$x2,$y2,$gray);
 	// following usual convention, values of height of bar chart written just above each column
-	imagestring($im, 3, $x1+($x2-$x1)/2,$y1-$verticalpadding, $values[$i], $black);
+	imagestring($im, 3, $x1+($x2-$x1)/2,$y1-$verticalpadding, $values[$i][1], $black);
+	imagestring($im, 2, $x1,$y2+2, $values[$i][0], $black);
 
         // in all examples used on this website the x axis data is the Date and this should be marked. ideally would send the data in the array, so this should be worked on or simply add the date below each bar manually. 
 

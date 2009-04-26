@@ -92,7 +92,8 @@ foreach($monsters as $m) {
     startBox(ucfirst($m->name)." killed by players, per day");
       $data='';
       foreach($m->kills as $day=>$amount) {
-        $data=$data.$amount.',';
+	$date = date('M-d', time() - $day * 86400);
+	$data .= $date . '_' . $amount . ',';
       }
     ?>  
     <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>
@@ -102,7 +103,8 @@ foreach($monsters as $m) {
     startBox("Players killed by ".$m->name.", per day");
       $data='';
       foreach($m->killed as $day=>$amount) {
-        $data=$data.$amount.',';
+        $date = date('M-d', time() - $day * 86400);
+	$data.= $date . '_' . $amount . ','; 
       }
     ?>  
     <img style="padding: 4px; border: 1px solid black;" src="bargraph.php?data=<?php echo $data; ?>"/>
