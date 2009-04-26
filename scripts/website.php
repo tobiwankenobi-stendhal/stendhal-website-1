@@ -51,6 +51,7 @@ function endBox() {
   }
   
 function showKnownBugNotice() {
+if(STENDHAL_PLEASE_MAKE_IT_FAST){
   ?>
     <div class="notice">
       The following data is not correct and that's a known bug.<br/>
@@ -58,6 +59,7 @@ function showKnownBugNotice() {
       As soon as we fix this problem you will see real data from game server.
     </div>
   <?php
+ }
 }
   
 include('scripts/screenshots.php');
