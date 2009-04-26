@@ -132,7 +132,7 @@ class Monster {
      */
     $result = mysql_query('
     select 
-      dayofyear(timedate) - dayofyear(NOW()) as day_offset, 
+      TO_DAYS(timedate) - TO_DAYS(NOW()) as day_offset, 
       count(*) as amount 
     from gameEvents 
     where 
