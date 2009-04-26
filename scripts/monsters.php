@@ -96,14 +96,14 @@ class Monster {
      */
     $result = mysql_query('
     select 
-      dayofyear(timedate) as day, 
+      dayofyear(timedate) - dayofyear(NOW()) as day_offset, 
       count(*) as amount 
     from gameEvents 
     where 
       event="killed" and 
       param1="'.addslashes($this->name).'" and 
-      datediff(now(),timedate)<='.$numberOfDays.' 
-    group by dayofyear(timedate)', getGameDB());
+      datediff(now(),timedate)<'.$numberOfDays.' 
+    group by day_offset', getGameDB());
     
     /*
      * TODO: Refactoring
@@ -121,15 +121,8 @@ class Monster {
      *       
      */
     
-    $this->kills=array();
-    
-    $base=date('z')+1;
-    for($i=0;$i<$numberOfDays;$i++) {
-      $this->kills[$base-$i]=0;
-    }
-
     while($row=mysql_fetch_assoc($result)) {      
-      $this->kills[$row['day']]=$row['amount'];
+      $this->kills[$row['day_offset']]=$row['amount'];
     }
     
     mysql_free_result($result);
@@ -139,29 +132,22 @@ class Monster {
      */
     $result = mysql_query('
     select 
-      dayofyear(timedate) as day, 
+      dayofyear(timedate) - dayofyear(NOW()) as day_offset, 
       count(*) as amount 
     from gameEvents 
     where 
       event="killed" and 
       source="'.addslashes($this->name).'" and 
-      datediff(now(),timedate)<='.$numberOfDays.' and 
+      datediff(now(),timedate)<'.$numberOfDays.' and 
       param1 not in ('.listOfMonsters(getMonsters()).') 
-    group by dayofyear(timedate)', getGameDB());
+    group by day_offset', getGameDB());
 
     /*
      * TODO: Refactoring
      */
-        
-    $this->killed=array();
-    
-    $base=date('z')+1;
-    for($i=0;$i<$numberOfDays;$i++) {
-      $this->killed[$base-$i]=0;
-    }
 
     while($row=mysql_fetch_assoc($result)) {      
-      $this->killed[$row['day']]=$row['amount'];
+      $this->killed[$row['day_offset']]=$row['amount'];
     }
     
     mysql_free_result($result);
