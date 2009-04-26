@@ -81,8 +81,7 @@ for($i=0;$i<$columns;$i++) {
 	// following usual convention, values of height of bar chart written just above each column
 	imagestring($im, 3, $x1+($x2-$x1)/2,$y1-$verticalpadding, $values[$i], $black);
 
-        // in all examples used on this website the x axis data is the Date and this should be marked. ideally would send the data in the array, so this should be worked on or simply add 
-the date below each bar manually. 
+        // in all examples used on this website the x axis data is the Date and this should be marked. ideally would send the data in the array, so this should be worked on or simply add the date below each bar manually. 
 
 	// This part is just for 3D effect
 	imageline($im,$x1,$y1,$x1,$y2,$black);
