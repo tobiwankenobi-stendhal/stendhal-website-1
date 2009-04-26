@@ -29,7 +29,7 @@ showKnownBugNotice();
 ?>
     
 <div style="float: left; width: 50%"><?php
-startBox('Most killed');
+startBox('Most killed (recently)');
 $result=getMostKilledMonster($monsters);
 if($result==null) {
 	$result=array($monsters[0],0);
@@ -47,7 +47,7 @@ endBox();
 ?></div>
 
 <div style="float: left; width: 50%"><?php
-startBox('Best Player killer');
+startBox('Best Player killer (recently)');
 $result=getBestKillerMonster($monsters);
 if($result==null) {
 	$result=array($monsters[0],0);
