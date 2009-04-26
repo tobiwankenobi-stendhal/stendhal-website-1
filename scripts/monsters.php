@@ -96,14 +96,14 @@ class Monster {
      */
     $result = mysql_query('
     select 
-      TO_DAYS(timedate) - TO_DAYS(NOW()) as day_offset, 
+      TO_DAYS(NOW()) - TO_DAYS(timedate) as day_offset, 
       count(*) as amount 
     from gameEvents 
     where 
-      event="killed" and 
-      param1="'.addslashes($this->name).'" and 
-      datediff(now(),timedate)<'.$numberOfDays.' 
-    group by day_offset', getGameDB());
+      event="killed" and  
+      param1="'.addslashes($this->name).'" and  
+      TO_DAYS(NOW()) - TO_DAYS(timedate)  < '.$numberOfDays.'  
+      group by day_offset order by day_offset desc', getGameDB());
     
     /*
      * TODO: Refactoring
@@ -132,15 +132,16 @@ class Monster {
      */
     $result = mysql_query('
     select 
-      TO_DAYS(timedate) - TO_DAYS(NOW()) as day_offset, 
+      TO_DAYS(NOW()) - TO_DAYS(timedate) as day_offset, 
       count(*) as amount 
     from gameEvents 
     where 
       event="killed" and 
       source="'.addslashes($this->name).'" and 
-      datediff(now(),timedate)<'.$numberOfDays.' and 
+      TO_DAYS(NOW()) - TO_DAYS(timedate) < '.$numberOfDays.' and 
       param1 not in ('.listOfMonsters(getMonsters()).') 
-    group by day_offset', getGameDB());
+    group by day_offset
+    ORDER BY day_offset DESC', getGameDB());
 
     /*
      * TODO: Refactoring
