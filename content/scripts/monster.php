@@ -89,7 +89,7 @@ foreach($monsters as $m) {
      */
     $m->fillKillKilledData();   
     
-    startBox(ucfirst($m->name)." killed by Player");
+    startBox(ucfirst($m->name)." killed by players, per day");
       $data='';
       foreach($m->kills as $day=>$amount) {
         $data=$data.$amount.',';
@@ -99,7 +99,7 @@ foreach($monsters as $m) {
     <?php
     endBox();
 
-    startBox("Players killed by ".$m->name);
+    startBox("Players killed by ".$m->name.", per day");
       $data='';
       foreach($m->killed as $day=>$amount) {
         $data=$data.$amount.',';
