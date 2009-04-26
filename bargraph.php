@@ -38,13 +38,17 @@ $height = 200;
 
 $padding = 2;
 
+// set the height needed to pad above column for number data
+// and below for extra data string
+$verticalpadding = 15;
+
 // Get the width of 1 column
 
 $column_width = $width / $columns ;
 
 // Generate the image variables
 
-$im        = imagecreate($width,$height+20);
+$im        = imagecreate($width,$height+$verticalpadding +$verticalpadding );
 $gray      = imagecolorallocate ($im,0x00,0x11,0xcc);
 $gray_lite = imagecolorallocate ($im,0xee,0xee,0xee);
 $gray_dark = imagecolorallocate ($im,0x7f,0x7f,0x7f);
@@ -53,7 +57,7 @@ $black     = imagecolorallocate ($im,0x00,0x00,0x00);
 
 // Fill in the background of the image
 
-imagefilledrectangle($im,0,0,$width,$height+20,$white);
+imagefilledrectangle($im,0,0,$width,$height+$verticalpadding +$verticalpadding ,$white);
 
 $maxv = 1;
 
@@ -68,13 +72,17 @@ for($i=0;$i<$columns;$i++) {
 for($i=0;$i<$columns;$i++) {
 	$column_height = ($height / 100) * (( $values[$i] / $maxv) *100);
 
-	$x1 = $i*$column_width;
-	$y1 = $height-$column_height;
-	$x2 = (($i+1)*$column_width)-$padding;
-	$y2 = $height;
+	$x1 = ($columns-1-$i)*$column_width;
+	$y1 = $height-$column_height + $verticalpadding ;
+	$x2 = (($columns-$i)*$column_width)-$padding;
+	$y2 = $height + $verticalpadding;
 
 	imagefilledrectangle($im,$x1,$y1,$x2,$y2,$gray);
-	imagestring($im, 3, $x1+($x2-$x1)/2,$y2+7, $values[$i], $black);
+	// following usual convention, values of height of bar chart written just above each column
+	imagestring($im, 3, $x1+($x2-$x1)/2,$y1-$verticalpadding, $values[$i], $black);
+
+        // in all examples used on this website the x axis data is the Date and this should be marked. ideally would send the data in the array, so this should be worked on or simply add 
+the date below each bar manually. 
 
 	// This part is just for 3D effect
 	imageline($im,$x1,$y1,$x1,$y2,$black);
