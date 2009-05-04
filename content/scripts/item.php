@@ -1,6 +1,70 @@
-<?php 
+<?php
 
-$name=$_REQUEST['name'];
+/**
+ * Define the separator for decimals and for thousands to be used.
+ * TODO: Remove the "MY_" prefix. It is just here to (hopefully)
+ * make sure that there is no name conflict of any existing define.
+ */
+
+define('MY_DECIMAL_SEPARATOR', '.');
+define('MY_THOUSANDS_SEPARATOR', ',');
+
+
+/**
+ * Format the number using (hard-coded) English locale with
+ * the given number of digits. Terminating zeros and a possibly
+ * terminating decimal point are removed as well.
+ * TODO: Put this function to a global include and use it for all numbers.
+ *
+ * @param value float | integer
+ * @param digits integer
+ *
+ * @return string
+ */
+
+function formatNumber($value, $digits = 6)
+{
+  $sNumber = number_format($value, $digits, MY_DECIMAL_SEPARATOR, MY_THOUSANDS_SEPARATOR);
+
+  // $sNumber could possibly contain trailing zeros, e.g. '10,000.000000'.
+  // Remove the trailing zero, and the decimal point, but no any more zeros.
+
+  list($sBefore, $sAfter) = explode(MY_DECIMAL_SEPARATOR, $sNumber);
+
+  if (($sAfter = rtrim($sAfter, '0')) === '') {
+
+    // We have no fraction.
+
+    return $sBefore;
+  }
+
+  return $sBefore . MY_DECIMAL_SEPARATOR . $sAfter;
+}
+
+
+/*
+
+// This block is just a test for the function formatNumber().
+// TODO: Move this somewhere else.
+
+function check_formatNumber($value, $expected)
+{
+  if (($actual = formatNumber($value)) !== $expected) {
+    echo 'formatNumber() failed for "' . $value . '" - "' . $actual . '" vs "' . $expected . '"' . "\n";
+  }
+}
+
+check_formatNumber(1, '1');
+check_formatNumber(1.000, '1');
+check_formatNumber(1000, '1' . MY_THOUSANDS_SEPARATOR . '000');
+check_formatNumber(1000.00, '1' . MY_THOUSANDS_SEPARATOR . '000');
+check_formatNumber(100.0012, '100' . MY_DECIMAL_SEPARATOR . '0012');
+exit;
+
+*/
+
+
+$name=isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
 $isExact=isset($_REQUEST['exact']);
 
 $items=getItems();
@@ -11,11 +75,12 @@ function renderAmount($amount) {
   list($min,$max)=explode(",",$amount);
   
   if($min!=$max) {
-    return "between $min and $max.";
-  } else {
-  	return "exactly $min.";
+    return 'between ' . formatNumber($min) . ' and ' . formatNumber($max) . '.';
   }
+
+  return 'exactly ' . formatNumber($min) . '.';
 }
+
 
 foreach($items as $m) {
   /*
@@ -64,10 +129,10 @@ foreach($items as $m) {
               <div class="row">
                 <a href="?id=content/scripts/monster&name=<?php echo $monster->name; ?>&exact">
                 <img src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
-                <div class="label"><?php echo $monster->name;; ?></div>
+                <div class="label"><?php echo $monster->name; ?></div>
                 </a>
                 <div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
-                <div class="data">Probability: <?php echo $k["probability"]; ?>%</div>
+                <div class="data">Probability: <?php echo formatNumber($k["probability"]); ?>%</div>
                 <div style="clear: left;"></div>
               </div>
               <?php
