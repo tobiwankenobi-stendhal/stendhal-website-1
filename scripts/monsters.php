@@ -156,14 +156,7 @@ class Monster {
 }
 
 function existsMonster($name) {
-  $monsters=getMonsters();
-  foreach($monsters as $m) {
-    if($m->name==$name) {
-      return true;
-    }
-  }
-
-  return false;
+  return getMonster($name) !== null;
 }
 
 function getMonster($name) {
