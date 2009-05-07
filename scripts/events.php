@@ -27,7 +27,7 @@
   */
 class Event {
   public $id;
-  /* Date of the event in ISO Format  YYYY/MM/DD HH:mm*/
+  /* Date of the event in ISO Format  YYYY/MM/DD HH:mm */
   public $date;
   /* Type of the event from the above */
   public $type;
@@ -54,8 +54,12 @@ class Event {
     echo '<div class="event">';
     echo '<img src="images/events/event'.($this->type).'.png" alt="event logo"/>';
     echo '<div class="description"><a href="?id=content/scripts/event&event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
-    $date=date("M,j Y",strtotime($this->date));
     
+    if (($this->date)!="0000-00-00 00:00:00") {
+      $date=date("M,j Y",strtotime($this->date));
+    } else {
+      $date="<b>TBC</b>";
+    }
     if($date==date("M,j Y")) {
       $date="<b>Today</b>";
     }
@@ -70,7 +74,7 @@ class Event {
 /**
   * Returns a list of events.
   */
-function getEvents($where='', $sortby='date desc', $cond='limit 2') {    
+function getEvents($where='', $sortby='id desc', $cond='limit 2') {    
     $where=mysql_real_escape_string($where);
 	$sortby=mysql_real_escape_string($sortby);
     $cond=mysql_real_escape_string($cond);
@@ -110,14 +114,14 @@ function getEventsBetween($adate, $bdate) {
   }
   
 /**
-  * Returns a list of events that happened or are going to happed on this week.
+  * Returns a list of events that happened or are going to happen on this week.
   */
 function getEventsOnWeek() {
   return getEvents('where week(date)=week(current_date())');
   }
   
 /**
-  * Returns a list of events that happened or are going to happed on this month.
+  * Returns a list of events that happened or are going to happen on this month.
   */
 function getEventsOnMonth() {
   return getEvents('where month(date)=month(current_date())');
@@ -173,7 +177,7 @@ function updateEvent($id, $date, $location, $type, $oneline, $body, $images, $ap
     $query='update events set date="'.$date.'", type="'.$type.'",location="'.$location.'",shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id="'.$id.'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
-        echo '<span class="error">There has been a problem while updating news.</span>';
+        echo '<span class="error">There has been a problem while updating events.</span>';
         echo '<span class="error_cause">'.$query.'</span>';
         return;
     }
