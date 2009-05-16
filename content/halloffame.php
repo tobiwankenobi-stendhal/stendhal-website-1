@@ -115,13 +115,13 @@ function getDMScore($player) {
 <?php
 startBox("Best attackers");
   ?>
-  <div class="bubble">Based on the base ATK</div>
+<div class="bubble">Based on atk*(1+0.03*level)</div>
   <?php
-    $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'atk desc', 'limit '.TOTAL_HOF_PLAYERS);
-  renderListOfPlayers($players, 'getAtk', " ");
+    $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'atk*(1+0.03*level) desc', 'limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, 'getTotalAtk', " total atk");
 endBox();
-function getAtk($player) {
-  return $player->attributes['atk'];
+function getTotalAtk($player) {
+  return ($player->attributes['atk'])*(1+0.03*($player->level));
 }
 
 ?>
@@ -130,13 +130,13 @@ function getAtk($player) {
 <?php
 startBox("Best defenders");
   ?>
-  <div class="bubble">Based on the base DEF</div>
+<div class="bubble">Based on def*(1+0.03*level)</div>
   <?php
-   $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'def desc', 'limit '.TOTAL_HOF_PLAYERS);
-  renderListOfPlayers($players, 'getDef', " ");
+   $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'def*(1+0.03*level) desc', 'limit '.TOTAL_HOF_PLAYERS);
+  renderListOfPlayers($players, 'getTotalDef', " total def");
 endBox();
-function getDef($player) {
-  return $player->attributes['def'];
+function getTotalDef($player) {
+  return ($player->attributes['def'])*(1+0.03*($player->level));
 }
 
 ?>
