@@ -45,11 +45,9 @@ class Screenshot {
 /**
   * Return a list of of the screenshots.
   * Each screenshot is a URL to the image.
+  * Note: All parameters need to be SQL escaped.
   */
 function getScreenshots($where='', $cond='') {
-    $where=mysql_real_escape_string($where);
-	$cond=mysql_real_escape_string($cond);
-    
 	$query='select * from screenshots '.$where.' order by created desc '.$cond;
     $result = mysql_query($query, getWebsiteDB());
     $list=array();

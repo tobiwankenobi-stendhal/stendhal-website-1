@@ -72,13 +72,9 @@ class Event {
 };
 
 /**
-  * Returns a list of events.
+  * Returns a list of events. Note: All parameters need to be SQL escaped.
   */
 function getEvents($where='', $sortby='id desc', $cond='limit 2') {    
-    $where=mysql_real_escape_string($where);
-	$sortby=mysql_real_escape_string($sortby);
-    $cond=mysql_real_escape_string($cond);
-	   
     $result = mysql_query('select * from events '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
@@ -110,7 +106,7 @@ function getEvents($where='', $sortby='id desc', $cond='limit 2') {
   * Returns a list of events that happens between adate and bdate both inclusive.
   */
 function getEventsBetween($adate, $bdate) {
-  return getEvents('where date between '.$adate.' and '.$bdate);
+  return getEvents('where date between '.mysql_real_escape_string($adate).' and '.mysql_real_escape_string($bdate));
   }
   
 /**

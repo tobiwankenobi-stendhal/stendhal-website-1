@@ -52,17 +52,14 @@ class News {
 };
 
 /**
-  * Returns a list of news.
+  * Returns a list of news. Note: All parameters need to be SQL escaped.
   */
 function getNews($where='', $sortby='created desc', $cond='limit 3') {
-    $where=mysql_real_escape_string($where);
-	$sortby=mysql_real_escape_string($sortby);
-    $cond=mysql_real_escape_string($cond);
     
 	$result = mysql_query('select * from news '.$where.' order by '.$sortby.' '.$cond, getWebsiteDB());
     $list=array();
     
-    while($row=mysql_fetch_assoc($result)) {      
+    while($row=mysql_fetch_assoc($result)) {
       $resultimages = mysql_query('select * from news_images where news_id="'.$row['id'].'" order by created desc', getWebsiteDB());
       $images=array();
       
@@ -146,7 +143,7 @@ function updateNews($id, $title, $oneline, $body, $images, $approved=false) {
   * Returns a list of news between adate and bdate both inclusive
   */
 function getNewsBetween($adate, $bdate) {
-  return getNews('where date between '.$adate.' and '.$bdate);
+  return getNews('where date between '.mysql_real_escape_string($adate).' and '.mysql_real_escape_string($bdate));
   }
 
 ?>
