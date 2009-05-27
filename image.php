@@ -50,20 +50,7 @@ function open_image ($file) {
 $image = open_image($_GET['img']);
 if ($image === false) { die ('Unable to open image'); }
 
-// Get original width and height
-$width = imagesx($image);
-$height = imagesy($image);
-
-// New width and height
-$new_width = 158;
-$new_height = $height * ($new_width/$width);
-
-// Resample
-$image_resized = imagecreatetruecolor($new_width, $new_height);
-imagecopyresampled($image_resized, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-
 // Display resized image
 header('Content-type: image/jpeg');
-imagejpeg($image_resized);
-die();
+imagejpeg($image);
 ?>

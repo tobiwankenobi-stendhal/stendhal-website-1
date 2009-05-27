@@ -124,8 +124,8 @@ if(isset($_REQUEST["id"]))
           $screen=getLatestScreenshot();
           
           ?>
-          <a href="<? echo $screen->url; ?>" target="_blank">
-            <?php $screen->showThumbnail(); ?>
+	  <a href="<? echo 'image.php?img='.htmlspecialchars($screen->url); ?>" target="_blank">
+       		<?php $screen->showThumbnail(); ?>
           </a>
           <?php
           endBox() 
