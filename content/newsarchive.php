@@ -17,24 +17,10 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-
-<div id="oneLineDescription">
-   <img src="images/playit.gif" alt="play stendhal"/>
-   <span>Stendhal is a fully fledged free open source multiplayer online 
-   adventures game (MORPG) developed using the Arianne game system.</span>
-</div>
 <div id="newsArea">
   <?php
-  foreach(getNews() as $i) {
+  foreach(getNews('', 'created desc', '') as $i) {
    $i->show();
   }
   ?>
-</div>
-<br>
-<br>
-<div>
-	<?php startBox('News Archive'); ?>
-     Read <a href="?id=content/newsarchive">older news</a>.
-    <?php endBox(); ?>
-
 </div>
