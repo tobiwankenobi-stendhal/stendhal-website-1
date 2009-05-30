@@ -229,13 +229,17 @@ if(isset($_REQUEST["id"]))
          * Show the admin menu only if player is really an admin.
          * Admins are designed using the stendhal standard way.
          */
-        if(getAdminLevel()>=400) {
+        if(getAdminLevel()>=100) {
           startBox('Administration'); ?>
           <ul id="menu">
+	<?php 
+		if(getAdminLevel()>=400) { ?>
             <li><a href="?id=content/admin/news"><img src="images/buttons/news_button.png">News</a></li>
             <li><a href="?id=content/admin/events"><img src="images/buttons/events_button.png">Events</a></li>
             <li><a href="?id=content/admin/screenshots"><img src="images/buttons/screenshots_button.png">Screenshots</a></li>
             <li><a href="?id=content/admin/movies"><img src="images/buttons/movies_button.png">Movies</a></li>
+<?php 	} ?>
+          	<li><a href="?id=content/admin/logs"><img src="images/buttons/news_button.png">Support Logs</a></li>
           </ul>
         <?php 
           endBox();

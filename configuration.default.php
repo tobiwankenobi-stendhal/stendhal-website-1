@@ -71,5 +71,9 @@ define('STENDHAL_PLEASE_MAKE_IT_FAST',true);
 # Counter
 define('STENDHAL_WEB_COUNTER', true);
 
-
+## for displaying support logs
+define('SUPPORT_SERVER','irc.freenode.net');
+define('SUPPORT_CHANNEL','#channelname');
+define('IRC_BOT','ircbot');
+define('SUPPORT_LOG_DIRECTORY','/path-to-logs/');
 ?>
