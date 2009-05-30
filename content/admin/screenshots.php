@@ -3,7 +3,7 @@ if(getAdminLevel()<400) {
  die("Ooops!");
 }
    
-if(isset($_REQUEST['action'])) {
+if(isset($_POST['action'])) {
   if($_REQUEST['action']=='submit') {
 
     startBox("Adding Event");
@@ -26,17 +26,19 @@ if(isset($_REQUEST['action'])) {
         deleteScreenshot($id);
       }
     endBox();
-  } elseif($_REQUEST['action']=='edit') {    
-  	$id=mysql_real_escape_string($_REQUEST['edit']);  
-  	$screenshotToEdit=getScreenshots('where id="'.$id.'"');
-    if(sizeof($screenshotToEdit)==0) {
-      startBox("Edit events");
-        echo '<div class="error">No such screenshot</div';
-      endBox();
-    } else {
-      $edited=$screenshotToEdit[0];
-    }
-  } 
+  }
+}
+
+if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {    
+  $id=mysql_real_escape_string($_REQUEST['edit']);  
+  $screenshotToEdit=getScreenshots('where id="'.$id.'"');
+  if(sizeof($screenshotToEdit)==0) {
+    startBox("Edit events");
+      echo '<div class="error">No such screenshot</div';
+    endBox();
+  } else {
+    $edited=$screenshotToEdit[0];
+  }
 }
 
   /*

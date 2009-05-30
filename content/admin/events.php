@@ -3,7 +3,7 @@ if(getAdminLevel()<400) {
  die("Ooops!");
 }
    
-if(isset($_REQUEST['action'])) {
+if(isset($_POST['action'])) {
   if($_REQUEST['action']=='submit') {
     startBox("Adding Event");
       addEvent($_REQUEST['date'],$_REQUEST['location'],$_REQUEST['type'],$_REQUEST['onelinedescription'],$_REQUEST['description'],$_REQUEST['images']);
@@ -18,17 +18,19 @@ if(isset($_REQUEST['action'])) {
         deleteEvent($id);
       }
     endBox();
-  } elseif($_REQUEST['action']=='edit') {  
-  	$id=mysql_real_escape_string($_REQUEST['edit']);  
-    $eventToEdit=getEvents('where id="'.$id.'"');
-    if(sizeof($eventToEdit)==0) {
-      startBox("Edit events");
-        echo '<div class="error">No such event</div';
-      endBox();
-    } else {
-      $edited=$eventToEdit[0];
-    }
-  } 
+  }
+}
+
+if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {  
+  $id=mysql_real_escape_string($_REQUEST['edit']);  
+  $eventToEdit=getEvents('where id="'.$id.'"');
+  if(sizeof($eventToEdit)==0) {
+    startBox("Edit events");
+      echo '<div class="error">No such event</div';
+    endBox();
+  } else {
+    $edited=$eventToEdit[0];
+  }
 }
 
   /*

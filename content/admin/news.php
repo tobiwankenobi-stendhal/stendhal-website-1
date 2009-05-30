@@ -3,7 +3,7 @@ if(getAdminLevel()<400) {
  die("Ooops!");
 }
    
-if(isset($_REQUEST['action'])) {
+if(isset($_POST['action'])) {
   if($_REQUEST['action']=='submit') {
     startBox("Adding news item");
       addNews($_REQUEST['title'],$_REQUEST['onelinedescription'],$_REQUEST['description'],$_REQUEST['images']);
@@ -18,16 +18,18 @@ if(isset($_REQUEST['action'])) {
         deleteNews($id);
       }
     endBox();
-  } elseif($_REQUEST['action']=='edit') {    
-  	$id=mysql_real_escape_string($_REQUEST['edit']);  
-  	$newstoEdit=getNews('where id="'.$id.'"');
-    if(sizeof($newstoEdit)==0) {
-      startBox("Edit news item");
-        echo '<div class="error">No such news item</div';
-      endBox();
-    } else {
-      $edited=$newstoEdit[0];
-    }
+  }
+}
+
+if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {  
+  $id=mysql_real_escape_string($_REQUEST['edit']);  
+  $newstoEdit=getNews('where id="'.$id.'"');
+  if(sizeof($newstoEdit)==0) {
+    startBox("Edit news item");
+      echo '<div class="error">No such news item</div';
+    endBox();
+  } else {
+    $edited=$newstoEdit[0];
   } 
 }
 
