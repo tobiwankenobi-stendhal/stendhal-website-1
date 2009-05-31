@@ -19,7 +19,29 @@
     <p>
     
 <?php
-echo str_replace(array("\r\n", "\n", "\r"),'<br>', htmlspecialchars(file_get_contents($directory.$date . ".log")));
+$lines = explode("\n", file_get_contents($directory.$date . ".log"));
+for ($i = 0; $i < count($lines); $i++) {
+	$line = $lines[$i];
+	
+	## make it pretty, yes this code is ugly.
+	$class = "irctext";
+	if (substr($line, 5, 5) == ' -!- ') {
+		$class = "ircstatus";
+	} else if (substr($line, 5, 16) == ' < postman-bot> ') {
+
+		if (substr($line, 21, 54) == 'Support: A new character has just been created called ') {
+			$class = "ircnewchar";
+		} else if (strpos($line, 'asks for support to') > 10) {
+			$class = "ircsupport";
+		} else if ((strpos($line, 'answers') > 10) && (strpos($line, 'support question') > 10)) {
+			$class = "ircsupportanswer";
+		} else if (strpos($line, 'rented a sign saying') > 10) {
+			$class = "ircsign";
+		}
+	} 
+	
+	echo '<span class="'.$class.'">'.htmlspecialchars($line).'</span><br>'."\n";
+}
 
 ?>
     </p>
