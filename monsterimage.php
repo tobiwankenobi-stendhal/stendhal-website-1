@@ -19,6 +19,11 @@
 
 $url = $_GET['url'];
 
+if (strpos($url, '..') !== false) {
+	die("Access denied.");
+}
+
+
 $size=getimagesize($url);
 $w=$size[0];
 $h=$size[1];

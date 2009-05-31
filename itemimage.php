@@ -55,6 +55,10 @@ function hideFishes($resource) {
 
 $url = $_GET['url'];
 
+if (strpos($url, '..') !== false) {
+	die("Access denied.");
+}
+
 /*
  * We want to hide the fishes so we don't spoil the fisherman quest.
  */
