@@ -80,8 +80,6 @@ function addScreenshot($url, $description, $approved=false) {
 }
 
 function deleteScreenshot($id) {
-    $id=mysql_real_escape_string($id);
-    
 	$query='delete from screenshots where id="'.mysql_real_escape_string($id).'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {

@@ -44,14 +44,9 @@ if(isset($_POST['sublogin'])){
       die('Password incorrectly typed.');
    }
 
-   /* Add slashes if necessary (for query) */
-   if(!get_magic_quotes_gpc()) {
-	$username = addslashes($_SESSION['username']);
-   }
-
    /* Verify that user is in database */
    $md5newpass = strtoupper(md5($_POST['newpass']));
-   $q = "update account set password='$md5newpass' where username = '$username'";
+   $q = "update account set password='".mysql_real_escape_string($md5newpass)."' where username = '".mysql_real_escape_string($username)."'";
    $result = mysql_query($q,getGameDB());
    
    if(mysql_affected_rows()!=1) {
@@ -62,7 +57,7 @@ if(isset($_POST['sublogin'])){
    logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $md5pass);
 
    /* Username and password correct, register session variables */
-   $_POST['user'] = stripslashes($username);
+   $_POST['user'] = $username;
    $_SESSION['username'] = $username;
    $_SESSION['password'] = $md5newpass;
   

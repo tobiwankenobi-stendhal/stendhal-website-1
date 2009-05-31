@@ -11,14 +11,9 @@ include_once('scripts/mysql.php');
  */
 function confirmUser($username, $password){
    $conn=getGameDB();
-   
-   /* Add slashes if necessary (for query) */
-   if(!get_magic_quotes_gpc()) {
-	$username = addslashes($username);
-   }
 
    /* Verify that user is in database */
-   $q = "select password from account where username = '$username'";
+   $q = "select password from account where username = '".mysql_real_escape_string($username)."'";
    $result = mysql_query($q,$conn);
    if(!$result || (mysql_numrows($result) < 1)){
       return 1; //Indicates username failure
@@ -41,14 +36,9 @@ function confirmUser($username, $password){
 
 function confirmValidStatus($username){
    $conn=getGameDB();
-   
-   /* Add slashes if necessary (for query) */
-   if(!get_magic_quotes_gpc()) {
-	$username = addslashes($username);
-   }
 
    /* Verify that user is in database */
-   $q = "select status from account where username = '$username'";
+   $q = "select status from account where username = '".mysql_real_escape_string($username)."'";
    $result = mysql_query($q,$conn);
    if(!$result || (mysql_numrows($result) < 1)){
       return 1; //Indicates username failure
@@ -75,14 +65,9 @@ function confirmValidStatus($username){
  */
 function existsUser($email){
    $conn=getGameDB();
-   
-   /* Add slashes if necessary (for query) */
-   if(!get_magic_quotes_gpc()) {
-	$email = addslashes($email);
-   }
 
    /* Verify that user email is in database */
-   $q = "select * from account where email = '$email'";
+   $q = "select * from account where email = '".mysql_real_escape_string($email)."'";
    $result = mysql_query($q,$conn);
    
    return $result and mysql_numrows($result)==1;

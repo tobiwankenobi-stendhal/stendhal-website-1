@@ -151,8 +151,6 @@ function addEvent($date, $location, $type, $oneline, $body, $images, $approved=f
 }
 
 function deleteEvent($id) {
-    $id=mysql_real_escape_string($id);
-    
 	$query='delete from events where id="'.mysql_real_escape_string($id).'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {

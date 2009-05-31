@@ -101,7 +101,7 @@ class Monster {
     from gameEvents 
     where 
       event="killed" and  
-      param1="'.addslashes($this->name).'" and  
+      param1="'.mysql_real_escape_string($this->name).'" and  
       TO_DAYS(NOW()) - TO_DAYS(timedate)  < '.$numberOfDays.'  
       group by day_offset order by day_offset desc', getGameDB());
     
@@ -137,9 +137,9 @@ class Monster {
     from gameEvents 
     where 
       event="killed" and 
-      source="'.addslashes($this->name).'" and 
+      source="'.mysql_real_escape_string($this->name).'" and 
       TO_DAYS(NOW()) - TO_DAYS(timedate) < '.$numberOfDays.' and 
-      param1 not in ('.listOfMonsters(getMonsters()).') 
+      param1 not in ('.listOfMonstersEscaped(getMonsters()).') 
     group by day_offset
     ORDER BY day_offset DESC', getGameDB());
 
@@ -178,6 +178,15 @@ function listOfMonsters($monsters) {
   return substr($data, 0, strlen($data)-1);
 }
 
+function listOfMonstersEscaped($monsters) {
+  $data='';
+  foreach($monsters as $m) {
+    $data=$data.'"'.mysql_real_escape_string($m->name).'",';
+  }
+  
+  return substr($data, 0, strlen($data)-1);
+}
+
 function getMostKilledMonster($monsters) {
     $numOfDays=7;
 
@@ -191,7 +200,7 @@ function getMostKilledMonster($monsters) {
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
     
-    $query='select param1, count(*) as amount from gameEvents where datediff(now(),timedate)<'.$numOfDays.' and event="killed" and param1 in ('.listOfMonsters($monsters).') group by param1 order by amount desc limit 1';
+    $query='select param1, count(*) as amount from gameEvents where datediff(now(),timedate)<'.$numOfDays.' and event="killed" and param1 in ('.listOfMonstersEscaped($monsters).') group by param1 order by amount desc limit 1';
     $result = mysql_query($query, getGameDB());
     
 	/*
@@ -224,7 +233,7 @@ function getBestKillerMonster($monsters) {
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
     
-    $query='select source, count(*) as amount from gameEvents where datediff(now(),timedate)<'.$numOfDays.' and event="killed" and source in ('.listOfMonsters($monsters).') and param1 not in ('.listOfMonsters($monsters).') group by source order by amount desc limit 1';
+    $query='select source, count(*) as amount from gameEvents where datediff(now(),timedate)<'.$numOfDays.' and event="killed" and source in ('.listOfMonstersEscaped($monsters).') and param1 not in ('.listOfMonstersEscaped($monsters).') group by source order by amount desc limit 1';
     $result = mysql_query($query, getGameDB());
     
 	/*

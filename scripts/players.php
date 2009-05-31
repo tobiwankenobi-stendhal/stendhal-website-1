@@ -83,7 +83,7 @@ class Player {
     from gameEvents 
     where 
       event="killed" and 
-      param1="'.addslashes($this->name).'" and 
+      param1="'.mysql_real_escape_string($this->name).'" and 
       datediff(now(),timedate)<=7*52 
     order by timedate 
     desc limit 4', getGameDB());

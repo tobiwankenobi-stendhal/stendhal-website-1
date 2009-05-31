@@ -85,11 +85,8 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 function addNews($title, $oneline, $body, $images, $approved=false) {
     $title=mysql_real_escape_string($title);
     $oneline=mysql_real_escape_string($oneline);
-    
-    if(!get_magic_quotes_gpc()) {
-      $body=mysql_real_escape_string($body);
-    }
-    
+    $body=mysql_real_escape_string($body);
+
     $query='insert into news values(null,"'.$title.'","'.$oneline.'","'.$body.'", null)';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
@@ -97,13 +94,13 @@ function addNews($title, $oneline, $body, $images, $approved=false) {
         echo '<span class="error_cause">'.$query.'</span>';
         return;
     }
-    
-    $result=mysql_query('select LAST_INSERT_ID()as lastid from news;', getWebsiteDB());
+
+    $result=mysql_query('select LAST_INSERT_ID() As lastid from news;', getWebsiteDB());
     while($rowimages=mysql_fetch_assoc($result)) {      
         $newsid=$rowimages['lastid'];
     }
     mysql_free_result($result);
-    
+
     foreach(explode("\n",$images) as $image) {
       mysql_query('insert into news_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
     }
@@ -126,11 +123,8 @@ function updateNews($id, $title, $oneline, $body, $images, $approved=false) {
     $id=mysql_real_escape_string($id);
     $title=mysql_real_escape_string($title);
     $oneline=mysql_real_escape_string($oneline);
-    
-    if(!get_magic_quotes_gpc()) {
-      $body=mysql_real_escape_string($body);
-    }
-    
+    $body=mysql_real_escape_string($body);
+
     $query='update news set title="'.$title.'", shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id="'.$id.'"';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {

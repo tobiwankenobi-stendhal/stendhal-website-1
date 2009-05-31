@@ -31,7 +31,7 @@ function logUserPasswordChange($user, $ip, $oldpass)
      }
 
      $q = "INSERT INTO passwordChange (player_id,address,oldpassword,service)".
-          " values (".$userid.",'".$ip."','".$oldpass."','website')";
+          " values (".$userid.",'".mysql_real_escape_string($ip)."','".mysql_real_escape_string($oldpass)."','website')";
 
      $result = mysql_query($q, getGameDB());
 
@@ -50,7 +50,7 @@ function logUserLogin($user, $ip, $success)
      }
 
      $q = "INSERT INTO loginEvent (player_id,address,result,service) values ".
-          "(".$userid.",'".$ip."',".($success ? '1' : '0').",'website')";
+          "(".$userid.",'".mysql_real_escape_string($ip)."',".($success ? '1' : '0').",'website')";
 
      $result = mysql_query($q, getGameDB());
 

@@ -47,7 +47,7 @@ if(mysql_numrows($result)!=1) {
   mysql_free_result($result);
   
   /* Remove the entry or anything 48 hours old.*/
-  $q = "delete from remind_password where username = '$username' or  datediff(now(),requested)>2";
+  $q = "delete from remind_password where username = '".mysql_real_escape_string($username)."' or  datediff(now(),requested)>2";
   $result = mysql_query($q,getWebsiteDB());
 
   /*
@@ -56,7 +56,7 @@ if(mysql_numrows($result)!=1) {
   $newpassword=createRandomPassword();
 
   $md5newpass = strtoupper(md5($newpassword));
-  $q = "update account set password='$md5newpass' where username = '$username'";
+  $q = "update account set password='".mysql_real_escape_string($md5newpass)."' where username = '".mysql_real_escape_string($username)."'";
   $result = mysql_query($q,getGameDB());
 
   /*
