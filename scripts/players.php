@@ -133,6 +133,7 @@ class Player {
   
 /**
   * Returns a list of players online and offline that meet the given condition.
+  * Note: Parmaters must be sql escaped.
   */
 function getPlayers($where='', $sortby='name', $cond='limit 2') {
     return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
