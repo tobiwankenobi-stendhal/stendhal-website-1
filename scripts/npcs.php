@@ -20,7 +20,6 @@
   * A class that represent a player, what it is and what it equips.
   */
 class NPC {
-	public $id;
 	public $name;
 	public $title;
 	public $class;
@@ -36,24 +35,23 @@ class NPC {
 	public $job;
   
 	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $x, $y, $description, $job) {
-		$this->$id=null;
-		$this->$name=$name;
-		$this->$title=$title;
-		$this->$class=$class;
-		$this->$outfit=$outfit;
+		$this->name=$name;
+		$this->title=$title;
+		$this->class=$class;
+		$this->outfit=$outfit;
+		$imagefile = 'image.php?url=data/sprites/npc/'.$class.'.png';
 		if (isset($outfit) && $outfit != '') {
-			$this->$imagefile=$outfit;
-		} else {
-			$this->$imagefile=$class;
+			$imagefile = 'createoutfit.php?outfit='.$outfit;
 		}
-		$this->$level=$level;
-		$this->$hp=$hp;
-		$this->$base_hp=$base_hp;
-		$this->$zone=$zone;
-		$this->$x=$x;
-		$this->$y=$y;
-		$this->$description=$description;
-		$this->$job=$job;
+		$this->imagefile=$imagefile;
+		$this->level=$level;
+		$this->hp=$hp;
+		$this->base_hp=$base_hp;
+		$this->zone=$zone;
+		$this->x=$x;
+		$this->y=$y;
+		$this->description=$description;
+		$this->job=$job;
 	}
 
 
@@ -61,7 +59,7 @@ class NPC {
 	 * gets the names NPC from the database.
 	 */
 	function getNPC($name) {
-    	$npcs = _getNPC('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
+    	$npcs = NPC::_getNPCs('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
     	return $npcs[0];	
 	}
 
@@ -71,16 +69,17 @@ class NPC {
 	  * Note: Parmaters must be sql escaped.
 	  */
 	function getNPCs($where='', $sortby='name', $cond='') {
-	    return _getNPCs('select * from npcs '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+	    return NPC::_getNPCs('select * from npcs '.$where.' order by '.$sortby.' '.$cond, getGameDB());
 	}
 
 
 	private function _getNPCs($query) {
-		$result = mysql_query($query,getGameDB());
+		echo $query;
+		$result = mysql_query($query, getGameDB());
 		$list = array();
     
-		while($row = mysql_fetch_assoc($result)) {            
-			$list[]=new Player($row['name'],
+		while($row = mysql_fetch_assoc($result)) {
+			$list[]=new NPC($row['name'],
 				$row['title'],
 				$row['class'],
 				$row['outfit'],
