@@ -39,7 +39,7 @@ class NPC {
 		$this->title=$title;
 		$this->class=$class;
 		$this->outfit=$outfit;
-		$imagefile = 'image.php?url=data/sprites/npc/'.$class.'.png';
+		$imagefile = 'monsterimage.php?url=data/sprites/npc/'.$class.'.png&h=2&w=1';
 		if (isset($outfit) && $outfit != '') {
 			$imagefile = 'createoutfit.php?outfit='.$outfit;
 		}
