@@ -12,7 +12,7 @@ require_once($IP.'/../scripts/players.php');
  * reads the icon of a Stendhal players
  */
 function stendhalDataIncludePlayerIconOnly($player) {
-	$res .= '<span class="stendhalPlayerIcon"><a href="/?id=content/scripts/character&name&name=' . urlencode($player->name) . '&exact">';
+	$res .= '<span class="stendhalPlayerIcon"><a href="/?id=content/scripts/character&name=' . urlencode($player->name) . '&exact">';
 	$res .= '<img src="/createoutfit.php?outfit=' . htmlspecialchars($player->outfit) . '" />';
 	$res .= '</a></span>';
 	return $res;
