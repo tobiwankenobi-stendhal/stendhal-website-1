@@ -67,6 +67,7 @@ include('scripts/events.php');
 include('scripts/news.php');
 include('scripts/players.php');
 include('scripts/monsters.php');
+include('scripts/npcs.php');
 include('scripts/items.php');
 include('scripts/statistics.php');
 include('scripts/cache.php');
