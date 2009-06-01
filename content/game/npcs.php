@@ -30,7 +30,7 @@ startBox('NPCs');
   <input type="submit" name="sublogin" value="Search">
 </form>
 <div>
-  <?php echo sizeof($monsters); ?> NPCs so far.
+  <?php echo sizeof($npcs); ?> NPCs so far.
 </div>
 
 <?php 
