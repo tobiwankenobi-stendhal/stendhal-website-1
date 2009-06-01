@@ -56,6 +56,7 @@ class NPC {
 		$this->$job=$job;
 	}
 
+
 	/**
 	 * gets the names NPC from the database.
 	 */
@@ -63,6 +64,16 @@ class NPC {
     	$npcs = _getNPC('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
     	return $npcs[0];	
 	}
+
+
+	/**
+	  * Returns a list of npcs that meet the given condition.
+	  * Note: Parmaters must be sql escaped.
+	  */
+	function getNPCs($where='', $sortby='name', $cond='') {
+	    return _getNPCs('select * from npcs '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+	}
+
 
 	private function _getNPCs($query) {
 		$result = mysql_query($query,getGameDB());
