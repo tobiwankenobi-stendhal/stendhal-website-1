@@ -40,7 +40,6 @@ foreach($npcs as $npc) {
 	echo '  <img class="npc" src="'.$npc->imagefile.'" alt="'.$npc->name.'"/>';
 	echo '  <div class="npc_name">'.$npc->name.'</div>';
 	echo ' </a>';
-	echo '  <div class="npc_level">Level '.$npc->level.'</div>';
 	echo '</div>';
 }
 ?>
