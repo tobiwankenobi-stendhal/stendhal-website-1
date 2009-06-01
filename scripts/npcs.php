@@ -74,7 +74,6 @@ class NPC {
 
 
 	private function _getNPCs($query) {
-		echo $query;
 		$result = mysql_query($query, getGameDB());
 		$list = array();
     
