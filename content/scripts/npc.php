@@ -19,7 +19,7 @@ $npc=$npcs[0];
   <div class="title">Details</div>
   <img class="bordered_image" src="<?php echo $npc->imagefile ?>" alt="NPC outfit"/>
   <div class="statslabel">Name:</div><div class="data"><?php echo $npc->name; ?></div>
-  <div class="statslabel">Zone:</div><div class="data"><?php echo $npc->zone . ' at ' . $npc->x . ', ' . $npc->y; ?></div>
+  <div class="statslabel">Zone:</div><div class="data"><?php echo $npc->zone . $npc->pos; ?></div>
   <?php if ($npc->level > 0) {?>
 	  <div class="statslabel">Level:</div><div class="data"><?php echo $npc->level; ?></div>
 	  <div class="statslabel">HP:</div><div class="data"><?php echo $npc->hp . '/' . $npc->base_hp; ?></div>

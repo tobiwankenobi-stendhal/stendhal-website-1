@@ -29,13 +29,12 @@ class NPC {
 	public $hp;
 	public $base_hp;
 	public $zone;
-	public $x;
-	public $y;
+	public $pos;
 	public $description;
 	public $job;
 
  
-	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $x, $y, $description, $job) {
+	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $pos, $description, $job) {
 		$this->name=$name;
 		$this->title=$title;
 		$this->class=$class;
@@ -49,8 +48,7 @@ class NPC {
 		$this->hp=$hp;
 		$this->base_hp=$base_hp;
 		$this->zone=$zone;
-		$this->x=$x;
-		$this->y=$y;
+		$this->pos=$pos;
 		$this->description=$description;
 		$this->job=$job;
 	}
@@ -85,8 +83,10 @@ class NPC {
     
 		while($row = mysql_fetch_assoc($result)) {
 			$zone = $row['zone'];
+			$pos = 'at ' . $row['x'] . ', ' . $row['y'];
 			if (in_array($row['name'], $NO_ZONE)) {
 				$zone = 'unknown';
+				$pos = '';
 			}
 			$list[]=new NPC($row['name'],
 				$row['title'],
@@ -96,8 +96,7 @@ class NPC {
 				$row['hp'],
 				$row['base_hp'],
 				$zone,
-				$row['x'],
-				$row['y'],
+				$pos,
 				$row['description'],
 				$row['job']);
     	}
