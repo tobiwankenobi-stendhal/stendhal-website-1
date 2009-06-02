@@ -7,6 +7,7 @@ require_once($IP.'/../scripts/xml.php');
 require_once($IP.'/extensions/stendhalDataIncludeItem.php');
 require_once($IP.'/extensions/stendhalDataIncludeCreature.php');
 require_once($IP.'/extensions/stendhalDataIncludePlayer.php');
+require_once($IP.'/extensions/stendhalDataIncludeNPC.php');
 
 $wgExtensionFunctions[] = "stendhalDataIncludeSetup";
 $wgExtensionCredits['other'][] = array(
