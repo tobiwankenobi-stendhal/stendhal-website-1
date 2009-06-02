@@ -17,10 +17,6 @@ function stendhalDataIncludeNPCIconOnly($NPC) {
 	return $res;
 }
 
-function getAge($minutes) {
-  return round($minutes/60,2);
-}
-
 /**
  * reads stats and optionally the icon and the description of Stendhal NPCs
  */
