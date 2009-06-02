@@ -95,7 +95,7 @@ class NPC {
 				$row['level'],
 				$row['hp'],
 				$row['base_hp'],
-				$row['zone'],
+				$zone,
 				$row['x'],
 				$row['y'],
 				$row['description'],
