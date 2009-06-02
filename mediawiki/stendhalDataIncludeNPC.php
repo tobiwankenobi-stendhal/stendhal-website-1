@@ -56,7 +56,7 @@ function stendhalDataIncludeNPC($input, $argv, &$parser) {
 
 	$res = '';
 	connect();
-	$NPC = getNPC($parsedInput['name']);
+	$NPC = NPC::getNPC($parsedInput['name']);
 	disconnect();
 	if ($NPC == NULL) {
 		return '&lt;NPC "' . htmlspecialchars($parsedInput['name']) . '" not found&gt;';
