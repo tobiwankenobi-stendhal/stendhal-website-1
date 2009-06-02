@@ -43,6 +43,11 @@ function stendhalDataIncludeNPCStats($NPC, $argv) {
 		$res .= $NPC->zone . '<br />';
 		$res .= 'at ' . $NPC->x . ', ' . $NPC->y . '<br />';
 	}
+	if (!isset($argv['info'])) {
+		if (isset($NPC->description) && strlen($NPC->description) > 0) {
+			$res .= '<br />"' . $NPC->description . '"<br />';
+		}
+	}
 	$res .= '</div>';
 	return $res;
 }
