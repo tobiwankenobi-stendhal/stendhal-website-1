@@ -11,7 +11,7 @@ require_once($IP.'/extensions/stendhalDataIncludeNPC.php');
 
 $wgExtensionFunctions[] = "stendhalDataIncludeSetup";
 $wgExtensionCredits['other'][] = array(
-	'version' => '0.5',
+	'version' => '0.6',
 	'name' => 'StendhalDataInclude',
 	'author' => 'Hendrik Brummermann',
 	'url' => 'http://arianne.sf.net',
@@ -68,6 +68,7 @@ function stendhalDataIncludeSetup() {
 	$wgParser->setHook('item', 'stendhalDataIncludeItem');
 	$wgParser->setHook('creature', 'stendhalDataIncludeCreature');
 	$wgParser->setHook('player', 'stendhalDataIncludePlayer');
+	$wgParser->setHook('npc', 'stendhalDataIncludeNPC');
 
 	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws.js"></script>');
 	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws_filter.js" /></script>');
