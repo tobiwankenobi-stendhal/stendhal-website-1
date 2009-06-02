@@ -158,6 +158,7 @@ if(isset($_REQUEST["id"]))
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
             <li><a href="?id=content/game/atlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
+            <li><a href="?id=content/game/npcs"><img src="images/buttons/npcs_button.png">NPCs</a></li>
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
             <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
