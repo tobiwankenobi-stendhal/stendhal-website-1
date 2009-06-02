@@ -33,6 +33,11 @@ class NPC {
 	public $y;
 	public $description;
 	public $job;
+
+	private $NO_ZONE = array(
+		'Azazel', 'Cherubiel', 'Gabriel', 'Ophaniel', 'Raphael', 'Uriel', 'Zophiel',
+		'Ben', 'Goran', 'Mary', 'Zak',
+		'Easter Bunny', 'Rose Leigh', 'Santa');
   
 	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $x, $y, $description, $job) {
 		$this->name=$name;
@@ -78,6 +83,10 @@ class NPC {
 		$list = array();
     
 		while($row = mysql_fetch_assoc($result)) {
+			$zone = $row['zone'];
+			if (in_array($row['name'], NPC::NO_ZONE)) {
+				$zone = 'unknown';
+			}
 			$list[]=new NPC($row['name'],
 				$row['title'],
 				$row['class'],
