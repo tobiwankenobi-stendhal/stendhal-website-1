@@ -46,12 +46,12 @@ class PlayerHistoryEntry {
 	  */
 	function getPlayerHistoryEntriesForPlayers($where='', $sortby='id', $cond='') {
 	    return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
-		$query = "SELECT * FROM gameEvents WHERE event in ('adminnote', 'ban', 'gag', 'jail', 'support', 'supportanswer') ".$where." ORDER BY ".$sortby." ".$cond;
+		$query = "SELECT * FROM gameEvents WHERE event in ('adminlevel', 'adminnote', 'ban', 'gag', 'jail', 'support', 'supportanswer', 'teleport') ".$where." ORDER BY ".$sortby." ".$cond;
 	    return PlayerHistoryEntry::_getPlayerHistoryEntries($query);
 	}
 
 	function getPlayerHistoryEntriesForPlayer($name) {
-		$query = "SELECT * FROM gameEvents WHERE event in ('adminnote', 'ban', 'gag', 'jail', 'support', 'supportanswer') AND param1 = '".mysql_real_escape_string($name)."' ORDER BY id";
+		$query = "SELECT * FROM gameEvents WHERE event in ('adminlevel', 'adminnote', 'ban', 'gag', 'jail', 'support', 'supportanswer', 'teleport') AND param1 = '".mysql_real_escape_string($name)."' ORDER BY id";
 	    return PlayerHistoryEntry::_getPlayerHistoryEntries($query);
 	}
 
