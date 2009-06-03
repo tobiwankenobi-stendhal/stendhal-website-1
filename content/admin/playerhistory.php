@@ -14,7 +14,9 @@
 	endBox(); 
 
 	if (isset($name)) {
-		startBox('History for Player '. htmlspecialchars($name));
+		startBox('History for player '. htmlspecialchars($name));
+
+		echo '<p>History for player <a href="/?id=content/scripts/character&amp;name='.htmlspecialchars($name).'">'.htmlspecialchars($name).'</a>.</p>';
 
 		echo '<table class="prettytable"><tr><th>time</th><th>source</th><th>event</th><th>parameters</th></tr>';
 
