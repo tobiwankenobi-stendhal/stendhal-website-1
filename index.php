@@ -240,26 +240,22 @@ if(isset($_REQUEST["id"]))
             <li><a href="?id=content/admin/screenshots"><img src="images/buttons/screenshots_button.png">Screenshots</a></li>
             <li><a href="?id=content/admin/movies"><img src="images/buttons/movies_button.png">Movies</a></li>
 <?php 	} ?>
-          	<li><a href="?id=content/admin/logs"><img src="images/buttons/news_button.png">Support Logs</a></li>
+          	<li><a href="?id=content/admin/logs"><img src="images/buttons/c_chat_button.png">Support Logs</a></li>
           </ul>
         <?php 
           endBox();
           }       
         ?>
 
-       <?php startBox('Collaborate'); ?>
+       <?php startBox('Contribute'); ?>
         <ul  id="menu">
-          <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png">Testing</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringAtlas"><img src="images/buttons/atlas_button.png">Maps</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRPProposal"><img src="images/buttons/rpsystem_button.png">RP System</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringQuests"><img src="images/buttons/quests_button.png">Quests</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringCreatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=HowToAddItemsStendhal"><img src="images/buttons/items_button.png">Items</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringGraphics"><img src="images/buttons/c_gfx_button.png">Graphics</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalOpenTasks#SFX"><img src="images/buttons/c_snd_button.png">Sounds &amp; Music</a></li>
-          <li><a href="http://sourceforge.net/cvs/?group_id=1111"><img src="images/buttons/history_button.png">CVS</a></li>
-          <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalCodeDesign"><img src="images/buttons/c_code_button.png">Code</a></li>
-        </ul>          
+		  <li><a href="?id=content/game/chat"><img src="images/buttons/c_chat_button.png">Chat</a></li>
+          <li><a href="?id=content/game/bug"><img src="images/buttons/c_bug_button.png">Report Bug</a></li>
+          <li><a href="http://sourceforge.net/tracker/?func=add&group_id=1111&atid=301111"><img src="images/buttons/help_button.png">Submit Patch</a></li>
+	      <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png">Testing</a></li>
+		  <li><a href="http://sourceforge.net/cvs/?group_id=1111"><img src="images/buttons/history_button.png">CVS</a></li>
+		  <li><a href="?id=content/game/development"><img src="images/buttons/rpsystem_button.png">Development</a></li>
+         </ul>          
         <?php endBox(); ?>
       </div>
       
