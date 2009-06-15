@@ -12,7 +12,7 @@
      <a href="./?id=content/admin/logs">Index of logs</a>
     </p>
 
-    <h2>IRC Log for <?php echo($date); ?></h2>
+    <h2><?php echo(SUPPORT_CHANNEL); ?> IRC Log for <?php echo($date); ?></h2>
     <p>
      Timestamps are in server time.
     </p>
@@ -31,6 +31,8 @@ for ($i = 0; $i < count($lines); $i++) {
 
 		if (substr($line, 21, 54) == 'Support: A new character has just been created called ') {
 			$class = "ircnewchar";
+		} else if (substr($line, 21, 22) == 'Administrator SHOUTS: ') {
+			$class = "ircshout";
 		} else if (strpos($line, 'asks for support to') > 10) {
 			$class = "ircsupport";
 		} else if ((strpos($line, 'answers') > 10) && (strpos($line, 'support question') > 10)) {
@@ -77,7 +79,7 @@ for ($i = 0; $i < count($lines); $i++) {
 ?>
 
 <p>
- These logs were automatically created by <?php echo(IRC_BOT); ?> bot on
+ These logs of <?php echo(SUPPORT_CHANNEL); ?> were automatically created by <?php echo(IRC_BOT); ?> bot on
  <a href="irc://<?php echo(SUPPORT_SERVER . "/" . substr(SUPPORT_CHANNEL, 1)); ?>"><?php echo(SUPPORT_SERVER); ?></a>. <b>These logs are for administrators eyes ONLY and should not be copied or pasted to others.</b>
 
 </p>
