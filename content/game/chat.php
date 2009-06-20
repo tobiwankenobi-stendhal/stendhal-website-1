@@ -88,7 +88,7 @@ for ($i = 0; $i < count($lines); $i++) {
 ?>
 
 <p>
- These logs of  <?php echo(MAIN_CHANNEL); ?> were automatically created by <?php echo(IRC_BOT); ?> bot on
+ These logs of  <?php echo(MAIN_CHANNEL); ?> were automatically created on
  <a href="irc://<?php echo(MAIN_SERVER . "/" . substr(MAIN_CHANNEL, 1)); ?>"><?php echo(MAIN_SERVER); ?></a>
 </p>
 <?php
