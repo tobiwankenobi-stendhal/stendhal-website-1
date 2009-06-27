@@ -11,33 +11,33 @@
 
 	<p>Timestamps are in server time.</p>
 
-	<p>
+        <ul>
 
 <?php
 for ($day = 1; $day <= 31; $day++) {
 
-	$daystr = $day;
-	if ($day < 10) {
-		$daystr = '0'.$day;
-	}
+        $daystr = $day;
+        if ($day < 10) {
+                $daystr = '0'.$day;
+        }
 
-	$filename = $directory.$month . '-' . $daystr . ".log";
-	if (is_file($filename)) {
-		$lines = explode("\n", file_get_contents($filename));
-		for ($i = 0; $i < count($lines); $i++) {
-			$line = $lines[$i];
-			
-			## make it pretty, yes this code is ugly.
-			if (strpos($line, 'CIA-') > 0) {
-				$class = "cia";
-				echo '<span class="'.$class.'">'.htmlspecialchars($line).'</span><br>'."\n";
-			}
-		}
-	}
+        $filename = $directory.$month . '-' . $daystr . ".log";
+        if (is_file($filename)) {
+                $lines = explode("\n", file_get_contents($filename));
+                for ($i = 0; $i < count($lines); $i++) {
+                        $line = $lines[$i];
+
+                        ## make it pretty, yes this code is ugly.
+                        if (strpos($line, 'CIA-') > 0) {
+                                echo '<li>'.htmlspecialchars($line).'</span><br>'."</li>\n";
+                        }
+                }
+        }
 }
 
 ?>
-	</p>
+        </ul>
+
 <?php
 	} else {
 		$dir = opendir($directory);
