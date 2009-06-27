@@ -1,0 +1,13 @@
+.cvsuser {
+	color: #AA0;
+}
+.cvsbranch {
+	color: #A00;
+	background-color: #FF0;
+}
+.cvsmodule {
+	color: #00A;
+}
+.cvsfiles, .cvscommit {
+	color: #000;
+}
