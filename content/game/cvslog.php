@@ -1,0 +1,72 @@
+<?php startBox("Recent Development"); ?>
+<?php
+	$directory = CVS_LOG_DIRECTORY;
+
+	$month = $_GET['month'];
+	if (isset($month) && preg_match("/^\d\d\d\d-\d\d$/", $month)) {
+?>
+	<p>
+		<a href="./?id=content/game/cvslog">Index of logs</a>
+	</p>
+
+	<p>Timestamps are in server time.</p>
+
+	<p>
+
+<?php
+for ($day = 1; $day <= 31; $day++) {
+
+	$daystr = $day;
+	if ($day < 10) {
+		$daystr = '0'.$day;
+	}
+
+	$filename = $directory.$month . '-' . $daystr . ".log";
+	if (is_file($filename)) {
+		$lines = explode("\n", file_get_contents($filename));
+		for ($i = 0; $i < count($lines); $i++) {
+			$line = $lines[$i];
+			
+			## make it pretty, yes this code is ugly.
+			if (strpos($line, 'CIA-') > 0) {
+				$class = "cia";
+				echo '<span class="'.$class.'">'.htmlspecialchars($line).'</span><br>'."\n";
+			}
+		}
+	}
+}
+
+?>
+	</p>
+<?php
+	} else {
+		$dir = opendir($directory);
+		while (false !== ($file = readdir($dir))) {
+			if (strpos($file, ".log") == 10) {
+				$filearray[] = $file;
+			}
+		}
+		closedir($dir);
+		rsort($filearray);
+?>
+	<ul>
+<?php
+
+
+		$last = '';
+		foreach ($filearray as $file) {
+			$month = substr($file, 0, 7);
+			if ($month != $last) {
+				echo '<li><a href="' . $_SERVER['PHP_SELF'] . '?id=content/game/cvslog&amp;month=' . $month . '">' . $month . '</a></li>';
+				$last = $month;
+			}
+		}
+?>
+	</ul>
+<?php
+}
+
+?>
+
+
+<?php endBox() ?>
