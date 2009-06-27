@@ -28,8 +28,8 @@ for ($day = 1; $day <= 31; $day++) {
                         $line = $lines[$i];
 
                         ## make it pretty, yes this code is ugly.
-                        if (strpos($line, 'CIA-') > 0) {
-                                echo '<li>'.htmlspecialchars($line).'</span><br>'."</li>\n";
+                        if ((strpos($line, '< CIA-') > 0) && (strpos($line, '> arianne_rpg: ') > 0)) {
+                                echo '<li>'.htmlspecialchars($line)."</li>\n";
                         }
                 }
         }
