@@ -29,7 +29,35 @@ for ($day = 1; $day <= 31; $day++) {
 
                         ## make it pretty, yes this code is ugly.
                         if ((strpos($line, '< CIA-') > 0) && (strpos($line, '> arianne_rpg: ') > 0)) {
-                                echo '<li>'.htmlspecialchars($line)."</li>\n";
+                                $line = htmlspecialchars($line);
+                                $time = '<span class="cvstime">' . $month . '-' . $daystr . ' ' . substr($line, 0, 5) . '</span>';
+
+                                $pos = strpos($line, 'arianne_rpg: ');
+                                $line = substr($line, $pos + 13);
+                                $pos = strpos($line, ' ');
+                                $user = '<span class="cvsuser">' . substr($line, 0, $pos) . '</span>';
+
+                                $line = substr($line, $pos + 1);
+                                $pos = strpos($line, ' ');
+                                if (substr($line, 0, $pos) != '*') {
+                                        $branch = '<span class="cvsbranch">' . substr($line, 0, $pos) . '</span>';
+                                } else {
+                                        $branch = '';
+                                }
+
+                                $line = substr($line, $pos + 1);
+                                $pos = strpos($line, '/');
+                                $module = '<span class="cvsmodule">' . substr($line, 0, $pos) . '</span>';
+
+                                $line = substr($line, $pos + 1);
+                                $pos = strpos($line, ':');
+                                $files = '<span class="cvsfiles">' . substr($line, 0, $pos) . '</span>';
+
+                                $commit = '<span class="cvscommit">' . substr($line, $pos + 1) . '</span>';
+
+                                echo '<li>'
+                                	. $time .' '. $user .' '. $branch .' '. $module .' '. $files .':<br>'. $commit
+                                	."</li>\n";
                         }
                 }
         }
