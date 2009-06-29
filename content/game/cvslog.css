@@ -1,3 +1,7 @@
+.cvstime {
+	color: #555;
+}
+
 .cvsuser {
 	color: #AA0;
 }
@@ -8,6 +12,22 @@
 .cvsmodule {
 	color: #00A;
 }
-.cvsfiles, .cvscommit {
+.cvsfiles {
+	color: #555;
+}
+
+.cvscommit {
 	color: #000;
+	font-style: italic;
+}
+
+
+ul.cvs {
+	margin-left: 0;
+	padding-left: 0;
+	list-style: none;
+}
+
+ul.cvs li {
+	margin-bottom: 1em
 }

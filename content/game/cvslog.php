@@ -11,7 +11,7 @@
 
 	<p>Timestamps are in server time.</p>
 
-        <ul>
+        <ul class="cvs">
 
 <?php
 for ($day = 1; $day <= 31; $day++) {
