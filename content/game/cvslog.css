@@ -8,6 +8,7 @@
 .cvsbranch {
 	color: #A00;
 	background-color: #FF0;
+	font-weight: bold;
 }
 .cvsmodule {
 	color: #00A;
