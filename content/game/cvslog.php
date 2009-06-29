@@ -31,7 +31,7 @@ for ($day = 1; $day <= 31; $day++) {
 			## make it pretty, yes this code is ugly.
 			if ((strpos($line, '< CIA-') > 0) && (strpos($line, '> arianne_rpg: ') > 0)) {
 				
-				if (preg_match('/^[0-9][0-9]:[0-9][0-9] < CIA-.*> arianne_rpg: [^ ]* \*/', $line)) {
+				if (preg_match('/^[0-9][0-9]:[0-9][0-9] < CIA-.*> arianne_rpg: [^ ]*( [^ ]*)? \*/', $line)) {
 					if ($res != '') {
 						echo '<li>' . $res . "</span></li>\n";
 					}
