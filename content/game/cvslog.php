@@ -11,61 +11,76 @@
 
 	<p>Timestamps are in server time.</p>
 
-        <ul class="cvs">
+	<ul class="cvs">
 
 <?php
 for ($day = 1; $day <= 31; $day++) {
 
-        $daystr = $day;
-        if ($day < 10) {
-                $daystr = '0'.$day;
-        }
+	$daystr = $day;
+	if ($day < 10) {
+		$daystr = '0'.$day;
+	}
 
-        $filename = $directory.$month . '-' . $daystr . ".log";
-        if (is_file($filename)) {
-                $lines = explode("\n", file_get_contents($filename));
-                for ($i = 0; $i < count($lines); $i++) {
-                        $line = $lines[$i];
+	$filename = $directory.$month . '-' . $daystr . ".log";
+	if (is_file($filename)) {
+		$lines = explode("\n", file_get_contents($filename));
+		$res = '';
+		for ($i = 0; $i < count($lines); $i++) {
+			$line = $lines[$i];
 
-                        ## make it pretty, yes this code is ugly.
-                        if ((strpos($line, '< CIA-') > 0) && (strpos($line, '> arianne_rpg: ') > 0)) {
-                                $line = htmlspecialchars($line);
-                                $time = '<span class="cvstime">' . $month . '-' . $daystr . ' ' . substr($line, 0, 5) . '</span>';
+			## make it pretty, yes this code is ugly.
+			if ((strpos($line, '< CIA-') > 0) && (strpos($line, '> arianne_rpg: ') > 0)) {
+				
+				if (preg_match('/^[0-9][0-9]:[0-9][0-9] < CIA-.*> arianne_rpg: [^ ]* \*/', $line)) {
+					if ($res != '') {
+						echo '<li>' . $res . "</span></li>\n";
+					}
+				
+	
+					$line = htmlspecialchars($line);
+					$time = '<span class="cvstime">' . $month . '-' . $daystr . ' ' . substr($line, 0, 5) . '</span>';
+	
+					$pos = strpos($line, 'arianne_rpg: ');
+					$line = substr($line, $pos + 13);
+					$pos = strpos($line, ' ');
+					$user = '<span class="cvsuser">' . substr($line, 0, $pos) . '</span>';
+	
+					$line = substr($line, $pos + 1);
+					$pos = strpos($line, ' ');
+					if (substr($line, 0, $pos) != '*') {
+						$branch = '<span class="cvsbranch">&nbsp;' . substr($line, 0, $pos) . '&nbsp;</span>';
+						$pos = $pos + 2;
+					} else {
+						$branch = '';
+					}
+	
+					$line = substr($line, $pos + 1);
+					$pos = strpos($line, '/');
+					$module = '<span class="cvsmodule">' . substr($line, 0, $pos) . '</span>';
+	
+					$line = substr($line, $pos + 1);
+					$pos = strpos($line, ':');
+					$files = '<span class="cvsfiles">' . substr($line, 0, $pos) . '</span>';
+	
+					$commit = '<span class="cvscommit">' . substr($line, $pos + 1);
+	
+					$res = $time .' '. $user .' '. $branch .' '. $module .' '. $files .':<br>'. $commit;
+				} else {
+					$pos = strpos($line, 'arianne_rpg: ');
+					$res = $res . substr($line, $pos + 12);  
+				}
+			}
+		} // for
 
-                                $pos = strpos($line, 'arianne_rpg: ');
-                                $line = substr($line, $pos + 13);
-                                $pos = strpos($line, ' ');
-                                $user = '<span class="cvsuser">' . substr($line, 0, $pos) . '</span>';
+		if ($res != '') {
+			echo '<li>' . $res . "</li>\n";
+		}
 
-                                $line = substr($line, $pos + 1);
-                                $pos = strpos($line, ' ');
-                                if (substr($line, 0, $pos) != '*') {
-                                        $branch = '<span class="cvsbranch">&nbsp;' . substr($line, 0, $pos) . '&nbsp;</span>';
-                                        $pos = $pos + 2;
-                                } else {
-                                        $branch = '';
-                                }
-
-                                $line = substr($line, $pos + 1);
-                                $pos = strpos($line, '/');
-                                $module = '<span class="cvsmodule">' . substr($line, 0, $pos) . '</span>';
-
-                                $line = substr($line, $pos + 1);
-                                $pos = strpos($line, ':');
-                                $files = '<span class="cvsfiles">' . substr($line, 0, $pos) . '</span>';
-
-                                $commit = '<span class="cvscommit">' . substr($line, $pos + 1) . '</span>';
-
-                                echo '<li>'
-                                	. $time .' '. $user .' '. $branch .' '. $module .' '. $files .':<br>'. $commit
-                                	."</li>\n";
-                        }
-                }
-        }
+	}
 }
 
 ?>
-        </ul>
+	</ul>
 
 <?php
 	} else {
