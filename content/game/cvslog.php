@@ -41,6 +41,7 @@ for ($day = 1; $day <= 31; $day++) {
                                 $pos = strpos($line, ' ');
                                 if (substr($line, 0, $pos) != '*') {
                                         $branch = '<span class="cvsbranch">' . substr($line, 0, $pos) . '</span>';
+                                        $pos = $pos + 2;
                                 } else {
                                         $branch = '';
                                 }
