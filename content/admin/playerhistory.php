@@ -25,7 +25,11 @@
 			$timedate = htmlspecialchars($entry->timedate);
 			$timedate = '<a href="/?id=content/admin/logs&amp;date='.substr($timedate, 0, 10).'">'.$timedate.'</a>';
 			echo '<tr><td>'.$timedate.'</td><td>'.htmlspecialchars($entry->source)
-				.'</td><td>'.htmlspecialchars($entry->event).'</td><td>'.htmlspecialchars($entry->param).'</td></tr>';
+				.'</td><td>'.htmlspecialchars($entry->event).'</td><td>';
+			if (param1 != $name) {
+				echo htmlspecialchars($entry->param1).' ';
+			}
+			echo htmlspecialchars($entry->param2).'</td></tr>';
 		}
 		echo '</table>';
 		echo '<p><b>These logs are for administrators eyes ONLY and should not be copied or pasted to others.</b></p>';

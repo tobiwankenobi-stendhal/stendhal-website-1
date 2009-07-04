@@ -29,14 +29,17 @@ class PlayerHistoryEntry {
 	/* event */
 	public $event;
 	/* parameters */
-	public $param;
+	public $param1;
+	/* parameters */
+	public $param2;
   
 	function __construct($timedate, $source, $event, $param1, $param2) {
 		$this->timedate = $timedate;
 		$this->source = $source;
 		$this->target = $param1;
 		$this->event = $event;
-		$this->param = $param2;
+		$this->param1 = $param1;
+		$this->param2 = $param2;
 	}
 
 
