@@ -26,8 +26,8 @@
 			$timedate = '<a href="/?id=content/admin/logs&amp;date='.substr($timedate, 0, 10).'">'.$timedate.'</a>';
 			echo '<tr><td>'.$timedate.'</td><td>'.htmlspecialchars($entry->source)
 				.'</td><td>'.htmlspecialchars($entry->event).'</td><td>';
-			if (param1 != $name) {
-				echo htmlspecialchars($entry->param1).' ';
+			if ($entry->param1 != $name) {
+				echo htmlspecialchars($entry->param1).' | ';
 			}
 			echo htmlspecialchars($entry->param2).'</td></tr>';
 		}
