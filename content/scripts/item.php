@@ -105,15 +105,61 @@ foreach($items as $m) {
       
       <div class="table">
         <div class="title">Attributes</div>
-          <?php
-          foreach($m->attributes as $label=>$data) {
+  	      <?php
+
+	// set initial values
+		$minlevel=0;
+		$level=0;
+		$factor = 1;
+
+	// get the min level if it has one
+		foreach($m->attributes as $label=>$data) {
+			if($label=="min_level") {
+				$minlevel=$data;
+				// did player fill in his level yet?
+				if(!empty($_POST['level'])) {	
+					$level = $_POST['level'];
+					if ($level<$minlevel) {
+						// scale factor for rate and def
+						$factor= 1 - log(($level + 1) / ($minlevel + 1));
+					}
+				}
+			}
+		}
+   	  foreach($m->attributes as $label=>$data) {
             ?>
             <div class="row">
               <div class="label"><?php echo strtoupper($label); ?></div>
               <div class="data"><?php echo $data; ?></div>
             </div>
             <?php
-          }
+				if($label=="rate") {
+					if($factor!=1) {
+		 				$rate = ceil($data*$factor);
+				?>
+				<div class="label">EFFECTIVE RATE for player level <?php echo $level; ?> </div>
+		    	<div class="data"><?php echo $rate; ?></div>
+			<?php } 
+			}
+			if($label=="def") {
+					if($factor!=1) {
+		 				$def = floor($data/$factor);
+				?>
+				<div class="label">EFFECTIVE DEF for player level <?php echo $level; ?></div>
+				<div class="data"><?php echo $def; ?></div>
+			<?php } 
+			}
+			if($label=="min_level") {
+				?>
+					<br>
+					My level ...
+		   			<form method="post" action="?id=content/scripts/item&name=<?php echo $m->name; ?>&exact">
+            			<input type="text" name="level" size="3" maxlength="3">
+            			<input type="submit" value="Check stats">
+          			</form>
+				<?php 
+				}
+		}
           ?>
         </div>      
                   
