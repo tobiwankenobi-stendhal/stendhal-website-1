@@ -253,7 +253,7 @@ if(isset($_REQUEST["id"]))
           <li><a href="?id=content/game/bug"><img src="images/buttons/c_bug_button.png">Report Bug</a></li>
           <li><a href="http://sourceforge.net/tracker/?func=add&group_id=1111&atid=301111"><img src="images/buttons/help_button.png">Submit Patch</a></li>
 	      <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png">Testing</a></li>
-		  <li><a href="http://sourceforge.net/cvs/?group_id=1111"><img src="images/buttons/history_button.png">CVS</a></li>
+		  <li><a href="?id=content/game/cvslog"><img src="images/buttons/history_button.png">CVS</a></li>
 		  <li><a href="?id=content/game/development"><img src="images/buttons/rpsystem_button.png">Development</a></li>
          </ul>          
         <?php endBox(); ?>
