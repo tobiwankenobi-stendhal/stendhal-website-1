@@ -56,7 +56,14 @@ function confirmValidStatus($username){
       return 2; //Indicates account is blocked or inactive.
    }
 }
-
+function getEmail($username){
+  $conn=getGameDB();
+  /* Look up email in database */
+   $q = "select email from account where username = '".mysql_real_escape_string($username)."'";
+ 	$result = mysql_query($q,$conn);
+	while($row=mysql_fetch_assoc($result)) {            
+    return $row['email'];
+  }}
 
 
 /**
@@ -128,7 +135,7 @@ function getUser($email) {
  */
 function displayLogin(){
    if(checkLogin()){ 
-     echo 'Logged as <b>'.$_SESSION['username'].'</b>. <a href="?id=login/changepassword">Change password</a> - <a href="?id=login/logout">Logout</a>';
+     echo 'Logged in as <b>'.$_SESSION['username'].'</b> ('.getEmail($_SESSION['username']).')   <a href="?id=login/changepassword"><b>Change password</b></a> - <a href="?id=login/logout">Logout</a>';
    }
    else{
      echo '<a href="?id=login/login">Login</a>';
