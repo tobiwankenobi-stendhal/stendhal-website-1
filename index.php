@@ -241,6 +241,7 @@ if(isset($_REQUEST["id"]))
             <li><a href="?id=content/admin/movies"><img src="images/buttons/movies_button.png">Movies</a></li>
 <?php 	} ?>
           	<li><a href="?id=content/admin/logs"><img src="images/buttons/c_chat_button.png">Support Logs</a></li>
+			<li><a href="?id=content/admin/playerhistory"><img src="images/buttons/playerhistory_button.png">Player History</a></li>
           </ul>
         <?php 
           endBox();
