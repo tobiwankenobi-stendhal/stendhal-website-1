@@ -21,13 +21,13 @@ $choosen=$players[0];
 <?php startBox('Character info for '.$choosen->name); ?>
 <div class="table">
   <div class="title">Details</div>
-  <img class="bordered_image" src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
-  <div class="statslabel">Name:</div><div class="data"><?php echo $choosen->name; ?></div>
-  <div class="statslabel">Age:</div><div class="data"><?php echo printAge($choosen->age); ?> hours</div>
-  <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
-  <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
-  <div class="statslabel">DM Score:</div><div class="data"><?php echo $choosen->getDMScore(); ?></div>
-  <div class="sentence"><?php echo $choosen->sentence; ?></div> 
+  <img class="bordered_image" src="createoutfit.php?outfit=<?php echo htmlspecialchars($choosen->outfit); ?>" alt="Player outfit"/>
+  <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars($choosen->name); ?></div>
+  <div class="statslabel">Age:</div><div class="data"><?php echo htmlspecialchars(printAge($choosen->age); ?> hours</div>
+  <div class="statslabel">Level:</div><div class="data"><?php echo htmlspecialchars($choosen->level); ?></div>
+  <div class="statslabel">XP:</div><div class="data"><?php echo htmlspecialchars($choosen->xp); ?></div>
+  <div class="statslabel">DM Score:</div><div class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></div>
+  <div class="sentence"><?php echo htmlspecialchars($choosen->sentence); ?></div> 
 </div>
 
 <div class="table">
@@ -35,9 +35,9 @@ $choosen=$players[0];
   <?php
   $account=$choosen->getAccountInfo();
   ?>
-  <div class="register">Registered at <?php echo $account["register"]; ?></div>
+  <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
   <div class="account_status">
-    This account is <span class="<?php echo $account["status"]; ?>"><?php echo $account["status"]; ?></span>
+    This account is <span class="<?php echo htmlspecialchars($account["status"]); ?>"><?php echo htmlspecialchars($account["status"]); ?></span>
   </div> 
 </div>
 
@@ -51,8 +51,8 @@ $choosen=$players[0];
     $new = array("Attack Level", "Defense level", "Current health", "Karma");
     $key = str_replace($old, $new, $key);
     ?>
-    <div class="statslabel"><?php echo ucwords($key) ?>:</div>
-    <div class="data"><?php echo ucwords($value) ?></div>
+    <div class="statslabel"><?php echo htmlspecialchars(ucwords($key)) ?>:</div>
+    <div class="data"><?php echo htmlspecialchars(ucwords($value)) ?></div>
     <?php } ?>
 </div>
 
@@ -67,16 +67,16 @@ $choosen=$players[0];
     <div class="row">
       <?php 
       if($content!="") { ?>
-        <a href="?id=content/scripts/item&name=<?php echo $content; ?>&exact">
-        <img src="<?php echo getItem($content)->showImage(); ?>" alt="<?php echo ucfirst($content); ?>"/>
-        <div class="label"><?php echo ucwords($slot) ?></div>
-        <div class="data"><?php echo ucfirst($content); ?></div>
+        <a href="?id=content/scripts/item&name=<?php echo htmlspecialchars($content); ?>&exact">
+        <img src="<?php echo htmlspecialchars(getItem($content)->showImage()); ?>" alt="<?php echo htmlspecialchars(ucfirst($content)); ?>"/>
+        <div class="label"><?php echo htmlspecialchars(ucwords($slot)) ?></div>
+        <div class="data"><?php echo htmlspecialchars(ucfirst($content)); ?></div>
         </a>
         <?php 
       } else {
         ?>
         <div class="emptybox"></div>
-        <div class="label"><?php echo ucwords($slot) ?></div>
+        <div class="label"><?php echo htmlspecialchars(ucwords($slot)) ?></div>
         <div class="data">Empty</div>
         <?php
       }
@@ -115,10 +115,10 @@ $choosen=$players[0];
         if($monster->name==$source) {
           ?>
           <div class="row">
-            <a href="?id=content/scripts/monster&name=<?php echo $monster->name; ?>&exact">
-            <img class="creature" src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
-            Killed by a <div style="display: inline;" class="label"><?php echo $monster->name; ?></div>
-            <div class="data">Happened at <?php echo $date; ?>.</div>
+            <a href="?id=content/scripts/monster&name=<?php echo htmlspecialchars($monster->name); ?>&exact">
+            <img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt="<?php echo htmlspecialchars($monster->name); ?>"/>
+            Killed by a <div style="display: inline;" class="label"><?php echo htmlspecialchars($monster->name); ?></div>
+            <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
             <div style="margin-bottom: 50px;"></div>
             </a>
           </div>
@@ -131,13 +131,13 @@ $choosen=$players[0];
        */
       ?>
       <div class="row">
-        <a href="?id=content/scripts/character&name=<?php echo $source; ?>">
+        <a href="?id=content/scripts/character&name=<?php echo htmlspecialchars($source); ?>">
         <?php
         $killer=getPlayer($source);
         ?>
-        <img class="creature" src="createoutfit.php?outfit=<?php echo $killer->outfit; ?>" alt="<?php echo $source; ?>"/>
-        Killed by <div style="display: inline;" class="label"><?php echo $source; ?></div>
-        <div class="data">Happened at <?php echo $date; ?>.</div>
+        <img class="creature" src="createoutfit.php?outfit=<?php echo htmlspecialchars($killer->outfit); ?>" alt="<?php echo htmlspecialchars($source); ?>"/>
+        Killed by <div style="display: inline;" class="label"><?php echo htmlspecialchars($source); ?></div>
+        <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
         <div style="margin-bottom: 50px;"></div>
         </a>
       </div>
