@@ -1,5 +1,4 @@
 .bordered_image {
-	float: right;
 	border: 1px black solid;
 	width: 96px;
 	height: 128px;
@@ -19,13 +18,14 @@
 	background-color: rgb(180, 180, 180);
 	color: white;
 	padding: 4px;
-	margin-top: 35px;
+	margin-top: 10px;
 }
 
 .married {
 	margin-top: 3px;
 	font-style: italic;
 }
+
 .active {
 	color: green;
 }
