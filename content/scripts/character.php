@@ -21,13 +21,14 @@ $choosen=$players[0];
 <?php startBox('Character info for '.$choosen->name); ?>
 <div class="table">
   <div class="title">Details</div>
-  <img class="bordered_image" src="createoutfit.php?outfit=<?php echo htmlspecialchars($choosen->outfit); ?>" alt="Player outfit"/>
-  <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars($choosen->name); ?></div>
-  <div class="statslabel">Age:</div><div class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</div>
-  <div class="statslabel">Level:</div><div class="data"><?php echo htmlspecialchars($choosen->level); ?></div>
-  <div class="statslabel">XP:</div><div class="data"><?php echo htmlspecialchars($choosen->xp); ?></div>
-  <div class="statslabel">DM Score:</div><div class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></div>
-  <div class="sentence"><?php echo htmlspecialchars($choosen->sentence); ?></div> 
+  <img class="bordered_image" src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+  <div class="statslabel">Name:</div><div class="data"><?php echo $choosen->name; ?></div>
+  <div class="statslabel">Age:</div><div class="data"><?php echo printAge($choosen->age); ?> hours</div>
+  <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
+  <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
+  <div class="statslabel">DM Score:</div><div class="data"><?php echo $choosen->getDMScore(); ?></div>
+  <div class="married"><?php if(!empty($choosen->married)) {  echo $choosen->name; ?> is married to <a href="?id=content/scripts/character&name=<?php echo $choosen->married; ?>"><?php echo $choosen->married; } ?></a> </div> 
+  <div class="sentence"><?php echo $choosen->sentence; ?></div> 
 </div>
 
 <div class="table">

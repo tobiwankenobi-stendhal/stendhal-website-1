@@ -1,4 +1,5 @@
 .bordered_image {
+	float: right;
 	border: 1px black solid;
 	width: 96px;
 	height: 128px;
@@ -15,13 +16,16 @@
 }
 
 .sentence {
-	border: 1px solid black;
 	background-color: rgb(180, 180, 180);
 	color: white;
 	padding: 4px;
-	margin-top: 12px;
+	margin-top: 35px;
 }
 
+.married {
+	margin-top: 3px;
+	font-style: italic;
+}
 .active {
 	color: green;
 }
