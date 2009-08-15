@@ -77,7 +77,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
       <tr>
         <td>Date</td>
         <td>Location</td>
-        <td>Raid/Meeting/Gift/Quiz</td>
+        <td>Raid/Meeting/Gift/Quiz/Other</td>
       </tr>
       <tr>
         <td><input name="date" <?php if(isset($edited)) echo 'value="'.$edited->date.'"'; ?>></td>

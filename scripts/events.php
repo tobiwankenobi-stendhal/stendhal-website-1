@@ -24,6 +24,7 @@
   * - Gift
   * - Meeting
   * - Quiz
+  * - Other
   */
 class Event {
   public $id;
