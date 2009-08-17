@@ -33,7 +33,7 @@ class ServerStatistics {
   }
   
   function isOnline() {
-    if(isset($this->diff) && $this->diff<3000) {
+    if(isset($this->diff) && $this->diff<300) {
       return true;
     } else {
       return false;
