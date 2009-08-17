@@ -42,7 +42,7 @@ class ServerStatistics {
 }
 
 function getServerStats() {
-    $result = mysql_query('select *,now()-timedate as diff from statistics order by timedate desc limit 1', getGameDB());
+    $result = mysql_query('SELECT *, now()-timedate As diff FROM statistics ORDER BY id DESC LIMIT 1', getGameDB());
     
     while($row=mysql_fetch_assoc($result)) {      
       $server=new ServerStatistics($row['diff'],$row['timedate'],$row['bytes_send'],$row['bytes_recv'],$row['players_online']);
