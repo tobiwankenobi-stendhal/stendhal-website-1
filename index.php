@@ -178,7 +178,7 @@ if(isset($_REQUEST["id"]))
            * Load server stats about online players, bytes send/recv and other from database.
            */
           $stats=getServerStats();
-          if(!$stats->isOnline()) {
+          if(!isset($stats) || !$stats->isOnline()) {
             ?>
             <div class="status"><a href="?id=content/offline">Server is offline</a></div>
             <?php
