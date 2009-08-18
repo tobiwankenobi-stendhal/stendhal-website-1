@@ -49,12 +49,12 @@ class PlayerHistoryEntry {
 	  */
 	function getPlayerHistoryEntriesForPlayers($where='', $sortby='id', $cond='') {
 	    return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
-		$query = "SELECT * FROM gameEvents WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') ".$where." ORDER BY ".$sortby." ".$cond;
+		$query = "(SELECT * FROM gameEvents_2009_08_17 WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') ".$where." ORDER BY ".$sortby." ".$cond.") UNION (SELECT * FROM gameEvents  WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') ".$where." ORDER BY ".$sortby." ".$cond.")";
 	    return PlayerHistoryEntry::_getPlayerHistoryEntries($query);
 	}
 
 	function getPlayerHistoryEntriesForPlayer($name) {
-		$query = "SELECT * FROM gameEvents WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') AND (param1 = '".mysql_real_escape_string($name)."' OR source = '".mysql_real_escape_string($name)."' ) ORDER BY id";
+		$query = "(SELECT * FROM gameEvents_2009_08_17 WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') AND (param1 = '".mysql_real_escape_string($name)."' OR source = '".mysql_real_escape_string($name)."' ) ORDER BY id) UNION (SELECT * FROM gameEvents WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') AND (param1 = '".mysql_real_escape_string($name)."' OR source = '".mysql_real_escape_string($name)."' ) ORDER BY id)";
 	    return PlayerHistoryEntry::_getPlayerHistoryEntries($query);
 	}
 
