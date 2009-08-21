@@ -27,7 +27,9 @@ $choosen=$players[0];
   <div class="statslabel">Level:</div><div class="data"><?php echo htmlspecialchars($choosen->level); ?></div>
   <div class="statslabel">XP:</div><div class="data"><?php echo htmlspecialchars($choosen->xp); ?></div>
   <div class="statslabel">DM Score:</div><div class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></div>
-  <div class="sentence"><?php echo htmlspecialchars($choosen->sentence); ?></div> 
+  <?php if ($account["status"] == "active") {?>
+  	<div class="sentence"><?php echo htmlspecialchars($choosen->sentence); ?></div>
+  <?php ?>}<php> 
 </div>
 
 <div class="table">
