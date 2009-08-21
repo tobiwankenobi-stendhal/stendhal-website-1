@@ -16,6 +16,7 @@ if(sizeof($players)==0) {
   return;
 }
 $choosen=$players[0];
+$account=$choosen->getAccountInfo();
 ?>
 
 <?php startBox('Character info for '.$choosen->name); ?>
@@ -34,9 +35,6 @@ $choosen=$players[0];
 
 <div class="table">
   <div class="title">Account information</div>
-  <?php
-  $account=$choosen->getAccountInfo();
-  ?>
   <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
   <div class="account_status">
     This account is <span class="<?php echo htmlspecialchars($account["status"]); ?>"><?php echo htmlspecialchars($account["status"]); ?></span>
