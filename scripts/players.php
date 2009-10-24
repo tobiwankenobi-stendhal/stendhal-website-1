@@ -116,7 +116,7 @@ class Player {
   }
 
   function getDMScore() {
-   $result=mysql_query('select points from halloffame where charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
+   $result=mysql_query('select points from halloffame where charname="'.mysql_real_escape_string($this->name).'" and fametype="D"',getGameDB());
       
     while($row=mysql_fetch_assoc($result)) {      
       $points=$row['points'];
@@ -150,7 +150,7 @@ function getBestPlayer($where='') {
 }
 
 function getDMHeroes($cond='limit 2') {
-  return _getPlayers('select character_stats.* from character_stats join halloffame on charname=name order by points desc '.$cond, getGameDB());
+  return _getPlayers('select character_stats.* from character_stats join halloffame on charname=name where fametype="D" order by points desc '.$cond, getGameDB());
 
 }
 
