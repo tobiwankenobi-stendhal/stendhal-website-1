@@ -48,7 +48,7 @@ function decidePageToLoad($url) {
     return $ERROR;
   }
   
-  if(strpos($url,"http")!==false) {
+  if(strpos($url,":")!==false) { // http://, https://, ftp://
     return $ERROR;
   }
   
