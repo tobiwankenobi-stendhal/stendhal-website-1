@@ -94,6 +94,9 @@ if(isset($_REQUEST["id"]))
 	    <link rel="stylesheet" type="text/css" href="<?php echo $page_url; ?>.css" />
 	    <?php
 	  }
+	  if(file_exists($page_url.'_header.php')) {
+	    include($page_url."_header.php");
+	  }
 	?>
   </head>
   <body>
