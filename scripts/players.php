@@ -76,17 +76,18 @@ class Player {
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ##
      
-    $result = mysql_query('
+    $result = mysql_query("
     select 
       timedate, 
       source 
     from gameEvents 
     where 
-      event="killed" and 
-      param1="'.mysql_real_escape_string($this->name).'" and 
-      datediff(now(),timedate)<=7*52 
-    order by timedate 
-    desc limit 4', getGameDB());
+      event='killed' and 
+      param1='".mysql_real_escape_string($this->name)."' and 
+      datediff(now(),timedate)<=7*52 and 
+      (param2 is null or param2 = 'C P' or param2 = 'E P' or param2 = 'P P')
+    order by timedate desc
+    limit 4", getGameDB());
     $kills=array();
     
     /*
