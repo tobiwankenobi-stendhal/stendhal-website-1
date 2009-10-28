@@ -111,10 +111,10 @@ if(isset($_REQUEST["id"]))
       
       <div id="topMenu">
         <ul>
-          <li id="manual_button"><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalManual"><img src="images/menu/manual.png" alt="Manual"/></a></li>
-          <li id="support_button"><a href="http://sourceforge.net/tracker/?func=add&group_id=1111&atid=201111"><img src="images/menu/support.png" alt="Support"/></a></li>
+          <li id="manual_button"><a href="http://stendhal.game-host.org/wiki/index.php/StendhalManual"><img src="images/menu/manual.png" alt="Manual"/></a></li>
+          <li id="support_button"><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="images/menu/support.png" alt="Support"/></a></li>
           <li id="forum_button"><a href="http://sourceforge.net/forum/forum.php?forum_id=3190"><img src="images/menu/forum.png" alt="Forum"/></a></li>
-          <li id="downloads_button"><a href="http://sourceforge.net/project/platformdownload.php?group_id=1111&sel_platform=410"><img src="images/menu/download.png" alt="Downloads"/></a></li>
+          <li id="downloads_button"><a href="http://sourceforge.net/project/platformdownload.php?group_id=1111&amp;sel_platform=410"><img src="images/menu/download.png" alt="Downloads"/></a></li>
           <li id="hof_button"><a href="?id=content/halloffame"><img src="images/menu/halloffame.png" alt="Hall of Fame"/></a></li>
         </ul>
       </div>
@@ -159,15 +159,15 @@ if(isset($_REQUEST["id"]))
         
         <?php startBox('Game System'); ?>
           <ul id="menu">
-            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
-            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=AskForHelp"><img src="images/buttons/help_button.png">Help</a></li>
-            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRuleSystem"><img src="images/buttons/rules_button.png">Rules</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="images/buttons/help_button.png">Help</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalRuleSystem"><img src="images/buttons/rules_button.png">Rules</a></li>
           	<li><a href="?id=content/game/atlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
             <li><a href="?id=content/game/npcs"><img src="images/buttons/npcs_button.png">NPCs</a></li>
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
-            <li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
-			<li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
+			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
            </ul>
         <?php endBox(); ?>
       </div>
@@ -256,7 +256,7 @@ if(isset($_REQUEST["id"]))
         <ul  id="menu">
 		  <li><a href="?id=content/game/chat"><img src="images/buttons/c_chat_button.png">Chat</a></li>
           <li><a href="?id=content/game/bug"><img src="images/buttons/c_bug_button.png">Report Bug</a></li>
-          <li><a href="http://sourceforge.net/tracker/?func=add&group_id=1111&atid=301111"><img src="images/buttons/help_button.png">Submit Patch</a></li>
+          <li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="images/buttons/help_button.png">Submit Patch</a></li>
 	      <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png">Testing</a></li>
 		  <li><a href="?id=content/game/cvslog"><img src="images/buttons/history_button.png">CVS</a></li>
 		  <li><a href="?id=content/game/development"><img src="images/buttons/rpsystem_button.png">Development</a></li>
@@ -303,7 +303,7 @@ if(isset($_REQUEST["id"]))
         printf(' (Page generated in %.3f seconds.)', $totaltime);
         ?>
         <span class="copyright">&copy; 1999-2009 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
-        <span><a href="http://sourceforge.net/projects/arianne"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+        <span><a href="http://sourceforge.net/projects/arianne"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
         <span><?php include('counter.php'); ?></span>
       </div>
       
@@ -323,7 +323,7 @@ if(isset($_REQUEST["id"]))
          */
         $name=array_rand($authors);
         ?>
-        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo $authors[$name]; ?>" alt="<?php echo $name; ?>"/><br><?php echo $name; ?></a>
+        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo htmlspecialchars($authors[$name]); ?>" alt="<?php echo htmlspecialchars($name); ?>"/><br><?php echo htmlspecialchars($name); ?></a>
       </div>
     </div>
   </body>
