@@ -19,17 +19,17 @@ $choosen=$players[0];
 $account=$choosen->getAccountInfo();
 ?>
 
-<?php startBox('Character info for '.$choosen->name); ?>
+<?php startBox('Character info for '.htmlspecialchars(utf8_encode($choosen->name))); ?>
 <div class="table">
   <div class="title">Details</div>
   <img class="bordered_image" src="createoutfit.php?outfit=<?php echo htmlspecialchars($choosen->outfit); ?>" alt="Player outfit"/>
-  <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars($choosen->name); ?></div>
+  <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></div>
   <div class="statslabel">Age:</div><div class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</div>
   <div class="statslabel">Level:</div><div class="data"><?php echo htmlspecialchars($choosen->level); ?></div>
   <div class="statslabel">XP:</div><div class="data"><?php echo htmlspecialchars($choosen->xp); ?></div>
   <div class="statslabel">DM Score:</div><div class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></div>
   <?php if ($account["status"] == "active") {
-  	echo '<div class="sentence">' . htmlspecialchars($choosen->sentence). '</div>';
+  	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
   }?> 
 </div>
 
@@ -131,12 +131,12 @@ $account=$choosen->getAccountInfo();
        */
       ?>
       <div class="row">
-        <a href="?id=content/scripts/character&name=<?php echo htmlspecialchars($source); ?>">
+        <a href="?id=content/scripts/character&name=<?php echo htmlspecialchars(urlencode($source)); ?>">
         <?php
         $killer=getPlayer($source);
         ?>
-        <img class="creature" src="createoutfit.php?outfit=<?php echo htmlspecialchars($killer->outfit); ?>" alt="<?php echo htmlspecialchars($source); ?>"/>
-        Killed by <div style="display: inline;" class="label"><?php echo htmlspecialchars($source); ?></div>
+        <img class="creature" src="createoutfit.php?outfit=<?php echo htmlspecialchars($killer->outfit); ?>" alt="<?php echo utf8_encode($source); ?>"/>
+        Killed by <div style="display: inline;" class="label"><?php echo htmlspecialchars(utf8_encode($source); ?></div>
         <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
         <div style="margin-bottom: 50px;"></div>
         </a>

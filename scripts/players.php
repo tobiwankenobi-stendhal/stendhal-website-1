@@ -57,11 +57,11 @@ class Player {
   function show() {
     echo '<div class="playerBox">';
     echo '  <img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/>';
-    echo '  <a href="?id=content/scripts/character&name='.$this->name.'">';
-    echo '  <div class="name">'.$this->name.'</div>';
+    echo '  <a href="?id=content/scripts/character&name='.urlencode($this->name).'">';
+    echo '  <div class="name">'.htmlspecialchars(utf8_encode($this->name)).'</div>';
     echo ' </a>';
     echo '  <div class="xp">'.$this->xp.' xp</div>';
-    echo '  <div class="quote">"'.$this->sentence.'"</div>';
+    echo '  <div class="quote">"'.htmlspecialchars(utf8_encode($this->sentence)).'"</div>';
     echo '</div>';
   }
   

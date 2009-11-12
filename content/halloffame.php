@@ -7,8 +7,8 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
  ?>
   <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
   <div class="best">
-    <a href="?id=content/scripts/character&name=<?php echo $choosen->name; ?>">
-    <div class="statslabel">Name:</div><div class="data"><?php echo $choosen->name; ?></div>
+    <a href="?id=content/scripts/character&name=<?php echo urlencode($choosen->name); ?>">
+    <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></div>
     <div class="statslabel">Age:</div><div class="data"><?php echo getAge($choosen); ?> hours</div>
     <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
     <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
@@ -28,9 +28,9 @@ function renderListOfPlayers($list, $f, $postfix='') {
     ?>
     <div class="row">
       <div class="position"><?php echo $i; ?></div>
-      <a href="?id=content/scripts/character&name=<?php echo $player->name; ?>">
+      <a href="?id=content/scripts/character&name=<?php echo urlencode($player->name); ?>">
       <img class="small_image" src="createoutfit.php?outfit=<?php echo $player->outfit; ?>" alt="Player outfit"/>
-      <div class="label"><?php echo $player->name; ?></div>
+      <div class="label"><?php echo htmlspecialchars(utf8_encode($player->name)); ?></div>
       <?php
       $var=$f($player);
       ?>
