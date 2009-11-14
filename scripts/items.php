@@ -99,8 +99,7 @@ function getItems() {
 	    }
     
         $class=$items[$i]['type']['0 attr']['class'];
-        $gfx='data/sprites/items/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png';
-        $gfx='itemimage.php?url='.$gfx;
+        $gfx=rewriteURL('/images/item/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png');
     
         $attributes=array();
         if(is_array($items[$i]['attributes'][0])) {
