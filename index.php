@@ -25,6 +25,7 @@ $starttime = $starttime[1] + $starttime[0];
 include('scripts/website.php');
 include('login/login_function.php');
 include('scripts/authors.php');
+include('scripts/urlrewrite.php');
 
 /*
  * Open connection to both databases.
