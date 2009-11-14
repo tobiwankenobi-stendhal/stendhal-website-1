@@ -281,8 +281,7 @@ function getMonsters() {
     }
     
     $class=$creatures[$i]['type']['0 attr']['class'];
-    $gfx='data/sprites/monsters/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png';
-    $gfx='monsterimage.php?url='.$gfx;
+    $gfx=rewriteURL('/images/creature/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png');
     
     $attributes=array();
     $attributes['atk']=$creatures[$i]['attributes'][0]['atk']['0 attr']['value'];
