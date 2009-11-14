@@ -71,6 +71,9 @@ define('STENDHAL_PLEASE_MAKE_IT_FAST',true);
 # Counter
 define('STENDHAL_WEB_COUNTER', true);
 
+# URL-Rewriting
+define('STENDHAL_MODE_REWRITE', false);
+
 ## for displaying support logs
 define('SUPPORT_SERVER','irc.freenode.net');
 define('SUPPORT_CHANNEL','#channelname');
