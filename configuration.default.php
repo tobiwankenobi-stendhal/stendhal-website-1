@@ -71,8 +71,12 @@ define('STENDHAL_PLEASE_MAKE_IT_FAST',true);
 # Counter
 define('STENDHAL_WEB_COUNTER', true);
 
-# URL-Rewriting
+
+# URL-Rewriting. 
+# Please see script/urlrewrite.php for the mod_rewrite rules required in your apache configuration file.
 define('STENDHAL_MODE_REWRITE', false);
+
+
 
 ## for displaying support logs
 define('SUPPORT_SERVER','irc.freenode.net');

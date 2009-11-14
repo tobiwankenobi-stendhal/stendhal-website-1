@@ -17,6 +17,31 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+
+
+/*
+
+You need to enable mod_rewrite by creating a symlink 
+/etc/apache2/mods-enabled/rewrite.load pointing to ../mods-available/rewrite.load
+
+Then edit your sites-enabled virtual host configuration file and add these commands:
+
+        <IfModule mod_rewrite.c>
+                RewriteEngine on
+                RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1
+        </IfModule>
+
+
+*/
+
+
+/**
+ * rewrite nice urls to ugly once (in case mod_rewrite is not used).
+ *
+ * @param string $url
+ * @return real url
+ */
 function rewriteURL($url) {
 	
 	if (STENDHAL_MODE_REWRITE) {
