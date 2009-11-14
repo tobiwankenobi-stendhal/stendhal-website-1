@@ -29,7 +29,7 @@ function renderListOfPlayers($list, $f, $postfix='') {
     <div class="row">
       <div class="position"><?php echo $i; ?></div>
       <a href="?id=content/scripts/character&name=<?php echo urlencode($player->name); ?>">
-      <img class="small_image" src="createoutfit.php?outfit=<?php echo $player->outfit; ?>" alt="Player outfit"/>
+      <img class="small_image" src="<?php echo rewriteURL("/images/outfit/{$player->outfit}.png")?>" alt="Player outfit"/>
       <div class="label"><?php echo htmlspecialchars(utf8_encode($player->name)); ?></div>
       <?php
       $var=$f($player);
