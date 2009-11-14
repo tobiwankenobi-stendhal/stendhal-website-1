@@ -94,6 +94,7 @@ $outfit=$outfit/100;
 conditionalAddToImage($hairIndex,$result,$OUTFITS_BASE.'/hair_');
 
 header("Content-type: image/png");
+header("Cache-Control: max-age=172800"); // 2 * 24 * 60 * 60
 imagepng($result);
 
 ?>
