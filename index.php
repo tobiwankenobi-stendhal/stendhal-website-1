@@ -324,7 +324,7 @@ if(isset($_REQUEST["id"]))
          */
         $name=array_rand($authors);
         ?>
-        <a href="http://arianne.sourceforge.net"><img src="createoutfit.php?outfit=<?php echo htmlspecialchars($authors[$name]); ?>" alt="<?php echo htmlspecialchars($name); ?>"/><br><?php echo htmlspecialchars($name); ?></a>
+        <a href="http://arianne.sourceforge.net"><img src="<?php echo rewriteURL('/images/outfit/'.urlencode($authors[$name]).'.png');?>" alt="<?php echo htmlspecialchars($name); ?>"/><br><?php echo htmlspecialchars($name); ?></a>
       </div>
     </div>
   </body>

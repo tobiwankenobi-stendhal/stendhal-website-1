@@ -56,7 +56,7 @@ class Player {
 
   function show() {
     echo '<div class="playerBox">';
-    echo '  <img src="createoutfit.php?outfit='.$this->outfit.'" alt="Player outfit"/>';
+    echo '  <img src="'.rewriteURL('/images/outfit/'.urlencode($this->outfit).'.png').'" alt="Player outfit"/>';
     echo '  <a href="?id=content/scripts/character&name='.urlencode($this->name).'">';
     echo '  <div class="name">'.htmlspecialchars(utf8_encode($this->name)).'</div>';
     echo ' </a>';

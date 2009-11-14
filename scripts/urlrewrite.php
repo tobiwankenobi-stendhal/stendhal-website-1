@@ -33,6 +33,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
         </IfModule>
 
 
+Note: You need to restart apache after editing these files.
 */
 
 

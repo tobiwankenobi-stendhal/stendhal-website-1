@@ -6,6 +6,7 @@ if (!defined('MEDIAWIKI')) {
 require_once($IP.'/../scripts/xml.php');
 require_once($IP.'/../scripts/mysql.php');
 require_once($IP.'/../scripts/players.php');
+require_once($IP.'/../scripts/urlrewrite.php');
 
 
 /**
@@ -13,13 +14,13 @@ require_once($IP.'/../scripts/players.php');
  */
 function stendhalDataIncludePlayerIconOnly($player) {
 	$res .= '<span class="stendhalPlayerIcon"><a href="/?id=content/scripts/character&name=' . urlencode($player->name) . '&exact">';
-	$res .= '<img src="/createoutfit.php?outfit=' . htmlspecialchars($player->outfit) . '" />';
+	$res .= '<img src="'.rewriteURL('/images/outfit/'.urlencode($player->outfit).'.png').'" />';
 	$res .= '</a></span>';
 	return $res;
 }
 
 function getAge($minutes) {
-  return round($minutes/60,2);
+	return round($minutes/60, 2);
 }
 
 /**
