@@ -29,6 +29,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
         <IfModule mod_rewrite.c>
                 RewriteEngine on
+                RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png
+                RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png
                 RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1
         </IfModule>
 
@@ -51,14 +53,14 @@ function rewriteURL($url) {
 	
 
 	if (preg_match('|^/images/.*|', $url)) {
-		if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
-			return preg_replace('|^/images/outfit/(.*)\.png$|', '/createoutfit.php?outfit=$1', $url);
+		if (preg_match('|^/images/creature/(.*)\.png$|', $url)) {
+			return preg_replace('|^/images/creature/(.*)\.png$|', '/monsterimage.php?url=data/sprites/monsters/$1.png', $url);
 		}
 		if (preg_match('|^/images/npc/(.*)\.png$|', $url)) {
-			return preg_replace('|^/images/npc/(.*)\.png$|', 'monsterimage.php?url=data/sprites/npc/$1.png', $url);
+			return preg_replace('|^/images/npc/(.*)\.png$|', '/monsterimage.php?url=data/sprites/npc/$1.png', $url);
 		}
-		if (preg_match('|^/images/creature/(.*)\.png$|', $url)) {
-			return preg_replace('|^/images/creature/(.*)\.png$|', 'monsterimage.php?url=data/sprites/monsters/$1.png', $url);
+		if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
+			return preg_replace('|^/images/outfit/(.*)\.png$|', '/createoutfit.php?outfit=$1', $url);
 		}
 	}
 }
