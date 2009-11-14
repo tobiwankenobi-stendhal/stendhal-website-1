@@ -50,8 +50,13 @@ function rewriteURL($url) {
 	}
 	
 
-	if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
-		return preg_replace('|^/images/outfit/(.*)\.png$|', '/createoutfit.php?outfit=$1', $url);
+	if (preg_match('|^/images/.*|', $url)) {
+		if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
+			return preg_replace('|^/images/outfit/(.*)\.png$|', '/createoutfit.php?outfit=$1', $url);
+		}
+		if (preg_match('|^/images/npc/(.*)\.png$|', $url)) {
+			return preg_replace('|^/images/npc/(.*)\.png$|', 'monsterimage.php?url=data/sprites/npc/$1.png', $url);
+		}
 	}
 }
 ?>
