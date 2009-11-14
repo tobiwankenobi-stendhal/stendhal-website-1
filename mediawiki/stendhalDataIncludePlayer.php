@@ -46,7 +46,7 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 		$res .= 'Level: ' . htmlspecialchars($player->level) . '<br />';
 		$res .= 'XP: ' . htmlspecialchars($player->xp) . '<br />';
 		foreach($player->attributes as $label=>$data) {
-			$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
+			$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars(utf8_encode($data)) . '<br />';
 		}
 		if ($player->adminlevel > 0) {
 			if ($player->adminlevel >= 800) {
@@ -62,7 +62,7 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 	}
 	if (!isset($argv['info'])) {
 		if (strlen($player->sentence) > 0) {
-			$res .= '<br />"' . htmlspecialchars($player->sentence) . '"<br />';
+			$res .= '<br />"' . htmlspecialchars(utf8_encode($player->sentence)) . '"<br />';
 		}
 	}
 
@@ -83,7 +83,7 @@ function stendhalDataIncludePlayer($input, $argv, &$parser) {
 	$player = getPlayer($parsedInput['name']);
 	disconnect();
 	if ($player == NULL) {
-		return '&lt;player "' . htmlspecialchars($parsedInput['name']) . '" not found&gt;';
+		return '&lt;player "' . htmlspecialchars(utf8_encode($parsedInput['name'])) . '" not found&gt;';
 	}
 
 	if (isset($argv['info']) && ($argv['info'] == 'icon')) {
