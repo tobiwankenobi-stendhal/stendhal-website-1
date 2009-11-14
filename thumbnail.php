@@ -65,5 +65,4 @@ imagecopyresampled($image_resized, $image, 0, 0, 0, 0, $new_width, $new_height, 
 // Display resized image
 header('Content-type: image/jpeg');
 imagejpeg($image_resized);
-die();
 ?>
