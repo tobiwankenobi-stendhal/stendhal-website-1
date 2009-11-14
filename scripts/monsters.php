@@ -282,8 +282,7 @@ function getMonsters() {
     
     $class=$creatures[$i]['type']['0 attr']['class'];
     $gfx='data/sprites/monsters/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png';
-    list($w,$h)=explode(",",$creatures[$i]['attributes'][0]['size']['0 attr']['value']);
-    $gfx='monsterimage.php?url='.$gfx.'&w='.$w.'&h='.$h;
+    $gfx='monsterimage.php?url='.$gfx;
     
     $attributes=array();
     $attributes['atk']=$creatures[$i]['attributes'][0]['atk']['0 attr']['value'];
@@ -307,8 +306,8 @@ function getMonsters() {
     echo 'Description: "'.$description.'"<br>';
     echo 'Class: "'.$class.'"<br>';
     echo 'Level: '.$level.'<br>';
-    echo 'GFX: "'.$gfx.'" w='.$w.' h='.$h.' <br>';    
-    echo '<img src="monsterimage.php?url='.$gfx.'&w='.$w.'&h='.$h.'"/><br>';
+    echo 'GFX: "'.$gfx.' <br>';    
+    echo '<img src="monsterimage.php?url='.$gfx"/><br>';
     echo 'Attributes: <br>';
     //print_r($attributes);
     
