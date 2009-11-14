@@ -62,7 +62,7 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 	}
 	if (!isset($argv['info'])) {
 		if (strlen($player->sentence) > 0) {
-			$res .= '<br />"' . $player->sentence . '"<br />';
+			$res .= '<br />"' . htmlspecialchars($player->sentence) . '"<br />';
 		}
 	}
 
