@@ -161,21 +161,21 @@ if(isset($_REQUEST["id"]))
         
         <?php startBox('Game System'); ?>
           <ul id="menu">
-            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalFAQ"><img src="images/buttons/faq_button.png">FAQ</a></li>
-            <li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="images/buttons/help_button.png">Help</a></li>
-            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalRuleSystem"><img src="images/buttons/rules_button.png">Rules</a></li>
-          	<li><a href="?id=content/game/atlas"><img src="images/buttons/atlas_button.png">Atlas</a></li>
-            <li><a href="?id=content/game/npcs"><img src="images/buttons/npcs_button.png">NPCs</a></li>
-            <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png">Creatures</a></li>
-            <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png">Items</a></li>
-            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalQuest"><img src="images/buttons/quests_button.png">Quests</a></li>
-			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalHistory"><img src="images/buttons/history_button.png">History</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalFAQ"><img src="images/buttons/faq_button.png" alt="">FAQ</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="images/buttons/help_button.png" alt="">Help</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalRuleSystem"><img src="images/buttons/rules_button.png" alt="">Rules</a></li>
+          	<li><a href="?id=content/game/atlas"><img src="images/buttons/atlas_button.png" alt="">Atlas</a></li>
+            <li><a href="?id=content/game/npcs"><img src="images/buttons/npcs_button.png" alt="">NPCs</a></li>
+            <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png" alt="">Creatures</a></li>
+            <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png" alt="">Items</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalQuest" alt=""><img src="images/buttons/quests_button.png">Quests</a></li>
+			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalHistory" alt=""><img src="images/buttons/history_button.png">History</a></li>
            </ul>
         <?php endBox(); ?>
       </div>
       
       <div id="rightArea">
-        <a href="http://arianne.sourceforge.net/jws/stendhal.jnlp"><div id="playArea"></div></a>        
+        <a href="http://arianne.sourceforge.net/jws/stendhal.jnlp"><div id="playArea"></div></a>
         <a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo STENDHAL_VERSION; ?>.zip"><div id="downloadArea"></div></a>
 
         <?php 
@@ -241,13 +241,13 @@ if(isset($_REQUEST["id"]))
           <ul id="menu">
 	<?php 
 		if(getAdminLevel()>=400) { ?>
-            <li><a href="?id=content/admin/news"><img src="images/buttons/news_button.png">News</a></li>
-            <li><a href="?id=content/admin/events"><img src="images/buttons/events_button.png">Events</a></li>
-            <li><a href="?id=content/admin/screenshots"><img src="images/buttons/screenshots_button.png">Screenshots</a></li>
-            <li><a href="?id=content/admin/movies"><img src="images/buttons/movies_button.png">Movies</a></li>
+            <li><a href="?id=content/admin/news"><img src="images/buttons/news_button.png" alt="">News</a></li>
+            <li><a href="?id=content/admin/events"><img src="images/buttons/events_button.png" alt="">Events</a></li>
+            <li><a href="?id=content/admin/screenshots"><img src="images/buttons/screenshots_button.png" alt="">Screenshots</a></li>
+            <li><a href="?id=content/admin/movies"><img src="images/buttons/movies_button.png" alt="">Movies</a></li>
 <?php 	} ?>
-          	<li><a href="?id=content/admin/logs"><img src="images/buttons/c_chat_button.png">Support Logs</a></li>
-			<li><a href="?id=content/admin/playerhistory"><img src="images/buttons/playerhistory_button.png">Player History</a></li>
+          	<li><a href="?id=content/admin/logs"><img src="images/buttons/c_chat_button.png" alt="">Support Logs</a></li>
+			<li><a href="?id=content/admin/playerhistory"><img src="images/buttons/playerhistory_button.png" alt="">Player History</a></li>
           </ul>
         <?php 
           endBox();
@@ -256,12 +256,12 @@ if(isset($_REQUEST["id"]))
 
        <?php startBox('Contribute'); ?>
         <ul  id="menu">
-		  <li><a href="?id=content/game/chat"><img src="images/buttons/c_chat_button.png">Chat</a></li>
-          <li><a href="?id=content/game/bug"><img src="images/buttons/c_bug_button.png">Report Bug</a></li>
-          <li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="images/buttons/help_button.png">Submit Patch</a></li>
-	      <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png">Testing</a></li>
-		  <li><a href="?id=content/game/cvslog"><img src="images/buttons/history_button.png">CVS</a></li>
-		  <li><a href="?id=content/game/development"><img src="images/buttons/rpsystem_button.png">Development</a></li>
+		  <li><a href="?id=content/game/chat"><img src="images/buttons/c_chat_button.png" alt="">Chat</a></li>
+          <li><a href="?id=content/game/bug"><img src="images/buttons/c_bug_button.png" alt="">Report Bug</a></li>
+          <li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111" alt=""><img src="images/buttons/help_button.png">Submit Patch</a></li>
+	      <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png" alt="">Testing</a></li>
+		  <li><a href="?id=content/game/cvslog"><img src="images/buttons/history_button.png" alt="">CVS Chances</a></li>
+		  <li><a href="?id=content/game/development"><img src="images/buttons/rpsystem_button.png" alt="">Development</a></li>
          </ul>          
         <?php endBox(); ?>
       </div>
