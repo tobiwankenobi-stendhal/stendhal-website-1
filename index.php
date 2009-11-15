@@ -78,7 +78,8 @@ if(isset($_REQUEST["id"]))
   }
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
     <title>Stendhal an open source online multiplayer adventures games</title>
@@ -140,7 +141,7 @@ if(isset($_REQUEST["id"]))
           startBox('Movie');
           // TODO: Refactor so it uses a screenshot-like method.
           ?>
-          <object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/88qyeECNVrw"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/88qyeECNVrw" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
+          <object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/88qyeECNVrw"><param name="wmode" value="transparent"><embed src="http://www.youtube.com/v/88qyeECNVrw" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
         <?php
           endBox() 
         ?>
