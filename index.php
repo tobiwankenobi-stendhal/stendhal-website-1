@@ -82,9 +82,9 @@ if(isset($_REQUEST["id"]))
 <html>
   <head>
     <title>Stendhal an open source online multiplayer adventures games</title>
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="icon" type="image/png" href="images/favicon.png">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
 	  /*
 	   * Does exists another style sheet for this page?
@@ -92,7 +92,7 @@ if(isset($_REQUEST["id"]))
 	   */
 	  if(file_exists($page_url.'.css')) {
 	    ?>
-	    <link rel="stylesheet" type="text/css" href="<?php echo $page_url; ?>.css" />
+	    <link rel="stylesheet" type="text/css" href="<?php echo $page_url; ?>.css">
 	    <?php
 	  }
 	  if(file_exists($page_url.'_header.php')) {
@@ -103,7 +103,7 @@ if(isset($_REQUEST["id"]))
   <body>
     <div id="container">
       <div id="header">
-        <a href="?"><img style="border: 0;" src="images/logo.gif" alt="Logotype"/></a>
+        <a href="?"><img style="border: 0;" src="images/logo.gif" alt="Stendhal Logo"></a>
       </div>
       
       <div id="account">
@@ -112,11 +112,11 @@ if(isset($_REQUEST["id"]))
       
       <div id="topMenu">
         <ul>
-          <li id="manual_button"><a href="http://stendhal.game-host.org/wiki/index.php/StendhalManual"><img src="images/menu/manual.png" alt="Manual"/></a></li>
-          <li id="support_button"><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="images/menu/support.png" alt="Support"/></a></li>
-          <li id="forum_button"><a href="http://sourceforge.net/forum/forum.php?forum_id=3190"><img src="images/menu/forum.png" alt="Forum"/></a></li>
-          <li id="downloads_button"><a href="http://sourceforge.net/project/platformdownload.php?group_id=1111&amp;sel_platform=410"><img src="images/menu/download.png" alt="Downloads"/></a></li>
-          <li id="hof_button"><a href="?id=content/halloffame"><img src="images/menu/halloffame.png" alt="Hall of Fame"/></a></li>
+          <li id="manual_button"><a href="http://stendhal.game-host.org/wiki/index.php/StendhalManual"><img src="images/menu/manual.png" alt="Manual"></a></li>
+          <li id="support_button"><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="images/menu/support.png" alt="Support"></a></li>
+          <li id="forum_button"><a href="http://sourceforge.net/forum/forum.php?forum_id=3190"><img src="images/menu/forum.png" alt="Forum"></a></li>
+          <li id="downloads_button"><a href="http://sourceforge.net/project/platformdownload.php?group_id=1111&amp;sel_platform=410"><img src="images/menu/download.png" alt="Downloads"></a></li>
+          <li id="hof_button"><a href="?id=content/halloffame"><img src="images/menu/halloffame.png" alt="Hall of Fame"></a></li>
         </ul>
       </div>
       
@@ -304,7 +304,7 @@ if(isset($_REQUEST["id"]))
         printf(' (Page generated in %.3f seconds.)', $totaltime);
         ?>
         <span class="copyright">&copy; 1999-2009 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
-        <span><a href="http://sourceforge.net/projects/arianne"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+        <span><a href="http://sourceforge.net/projects/arianne"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net. Fast, secure and Free Open Source software downloads" ></a></span>
         <span><?php include('counter.php'); ?></span>
       </div>
       
@@ -324,7 +324,7 @@ if(isset($_REQUEST["id"]))
          */
         $name=array_rand($authors);
         ?>
-        <a href="http://arianne.sourceforge.net"><img src="<?php echo rewriteURL('/images/outfit/'.urlencode($authors[$name]).'.png');?>" alt="<?php echo htmlspecialchars($name); ?>"/><br><?php echo htmlspecialchars($name); ?></a>
+        <a href="http://arianne.sourceforge.net"><img src="<?php echo rewriteURL('/images/outfit/'.urlencode($authors[$name]).'.png');?>" alt="<?php echo htmlspecialchars($name); ?>"><br><?php echo htmlspecialchars($name); ?></a>
       </div>
     </div>
   </body>
