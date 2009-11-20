@@ -3,6 +3,7 @@ function printAge($minutes) {
   return round($minutes/60,2);
 }
 
+
 $name=$_REQUEST["name"];
 $players=getPlayers('where name="'.addslashes($name).'"', 'name');
 

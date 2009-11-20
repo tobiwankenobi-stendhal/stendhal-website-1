@@ -76,7 +76,8 @@ function renderAmount($amount) {
 }
 
 
-
+class ItemPage extends Page {
+	function writeContent() {
 
 $name=isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
 $isExact=isset($_REQUEST['exact']);
@@ -198,4 +199,7 @@ foreach($items as $m) {
   }
 }
 
+	}
+}
+$page = new ItemPage();
 ?>

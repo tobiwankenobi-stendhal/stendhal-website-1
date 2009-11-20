@@ -78,7 +78,7 @@ if(isset($_REQUEST["id"]))
   }
 
 require_once("content/page.php");
-if ((strpos($page_url, 'game') > 0) || (strpos($page_url, 'scripts') > 0)) {
+if (strpos($page_url, 'game') > 0) {
 	// include below
 } else {
 	require_once($page_url.'.php');
@@ -291,7 +291,7 @@ if ((strpos($page_url, 'game') > 0) || (strpos($page_url, 'scripts') > 0)) {
            * The central area of the website.
            * We append .php so that we avoid easy hacks on this.
            */ 
-           if ((strpos($page_url, 'game') > 0) || (strpos($page_url, 'scripts') > 0)) {
+           if (strpos($page_url, 'game') > 0) {
               include($page_url.'.php');
            } else {
               $page->writeContent();

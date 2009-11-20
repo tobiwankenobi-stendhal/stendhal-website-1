@@ -28,7 +28,9 @@ function getVariable($xmlStats, $type) {
   return 0;
 }
 
-
+class KilledStatsPage extends Page {
+	function writeContent() {
+	
 $monsters=getMonsters();
 $classes=Monster::getClasses();
 
@@ -105,3 +107,8 @@ endBox();
 ?></div>
 <div style="clear: left;"></div>
 </div>
+<?php
+	}
+}
+$page = new KilledPage();
+?>

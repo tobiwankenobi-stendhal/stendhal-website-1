@@ -16,7 +16,8 @@ function renderAmount($amount) {
   }
 }
 
-
+class MonsterPage extends Page {
+	function writeContent() {
 
 $name=$_REQUEST['name'];
 $isExact=isset($_REQUEST['exact']);
@@ -119,4 +120,7 @@ foreach($monsters as $m) {
   }
 }
 
+	}
+}
+$page = new MonsterPage();
 ?>

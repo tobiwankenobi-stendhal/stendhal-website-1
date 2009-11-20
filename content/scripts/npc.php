@@ -1,4 +1,8 @@
 <?php
+
+class NPCPage extends Page {
+	function writeContent() {
+		
 $name=$_REQUEST["name"];
 $npcs=NPC::getNPCs('where name="'.mysql_real_escape_string($name).'"', 'name');
 
@@ -35,4 +39,7 @@ $npc=$npcs[0];
 
 <?php
 endBox();
+	}
+}
+$page = new NPCPage();
 ?>

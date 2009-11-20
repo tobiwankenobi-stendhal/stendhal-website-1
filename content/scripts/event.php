@@ -1,10 +1,11 @@
 <?php
-$event_id=$_REQUEST["event_id"];
-$events=getEvents('where id='.mysql_real_escape_string($event_id));
-$choosen=$events[0];
-?>
+class EventPage extends Page {
+	function writeContent() {
 
-  <?php startBox($choosen->oneLineDescription); ?>
+		$event_id=$_REQUEST["event_id"];
+		$events=getEvents('where id='.mysql_real_escape_string($event_id));
+		$choosen=$events[0];
+    startBox($choosen->oneLineDescription); ?>
     <div>
       <div><b>Type: </b><?php echo $choosen->type; ?></div>
       <div><b>Place: </b><?php echo $choosen->location; ?></div>
@@ -14,5 +15,9 @@ $choosen=$events[0];
     
     <?php foreach($choosen->images as $image) { ?>
       <img src="<?php echo $image; ?>" alt="Raid image"/>
-    <?php } ?>
-  <?php endBox(); ?>
+    <?php }
+    endBox();
+	}
+}
+$page = new EventPage();
+?>

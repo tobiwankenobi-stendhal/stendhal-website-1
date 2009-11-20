@@ -17,6 +17,9 @@ function getServerUptime($xmltree) {
 	return $days.' days and '.$remhours.' hours';
 }
 
+class ServerStatsPage extends Page {
+	function writeContent() {
+
 $content=implode("",file(STENDHAL_SERVER_STATS_XML));
 $xmlStats = XML_unserialize($content);
 
@@ -86,4 +89,7 @@ startBox("Detailed statistics");
 </div>
 <?php
 endBox();
+	}
+}
+$page = new ServerStatsPage();
 ?>

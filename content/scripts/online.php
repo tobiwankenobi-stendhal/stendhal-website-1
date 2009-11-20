@@ -1,4 +1,8 @@
 <?php
+
+class OnlinePage extends Page {
+	function writeContent() {
+
 $players=getOnlinePlayers();
 startBox('Online Players');
 
@@ -16,4 +20,7 @@ foreach($players as $p) {
 }
 echo '</div>';
 endBox();
+	}
+}
+$page = new OnlinePage();
 ?>
