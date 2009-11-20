@@ -18,11 +18,20 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function getVariable($xmlStats, $type) {
+  foreach($xmlStats['statistics'][0]['attrib'] as $i=>$j) {
+    if(is_array($j) and $j['name']==$type) {
+	  return $j['value'];
+	}
+  }
+  
+  return 0;
+}
+
+
 $monsters=getMonsters();
 $classes=Monster::getClasses();
-?>
 
-<?php
 /*
  * Let people know that this data is fake and it is a known bug.
  */
@@ -69,15 +78,6 @@ endBox();
 
 <div style="float: left; width: 100%"><?php
 
-function getVariable($xmlStats, $type) {
-  foreach($xmlStats['statistics'][0]['attrib'] as $i=>$j) {
-    if(is_array($j) and $j['name']==$type) {
-	  return $j['value'];
-	}
-  }
-  
-  return 0;
-}
 
 
 $content=implode("",file(STENDHAL_SERVER_STATS_XML));

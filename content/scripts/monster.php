@@ -3,10 +3,6 @@
 function printRespawn($turns) {
   return round($turns *0.3/60,2);
 }
-$name=$_REQUEST['name'];
-$isExact=isset($_REQUEST['exact']);
-
-$monsters=getMonsters();
 
 function renderAmount($amount) {
   $amount=str_replace("[","",$amount);
@@ -19,6 +15,13 @@ function renderAmount($amount) {
   	return "exactly $min.";
   }
 }
+
+
+
+$name=$_REQUEST['name'];
+$isExact=isset($_REQUEST['exact']);
+
+$monsters=getMonsters();
 
 foreach($monsters as $m) {
   /*

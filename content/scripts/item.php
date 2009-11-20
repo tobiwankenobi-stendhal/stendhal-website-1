@@ -63,12 +63,6 @@ exit;
 
 */
 
-
-$name=isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
-$isExact=isset($_REQUEST['exact']);
-
-$items=getItems();
-
 function renderAmount($amount) {
   $amount=str_replace("[","",$amount);
   $amount=str_replace("]","",$amount);
@@ -80,6 +74,15 @@ function renderAmount($amount) {
 
   return 'exactly ' . formatNumber($min) . '.';
 }
+
+
+
+
+$name=isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+$isExact=isset($_REQUEST['exact']);
+
+$items=getItems();
+
 
 
 foreach($items as $m) {
