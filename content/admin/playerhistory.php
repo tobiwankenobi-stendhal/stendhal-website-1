@@ -1,6 +1,9 @@
 <?php
+class AdminPlayerHistoryPage extends Page {
+	function writeContent() {
+
 	if(getAdminLevel()<100) {
- 		die("Ooops!");
+		die("Ooops!");
 	}
 	$name=$_REQUEST["name"];
 	startBox('Search Player');
@@ -36,4 +39,9 @@
 
 		endBox(); 
 	}
+
+
+	}
+}
+$page = new AdminPlayerHistoryPage();
 ?>

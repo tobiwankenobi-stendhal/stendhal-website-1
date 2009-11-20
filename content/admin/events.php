@@ -1,6 +1,10 @@
 <?php
+
+class AdminEventsPage extends Page {
+	function writeContent() {
+
 if(getAdminLevel()<400) {
- die("Ooops!");
+  die("Ooops!");
 }
    
 if(isset($_POST['action'])) {
@@ -109,4 +113,8 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   </table>
   <br>
 </form>
-<?php endBox(); ?>
+<?php endBox();
+	}
+}
+$page = new AdminEventsPage();
+?>

@@ -1,4 +1,7 @@
 <?php
+class AdminNewsPage extends Page {
+	function writeContent() {
+
 if(getAdminLevel()<400) {
  die("Ooops!");
 }
@@ -105,4 +108,9 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   </table>
   <br>
 </form>
-<?php endBox(); ?>
+<?php
+		endBox();
+	}
+}
+$page = new AdminNewsPage();
+?>

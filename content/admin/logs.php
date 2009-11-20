@@ -1,4 +1,8 @@
 <?php
+
+class AdminLogsPage extends Page {
+	function writeContent() {
+
 	if(getAdminLevel()<100) {
  		die("Ooops!");
 	}
@@ -84,5 +88,8 @@ for ($i = 0; $i < count($lines); $i++) {
 
 </p>
 <?php
-          endBox() 
-        ?>
+		endBox();
+	}
+}
+$page = new AdminLogsPage();
+?>
