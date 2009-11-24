@@ -169,8 +169,8 @@ require_once($page_url.'.php');
             <li><a href="?id=content/game/npcs"><img src="images/buttons/npcs_button.png" alt="">NPCs</a></li>
             <li><a href="?id=content/game/creatures"><img src="images/buttons/creatures_button.png" alt="">Creatures</a></li>
             <li><a href="?id=content/game/items"><img src="images/buttons/items_button.png" alt="">Items</a></li>
-            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalQuest" alt=""><img src="images/buttons/quests_button.png">Quests</a></li>
-			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalHistory" alt=""><img src="images/buttons/history_button.png">History</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalQuest"><img src="images/buttons/quests_button.png" alt="">Quests</a></li>
+			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalHistory"><img src="images/buttons/history_button.png" alt="">History</a></li>
            </ul>
         <?php endBox(); ?>
       </div>
