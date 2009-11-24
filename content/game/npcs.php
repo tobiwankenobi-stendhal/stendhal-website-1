@@ -17,6 +17,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+class NPCsPage extends Page {
+	function writeContent() {
 $npcs=NPC::getNPCs();
 ?>
  
@@ -51,3 +53,9 @@ endBox();
 </div>
 <div style="clear: left;"></div>
 </div>
+
+<?php
+	}
+}
+$page = new NPCsPage();
+?>

@@ -1,4 +1,8 @@
-<?php startBox("CVS"); ?>
+<?php 
+
+class CVSLogPage extends Page {
+	function writeContent() {
+startBox("CVS"); ?>
 <p>The Arianne project is hosted on <a href="http://sourceforge.net/projects/arianne">Sourceforge</a> and uses CVS (Concurrent Versions System) to manage changes to our source code. </p> 
 
 <p>You can use a CVS client to <a href="http://sourceforge.net/scm/?type=cvs&group_id=1111">download our source code</a> or you can browse the <a href="http://arianne.cvs.sourceforge.net/arianne">web-based CVS repository</a>. Recent changes to CVS are recorded below. </p>
@@ -115,7 +119,9 @@ for ($day = 1; $day <= 31; $day++) {
 <?php
 }
 
+endBox();
+
+	}
+}
+$page = new CVSLogPage();
 ?>
-
-
-<?php endBox() ?>

@@ -18,6 +18,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+class CreaturesPage extends Page {
+	function writeContent() {
 $monsters=getMonsters();
 $classes=Monster::getClasses();
 ?>
@@ -53,3 +55,8 @@ endBox();
 </div>
 <div style="clear: left;"></div>
 </div>
+<?php
+	}
+}
+$page = new CreaturesPage();
+?>

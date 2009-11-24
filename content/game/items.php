@@ -17,6 +17,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+class ItemsPage extends Page {
+	function writeContent() {
 $items=getItems();
 $classes=Item::getClasses();
 
@@ -76,4 +78,7 @@ startBox(ucfirst($class).' Items');
   <div style="clear: left;"></div>
   <?php 
   endBox();
+	}
+}
+$page = new ItemsPage();
 ?>

@@ -1,4 +1,8 @@
-<?php startBox("Bugs"); ?>  
+<?php 
+
+class BugPage extends Page {
+	function writeContent() {
+startBox("Bugs"); ?>  
 Reporting bugs is very important so that we can keep Stendhal running smoothly. So, if a bug is worth asking /support or a developer about, it is worth submitting a bug report on. 
 
 <p>We have made this page to help you with the process of submitting a bug report, because we find them so helpful. 
@@ -59,4 +63,8 @@ and with the (up to date!) TEST-client to the TEST-server
 <p>Please make sure the bug also happens with latest cvs-HEAD <b>without</b> the changes you made to the source and did not yet commit.
 </p><p>Remember the importance of 'ant clean' or whatever the equivalent is in your IDE.
 </p>
-<?php endBox(); ?>
+<?php endBox(); 
+	}
+}
+$page = new BugPage();
+?>

@@ -1,4 +1,8 @@
-<?php startBox("Chat to other users and developers"); ?>
+<?php 
+
+class ChatPage extends Page {
+	function writeContent() {
+startBox("Chat to other users and developers"); ?>
 You can get an IRC client and connect to:
 
 <p><b>irc.freenode.net</b> (see <a href="http://freenode.net">http://freenode.net</a> for more information) then
@@ -92,5 +96,8 @@ for ($i = 0; $i < count($lines); $i++) {
  <a href="irc://<?php echo(MAIN_SERVER . "/" . substr(MAIN_CHANNEL, 1)); ?>"><?php echo(MAIN_SERVER); ?></a>
 </p>
 <?php
-          endBox() 
-        ?>
+          endBox();
+	}
+}
+$page = new ChatPage();
+?>
