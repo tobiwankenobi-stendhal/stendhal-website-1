@@ -131,7 +131,7 @@ require_once($page_url.'.php');
           $screen=getLatestScreenshot();
           
           ?>
-	  <a href="<? echo 'image.php?img='.htmlspecialchars($screen->url); ?>" target="_blank">
+	  <a href="<? echo 'image.php?img='.htmlspecialchars($screen->url); ?>">
        		<?php $screen->showThumbnail(); ?>
           </a>
           <?php
