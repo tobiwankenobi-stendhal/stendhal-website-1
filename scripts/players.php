@@ -57,7 +57,7 @@ class Player {
   function show() {
     echo '<div class="playerBox">';
     echo '  <img src="'.rewriteURL('/images/outfit/'.urlencode($this->outfit).'.png').'" alt="">';
-    echo '  <a href="?id=content/scripts/character&name='.urlencode($this->name).'">';
+    echo '  <a href="?id=content/scripts/character&amp:name='.urlencode($this->name).'">';
     echo '  <div class="name">'.htmlspecialchars(utf8_encode($this->name)).'</div>';
     echo ' </a>';
     echo '  <div class="xp">'.$this->xp.' xp</div>';

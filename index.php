@@ -259,7 +259,7 @@ require_once($page_url.'.php');
         <ul  id="menu">
 		  <li><a href="?id=content/game/chat"><img src="images/buttons/c_chat_button.png" alt="">Chat</a></li>
           <li><a href="?id=content/game/bug"><img src="images/buttons/c_bug_button.png" alt="">Report Bug</a></li>
-          <li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111" alt=""><img src="images/buttons/help_button.png">Submit Patch</a></li>
+          <li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="images/buttons/help_button.png" alt="">Submit Patch</a></li>
 	      <li><a href="http://xplanner.homelinux.net"><img src="images/buttons/test_button.png" alt="">Testing</a></li>
 		  <li><a href="?id=content/game/cvslog"><img src="images/buttons/history_button.png" alt="">CVS Chances</a></li>
 		  <li><a href="?id=content/game/development"><img src="images/buttons/rpsystem_button.png" alt="">Development</a></li>
