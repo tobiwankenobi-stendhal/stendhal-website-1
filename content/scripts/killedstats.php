@@ -110,5 +110,5 @@ endBox();
 <?php
 	}
 }
-$page = new KilledPage();
+$page = new KilledStatsPage();
 ?>

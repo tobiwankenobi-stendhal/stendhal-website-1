@@ -3,6 +3,9 @@ function printAge($minutes) {
   return round($minutes/60,2);
 }
 
+class CharacterPage extends Page {
+	function writeContent() {
+
 
 $name=$_REQUEST["name"];
 $players=getPlayers('where name="'.addslashes($name).'"', 'name');
@@ -151,4 +154,7 @@ $account=$choosen->getAccountInfo();
 
 <?php
 endBox();
+	}
+}
+$page = new CharacterPage();
 ?>
