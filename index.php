@@ -78,11 +78,8 @@ if(isset($_REQUEST["id"]))
   }
 
 require_once("content/page.php");
-if (strpos($page_url, 'game') > 0) {
-	// include below
-} else {
-	require_once($page_url.'.php');
-}
+require_once($page_url.'.php');
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
@@ -291,11 +288,7 @@ if (strpos($page_url, 'game') > 0) {
            * The central area of the website.
            * We append .php so that we avoid easy hacks on this.
            */ 
-           if (strpos($page_url, 'game') > 0) {
-              include($page_url.'.php');
-           } else {
-              $page->writeContent();
-           }
+           $page->writeContent();
         } else {
 		  ?>
 		  <div class="notice">Using a cached webpage.</div>
