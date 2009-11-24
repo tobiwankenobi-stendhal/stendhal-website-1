@@ -21,7 +21,7 @@ $npc=$npcs[0];
 <?php startBox('NPC info for '.$npc->name); ?>
 <div class="table">
   <div class="title">Details</div>
-  <img class="bordered_image" src="<?php echo $npc->imagefile ?>" alt="NPC outfit"/>
+  <img class="bordered_image" src="<?php echo $npc->imagefile ?>" alt="">
   <div class="statslabel">Name:</div><div class="data"><?php echo $npc->name; ?></div>
   <div class="statslabel">Zone:</div><div class="data"><?php echo $npc->zone . ' ' . $npc->pos; ?></div>
   <?php if ($npc->level > 0) {?>

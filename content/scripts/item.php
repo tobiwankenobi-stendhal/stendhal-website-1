@@ -96,7 +96,7 @@ foreach($items as $m) {
     <div class="item">
       <div class="name"><?php echo ucfirst($m->name); ?></div>
       <div class="type">This item is of <?php echo $m->class ?> class</div>
-      <img class="item" src="<?php echo $m->gfx; ?>" alt="<?php echo $m->name; ?>"/>
+      <img class="item" src="<?php echo $m->gfx; ?>" alt="">
       <div class="description">
         <?php 
           if($m->description=="") {

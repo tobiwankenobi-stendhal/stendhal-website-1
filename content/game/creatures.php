@@ -39,8 +39,8 @@ startBox('Creatures');
 
 <?php 
 foreach($monsters as $m) {
-	echo '<div class="creature"><a class="creature" href="?id=content/scripts/monster&name='.$m->name.'&exact">';
-	echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
+	echo '<div class="creature"><a class="creature" href="?id=content/scripts/monster&amp;name='.$m->name.'&amp;exact">';
+	echo '  <img class="creature" src="'.$m->gfx.'" alt="">';
 	echo '  <div class="creature_name">'.$m->name.'</div>';
 	echo ' </a>';
 	echo '  <div class="creature_level">Level '.$m->level.'</div>';

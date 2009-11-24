@@ -38,8 +38,8 @@ startBox('NPCs');
 <?php 
 
 foreach($npcs as $npc) {
-	echo '<div class="npc"><a class="npc" href="?id=content/scripts/npc&name='.$npc->name.'&exact">';
-	echo '  <img class="npc" src="'.$npc->imagefile.'" alt="'.$npc->name.'"/>';
+	echo '<div class="npc"><a class="npc" href="?id=content/scripts/npc&amp;name='.$npc->name.'&amp;exact">';
+	echo '  <img class="npc" src="'.$npc->imagefile.'" alt="'.$npc->name.'">';
 	echo '  <div class="npc_name">'.$npc->name.'</div>';
 	echo ' </a>';
 	echo '</div>';
