@@ -1,6 +1,10 @@
 <?php 
 
 class ChatPage extends Page {
+	public function writeHtmlHeader() {
+		echo '<meta name="robots" content="noindex">'."\n";
+	}
+	
 	function writeContent() {
 startBox("Chat to other users and developers"); ?>
 You can get an IRC client and connect to:

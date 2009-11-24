@@ -99,9 +99,7 @@ require_once($page_url.'.php');
 	    <link rel="stylesheet" type="text/css" href="<?php echo $page_url; ?>.css">
 	    <?php
 	  }
-	  if(file_exists($page_url.'_header.php')) {
-	    include($page_url."_header.php");
-	  }
+	  $page->writeHtmlHeader();
 	?>
   </head>
   <body>
