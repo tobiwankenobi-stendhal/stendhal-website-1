@@ -27,7 +27,7 @@ function getCreatureByName($name) {
  */
 function stendhalDataIncludeCreatureIconOnly($creature) {
 	$res .= '<span class="stendhalCreatureIcon"><a href="/?id=content/scripts/monster&name=' . urlencode($creature->name) . '&exact">';
-	$res .= '<img src="/' . htmlspecialchars($creature->gfx) . '" />';
+	$res .= '<img src="' . htmlspecialchars($creature->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
 }

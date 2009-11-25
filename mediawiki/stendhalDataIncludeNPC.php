@@ -12,7 +12,7 @@ require_once($IP.'/../scripts/npcs.php');
  */
 function stendhalDataIncludeNPCIconOnly($NPC) {
 	$res .= '<span class="stendhalNPCIcon"><a href="/?id=content/scripts/npc&name=' . urlencode($NPC->name) . '&exact">';
-	$res .= '<img src="/' . htmlspecialchars($NPC->imagefile) . '" />';
+	$res .= '<img src="' . htmlspecialchars($NPC->imagefile) . '" />';
 	$res .= '</a></span>';
 	return $res;
 }

@@ -27,7 +27,7 @@ function getItemByName($name) {
  */
 function stendhalDataIncludeItemIconOnly($item) {
 	$res .= '<span class="stendhalItemIcon"><a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
-	$res .= '<img src="/' . htmlspecialchars($item->gfx) . '" />';
+	$res .= '<img src="' . htmlspecialchars($item->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
 }
