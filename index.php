@@ -102,8 +102,13 @@ require_once($page_url.'.php');
 	  $page->writeHtmlHeader();
 	?>
   </head>
+
   <body>
-    <div id="container">
+  <?php
+  	// TODO: This is a very ugly hack to prevent a white flash when clicking on a link: Use NPC, items, creatures for testing.
+  	usleep(100000)
+  ?>
+      <div id="container">
       <div id="header">
         <a href="?"><img style="border: 0;" src="images/logo.gif" alt="Stendhal Logo"></a>
       </div>
