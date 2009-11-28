@@ -2,6 +2,9 @@
 
 include_once('login_function.php');
 
+class RemindPage extends Page {
+	function writeContent() {
+
 /*
    It is composed of two steps:
    a) User click new password and we email a md5(rand()) to him IF the account is registered with stendhal.
@@ -90,4 +93,7 @@ if(isset($_POST["forgotpassword"])) {
   <?php
   endBox();
   }
+	}
+}
+$page = new RemindPage();
 ?>

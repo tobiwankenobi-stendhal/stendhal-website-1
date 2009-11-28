@@ -3,6 +3,9 @@
 include_once('login_function.php');
 require_once('logEvents.php');
 
+class LoginPage extends Page {
+	function writeContent() {
+
 /**
  * Checks to see if the user has submitted his
  * username and password through the login form,
@@ -103,4 +106,7 @@ startBox("Login");
 endBox();
 
 }
+	}
+}
+$page = new LoginPage();
 ?>

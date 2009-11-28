@@ -3,6 +3,9 @@
 include_once('login_function.php');
 require_once('logEvents.php');
 
+class ChangePasswordPage extends Page {
+	function writeContent() {
+
 if(!checkLogin()){
   die("You need to login first");
 }
@@ -82,4 +85,7 @@ startBox("Change password");
 endBox();
 
 }
+	}
+}
+$page = new ChangePasswordPage();
 ?>

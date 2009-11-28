@@ -2,6 +2,9 @@
 
 include_once('login/login_function.php');
 
+class LogoutPage extends Page {
+	function writeContent() {
+
 /**
  * Delete cookies - the time must be in the past,
  * so just negate what you added when creating the
@@ -36,4 +39,7 @@ else{
 }
 
 endBox();
+	}
+}
+$page = new LogoutPage();
 ?>

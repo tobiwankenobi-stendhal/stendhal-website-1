@@ -16,6 +16,9 @@ function createRandomPassword() {
     return $pass;
 }
 
+class ApprovePage extends Page {
+	function writeContent() {
+
 if(!isset($_GET["sign"])) {
   die('You didn\'t fill in a required field.');
   }
@@ -72,4 +75,8 @@ if(mysql_numrows($result)!=1) {
   endBox();
   }   
 
+	}
+}
+$page = new ApprovePage();
 ?>
+  
