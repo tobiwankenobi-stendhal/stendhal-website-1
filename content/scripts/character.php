@@ -15,6 +15,7 @@ class CharacterPage extends Page {
 				echo '<meta name="robots" content="noindex">'."\n";
 			}
 		}
+		echo '<title>Player '.htmlspecialchars($name).' &mdash; Stendhal MMORPG</title>';
 	}
 
 	function writeContent() {

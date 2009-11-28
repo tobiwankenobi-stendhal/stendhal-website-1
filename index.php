@@ -85,13 +85,12 @@ require_once($page_url.'.php');
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-    <title>Stendhal an open source online multiplayer adventures games</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="icon" type="image/png" href="images/favicon.png">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
 	  /*
-	   * Does exists another style sheet for this page?
+	   * Does another style sheet for this page exists?
 	   * Yes? Load it.
 	   */
 	  if(file_exists($page_url.'.css')) {
@@ -104,10 +103,6 @@ require_once($page_url.'.php');
   </head>
 
   <body>
-  <?php
-  	// TODO: This is a very ugly hack to prevent a white flash when clicking on a link: Use NPC, items, creatures for testing.
-  	usleep(100000)
-  ?>
       <div id="container">
       <div id="header">
         <a href="?"><img style="border: 0;" src="images/logo.gif" alt="Stendhal Logo"></a>

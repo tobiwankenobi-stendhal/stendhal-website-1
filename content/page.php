@@ -35,7 +35,7 @@ class Page {
 	 * this method can write additional html headers, for example the &lt;title&gt; tag.
 	 */
 	public function writeHtmlHeader() {
-		// do nothing
+		echo '<title>Stendhal MMORPG</title>';
 	}
 
 	/**
