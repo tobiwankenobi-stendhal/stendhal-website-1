@@ -17,23 +17,28 @@ function renderAmount($amount) {
 }
 
 class MonsterPage extends Page {
-
+	private $name;
+	private $monsters;
+	private	$isExact;
+	
+	public function __construct() {
+		$this->name = $_REQUEST['name'];
+		$this->isExact = isset($_REQUEST['exact']);
+		$this->monsters = getMonsters();
+	}
+	
 	public function writeHtmlHeader() {
-		echo '<title>Monsters'.STENDHAL_TITLE.'</title>';
+		echo '<title>Creature '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
 
-$name=$_REQUEST['name'];
-$isExact=isset($_REQUEST['exact']);
 
-$monsters=getMonsters();
-
-foreach($monsters as $m) {
+foreach($this->monsters as $m) {
   /*
    * If name of the creature match or contains part of the name.
    */
-  if($m->name==$name || (!$isExact and strpos($m->name,$name)!=false)) {
+  if($m->name==$this->name || (!$this->isExact and strpos($m->name, $this->name) != false)) {
     startBox("Detailed information");
     ?>
     <div class="creature">
