@@ -77,25 +77,27 @@ function renderAmount($amount) {
 
 
 class ItemPage extends Page {
-
+	private $name;
+	private $items;
+	private	$isExact;
+	
+	public function __construct() {
+		$this->name = $_REQUEST['name'];
+		$this->isExact = isset($_REQUEST['exact']);
+		$this->items=getItems();
+	}
+	
 	public function writeHtmlHeader() {
-		echo '<title>Items'.STENDHAL_TITLE.'</title>';
+		echo '<title>Item '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
 
-$name=isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
-$isExact=isset($_REQUEST['exact']);
-
-$items=getItems();
-
-
-
-foreach($items as $m) {
+foreach($this->items as $m) {
   /*
    * If name of the creature match or contains part of the name.
    */
-  if($m->name==$name || (!$isExact and strpos($m->name,$name)!=false)) {
+  if($m->name==$this->name || (!$this->isExact and strpos($m->name, $this->name) != false)) {
     startBox("Detailed information");
     ?>
     <div class="item">
