@@ -1,17 +1,25 @@
 <?php
 
 class NPCPage extends Page {
+	private $name;
+	private $npcs;
+
+	public function __construct() {
+		$this->name = $_REQUEST["name"];
+		$this->npcs = NPC::getNPCs('where name="'.mysql_real_escape_string($this->name).'"', 'name');
+	}
 
 	public function writeHtmlHeader() {
-		echo '<title>NPCs'.STENDHAL_TITLE.'</title>';
+		echo '<title>NPC '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
+		if(sizeof($this->npcs)==0) {
+			echo '<meta name="robots" content="noindex">';
+		}
 	}
 
 	function writeContent() {
 		
-$name=$_REQUEST["name"];
-$npcs=NPC::getNPCs('where name="'.mysql_real_escape_string($name).'"', 'name');
 
-if(sizeof($npcs)==0) {
+if(sizeof($this->npcs)==0) {
   startBox("No such NPC");
   ?>
   There is no such NPC at Stendhal.<br>
@@ -20,7 +28,7 @@ if(sizeof($npcs)==0) {
   endBox();
   return;
 }
-$npc=$npcs[0];
+$npc=$this->npcs[0];
 ?>
 
 <?php startBox('NPC info for '.$npc->name); ?>
