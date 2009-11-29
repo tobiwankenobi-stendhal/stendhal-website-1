@@ -20,7 +20,11 @@
 class ItemsPage extends Page {
 
 	public function writeHtmlHeader() {
-		echo '<title>Items'.STENDHAL_TITLE.'</title>';
+		if(!isset($_GET['class'])) {
+			echo '<title>Items'.STENDHAL_TITLE.'</title>';
+		} else {
+			echo '<title>Item class '.htmlspecialchars($_GET['class']).STENDHAL_TITLE.'</title>';
+		}
 	}
 
 	function writeContent() {
@@ -43,7 +47,7 @@ if(!isset($_GET['class'])) {
   foreach($classes as $class=>$zero) {
     foreach($items as $item) {
    	  if($item->class==$class) {
-   	    $choosen=$item;   	      
+   	    $choosen=$item;
    	  }
     }
 	?>
