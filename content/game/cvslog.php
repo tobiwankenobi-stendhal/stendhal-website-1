@@ -1,6 +1,11 @@
 <?php 
 
 class CVSLogPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Source Code Changes in CVS'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 startBox("CVS"); ?>
 <p>The Arianne project is hosted on <a href="http://sourceforge.net/projects/arianne">Sourceforge</a> and uses CVS (Concurrent Versions System) to manage changes to our source code. </p> 

@@ -2,7 +2,7 @@
 
 class ChatPage extends Page {
 	public function writeHtmlHeader() {
-		echo '<title>Chat &mdash; Stendhal MMORPG</title>';
+		echo '<title>Chat'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
 	}
 	

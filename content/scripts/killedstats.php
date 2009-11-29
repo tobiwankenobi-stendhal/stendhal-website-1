@@ -29,6 +29,11 @@ function getVariable($xmlStats, $type) {
 }
 
 class KilledStatsPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Kill Statistics'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 	
 $monsters=getMonsters();

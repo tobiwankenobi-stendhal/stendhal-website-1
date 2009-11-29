@@ -1,6 +1,11 @@
 <?php
 
 class OnlinePage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Online Players'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 
 $players=getOnlinePlayers();

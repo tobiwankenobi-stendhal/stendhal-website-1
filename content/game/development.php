@@ -1,4 +1,14 @@
-<?php startBox("Development"); ?>  
+<?php
+
+class DevelopmentPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Development'.STENDHAL_TITLE.'</title>';
+	}
+
+	function writeContent() {
+
+startBox("Development"); ?>  
 <ul id="dmenu" >  
 	<li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalCodeDesign"><img src="images/buttons/c_code_button.png">Code</a> - details of code designs and conventions</li>
 	<li><a href="/hudson/"><img src="images/buttons/c_code_button.png"> <!-- TODO: add a nice icon --> Hudson</a> - continuous integration and testing</li>
@@ -11,4 +21,10 @@
 	<li><a href="http://arianne.sourceforge.net/wiki/index.php?title=HowToAddCreaturesStendhal"><img src="images/buttons/creatures_button.png">Creatures</a> - mostly for your information</li>
 </ul>
 If you plan to help with Stendhal development it is a very good idea to talk about it with the developers and contributors at the <a href="?id=content/game/chat">irc channel #arianne on freenode.</a>.  
-<?php endBox(); ?>
+<?php endBox();
+
+	}
+}
+$page = new DevelopmentPage();
+?>
+  

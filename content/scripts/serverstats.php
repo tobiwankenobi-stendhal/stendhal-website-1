@@ -18,6 +18,11 @@ function getServerUptime($xmltree) {
 }
 
 class ServerStatsPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Server Statistics'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 
 $content=implode("",file(STENDHAL_SERVER_STATS_XML));

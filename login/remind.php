@@ -3,6 +3,12 @@
 include_once('login_function.php');
 
 class RemindPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Password Reset'.STENDHAL_TITLE.'</title>';
+		echo '<meta name="robots" content="noindex">'."\n";
+	}
+
 	function writeContent() {
 
 /*

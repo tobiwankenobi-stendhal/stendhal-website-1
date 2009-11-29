@@ -1,5 +1,10 @@
 <?php 
 class AtlasPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Atlas'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 startBox("World of Stendhal"); ?>
 <img class="screenshot" src="http://arianne.sourceforge.net/screens/stendhal/worldsmall.png" alt="Miniature view of stendhal world map"/>

@@ -19,6 +19,11 @@
 
 
 class NewsArchivePage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>News Archive'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 ?>
 

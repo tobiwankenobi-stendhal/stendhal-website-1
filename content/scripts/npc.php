@@ -1,6 +1,11 @@
 <?php
 
 class NPCPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>NPCs'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 		
 $name=$_REQUEST["name"];

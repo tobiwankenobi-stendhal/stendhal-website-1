@@ -18,6 +18,11 @@
  */
 
 class ItemsPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Items'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 $items=getItems();
 $classes=Item::getClasses();

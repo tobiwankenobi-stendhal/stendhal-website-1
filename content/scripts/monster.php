@@ -17,6 +17,11 @@ function renderAmount($amount) {
 }
 
 class MonsterPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Monsters'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 
 $name=$_REQUEST['name'];

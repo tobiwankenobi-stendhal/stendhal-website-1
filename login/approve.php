@@ -17,6 +17,12 @@ function createRandomPassword() {
 }
 
 class ApprovePage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Approve Password Reset'.STENDHAL_TITLE.'</title>';
+		echo '<meta name="robots" content="noindex">'."\n";
+	}
+	
 	function writeContent() {
 
 if(!isset($_GET["sign"])) {

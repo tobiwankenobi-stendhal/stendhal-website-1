@@ -77,6 +77,11 @@ function renderAmount($amount) {
 
 
 class ItemPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Items'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 
 $name=isset($_REQUEST['name']) ? $_REQUEST['name'] : '';

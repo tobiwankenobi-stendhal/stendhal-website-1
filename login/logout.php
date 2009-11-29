@@ -3,6 +3,12 @@
 include_once('login/login_function.php');
 
 class LogoutPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Logout'.STENDHAL_TITLE.'</title>';
+		echo '<meta name="robots" content="noindex">'."\n";
+	}
+
 	function writeContent() {
 
 /**

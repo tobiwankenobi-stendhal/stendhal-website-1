@@ -19,6 +19,11 @@
  */
 
 class CreaturesPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Creatures'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 $monsters=getMonsters();
 $classes=Monster::getClasses();

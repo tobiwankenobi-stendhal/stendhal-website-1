@@ -18,6 +18,11 @@
  */
 
 class NPCsPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>NPCs'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 $npcs=NPC::getNPCs();
 ?>

@@ -35,6 +35,11 @@ function getTotalDef($player) {
 
 class HallOfFamePage extends Page {
 
+	public function writeHtmlHeader() {
+		echo '<title>Hall of Fame'.STENDHAL_TITLE.'</title>';
+	}
+
+	
 function renderListOfPlayers($list, $f, $postfix='') {
   $i=1;
   foreach($list as $player) {

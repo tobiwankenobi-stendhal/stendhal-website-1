@@ -1,6 +1,11 @@
 <?php 
 
 class BugPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Bug Reporting'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 startBox("Bugs"); ?>  
 Reporting bugs is very important so that we can keep Stendhal running smoothly. So, if a bug is worth asking /support or a developer about, it is worth submitting a bug report on. 

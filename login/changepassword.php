@@ -4,6 +4,12 @@ include_once('login_function.php');
 require_once('logEvents.php');
 
 class ChangePasswordPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Change Password'.STENDHAL_TITLE.'</title>';
+		echo '<meta name="robots" content="noindex">'."\n";
+	}
+
 	function writeContent() {
 
 if(!checkLogin()){

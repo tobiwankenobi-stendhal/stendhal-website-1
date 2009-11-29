@@ -18,6 +18,12 @@
  */
 
 class OfflinePage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Offline'.STENDHAL_TITLE.'</title>';
+		echo '<meta name="robots" content="noindex">'."\n";
+	}
+
 	function writeContent() {
 		startBox("Server is offline");
 ?>

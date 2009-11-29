@@ -1,5 +1,10 @@
 <?php
 class EventPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Events'.STENDHAL_TITLE.'</title>';
+	}
+
 	function writeContent() {
 
 		$event_id=$_REQUEST["event_id"];
