@@ -54,7 +54,7 @@ if($result==null) {
 
 list($m, $amount)=$result;
 echo '<div style="text-align: center;">';
-echo '  <a class="creature" href="?id=content/scripts/monster&name='.$m->name.'&exact">';
+echo '  <a class="creature" href="/?id=content/scripts/monster&name='.$m->name.'&exact">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
 echo '  <div class="creature_name">'.$m->name.'</div>';
 echo ' </a>';
@@ -72,7 +72,7 @@ if($result==null) {
 
 list($m, $amount)=$result;
 echo '<div style="text-align: center;">';
-echo '  <a class="creature" href="?id=content/scripts/monster&name='.$m->name.'&exact">';
+echo '  <a class="creature" href="/?id=content/scripts/monster&name='.$m->name.'&exact">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
 echo '  <div class="creature_name">'.$m->name.'</div>';
 echo ' </a>';
@@ -96,7 +96,7 @@ $monsters=getMonsters();
 foreach($monsters as $m) {
   $amount=getVariable($xmlStats,"Killed ".$m->name);
   ?>
-  <a class="nodeco" href="?id=content/scripts/monster&name=<?php echo $m->name; ?>&exact">
+  <a class="nodeco" href="/?id=content/scripts/monster&name=<?php echo $m->name; ?>&exact">
   <div class="row">
     <img src="<?php echo $m->showImage(); ?>" alt="<?php echo $m->name; ?>"/>
     <div class="name"><?php echo $m->name; ?></div>

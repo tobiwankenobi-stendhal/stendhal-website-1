@@ -44,7 +44,7 @@ startBox('Creatures');
 
 <?php 
 foreach($monsters as $m) {
-	echo '<div class="creature"><a class="creature" href="?id=content/scripts/monster&amp;name='.$m->name.'&amp;exact">';
+	echo '<div class="creature"><a class="creature" href="/?id=content/scripts/monster&amp;name='.$m->name.'&amp;exact">';
 	echo '  <img class="creature" src="'.$m->gfx.'" alt="">';
 	echo '  <div class="creature_name">'.$m->name.'</div>';
 	echo ' </a>';

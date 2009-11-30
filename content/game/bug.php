@@ -21,7 +21,7 @@ Reporting bugs is very important so that we can keep Stendhal running smoothly. 
 <?php endBox(); ?>
 <?php startBox("Making a Report"); ?>  
 
-If you need any help on submitting a bug report feel free to come and ask the developers and contributors at the <a href="?id=content/game/chat">irc channel #arianne</a>, you can just ask the question as the channel is logged, then wait for an answer incase noone was physically present when you arrived. 
+If you need any help on submitting a bug report feel free to come and ask the developers and contributors at the <a href="/?id=content/game/chat">irc channel #arianne</a>, you can just ask the question as the channel is logged, then wait for an answer incase noone was physically present when you arrived. 
 <p>If there are multiple bugs to report, please open a report for each. 
 <ul id="outerlist"><li> Summary - This is the title of the bug report. Choose a meaningful and brief sentence.
 </li></ul>

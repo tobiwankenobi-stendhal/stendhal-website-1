@@ -84,7 +84,7 @@ $account=$choosen->getAccountInfo();
     <div class="row">
       <?php 
       if($content!="") { ?>
-        <a href="?id=content/scripts/item&name=<?php echo htmlspecialchars($content); ?>&exact">
+        <a href="/?id=content/scripts/item&name=<?php echo htmlspecialchars($content); ?>&exact">
         <img src="<?php echo htmlspecialchars(getItem($content)->showImage()); ?>" alt="<?php echo htmlspecialchars(ucfirst($content)); ?>"/>
         <div class="label"><?php echo htmlspecialchars(ucwords($slot)) ?></div>
         <div class="data"><?php echo htmlspecialchars(ucfirst($content)); ?></div>
@@ -132,7 +132,7 @@ $account=$choosen->getAccountInfo();
         if($monster->name==$source) {
           ?>
           <div class="row">
-            <a href="?id=content/scripts/monster&name=<?php echo htmlspecialchars($monster->name); ?>&exact">
+            <a href="/?id=content/scripts/monster&name=<?php echo htmlspecialchars($monster->name); ?>&exact">
             <img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt="<?php echo htmlspecialchars($monster->name); ?>"/>
             Killed by a <div style="display: inline;" class="label"><?php echo htmlspecialchars($monster->name); ?></div>
             <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
@@ -148,7 +148,7 @@ $account=$choosen->getAccountInfo();
        */
       ?>
       <div class="row">
-        <a href="?id=content/scripts/character&name=<?php echo htmlspecialchars(urlencode($source)); ?>">
+        <a href="/?id=content/scripts/character&name=<?php echo htmlspecialchars(urlencode($source)); ?>">
         <?php
         $killer=getPlayer($source);
         ?>

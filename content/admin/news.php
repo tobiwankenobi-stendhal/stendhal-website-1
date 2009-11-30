@@ -42,7 +42,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   $news=getNews('', 'created desc','');
   startBox("Admin on existing news");
   ?>
-  <form class="news" method="post" action="?id=content/admin/news" name="updatenews">
+  <form class="news" method="post" action="/?id=content/admin/news" name="updatenews">
   <input type="hidden" name="action" value="delete"/>
   <?php
   foreach($news as $item) {
@@ -50,7 +50,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
     <div class="news_list">
     <input type="checkbox" name="delete[]" value="<?php echo $item->id; ?>">
     <span class="date"><?php echo $item->date; ?></span>
-    <span><a href="?id=content/admin/news&action=edit&edit=<?php echo $item->id; ?>"><?php echo $item->title; ?></a></span>
+    <span><a href="/?id=content/admin/news&action=edit&edit=<?php echo $item->id; ?>"><?php echo $item->title; ?></a></span>
     </div>
     <?php
     }
@@ -62,7 +62,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 ?>
 
 <?php startBox((isset($edited)?'Edit':'Submit').' news item'); ?>
-<form class="news" method="post" action="?id=content/admin/news" name="submitnews">
+<form class="news" method="post" action="/?id=content/admin/news" name="submitnews">
   <?php 
    if(isset($edited)) {
    ?>

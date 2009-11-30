@@ -20,7 +20,7 @@ startBox("Development"); ?>
 	<li><a href="http://arianne.sourceforge.net/wiki/index.php?title=StendhalRefactoringAtlas"><img src="images/buttons/atlas_button.png">Maps</a> - for map areas which need improvement</li>
 	<li><a href="http://arianne.sourceforge.net/wiki/index.php?title=HowToAddCreaturesStendhal"><img src="images/buttons/creatures_button.png">Creatures</a> - mostly for your information</li>
 </ul>
-If you plan to help with Stendhal development it is a very good idea to talk about it with the developers and contributors at the <a href="?id=content/game/chat">irc channel #arianne on freenode.</a>.  
+If you plan to help with Stendhal development it is a very good idea to talk about it with the developers and contributors at the <a href="/?id=content/game/chat">irc channel #arianne on freenode.</a>.  
 <?php endBox();
 
 	}

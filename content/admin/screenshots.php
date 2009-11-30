@@ -50,14 +50,14 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   $screenshots=getScreenshots();
   startBox("Admin on existing screenshots");
   ?>
-  <form class="news" method="post" action="?id=content/admin/screenshots" name="updateevents">
+  <form class="news" method="post" action="/?id=content/admin/screenshots" name="updateevents">
   <input type="hidden" name="action" value="delete"/>
   <?php
   foreach($screenshots as $item) {
     ?>
     <div class="events_list">
     <input type="checkbox" name="delete[]" value="<?php echo $item->id; ?>">
-    <span><a href="?id=content/admin/screenshots&action=edit&edit=<?php echo $item->id; ?>"><?php $item->showThumbnail(); ?></a></span>
+    <span><a href="/?id=content/admin/screenshots&action=edit&edit=<?php echo $item->id; ?>"><?php $item->showThumbnail(); ?></a></span>
     </div>
     <?php
     }
@@ -69,7 +69,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 ?>
 
 <?php startBox((isset($edited)?'Edit':'Submit').' screenshots'); ?>
-<form class="news" method="post" enctype="multipart/form-data" action="?id=content/admin/screenshots" name="submitevents">
+<form class="news" method="post" enctype="multipart/form-data" action="/?id=content/admin/screenshots" name="submitevents">
   <?php 
    if(isset($edited)) {
    ?>

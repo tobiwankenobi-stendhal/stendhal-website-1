@@ -54,7 +54,7 @@ class Event {
   function show() {
     echo '<div class="event">';
     echo '<img src="images/events/event'.($this->type).'.png" alt="event logo">';
-    echo '<div class="description"><a href="?id=content/scripts/event&amp;event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
+    echo '<div class="description"><a href="/?id=content/scripts/event&amp;event_id='.$this->id.'">'.($this->oneLineDescription).'</a></div>';
     
     if (($this->date)!="0000-00-00 00:00:00") {
       $date=date("M,j Y",strtotime($this->date));

@@ -77,7 +77,7 @@ foreach($this->monsters as $m) {
           foreach($m->drops as $k) {
           	?>
             <div class="row">
-              <a href="?id=content/scripts/item&name=<?php echo $k["name"]; ?>&exact">
+              <a href="/?id=content/scripts/item&name=<?php echo $k["name"]; ?>&exact">
               <img src="<?php echo getItem($k["name"])->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
               <div class="label"><?php echo ucfirst($k["name"]); ?></div>
               </a>

@@ -42,7 +42,7 @@ class MainPage extends Page {
 <br>
 <div>
 	<?php startBox('News Archive'); ?>
-     Read <a href="?id=content/newsarchive">older news</a>.
+     Read <a href="/?id=content/newsarchive">older news</a>.
     <?php endBox(); ?>
 
 </div>
