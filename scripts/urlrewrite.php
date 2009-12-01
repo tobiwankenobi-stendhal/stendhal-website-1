@@ -43,6 +43,12 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/creature/?$ /index.php?id=content/game/creatures
                 RewriteRule ^/creature/(.*)\.html$ /index.php?id=content/scripts/monster&name=$1&exact
 
+                # development
+                RewriteRule ^/development/?$ /?id=content/game/development
+                RewriteRule ^/development/bug\.html$ /?id=content/game/bug
+                RewriteRule ^/development/chat\.html$ /?id=content/game/chat
+                RewriteRule ^/development/cvs\.html$ /?id=content/game/cvslog
+
                 # items
                 RewriteRule ^/item/?$ /index.php?id=content/game/items
                 RewriteRule ^/item/([^/]*)/(.*)\.html$ /index.php?id=content/scripts/item&class=$1&name=$2&exact
@@ -106,6 +112,18 @@ function rewriteURL($url) {
 			return preg_replace('|^/creature/(.*)\.html$|', '/?id=content/scripts/monster&name=$1&exact', $url);
 		}
 
+	// development
+	} else if (preg_match('|^/development.*|', $url)) {
+		if (preg_match('|^/development/?$|', $url)) {
+			return preg_replace('|^/development/?$|', '/?id=content/game/development', $url);
+		} else if (preg_match('|^/development/bug\.html$|', $url)) {
+			return preg_replace('|^/development/bug\.html$|', '/?id=content/game/bug', $url);
+		} else if (preg_match('|^/development/chat\.html$|', $url)) {
+			return preg_replace('|^/development/chat\.html$|', '/?id=content/game/chat', $url);
+		} else if (preg_match('|^/development/cvs\.html$|', $url)) {
+			return preg_replace('|^/development/cvs\.html$|', '/?id=content/game/cvslog', $url);
+		}
+
 	// items
 	} else if (preg_match('|^/item.*|', $url)) {
 		if (preg_match('|^/item/?$|', $url)) {
@@ -138,7 +156,8 @@ function rewriteURL($url) {
 		} else if (preg_match('|^/world/server-stats\.html$|', $url)) {
 			return preg_replace('|^/world/server-stats\.html$|', '/?id=content/scripts/serverstats', $url);
 		}
-		
+
+
 	} else {
 		echo '">Error parsing link';
 	}
