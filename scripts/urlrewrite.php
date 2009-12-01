@@ -29,11 +29,30 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
         <IfModule mod_rewrite.c>
                 RewriteEngine on
+
+                # images
                 RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png
                 RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png
                 RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png
                 RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1
+
+                # characters
+                RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact
+
+                # creatures
+                RewriteRule ^/creature/?$ /index.php?id=content/game/creatures
+                RewriteRule ^/creature/(.*)\.html$ /index.php?id=content/scripts/monster&name=$1&exact
+
+                # items
+                RewriteRule ^/item/?$ /index.php?id=content/game/items
+                RewriteRule ^/item/([^/]*)/(.*)\.html$ /index.php?id=content/scripts/item&class=$1&name=$2&exact
+                RewriteRule ^/item/([^/]*)\.html$ /index.php?id=content/game/items&class=$1
+
+                # npcs
+                RewriteRule ^/npc/?$ /index.php?id=content/game/npcs
+                RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact
         </IfModule>
+
 
 
 Note: You need to restart apache after editing these files.
@@ -53,19 +72,51 @@ function rewriteURL($url) {
 	}
 	
 
+	// images
 	if (preg_match('|^/images/.*|', $url)) {
 		if (preg_match('|^/images/creature/(.*)\.png$|', $url)) {
 			return preg_replace('|^/images/creature/(.*)\.png$|', '/monsterimage.php?url=data/sprites/monsters/$1.png', $url);
-		}
-		if (preg_match('|^/images/item/(.*)\.png$|', $url)) {
+		} else if (preg_match('|^/images/item/(.*)\.png$|', $url)) {
 			return preg_replace('|^/images/item/(.*)\.png$|', '/itemimage.php?url=data/sprites/items/$1.png', $url);
-		}
-		if (preg_match('|^/images/npc/(.*)\.png$|', $url)) {
+		} else if (preg_match('|^/images/npc/(.*)\.png$|', $url)) {
 			return preg_replace('|^/images/npc/(.*)\.png$|', '/monsterimage.php?url=data/sprites/npc/$1.png', $url);
-		}
-		if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
+		} else if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
 			return preg_replace('|^/images/outfit/(.*)\.png$|', '/createoutfit.php?outfit=$1', $url);
 		}
+
+	// characters
+	} else if (preg_match('|^/character.*|', $url)) {
+		if (preg_match('|^/character/(.*)\.html$|', $url)) {
+			return preg_replace('|^/character/(.*)\.html$|', '/?id=content/scripts/character&name=$1&exact', $url);
+		}
+
+	// creatures
+	} else if (preg_match('|^/creature.*|', $url)) {
+		if (preg_match('|^/creature/?$|', $url)) {
+			return preg_replace('|^/creature/?$|', '/?id=content/game/creatures', $url);
+		} else if (preg_match('|^/creature/(.*)\.html$|', $url)) {
+			return preg_replace('|^/creature/(.*)\.html$|', '/?id=content/scripts/monster&name=$1&exact', $url);
+		}
+
+	// items
+	} else if (preg_match('|^/item.*|', $url)) {
+		if (preg_match('|^/item/?$|', $url)) {
+			return preg_replace('|^/item/?$|', '/?id=content/game/items', $url);
+		} else if (preg_match('|^/item/[^/]*/(.*)\.html$|', $url)) {
+			return preg_replace('|^/item/([^/]*)/(.*)\.html$|', '/?id=content/scripts/item&class=$1&name=$2&exact', $url);
+		} else if (preg_match('|^/item/([^/]*)\.html$|', $url)) {
+			return preg_replace('|^/item/([^/]*)\.html$|', '/?id=content/game/items&class=$1', $url);
+		}
+
+	// npcs
+	} else if (preg_match('|^/npc.*|', $url)) {
+		if (preg_match('|^/npc/?$|', $url)) {
+			return preg_replace('|^/npc/?$|', '/?id=content/game/npcs', $url);
+		} else if (preg_match('|^/npc/(.*)\.html$|', $url)) {
+			return preg_replace('|^/npc/(.*)\.html$|', '/?id=content/scripts/npc&name=$1&exact', $url);
+		}
+
+
 	}
 }
 ?>
