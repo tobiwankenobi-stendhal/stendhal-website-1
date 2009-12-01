@@ -118,7 +118,7 @@ require_once($page_url.'.php');
           <li id="support_button"><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/menu/support.png" alt="Support"></a></li>
           <li id="forum_button"><a href="http://sourceforge.net/forum/forum.php?forum_id=3190"><img src="/images/menu/forum.png" alt="Forum"></a></li>
           <li id="downloads_button"><a href="http://sourceforge.net/project/platformdownload.php?group_id=1111&amp;sel_platform=410"><img src="/images/menu/download.png" alt="Downloads"></a></li>
-          <li id="hof_button"><a href="/?id=content/halloffame"><img src="/images/menu/halloffame.png" alt="Hall of Fame"></a></li>
+          <?php echo '<li id="hof_button"><a href="'.rewriteURL('/world/hall-of-fame.html').'"><img src="/images/menu/halloffame.png" alt="Hall of Fame"></a></li>'."\n"; ?>
         </ul>
       </div>
       
@@ -165,10 +165,12 @@ require_once($page_url.'.php');
             <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
             <li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Help</a></li>
             <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalRuleSystem"><img src="/images/buttons/rules_button.png" alt="">Rules</a></li>
-          	<li><a href="/?id=content/game/atlas"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>
-            <li><a href="/?id=content/game/npcs"><img src="/images/buttons/npcs_button.png" alt="">NPCs</a></li>
-            <li><a href="/?id=content/game/creatures"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a></li>
-            <li><a href="/?id=content/game/items"><img src="/images/buttons/items_button.png" alt="">Items</a></li>
+            <?php 
+            echo '<li><a href="'.rewriteURL('/world/atlas.html').'"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>'."\n";
+            echo '<li><a href="'.rewriteURL('/npc/').'"><img src="/images/buttons/npcs_button.png" alt="">NPCs</a></li>'."\n";
+            echo '<li><a href="'.rewriteURL('/creature/').'"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a></li>'."\n";
+            echo '<li><a href="'.rewriteURL('/item/').'"><img src="/images/buttons/items_button.png" alt="">Items</a></li>'."\n";
+            ?>
             <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalQuest"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>
 			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalHistory"><img src="/images/buttons/history_button.png" alt="">History</a></li>
            </ul>
@@ -190,13 +192,15 @@ require_once($page_url.'.php');
             <div class="status"><a href="/?id=content/offline">Server is offline</a></div>
             <?php
           } else {
+            echo '<a href="'.rewriteURL('/world/online').'">';
             ?>
-            <a href="/?id=content/scripts/online">
-              <div class="stats"><?php echo getAmountOfPlayersOnline(); ?></div> players online.
+            <div class="stats"><?php echo getAmountOfPlayersOnline(); ?></div> players online.
             </a>
             <div class="small_notice">
-              <a href="/?id=content/scripts/serverstats">[Detailed stats]</a><br>
-              <a href="/?id=content/scripts/killedstats">[Killed stats]</a>
+              <?php
+              echo '<a href="'.rewriteURL('/world/server-stats.html').'">[Detailed stats]</a><br>'."\n";
+              echo '<a href="'.rewriteURL('/world/kill-stats.html').'">[Killed stats]</a>'."\n";
+              ?>
             </div>
           <?php
           }
@@ -257,12 +261,15 @@ require_once($page_url.'.php');
 
        <?php startBox('Contribute'); ?>
         <ul  id="menu">
-		  <li><a href="/?id=content/game/chat"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>
-          <li><a href="/?id=content/game/bug"><img src="/images/buttons/c_bug_button.png" alt="">Report Bug</a></li>
-          <li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="/images/buttons/help_button.png" alt="">Submit Patch</a></li>
-	      <li><a href="http://xplanner.homelinux.net"><img src="/images/buttons/test_button.png" alt="">Testing</a></li>
-		  <li><a href="/?id=content/game/cvslog"><img src="/images/buttons/history_button.png" alt="">CVS Chances</a></li>
-		  <li><a href="/?id=content/game/development"><img src="/images/buttons/rpsystem_button.png" alt="">Development</a></li>
+          <?php
+		  echo '<li><a href="'.rewriteURL('/development/chat.html').'"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>'."\n";
+          echo '<li><a href="'.rewriteURL('/development/bug.html').'"><img src="/images/buttons/c_bug_button.png" alt="">Report Bug</a></li>'."\n";
+          echo '<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="/images/buttons/help_button.png" alt="">Submit Patch</a></li>'."\n";
+	      // deactivated because normal players cannot test without knowing the port
+	      // echo '<li><a href="http://xplanner.homelinux.net"><img src="/images/buttons/test_button.png" alt="">Testing</a></li>'."\n";
+		  echo '<li><a href="'.rewriteURL('/development/cvslog.html').'"><img src="/images/buttons/history_button.png" alt="">CVS Chances</a></li>'."\n";
+		  echo '<li><a href="'.rewriteURL('/development').'"><img src="/images/buttons/rpsystem_button.png" alt="">Development</a></li>'."\n";
+		   ?>
          </ul>          
         <?php endBox(); ?>
       </div>
