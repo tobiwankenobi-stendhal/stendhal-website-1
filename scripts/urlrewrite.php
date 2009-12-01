@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008  Miguel Angel Blanch Lardin
+ Copyright (C) 2008-2009  The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -51,6 +51,14 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # npcs
                 RewriteRule ^/npc/?$ /index.php?id=content/game/npcs
                 RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact
+
+                # world
+                RewriteRule ^/world/atlas\.html$ /?id=content/game/atlas
+                RewriteRule ^/world/hall-of-fame\.html$ /?id=content/halloffame
+                RewriteRule ^/world/kill-stats\.html$ /?id=content/scripts/killedstats
+                RewriteRule ^/world/online\.html$ /?id=content/scripts/online
+                RewriteRule ^/world/server-stats\.html$ /?id=content/scripts/serverstats
+
         </IfModule>
 
 
@@ -116,7 +124,24 @@ function rewriteURL($url) {
 			return preg_replace('|^/npc/(.*)\.html$|', '/?id=content/scripts/npc&name=$1&exact', $url);
 		}
 
-
+	// world
+	} else if (preg_match('|^/world.*|', $url)) {
+		
+		if (preg_match('|^/world/atlas\.html$|', $url)) {
+			return preg_replace('|^/world/atlas\.html$|', '/?id=content/game/atlas', $url);
+		} else if (preg_match('|^/world/hall-of-fame\.html$|', $url)) {
+			return preg_replace('|^/world/hall-of-fame\.html$|', '/?id=content/halloffame', $url);
+		} else if (preg_match('|^/world/kill-stats\.html$|', $url)) {
+			return preg_replace('|^/world/kill-stats\.html$|', '/?id=content/scripts/killedstats', $url);
+		} else if (preg_match('|^/world/online\.html$|', $url)) {
+			return preg_replace('|^/world/online\.html$|', '/?id=content/scripts/online', $url);
+		} else if (preg_match('|^/world/server-stats\.html$|', $url)) {
+			return preg_replace('|^/world/server-stats\.html$|', '/?id=content/scripts/serverstats', $url);
+		}
+		
+	} else {
+		echo '">Error parsing link';
 	}
+
 }
 ?>
