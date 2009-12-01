@@ -47,7 +47,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/development/?$ /?id=content/game/development
                 RewriteRule ^/development/bug\.html$ /?id=content/game/bug
                 RewriteRule ^/development/chat\.html$ /?id=content/game/chat
-                RewriteRule ^/development/cvs\.html$ /?id=content/game/cvslog
+                RewriteRule ^/development/cvslog\.html$ /?id=content/game/cvslog
 
                 # items
                 RewriteRule ^/item/?$ /index.php?id=content/game/items
@@ -120,8 +120,8 @@ function rewriteURL($url) {
 			return preg_replace('|^/development/bug\.html$|', '/?id=content/game/bug', $url);
 		} else if (preg_match('|^/development/chat\.html$|', $url)) {
 			return preg_replace('|^/development/chat\.html$|', '/?id=content/game/chat', $url);
-		} else if (preg_match('|^/development/cvs\.html$|', $url)) {
-			return preg_replace('|^/development/cvs\.html$|', '/?id=content/game/cvslog', $url);
+		} else if (preg_match('|^/development/cvslog\.html$|', $url)) {
+			return preg_replace('|^/development/cvslog\.html$|', '/?id=content/game/cvslog', $url);
 		}
 
 	// items
