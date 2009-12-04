@@ -105,7 +105,7 @@ require_once($page_url.'.php');
   <body>
       <div id="container">
       <div id="header">
-        <a href="?"><img style="border: 0;" src="/images/logo.gif" alt="Stendhal Logo"></a>
+        <a href="/"><img style="border: 0;" src="/images/logo.gif" alt="Stendhal Logo"></a>
       </div>
       
       <div id="account">
@@ -192,7 +192,7 @@ require_once($page_url.'.php');
             <div class="status"><a href="/?id=content/offline">Server is offline</a></div>
             <?php
           } else {
-            echo '<a href="'.rewriteURL('/world/online').'">';
+            echo '<a href="'.rewriteURL('/world/online.html').'">';
             ?>
             <div class="stats"><?php echo getAmountOfPlayersOnline(); ?></div> players online.
             </a>

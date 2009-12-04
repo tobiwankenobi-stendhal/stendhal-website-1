@@ -41,10 +41,10 @@ class MainPage extends Page {
 <br>
 <br>
 <div>
-	<?php startBox('News Archive'); ?>
-     Read <a href="/?id=content/newsarchive">older news</a>.
-    <?php endBox(); ?>
-
+    <?php startBox('News Archive');
+    echo 'Read <a href="'.rewriteURL('/world/newsarchive.html').'">older news</a>.';
+    endBox();
+    ?>
 </div>
 <?php
 	}

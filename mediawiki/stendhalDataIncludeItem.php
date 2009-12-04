@@ -5,6 +5,8 @@ if (!defined('MEDIAWIKI')) {
 
 require_once($IP.'/../scripts/xml.php');
 require_once($IP.'/../scripts/items.php');
+require_once($IP.'/../scripts/urlrewrite.php');
+
 
 /**
  * helper function to read the item with this name using the Stendhal website code
@@ -26,7 +28,7 @@ function getItemByName($name) {
  * reads the icon of a Stendhal items
  */
 function stendhalDataIncludeItemIconOnly($item) {
-	$res .= '<span class="stendhalItemIcon"><a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
+	$res .= '<span class="stendhalItemIcon"><a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($item->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($item->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -43,7 +45,7 @@ function stendhalDataIncludeItemStats($item, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="/?id=content/scripts/item&name=' . urlencode($item->name) . '&exact">';
+		$res .= '<a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($item->name).'.html').'">';
 		$res .= $item->name;
 		$res .= '</a>';
 	}

@@ -5,6 +5,8 @@ if (!defined('MEDIAWIKI')) {
 
 require_once($IP.'/../scripts/xml.php');
 require_once($IP.'/../scripts/monsters.php');
+require_once($IP.'/../scripts/urlrewrite.php');
+
 
 /**
  * helper function to read the creature with this name using the Stendhal website code
@@ -26,7 +28,7 @@ function getCreatureByName($name) {
  * reads the icon of a Stendhal creatures
  */
 function stendhalDataIncludeCreatureIconOnly($creature) {
-	$res .= '<span class="stendhalCreatureIcon"><a href="/?id=content/scripts/monster&name=' . urlencode($creature->name) . '&exact">';
+	$res .= '<span class="stendhalCreatureIcon"><a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'>';
 	$res .= '<img src="' . htmlspecialchars($creature->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -43,7 +45,7 @@ function stendhalDataIncludeCreatureStats($creature, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="/?id=content/scripts/monster&name=' . urlencode($creature->name) . '&exact">';
+		$res .= '<a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'>';
 		$res .= $creature->name;
 		$res .= '</a>';
 	}

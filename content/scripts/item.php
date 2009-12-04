@@ -184,7 +184,7 @@ foreach($this->items as $m) {
               if($k["name"]==$m->name) {
               ?>
               <div class="row">
-                <a href="/?id=content/scripts/monster&name=<?php echo $monster->name; ?>&exact">
+                <?php echo '<a href="'.rewriteURL('/creature/'.htmlspecialchars($monster->name).'.html').'">' ?>
                 <img src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
                 <div class="label"><?php echo $monster->name; ?></div>
                 </a>

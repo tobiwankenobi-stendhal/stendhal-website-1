@@ -52,7 +52,7 @@ if(!isset($_GET['class'])) {
     }
 	?>
     <div class="f3cols">
-      <a href="/?id=content/game/items&amp;class=<?php echo $class; ?>">
+      <?php echo '<a href="'.rewriteURL('/item/'.$class.'.html').'">';?>
         <img src="<?php echo $choosen->gfx; ?>"/><br>
         <?php echo ucfirst($class); ?>
       </a>
@@ -75,7 +75,7 @@ startBox(ucfirst($class).' Items');
 	if($item->class==$class) {
 	  ?>
   	  <div class="item">
-        <a class="item" href="/?id=content/scripts/item&amp;name=<?php echo $item->name; ?>&amp;exact">
+        <?php echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'; ?>'
  	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt="">
 	      <div class="item_name"><?php echo $item->name; ?></div>
 	    </a>

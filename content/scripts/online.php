@@ -18,7 +18,7 @@ echo '<div style="height: 700px;">';
 foreach($players as $p) {
     echo '<div class="onlinePlayer">';
     echo '  <img src="'.rewriteURL('/images/outfit/'.urlencode($p->outfit).'.png').'" alt="">';
-    echo '  <a href="/?id=content/scripts/character&amp;name='.urlencode($p->name).'">';
+    echo '  <a href="'.rewriteURL('/character/'.urlencode($p->name).'.html').'">';
     echo '  <div class="name">'.htmlspecialchars(utf8_encode($p->name)).'</div>';
     echo ' </a>';
     echo '</div>';

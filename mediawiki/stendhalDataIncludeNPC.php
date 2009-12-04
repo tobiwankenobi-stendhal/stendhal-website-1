@@ -5,13 +5,14 @@ if (!defined('MEDIAWIKI')) {
 
 require_once($IP.'/../scripts/mysql.php');
 require_once($IP.'/../scripts/npcs.php');
+require_once($IP.'/../scripts/urlrewrite.php');
 
 
 /**
  * reads the icon of a Stendhal NPCs
  */
 function stendhalDataIncludeNPCIconOnly($NPC) {
-	$res .= '<span class="stendhalNPCIcon"><a href="/?id=content/scripts/npc&name=' . urlencode($NPC->name) . '&exact">';
+	$res .= '<span class="stendhalNPCIcon"><a href="'.rewriteURL('/npc/'.urlencode($NPC->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($NPC->imagefile) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -28,7 +29,7 @@ function stendhalDataIncludeNPCStats($NPC, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="/?id=content/scripts/npc&name=' . urlencode($NPC->name) . '&exact">';
+		$res .= '<a href="'.rewriteURL('/npc/'.urlencode($NPC->name).'.html').'">';
 		$res .= $NPC->name;
 		$res .= '</a>';
 	}

@@ -83,9 +83,10 @@ $account=$choosen->getAccountInfo();
     ?>
     <div class="row">
       <?php 
-      if($content!="") { ?>
-        <a href="/?id=content/scripts/item&name=<?php echo htmlspecialchars($content); ?>&exact">
-        <img src="<?php echo htmlspecialchars(getItem($content)->showImage()); ?>" alt="<?php echo htmlspecialchars(ucfirst($content)); ?>"/>
+      if($content!="") {
+      	$item = getItem($content);
+        echo '<a href="'.rewriteURL('/item/'.htmlspecialchars($item->class).'/'.htmlspecialchars($content).'.html').'">'; ?>
+        <img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" "/>
         <div class="label"><?php echo htmlspecialchars(ucwords($slot)) ?></div>
         <div class="data"><?php echo htmlspecialchars(ucfirst($content)); ?></div>
         </a>
@@ -132,8 +133,8 @@ $account=$choosen->getAccountInfo();
         if($monster->name==$source) {
           ?>
           <div class="row">
-            <a href="/?id=content/scripts/monster&name=<?php echo htmlspecialchars($monster->name); ?>&exact">
-            <img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt="<?php echo htmlspecialchars($monster->name); ?>"/>
+            <?php echo '<a href="'.rewriteURL('/creature/'.htmlspecialchars($monster->name).'.html').'">'; ?>
+            <img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt=""/>
             Killed by a <div style="display: inline;" class="label"><?php echo htmlspecialchars($monster->name); ?></div>
             <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
             <div style="margin-bottom: 50px;"></div>
@@ -148,7 +149,7 @@ $account=$choosen->getAccountInfo();
        */
       ?>
       <div class="row">
-        <a href="/?id=content/scripts/character&name=<?php echo htmlspecialchars(urlencode($source)); ?>">
+        <?php echo '<a href="'.rewriteURL('/character/'.htmlspecialchars(urlencode($source)).'.html').'">'?>
         <?php
         $killer=getPlayer($source);
         ?>

@@ -61,6 +61,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # world
                 RewriteRule ^/world/atlas\.html$ /?id=content/game/atlas
                 RewriteRule ^/world/hall-of-fame\.html$ /?id=content/halloffame
+                RewriteRule ^/world/newsarchive\.html$ /?id=content/newsarchive
                 RewriteRule ^/world/kill-stats\.html$ /?id=content/scripts/killedstats
                 RewriteRule ^/world/online\.html$ /?id=content/scripts/online
                 RewriteRule ^/world/server-stats\.html$ /?id=content/scripts/serverstats
@@ -149,6 +150,8 @@ function rewriteURL($url) {
 			return preg_replace('|^/world/atlas\.html$|', '/?id=content/game/atlas', $url);
 		} else if (preg_match('|^/world/hall-of-fame\.html$|', $url)) {
 			return preg_replace('|^/world/hall-of-fame\.html$|', '/?id=content/halloffame', $url);
+		} else if (preg_match('|^/world/newsarchive\.html$|', $url)) {
+			return preg_replace('|^/world/newsarchive\.html$|', '/?id=content/newsarchive', $url);
 		} else if (preg_match('|^/world/kill-stats\.html$|', $url)) {
 			return preg_replace('|^/world/kill-stats\.html$|', '/?id=content/scripts/killedstats', $url);
 		} else if (preg_match('|^/world/online\.html$|', $url)) {

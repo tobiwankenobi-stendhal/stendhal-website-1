@@ -77,8 +77,11 @@ foreach($this->monsters as $m) {
           foreach($m->drops as $k) {
           	?>
             <div class="row">
-              <a href="/?id=content/scripts/item&name=<?php echo $k["name"]; ?>&exact">
-              <img src="<?php echo getItem($k["name"])->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
+              <?php
+                $item = getItem($k["name"]);
+                echo '<a href="'.rewriteURL('/item/'.htmlspecialchars($item->class).'/'.htmlspecialchars($k["name"]).'.html').'">';
+              ?>
+              <img src="<?php echo $item->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
               <div class="label"><?php echo ucfirst($k["name"]); ?></div>
               </a>
               <div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>

@@ -85,7 +85,7 @@ for ($i = 0; $i < count($lines); $i++) {
         foreach ($filearray as $file) {
             $file = substr($file, 0, 10);
 ?>
-	 <li><a href="<?php echo($_SERVER['PHP_SELF'] . "/?id=content/game/chat&amp;date=" . $file); ?>"><?php echo($file); ?></a></li>
+	 <li><a href="<?php echo("/?id=content/game/chat&amp;date=" . $file); ?>"><?php echo($file); ?></a></li>
 
 <?php
         }
