@@ -24,7 +24,7 @@
 #
 define('STENDHAL_VERSION','0.79');
 
-define('STENDHAL_TITLE', ' &ndash; Stendhal');
+define('STENDHAL_TITLE', ' &ndash; Stendhal MMORPG');
 #
 # Location of the statistics file of Stendhal server.
 #
