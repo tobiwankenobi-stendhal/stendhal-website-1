@@ -31,40 +31,104 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteEngine on
 
                 # images
-                RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png
-                RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png
-                RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png
-                RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1
+                RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png [L]
+                RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png [L]
+                RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png [L]
+                RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1 [L]
 
                 # characters
-                RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact
+                RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact [L]
 
                 # creatures
-                RewriteRule ^/creature/?$ /index.php?id=content/game/creatures
-                RewriteRule ^/creature/(.*)\.html$ /index.php?id=content/scripts/monster&name=$1&exact
+                RewriteRule ^/creature/?$ /index.php?id=content/game/creatures [L]
+                RewriteRule ^/creature/(.*)\.html$ /index.php?id=content/scripts/monster&name=$1&exact [L]
 
                 # development
-                RewriteRule ^/development/?$ /?id=content/game/development
-                RewriteRule ^/development/bug\.html$ /?id=content/game/bug
-                RewriteRule ^/development/chat\.html$ /?id=content/game/chat
-                RewriteRule ^/development/cvslog\.html$ /?id=content/game/cvslog
+                RewriteRule ^/development/bug\.html$ /index.php?id=content/game/bug [L]
+                RewriteRule ^/development/chat\.html$ /index.php?id=content/game/chat [L]
+                RewriteRule ^/development/cvslog\.html$ /index.php?id=content/game/cvslog [L]
+                RewriteRule ^/development/?$ /index.php?id=content/game/development [L]
 
                 # items
-                RewriteRule ^/item/?$ /index.php?id=content/game/items
-                RewriteRule ^/item/([^/]*)/(.*)\.html$ /index.php?id=content/scripts/item&class=$1&name=$2&exact
-                RewriteRule ^/item/([^/]*)\.html$ /index.php?id=content/game/items&class=$1
+                RewriteRule ^/item/?$ /index.php?id=content/game/items [L]
+                RewriteRule ^/item/([^/]*)/(.*)\.html$ /index.php?id=content/scripts/item&class=$1&name=$2&exact [L]
+                RewriteRule ^/item/([^/]*)\.html$ /index.php?id=content/game/items&class=$1 [L]
 
                 # npcs
-                RewriteRule ^/npc/?$ /index.php?id=content/game/npcs
-                RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact
+                RewriteRule ^/npc/?$ /index.php?id=content/game/npcs [L]
+                RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact [L]
 
                 # world
-                RewriteRule ^/world/atlas\.html$ /?id=content/game/atlas
-                RewriteRule ^/world/hall-of-fame\.html$ /?id=content/halloffame
-                RewriteRule ^/world/newsarchive\.html$ /?id=content/newsarchive
-                RewriteRule ^/world/kill-stats\.html$ /?id=content/scripts/killedstats
-                RewriteRule ^/world/online\.html$ /?id=content/scripts/online
-                RewriteRule ^/world/server-stats\.html$ /?id=content/scripts/serverstats
+                RewriteRule ^/world/atlas\.html$ /index.php?id=content/game/atlas [L]
+                RewriteRule ^/world/hall-of-fame\.html$ /index.php?id=content/halloffame [L]
+                RewriteRule ^/world/newsarchive\.html$ /index.php?id=content/newsarchive [L]
+                RewriteRule ^/world/kill-stats\.html$ /index.php?id=content/scripts/killedstats [L]
+                RewriteRule ^/world/online\.html$ /index.php?id=content/scripts/online [L]
+                RewriteRule ^/world/server-stats\.html$ /index.php?id=content/scripts/serverstats [L]
+*/
+
+/*
+                # images
+                RewriteCond %{QUERY_STRING} url=data/sprites/monsters/(.*)\.png
+                RewriteRule ^/monsterimage.php /images/creature/%1.png? [R=301]
+                RewriteCond %{QUERY_STRING} url=data/sprites/items/(.*).png
+                RewriteRule ^/itemimage.php /images/item/%1.png? [R=301]
+                RewriteCond %{QUERY_STRING} url=data/sprites/npc/(.*).png
+                RewriteRule ^/monsterimage.php /images/npc/%1.png? [R=301]
+                RewriteCond %{QUERY_STRING} outfit=(.*)
+                RewriteRule ^/createoutfit.php /images/outfit/%1.png? [R=301]
+
+                # characters
+                RewriteCond %{QUERY_STRING} id=content/scripts/character&name=([^&]*)
+                RewriteRule ^/.* /character/%1.html? [R=301]
+
+                # creatures
+                RewriteCond %{QUERY_STRING} id=content/game/creatures
+                RewriteRule ^/.* /creature/? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/scripts/monster&name=([^&]*)
+                RewriteRule ^/.* /creature/%1.html? [R=301]
+
+                # development
+                RewriteCond %{QUERY_STRING} id=content/game/development
+                RewriteRule ^/.* /development/? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/bug
+                RewriteRule ^/.* /development/bug\.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/chat
+                RewriteRule ^/.* /development/chat\.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/cvslog
+                RewriteRule ^/.* /development/cvslog\.html? [R=301]
+
+                # items
+                RewriteCond %{QUERY_STRING} id=content/game/items$
+                RewriteRule ^/.* /item/? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/scripts/item&class=([^&]*)&name=([^&]*)
+                RewriteRule ^/.* /item/%1/%2.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/scripts/item&name=([^&]*)
+                RewriteRule ^/.* /item/all/%1.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/items&class=([^&]*)
+                RewriteRule ^/.* /item/%1.html? [R=301]
+
+                # npcs
+                RewriteCond %{QUERY_STRING} id=content/game/npcs
+                RewriteRule ^/.* /npc/? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/scripts/npc&name=([^&]*)
+                RewriteRule ^/.* /npc/%1.html? [R=301]
+
+                # world
+                RewriteCond %{QUERY_STRING} id=content/game/atlas
+                RewriteRule ^/.* /world/atlas.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/halloffame
+                RewriteRule ^/.* /world/hall-of-fame.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/newsarchive
+                RewriteRule ^/.* /world/newsarchive.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/scripts/killedstats
+                RewriteRule ^/.* /world/kill-stats.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/scripts/online
+                RewriteRule ^/.* /world/online.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/scripts/serverstats
+                RewriteRule ^/.* /world/server-stats.html? [R=301]
+
+
 
         </IfModule>
 
