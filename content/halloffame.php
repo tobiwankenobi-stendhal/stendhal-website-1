@@ -78,7 +78,7 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
     <div class="sentence"><?php echo $choosen->sentence; ?></div>
     </a>
   </div> 
-  <img class="bordered_image" src="createoutfit.php?outfit=<?php echo $choosen->outfit; ?>" alt="Player outfit"/>
+  <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.urlencode($this->outfit).'.png')?> alt="">
  <?php endBox(); ?>
 
 <div style="float: left; width: 34%">
