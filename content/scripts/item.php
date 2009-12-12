@@ -89,6 +89,7 @@ class ItemPage extends Page {
 	
 	public function writeHtmlHeader() {
 		echo '<title>Item '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
+		## TODO: check that class matches. if class is "all" or missing, send robots noindex
 	}
 
 	function writeContent() {
