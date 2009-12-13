@@ -71,7 +71,7 @@ function stendhalDataIncludeSetup() {
 	$wgParser->setHook('npc', 'stendhalDataIncludeNPC');
 
 	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws.js"></script>');
-	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws_filter.js" /></script>');
+	$wgOut->addHTML('<script type="text/javascript" src="' . $wgScriptPath . '/extensions/overlibmws/overlibmws_filter.js"></script>');
 }
 
 ?>
