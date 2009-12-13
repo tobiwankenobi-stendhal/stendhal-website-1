@@ -28,7 +28,7 @@ function getCreatureByName($name) {
  * reads the icon of a Stendhal creatures
  */
 function stendhalDataIncludeCreatureIconOnly($creature) {
-	$res .= '<span class="stendhalCreatureIcon"><a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'>';
+	$res .= '<span class="stendhalCreatureIcon"><a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($creature->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -85,7 +85,7 @@ function stendhalDataIncludeCreature($input, $argv, &$parser) {
 		$res .= stendhalDataIncludeCreatureStats($creature, $argv);
 	}
 
-	$link = '/?id=content/scripts/monster&name=' . urlencode($creature->name) . '&exact';
+	$link = rewriateURL('/creature/' . urlencode($creature->name) . '.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalCreatureLink", $res);
 
 	return $res;
