@@ -77,7 +77,7 @@ function stendhalDataIncludeNPC($input, $argv, &$parser) {
 		$res .= stendhalDataIncludeNPCStats($NPC, $argv);
 	}
 
-	$link = rewriteURL('/npc' . urlencode($NPC->name) . '.html');
+	$link = rewriteURL('/npc/' . urlencode($NPC->name) . '.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalNPCLink", $res);
 
 	return $res;

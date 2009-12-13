@@ -86,7 +86,7 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 		$res .= stendhalDataIncludeItemStats($item, $argv);
 	}
 
-	$link = rewriteURL('item/' . urlencode($item->class) .'/'. urlencode($item->name) .'.html');
+	$link = rewriteURL('/item/' . urlencode($item->class) .'/'. urlencode($item->name) .'.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalItemLink", $res);
 
 	return $res;
