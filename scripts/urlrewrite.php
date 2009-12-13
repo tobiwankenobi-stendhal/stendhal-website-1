@@ -166,7 +166,7 @@ function rewriteURL($url) {
 	// characters
 	} else if (preg_match('|^/character.*|', $url)) {
 		if (preg_match('|^/character/(.*)\.html$|', $url)) {
-			return preg_replace('|^/character/(.*)\.html$|', '/?id=content/scripts/character&name=$1&exact', $url);
+			return preg_replace('|^/character/(.*)\.html$|', '/?id=content/scripts/character&amp;name=$1&amp;exact', $url);
 		}
 
 	// creatures
@@ -174,7 +174,7 @@ function rewriteURL($url) {
 		if (preg_match('|^/creature/?$|', $url)) {
 			return preg_replace('|^/creature/?$|', '/?id=content/game/creatures', $url);
 		} else if (preg_match('|^/creature/(.*)\.html$|', $url)) {
-			return preg_replace('|^/creature/(.*)\.html$|', '/?id=content/scripts/monster&name=$1&exact', $url);
+			return preg_replace('|^/creature/(.*)\.html$|', '/?id=content/scripts/monster&amp;name=$1&amp;exact', $url);
 		}
 
 	// development
@@ -194,9 +194,9 @@ function rewriteURL($url) {
 		if (preg_match('|^/item/?$|', $url)) {
 			return preg_replace('|^/item/?$|', '/?id=content/game/items', $url);
 		} else if (preg_match('|^/item/[^/]*/(.*)\.html$|', $url)) {
-			return preg_replace('|^/item/([^/]*)/(.*)\.html$|', '/?id=content/scripts/item&class=$1&name=$2&exact', $url);
+			return preg_replace('|^/item/([^/]*)/(.*)\.html$|', '/?id=content/scripts/item&amp;class=$1&amp;name=$2&amp;exact', $url);
 		} else if (preg_match('|^/item/([^/]*)\.html$|', $url)) {
-			return preg_replace('|^/item/([^/]*)\.html$|', '/?id=content/game/items&class=$1', $url);
+			return preg_replace('|^/item/([^/]*)\.html$|', '/?id=content/game/items&amp;class=$1', $url);
 		}
 
 	// npcs
@@ -204,7 +204,7 @@ function rewriteURL($url) {
 		if (preg_match('|^/npc/?$|', $url)) {
 			return preg_replace('|^/npc/?$|', '/?id=content/game/npcs', $url);
 		} else if (preg_match('|^/npc/(.*)\.html$|', $url)) {
-			return preg_replace('|^/npc/(.*)\.html$|', '/?id=content/scripts/npc&name=$1&exact', $url);
+			return preg_replace('|^/npc/(.*)\.html$|', '/?id=content/scripts/npc&amp;name=$1&amp;exact', $url);
 		}
 
 	// world
