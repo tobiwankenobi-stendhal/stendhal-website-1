@@ -85,7 +85,7 @@ function stendhalDataIncludeCreature($input, $argv, &$parser) {
 		$res .= stendhalDataIncludeCreatureStats($creature, $argv);
 	}
 
-	$link = rewriateURL('/creature/' . urlencode($creature->name) . '.html');
+	$link = rewriteURL('/creature/' . urlencode($creature->name) . '.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalCreatureLink", $res);
 
 	return $res;

@@ -92,7 +92,7 @@ function stendhalDataIncludePlayer($input, $argv, &$parser) {
 		$res .= stendhalDataIncludePlayerStats($player, $argv);
 	}
 
-	$link = '/?id=content/scripts/character&name=' . urlencode($player->name) . '&exact';
+	$link = rewriteURL('/character/' . urlencode($player->name) . '.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalPlayerLink", $res);
 
 	return $res;
