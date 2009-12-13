@@ -230,7 +230,7 @@ require_once($page_url.'.php');
         <?php 
           startBox('Who is...');
           ?>
-          <form method="get" action="" accept-charset="iso-8859-1">
+          <form method="get" action="/" accept-charset="iso-8859-1">
             <input type="hidden" name="id" value="content/scripts/character">
             <input type="text" name="name" maxlength="32">
             <input type="submit" name="search" value="Search">
