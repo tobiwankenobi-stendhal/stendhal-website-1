@@ -80,16 +80,26 @@ class ItemPage extends Page {
 	private $name;
 	private $items;
 	private	$isExact;
-	
+	private $found;
+
 	public function __construct() {
 		$this->name = $_REQUEST['name'];
 		$this->isExact = isset($_REQUEST['exact']);
 		$this->items=getItems();
+
+		// does this name exist?
+		foreach($this->items as $m) {
+			if (($m->name == $this->name) && ($m->class == $_REQUEST['class'])) {
+				$this->found = true;
+			}
+		}
 	}
 	
 	public function writeHtmlHeader() {
 		echo '<title>Item '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
-		## TODO: check that class matches. if class is "all" or missing, send robots noindex
+		if (!$this->found) {
+			echo '<meta name="robots" content="noindex">'."\n";
+		}
 	}
 
 	function writeContent() {
@@ -98,7 +108,7 @@ foreach($this->items as $m) {
   /*
    * If name of the creature match or contains part of the name.
    */
-  if($m->name==$this->name || (!$this->isExact and strpos($m->name, $this->name) != false)) {
+  if (($m->name==$this->name || (!$this->isExact && strpos($m->name, $this->name) != false)) && (($m->class == $_REQUEST['class']) || ($_REQUEST['class'] == 'all'))) {
     startBox("Detailed information");
     ?>
     <div class="item">

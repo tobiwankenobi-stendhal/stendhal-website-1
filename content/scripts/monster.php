@@ -19,16 +19,28 @@ function renderAmount($amount) {
 class MonsterPage extends Page {
 	private $name;
 	private $monsters;
-	private	$isExact;
-	
+	private $isExact;
+	private $found;
+
 	public function __construct() {
 		$this->name = $_REQUEST['name'];
 		$this->isExact = isset($_REQUEST['exact']);
 		$this->monsters = getMonsters();
+
+		// does this name exist?
+		foreach($this->monsters as $m) {
+			if($m->name==$this->name) {
+				$this->found = true;
+			}
+		}
+		
 	}
-	
+
 	public function writeHtmlHeader() {
-		echo '<title>Creature '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
+		echo '<title>Creature '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>'."\n";
+		if (!$this->found) {
+			echo '<meta name="robots" content="noindex">'."\n";
+		}
 	}
 
 	function writeContent() {

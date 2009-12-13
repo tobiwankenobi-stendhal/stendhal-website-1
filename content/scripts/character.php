@@ -4,26 +4,31 @@ function printAge($minutes) {
 }
 
 class CharacterPage extends Page {
+	private $name;
+	private $players;
+
+	public function __construct() {
+		$this->name=$_REQUEST["name"];
+		$this->players=getPlayers('where name="'.addslashes($this->name).'"', 'name');
+	}
+
 	public function writeHtmlHeader() {
-	// TODO: don't query the database twice: Here and in character.php
-		$name = $_REQUEST["name"];
-		$players = getPlayers('where name="'.addslashes($name).'"', 'name');
-		if(sizeof($players) > 0) {
-			$choosen=$players[0];
-			$account=$choosen->getAccountInfo();
+		if(sizeof($this->players) > 0) {
+			$choosen = $this->players[0];
+			$account = $choosen->getAccountInfo();
 			if ($account["status"] != 'active') {
 				echo '<meta name="robots" content="noindex">'."\n";
 			}
+		} else {
+			echo '<meta name="robots" content="noindex">'."\n";
 		}
-		echo '<title>Player '.htmlspecialchars($name).STENDHAL_TITLE.'</title>';
+		echo '<title>Player '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
 
-$name=$_REQUEST["name"];
-$players=getPlayers('where name="'.addslashes($name).'"', 'name');
 
-if(sizeof($players)==0) {
+if(sizeof($this->players)==0) {
   startBox("No such player");
   ?>
   There is no such player at Stendhal.<br>
@@ -32,7 +37,7 @@ if(sizeof($players)==0) {
   endBox();
   return;
 }
-$choosen=$players[0];
+$choosen=$this->players[0];
 $account=$choosen->getAccountInfo();
 ?>
 
