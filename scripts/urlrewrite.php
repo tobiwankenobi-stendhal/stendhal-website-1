@@ -66,9 +66,10 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/world/kill-stats\.html$ /index.php?id=content/scripts/killedstats [L]
                 RewriteRule ^/world/online\.html$ /index.php?id=content/scripts/online [L]
                 RewriteRule ^/world/server-stats\.html$ /index.php?id=content/scripts/serverstats [L]
-*/
 
-/*
+
+
+
                 # images
                 RewriteCond %{QUERY_STRING} url=data/sprites/monsters/(.*)\.png
                 RewriteRule ^/monsterimage.php /images/creature/%1.png? [R=301]
@@ -94,7 +95,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /development/? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/bug
                 RewriteRule ^/.* /development/bug\.html? [R=301]
-                RewriteCond %{QUERY_STRING} id=content/game/chat
+                RewriteCond %{QUERY_STRING} id=content/game/chat$
                 RewriteRule ^/.* /development/chat\.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/cvslog&month=([^&]*)
                 RewriteRule ^/.* /development/cvslog/%1.html? [R=301]
