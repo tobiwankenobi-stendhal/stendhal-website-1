@@ -37,6 +37,7 @@ if(!isset($_GET['class'])) {
   ?>
   <form method="get" action="/">
     <input type="hidden" name="id" value="content/scripts/item">
+    <input type="hidden" name="class" value="all">
     <input type="text" name="name" maxlength="60">
     <input type="submit" name="sublogin" value="Search">
   </form>
