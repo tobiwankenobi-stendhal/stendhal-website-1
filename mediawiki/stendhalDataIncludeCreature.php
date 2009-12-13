@@ -45,7 +45,7 @@ function stendhalDataIncludeCreatureStats($creature, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'>';
+		$res .= '<a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'">';
 		$res .= $creature->name;
 		$res .= '</a>';
 	}
