@@ -47,6 +47,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/development/bug\.html$ /index.php?id=content/game/bug [L]
                 RewriteRule ^/development/chat\.html$ /index.php?id=content/game/chat [L]
                 RewriteRule ^/development/cvslog\.html$ /index.php?id=content/game/cvslog [L]
+                RewriteRule ^/development/cvslog/(.*)\.html$ /index.php?id=content/game/cvslog&month=$1 [L]
                 RewriteRule ^/development/?$ /index.php?id=content/game/development [L]
 
                 # items
@@ -95,6 +96,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /development/bug\.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/chat
                 RewriteRule ^/.* /development/chat\.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/cvslog&month=([^&]*)
+                RewriteRule ^/.* /development/cvslog/%1.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/cvslog
                 RewriteRule ^/.* /development/cvslog\.html? [R=301]
 
@@ -187,6 +190,8 @@ function rewriteURL($url) {
 			return preg_replace('|^/development/chat\.html$|', '/?id=content/game/chat', $url);
 		} else if (preg_match('|^/development/cvslog\.html$|', $url)) {
 			return preg_replace('|^/development/cvslog\.html$|', '/?id=content/game/cvslog', $url);
+		} else if (preg_match('|^/development/cvslog/(.*)\.html$|', $url)) {
+			return preg_replace('|^/development/cvslog/(.*)\.html$|', '/?id=content/game/cvslog&amp;month=$1', $url);
 		}
 
 	// items

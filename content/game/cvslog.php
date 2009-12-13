@@ -115,7 +115,7 @@ for ($day = 1; $day <= 31; $day++) {
 		foreach ($filearray as $file) {
 			$month = substr($file, 0, 7);
 			if ($month != $last) {
-				echo '<li><a href="' . $_SERVER['PHP_SELF'] . '?id=content/game/cvslog&amp;month=' . $month . '">' . $month . '</a></li>';
+				echo '<li><a href="'.rewriteURL('/development/cvslog/'.htmlspecialchars($month).'.html').'">' . $month . '</a></li>';
 				$last = $month;
 			}
 		}
