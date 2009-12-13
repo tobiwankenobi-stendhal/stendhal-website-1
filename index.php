@@ -99,6 +99,9 @@ require_once($page_url.'.php');
 	    <?php
 	  }
 	  $page->writeHtmlHeader();
+	  if (!defined("STENDHAL_WANT_ROBOTS") || !constant("STENDHAL_WANT_ROBOTS")) {
+	    echo '<meta name="robots" content="noindex">'."\n";
+	  }
 	?>
   </head>
 
