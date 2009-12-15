@@ -192,7 +192,7 @@ require_once($page_url.'.php');
           startBox('Players');
           ?>
           	<ul class="menu">
-            	<li><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><?php echo getAmountOfPlayersOnline(); ?> Players Online</a></li>
+            	<li><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><?php echo getAmountOfPlayersOnline(); ?>&nbsp;Players&nbsp;Online</a></li>
           		<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
           	</ul>
           <form method="get" action="/" accept-charset="iso-8859-1">
