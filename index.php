@@ -266,7 +266,9 @@ require_once($page_url.'.php');
         <ul  id="menu">
           <?php
 		  echo '<li><a href="'.rewriteURL('/development/chat.html').'"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>'."\n";
+          echo '<li><a href="/wiki/index.php/Stendhal"><img src="/images/buttons/history_button.png" alt="">Wiki</a></li>'."\n";
           echo '<li><a href="'.rewriteURL('/development/bug.html').'"><img src="/images/buttons/c_bug_button.png" alt="">Report Bug</a></li>'."\n";
+          echo '<li><a href="/wiki/index.php/Stendhal_Quest_Contribution"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>'."\n";
           echo '<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="/images/buttons/help_button.png" alt="">Submit Patch</a></li>'."\n";
 	      echo '<li><a href="http://xplanner.homelinux.net"><img src="/images/buttons/test_button.png" alt="">Testing</a></li>'."\n";
 		  echo '<li><a href="'.rewriteURL('/development/cvslog.html').'"><img src="/images/buttons/history_button.png" alt="">CVS/Changes</a></li>'."\n";
