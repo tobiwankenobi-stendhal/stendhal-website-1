@@ -169,7 +169,7 @@ require_once($page_url.'.php');
             <li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Help</a></li>
             <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalRuleSystem"><img src="/images/buttons/rules_button.png" alt="">Rules</a></li>
             <?php 
-            echo '<li><a href="'.rewriteURL('/world/atlas.html').'"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>'."\n";
+            echo '<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalAtlas"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>'."\n";
             echo '<li><a href="'.rewriteURL('/npc/').'"><img src="/images/buttons/npcs_button.png" alt="">NPCs</a></li>'."\n";
             echo '<li><a href="'.rewriteURL('/creature/').'"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a></li>'."\n";
             echo '<li><a href="'.rewriteURL('/item/').'"><img src="/images/buttons/items_button.png" alt="">Items</a></li>'."\n";
