@@ -86,7 +86,7 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
 	
 startBox("Strongest players");
   ?>
-  <div class="bubble">Based on the amount of XP, Karma</div>
+  <div class="bubble">Based on XP and Karma</div>
   <?php
   $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'xp DESC, karma DESC', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getXP', " xp");
