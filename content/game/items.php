@@ -75,10 +75,11 @@ startBox(ucfirst($class).' Items');
   foreach($items as $item) {
 	if($item->class==$class) {
 	  ?>
-	  <div class="item">
-        <?php echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'; ?>
-	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt=" "></a>
-	      <div class="item_name"><?php echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'.$item->name; ?></a></div>
+  	  <div class="item">
+        <?php echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'; ?>'
+ 	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt="">
+	      <div class="item_name"><?php echo $item->name; ?></div>
+	    </a>
 	  </div>
 	  <?php
 	}
