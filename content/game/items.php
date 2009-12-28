@@ -77,8 +77,8 @@ startBox(ucfirst($class).' Items');
 	  ?>
 	  <div class="item">
         <?php echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'; ?>
-	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt=""></a>
-	      <div class="item_name">echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'.$item->name; ?></a></div>
+	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt=" "></a>
+	      <div class="item_name"><?php echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'.$item->name; ?></a></div>
 	  </div>
 	  <?php
 	}
