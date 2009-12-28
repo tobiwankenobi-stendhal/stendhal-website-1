@@ -17,9 +17,9 @@ if(sizeof($players)==0) {
 echo '<div style="height: 700px;">';
 foreach($players as $p) {
     echo '<div class="onlinePlayer">';
-    echo '  <img src="'.rewriteURL('/images/outfit/'.urlencode($p->outfit).'.png').'" alt="">';
     echo '  <a href="'.rewriteURL('/character/'.urlencode($p->name).'.html').'">';
-    echo '  <div class="name">'.htmlspecialchars(utf8_encode($p->name)).'</div>';
+    echo '  <img src="'.rewriteURL('/images/outfit/'.urlencode($p->outfit).'.png').'" alt="">';
+    echo '  <span class="name">'.htmlspecialchars(utf8_encode($p->name)).'</span>';
     echo ' </a>';
     echo '</div>';
 }
