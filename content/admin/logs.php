@@ -31,7 +31,7 @@ for ($i = 0; $i < count($lines); $i++) {
 	$class = "irctext";
 	if (substr($line, 5, 5) == ' -!- ') {
 		$class = "ircstatus";
-	} else if (substr($line, 5, 16) == ' < postman-bot> ') {
+	} else if (substr($line, 5, 16) == ' <.postman-bot> ') {
 
 		if (substr($line, 21, 54) == 'Support: A new character has just been created called ') {
 			$class = "ircnewchar";
