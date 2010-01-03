@@ -47,8 +47,10 @@ for ($day = 1; $day <= 31; $day++) {
 
 	$filename = $directory.$month . '-' . $daystr . ".log";
 	if (is_file($filename)) {
+		echo '<a name="day'.$day.'">';
 		$lines = explode("\n", file_get_contents($filename));
 		$res = '';
+		$first = true;
 		for ($i = 0; $i < count($lines); $i++) {
 			$line = $lines[$i];
 
