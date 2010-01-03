@@ -3,7 +3,17 @@
 class CVSLogPage extends Page {
 
 	public function writeHtmlHeader() {
-		echo '<title>Source Code Changes in CVS'.STENDHAL_TITLE.'</title>';
+		$month = $_GET['month'];
+		if (!isset($month)) {
+			echo '<title>Source Code Changes in CVS'.STENDHAL_TITLE.'</title>';
+		} else {
+			if (preg_match("/^\d\d\d\d-\d\d$/", $month)) {
+				echo '<title>Source Code Changes in CVS in '.$month.STENDHAL_TITLE.'</title>';
+			} else {
+				echo '<title>Source Code Changes in CVS'.STENDHAL_TITLE.'</title>';
+				echo '<meta name="robots" content="noindex">'."\n";
+			}
+		}
 	}
 
 	function writeContent() {
@@ -20,7 +30,7 @@ startBox("CVS"); ?>
 	if (isset($month) && preg_match("/^\d\d\d\d-\d\d$/", $month)) {
 ?>
 	<p>
-		<a href="./?id=content/game/cvslog">Index of logs</a>
+		<a href="<?php echo rewriteURL('/development/cvslog.html')?>">Index of logs</a>
 	</p>
 
 	<p>Timestamps are in server time.</p>
