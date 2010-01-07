@@ -316,7 +316,7 @@ require_once($page_url.'.php');
         $totaltime = $mtime[0] + $mtime[1] - $starttime;
         printf(' (Page generated in %.3f seconds.)', $totaltime);
         ?>
-        <span class="copyright">&copy; 1999-2009 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
+        <span class="copyright">&copy; 1999-2010 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
         <span><a href="http://sourceforge.net/projects/arianne"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net. Fast, secure and Free Open Source software downloads" ></a></span>
         <span><?php include('counter.php'); ?></span>
       </div>
