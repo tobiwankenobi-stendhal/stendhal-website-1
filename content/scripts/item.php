@@ -159,7 +159,7 @@ foreach($this->items as $m) {
 					if($factor!=1) {
 		 				$rate = ceil($data*$factor);
 				?>
-				<div class="label">EFFECTIVE RATE for player level <?php echo $level; ?> </div>
+				<div class="label">EFFECTIVE RATE for player level <?php echo htmlspecialchars($level); ?> </div>
 		    	<div class="data"><?php echo $rate; ?></div>
 			<?php } 
 			}
@@ -167,7 +167,7 @@ foreach($this->items as $m) {
 					if($factor!=1) {
 		 				$def = floor($data/$factor);
 				?>
-				<div class="label">EFFECTIVE DEF for player level <?php echo $level; ?></div>
+				<div class="label">EFFECTIVE DEF for player level <?php echo  htmlspecialchars($level); ?></div>
 				<div class="data"><?php echo $def; ?></div>
 			<?php } 
 			}
@@ -175,7 +175,7 @@ foreach($this->items as $m) {
 				?>
 					<br>
 					My level ...
-		   			<form method="post" action="/?id=content/scripts/item&name=<?php echo $m->name; ?>&exact">
+		   			<form method="post" action="/item/all/<?php echo $m->name; ?>.html">
             			<input type="text" name="level" size="3" maxlength="3">
             			<input type="submit" value="Check stats">
           			</form>
