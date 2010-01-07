@@ -52,7 +52,7 @@ $account=$choosen->getAccountInfo();
   <div class="statslabel">DM Score:</div><div class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></div>
   <?php if ($account["status"] == "active") {
   	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
-  }?> 
+  }?>
 </div>
 
 <div class="table">
@@ -61,6 +61,14 @@ $account=$choosen->getAccountInfo();
   <div class="account_status">
     This account is <span class="<?php echo htmlspecialchars($account["status"]); ?>"><?php echo htmlspecialchars($account["status"]); ?></span>
   </div> 
+  <?php if (($account["status"]) == 'active' && ($choosen->adminlevel > 0) && ($choosen->name != 'postman')) {
+  	if ($choosen->adminlevel > 100) {
+			echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/index.php/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
+		} else {
+			echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
+		}
+  }
+  ?>
 </div>
 
 
