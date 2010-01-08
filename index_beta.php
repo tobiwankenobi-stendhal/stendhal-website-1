@@ -160,7 +160,7 @@ require_once($page_url.'.php');
 
         <?php startBox('Help'); ?>
           <ul id="helpmenu" class="menu">
-            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalManual"><img src="/images/buttons/faq_button.png" alt="">Manual</a></li>
+            <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalManual"><img src="/images/buttons/manual_button.png" alt="">Manual</a></li>
             <li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
             <li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Ask For Help</a></li>
             <li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/buttons/faq_button.png" alt="">Support</a></li>
