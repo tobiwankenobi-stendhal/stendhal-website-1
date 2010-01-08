@@ -140,8 +140,9 @@ require_once($page_url.'.php');
         <?php 
           startBox('Movie');
           // TODO: Refactor so it uses a screenshot-like method.
+          //<object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/88qyeECNVrw"><param name="wmode" value="transparent"><embed src="http://www.youtube.com/v/88qyeECNVrw" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
           ?>
-          <object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/88qyeECNVrw"><param name="wmode" value="transparent"><embed src="http://www.youtube.com/v/88qyeECNVrw" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
+          <object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/thZiC4PWPyU"><param name="wmode" value="transparent"><embed src="http://www.youtube.com/v/thZiC4PWPyU" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
         <?php endBox() ?>
 
         <?php startBox('Game System'); ?>
@@ -255,7 +256,7 @@ require_once($page_url.'.php');
         <ul  id="contribmenu" class="menu">
           <?php
           echo '<li><a href="'.rewriteURL('/development/chat.html').'"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>'."\n";
-          echo '<li><a href="/wiki/index.php/Stendhal"><img src="/images/buttons/history_button.png" alt="">Wiki</a></li>'."\n";
+          echo '<li><a href="/wiki/index.php/Stendhal"><img src="/images/buttons/c_wiki_button.png" alt="">Wiki</a></li>'."\n";
           echo '<li><a href="'.rewriteURL('/development/bug.html').'"><img src="/images/buttons/c_bug_button.png" alt="">Report Bug</a></li>'."\n";
           echo '<li><a href="/wiki/index.php/Stendhal_Quest_Contribution"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>'."\n";
           echo '<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="/images/buttons/help_button.png" alt="">Submit Patch</a></li>'."\n";
@@ -305,7 +306,7 @@ require_once($page_url.'.php');
         $totaltime = $mtime[0] + $mtime[1] - $starttime;
         printf(' (Page generated in %.3f seconds.)', $totaltime);
         ?>
-        <span class="copyright">&copy; 1999-2009 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
+        <span class="copyright">&copy; 1999-2010 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
         <span><a href="http://sourceforge.net/projects/arianne"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net. Fast, secure and Free Open Source software downloads" ></a></span>
         <span><?php include('counter.php'); ?></span>
       </div>
