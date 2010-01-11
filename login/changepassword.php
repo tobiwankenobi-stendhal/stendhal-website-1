@@ -52,7 +52,7 @@ if(isset($_POST['sublogin'])){
       die('Password incorrectly typed.');
    }
 
-   if(strlen($_POST['newpass'] < 6)) {
+   if(strlen($_POST['newpass']) < 6) {
       die('The password needs to be at least 6 characters long.');
    }
 
