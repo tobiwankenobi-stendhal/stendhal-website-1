@@ -1,6 +1,6 @@
 <?php
 
-include_once('login_function.php');
+require_once('scripts/account.php');
 
 class RemindPage extends Page {
 

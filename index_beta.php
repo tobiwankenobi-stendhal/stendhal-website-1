@@ -22,10 +22,10 @@ session_start();
 $starttime = explode(' ', microtime());
 $starttime = $starttime[1] + $starttime[0];
    
-include('scripts/website.php');
-include('login/login_function.php');
-include('scripts/authors.php');
-include('scripts/urlrewrite.php');
+require_once('scripts/website.php');
+require_once('scripts/account.php');
+require_once('scripts/authors.php');
+require_once('scripts/urlrewrite.php');
 
 /*
  * Open connection to both databases.

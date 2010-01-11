@@ -1,7 +1,6 @@
 <?php
 
-include_once('login_function.php');
-require_once('logEvents.php');
+require_once('scripts/account.php');
 
 class ChangePasswordPage extends Page {
 
