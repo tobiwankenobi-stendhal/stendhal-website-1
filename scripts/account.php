@@ -179,7 +179,7 @@ function getUserID($username)
 
 // log password changes for user from ip
 // returns boolean successfully logged
-function logUserPasswordChange($user, $ip, $oldpass)
+function logUserPasswordChange($user, $ip, $oldpass, $result)
 {
      $userid = getUserID($user);
 
@@ -188,8 +188,8 @@ function logUserPasswordChange($user, $ip, $oldpass)
           return false;
      }
 
-     $q = "INSERT INTO passwordChange (player_id,address,oldpassword,service)".
-          " values (".$userid.",'".mysql_real_escape_string($ip)."','".mysql_real_escape_string($oldpass)."','website')";
+     $q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
+          " values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website',".mysql_real_escape_string($result).")";
 
      $result = mysql_query($q, getGameDB());
 
@@ -221,11 +221,11 @@ function logUserLogin($user, $ip, $success)
  */
 function getLoginHistory($playerId) {
 	$sql = "SELECT address, timedate, service, event, result FROM "
-		. "(SELECT address, timedate, service, 'login' As event,  result FROM loginEvent "
+		. "(SELECT address, timedate, service, 'login' As event, result FROM loginEvent "
 		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY) "
-		. "UNION SELECT address, timedate, service, 'password change' As event, 1 As result FROM passwordChange "
+		. "UNION SELECT address, timedate, service, 'password change' As event, result FROM passwordChange "
 		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
-		. "ORDER BY timedate DESC LIMIT 50;";
+		. "ORDER BY timedate DESC LIMIT 25;";
 
 	$result = mysql_query($sql, getGameDB());
 	$list=array();
