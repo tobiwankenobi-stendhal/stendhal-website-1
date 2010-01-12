@@ -36,6 +36,9 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png [L]
                 RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1 [L]
 
+                # account
+                RewriteRule ^/account/history.html$ /index.php?id=content/account/loginhistory [L]
+
                 # characters
                 RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact [L]
 
@@ -165,6 +168,12 @@ function rewriteURL($url) {
 			return preg_replace('|^/images/npc/(.*)\.png$|', '/monsterimage.php?url=data/sprites/npc/$1.png', $url);
 		} else if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
 			return preg_replace('|^/images/outfit/(.*)\.png$|', '/createoutfit.php?outfit=$1', $url);
+		}
+
+	// account
+	} else if (preg_match('|^/account.*|', $url)) {
+		if (preg_match('|^/account/history.html$|', $url)) {
+			return preg_replace('|^/account/history.html$|', '/?id=content/account/loginhistory', $url);
 		}
 
 	// characters
