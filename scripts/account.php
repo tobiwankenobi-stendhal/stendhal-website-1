@@ -1,4 +1,23 @@
-<?php 
+<?php
+/*
+ Stendhal website - a website to manage and ease playing of Stendhal game
+ Copyright (C) 2008  Miguel Angel Blanch Lardin
+ Copyright (C) 2008-2010 The Arianne Project
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 include_once('scripts/mysql.php');
 
 /**
@@ -110,16 +129,17 @@ function getAdminLevel() {
   }
   
   $result = mysql_query('select admin from character_stats where name="'.mysql_real_escape_string($_SESSION['username']).'"', getGameDB());
-  while($row=mysql_fetch_assoc($result)) {            
+  while($row=mysql_fetch_assoc($result)) {
     return (int)$row['admin'];
   }
 }
 
 function getUser($email) {
   $result = mysql_query('select username from account where email="'.mysql_real_escape_string($email).'"', getGameDB());
-  while($row=mysql_fetch_assoc($result)) {            
+  while($row=mysql_fetch_assoc($result)) {
     return $row['username'];
-  }}
+  }
+}
 
 /**
  * Determines whether or not to display the login
@@ -193,4 +213,54 @@ function logUserLogin($user, $ip, $success)
      $result = mysql_query($q, getGameDB());
 
      return $result !== false;
+}
+
+
+/**
+ * gets a list of recent login events for that player
+ */
+function getLoginHistory($playerId) {
+	$sql = "SELECT address, timedate, service, event, result FROM "
+		. "(SELECT address, timedate, service, 'login' As event,  result FROM loginEvent "
+		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY) "
+		. "UNION SELECT address, timedate, service, 'password change' As event, 1 As result FROM passwordChange "
+		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
+		. "ORDER BY timedate DESC LIMIT 50;";
+
+	$result = mysql_query($sql, getGameDB());
+	$list=array();
+
+	while($row = mysql_fetch_assoc($result)) {
+		$list[] = new PlayerLoginEntry($row['timedate'],
+			$row['address'], $row['service'], $row['event'],$row['result']);
+	}
+
+	mysql_free_result($result);
+
+	return $list;
+}
+
+
+/**
+  * A class that represent a player history entry
+  */
+class PlayerLoginEntry {
+	/* date and time of event */
+	public $timedate;
+	/* name of ip-address */
+	public $address;
+	/* name of service */
+	public $service;
+	/* type of event */
+	public $eventType;
+	/* success */
+	public $success;
+	
+	function __construct($timedate, $address, $service, $eventType, $success) {
+		$this->timedate = $timedate;
+		$this->address = $address;
+		$this->service = $service;
+		$this->eventType = $eventType;
+		$this->success = $success;
+	}
 }
