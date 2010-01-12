@@ -206,4 +206,15 @@ img.screenshot {
 	text-align: center;
 }
 
+.prettytable {
+	margin: 1em 1em 1em 0;
+	background: #f9f9f9;
+	border: 1px #AAA solid;
+	border-collapse: collapse;
+	empty-cells:show;
+}
 
+.prettytable th, .prettytable td {
+	border: 1px #AAA solid;
+	padding: 0.3em;
+}
