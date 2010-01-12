@@ -39,7 +39,11 @@ class LoginHistoryPage extends Page {
 		$playerId = getUserID($_SESSION['username']);
 		$events = getLoginHistory($playerId);
 
-		startBox('Your personal Login History');
+		startBox('Login history');
+
+		echo '<p>This is a list of your most recent logins and password changes. '
+			.'If you suspect unauthorized access to your account, please change your '
+			.'password immediatelly and contact <code>/support</code> in game.</p>';
 
 		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>source</th<th>event</th><th>result</th></tr>';
 		foreach ($events as $entry) {
