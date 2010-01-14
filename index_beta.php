@@ -136,13 +136,9 @@ require_once($page_url.'.php');
           <?php
           endBox() 
         ?>
-        
-        <?php 
-          startBox('Movie');
-          // TODO: Refactor so it uses a screenshot-like method.
-          //<object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/88qyeECNVrw"><param name="wmode" value="transparent"><embed src="http://www.youtube.com/v/88qyeECNVrw" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
-          ?>
-          <object width="162" height="130"><param name="movie" value="http://www.youtube.com/v/thZiC4PWPyU"><param name="wmode" value="transparent"><embed src="http://www.youtube.com/v/thZiC4PWPyU" type="application/x-shockwave-flash" wmode="transparent" width="162" height="130"></embed></object>
+
+        <?php startBox('Movie'); ?>
+          <a href="/wiki/index.php/Stendhal_Videos"><img src="/images/video.jpeg" width="99%" style="border: 0;"></a>
         <?php endBox() ?>
 
         <?php startBox('Game System'); ?>
