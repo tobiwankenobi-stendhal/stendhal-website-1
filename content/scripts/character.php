@@ -168,7 +168,7 @@ $account=$choosen->getAccountInfo();
         <?php
         $killer=getPlayer($source);
         ?>
-        <img class="creature" src="createoutfit.php?outfit=<?php echo htmlspecialchars($killer->outfit); ?>" alt="<?php echo utf8_encode($source); ?>"/>
+        <img class="creature" src="<?php echo rewriteURL('/images/outfit/'.htmlspecialchars($killer->outfit).'.png'); ?>" alt="<?php echo utf8_encode($source); ?>"/>
         Killed by <div style="display: inline;" class="label"><?php echo htmlspecialchars(utf8_encode($source)); ?></div>
         <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
         <div style="margin-bottom: 50px;"></div>
