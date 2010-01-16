@@ -148,7 +148,7 @@ function getUser($email) {
  */
 function displayLogin(){
    if(checkLogin()){ 
-     echo 'Logged as <b>'.$_SESSION['username'].'</b>. <a href="/?id=login/changepassword">Change password</a> - <a href="/?id=login/logout">Logout</a>';
+     echo 'Logged in as <b>'.$_SESSION['username'].'</b>. <a href="/?id=content/account/loginhistory">Login history</a> - <a href="/?id=login/changepassword">Change password</a> - <a href="/?id=login/logout">Logout</a>';
    }
    else{
      echo '<a href="/?id=login/login">Login</a>';
