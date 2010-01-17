@@ -94,60 +94,32 @@ class Monster {
     /*
      * Amount of times this creature has been killed by a player or another creature.
      */
-    $result = mysql_query('
-    select 
-      TO_DAYS(NOW()) - TO_DAYS(timedate) as day_offset, 
-      count(*) as amount 
-    from gameEvents 
-    where 
-      event="killed" and  
-      param1="'.mysql_real_escape_string($this->name).'" and  
-      TO_DAYS(NOW()) - TO_DAYS(timedate)  < '.$numberOfDays.'  
-      group by day_offset order by day_offset desc', getGameDB());
-    
-    /*
-     * TODO: Refactoring
-     *   Expected table:
-     * 
-     *   create table Killed(
-     *     timedate timedate,
-     * 
-     *     killed varchar(32),
-     *     killedIscreature boolean,
-     * 
-     *     killer varchar(32),
-     *     killerIscreature boolean,
-     *   )
-     *       
-     */
-    
-    while($row=mysql_fetch_assoc($result)) {      
+	$result = mysql_query("
+		SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
+		FROM kills
+		WHERE killed_type='C' AND killer_type='P'
+		AND killed='" . mysql_real_escape_string($this->name) . "'
+		AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
+		GROUP BY day", getGameDB());
+
+    while($row=mysql_fetch_assoc($result)) {
       $this->kills[$row['day_offset']]=$row['amount'];
     }
     
     mysql_free_result($result);
 
-    /*
-     * Amount of times this creature has killed a player.
-     */
-    $result = mysql_query('
-    select 
-      TO_DAYS(NOW()) - TO_DAYS(timedate) as day_offset, 
-      count(*) as amount 
-    from gameEvents 
-    where 
-      event="killed" and 
-      source="'.mysql_real_escape_string($this->name).'" and 
-      TO_DAYS(NOW()) - TO_DAYS(timedate) < '.$numberOfDays.' and 
-      param1 not in ('.listOfMonstersEscaped(getMonsters()).') 
-    group by day_offset
-    ORDER BY day_offset DESC', getGameDB());
+	/*
+	 * Amount of times this creature has killed a player.
+	 */
+	$result = mysql_query("
+		SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
+		FROM kills
+		WHERE killed_type='P' AND killer_type='C'
+		AND killer='" . mysql_real_escape_string($this->name) . "'
+		AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
+		GROUP BY day", getGameDB());
 
-    /*
-     * TODO: Refactoring
-     */
-
-    while($row=mysql_fetch_assoc($result)) {      
+    while($row=mysql_fetch_assoc($result)) {
       $this->killed[$row['day_offset']]=$row['amount'];
     }
     
