@@ -34,7 +34,7 @@ class Screenshot {
   }
   
   function showThumbnail() {
-    echo '<img class="screenshot" src="/thumbnail.php?img='.htmlspecialchars($this->url).'" alt="'.htmlspecialchars($this->description).'">';  
+    echo '<img class="screenshot" src="'.rewriteURL('/images/thumbnail/'.htmlspecialchars($this->url)).'" alt="'.htmlspecialchars($this->description).'">';  
   }
   
   function show() {

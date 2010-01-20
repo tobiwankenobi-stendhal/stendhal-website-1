@@ -134,8 +134,8 @@ require_once($page_url.'.php');
           $screen=getLatestScreenshot();
           
           ?>
-	  <a href="<? echo '/image.php?img='.htmlspecialchars($screen->url); ?>">
-       		<?php $screen->showThumbnail(); ?>
+      <a href="<? echo rewriteURL('/images/image/'.htmlspecialchars($screen->url)); ?>">
+        <?php $screen->showThumbnail(); ?>
           </a>
           <?php
           endBox() 
