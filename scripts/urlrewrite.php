@@ -32,11 +32,11 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # images
                 RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png [L]
-                RewriteRule ^/images/image/(.*)\.png$ /image.php?img=$1 [L]
+                RewriteRule ^/images/image/(.*)$ /image.php?img=$1 [L]
                 RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png [L]
                 RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png [L]
                 RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1 [L]
-                RewriteRule ^/images/thumbnail/(.*)\.png$ /thumbnail.php?img=$1 [L]
+                RewriteRule ^/images/thumbnail/(.*)$ /thumbnail.php?img=$1 [L]
 
                 # account
                 RewriteRule ^/account/history.html$ /index.php?id=content/account/loginhistory [L]
