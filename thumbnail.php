@@ -64,5 +64,6 @@ imagecopyresampled($image_resized, $image, 0, 0, 0, 0, $new_width, $new_height, 
 
 // Display resized image
 header('Content-type: image/jpeg');
+header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
 imagejpeg($image_resized);
 ?>

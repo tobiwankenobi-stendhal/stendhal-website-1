@@ -54,6 +54,7 @@ $baseIm=imagecreatefrompng($url);
 imagecopy($result,$baseIm,0,0,0,$loc,$w,$h);
 
 header("Content-type: image/png");
+header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
 imagepng($result);
 
 ?>
