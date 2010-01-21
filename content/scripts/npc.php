@@ -43,7 +43,7 @@ $npc=$this->npcs[0];
   <?php }?>
   
   <?php if ((isset($npc->job) && strlen($npc->job) > 0)) {?>
-  	<div class="sentence"><?php echo $npc->job; ?></div> 
+  	<div class="sentence"><?php echo str_replace('#', '', $npc->job); ?></div> 
   <?php }?>
   <?php if ((isset($npc->description) && strlen($npc->description) > 0)) {?>
 	<div class="sentence"><?php echo $npc->description; ?></div> 
