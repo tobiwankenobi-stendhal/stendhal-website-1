@@ -53,6 +53,7 @@ function changePassword() {
 	}
 
 	/* Here we log the pw change, with user id, IP and hash of the old pass */
+	$md5pass = strtoupper(md5($_POST['pass']));
 	logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $md5pass, 1);
 
 	/* Username and password correct, register session variables */
