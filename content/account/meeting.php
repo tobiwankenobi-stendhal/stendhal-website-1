@@ -28,7 +28,7 @@ class MeetingPage extends Page {
 	function writeContent() {
 		if(!isset($_SESSION['username'])) {
 			startBox("Meeting");
-			echo '<p>Please <a href="/?id=login/login">login</a> to register for the meeting or to edit your registratoin.</p>';
+			echo '<p>Please <a href="/?id=login/login">login</a> to register for the meeting or to edit your registration.</p>';
 			endBox();
 		} else {
 			$this->printForm();
@@ -49,6 +49,12 @@ class MeetingPage extends Page {
 		this form to protect your privacy.</p>
 
 		<p>Note: You can modify this form later.</p>
+
+		<?php
+			if (isset($_POST["realname"]) || isset($_POST["email"]) || isset($_POST["nickname"])) {
+				echo '<p style="font-size: +3; color:green; font-weight: bold; border: 3px solid grey; padding: 1em">Data saved successfully.</p>';
+			}
+		?>
 
 		<form method="POST" action="/index.php?id=content/account/meeting">
 
@@ -103,7 +109,10 @@ class MeetingPage extends Page {
 		</table>
 		</form>
 		<p>A red asterix <span style="color: red">*</span> marks a required field.</p>
+
 		<?php
+
+		
 		endBox(); 
 
 	}
