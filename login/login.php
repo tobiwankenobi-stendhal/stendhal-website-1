@@ -85,7 +85,12 @@ if(isset($_POST['sublogin'])){
       setcookie("cookpass", $_SESSION['password'], time()+60*60*24*100, "/");
    }
       
-   echo "<meta http-equiv=\"Refresh\" content=\"1;url=?\">";
+   $url = "/";
+// TODO: find a better way to whitelist parameters without hardcoding them.
+   if ($_POST['url'] == "content/account/meeting") {
+     $url = "/index.php?id=content/account/meeting";
+   }
+   echo "<meta http-equiv=\"Refresh\" content=\"1;url=".$url."\">";
    startBox("Login");
      echo '<h1>Login correct.</h1> Moving to main page.';
    endBox();
@@ -105,6 +110,15 @@ startBox("Login");
   <font size="2">Remember me next time</font></td></tr>
   <tr><td colspan="2" align="right"><input type="submit" name="sublogin" value="Login"></td></tr>
 </table>
+<?php
+// TODO: merge _GET and _POST
+if (isset($_GET['url'])) {
+	echo '<input type="hidden" name="url" value="'.htmlspecialchars($_GET['url']).'">';
+}
+if (isset($_POST['url'])) {
+	echo '<input type="hidden" name="url" value="'.htmlspecialchars($_POST['url']).'">';
+}
+?>
 </form>
 
 <?php
