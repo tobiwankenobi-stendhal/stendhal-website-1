@@ -37,7 +37,8 @@ class MeetingPage extends Page {
 	
 	function printForm() {
 		$playerId = getUserID($_SESSION['username']);
-		// $registration = getMeetingRegistration($playerId);
+		saveMeetingRegistration($playerId);
+		$registration = getMeetingRegistration($playerId);
 
 		startBox('Meeting Registration');
 ?>
@@ -49,7 +50,7 @@ class MeetingPage extends Page {
 
 		<p>Note: You can modify this form later.</p>
 
-		<form method="POST" action="/index.php?id=account/meeting">
+		<form method="POST" action="/index.php?id=content/account/meeting">
 
 		<table>
 		<tr>
@@ -91,7 +92,7 @@ class MeetingPage extends Page {
 
 		<tr>
 			<td><label for="comment">Comment:</label></td>
-			<td><textarea name="comment" rows="5" cols="50"><?php echo htmlspecialchars($registration->nickname)?></textarea></td>
+			<td><textarea name="comment" rows="5" cols="50"><?php echo htmlspecialchars($registration->comment)?></textarea></td>
 		</tr>
 
 		<tr>
@@ -108,4 +109,5 @@ class MeetingPage extends Page {
 	}
 }
 $page = new MeetingPage();
+
 ?>
