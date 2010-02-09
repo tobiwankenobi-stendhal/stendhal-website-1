@@ -28,7 +28,7 @@ class MeetingPage extends Page {
 	function writeContent() {
 		if(!isset($_SESSION['username'])) {
 			startBox("Meeting");
-			echo '<p>Please <a href="/?id=login/login">login</a> to register for the meeting or to edit your registration.</p>';
+			echo '<p>Please <a href="/?id=login/login&amp;url=content/account/meeting">login</a> to register for the meeting or to edit your registration.</p>';
 			endBox();
 		} else {
 			$this->printForm();
