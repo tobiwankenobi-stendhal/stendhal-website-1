@@ -55,7 +55,6 @@ if(STENDHAL_PLEASE_MAKE_IT_FAST){
   ?>
     <div class="notice">
       The following data is not correct and that's a known bug.<br/>
-      Please don't report it.<br/>
       As soon as we fix this problem you will see real data from game server.
     </div>
   <?php
@@ -72,5 +71,6 @@ include('scripts/npcs.php');
 include('scripts/items.php');
 include('scripts/statistics.php');
 include('scripts/cache.php');
+include("scripts/meeting.php");
 
 ?>
