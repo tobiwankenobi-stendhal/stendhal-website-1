@@ -154,95 +154,96 @@ Note: You need to restart apache after editing these files.
  * @return real url
  */
 function rewriteURL($url) {
-	
+
 	if (STENDHAL_MODE_REWRITE) {
 		return $url;
 	}
-	
+
+	$folder = STENDHAL_FOLDER;
 
 	// images
 	if (preg_match('|^/images/.*|', $url)) {
 		if (preg_match('|^/images/creature/(.*)\.png$|', $url)) {
-			return preg_replace('|^/images/creature/(.*)\.png$|', '/monsterimage.php?url=data/sprites/monsters/$1.png', $url);
+			return preg_replace('|^/images/creature/(.*)\.png$|', $folder.'/monsterimage.php?url=data/sprites/monsters/$1.png', $url);
 		} else if (preg_match('|^/images/item/(.*)\.png$|', $url)) {
-			return preg_replace('|^/images/item/(.*)\.png$|', '/itemimage.php?url=data/sprites/items/$1.png', $url);
+			return preg_replace('|^/images/item/(.*)\.png$|', $folder.'/itemimage.php?url=data/sprites/items/$1.png', $url);
 		} else if (preg_match('|^/images/npc/(.*)\.png$|', $url)) {
-			return preg_replace('|^/images/npc/(.*)\.png$|', '/monsterimage.php?url=data/sprites/npc/$1.png', $url);
+			return preg_replace('|^/images/npc/(.*)\.png$|', $folder.'/monsterimage.php?url=data/sprites/npc/$1.png', $url);
 		} else if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
-			return preg_replace('|^/images/outfit/(.*)\.png$|', '/createoutfit.php?outfit=$1', $url);
+			return preg_replace('|^/images/outfit/(.*)\.png$|', $folder.'/createoutfit.php?outfit=$1', $url);
 		} else if (preg_match('|^/images/thumbnail/(.*)$|', $url)) {
-			return preg_replace('|^/images/thumbnail/(.*)$|', '/thumbnail.php?img=$1', $url);
+			return preg_replace('|^/images/thumbnail/(.*)$|', $folder.'/thumbnail.php?img=$1', $url);
 		} else if (preg_match('|^/images/image/(.*)$|', $url)) {
-			return preg_replace('|^/images/image/(.*)$|', '/image.php?img=$1', $url);
+			return preg_replace('|^/images/image/(.*)$|', $folder.'/image.php?img=$1', $url);
 		}
 
 	// account
 	} else if (preg_match('|^/account.*|', $url)) {
 		if (preg_match('|^/account/history.html$|', $url)) {
-			return preg_replace('|^/account/history.html$|', '/?id=content/account/loginhistory', $url);
+			return preg_replace('|^/account/history.html$|', $folder.'/?id=content/account/loginhistory', $url);
 		}
 
 	// characters
 	} else if (preg_match('|^/character.*|', $url)) {
 		if (preg_match('|^/character/(.*)\.html$|', $url)) {
-			return preg_replace('|^/character/(.*)\.html$|', '/?id=content/scripts/character&amp;name=$1&amp;exact', $url);
+			return preg_replace('|^/character/(.*)\.html$|', $folder.'/?id=content/scripts/character&amp;name=$1&amp;exact', $url);
 		}
 
 	// creatures
 	} else if (preg_match('|^/creature.*|', $url)) {
 		if (preg_match('|^/creature/?$|', $url)) {
-			return preg_replace('|^/creature/?$|', '/?id=content/game/creatures', $url);
+			return preg_replace('|^/creature/?$|', $folder.'/?id=content/game/creatures', $url);
 		} else if (preg_match('|^/creature/(.*)\.html$|', $url)) {
-			return preg_replace('|^/creature/(.*)\.html$|', '/?id=content/scripts/monster&amp;name=$1&amp;exact', $url);
+			return preg_replace('|^/creature/(.*)\.html$|', $folder.'/?id=content/scripts/monster&amp;name=$1&amp;exact', $url);
 		}
 
 	// development
 	} else if (preg_match('|^/development.*|', $url)) {
 		if (preg_match('|^/development/?$|', $url)) {
-			return preg_replace('|^/development/?$|', '/?id=content/game/development', $url);
+			return preg_replace('|^/development/?$|', $folder.'/?id=content/game/development', $url);
 		} else if (preg_match('|^/development/bug\.html$|', $url)) {
-			return preg_replace('|^/development/bug\.html$|', '/?id=content/game/bug', $url);
+			return preg_replace('|^/development/bug\.html$|', $folder.'/?id=content/game/bug', $url);
 		} else if (preg_match('|^/development/chat\.html$|', $url)) {
-			return preg_replace('|^/development/chat\.html$|', '/?id=content/game/chat', $url);
+			return preg_replace('|^/development/chat\.html$|', $folder.'/?id=content/game/chat', $url);
 		} else if (preg_match('|^/development/cvslog\.html$|', $url)) {
-			return preg_replace('|^/development/cvslog\.html$|', '/?id=content/game/cvslog', $url);
+			return preg_replace('|^/development/cvslog\.html$|', $folder.'/?id=content/game/cvslog', $url);
 		} else if (preg_match('|^/development/cvslog/(.*)\.html$|', $url)) {
-			return preg_replace('|^/development/cvslog/(.*)\.html$|', '/?id=content/game/cvslog&amp;month=$1', $url);
+			return preg_replace('|^/development/cvslog/(.*)\.html$|', $folder.'/?id=content/game/cvslog&amp;month=$1', $url);
 		}
 
 	// items
 	} else if (preg_match('|^/item.*|', $url)) {
 		if (preg_match('|^/item/?$|', $url)) {
-			return preg_replace('|^/item/?$|', '/?id=content/game/items', $url);
+			return preg_replace('|^/item/?$|', $folder.'/?id=content/game/items', $url);
 		} else if (preg_match('|^/item/[^/]*/(.*)\.html$|', $url)) {
-			return preg_replace('|^/item/([^/]*)/(.*)\.html$|', '/?id=content/scripts/item&amp;class=$1&amp;name=$2&amp;exact', $url);
+			return preg_replace('|^/item/([^/]*)/(.*)\.html$|', $folder.'/?id=content/scripts/item&amp;class=$1&amp;name=$2&amp;exact', $url);
 		} else if (preg_match('|^/item/([^/]*)\.html$|', $url)) {
-			return preg_replace('|^/item/([^/]*)\.html$|', '/?id=content/game/items&amp;class=$1', $url);
+			return preg_replace('|^/item/([^/]*)\.html$|', $folder.'/?id=content/game/items&amp;class=$1', $url);
 		}
 
 	// npcs
 	} else if (preg_match('|^/npc.*|', $url)) {
 		if (preg_match('|^/npc/?$|', $url)) {
-			return preg_replace('|^/npc/?$|', '/?id=content/game/npcs', $url);
+			return preg_replace('|^/npc/?$|', $folder.'/?id=content/game/npcs', $url);
 		} else if (preg_match('|^/npc/(.*)\.html$|', $url)) {
-			return preg_replace('|^/npc/(.*)\.html$|', '/?id=content/scripts/npc&amp;name=$1&amp;exact', $url);
+			return preg_replace('|^/npc/(.*)\.html$|', $folder.'/?id=content/scripts/npc&amp;name=$1&amp;exact', $url);
 		}
 
 	// world
 	} else if (preg_match('|^/world.*|', $url)) {
 		
 		if (preg_match('|^/world/atlas\.html$|', $url)) {
-			return preg_replace('|^/world/atlas\.html$|', '/?id=content/game/atlas', $url);
+			return preg_replace('|^/world/atlas\.html$|', $folder.'/?id=content/game/atlas', $url);
 		} else if (preg_match('|^/world/hall-of-fame\.html$|', $url)) {
-			return preg_replace('|^/world/hall-of-fame\.html$|', '/?id=content/halloffame', $url);
+			return preg_replace('|^/world/hall-of-fame\.html$|', $folder.'/?id=content/halloffame', $url);
 		} else if (preg_match('|^/world/newsarchive\.html$|', $url)) {
-			return preg_replace('|^/world/newsarchive\.html$|', '/?id=content/newsarchive', $url);
+			return preg_replace('|^/world/newsarchive\.html$|', $folder.'/?id=content/newsarchive', $url);
 		} else if (preg_match('|^/world/kill-stats\.html$|', $url)) {
-			return preg_replace('|^/world/kill-stats\.html$|', '/?id=content/scripts/killedstats', $url);
+			return preg_replace('|^/world/kill-stats\.html$|', $folder.'/?id=content/scripts/killedstats', $url);
 		} else if (preg_match('|^/world/online\.html$|', $url)) {
-			return preg_replace('|^/world/online\.html$|', '/?id=content/scripts/online', $url);
+			return preg_replace('|^/world/online\.html$|', $folder.'/?id=content/scripts/online', $url);
 		} else if (preg_match('|^/world/server-stats\.html$|', $url)) {
-			return preg_replace('|^/world/server-stats\.html$|', '/?id=content/scripts/serverstats', $url);
+			return preg_replace('|^/world/server-stats\.html$|', $folder.'/?id=content/scripts/serverstats', $url);
 		}
 
 
