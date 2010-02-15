@@ -173,11 +173,10 @@ function getMostKilledMonster($monsters) {
 		LIMIT 1;";
 	$result = mysql_query($query, getGameDB());
 
-    
     $monster=null;
     while($row=mysql_fetch_assoc($result)) {
       foreach($monsters as $m) {
-        if($m->name==$row['param1']) {
+        if($m->name==$row['killed']) {
           $monster=array($m, $row['amount']);
         }
       }
@@ -202,15 +201,15 @@ function getBestKillerMonster($monsters) {
     
 	$query="SELECT killer, count(*) As amount 
 		FROM kills
-		WHERE killer_type='C' AND killed_type='P' AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
+		WHERE killer_type='C' AND killed_type='P' AND date_sub(curdate(), INTERVAL " . $numOfDays . " DAY) < day
 		GROUP BY killer
 		ORDER BY amount DESC
 		LIMIT 1;";
 	$result = mysql_query($query, getGameDB());
-
+echo $query;
     $monster=null;
     while($row=mysql_fetch_assoc($result)) {
-      $monster=array(getMonster($row['source']), $row['amount']);
+      $monster=array(getMonster($row['killer']), $row['amount']);
     }
     
     mysql_free_result($result);
