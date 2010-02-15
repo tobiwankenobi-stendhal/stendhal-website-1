@@ -206,7 +206,7 @@ function getBestKillerMonster($monsters) {
 		ORDER BY amount DESC
 		LIMIT 1;";
 	$result = mysql_query($query, getGameDB());
-echo $query;
+
     $monster=null;
     while($row=mysql_fetch_assoc($result)) {
       $monster=array(getMonster($row['killer']), $row['amount']);
