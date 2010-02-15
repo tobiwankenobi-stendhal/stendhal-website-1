@@ -168,7 +168,7 @@ function getMostKilledMonster($monsters) {
 	$query = "SELECT killed, count(*) As amount
 		FROM kills
 		WHERE killed_type='C' AND killer_type='P' AND date_sub(curdate(), INTERVAL ".$numOfDays." DAY) < day
-		GROUP BY killer
+		GROUP BY killed
 		ORDER BY amount DESC
 		LIMIT 1;";
 	$result = mysql_query($query, getGameDB());
