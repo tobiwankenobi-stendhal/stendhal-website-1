@@ -83,14 +83,7 @@ class Monster {
       $this->kills[$i]=0;
       $this->killed[$i]=0;
     }
-    
-    ##
-    ## HACK: I am here to present fake data until queries are optimizied.
-    ##
-    if(STENDHAL_PLEASE_MAKE_IT_FAST) {
-      return;
-    }
-    
+
     /*
      * Amount of times this creature has been killed by a player or another creature.
      */
@@ -172,18 +165,20 @@ function getMostKilledMonster($monsters) {
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
     
-    $query='select param1, count(*) as amount from gameEvents where datediff(now(),timedate)<'.$numOfDays.' and event="killed" and param1 in ('.listOfMonstersEscaped($monsters).') group by param1 order by amount desc limit 1';
-    $result = mysql_query($query, getGameDB());
-    
-	/*
-     * TODO: Refactoring
-     */
+	$query = "SELECT killed, count(*) As amount
+		FROM kills
+		WHERE killed_type='C' AND killer_type='P' AND date_sub(curdate(), INTERVAL ".$numOfDays." DAY) < day
+		GROUP BY killer
+		ORDER BY amount DESC
+		LIMIT 1;";
+	$result = mysql_query($query, getGameDB());
+
     
     $monster=null;
-    while($row=mysql_fetch_assoc($result)) {      
+    while($row=mysql_fetch_assoc($result)) {
       foreach($monsters as $m) {
         if($m->name==$row['param1']) {
-          $monster=array($m, $row['amount']);        
+          $monster=array($m, $row['amount']);
         }
       }
     }
@@ -205,16 +200,17 @@ function getBestKillerMonster($monsters) {
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ## 
     
-    $query='select source, count(*) as amount from gameEvents where datediff(now(),timedate)<'.$numOfDays.' and event="killed" and source in ('.listOfMonstersEscaped($monsters).') and param1 not in ('.listOfMonstersEscaped($monsters).') group by source order by amount desc limit 1';
-    $result = mysql_query($query, getGameDB());
-    
-	/*
-     * TODO: Refactoring
-     */
-    
+	$query="SELECT killer, count(*) As amount 
+		FROM kills
+		WHERE killer_type='C' AND killed_type='P' AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
+		GROUP BY killer
+		ORDER BY amount DESC
+		LIMIT 1;";
+	$result = mysql_query($query, getGameDB());
+
     $monster=null;
-    while($row=mysql_fetch_assoc($result)) {   
-      $monster=array(getMonster($row['source']), $row['amount']);        
+    while($row=mysql_fetch_assoc($result)) {
+      $monster=array(getMonster($row['source']), $row['amount']);
     }
     
     mysql_free_result($result);
@@ -286,7 +282,7 @@ function getMonsters() {
     */
     $list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops);
   } 
-  
+
   Monster::$monsters=$list;
   return $list;
 }
