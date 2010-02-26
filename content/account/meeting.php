@@ -85,7 +85,7 @@ class MeetingPage extends Page {
 		</tr>
 
 		<tr>
-			<td><label for="attent">Attenting:</label></td>
+			<td><label for="attent">Attending:</label></td>
 			<td>
 				<input type="radio" name="attent" id="attent_yes" value="yes" <?php if($registration->attent=="yes") echo 'checked="checked"'?>>
 				<label for="attent_yes">Yes</label>
