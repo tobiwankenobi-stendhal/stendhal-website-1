@@ -52,9 +52,20 @@ create table news (
   title varchar(256),
   shortDescription varchar(256),
   extendedDescription text,
-  
+  detailedDescription text,
+  active int default 1,
+  news_type_id int,
   created timestamp default CURRENT_TIMESTAMP,
   
+  primary key(id)
+);
+
+create table news_type (
+  id int auto_increment not null,
+  title varchar(255),
+  image_url varchar(255),
+  active int default 1,
+
   primary key(id)
 );
 
