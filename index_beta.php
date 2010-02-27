@@ -163,19 +163,6 @@ require_once($page_url.'.php');
 		<a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo STENDHAL_VERSION; ?>.zip"><div id="downloadArea"></div></a>
 
 
-		<?php startBox('Players'); ?>
-		<ul class="menu">
-			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; size: +1"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
-			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
-            <li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
-		</ul>
-		<form method="get" action="/" accept-charset="iso-8859-1">
-			<input type="hidden" name="id" value="content/scripts/character">
-			<input type="text" name="name" maxlength="30" style="width:9.8em">
-			<input type="submit" name="search" value="Search">
-		</form>
-		<?php endBox(); ?>
-
 		<?php 
 		startBox('Best Player');
 		$player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
@@ -189,6 +176,20 @@ require_once($page_url.'.php');
 			<?php
 		}
 		endBox(); ?>
+
+		<?php startBox('Players'); ?>
+		<ul class="menu">
+			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; size: +1"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
+			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
+            <li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
+		</ul>
+		<form method="get" action="/" accept-charset="iso-8859-1">
+			<input type="hidden" name="id" value="content/scripts/character">
+			<input type="text" name="name" maxlength="30" style="width:9.8em">
+			<input type="submit" name="search" value="Search">
+		</form>
+		<?php endBox(); ?>
+
 
 		<?php 
 		/*
