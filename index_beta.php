@@ -180,6 +180,7 @@ require_once($page_url.'.php');
 		<?php startBox('Players'); ?>
 		<ul class="menu">
 			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><?php echo getAmountOfPlayersOnline(); ?>&nbsp;Players&nbsp;Online</a></li>
+            <li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Killed stats</a></li>
 			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
 		</ul>
 		<form method="get" action="/" accept-charset="iso-8859-1">
@@ -245,6 +246,7 @@ require_once($page_url.'.php');
 			echo '<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="/images/buttons/help_button.png" alt="">Submit Patch</a></li>'."\n";
 			echo '<li><a href="http://xplanner.homelinux.net"><img src="/images/buttons/test_button.png" alt="">Testing</a></li>'."\n";
 			echo '<li><a href="'.rewriteURL('/development/cvslog.html').'"><img src="/images/buttons/history_button.png" alt="">CVS/Changes</a></li>'."\n";
+			echo '<li><a href="http://sf.net/projects/arianne/files/stendhal"><img src="/images/buttons/download_button.png" alt="">All Downloads</a></li>'."\n";
 			echo '<li><a href="'.rewriteURL('/development').'"><img src="/images/buttons/rpsystem_button.png" alt="">Development</a></li>'."\n";
 			?>
 		</ul>
