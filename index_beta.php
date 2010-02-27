@@ -179,9 +179,9 @@ require_once($page_url.'.php');
 
 		<?php startBox('Players'); ?>
 		<ul class="menu">
-			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><?php echo getAmountOfPlayersOnline(); ?>&nbsp;Players&nbsp;Online</a></li>
-            <li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Killed stats</a></li>
+			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
 			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
+            <li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
 		</ul>
 		<form method="get" action="/" accept-charset="iso-8859-1">
 			<input type="hidden" name="id" value="content/scripts/character">
