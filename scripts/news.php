@@ -87,7 +87,7 @@ function addNews($title, $oneline, $body, $images, $approved=false) {
     $oneline=mysql_real_escape_string($oneline);
     $body=mysql_real_escape_string($body);
 
-    $query='insert into news values(null,"'.$title.'","'.$oneline.'","'.$body.'", null)';
+    $query='insert into news (title, shortDescription, extendedDescription, active) values ("'.$title.'","'.$oneline.'","'.$body.'", 1)';
     mysql_query($query, getWebsiteDB());
     if(mysql_affected_rows()!=1) {
         echo '<span class="error">There has been a problem while inserting news.</span>';
