@@ -29,7 +29,7 @@ class NewsArchivePage extends Page {
 
 <div id="newsArea">
   <?php
-  foreach(getNews('', 'created desc', '') as $i) {
+  foreach(getNews(' active=1 ', 'created desc', '') as $i) {
    $i->show();
   }
   ?>
