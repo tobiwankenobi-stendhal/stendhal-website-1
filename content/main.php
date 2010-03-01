@@ -34,7 +34,7 @@ class MainPage extends Page {
 </div>
 <div id="newsArea">
   <?php
-  foreach(getNews(' active=1 ') as $i) {
+  foreach(getNews(' where active=1 ') as $i) {
    $i->show();
   }
   ?>
