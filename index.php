@@ -188,7 +188,7 @@ $folder = "";
 		<form method="get" action="/" accept-charset="iso-8859-1">
 			<input type="hidden" name="id" value="content/scripts/character">
 			<input type="text" name="name" maxlength="30" style="width:9.8em">
-			<input type="submit" name="search" value="Search">
+			<input type="submit" name="search" value="Player search">
 		</form>
 		<?php endBox(); ?>
 
