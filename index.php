@@ -151,6 +151,7 @@ if ($page->writeHttpHeader()) {
 		<ul id="helpmenu" class="menu">
 			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalManual"><img src="/images/buttons/manual_button.png" alt="">Manual</a></li>
 			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
+			<li><a href="http://stendhal.game-host.org/wiki/index.php/BeginnersGuide"><img src="/images/buttons/beginner_button.png" alt="">Beginner's Guide</a></li>
 			<li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Ask For Help</a></li>
 			<li><a href="<?php echo rewriteURL('/development/chat.html');?>"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>
 			<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/buttons/support_button.png" alt="">Support Ticket</a></li>
