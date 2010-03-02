@@ -60,6 +60,9 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/item/([^/]*)/(.*)\.html$ /index.php?id=content/scripts/item&class=$1&name=$2&exact [L]
                 RewriteRule ^/item/([^/]*)\.html$ /index.php?id=content/game/items&class=$1 [L]
 
+                # news
+                RewriteRule ^/news/(.*)$ /index.php?id=content/news/newss&news=$1 [L]
+
                 # npcs
                 RewriteRule ^/npc/?$ /index.php?id=content/game/npcs [L]
                 RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact [L]
@@ -116,6 +119,10 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /item/all/%1.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/items&class=([^&]*)
                 RewriteRule ^/.* /item/%1.html? [R=301]
+
+                # news
+                RewriteCond %{QUERY_STRING} id=content/news/news&news=([^&]*)
+                RewriteRule ^/.* /news/%1? [R=301]
 
                 # npcs
                 RewriteCond %{QUERY_STRING} id=content/game/npcs
@@ -220,6 +227,11 @@ function rewriteURL($url) {
 		} else if (preg_match('|^/item/([^/]*)\.html$|', $url)) {
 			return preg_replace('|^/item/([^/]*)\.html$|', $folder.'/?id=content/game/items&amp;class=$1', $url);
 		}
+	
+	// news
+	} else if (preg_match('|^/news/.*|', $url)) {
+		return preg_replace('|^/news/(.*)$|', $folder.'/?id=content/news/news&amp;news=$1', $url);
+	
 
 	// npcs
 	} else if (preg_match('|^/npc.*|', $url)) {
