@@ -153,7 +153,7 @@ if ($page->writeHttpHeader()) {
 			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
 			<li><a href="http://stendhal.game-host.org/wiki/index.php/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Ask For Help</a></li>
 			<li><a href="<?php echo rewriteURL('/development/chat.html');?>"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>
-			<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/buttons/faq_button.png" alt="">Support-Ticket</a></li>
+			<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/buttons/support_button.png" alt="">Support Ticket</a></li>
 			<li><a href="http://sourceforge.net/forum/forum.php?forum_id=3190"><img src="/images/buttons/forum_button.png" alt="">Forum</a></li>
 			<li><a href="http://stendhal.game-host.org/wiki/index.php/StendhalRuleSystem"><img src="/images/buttons/rules_button.png" alt="">Rules</a></li>
 		</ul>
