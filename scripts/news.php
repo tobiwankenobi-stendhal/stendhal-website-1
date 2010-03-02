@@ -64,8 +64,16 @@ class News {
 	}
 
 	function show($detail=false) {
-		/* NOTE: Fill this note with the HTML code needed to draw an News item. */
-		startBox('<div class="newsDate">'.$this->date.'</div><div class="newsTitle">'.$this->title.'</div>');
+		// link the title unless we are in detail view
+		$heading = '<div class="newsDate">'.$this->date.'</div><div class="newsTitle">';
+		if (!$detail) {
+			$heading .= '<a style="newsTitle" href="'.$this->getNiceURL().'">'.$this->title.'</a>';
+		} else {
+			$heading .= $this->title;
+		}
+		$heading .= '</div>';
+		
+		startBox($heading);
 		echo '<div class="newsContent">'.$this->oneLineDescription.'</div>';
 
 		echo '<div class="newsContent newsTeaser">'.$this->extendedDescription;
