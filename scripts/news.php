@@ -63,11 +63,14 @@ class News {
 		$this->typeImage = $typeImage;
 	}
 
-	function show() {
+	function show($detail=false) {
 		/* NOTE: Fill this note with the HTML code needed to draw an News item. */
 		startBox('<div class="newsDate">'.$this->date.'</div><div class="newsTitle">'.$this->title.'</div>');
 		echo '<div class="newsContent">'.$this->oneLineDescription.'</div>';
 		echo '<div class="newsContent newsTeaser">'.$this->extendedDescription.'</div>';
+		if ($detail) {
+			echo '<div class="newsContent newsDetail">'.$this->detailedDescription.'</div>';
+		}
 		endBox();
 		/* END NOTE */
 	}
