@@ -47,7 +47,12 @@ class NewsPage extends Page {
 		$url = $_GET['news'];
 		$pos = strrpos($url, '-');
 		$id = substr($url, $pos + 1);
-		$id = substr($id, 0, strpos($id, '.'));
+		$pos = strpos($id, '.');
+
+		// remove optional .html suffix
+		if ($pos !== 0) {
+			$id = substr($id, 0, $pos);
+		}
 		return intval($id);
 	}
 
@@ -73,11 +78,15 @@ class NewsPage extends Page {
 ?>
 
 <div id="newsArea">
-  <?php
-  foreach(getNews(' where news.active=1 ', 'created desc', '') as $i) {
-   $i->show();
-  }
-  ?>
+<?php
+	if (isset($this->news)) {
+		$this->news->show(true);
+	} else {
+		startBox('News');
+		echo 'Not Found';
+		endBox();
+	}
+?>
 </div>
 <?php
 	}
