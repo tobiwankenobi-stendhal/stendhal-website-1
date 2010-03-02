@@ -28,7 +28,7 @@ class MainPage extends Page {
 ?>
 
 <div id="oneLineDescription">
-	<img src="images/playit.gif" alt="play stendhal">
+	<img src="/images/playit.gif" alt="play stendhal">
 	<span>Stendhal is a fully fledged free open source multiplayer online 
 	adventures game (MORPG) developed using the Arianne game system.</span>
 </div>
