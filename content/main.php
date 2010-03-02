@@ -28,24 +28,24 @@ class MainPage extends Page {
 ?>
 
 <div id="oneLineDescription">
-   <img src="images/playit.gif" alt="play stendhal">
-   <span>Stendhal is a fully fledged free open source multiplayer online 
-   adventures game (MORPG) developed using the Arianne game system.</span>
+	<img src="images/playit.gif" alt="play stendhal">
+	<span>Stendhal is a fully fledged free open source multiplayer online 
+	adventures game (MORPG) developed using the Arianne game system.</span>
 </div>
 <div id="newsArea">
-  <?php
-  foreach(getNews(' where news.active=1 ') as $i) {
-   $i->show();
-  }
-  ?>
+	<?php
+	foreach(getNews(' where news.active=1 ') as $i) {
+		$i->show();
+	}
+	?>
 </div>
 <br>
 <br>
 <div>
-    <?php startBox('News Archive');
-    echo 'Read <a href="'.rewriteURL('/world/newsarchive.html').'">older news</a>.';
-    endBox();
-    ?>
+	<?php startBox('News Archive');
+	echo 'Read <a href="'.rewriteURL('/world/newsarchive.html').'">older news</a>.';
+	endBox();
+	?>
 </div>
 <?php
 	}

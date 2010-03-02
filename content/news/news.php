@@ -84,7 +84,7 @@ class NewsPage extends Page {
 ?>
 
 <div id="newsArea">
-<?php
+	<?php
 	if (isset($this->news)) {
 		$this->news->show(true);
 	} else {
@@ -92,7 +92,13 @@ class NewsPage extends Page {
 		echo 'Not Found';
 		endBox();
 	}
-?>
+	?>
+	<div>
+		<?php startBox('News Archive');
+		echo 'Read <a href="'.rewriteURL('/world/newsarchive.html').'">older news</a>.';
+		endBox();
+		?>
+	</div>
 </div>
 <?php
 	}
