@@ -45,12 +45,17 @@ class NewsPage extends Page {
 	 */
 	function getNewsIdFromUrl() {
 		$url = $_GET['news'];
+
+		if (is_numeric($url)) {
+			return abs(intval($url));
+		}
+		
 		$pos = strrpos($url, '-');
 		$id = substr($url, $pos + 1);
 		$pos = strpos($id, '.');
 
 		// remove optional .html suffix
-		if ($pos !== 0) {
+		if ($pos !== FALSE) {
 			$id = substr($id, 0, $pos);
 		}
 		return intval($id);
