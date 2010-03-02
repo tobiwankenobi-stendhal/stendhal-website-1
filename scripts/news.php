@@ -70,7 +70,7 @@ class News {
 	function show($detail=false) {
 		// link the title unless we are in detail view
 		$heading = '<div class="newsDate">'.$this->date.'</div><div class="newsTitle">';
-		if (!$detail) {
+		if (FALSE) {
 			$heading .= '<a style="newsTitle" href="'.rewriteURL('/news/'.$this->getNiceURL()).'">'.$this->title.'</a>';
 		} else {
 			$heading .= $this->title;
