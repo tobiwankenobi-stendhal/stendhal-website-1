@@ -26,9 +26,12 @@ class Page {
 	
 	/**
 	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @return true, to continue the rendering, false to not render the normal content
 	 */
 	public function writeHttpHeader() {
 		// do nothing
+		return true;
 	}
 
 	/**
