@@ -394,9 +394,14 @@ img.screenshot {
 	right: 8px;
 }
 
-.newsTitle {
+.newsTitle, .newsTitle a {
 	color: white;
 	font-weight: bolder;
+	text-decoration:none;
+}
+
+.newsTitle a:hover {
+	text-decoration:underline;
 }
 
 .newsContent {
