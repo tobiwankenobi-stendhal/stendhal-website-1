@@ -22,22 +22,44 @@ class NewsPage extends Page {
 	private $news;
 
 	public function __construct() {
-		$newsId = getNewsIdFromUrl();
+		$newsId = NewsPage::getNewsIdFromUrl();
 		if ($newsId <= 0) {
 			header('HTTP/1.0 404 No found', true, 404);
 			return;
 		}
 
-		// TODO: send Location 301 redirect on invalid url text
-		
 		// read the news posting from the database
-		$newsList = getNews("' where news.id='".mysql_real_escape_string($newsId)."' AND news.active=1");
-		if (length($news) == 0) {
+		$newsList = getNews(" where news.id='".mysql_real_escape_string($newsId)."' AND news.active=1");
+		if (sizeof($news) == 0) {
 			header('HTTP/1.0 404 No found', true, 404);
 		}
 
 		$this->news = $newsList[0];
 		return;
+	}
+
+	/**
+	 * extracts the id from the nice url
+	 *
+	 * @return id
+	 */
+	function getNewsIdFromUrl() {
+		$url = $_GET['news'];
+		$pos = strrpos($url, '-');
+		$id = substr($url, $pos + 1);
+		$id = substr($id, 0, strpos($id, '.'));
+		return intval($id);
+	}
+
+	public function writeHttpHeader() {
+		if (isset($this->news)) {
+			$niceUrl = $this->news->getNiceURL();
+			if ($niceUrl != $_GET['news']) {
+				header("Location: http://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/news/'.$niceUrl)), 301);
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// TODO: write right title
