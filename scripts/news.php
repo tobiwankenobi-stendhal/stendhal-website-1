@@ -74,8 +74,18 @@ class News {
 		$heading .= '</div>';
 		
 		startBox($heading);
-		echo '<div class="newsContent">'.$this->oneLineDescription.'</div>';
 
+		// image for type of news
+		if (isset($this->typeImage) && strlen($this->typeImage) > 0) {
+			echo '<div style="float: right;"><img src="'.$folder.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt=""></div>';
+		}
+
+		// render one line description
+		if (isset($this->oneLineDescription) && strlen($this->oneLineDescription) > 0) {
+			echo '<div class="newsContent">'.$this->oneLineDescription.'</div>';
+		}
+
+		// render news posting (add more link if there is a detail version)
 		echo '<div class="newsContent newsTeaser">'.$this->extendedDescription;
 		if (!$detail) {
 			if (isset($this->detailedDescription) && (trim($this->detailedDescription) != '')) {
@@ -84,6 +94,7 @@ class News {
 		}
 		echo '</div>';
 
+		// in detail view, include the details
 		if ($detail) {
 			echo '<div class="newsContent newsDetail">'.$this->detailedDescription.'</div>';
 		}
