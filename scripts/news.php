@@ -67,7 +67,15 @@ class News {
 		/* NOTE: Fill this note with the HTML code needed to draw an News item. */
 		startBox('<div class="newsDate">'.$this->date.'</div><div class="newsTitle">'.$this->title.'</div>');
 		echo '<div class="newsContent">'.$this->oneLineDescription.'</div>';
-		echo '<div class="newsContent newsTeaser">'.$this->extendedDescription.'</div>';
+
+		echo '<div class="newsContent newsTeaser">'.$this->extendedDescription;
+		if (!$detail) {
+			if (isset($this->detailedDescription) && (trim($this->detailedDescription) != '')) {
+				echo ' <a href="'.rewriteURL('/news/'.$this->getNiceURL()).'" title="Read More...">...</a>';
+			}
+		}
+		echo '</div>';
+
 		if ($detail) {
 			echo '<div class="newsContent newsDetail">'.$this->detailedDescription.'</div>';
 		}
@@ -84,7 +92,7 @@ class News {
 		$res = strtolower($this->title.'-'.$this->id);
 		$res = preg_replace('/[ _,;.:<>|] /', ' ', $res);
 		$res = preg_replace('/[ _,;.:<>|]/', '-', $res);
-		return urlencode($res);
+		return urlencode($res.'.html');
 	}
 };
 
