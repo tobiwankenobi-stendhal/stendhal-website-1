@@ -77,7 +77,7 @@ class News {
 
 		// image for type of news
 		if (isset($this->typeImage) && strlen($this->typeImage) > 0) {
-			echo '<div style="float: right;"><img src="'.$folder.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt=""></div>';
+			echo '<div class="newsIcon" style="float: right; padding-left: 2em"><img src="'.$folder.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt=""></div>';
 		}
 
 		// render one line description
