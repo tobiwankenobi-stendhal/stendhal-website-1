@@ -135,7 +135,7 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 
 	$result = mysql_query($sql, getWebsiteDB());
 	$list=array();
-
+	
 	while($row=mysql_fetch_assoc($result)) {
 		$resultimages = mysql_query('select * from news_images where news_id="'.$row['id'].'" order by created desc', getWebsiteDB());
 		$images=array();
@@ -166,56 +166,61 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 }
 
 
-function addNews($title, $oneline, $body, $images, $approved=false) {
-    $title=mysql_real_escape_string($title);
-    $oneline=mysql_real_escape_string($oneline);
-    $body=mysql_real_escape_string($body);
+function addNews($title, $oneline, $body, $images, $details, $type) {
+	$title=mysql_real_escape_string($title);
+	$oneline=mysql_real_escape_string($oneline);
+	$body=mysql_real_escape_string($body);
+	$details=mysql_real_escape_string($details);
+	$type=mysql_real_escape_string($type);
 
-    $query='insert into news (title, shortDescription, extendedDescription, active) values ("'.$title.'","'.$oneline.'","'.$body.'", 1)';
-    mysql_query($query, getWebsiteDB());
-    if(mysql_affected_rows()!=1) {
-        echo '<span class="error">There has been a problem while inserting news.</span>';
-        echo '<span class="error_cause">'.$query.'</span>';
-        return;
-    }
+	$query="insert into news (title, shortDescription, extendedDescription, active, detailedDescription, news_type_id) values "
+		."('$title', '$oneline', '$body', 1, '$details', '$type')";
+	mysql_query($query, getWebsiteDB());
+	if(mysql_affected_rows()==0) {
+		echo '<span class="error">There has been a problem while inserting news:'.mysql_affected_rows().'</span>';
+		echo '<span class="error_cause">'.$query.'</span>';
+		return;
+	}
 
-    $result=mysql_query('select LAST_INSERT_ID() As lastid from news;', getWebsiteDB());
-    while($rowimages=mysql_fetch_assoc($result)) {      
-        $newsid=$rowimages['lastid'];
-    }
-    mysql_free_result($result);
+	$result=mysql_query('select LAST_INSERT_ID() As lastid from news;', getWebsiteDB());
+	while($rowimages=mysql_fetch_assoc($result)) {      
+		$newsid=$rowimages['lastid'];
+	}
+	mysql_free_result($result);
 
-    foreach(explode("\n",$images) as $image) {
-      mysql_query('insert into news_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
-    }
-    
+	foreach(explode("\n",$images) as $image) {
+		mysql_query('insert into news_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
+	}
 }
+
 
 function deleteNews($id) {
     $id=mysql_real_escape_string($id);
     
 	$query='delete from news where id="'.mysql_real_escape_string($id).'"';
     mysql_query($query, getWebsiteDB());
-    if(mysql_affected_rows()!=1) {
+    if(mysql_affected_rows()==0) {
         echo '<span class="error">There has been a problem while deleting news.</span>';
         echo '<span class="error_cause">'.$query.'</span>';
         return;
     }
 }
 
-function updateNews($id, $title, $oneline, $body, $images, $approved=false) {
-    $id=mysql_real_escape_string($id);
-    $title=mysql_real_escape_string($title);
-    $oneline=mysql_real_escape_string($oneline);
-    $body=mysql_real_escape_string($body);
-
-    $query='update news set title="'.$title.'", shortDescription="'.$oneline.'",extendedDescription="'.$body.'" where id="'.$id.'"';
-    mysql_query($query, getWebsiteDB());
-    if(mysql_affected_rows()!=1) {
-        echo '<span class="error">There has been a problem while updating news.</span>';
-        echo '<span class="error_cause">'.$query.'</span>';
-        return;
-    }
+function updateNews($id, $title, $oneline, $body, $images, $details, $type) {
+	$id=mysql_real_escape_string($id);
+	$title=mysql_real_escape_string($title);
+	$oneline=mysql_real_escape_string($oneline);
+	$body=mysql_real_escape_string($body);
+	$details=mysql_real_escape_string($details);
+	$type=mysql_real_escape_string($type);
+	
+	$query="update news set title='".$title."', shortDescription='".$oneline."',extendedDescription='".$body
+		."', detailedDescription='".$details."', news_type_id='".$type."' where id='".$id."'";
+	mysql_query($query, getWebsiteDB());
+	if(mysql_affected_rows()==0) {
+		echo '<span class="error">There has been a problem while updating news.</span>';
+		echo '<span class="error_cause">'.$query.'</span>';
+	}
 }
 /**
   * Returns a list of news between adate and bdate both inclusive
