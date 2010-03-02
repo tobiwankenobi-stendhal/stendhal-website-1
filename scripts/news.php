@@ -93,7 +93,7 @@ class News {
 		echo '<div class="newsContent newsTeaser">'.$this->extendedDescription;
 		if (!$detail) {
 			if (isset($this->detailedDescription) && (trim($this->detailedDescription) != '')) {
-				echo ' <a href="'.rewriteURL('/news/'.$this->getNiceURL()).'" title="Read More...">...</a>';
+				echo ' <a href="'.rewriteURL('/news/'.$this->getNiceURL()).'" title="Read More...">(read more)</a>';
 			}
 		}
 		echo '</div>';
