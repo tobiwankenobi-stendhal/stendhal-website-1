@@ -44,13 +44,16 @@ class News {
 	/** active */
 	public $active;
 
+	/** id of type */
+	public $typeId;
+
 	/** name of type */
 	public $typeTitle;
 
 	/** image of type */
 	public $typeImage;
 
-	function __construct($id, $title, $date, $shortDesc, $longDesc, $images, $detailedDescription, $active, $typeTitle, $typeImage) {
+	function __construct($id, $title, $date, $shortDesc, $longDesc, $images, $detailedDescription, $active, $typeId, $typeTitle, $typeImage) {
 		$this->id=$id;
 		$this->title=$title;
 		$this->date=$date;
@@ -59,6 +62,7 @@ class News {
 		$this->images=$images;
 		$this->detailedDescription = $detailedDescription;
 		$this->active = $active;
+		$this->typeId = $typeId;
 		$this->typeTitle = $typeTitle;
 		$this->typeImage = $typeImage;
 	}
@@ -115,6 +119,8 @@ class News {
 	}
 };
 
+
+
 /**
   * Returns a list of news. Note: All parameters need to be SQL escaped.
   */
@@ -124,7 +130,7 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 		.'news.shortDescription As shortDescription, '
 		.'news.extendedDescription As extendedDescription, '
 		.'news.detailedDescription As detailedDescription, news.active As active, '
-		.'news_type.title As type_title, news_type.image_url As image_url ' 
+		.'news_type.id As type_id, news_type.title As type_title, news_type.image_url As image_url ' 
 		.'FROM news LEFT JOIN news_type ON news.news_type_id=news_type.id '.$where.' order by '.$sortby.' '.$cond;
 
 	$result = mysql_query($sql, getWebsiteDB());
@@ -148,6 +154,7 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 			$images,
 			$row['detailedDescription'],
 			$row['active'],
+			$row['type_id'],
 			$row['type_title'],
 			$row['image_url']
 		);
@@ -215,6 +222,48 @@ function updateNews($id, $title, $oneline, $body, $images, $approved=false) {
   */
 function getNewsBetween($adate, $bdate) {
   return getNews('where date between '.mysql_real_escape_string($adate).' and '.mysql_real_escape_string($bdate));
-  }
+}
 
+
+
+
+
+
+
+/**
+  * A class representing a news item without comments.
+  */
+class NewsType {
+	public $id;
+
+	/** Title */
+	public $title;
+
+	/** Image */
+	public $image;
+
+	function __construct($id, $title, $image) {
+		$this->id=$id;
+		$this->title=$title;
+		$this->image=$image;
+	}
+}
+
+function getNewsTypes() {
+	$sql = 'SELECT * FROM news_type ORDER BY title';
+
+	$result = mysql_query($sql, getWebsiteDB());
+	$list = array();
+
+	while($row = mysql_fetch_assoc($result)) {
+		$list[]=new NewsType(
+			$row['id'],
+			$row['title'],
+			$row['image']
+		);
+	}
+
+	mysql_free_result($result);
+	return $list;
+}
 ?>
