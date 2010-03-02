@@ -67,11 +67,12 @@ class NewsPage extends Page {
 		return true;
 	}
 
-	// TODO: write right title
-	// TODO: write news item
-	
 	public function writeHtmlHeader() {
-		echo '<title>News Archive'.STENDHAL_TITLE.'</title>';
+		if (isset($this->news)) {
+			echo '<title>'.htmlspecialchars($this->news->title).STENDHAL_TITLE.'</title>';
+		} else {
+			echo '<title>News Not Found'.STENDHAL_TITLE.'</title>';
+		}
 	}
 
 	function writeContent() {
