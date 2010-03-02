@@ -62,6 +62,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # news
                 RewriteRule ^/news/(.*)$ /index.php?id=content/news/newss&news=$1 [L]
+                RewriteRule ^/(-.*)$ /index.php?id=content/news/newss&news=$1 [L]
 
                 # npcs
                 RewriteRule ^/npc/?$ /index.php?id=content/game/npcs [L]
