@@ -183,7 +183,7 @@ if ($page->writeHttpHeader()) {
 
 		<?php startBox('Players'); ?>
 		<ul class="menu">
-			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; size: +1"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
+			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
 			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
             <li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
 		</ul>
