@@ -124,7 +124,7 @@ class News {
 /**
   * Returns a list of news. Note: All parameters need to be SQL escaped.
   */
-function getNews($where='', $sortby='created desc', $cond='limit 5') {
+function getNews($where='', $sortby='created desc', $cond='limit 6') {
 
 	$sql = 'SELECT news.id As news_id, news.title As title, news.created As created, '
 		.'news.shortDescription As shortDescription, '
