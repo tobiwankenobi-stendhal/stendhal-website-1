@@ -154,16 +154,6 @@ function listOfMonstersEscaped($monsters) {
 
 function getMostKilledMonster($monsters) {
     $numOfDays=7;
-
-    ##
-    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ## 
-    if(STENDHAL_PLEASE_MAKE_IT_FAST) {
-      return array(getMonster("rat"),0);
-    }
-    ##
-    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ## 
     
 	$query = "SELECT killed, count(*) As amount
 		FROM kills
@@ -188,16 +178,6 @@ function getMostKilledMonster($monsters) {
 
 function getBestKillerMonster($monsters) {
     $numOfDays=7;
-
-    ##
-    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ## 
-    if(STENDHAL_PLEASE_MAKE_IT_FAST) {
-      return array(getMonster("rat"),0);
-    }
-    ##
-    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ## 
     
 	$query="SELECT killer, count(*) As amount 
 		FROM kills
