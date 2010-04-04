@@ -43,7 +43,7 @@ class MeetingPage extends Page {
 		startBox('Meeting Registration');
 ?>
 		<p>Most of the planning for the meeting is coordinated on the 
-		<a href="/wiki/index.php/Arianne_Project_Meeting_2010">Wiki</a>.
+		<a href="/wiki/Arianne_Project_Meeting_2010">Wiki</a>.
 		We would like to ask you for some contact information in order
 		to ease the organisation. But the Wiki is public so we provide
 		this form to protect your privacy.</p>

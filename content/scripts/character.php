@@ -65,9 +65,9 @@ $account=$choosen->getAccountInfo();
   	if ($choosen->adminlevel < 300) {
 			echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
 		} else if ($choosen->adminlevel < 500) {
-			echo '<div class="admin">This player has adminlevel <a href="/wiki/index.php/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players..</div>';
+			echo '<div class="admin">This player has adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players..</div>';
 		} else {
-			echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/index.php/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
+			echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
 		}
 	}
   ?>
