@@ -137,26 +137,26 @@ if ($page->writeHttpHeader()) {
 		<?php startBox('Game System'); ?>
 		<ul id="gamemenu" class="menu">
 			<?php 
-			echo '<li><a href="http://stendhal.game-host.org/wiki/StendhalAtlas"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>'."\n";
+			echo '<li><a href="http://stendhalgame.org/wiki/StendhalAtlas"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>'."\n";
 			echo '<li><a href="'.rewriteURL('/npc/').'"><img src="/images/buttons/npcs_button.png" alt="">NPCs</a></li>'."\n";
 			echo '<li><a href="'.rewriteURL('/creature/').'"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a></li>'."\n";
 			echo '<li><a href="'.rewriteURL('/item/').'"><img src="/images/buttons/items_button.png" alt="">Items</a></li>'."\n";
 			?>
-			<li><a href="http://stendhal.game-host.org/wiki/StendhalQuest"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>
-			<li><a href="http://stendhal.game-host.org/wiki/StendhalHistory"><img src="/images/buttons/history_button.png" alt="">History</a></li>
+			<li><a href="http://stendhalgame.org/wiki/StendhalQuest"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>
+			<li><a href="http://stendhalgame.org/wiki/StendhalHistory"><img src="/images/buttons/history_button.png" alt="">History</a></li>
 		</ul>
 		<?php endBox(); ?>
 
 		<?php startBox('Help'); ?>
 		<ul id="helpmenu" class="menu">
-			<li><a href="http://stendhal.game-host.org/wiki/StendhalManual"><img src="/images/buttons/manual_button.png" alt="">Manual</a></li>
-			<li><a href="http://stendhal.game-host.org/wiki/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
-			<li><a href="http://stendhal.game-host.org/wiki/BeginnersGuide"><img src="/images/buttons/beginner_button.png" alt="">Beginner's Guide</a></li>
-			<li><a href="http://stendhal.game-host.org/wiki/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Ask For Help</a></li>
+			<li><a href="http://stendhalgame.org/wiki/StendhalManual"><img src="/images/buttons/manual_button.png" alt="">Manual</a></li>
+			<li><a href="http://stendhalgame.org/wiki/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
+			<li><a href="http://stendhalgame.org/wiki/BeginnersGuide"><img src="/images/buttons/beginner_button.png" alt="">Beginner's Guide</a></li>
+			<li><a href="http://stendhalgame.org/wiki/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Ask For Help</a></li>
 			<li><a href="<?php echo rewriteURL('/development/chat.html');?>"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>
 			<li><a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/buttons/support_button.png" alt="">Support Ticket</a></li>
 			<li><a href="http://sourceforge.net/forum/forum.php?forum_id=3190"><img src="/images/buttons/forum_button.png" alt="">Forum</a></li>
-			<li><a href="http://stendhal.game-host.org/wiki/StendhalRuleSystem"><img src="/images/buttons/rules_button.png" alt="">Rules</a></li>
+			<li><a href="http://stendhalgame.org/wiki/StendhalRuleSystem"><img src="/images/buttons/rules_button.png" alt="">Rules</a></li>
 		</ul>
 		<?php endBox() ?>
 

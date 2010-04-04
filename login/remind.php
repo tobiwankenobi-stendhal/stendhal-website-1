@@ -58,7 +58,7 @@ if(isset($_POST["forgotpassword"])) {
       die();
     }
   
-    $headers = 'From: noreply@stendhal.game-host.org';  
+    $headers = 'From: noreply@stendhalgame.org';  
     if(!mail($email,"Password reset request",$body,$headers)) {
       echo '<span class="error">There has been a problem while sending your password email.</span>';
       die();
