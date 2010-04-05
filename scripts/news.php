@@ -26,7 +26,7 @@ class News {
 	/** Title of the news item */
 	public $title;
 
-	/** Date in ISO format YYYY/MM/DD HH:mm */
+	/** Date in ISO format YYYY-MM-DD HH:mm */
 	public $date;
 
 	/** One line description of the news item. */
