@@ -59,14 +59,19 @@ class RssPage extends Page {
 		// be allowed to use full html.
 ?>
 	<item>
-		<title><?php echo htmlspecialchars($entry->title);?></title>
+		<title><?php 
+			echo htmlspecialchars($entry->title);
+			if ($entry->updateCount > 0) {
+				echo ' [Update No. '.$entry->updateCount.']';
+			}
+		?></title>
 		<description><?php 
 			echo htmlspecialchars($entry->extendedDescription);
 			echo htmlspecialchars($entry->detailedDescription);
 		?></description>
 		<link><?php echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL());?></link>
 		<author>Arianne Project</author>
-		<guid><?php echo htmlspecialchars($entry->id.'-'.$entry->date);?></guid>
+		<guid><?php  echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL()).'#id-'.$entry->id.'.'.$entry->updateCount;?></guid>
 		<pubDate><?php echo htmlspecialchars($entry->date);?></pubDate>
 	</item>
 <?php
