@@ -45,7 +45,7 @@ class RssPage extends Page {
 	<description>News feed of the free Stendhal online roleplaying game.</description>
 	<language>en</language>
 	<copyright>Arianne Project</copyright>
-	<pubDate>Mon, 5 Apr 2010 00:00:00 GMT</pubDate>
+	<pubDate><?php echo date("D, d M Y H:i:s O");?></pubDate>
 	<image>
 		<url>http://stendhalgame.org/images/favicon.png</url>
 		<title>Stendhal News</title>
@@ -74,7 +74,7 @@ class RssPage extends Page {
 		<link><?php echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL());?></link>
 		<author>newsfeed@stendhalgame.org (Arianne Project)</author>
 		<guid><?php  echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL()).'#id-'.$entry->id.'.'.$entry->updateCount;?></guid>
-		<pubDate><?php echo date("D, d M Y H:i:s", strtotime($entry->date)).' GMT';?></pubDate>
+		<pubDate><?php echo date("D, d M Y H:i:s O", strtotime($entry->date));?></pubDate>
 	</item>
 <?php
 	}
