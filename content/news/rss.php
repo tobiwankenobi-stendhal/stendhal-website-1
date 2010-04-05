@@ -21,7 +21,7 @@
 class RssPage extends Page {
 
 	public function writeHttpHeader() {
-		header('Content-Type', 'application/rss+xml');
+		header('Content-Type: application/rss+xml', true);
 		$this->writeRss();
 		return false;
 	}
@@ -44,13 +44,14 @@ class RssPage extends Page {
 	<link>http://stendhalgame.org</link>
 	<description>News feed of the free Stendhal online roleplaying game.</description>
 	<language>en</language>
-	<copyright>Arianne Project &lt;newsfeed@stendhalgame.org&gt;</copyright>
+	<copyright>Arianne Project</copyright>
 	<pubDate>Mon, 5 Apr 2010 00:00:00 GMT</pubDate>
 	<image>
 		<url>http://stendhalgame.org/images/favicon.png</url>
 		<title>Stendhal News</title>
 		<link>http://stendhalgame.org</link>
 	</image>
+	<atom:link href="http://stendhalgame.org/rss/news.rss" rel="self" type="application/rss+xml" />
 <?php
 	}
 
@@ -71,7 +72,7 @@ class RssPage extends Page {
 			echo htmlspecialchars($entry->detailedDescription);
 		?></description>
 		<link><?php echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL());?></link>
-		<author>Arianne Project</author>
+		<author>Arianne Project &lt;newsfeed@stendhalgame.org&gt;</author>
 		<guid><?php  echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL()).'#id-'.$entry->id.'.'.$entry->updateCount;?></guid>
 		<pubDate><?php echo date("D, d M Y H:i:s", $entry->date);?></pubDate>
 	</item>
@@ -80,7 +81,6 @@ class RssPage extends Page {
 
 	private function writeFooter() {
 ?>
-<atom:link href="http://stendhalgame.org/rss/news.rss" rel="self" type="application/rss+xml" />
 </channel>
 </rss>
 <?php
