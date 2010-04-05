@@ -53,7 +53,10 @@ class News {
 	/** image of type */
 	public $typeImage;
 
-	function __construct($id, $title, $date, $shortDesc, $longDesc, $images, $detailedDescription, $active, $typeId, $typeTitle, $typeImage) {
+	/** counts the number of updates */
+	public $updateCount;
+
+	function __construct($id, $title, $date, $shortDesc, $longDesc, $images, $detailedDescription, $active, $typeId, $typeTitle, $typeImage, $updateCount) {
 		$this->id=$id;
 		$this->title=$title;
 		$this->date=$date;
@@ -65,6 +68,7 @@ class News {
 		$this->typeId = $typeId;
 		$this->typeTitle = $typeTitle;
 		$this->typeImage = $typeImage;
+		$this->updateCount = $updateCount;
 	}
 
 	function show($detail=false) {
@@ -130,7 +134,8 @@ function getNews($where='', $sortby='created desc', $cond='limit 5') {
 		.'news.shortDescription As shortDescription, '
 		.'news.extendedDescription As extendedDescription, '
 		.'news.detailedDescription As detailedDescription, news.active As active, '
-		.'news_type.id As type_id, news_type.title As type_title, news_type.image_url As image_url ' 
+		.'news_type.id As type_id, news_type.title As type_title, news_type.image_url As image_url, ' 
+		.'news.updateCount As updateCount '
 		.'FROM news LEFT JOIN news_type ON news.news_type_id=news_type.id '.$where.' order by '.$sortby.' '.$cond;
 
 	$result = mysql_query($sql, getWebsiteDB());
@@ -156,7 +161,8 @@ function getNews($where='', $sortby='created desc', $cond='limit 5') {
 			$row['active'],
 			$row['type_id'],
 			$row['type_title'],
-			$row['image_url']
+			$row['image_url'],
+			$row['updateCount']
 		);
 	}
 
@@ -214,8 +220,8 @@ function updateNews($id, $title, $oneline, $body, $images, $details, $type) {
 	$details=mysql_real_escape_string($details);
 	$type=mysql_real_escape_string($type);
 	
-	$query="update news set title='".$title."', shortDescription='".$oneline."',extendedDescription='".$body
-		."', detailedDescription='".$details."', news_type_id='".$type."' where id='".$id."'";
+	$query="UPDATE news SET title='".$title."', shortDescription='".$oneline."',extendedDescription='".$body
+		."', detailedDescription='".$details."', news_type_id='".$type."', updateCount=updateCount+1 WHERE id='".$id."'";
 	mysql_query($query, getWebsiteDB());
 	if(mysql_affected_rows()==0) {
 		echo '<span class="error">There has been a problem while updating news.</span>';

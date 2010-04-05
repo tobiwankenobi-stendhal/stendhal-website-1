@@ -31,7 +31,7 @@ create table news (
   active int default 1,
   news_type_id int,
   created timestamp default CURRENT_TIMESTAMP,
-  modified timestamp default CURRENT_TIMESTAMP update CURRENT_TIMESTAMP,
+  updateCount int default 0,
   primary key(id)
 );
 
