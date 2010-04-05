@@ -73,8 +73,9 @@ class RssPage extends Page {
 		?></description>
 		<link><?php echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL());?></link>
 		<author>newsfeed@stendhalgame.org (Arianne Project)</author>
-		<guid><?php  echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL()).'#id-'.$entry->id.'.'.$entry->updateCount;?></guid>
 		<pubDate><?php echo date("D, d M Y H:i:s O", strtotime($entry->date));?></pubDate>
+		<category><?php echo $entry->typeTitle;?></category>
+		<guid><?php  echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL()).'#id-'.$entry->id.'.'.$entry->updateCount;?></guid>
 	</item>
 <?php
 	}
