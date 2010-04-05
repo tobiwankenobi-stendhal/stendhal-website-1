@@ -28,7 +28,7 @@ class RssPage extends Page {
 
 	public function writeRss() {
 		$this->writeHeader();
-		$news = getNews(' where news.active=1 ', 'created desc');
+		$news = getNews(' where news.active=1 ', 'created desc', 'limit 20');
 		foreach($news as $entry) {
 			$this->writeEntry($entry);
 		}
