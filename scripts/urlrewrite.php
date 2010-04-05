@@ -68,6 +68,9 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/npc/?$ /index.php?id=content/game/npcs [L]
                 RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact [L]
 
+                # rss
+                RewriteRule ^/rss/news.rss$ /index.php?id=content/news/rss [L]
+
                 # world
                 RewriteRule ^/world/atlas\.html$ /index.php?id=content/game/atlas [L]
                 RewriteRule ^/world/hall-of-fame\.html$ /index.php?id=content/halloffame [L]
