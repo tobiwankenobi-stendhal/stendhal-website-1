@@ -62,7 +62,6 @@ if(STENDHAL_PLEASE_MAKE_IT_FAST){
 }
   
 include('scripts/screenshots.php');
-include('scripts/events.php');
 include('scripts/news.php');
 include('scripts/players.php');
 include('scripts/playerhistory.php');
