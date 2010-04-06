@@ -35,6 +35,15 @@ class RssPage extends Page {
 		$this->writeFooter();
 	}
 
+	private function renderText($text) {
+		// removed 100% scaling of images. It is used on the website to srink 
+		// an image to fit into the news columns. In an rss reader, however,
+		// it may zoom the image onto screen size, causing ugly artefacts
+		$text = preg_replace('/<img (.*?)height *= *"100%"(.*?)>/', '<img \1\2>', $text);
+		$text = preg_replace('/<img (.*?)width *= *"100%"(.*?)>/', '<img \1\2>', $text);
+		return htmlspecialchars($text);
+	}
+
 	private function writeHeader() {
 		echo '<?xml version="1.0" encoding="utf-8"?>';
 ?>
@@ -68,8 +77,8 @@ class RssPage extends Page {
 			}
 		?></title>
 		<description><?php 
-			echo htmlspecialchars($entry->extendedDescription);
-			echo htmlspecialchars($entry->detailedDescription);
+			echo $this->renderText($entry->extendedDescription);
+			echo $this->renderText($entry->detailedDescription);
 		?></description>
 		<link><?php echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL());?></link>
 		<author>newsfeed@stendhalgame.org (Arianne Project)</author>
