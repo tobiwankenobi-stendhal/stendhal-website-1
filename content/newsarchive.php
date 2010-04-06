@@ -22,6 +22,8 @@ class NewsArchivePage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<title>News Archive'.STENDHAL_TITLE.'</title>';
+		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="/rss/news.rss" />';
+		
 	}
 
 	function writeContent() {

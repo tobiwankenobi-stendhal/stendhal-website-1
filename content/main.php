@@ -21,6 +21,7 @@ class MainPage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<title>News'.STENDHAL_TITLE.'</title>';
+		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" />';
 		echo '<meta name="description" content="Stendhal is a fully fledged free open source multiplayer online adventures game (MORPG) developed using the Arianne game system.">';
 	}
 

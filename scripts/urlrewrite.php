@@ -245,6 +245,12 @@ function rewriteURL($url) {
 			return preg_replace('|^/npc/(.*)\.html$|', $folder.'/?id=content/scripts/npc&amp;name=$1&amp;exact', $url);
 		}
 
+	# rss
+	} else if (preg_match('|^/rss.*|', $url)) {
+		if (preg_match('|^/rss/news.rss$|', $url)) {
+			return preg_replace('|^/rss/news.rss$|', $folder.'/?id=content/news/rss', $url);
+		}
+
 	// world
 	} else if (preg_match('|^/world.*|', $url)) {
 		
