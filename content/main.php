@@ -20,9 +20,11 @@
 class MainPage extends Page {
 
 	public function writeHtmlHeader() {
-		echo '<title>News'.STENDHAL_TITLE.'</title>';
-		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" />';
+		echo '<title>News'.STENDHAL_TITLE.'</title>'."\n";
+		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" />'."\n";
+		echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, juego, role, gioco, online, open, source, multiplayer, news, Arianne';
 		echo '<meta name="description" content="Stendhal is a fully fledged free open source multiplayer online adventures game (MORPG) developed using the Arianne game system.">';
+		
 	}
 
 	function writeContent() {
