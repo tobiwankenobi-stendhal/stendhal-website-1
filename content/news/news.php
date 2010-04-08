@@ -25,7 +25,6 @@ class NewsPage extends Page {
 		$newsId = NewsPage::getNewsIdFromUrl();
 		if ($newsId <= 0) {
 			header('HTTP/1.0 404 No found', true, 404);
-			echo "AAAAAAAAAAAAaaaaaa";
 			return;
 		}
 
