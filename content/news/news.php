@@ -25,12 +25,13 @@ class NewsPage extends Page {
 		$newsId = NewsPage::getNewsIdFromUrl();
 		if ($newsId <= 0) {
 			header('HTTP/1.0 404 No found', true, 404);
+			echo "AAAAAAAAAAAAaaaaaa";
 			return;
 		}
 
 		// read the news posting from the database
 		$newsList = getNews(" where news.id='".mysql_real_escape_string($newsId)."' AND news.active=1");
-		if (sizeof($news) == 0) {
+		if (sizeof($newsList) == 0) {
 			header('HTTP/1.0 404 No found', true, 404);
 		}
 
