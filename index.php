@@ -88,7 +88,7 @@ if ($page->writeHttpHeader()) {
 <html>
 	<head>
 	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/style.css">
-	<link rel="icon" type="image/png" href="<?echo $folder;?>/images/favicon.png">
+	<link rel="icon" type="image/png" href="<?echo $folder;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
 		/*
