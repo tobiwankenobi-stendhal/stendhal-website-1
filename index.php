@@ -110,7 +110,7 @@ if ($page->writeHttpHeader()) {
 <body>
 <div id="container">
 	<div id="header">
-		<a href="/"><img style="border: 0;" src="/images/logo.gif" alt="Stendhal Logo"></a>
+		<a href="/"><img style="border: 0;" src="/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
 	</div>
 
 	<div id="account">
@@ -131,7 +131,7 @@ if ($page->writeHttpHeader()) {
 		<?php endBox() ?>
 
 		<?php startBox('Movie'); ?>
-			<a href="http://stendhalgame.org/wiki/Stendhal_Videos"><img src="/images/video.jpeg" width="99%" style="border: 0;"></a>
+			<a href="http://stendhalgame.org/wiki/Stendhal_Videos"><img src="/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
 		<?php endBox() ?>
 
 		<?php startBox('Game System'); ?>
