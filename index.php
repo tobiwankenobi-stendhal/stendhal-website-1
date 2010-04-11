@@ -19,12 +19,11 @@
 
 if($_SERVER['HTTPS'] == "on") {
 	$protocol = 'https';
+	session_start();
 } else {
 	$protocol = 'http';
 }
 
-
-session_start();
 
 require_once('scripts/website.php');
 require_once('scripts/account.php');
