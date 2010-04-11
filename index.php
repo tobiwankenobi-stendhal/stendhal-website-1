@@ -17,8 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-if($_SERVER['HTTPS'] == "on") {
+if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 	$protocol = 'https';
+	ini_set('session.cookie_secure', 1);
 	session_start();
 } else {
 	$protocol = 'http';
