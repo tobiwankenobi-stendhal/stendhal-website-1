@@ -65,6 +65,10 @@ define('STENDHAL_GAME_DB','stendhal');
  */
 define('REMOVE_ADMINS_AND_POSTMAN','where name!="postman" and admin<=600');
 
+
+define('STENDHAL_LOGIN_TARGET','https://stendhalgame.org');
+
+
 #
 # DEVEL switch
 #
