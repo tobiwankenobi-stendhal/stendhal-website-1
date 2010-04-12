@@ -91,7 +91,7 @@ if ($page->writeHttpHeader()) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/style.css">
+	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/css/00000001.css">
 	<link rel="icon" type="image/png" href="<?echo $folder;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
@@ -167,8 +167,8 @@ if ($page->writeHttpHeader()) {
 	</div>
 
 	<div id="rightArea">
-		<a href="http://arianne.sourceforge.net/jws/stendhal.jnlp"><span style="display: block" id="playArea"></span></a>
-		<a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo STENDHAL_VERSION; ?>.zip"><span style="display: block" id="downloadArea"></span></a>
+		<a href="http://arianne.sourceforge.net/jws/stendhal.jnlp"><span class="block" id="playArea"></span></a>
+		<a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo STENDHAL_VERSION; ?>.zip"><span class="block" id="downloadArea"></span></a>
 
 
 		<?php 
@@ -287,7 +287,6 @@ if ($page->writeHttpHeader()) {
 	<div id="footerArea">
 		<span class="copyright">&copy; 1999-2010 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
 		<span><a href="http://sourceforge.net/projects/arianne"><img src="https://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net." ></a></span>
-		<span><?php include('counter.php'); ?></span>
 	</div>
 
 	<div class="time">
