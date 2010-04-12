@@ -20,7 +20,7 @@ class CVSLogPage extends Page {
 startBox("CVS"); ?>
 <p>The Arianne project is hosted on <a href="http://sourceforge.net/projects/arianne">Sourceforge</a> and uses CVS (Concurrent Versions System) to manage changes to our source code. </p> 
 
-<p>You can use a CVS client to <a href="http://sourceforge.net/scm/?type=cvs&group_id=1111">download our source code</a> or you can browse the <a href="http://arianne.cvs.sourceforge.net/arianne">web-based CVS repository</a>. Recent changes to CVS are recorded below. </p>
+<p>You can use a CVS client to <a href="http://sourceforge.net/scm/?type=cvs&amp;group_id=1111">download our source code</a> or you can browse the <a href="http://arianne.cvs.sourceforge.net/arianne">web-based CVS repository</a>. Recent changes to CVS are recorded below. </p>
 <?php endBox() ?>
 <?php startBox("Recent Development"); ?>
 <?php
