@@ -48,11 +48,11 @@ function renderListOfPlayers($list, $f, $postfix='') {
       <div class="position"><?php echo $i; ?></div>
       <a href="<?php echo rewriteURL('/character/'.urlencode($player->name).'.html'); ?>">
       <img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.urlencode($player->outfit).'.png')?>" alt="Player outfit"/>
-      <div class="label"><?php echo htmlspecialchars(utf8_encode($player->name)); ?></div>
+      <span style="display: block" class="label"><?php echo htmlspecialchars(utf8_encode($player->name)); ?></span>
       <?php
       $var=$f($player);
       ?>
-      <div class="data"><?php echo $var.$postfix; ?></div>    
+      <span style="display: block" class="data"><?php echo $var.$postfix; ?></span>    
       </a>
       <div style="clear: left;"></div>
     </div>
@@ -71,11 +71,11 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
   <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
   <div class="best">
     <a href="<?php echo rewriteURL('/character/'.urlencode($choosen->name).'.html'); ?>">
-    <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></div>
-    <div class="statslabel">Age:</div><div class="data"><?php echo getAge($choosen); ?> hours</div>
-    <div class="statslabel">Level:</div><div class="data"><?php echo $choosen->level; ?></div>
-    <div class="statslabel">XP:</div><div class="data"><?php echo $choosen->xp; ?></div>
-    <div class="sentence"><?php echo $choosen->sentence; ?></div>
+    <span style="display: block" class="statslabel">Name:</span><span style="display: block" class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span>
+    <span style="display: block" class="statslabel">Age:</span><span style="display: block" class="data"><?php echo getAge($choosen); ?> hours</span>
+    <span style="display: block" class="statslabel">Level:</span><span style="display: block" class="data"><?php echo $choosen->level; ?></span>
+    <span style="display: block" class="statslabel">XP:</span><span style="display: block" class="data"><?php echo $choosen->xp; ?></span>
+    <span style="display: block" class="sentence"><?php echo $choosen->sentence; ?></span>
     </a>
   </div> 
   <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.urlencode($choosen->outfit).'.png')?>" alt="">
