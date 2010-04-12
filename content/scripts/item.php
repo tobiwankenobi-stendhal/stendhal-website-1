@@ -195,9 +195,9 @@ foreach($this->items as $m) {
               if($k["name"]==$m->name) {
               ?>
               <div class="row">
-                <?php echo '<a href="'.rewriteURL('/creature/'.htmlspecialchars($monster->name).'.html').'">' ?>
+                <?php echo '<a href="'.rewriteURL('/creature/'.urlencode($monster->name).'.html').'">' ?>
                 <img src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
-                <div class="label"><?php echo $monster->name; ?></div>
+                <span class="block label"><?php echo $monster->name; ?></span>
                 </a>
                 <div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
                 <div class="data">Probability: <?php echo formatNumber($k["probability"]); ?>%</div>

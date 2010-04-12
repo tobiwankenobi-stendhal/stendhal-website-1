@@ -44,9 +44,9 @@ startBox('Creatures');
 
 <?php 
 foreach($monsters as $m) {
-	echo '<div class="creature"><a class="creature" href="'.rewriteURL('/creature/'.$m->name.'.html').'">';
+	echo '<div class="creature"><a class="creature" href="'.rewriteURL('/creature/'.urlencode($m->name).'.html').'">';
 	echo '  <img class="creature" src="'.$m->gfx.'" alt="">';
-	echo '  <div class="creature_name">'.$m->name.'</div>';
+	echo '  <span class="block creature_name">'.$m->name.'</span>';
 	echo ' </a>';
 	echo '  <div class="creature_level">Level '.$m->level.'</div>';
 	echo '</div>';

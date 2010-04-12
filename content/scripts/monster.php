@@ -91,10 +91,10 @@ foreach($this->monsters as $m) {
             <div class="row">
               <?php
                 $item = getItem($k["name"]);
-                echo '<a href="'.rewriteURL('/item/'.htmlspecialchars($item->class).'/'.htmlspecialchars($k["name"]).'.html').'">';
+                echo '<a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($k["name"]).'.html').'">';
               ?>
               <img src="<?php echo $item->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
-              <div class="label"><?php echo ucfirst($k["name"]); ?></div>
+              <span class="block label"><?php echo ucfirst($k["name"]); ?></span>
               </a>
               <div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
               <div class="data">Probability: <?php echo $k["probability"]; ?>%</div>
@@ -104,11 +104,11 @@ foreach($this->monsters as $m) {
           ?>
         </div>
       </div>
-            
-    <?php      
-    endBox();      
 
-    
+    <?php
+    endBox();
+
+
     /*
      * Obtain data from database
      */

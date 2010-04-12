@@ -43,9 +43,9 @@ startBox('NPCs');
 <?php 
 
 foreach($npcs as $npc) {
-	echo '<div class="npc"><a class="npc" href="'.rewriteURL('/npc/'.$npc->name.'.html').'">';
+	echo '<div class="npc"><a class="npc" href="'.rewriteURL('/npc/'.urlencode($npc->name).'.html').'">';
 	echo '  <img class="npc" src="'.$npc->imagefile.'" alt="'.$npc->name.'">';
-	echo '  <div class="npc_name">'.$npc->name.'</div>';
+	echo '  <span class="block npc_name">'.$npc->name.'</span>';
 	echo ' </a>';
 	echo '</div>';
 }
@@ -57,7 +57,6 @@ endBox();
 ?>
 </div>
 <div style="clear: left;"></div>
-</div>
 
 <?php
 	}
