@@ -53,8 +53,8 @@ if(!isset($_GET['class'])) {
     }
 	?>
     <div class="f3cols">
-      <?php echo '<a href="'.rewriteURL('/item/'.$class.'.html').'">';?>
-        <img src="<?php echo $choosen->gfx; ?>"/><br>
+      <?php echo '<a href="'.rewriteURL('/item/'.urlencode($class).'.html').'">';?>
+        <img src="<?php echo $choosen->gfx; ?>" alt=""><br>
         <?php echo ucfirst($class); ?>
       </a>
     </div>
@@ -76,9 +76,9 @@ startBox(ucfirst($class).' Items');
 	if($item->class==$class) {
 	  ?>
   	  <div class="item">
-        <?php echo '<a class="item" href="'.rewriteURL('/item/'.htmlspecialchars($class).'/'. htmlspecialchars($item->name) . '.html').'">'; ?>'
+        <?php echo '<a class="item" href="'.rewriteURL('/item/'.urlencode($class).'/'. urlencode($item->name) . '.html').'">'; ?>'
  	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt="">
-	      <div class="item_name"><?php echo $item->name; ?></div>
+	      <span class="block item_name"><?php echo $item->name; ?></span>
 	    </a>
 	  </div>
 	  <?php
