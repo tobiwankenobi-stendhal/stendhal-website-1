@@ -39,12 +39,8 @@ class KilledStatsPage extends Page {
 $monsters=getMonsters();
 $classes=Monster::getClasses();
 
-/*
- * Let people know that this data is fake and it is a known bug.
- */
-showKnownBugNotice();
 ?>
-    
+
 <div style="float: left; width: 50%"><?php
 startBox('Most killed (recently)');
 $result=getMostKilledMonster($monsters);

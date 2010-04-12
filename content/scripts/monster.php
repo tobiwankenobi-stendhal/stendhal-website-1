@@ -107,11 +107,7 @@ foreach($this->monsters as $m) {
             
     <?php      
     endBox();      
-    
-    /*
-     * Let people know that this data is fake and it is a known bug.
-     */
-    showKnownBugNotice();
+
     
     /*
      * Obtain data from database
