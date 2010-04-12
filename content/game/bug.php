@@ -12,7 +12,7 @@ Reporting bugs is very important so that we can keep Stendhal running smoothly. 
 
 <p>We have made this page to help you with the process of submitting a bug report, because we find them so helpful. 
 
-<p> You can submit a new report <a href="http://sourceforge.net/tracker/?func=add&group_id=1111&atid=101111">here</a>, or browse the <a href="http://sourceforge.net/tracker/?group_id=1111&atid=101111">bugs tracker</a>, you may wish to select Category <b>Open</b> and then click <b>Filter</b> if you only wish to see the Open bug reports. 
+<p> You can submit a new report <a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=101111">here</a>, or browse the <a href="http://sourceforge.net/tracker/?group_id=1111&amp;atid=101111">bugs tracker</a>, you may wish to select Category <b>Open</b> and then click <b>Filter</b> if you only wish to see the Open bug reports. 
 
 
 
@@ -24,41 +24,36 @@ Reporting bugs is very important so that we can keep Stendhal running smoothly. 
 If you need any help on submitting a bug report feel free to come and ask the developers and contributors at the 
 <?php echo '<a href="'.rewriteURL('/development/chat.html').'">'?>
 irc channel #arianne</a>, you can just ask the question as the channel is logged, then wait for an answer incase noone was physically present when you arrived. 
-<p>If there are multiple bugs to report, please open a report for each. 
-<ul id="outerlist"><li> Summary - This is the title of the bug report. Choose a meaningful and brief sentence.
-</li></ul>
-<dl><dd>
-<ul id="innerlist"><li>Bad summary: "there is a bug", "bug found" "error occurred"
-</li><li>Good summary: "Stendhal 0.67 map wrong at x y in -3_semos_cave" or "Test client: buddies panel does not show buddies online state"
-</li></ul>
-</dd></dl>
-<ul id="outerlist" ><li> Description - This is where to write what happened. Please try to include: 
-</li></ul>
-<dl><dd><ul id="innerlist"><li> Where were you when the bug happened? (use '/where yourUserName' in game)
-</li><li> What did you do when the bug happened?
-</li><li> What did happen, what did you expect to happen
-</li><li> Is it reproducable? If so: Which steps are needed to reproduce it?
+<p>If there are multiple bugs to report, please open a report for each.</p> 
+<ul>
+<li> Summary - This is the title of the bug report. Choose a meaningful and brief sentence.
+	<ul>
+	<li>Bad summary: "there is a bug", "bug found" "error occurred"</li>
+	<li>Good summary: "Stendhal 0.67 map wrong at x y in -3_semos_cave" or "Test client: buddies panel does not show buddies online state"</li>
+	</ul>
 
-</li><li> when talking about map-errors like 'you can walk under a chair' please provide the exact position and if possible a little screenshot.
-</li><li> If things in client look weird a screenshot says more than 1000 words
-</li><li> Your email address, if you are not a logged in member of sourceforge
-</li></ul>
-</dd><dd> 
-<small><i>Unless you have a good reason to think it's irrelevant:</i></small>
-<ul id="innerlist"><li> Your Operating system
-</li><li> If you run from webstart or downloaded client
-</li><li> What java version you have (In Linux, type <i>java --version</i> in a command line.  Windows users, check <a href="http://www.java.com/en/download/installed.jsp?detect=jre&amp;try=1" class="external text" title="http://www.java.com/en/download/installed.jsp?detect=jre&amp;try=1" rel="nofollow">here</a>)
+<li> Description - This is where to write what happened. Please try to include: 
+	<ul>
+	<li> Where were you when the bug happened? (use '/where yourUserName' in game)</li>
+	<li> What did you do when the bug happened?</li>
+	<li> What did happen, what did you expect to happen</li>
+	<li> Is it reproducable? If so: Which steps are needed to reproduce it?</li>
+	<li> when talking about map-errors like 'you can walk under a chair' please provide the exact position and if possible a little screenshot.</li>
+	<li> If things in client look weird a screenshot says more than 1000 words</li>
+	<li> Your email address, if you are not a logged in member of sourceforge</li>
+	<li><small>Unless you have a good reason to think it's irrelevant:</small>
+	<li> Your Operating system</li>
+	<li> If you run from webstart or downloaded client</li>
+	<li> What java version you have (In Linux, type <i>java --version</i> in a command line.  Windows users, check <a href="http://www.java.com/en/download/installed.jsp?detect=jre&amp;try=1" class="external text" title="http://www.java.com/en/download/installed.jsp?detect=jre&amp;try=1" rel="nofollow">here</a>)</li>
+	<li>any error logs (in log/stendhal.txt)</li>
+	</ul>
 </li>
-<li> any error logs (Windows systems, at C:\Documents and Settings\{your username}\stendhal\log\stendhal.txt, GNU/Linux systems, at ~/stendhal/log/stendhal.txt,  Mac systems, <i>tba</i> )
-</li></ul>
-</dd></dl>
 
-<ul id="outerlist" ><li> Private - please tick the check box for sensitive or easily abused issues.
-</li></ul>
-<ul id="outerlist" ><li> File Upload - here is where to attach a screenshot or a text output of an error log.
-</li></ul>
-<ul id="outerlist"><li> Everything Else - don't worry about any of the other entries.
-</li></ul>
+
+<li>Private - please tick the check box for sensitive or easily abused issues.</li>
+<li>File Upload - here is where to attach a screenshot or a text output of an error log.</li>
+<li>Everything Else - don't worry about any of the other entries.</li>
+</ul>
 <?php endBox(); ?>
 <?php startBox("Pre release Testers"); ?> 
 <p>Please make sure you connect with the MAIN-client to the MAIN-server
