@@ -52,7 +52,7 @@ list($m, $amount)=$result;
 echo '<div style="text-align: center;">';
 echo '  <a class="creature" href="'.rewriteURL('/creature/'.htmlspecialchars($m->name).'.html').'">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
-echo '  <div class="creature_name">'.$m->name.'</div>';
+echo '  <span class="block creature_name">'.$m->name.'</span>';
 echo ' </a>';
 echo '  <div class="creature_killed">It was killed '.$amount.' times</div>';
 echo '</div>';
@@ -70,7 +70,7 @@ list($m, $amount)=$result;
 echo '<div style="text-align: center;">';
 echo '  <a class="creature" href="'.rewriteURL('/creature/'.htmlspecialchars($m->name).'.html').'">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
-echo '  <div class="creature_name">'.$m->name.'</div>';
+echo '  <span class="block creature_name">'.$m->name.'</span>';
 echo ' </a>';
 echo '  <div class="creature_killed">It has killed '.$amount.' players</div>';
 echo '</div>';
@@ -93,12 +93,11 @@ foreach($monsters as $m) {
   $amount=getVariable($xmlStats,"Killed ".$m->name);
   ?>
   <?php echo '  <a class="nodeco" href="'.rewriteURL('/creature/'.htmlspecialchars($m->name).'.html').'">'?>
-  <div class="row">
+  <span class="block row">
     <img src="<?php echo $m->showImage(); ?>" alt="<?php echo $m->name; ?>"/>
-    <div class="name"><?php echo $m->name; ?></div>
-    <div class="amount"><?php echo $amount; ?> killed</div>
-    <div style="clear: left;"></div>
-  </div>
+    <span class="block name"><?php echo $m->name; ?></span>
+    <span class="block amount"><?php echo $amount; ?> killed</span>
+  </span>
   </a>
   <?php
 }
