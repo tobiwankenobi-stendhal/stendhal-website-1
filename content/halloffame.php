@@ -75,7 +75,7 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
     <span class="block statslabel">Age:</span><span class="block data"><?php echo getAge($choosen); ?> hours</span>
     <span class="block statslabel">Level:</span><span class="block data"><?php echo $choosen->level; ?></span>
     <span class="block statslabel">XP:</span><span class="block data"><?php echo $choosen->xp; ?></span>
-    <span class="block sentence"><?php echo $choosen->sentence; ?></span>
+    <?php if ($choosen->sentence != '') {echo '<span class="block sentence">'.$choosen->sentence.'</span>';}?>
     </a>
   </div> 
   <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.urlencode($choosen->outfit).'.png')?>" alt="">
