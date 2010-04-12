@@ -106,7 +106,6 @@ endBox();
 
 ?></div>
 <div style="clear: left;"></div>
-</div>
 <?php
 	}
 }
