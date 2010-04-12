@@ -210,9 +210,7 @@ if ($page->writeHttpHeader()) {
 				<?php 
 				if(getAdminLevel()>=400) { ?>
 					<li><a href="/?id=content/admin/news"><img src="/images/buttons/news_button.png" alt="">News</a></li>
-					<li><a href="/?id=content/admin/events"><img src="/images/buttons/events_button.png" alt="">Events</a></li>
 					<li><a href="/?id=content/admin/screenshots"><img src="/images/buttons/screenshots_button.png" alt="">Screenshots</a></li>
-					<li><a href="/?id=content/admin/movies"><img src="/images/buttons/movies_button.png" alt="">Movies</a></li>
 				<?php } ?>
 				<li><a href="/?id=content/admin/logs"><img src="/images/buttons/c_chat_button.png" alt="">Support Logs</a></li>
 				<li><a href="/?id=content/admin/playerhistory"><img src="/images/buttons/playerhistory_button.png" alt="">Player History</a></li>
