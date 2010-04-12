@@ -65,7 +65,7 @@ $account=$choosen->getAccountInfo();
   	if ($choosen->adminlevel < 300) {
 			echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
 		} else if ($choosen->adminlevel < 500) {
-			echo '<div class="admin">This player has adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players..</div>';
+			echo '<div class="admin">This player has adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players.</div>';
 		} else {
 			echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
 		}
@@ -89,97 +89,84 @@ $account=$choosen->getAccountInfo();
 </div>
 
 <div class="table">
-  <div class="title">Equipment</div>
-  <?php
-  foreach($choosen->equipment as $slot=>$content) { 
+<div class="title">Equipment</div>
+<?php
+foreach($choosen->equipment as $slot=>$content) { 
 	$old = array("head", "lhand", "rhand", "legs", "feet", "cloak", "finger");
 	$new = array("head", "left hand", "right hand", "legs", "feet", "cloak", "finger");
 	$slot = str_replace($old, $new, $slot);
-    ?>
-    <div class="row">
-      <?php 
-      if($content!="") {
-      	$item = getItem($content);
-        echo '<a href="'.rewriteURL('/item/'.htmlspecialchars($item->class).'/'.htmlspecialchars($content).'.html').'">'; ?>
-        <img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" "/>
-        <div class="label"><?php echo htmlspecialchars(ucwords($slot)) ?></div>
-        <div class="data"><?php echo htmlspecialchars(ucfirst($content)); ?></div>
-        </a>
-        <?php 
-      } else {
-        ?>
-        <div class="emptybox"></div>
-        <div class="label"><?php echo htmlspecialchars(ucwords($slot)) ?></div>
-        <div class="data">Empty</div>
-        <?php
-      }
-    ?>
-    </div>
-    <?php 
-    } 
-   ?>
+	?>
+	<div class="row">
+	<?php 
+	if($content!="") {
+		$item = getItem($content);
+		echo '<a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($content).'.html').'">'; ?>
+		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" "/>
+		<span class="block label"><?php echo htmlspecialchars(ucwords($slot)) ?></span>
+		<span class="block data"><?php echo htmlspecialchars(ucfirst($content)); ?></span></a>
+		<?php 
+	} else {
+		?>
+	<div class="emptybox"></div>
+		<span class="block label"><?php echo htmlspecialchars(ucwords($slot)) ?></span>
+		<span class="block data">Empty</span>
+		<?php
+	}
+	?>
+	</div>
+	<?php
+}
+	?>
 </div>
 
 <div class="table">
   <div class="title">Deaths</div>
  <?php
-  /*
-   * Let people know that this data is fake and it is a known bug.
-   */
-   showKnownBugNotice();
-
- ?>
- <?php
   $deaths=$choosen->getDeaths();
 
-  if(count($deaths)==0) {
-  	?>
-  	Not recently killed.
-  	<?php
-  }
-  
-  foreach($deaths as $date=>$source) {
-    if(existsMonster($source)) {
-      /*
-       * It was killed by a monster.
-       */
-      $monsters=getMonsters();
-      foreach($monsters as $monster) {
-        if($monster->name==$source) {
-          ?>
-          <div class="row">
-            <?php echo '<a href="'.rewriteURL('/creature/'.htmlspecialchars($monster->name).'.html').'">'; ?>
-            <img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt=""/>
-            Killed by a <div style="display: inline;" class="label"><?php echo htmlspecialchars($monster->name); ?></div>
-            <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
-            <div style="margin-bottom: 50px;"></div>
-            </a>
-          </div>
-          <?php
-        }
-      }
-    } else {
-      /*
-       * It was killed by a player.
-       */
-      ?>
-      <div class="row">
-        <?php echo '<a href="'.rewriteURL('/character/'.htmlspecialchars(urlencode($source)).'.html').'">'?>
-        <?php
-        $killer=getPlayer($source);
-        ?>
-        <img class="creature" src="<?php echo rewriteURL('/images/outfit/'.htmlspecialchars($killer->outfit).'.png'); ?>" alt="<?php echo utf8_encode($source); ?>"/>
-        Killed by <div style="display: inline;" class="label"><?php echo htmlspecialchars(utf8_encode($source)); ?></div>
-        <div class="data">Happened at <?php echo htmlspecialchars($date); ?>.</div>
-        <div style="margin-bottom: 50px;"></div>
-        </a>
-      </div>
-    <?php
-    }
-  }
+	if(count($deaths)==0) {
+		?>
+		Not recently killed.
+		<?php
+	}
+
+	foreach($deaths as $date=>$source) {
+		if(existsMonster($source)) {
+
+			// It was killed by a monster.
+			$monsters=getMonsters();
+			foreach($monsters as $monster) {
+				if($monster->name==$source) {
+			?>
+	<div class="row">
+		<?php echo '<a href="'.rewriteURL('/creature/'.htmlspecialchars($monster->name).'.html').'">'; ?>
+		<img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt=""/>
+		Killed by a <span class="label"><?php echo htmlspecialchars($monster->name); ?></span>
+		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
+		<div style="margin-bottom: 50px;"></div>
+	</div>
+			<?php
+				}
+			}
+		} else {
+
+			// It was killed by a player.
+			?>
+	<div class="row">
+		<?php
+		echo '<a href="'.rewriteURL('/character/'.htmlspecialchars(urlencode($source)).'.html').'">';
+		$killer=getPlayer($source);
+		?>
+		<img class="creature" src="<?php echo rewriteURL('/images/outfit/'.htmlspecialchars($killer->outfit).'.png'); ?>" alt="<?php echo utf8_encode($source); ?>"/>
+		Killed by <span class="label"><?php echo htmlspecialchars(utf8_encode($source)); ?></span>
+		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
+		<div style="margin-bottom: 50px;"></div>
+	</div>
+			<?php
+		}
+	}
 ?>
 </div>
-  
 
 <?php
 endBox();
