@@ -57,7 +57,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
     ?>
     <div class="events_list">
     <input type="checkbox" name="delete[]" value="<?php echo $item->id; ?>">
-    <span><a href="/?id=content/admin/screenshots&action=edit&edit=<?php echo $item->id; ?>"><?php $item->showThumbnail(); ?></a></span>
+    <span><a href="/?id=content/admin/screenshots&amp;action=edit&amp;edit=<?php echo $item->id; ?>"><?php $item->showThumbnail(); ?></a></span>
     </div>
     <?php
     }

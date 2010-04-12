@@ -139,7 +139,7 @@ foreach($choosen->equipment as $slot=>$content) {
 				if($monster->name==$source) {
 			?>
 	<div class="row">
-		<?php echo '<a href="'.rewriteURL('/creature/'.htmlspecialchars($monster->name).'.html').'">'; ?>
+		<?php echo '<a href="'.rewriteURL('/creature/'.urlencode($monster->name).'.html').'">'; ?>
 		<img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt=""/>
 		Killed by a <span class="label"><?php echo htmlspecialchars($monster->name); ?></span>
 		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
@@ -154,7 +154,7 @@ foreach($choosen->equipment as $slot=>$content) {
 			?>
 	<div class="row">
 		<?php
-		echo '<a href="'.rewriteURL('/character/'.htmlspecialchars(urlencode($source)).'.html').'">';
+		echo '<a href="'.rewriteURL('/character/'.urlencode($source).'.html').'">';
 		$killer=getPlayer($source);
 		?>
 		<img class="creature" src="<?php echo rewriteURL('/images/outfit/'.htmlspecialchars($killer->outfit).'.png'); ?>" alt="<?php echo utf8_encode($source); ?>"/>
