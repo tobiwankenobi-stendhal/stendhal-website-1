@@ -54,7 +54,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # development
                 RewriteRule ^/development/bug\.html$ /index.php?id=content/game/bug [L]
-                RewriteRule ^/development/chat\.html$ /index.php?id=content/game/chat [L]
+                RewriteRule ^/development/chat\.html$ /chat/ [R=301]
                 RewriteRule ^/development/cvslog\.html$ /index.php?id=content/game/cvslog [L]
                 RewriteRule ^/development/cvslog/(.*)\.html$ /index.php?id=content/game/cvslog&month=$1 [L]
                 RewriteRule ^/development/?$ /index.php?id=content/game/development [L]
@@ -103,7 +103,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # chat
                 RewriteCond %{QUERY_STRING} id=content/game/chat&date=([^&]*)
                 RewriteRule ^/.* /chat/%1.html? [R=301]
-                RewriteCond %{QUERY_STRING} id=content/game/chat$)
+                RewriteCond %{QUERY_STRING} id=content/game/chat$
                 RewriteRule ^/.* /chat/? [R=301]
 
                 # creatures
@@ -117,8 +117,6 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /development/? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/bug
                 RewriteRule ^/.* /development/bug\.html? [R=301]
-                RewriteCond %{QUERY_STRING} id=content/game/chat$
-                RewriteRule ^/.* /development/chat\.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/cvslog&month=([^&]*)
                 RewriteRule ^/.* /development/cvslog/%1.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/cvslog
