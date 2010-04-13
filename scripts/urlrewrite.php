@@ -44,6 +44,10 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # characters
                 RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact [L]
 
+                # chat
+                RewriteRule ^/chat/?$ /index.php?id=content/game/chat [L]
+                RewriteRule ^/chat/(.*)\.html$ /index.php?id=content/game/chat&date=$1 [L]
+
                 # creatures
                 RewriteRule ^/creature/?$ /index.php?id=content/game/creatures [L]
                 RewriteRule ^/creature/(.*)\.html$ /index.php?id=content/scripts/monster&name=$1&exact [L]
@@ -95,6 +99,12 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # characters
                 RewriteCond %{QUERY_STRING} id=content/scripts/character&name=([^&]*)
                 RewriteRule ^/.* /character/%1.html? [R=301]
+
+                # chat
+                RewriteCond %{QUERY_STRING} id=content/game/chat&date=([^&]*)
+                RewriteRule ^/.* /chat/%1.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/chat$)
+                RewriteRule ^/.* /chat/? [R=301]
 
                 # creatures
                 RewriteCond %{QUERY_STRING} id=content/game/creatures
@@ -192,6 +202,14 @@ function rewriteURL($url) {
 	} else if (preg_match('|^/account.*|', $url)) {
 		if (preg_match('|^/account/history.html$|', $url)) {
 			return preg_replace('|^/account/history.html$|', $folder.'/?id=content/account/loginhistory', $url);
+		}
+
+	// chat
+	} else if (preg_match('|^/chat.*|', $url)) {
+		if (preg_match('|^/chat/(.*)\.html$|', $url)) {
+			return preg_replace('|^/chat/(.*)\.html$|', $folder.'/?id=content/game/chat&amp;date=$1', $url);
+		} else if (preg_match('|^/chat/?$|', $url)) {
+			return preg_replace('|^/chat/?$|', $folder.'/?id=content/game/chat', $url);
 		}
 
 	// characters
