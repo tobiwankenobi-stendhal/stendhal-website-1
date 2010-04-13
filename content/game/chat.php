@@ -10,13 +10,13 @@ class ChatPage extends Page {
 startBox("Chat to other users and developers"); ?>
 You can get an IRC client and connect to:
 
-<p><b>irc.freenode.net</b> (see <a href="http://freenode.net">http://freenode.net</a> for more information) then
-<ul> 
+<p><b>irc.freenode.net</b> (see <a href="http://freenode.net">http://freenode.net</a> for more information) then</p>
+<ul>
 <li><b>#arianne-chat</b> which is for friendly chatter </li>
 <li> <b>#arianne</b> which is for technical discussion, getting help and planning.</li>
 </ul>
-<p>
-Alternatively, you can simply use freenode's webchat service, below. Feel free to change the nick to for example, your player name. 
+
+<p>Alternatively, you can simply use freenode's webchat service, below. Feel free to change the nick to for example, your player name.</p>
 <ul> 
 <li>
 <a href="http://webchat.freenode.net/?channels=arianne-chat">#arianne-chat</a></li>
@@ -59,49 +59,47 @@ for ($i = 0; $i < count($lines); $i++) {
 			$class = "ircsign";
 		}
 	} 
-	
+
+	$line = preg_replace('!(http|https)://(stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net)(/[^ ]*)?!', '<a href="$1://$2$3">$1://$2$3</a>', $line);
+
 	echo '<span class="'.$class.'">'.htmlspecialchars($line).'</span><br>'."\n";
 }
 
 ?>
-    </p>
+</p>
 <?php
-    }
-    else {
-        $dir = opendir($directory);
-        while (false !== ($file = readdir($dir))) {
-            if (strpos($file, ".log") == 10) {
-                $filearray[] = $file;
-            }
-        }
-        closedir($dir);
-        
-        rsort($filearray);
+} else {
+	$dir = opendir($directory);
+	while (false !== ($file = readdir($dir))) {
+		if (strpos($file, ".log") == 10) {
+			$filearray[] = $file;
+		}
+	}
+	closedir($dir);
+	rsort($filearray);
 ?>
-    <ul>
+<ul>
 <?php
-        
-        
-        foreach ($filearray as $file) {
-            $file = substr($file, 0, 10);
-?>
-	 <li><a href="<?php echo("/?id=content/game/chat&amp;date=" . $file); ?>"><?php echo($file); ?></a></li>
 
-<?php
-        }
+	foreach ($filearray as $file) {
+		$file = substr($file, 0, 10);
 ?>
-    </ul>
+		<li><a href="<?php echo("/?id=content/game/chat&amp;date=" . $file); ?>"><?php echo($file); ?></a></li>
 <?php
-    }
+	}
+?>
+</ul>
+<?php
+}
 
 ?>
 
 <p>
- These logs of  <?php echo(MAIN_CHANNEL); ?> were automatically created on
- <a href="irc://<?php echo(MAIN_SERVER . "/" . substr(MAIN_CHANNEL, 1)); ?>"><?php echo(MAIN_SERVER); ?></a>
+These logs of  <?php echo(MAIN_CHANNEL); ?> were automatically created on
+<a href="irc://<?php echo(MAIN_SERVER . "/" . substr(MAIN_CHANNEL, 1)); ?>"><?php echo(MAIN_SERVER); ?></a>
 </p>
 <?php
-          endBox();
+		endBox();
 	}
 }
 $page = new ChatPage();
