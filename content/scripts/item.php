@@ -77,24 +77,45 @@ function renderAmount($amount) {
 
 
 class ItemPage extends Page {
+	private $class;
 	private $name;
 	private $items;
 	private	$isExact;
 	private $found;
+	private $counter;
 
 	public function __construct() {
-		$this->name = $_REQUEST['name'];
+		$this->name = preg_replace('/_/', ' ', $_REQUEST['name']);
+		$this->class = preg_replace('/_/', ' ', $_REQUEST['class']);
 		$this->isExact = isset($_REQUEST['exact']);
 		$this->items=getItems();
 
 		// does this name exist?
 		foreach($this->items as $m) {
-			if (($m->name == $this->name) && ($m->class == $_REQUEST['class'])) {
+			if (($m->name == $this->name || (!$this->isExact && strpos($m->name, $this->name) != false)) && (($m->class == $this->class) || $this->class == 'all')) {
 				$this->found = true;
+				$this->class = $m->class;
+				$this->counter++;
 			}
 		}
 	}
-	
+
+	public function writeHttpHeader() {
+		global $protocol;
+		if ($this->isExact && !$this->found) {
+			header('HTTP/1.0 404 Not Found');
+			return true;
+		}
+
+		if (($this->isExact || $this->counter==1) && (strpos($_REQUEST['class'], ' ') !== FALSE || strpos($_REQUEST['name'], ' ') !== FALSE || $_REQUEST['class'] == 'all')) {
+			header('HTTP/1.0 301 Moved permanently.');
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", 
+				rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($this->name).'.html')));
+			return false;
+		}
+		return true;
+	}
+
 	public function writeHtmlHeader() {
 		echo '<title>Item '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
 		if (!$this->found) {
@@ -105,7 +126,7 @@ class ItemPage extends Page {
 	function writeContent() {
 
 	
-if (!$this->found) {
+if ($this->isExact && !$this->found) {
 	startBox("No such Item");
 	?>
 	There is no such item at Stendhal.<br>
@@ -119,7 +140,7 @@ foreach($this->items as $m) {
   /*
    * If name of the creature match or contains part of the name.
    */
-  if (($m->name==$this->name || (!$this->isExact && strpos($m->name, $this->name) != false)) && (($m->class == $_REQUEST['class']) || ($_REQUEST['class'] == 'all'))) {
+  if (($m->name==$this->name || (!$this->isExact && strpos($m->name, $this->name) != false)) && (($m->class == $this->class) || ($this->class == 'all'))) {
     startBox("Detailed information");
     ?>
     <div class="item">
@@ -206,7 +227,7 @@ foreach($this->items as $m) {
               if($k["name"]==$m->name) {
               ?>
               <div class="row">
-                <?php echo '<a href="'.rewriteURL('/creature/'.urlencode($monster->name).'.html').'">' ?>
+                <?php echo '<a href="'.rewriteURL('/creature/'.surlencode($monster->name).'.html').'">' ?>
                 <img src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
                 <span class="block label"><?php echo $monster->name; ?></span>
                 </a>
