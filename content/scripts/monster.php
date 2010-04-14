@@ -23,7 +23,7 @@ class MonsterPage extends Page {
 	private $found;
 
 	public function __construct() {
-		$this->name = $_REQUEST['name'];
+		$this->name = preg_replace('/_/', ' ', $_REQUEST['name']);
 		$this->isExact = isset($_REQUEST['exact']);
 		$this->monsters = getMonsters();
 
@@ -36,6 +36,7 @@ class MonsterPage extends Page {
 		
 	}
 
+
 	public function writeHtmlHeader() {
 		echo '<title>Creature '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>'."\n";
 		if (!$this->found) {
@@ -45,6 +46,15 @@ class MonsterPage extends Page {
 
 	function writeContent() {
 
+if (!$this->found) {
+	startBox("No such Creature");
+	?>
+	There is no such creature at Stendhal.<br>
+	Please make sure you spelled it correctly.
+	<?php
+	endBox();
+	return;
+}
 
 foreach($this->monsters as $m) {
   /*

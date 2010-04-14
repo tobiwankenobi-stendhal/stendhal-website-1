@@ -104,6 +104,17 @@ class ItemPage extends Page {
 
 	function writeContent() {
 
+	
+if (!$this->found) {
+	startBox("No such Item");
+	?>
+	There is no such item at Stendhal.<br>
+	Please make sure you spelled it correctly.
+	<?php
+	endBox();
+	return;
+}
+
 foreach($this->items as $m) {
   /*
    * If name of the creature match or contains part of the name.
