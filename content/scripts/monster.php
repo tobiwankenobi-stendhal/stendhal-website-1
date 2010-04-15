@@ -37,6 +37,21 @@ class MonsterPage extends Page {
 	}
 
 
+	public function writeHttpHeader() {
+		if (!$this->found) {
+			header('HTTP/1.0 404 Not Found');
+			return true;
+		}
+
+		if ($this->isExact && strpos($_REQUEST['name'], ' ') !== FALSE) {
+			header('HTTP/1.0 301 Moved permanently.');
+			header('Location: '.preg_replace('/[ +]/', '_', $_SERVER['PHP_SELF']));
+			return false;
+		}
+
+		return true;
+	}
+
 	public function writeHtmlHeader() {
 		echo '<title>Creature '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>'."\n";
 		if (!$this->found) {
@@ -101,7 +116,7 @@ foreach($this->monsters as $m) {
             <div class="row">
               <?php
                 $item = getItem($k["name"]);
-                echo '<a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($k["name"]).'.html').'">';
+                echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($k["name"]).'.html').'">';
               ?>
               <img src="<?php echo $item->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
               <span class="block label"><?php echo ucfirst($k["name"]); ?></span>
