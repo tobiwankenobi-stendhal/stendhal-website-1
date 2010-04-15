@@ -28,7 +28,7 @@ function getItemByName($name) {
  * reads the icon of a Stendhal items
  */
 function stendhalDataIncludeItemIconOnly($item) {
-	$res .= '<span class="stendhalItemIcon"><a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($item->name).'.html').'">';
+	$res .= '<span class="stendhalItemIcon"><a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($item->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($item->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -45,7 +45,7 @@ function stendhalDataIncludeItemStats($item, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($item->name).'.html').'">';
+		$res .= '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($item->name).'.html').'">';
 		$res .= $item->name;
 		$res .= '</a>';
 	}
@@ -86,7 +86,7 @@ function stendhalDataIncludeItem($input, $argv, &$parser) {
 		$res .= stendhalDataIncludeItemStats($item, $argv);
 	}
 
-	$link = rewriteURL('/item/' . urlencode($item->class) .'/'. urlencode($item->name) .'.html');
+	$link = rewriteURL('/item/' . surlencode($item->class) .'/'. surlencode($item->name) .'.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalItemLink", $res);
 
 	return $res;

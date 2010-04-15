@@ -28,7 +28,7 @@ function getCreatureByName($name) {
  * reads the icon of a Stendhal creatures
  */
 function stendhalDataIncludeCreatureIconOnly($creature) {
-	$res .= '<span class="stendhalCreatureIcon"><a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'">';
+	$res .= '<span class="stendhalCreatureIcon"><a href="'.rewriteURL('/creature/'.surlencode($creature->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($creature->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -45,7 +45,7 @@ function stendhalDataIncludeCreatureStats($creature, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="'.rewriteURL('/creature/'.urlencode($creature->name).'.html').'">';
+		$res .= '<a href="'.rewriteURL('/creature/'.surlencode($creature->name).'.html').'">';
 		$res .= $creature->name;
 		$res .= '</a>';
 	}
@@ -85,7 +85,7 @@ function stendhalDataIncludeCreature($input, $argv, &$parser) {
 		$res .= stendhalDataIncludeCreatureStats($creature, $argv);
 	}
 
-	$link = rewriteURL('/creature/' . urlencode($creature->name) . '.html');
+	$link = rewriteURL('/creature/' . surlencode($creature->name) . '.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalCreatureLink", $res);
 
 	return $res;

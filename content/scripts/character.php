@@ -44,7 +44,7 @@ $account=$choosen->getAccountInfo();
 <?php startBox('Character info for '.htmlspecialchars(utf8_encode($choosen->name))); ?>
 <div class="table">
   <div class="title">Details</div>
-  <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.urlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
+  <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
   <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></div>
   <div class="statslabel">Age:</div><div class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</div>
   <div class="statslabel">Level:</div><div class="data"><?php echo htmlspecialchars($choosen->level); ?></div>
@@ -100,7 +100,7 @@ foreach($choosen->equipment as $slot=>$content) {
 	<?php 
 	if($content!="") {
 		$item = getItem($content);
-		echo '<a href="'.rewriteURL('/item/'.urlencode($item->class).'/'.urlencode($content).'.html').'">'; ?>
+		echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($content).'.html').'">'; ?>
 		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" "/>
 		<span class="block label"><?php echo htmlspecialchars(ucwords($slot)) ?></span>
 		<span class="block data"><?php echo htmlspecialchars(ucfirst($content)); ?></span></a>
@@ -139,7 +139,7 @@ foreach($choosen->equipment as $slot=>$content) {
 				if($monster->name==$source) {
 			?>
 	<div class="row">
-		<?php echo '<a href="'.rewriteURL('/creature/'.urlencode($monster->name).'.html').'">'; ?>
+		<?php echo '<a href="'.rewriteURL('/creature/'.surlencode($monster->name).'.html').'">'; ?>
 		<img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt=""/>
 		Killed by a <span class="label"><?php echo htmlspecialchars($monster->name); ?></span>
 		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
@@ -154,7 +154,7 @@ foreach($choosen->equipment as $slot=>$content) {
 			?>
 	<div class="row">
 		<?php
-		echo '<a href="'.rewriteURL('/character/'.urlencode($source).'.html').'">';
+		echo '<a href="'.rewriteURL('/character/'.surlencode($source).'.html').'">';
 		$killer=getPlayer($source);
 		?>
 		<img class="creature" src="<?php echo rewriteURL('/images/outfit/'.htmlspecialchars($killer->outfit).'.png'); ?>" alt="<?php echo utf8_encode($source); ?>"/>

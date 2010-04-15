@@ -12,7 +12,7 @@ require_once($IP.'/../scripts/urlrewrite.php');
  * reads the icon of a Stendhal NPCs
  */
 function stendhalDataIncludeNPCIconOnly($NPC) {
-	$res .= '<span class="stendhalNPCIcon"><a href="'.rewriteURL('/npc/'.urlencode($NPC->name).'.html').'">';
+	$res .= '<span class="stendhalNPCIcon"><a href="'.rewriteURL('/npc/'.surlencode($NPC->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($NPC->imagefile) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -29,7 +29,7 @@ function stendhalDataIncludeNPCStats($NPC, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="'.rewriteURL('/npc/'.urlencode($NPC->name).'.html').'">';
+		$res .= '<a href="'.rewriteURL('/npc/'.surlencode($NPC->name).'.html').'">';
 		$res .= $NPC->name;
 		$res .= '</a>';
 	}
@@ -77,7 +77,7 @@ function stendhalDataIncludeNPC($input, $argv, &$parser) {
 		$res .= stendhalDataIncludeNPCStats($NPC, $argv);
 	}
 
-	$link = rewriteURL('/npc/' . urlencode($NPC->name) . '.html');
+	$link = rewriteURL('/npc/' . surlencode($NPC->name) . '.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalNPCLink", $res);
 
 	return $res;

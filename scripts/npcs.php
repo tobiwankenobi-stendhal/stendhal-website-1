@@ -41,7 +41,7 @@ class NPC {
 		$this->outfit=$outfit;
 		$imagefile = '/images/npc/'.$class.'.png';
 		if (isset($outfit) && $outfit != '') {
-			$imagefile = '/images/outfit/'.urlencode($outfit).'.png';
+			$imagefile = '/images/outfit/'.surlencode($outfit).'.png';
 		}
 		$this->imagefile=rewriteURL($imagefile);
 		$this->level=$level;

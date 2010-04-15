@@ -50,7 +50,7 @@ if($result==null) {
 
 list($m, $amount)=$result;
 echo '<div style="text-align: center;">';
-echo '  <a class="creature" href="'.rewriteURL('/creature/'.urlencode($m->name).'.html').'">';
+echo '  <a class="creature" href="'.rewriteURL('/creature/'.surlencode($m->name).'.html').'">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
 echo '  <span class="block creature_name">'.$m->name.'</span>';
 echo ' </a>';
@@ -68,7 +68,7 @@ if($result==null) {
 
 list($m, $amount)=$result;
 echo '<div style="text-align: center;">';
-echo '  <a class="creature" href="'.rewriteURL('/creature/'.urlencode($m->name).'.html').'">';
+echo '  <a class="creature" href="'.rewriteURL('/creature/'.surlencode($m->name).'.html').'">';
 echo '  <img class="creature" src="'.$m->gfx.'" alt="'.$m->name.'"/>';
 echo '  <span class="block creature_name">'.$m->name.'</span>';
 echo ' </a>';
@@ -92,7 +92,7 @@ $monsters=getMonsters();
 foreach($monsters as $m) {
   $amount=getVariable($xmlStats,"Killed ".$m->name);
   ?>
-  <?php echo '  <a class="nodeco" href="'.rewriteURL('/creature/'.urlencode($m->name).'.html').'">'?>
+  <?php echo '  <a class="nodeco" href="'.rewriteURL('/creature/'.surlencode($m->name).'.html').'">'?>
   <span class="block row">
     <img src="<?php echo $m->showImage(); ?>" alt="<?php echo $m->name; ?>"/>
     <span class="block name"><?php echo $m->name; ?></span>

@@ -19,7 +19,7 @@ class AdminPlayerHistoryPage extends Page {
 	if (isset($name)) {
 		startBox('History for player '. htmlspecialchars(utf8_encode($name)));
 
-		echo '<p>History for player <a href="/?id=content/scripts/character&amp;name='.urlencode($name).'">'.htmlspecialchars(utf8_encode($name)).'</a>.</p>';
+		echo '<p>History for player <a href="/?id=content/scripts/character&amp;name='.surlencode($name).'">'.htmlspecialchars(utf8_encode($name)).'</a>.</p>';
 
 		echo '<table class="prettytable"><tr><th>time</th><th>source</th><th>event</th><th>parameters</th></tr>';
 

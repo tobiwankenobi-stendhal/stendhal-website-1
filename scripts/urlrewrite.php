@@ -288,6 +288,9 @@ function rewriteURL($url) {
 	} else {
 		echo '">Error parsing link';
 	}
+}
 
+function surlencode($url) {
+	return urlencode(preg_replace('/[ +]/', '_', $url));
 }
 ?>

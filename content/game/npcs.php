@@ -43,7 +43,7 @@ startBox('NPCs');
 <?php 
 
 foreach($npcs as $npc) {
-	echo '<div class="npc"><a class="npc" href="'.rewriteURL('/npc/'.urlencode($npc->name).'.html').'">';
+	echo '<div class="npc"><a class="npc" href="'.rewriteURL('/npc/'.surlencode($npc->name).'.html').'">';
 	echo '  <img class="npc" src="'.$npc->imagefile.'" alt="'.$npc->name.'">';
 	echo '  <span class="block npc_name">'.$npc->name.'</span>';
 	echo ' </a>';

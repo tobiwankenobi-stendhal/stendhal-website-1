@@ -13,8 +13,8 @@ require_once($IP.'/../scripts/urlrewrite.php');
  * reads the icon of a Stendhal players
  */
 function stendhalDataIncludePlayerIconOnly($player) {
-	$res .= '<span class="stendhalPlayerIcon"><a href="'.rewriteURL('/character/'.urlencode($player->name).'.html').'">';
-	$res .= '<img src="'.rewriteURL('/images/outfit/'.urlencode($player->outfit).'.png').'" />';
+	$res .= '<span class="stendhalPlayerIcon"><a href="'.rewriteURL('/character/'.surlencode($player->name).'.html').'">';
+	$res .= '<img src="'.rewriteURL('/images/outfit/'.surlencode($player->outfit).'.png').'" />';
 	$res .= '</a></span>';
 	return $res;
 }
@@ -34,7 +34,7 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 	}
 
 	if (!isset($argv['info']) || ($argv['info'] == 'stats')) {
-		$res .= '<a href="'.rewriteURL('/character/'.urlencode($player->name).'.html').'">';
+		$res .= '<a href="'.rewriteURL('/character/'.surlencode($player->name).'.html').'">';
 		$res .= $player->name;
 		$res .= '</a>';
 	}
@@ -92,7 +92,7 @@ function stendhalDataIncludePlayer($input, $argv, &$parser) {
 		$res .= stendhalDataIncludePlayerStats($player, $argv);
 	}
 
-	$link = rewriteURL('/character/' . urlencode($player->name) . '.html');
+	$link = rewriteURL('/character/' . surlencode($player->name) . '.html');
 	$res = stendhalDataIncludeAddMoveoverBoxIfDesired($argv, $link, $parsedInput['display'], "stendhalPlayerLink", $res);
 
 	return $res;

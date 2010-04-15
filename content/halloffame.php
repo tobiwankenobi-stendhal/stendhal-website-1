@@ -46,8 +46,8 @@ function renderListOfPlayers($list, $f, $postfix='') {
     ?>
     <div class="row">
       <div class="position"><?php echo $i; ?></div>
-      <a href="<?php echo rewriteURL('/character/'.urlencode($player->name).'.html'); ?>">
-      <img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.urlencode($player->outfit).'.png')?>" alt="Player outfit"/>
+      <a href="<?php echo rewriteURL('/character/'.surlencode($player->name).'.html'); ?>">
+      <img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($player->outfit).'.png')?>" alt="Player outfit"/>
       <span class="block label"><?php echo htmlspecialchars(utf8_encode($player->name)); ?></span>
       <?php
       $var=$f($player);
@@ -70,7 +70,7 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
  ?>
   <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
   <div class="best">
-    <a href="<?php echo rewriteURL('/character/'.urlencode($choosen->name).'.html'); ?>">
+    <a href="<?php echo rewriteURL('/character/'.surlencode($choosen->name).'.html'); ?>">
     <span class="block statslabel">Name:</span><span class="block data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span>
     <span class="block statslabel">Age:</span><span class="block data"><?php echo getAge($choosen); ?> hours</span>
     <span class="block statslabel">Level:</span><span class="block data"><?php echo $choosen->level; ?></span>
@@ -78,7 +78,7 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
     <?php if ($choosen->sentence != '') {echo '<span class="block sentence">'.$choosen->sentence.'</span>';}?>
     </a>
   </div> 
-  <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.urlencode($choosen->outfit).'.png')?>" alt="">
+  <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="">
  <?php endBox(); ?>
 
 <div style="float: left; width: 34%">

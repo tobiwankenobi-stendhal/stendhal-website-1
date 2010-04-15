@@ -62,10 +62,12 @@ class NewsPage extends Page {
 	}
 
 	public function writeHttpHeader() {
+		global $protocol;
 		if (isset($this->news)) {
 			$niceUrl = $this->news->getNiceURL();
 			if ($niceUrl != $_GET['news']) {
-				header("Location: http://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/news/'.$niceUrl)), 301);
+				header('HTTP/1.0 301 Moved permanently.');
+				header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/news/'.$niceUrl)));
 				return false;
 			}
 		}
