@@ -5,7 +5,7 @@ class NPCPage extends Page {
 	private $npcs;
 
 	public function __construct() {
-		$this->name = $_REQUEST["name"];
+		$this->name = preg_replace('/_/', ' ', $_REQUEST['name']);
 		$this->npcs = NPC::getNPCs('where name="'.mysql_real_escape_string($this->name).'"', 'name');
 	}
 
@@ -14,6 +14,21 @@ class NPCPage extends Page {
 		if(sizeof($this->npcs)==0) {
 			echo '<meta name="robots" content="noindex">';
 		}
+	}
+
+	public function writeHttpHeader() {
+		if (sizeof($this->npcs)==0) {
+			header('HTTP/1.0 404 Not Found');
+			return true;
+		}
+
+		if (strpos($_REQUEST['name'], ' ') !== FALSE) {
+			header('HTTP/1.0 301 Moved permanently.');
+			header('Location: '.preg_replace('/[ +]/', '_', $_SERVER['PHP_SELF']));
+			return false;
+		}
+
+		return true;
 	}
 
 	function writeContent() {
