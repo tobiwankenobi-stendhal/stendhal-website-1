@@ -19,6 +19,22 @@
 /*
  * A class representing a monster.
  */
+
+function sortByLevelAndName($a, $b) {
+	$res = ($a->level - $b->level);
+	if ($res != 0) {
+		return $res;
+	}
+
+	if ($a->name == $b->name) {
+		return 0;
+	}
+	return ($a < $b) ? -1 : 1;
+}
+
+
+
+
 class Monster {
   public static $classes=array();
   public static $monsters=array();
@@ -205,11 +221,23 @@ function getMonsters() {
   }
   
   $monstersXMLConfigurationFile="data/conf/creatures.xml";
+  $monstersXMLConfigurationBase='data/conf/';
   
-  $creatures=XML_unserialize(implode('',file($monstersXMLConfigurationFile)));
-  $creatures=$creatures['creatures'][0]['creature'];
+  
+  $monsterfiles = XML_unserialize(implode('', file($monstersXMLConfigurationFile)));
+  $monsterfiles = $monsterfiles['groups'][0]['group'];
   
   $list=array();
+
+  
+	foreach($monsterfiles as $file) {
+		if(isset($file['uri'])) {
+			$creatures =  XML_unserialize(implode('',file($monstersXMLConfigurationBase.$file['uri'])));
+			$creatures=$creatures['creatures'][0]['creature'];
+
+			if (sizeof($creatures) < 2) {
+				continue;
+			}
 
   for($i=0;$i<sizeof($creatures)/2;$i++) {
     /*
@@ -218,9 +246,8 @@ function getMonsters() {
     if(isset($creatures[$i]['hidden'])) {
       continue;
     }
-    
+
     $name=$creatures[$i.' attr']['name'];
-    
     if(isset($creatures[$i]['description'])) {
       $description=$creatures[$i]['description']['0'];
     } else {
@@ -259,9 +286,13 @@ function getMonsters() {
     
     //print_r($creatures[$i]);
     */
-    $list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops);
-  } 
 
+    $list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops);
+  }
+		}
+	}
+
+	uasort($list, 'sortByLevelAndName');
   Monster::$monsters=$list;
   return $list;
 }
