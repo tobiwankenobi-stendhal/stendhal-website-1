@@ -39,7 +39,7 @@ class NPC {
 		$this->title=$title;
 		$this->class=$class;
 		$this->outfit=$outfit;
-		$imagefile = '/images/npc/'.$class.'.png';
+		$imagefile = '/images/npc/'.surlencode($class).'.png';
 		if (isset($outfit) && $outfit != '') {
 			$imagefile = '/images/outfit/'.surlencode($outfit).'.png';
 		}

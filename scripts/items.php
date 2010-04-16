@@ -99,7 +99,7 @@ function getItems() {
 	    }
     
         $class=$items[$i]['type']['0 attr']['class'];
-        $gfx=rewriteURL('/images/item/'.$class.'/'.$items[$i]['type']['0 attr']['subclass'].'.png');
+        $gfx=rewriteURL('/images/item/'.surlencode($class).'/'.surlencode($items[$i]['type']['0 attr']['subclass']).'.png');
     
         $attributes=array();
         if(is_array($items[$i]['attributes'][0])) {
