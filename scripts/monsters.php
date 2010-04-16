@@ -260,7 +260,7 @@ function getMonsters() {
     $attributes=array();
     $attributes['atk']=$creatures[$i]['attributes'][0]['atk']['0 attr']['value'];
     if (isset($creatures[$i]['abilities'][0]['damage']['0 attr']['type'])) {
-    	$attributes['atk'] = $attributes['atk'].'('.$creatures[$i]['abilities'][0]['damage']['0 attr']['type'].')';
+    	$attributes['atk'] = $attributes['atk'].' ('.$creatures[$i]['abilities'][0]['damage']['0 attr']['type'].')';
     }
     $attributes['def']=$creatures[$i]['attributes'][0]['def']['0 attr']['value'];
     $attributes['speed']=$creatures[$i]['attributes'][0]['speed']['0 attr']['value'];

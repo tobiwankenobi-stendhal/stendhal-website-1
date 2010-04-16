@@ -107,7 +107,10 @@ function getItems() {
             $attributes[$attr]=$val['0 attr']['value'];
           }
         }
-	  
+        if (isset($items[$i]['damage']['0 attr']['type'])) {
+          $attributes['atk'] = $attributes['atk'].' ('.$items[$i]['damage']['0 attr']['type'].')';
+        }
+
     
         /* DEBUGGING
         echo '<h1>Item: '.$name.'</h1><br>';
