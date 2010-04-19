@@ -58,8 +58,8 @@ class NPC {
 	 * gets the names NPC from the database.
 	 */
 	function getNPC($name) {
-    	$npcs = NPC::_getNPCs('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
-    	return $npcs[0];	
+		$npcs = NPC::_getNPCs('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
+		return $npcs[0];	
 	}
 
 
@@ -80,7 +80,7 @@ class NPC {
 
 		$result = mysql_query($query, getGameDB());
 		$list = array();
-    
+
 		while($row = mysql_fetch_assoc($result)) {
 			$zone = $row['zone'];
 			$pos = 'at ' . $row['x'] . ', ' . $row['y'];
@@ -99,7 +99,7 @@ class NPC {
 				$pos,
 				$row['description'],
 				$row['job']);
-    	}
+		}
 		mysql_free_result($result);
 		return $list;
 	}
