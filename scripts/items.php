@@ -70,73 +70,68 @@ function getItem($name) {
   * Returns a list of Items
   */
 function getItems() {
-  if(sizeof(Item::$items)!=0) {
-    return Item::$items;
-  }
-  
-  $itemsXMLConfigurationFile="data/conf/items.xml";
-  $itemsXMLConfigurationBase='data/conf/';
-
-  $itemfiles = XML_unserialize(implode('',file($itemsXMLConfigurationFile)));
-  $itemfiles = $itemfiles['groups'][0]['group'];
-
-  $list=array();
-
-  foreach( $itemfiles as $file )
-  {
-	if(isset($file['uri']))
-    {
-	  $items =  XML_unserialize(implode('',file($itemsXMLConfigurationBase.$file['uri'])));
-	  $items = $items['items'][0]['item'];
-	    
-      for($i=0;$i<sizeof($items)/2;$i++) {
-        $name=$items[$i.' attr']['name'];
-    
-        if(isset($items[$i]['description'])) {
-          $description=$items[$i]['description']['0'];
-        } else {
-          $description='';
-	    }
-    
-        $class=$items[$i]['type']['0 attr']['class'];
-        $gfx=rewriteURL('/images/item/'.surlencode($class).'/'.surlencode($items[$i]['type']['0 attr']['subclass']).'.png');
-    
-        $attributes=array();
-        if(is_array($items[$i]['attributes'][0])) {
-          foreach($items[$i]['attributes'][0] as $attr=>$val) {
-            $attributes[$attr]=$val['0 attr']['value'];
-          }
-        }
-        if (isset($items[$i]['damage']['0 attr']['type'])) {
-          $attributes['atk'] = $attributes['atk'].' ('.$items[$i]['damage']['0 attr']['type'].')';
-        }
-
-    
-        /* DEBUGGING
-        echo '<h1>Item: '.$name.'</h1><br>';
-        echo 'Description: "'.$description.'"<br>';
-        echo 'Class: "'.$class.'"<br>';
-        echo 'GFX: "'.$gfx.'"<br>';    
-        echo '<img src="'.$gfx.'"/><br>';
-        echo 'Attributes: <br>';
-        print_r($attributes);
-        */
-
-        $list[]=new Item($name, $description, $class, $gfx, $attributes, null);
-      }
+	global $cache;
+	if(sizeof(Item::$items) == 0) {
+		Item::$items = $cache->fetchAsArray('stendhal_items');
+		Item::$classes = $cache->fetchAsArray('stendhal_items_classes');
 	}
-  }
-  
-  function compare($a, $b) {
-    return strcmp($a->name,$b->name);
-  }
-  /*
-   * Sort it alphabetically.
-   */
-  usort($list, 'compare');
-  
-  Item::$items=$list;
-  return $list;
+	if((Item::$items !== false) && (sizeof(Item::$items) != 0)) {
+		return Item::$items;
+	}
+
+	
+	$itemsXMLConfigurationFile="data/conf/items.xml";
+	$itemsXMLConfigurationBase='data/conf/';
+
+	$itemfiles = XML_unserialize(implode('',file($itemsXMLConfigurationFile)));
+	$itemfiles = $itemfiles['groups'][0]['group'];
+
+	$list = array();
+
+	foreach ($itemfiles as $file) {
+		if (isset($file['uri'])) {
+			$items =  XML_unserialize(implode('',file($itemsXMLConfigurationBase.$file['uri'])));
+			$items = $items['items'][0]['item'];
+
+			for ($i=0;$i<sizeof($items)/2;$i++) {
+				$name=$items[$i.' attr']['name'];
+
+				if (isset($items[$i]['description'])) {
+					$description=$items[$i]['description']['0'];
+				} else {
+					$description='';
+				}
+
+				$class=$items[$i]['type']['0 attr']['class'];
+				$gfx=rewriteURL('/images/item/'.surlencode($class).'/'.surlencode($items[$i]['type']['0 attr']['subclass']).'.png');
+
+				$attributes=array();
+				if (is_array($items[$i]['attributes'][0])) {
+					foreach($items[$i]['attributes'][0] as $attr=>$val) {
+						$attributes[$attr]=$val['0 attr']['value'];
+					}
+				}
+				if (isset($items[$i]['damage']['0 attr']['type'])) {
+					$attributes['atk'] = $attributes['atk'].' ('.$items[$i]['damage']['0 attr']['type'].')';
+				}
+
+				$list[]=new Item($name, $description, $class, $gfx, $attributes, null);
+			}
+		}
+	}
+
+	function compare($a, $b) {
+		return strcmp($a->name,$b->name);
+	}
+
+	/*
+	 * Sort it alphabetically.
+	 */
+	usort($list, 'compare');
+	Item::$items = $list;
+	$cache->store('stendhal_items', new ArrayObject($list));
+	$cache->store('stendhal_items_classes', new ArrayObject(Item::$classes));
+	return $list;
 }
 
 ?>

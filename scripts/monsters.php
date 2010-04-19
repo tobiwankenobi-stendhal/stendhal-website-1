@@ -36,141 +36,138 @@ function sortByLevelAndName($a, $b) {
 
 
 class Monster {
-  public static $classes=array();
-  public static $monsters=array();
-  
-  /* Name of the monster */
-  public $name;
-  /* Description of the monster */
-  public $description;
-  /* Class of the monster */
-  public $class;
-  /* GFX URL of the monster. */
-  public $gfx;
-  /* Level of the monster */
-  public $level;
-  /* XP value of the monster */
-  public $xp;
-  /* respawn value of the monster */
-  public $respawn;
-  /* Times this monster has been killed */
-  public $kills;
-  /* Players killed by this monster class */
-  public $killed;
-  /* Attributes of the monster as an array attribute=>value */
-  public $attributes;
-  /* Stuff this creature drops as an array (item, quantity, probability) */
-  public $drops;
-  /* Locations where this monster is found. */
-  public $locations;
+	public static $classes=array();
+	public static $monsters=array();
 
-  function __construct($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops) {
-    $this->name=$name;
-    $this->description=$description;
-    $this->class=$class;
-    self::$classes[$class]=0;
-    $this->gfx=$gfx;
-    $this->level=$level;
-    $this->xp=$xp;
-    $this->respawn=$respawn;
-    $this->attributes=$attributes;
-    $this->drops=$drops;
-  }
-  
-  function showImage() {
-  	return $this->gfx;
-  }
-  
-  function getClasses() {
-    return self::$classes;
-  }
-  
-  function fillKillKilledData() {       
-    $numberOfDays=14;
-    
-    ##
-    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ## 
-    
-    $this->kills=array();
-    $this->killed=array();
-    
-    for($i=0;$i<$numberOfDays;$i++) {
-      $this->kills[$i]=0;
-      $this->killed[$i]=0;
-    }
+	/* Name of the monster */
+	public $name;
+	/* Description of the monster */
+	public $description;
+	/* Class of the monster */
+	public $class;
+	/* GFX URL of the monster. */
+	public $gfx;
+	/* Level of the monster */
+	public $level;
+	/* XP value of the monster */
+	public $xp;
+	/* respawn value of the monster */
+	public $respawn;
+	/* Times this monster has been killed */
+	public $kills;
+	/* Players killed by this monster class */
+	public $killed;
+	/* Attributes of the monster as an array attribute=>value */
+	public $attributes;
+	/* Stuff this creature drops as an array (item, quantity, probability) */
+	public $drops;
+	/* Locations where this monster is found. */
+	public $locations;
 
-    /*
-     * Amount of times this creature has been killed by a player or another creature.
-     */
-	$result = mysql_query("
-		SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
-		FROM kills
-		WHERE killed_type='C' AND killer_type='P'
-		AND killed='" . mysql_real_escape_string($this->name) . "'
-		AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
-		GROUP BY day", getGameDB());
+	function __construct($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops) {
+		$this->name=$name;
+		$this->description=$description;
+		$this->class=$class;
+		self::$classes[$class]=0;
+		$this->gfx=$gfx;
+		$this->level=$level;
+		$this->xp=$xp;
+		$this->respawn=$respawn;
+		$this->attributes=$attributes;
+		$this->drops=$drops;
+	}
 
-    while($row=mysql_fetch_assoc($result)) {
-      $this->kills[$row['day_offset']]=$row['amount'];
-    }
-    
-    mysql_free_result($result);
+	function showImage() {
+		return $this->gfx;
+	}
 
-	/*
-	 * Amount of times this creature has killed a player.
-	 */
-	$result = mysql_query("
-		SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
-		FROM kills
-		WHERE killed_type='P' AND killer_type='C'
-		AND killer='" . mysql_real_escape_string($this->name) . "'
-		AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
-		GROUP BY day", getGameDB());
+	function getClasses() {
+		return self::$classes;
+	}
 
-    while($row=mysql_fetch_assoc($result)) {
-      $this->killed[$row['day_offset']]=$row['amount'];
-    }
-    
-    mysql_free_result($result);
-  }
+	function fillKillKilledData() {
+		$numberOfDays=14;
+
+		$this->kills=array();
+		$this->killed=array();
+
+		for($i=0;$i<$numberOfDays;$i++) {
+			$this->kills[$i]=0;
+			$this->killed[$i]=0;
+		}
+
+		/*
+		 * Amount of times this creature has been killed by a player or another creature.
+		 */
+		$result = mysql_query("
+			SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
+			FROM kills
+			WHERE killed_type='C' AND killer_type='P'
+			AND killed='" . mysql_real_escape_string($this->name) . "'
+			AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
+			GROUP BY day", getGameDB());
+
+		while($row=mysql_fetch_assoc($result)) {
+			$this->kills[$row['day_offset']]=$row['amount'];
+		}
+
+		mysql_free_result($result);
+
+		/*
+		 * Amount of times this creature has killed a player.
+		 */
+		$result = mysql_query("
+			SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
+			FROM kills
+			WHERE killed_type='P' AND killer_type='C'
+			AND killer='" . mysql_real_escape_string($this->name) . "'
+			AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
+			GROUP BY day", getGameDB());
+
+		while($row=mysql_fetch_assoc($result)) {
+			$this->killed[$row['day_offset']]=$row['amount'];
+		}
+
+		mysql_free_result($result);
+	}
 }
+
 
 function existsMonster($name) {
-  return getMonster($name) !== null;
+	return getMonster($name) !== null;
 }
+
 
 function getMonster($name) {
-  $monsters=getMonsters();
-  foreach($monsters as $m) {
-    if($m->name==$name) {
-      return $m;
-    }
-  }
+	$monsters=getMonsters();
+	foreach($monsters as $m) {
+		if($m->name==$name) {
+			return $m;
+		}
+	}
+	return null;
+}
 
-  return null;
-}
+
 function listOfMonsters($monsters) {
-  $data='';
-  foreach($monsters as $m) {
-    $data=$data.'"'.$m->name.'",';
-  }
-  
-  return substr($data, 0, strlen($data)-1);
+	$data='';
+	foreach($monsters as $m) {
+		$data=$data.'"'.$m->name.'",';
+	}
+	return substr($data, 0, strlen($data)-1);
 }
+
 
 function listOfMonstersEscaped($monsters) {
-  $data='';
-  foreach($monsters as $m) {
-    $data=$data.'"'.mysql_real_escape_string($m->name).'",';
-  }
-  
-  return substr($data, 0, strlen($data)-1);
+	$data='';
+	foreach($monsters as $m) {
+		$data=$data.'"'.mysql_real_escape_string($m->name).'",';
+	}
+	return substr($data, 0, strlen($data)-1);
 }
 
 function getMostKilledMonster($monsters) {
-    $numOfDays=7;
-    
+	$numOfDays=7;
 	$query = "SELECT killed, count(*) As amount
 		FROM kills
 		WHERE killed_type='C' AND killer_type='P' AND date_sub(curdate(), INTERVAL ".$numOfDays." DAY) < day
@@ -179,22 +176,22 @@ function getMostKilledMonster($monsters) {
 		LIMIT 1;";
 	$result = mysql_query($query, getGameDB());
 
-    $monster=null;
-    while($row=mysql_fetch_assoc($result)) {
-      foreach($monsters as $m) {
-        if($m->name==$row['killed']) {
-          $monster=array($m, $row['amount']);
-        }
-      }
-    }
-    
-    mysql_free_result($result);
-    return $monster;
+	$monster=null;
+	while($row=mysql_fetch_assoc($result)) {
+		foreach($monsters as $m) {
+			if($m->name==$row['killed']) {
+				$monster=array($m, $row['amount']);
+			}
+		}
+	}
+
+	mysql_free_result($result);
+	return $monster;
 }
 
 function getBestKillerMonster($monsters) {
-    $numOfDays=7;
-    
+	$numOfDays=7;
+
 	$query="SELECT killer, count(*) As amount 
 		FROM kills
 		WHERE killer_type='C' AND killed_type='P' AND date_sub(curdate(), INTERVAL " . $numOfDays . " DAY) < day
@@ -203,20 +200,25 @@ function getBestKillerMonster($monsters) {
 		LIMIT 1;";
 	$result = mysql_query($query, getGameDB());
 
-    $monster=null;
-    while($row=mysql_fetch_assoc($result)) {
-      $monster=array(getMonster($row['killer']), $row['amount']);
-    }
-    
-    mysql_free_result($result);
-    return $monster;
+	$monster=null;
+	while($row=mysql_fetch_assoc($result)) {
+		$monster=array(getMonster($row['killer']), $row['amount']);
+	}
+
+	mysql_free_result($result);
+	return $monster;
 }
 
 /**
-  * Returns a list of Monsters
-  */
+ * Returns a list of Monsters
+ */
 function getMonsters() {
-	if(sizeof(Monster::$monsters)!=0) {
+	global $cache;
+	if(sizeof(Monster::$monsters) == 0) {
+		Monster::$monsters = $cache->fetchAsArray('stendhal_creatures');
+		Monster::$classes = $cache->fetchAsArray('stendhal_creatures_classes');
+	}
+	if ((Monster::$monsters !== false) && (sizeof(Monster::$monsters) != 0)) {
 		return Monster::$monsters;
 	}
 
@@ -282,6 +284,8 @@ function getMonsters() {
 
 	uasort($list, 'sortByLevelAndName');
 	Monster::$monsters = $list;
+	$cache->store('stendhal_creatures', new ArrayObject($list));
+	$cache->store('stendhal_creatures_classes', new ArrayObject(Monster::$classes));
 	return $list;
 }
 
