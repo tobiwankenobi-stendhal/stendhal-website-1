@@ -189,7 +189,7 @@ if ($page->writeHttpHeader()) {
 		<ul class="menu">
 			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
 			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
-            <li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
+			<li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
 		</ul>
 		<form method="get" action="/" accept-charset="iso-8859-1">
 			<input type="hidden" name="id" value="content/scripts/character">
@@ -262,23 +262,8 @@ if ($page->writeHttpHeader()) {
 
 	<div id="contentArea">
 		<?php
-		$cache = new Cache(array('login', '/online', '/admin'));
-
-		$isCached=false;
-
-		if(STENDHAL_CACHE_ENABLED) {
-			$isCached = $cache->start($page_url);
-		}
-
-		if(!$isCached) {
 			// The central area of the website.
 			$page->writeContent();
-		} else {
-			?>
-			<div class="notice">Using a cached webpage.</div>
-			<?php
-		}
-		$cache->end();
 		?>
 	</div>
 

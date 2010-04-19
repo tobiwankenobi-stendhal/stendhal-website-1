@@ -30,13 +30,6 @@ define('STENDHAL_TITLE', ' &ndash; Stendhal MMORPG');
 #
 define('STENDHAL_SERVER_STATS_XML','server_stats.xml');
 
-#
-# Define how to handle the cache.
-# If you are not sure don't change these.
-#
-define('STENDHAL_CACHE_ENABLED',false);
-define('STENDHAL_PATH_TO_CACHE','tmp/');
-define('STENDHAL_CACHE_TIMEOUT',3600);
 
 #
 # Website database to store news, events and other useful stuff.
