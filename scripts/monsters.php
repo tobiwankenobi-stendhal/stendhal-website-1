@@ -216,20 +216,18 @@ function getBestKillerMonster($monsters) {
   * Returns a list of Monsters
   */
 function getMonsters() {
-  if(sizeof(Monster::$monsters)!=0) {
-    return Monster::$monsters;
-  }
-  
-  $monstersXMLConfigurationFile="data/conf/creatures.xml";
-  $monstersXMLConfigurationBase='data/conf/';
-  
-  
-  $monsterfiles = XML_unserialize(implode('', file($monstersXMLConfigurationFile)));
-  $monsterfiles = $monsterfiles['groups'][0]['group'];
-  
-  $list=array();
+	if(sizeof(Monster::$monsters)!=0) {
+		return Monster::$monsters;
+	}
 
-  
+	$monstersXMLConfigurationFile="data/conf/creatures.xml";
+	$monstersXMLConfigurationBase='data/conf/';
+
+	$monsterfiles = XML_unserialize(implode('', file($monstersXMLConfigurationFile)));
+	$monsterfiles = $monsterfiles['groups'][0]['group'];
+
+	$list=array();
+
 	foreach($monsterfiles as $file) {
 		if(isset($file['uri'])) {
 			$creatures =  XML_unserialize(implode('',file($monstersXMLConfigurationBase.$file['uri'])));
@@ -239,65 +237,52 @@ function getMonsters() {
 				continue;
 			}
 
-  for($i=0;$i<sizeof($creatures)/2;$i++) {
-    /*
-     * We omit hidden creatures.
-     */
-    if(isset($creatures[$i]['hidden'])) {
-      continue;
-    }
+			for($i=0;$i<sizeof($creatures)/2;$i++) {
+				/*
+				 * We omit hidden creatures.
+				 */
+				if(isset($creatures[$i]['hidden'])) {
+					continue;
+				}
 
-    $name=$creatures[$i.' attr']['name'];
-    if(isset($creatures[$i]['description'])) {
-      $description=$creatures[$i]['description']['0'];
-    } else {
-      $description='';
-    }
-    
-    $class=$creatures[$i]['type']['0 attr']['class'];
-    $gfx=rewriteURL('/images/creature/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png');
-    
-    $attributes=array();
-    $attributes['atk']=$creatures[$i]['attributes'][0]['atk']['0 attr']['value'];
-    if (isset($creatures[$i]['abilities'][0]['damage']['0 attr']['type'])) {
-    	$attributes['atk'] = $attributes['atk'].' ('.$creatures[$i]['abilities'][0]['damage']['0 attr']['type'].')';
-    }
-    $attributes['def']=$creatures[$i]['attributes'][0]['def']['0 attr']['value'];
-    $attributes['speed']=$creatures[$i]['attributes'][0]['speed']['0 attr']['value'];
-    $attributes['hp']=$creatures[$i]['attributes'][0]['hp']['0 attr']['value'];
-    
-    $level=$creatures[$i]['level']['0 attr']['value'];
-    $xp=$creatures[$i]['experience']['0 attr']['value'];
-    $respawn=$creatures[$i]['respawn']['0 attr']['value'];
+				$name=$creatures[$i.' attr']['name'];
+				if(isset($creatures[$i]['description'])) {
+					$description=$creatures[$i]['description']['0'];
+				} else {
+					$description='';
+				}
 
-    $drops=array();
+				$class=$creatures[$i]['type']['0 attr']['class'];
+				$gfx=rewriteURL('/images/creature/'.$class.'/'.$creatures[$i]['type']['0 attr']['subclass'].'.png');
 
-    foreach($creatures[$i]['drops'][0]['item'] as $drop) {
-    	if(is_array($drop)) {
-    		$drops[]=array("name"=>$drop['value'],"quantity"=>$drop['quantity'], "probability"=>$drop['probability']);
-    	}
-    }
-    /* DEBUGING
-    echo '<h1>Creature: '.$name.'</h1><br>';
-    echo 'Description: "'.$description.'"<br>';
-    echo 'Class: "'.$class.'"<br>';
-    echo 'Level: '.$level.'<br>';
-    echo 'GFX: "'.$gfx.' <br>';    
-    echo '<img src="monsterimage.php?url='.$gfx"/><br>';
-    echo 'Attributes: <br>';
-    //print_r($attributes);
-    
-    //print_r($creatures[$i]);
-    */
+				$attributes = array();
+				$attributes['atk']=$creatures[$i]['attributes'][0]['atk']['0 attr']['value'];
+				if (isset($creatures[$i]['abilities'][0]['damage']['0 attr']['type'])) {
+					$attributes['atk'] = $attributes['atk'].' ('.$creatures[$i]['abilities'][0]['damage']['0 attr']['type'].')';
+				}
+				$attributes['def']=$creatures[$i]['attributes'][0]['def']['0 attr']['value'];
+				$attributes['speed']=$creatures[$i]['attributes'][0]['speed']['0 attr']['value'];
+				$attributes['hp']=$creatures[$i]['attributes'][0]['hp']['0 attr']['value'];
 
-    $list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops);
-  }
+				$level=$creatures[$i]['level']['0 attr']['value'];
+				$xp=$creatures[$i]['experience']['0 attr']['value'];
+				$respawn=$creatures[$i]['respawn']['0 attr']['value'];
+
+				$drops=array();
+				foreach($creatures[$i]['drops'][0]['item'] as $drop) {
+					if(is_array($drop)) {
+						$drops[]=array("name"=>$drop['value'],"quantity"=>$drop['quantity'], "probability"=>$drop['probability']);
+					}
+				}
+
+				$list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops);
+			}
 		}
 	}
 
 	uasort($list, 'sortByLevelAndName');
-  Monster::$monsters=$list;
-  return $list;
+	Monster::$monsters = $list;
+	return $list;
 }
 
 ?>
