@@ -32,7 +32,6 @@ if (defined('MEDIAWIKI')) {
 			$id = htmlspecialchars(urlencode($id));
 			$stat = htmlspecialchars(urlencode($stat));
 
-			$parser->disableCache();
 			return $parser->insertStripItem(
 				'<script type="text/javascript" src="http://www.ohloh.net/'.$class.'/'.$id.'/widgets/'.$stat.'.js"></script>',
 				$parser->mStripState);
