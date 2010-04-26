@@ -278,14 +278,6 @@ if ($page->writeHttpHeader()) {
 		echo 'Server time: '.date('G:i');
 		?>
 	</div>
-
-	<div class="author">
-		<?php
-		// Shows a little chara of the authors.
-		$name=array_rand($authors);
-		?>
-		<a href="http://arianne.sourceforge.net"><img src="<?php echo rewriteURL('/images/outfit/'.surlencode($authors[$name]).'.png');?>" alt="<?php echo htmlspecialchars($name); ?>"><br><?php echo htmlspecialchars($name); ?></a>
-	</div>
 </div>
 </body>
 </html>
