@@ -87,7 +87,7 @@ foreach($this->monsters as $m) {
       <div class="description">
         <?php 
           if($m->description=="") {
-            echo "No description. Would you like to write one?";
+            echo 'No description. Would you like to <a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=101111">write one</a>?';
           } else {
             echo $m->description;
           }
