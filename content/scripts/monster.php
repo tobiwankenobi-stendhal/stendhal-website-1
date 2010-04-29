@@ -105,6 +105,8 @@ foreach($this->monsters as $m) {
 		}
 		?>
 	</div>
+
+	<?php if (count($m->susceptibilities) > 0) {?>
 	<div class="table">
 		<div class="title">Resistances</div>
 		<?php
@@ -118,6 +120,8 @@ foreach($this->monsters as $m) {
 		}
 		?>
 	</div>
+	<?php }?>
+
 	<div class="table">
 		<div class="title">Creature drops</div>
 			<?php
