@@ -78,8 +78,6 @@ class Monster {
 		$this->attributes=$attributes;
 		$this->drops=$drops;
 		$this->susceptibilities=$susceptibilities;
-		echo $name;
-		var_dump($susceptibilities);
 	}
 
 	function showImage() {
