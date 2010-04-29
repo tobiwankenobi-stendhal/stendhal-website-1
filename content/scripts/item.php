@@ -216,7 +216,24 @@ foreach($this->items as $m) {
 		}
           ?>
         </div>      
-                  
+
+	<?php if (count($m->susceptibilities) > 0) {?>
+	<div class="table">
+		<div class="title">Resistances</div>
+		<?php
+		foreach($m->susceptibilities as $label=>$data) {
+		?>
+			<div class="row">
+				<div class="label"><?php echo strtoupper($label); ?></div>
+				<div class="data"><?php echo $data; ?>%</div>
+			</div>
+		<?php
+		}
+		?>
+	</div>
+	<?php }?>
+
+	</div>
       <div class="table">
         <div class="title">Dropped by</div>
           <div style="float: left; width: 100%;">

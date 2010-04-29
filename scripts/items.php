@@ -33,10 +33,12 @@ class Item {
   public $gfx;
   /* Attributes of the item as an array attribute=>value */
   public $attributes;
+  /* susceptibilities and resistances */
+  public $susceptibilities;
   /* Where the item can be wore as an array slot=>item */
   public $equipableat;
 
-  function __construct($name, $description, $class, $gfx,$attributes, $equipableat) {
+  function __construct($name, $description, $class, $gfx, $attributes, $susceptibilities, $equipableat) {
     $this->name=$name;
     $this->description=$description;
     $this->class=$class;
@@ -44,6 +46,7 @@ class Item {
     $this->gfx=$gfx;
     $this->attributes=$attributes;
     $this->equipableat=$equipableat;
+    $this->susceptibilities=$susceptibilities;
   }
   
   function showImage() {
@@ -105,6 +108,15 @@ function getItems() {
 				$class=$items[$i]['type']['0 attr']['class'];
 				$gfx=rewriteURL('/images/item/'.surlencode($class).'/'.surlencode($items[$i]['type']['0 attr']['subclass']).'.png');
 
+				$susceptibilities=array();
+				if (isset($items[$i]['susceptibility'])) {
+					foreach($items[$i]['susceptibility'] as $susceptibility) {
+						if ($susceptibility['type'] != "") {
+							$susceptibilities[$susceptibility['type']]=round(100 / $susceptibility['value']);
+						}
+					}
+				}
+
 				$attributes=array();
 				if (is_array($items[$i]['attributes'][0])) {
 					foreach($items[$i]['attributes'][0] as $attr=>$val) {
@@ -115,7 +127,7 @@ function getItems() {
 					$attributes['atk'] = $attributes['atk'].' ('.$items[$i]['damage']['0 attr']['type'].')';
 				}
 
-				$list[]=new Item($name, $description, $class, $gfx, $attributes, null);
+				$list[]=new Item($name, $description, $class, $gfx, $attributes, $susceptibilities, null);
 			}
 		}
 	}
