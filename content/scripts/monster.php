@@ -72,66 +72,64 @@ if (!$this->found) {
 }
 
 foreach($this->monsters as $m) {
-  /*
-   * If name of the creature match or contains part of the name.
-   */
-  if($m->name==$this->name || (!$this->isExact and strpos($m->name, $this->name) != false)) {
-    startBox("Detailed information");
-    ?>
-    <div class="creature">
-      <div class="name"><?php echo ucfirst($m->name); ?></div>
-      <img class="creature" src="<?php echo $m->gfx; ?>" alt="">
-      <div class="level">Level <?php echo $m->level; ?></div>
-      <div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
-      <div class="respawn">Respawns on average in <?php echo printRespawn($m->respawn); ?> minutes.</div>
-      <div class="description">
-        <?php 
-          if($m->description=="") {
-            echo 'No description. Would you like to <a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=101111">write one</a>?';
-          } else {
-            echo $m->description;
-          }
-        ?>
-      </div>
-      
-      <div class="table">
-        <div class="title">Attributes</div>
-          <?php
-          foreach($m->attributes as $label=>$data) {
-            ?>
-            <div class="row">
-              <div class="label"><?php echo strtoupper($label); ?></div>
-              <div class="data"><?php echo $data; ?></div>
-            </div>
-            <?php
-          }
-          ?>
-        </div>      
-      
-      <div class="table">
-        <div class="title">Creature drops</div>
-          <?php
-          foreach($m->drops as $k) {
-          	?>
-            <div class="row">
-              <?php
-                $item = getItem($k["name"]);
-                echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($k["name"]).'.html').'">';
-              ?>
-              <img src="<?php echo $item->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
-              <span class="block label"><?php echo ucfirst($k["name"]); ?></span>
-              </a>
-              <div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
-              <div class="data">Probability: <?php echo $k["probability"]; ?>%</div>
-            </div>
-            <?php 
-          }
-          ?>
-        </div>
-      </div>
+	/* If name of the creature match or contains part of the name.*/
+	if($m->name==$this->name || (!$this->isExact and strpos($m->name, $this->name) != false)) {
+	startBox("Detailed information");
+	?>
+	<div class="creature">
+		<div class="name"><?php echo ucfirst($m->name); ?></div>
+		<img class="creature" src="<?php echo $m->gfx; ?>" alt="">
+		<div class="level">Level <?php echo $m->level; ?></div>
+		<div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
+		<div class="respawn">Respawns on average in <?php echo printRespawn($m->respawn); ?> minutes.</div>
+		<div class="description">
+		<?php 
+		if($m->description=="") {
+			echo 'No description. Would you like to <a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=101111">write one</a>?';
+		} else {
+			echo $m->description;
+		}
+		?>
+	</div>
 
-    <?php
-    endBox();
+	<div class="table">
+		<div class="title">Attributes</div>
+		<?php
+		foreach($m->attributes as $label=>$data) {
+		?>
+			<div class="row">
+				<div class="label"><?php echo strtoupper($label); ?></div>
+				<div class="data"><?php echo $data; ?></div>
+			</div>
+		<?php
+		}
+		?>
+	</div>
+
+	<div class="table">
+		<div class="title">Creature drops</div>
+			<?php
+			foreach($m->drops as $k) {
+			?>
+				<div class="row">
+					<?php
+					$item = getItem($k["name"]);
+					echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($k["name"]).'.html').'">';
+					?>
+					<img src="<?php echo $item->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
+					<span class="block label"><?php echo ucfirst($k["name"]); ?></span>
+					</a>
+					<div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
+					<div class="data">Probability: <?php echo $k["probability"]; ?>%</div>
+				</div>
+			<?php 
+			}
+			?>
+		</div>
+	</div>
+
+	<?php
+	endBox();
 
 
     /*
