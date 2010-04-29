@@ -160,7 +160,7 @@ foreach($this->monsters as $m) {
 	$data .= $date . '_' . $amount . ',';
       }
     ?>  
-    <img style="padding: 4px; border: 1px solid black;" src="/bargraph.php?data=<?php echo $data; ?>"/>
+    <img style="padding: 4px; border: 1px solid black;" src="/bargraph.php?data=<?php echo $data; ?>" alt="<?php echo $data; ?>" title="Killed creature" >
     <?php
     endBox();
 
@@ -171,7 +171,7 @@ foreach($this->monsters as $m) {
 	$data.= $date . '_' . $amount . ','; 
       }
     ?>  
-    <img style="padding: 4px; border: 1px solid black;" src="/bargraph.php?data=<?php echo $data; ?>"/>
+    <img style="padding: 4px; border: 1px solid black;" src="/bargraph.php?data=<?php echo $data; ?>" alt="<?php echo $data; ?>" title="Killed Players" >
     <?php
     endBox();
     ?>
