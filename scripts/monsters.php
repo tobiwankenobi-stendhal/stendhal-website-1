@@ -59,12 +59,14 @@ class Monster {
 	public $killed;
 	/* Attributes of the monster as an array attribute=>value */
 	public $attributes;
+	/* susceptibilities and resistances */
+	public $susceptibilities;
 	/* Stuff this creature drops as an array (item, quantity, probability) */
 	public $drops;
 	/* Locations where this monster is found. */
 	public $locations;
 
-	function __construct($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops) {
+	function __construct($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $susceptibilities, $drops) {
 		$this->name=$name;
 		$this->description=$description;
 		$this->class=$class;
@@ -75,6 +77,9 @@ class Monster {
 		$this->respawn=$respawn;
 		$this->attributes=$attributes;
 		$this->drops=$drops;
+		$this->susceptibilities=$susceptibilities;
+		echo $name;
+		var_dump($susceptibilities);
 	}
 
 	function showImage() {
@@ -270,6 +275,15 @@ function getMonsters() {
 				$xp=$creatures[$i]['experience']['0 attr']['value'];
 				$respawn=$creatures[$i]['respawn']['0 attr']['value'];
 
+				$susceptibilities=array();
+				if (isset($creatures[$i]['abilities'][0]['susceptibility'])) {
+					foreach($creatures[$i]['abilities'][0]['susceptibility'] as $susceptibility) {
+						if ($susceptibility['type'] != "") {
+							$susceptibilities[$susceptibility['type']]=round(100 / $susceptibility['value']);
+						}
+					}
+				}
+				
 				$drops=array();
 				foreach($creatures[$i]['drops'][0]['item'] as $drop) {
 					if(is_array($drop)) {
@@ -277,7 +291,7 @@ function getMonsters() {
 					}
 				}
 
-				$list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $drops);
+				$list[]=new Monster($name, $description, $class, $gfx, $level, $xp, $respawn, $attributes, $susceptibilities, $drops);
 			}
 		}
 	}

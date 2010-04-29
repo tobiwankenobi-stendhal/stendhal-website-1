@@ -105,7 +105,19 @@ foreach($this->monsters as $m) {
 		}
 		?>
 	</div>
-
+	<div class="table">
+		<div class="title">Resistances</div>
+		<?php
+		foreach($m->susceptibilities as $label=>$data) {
+		?>
+			<div class="row">
+				<div class="label"><?php echo strtoupper($label); ?></div>
+				<div class="data"><?php echo $data; ?>%</div>
+			</div>
+		<?php
+		}
+		?>
+	</div>
 	<div class="table">
 		<div class="title">Creature drops</div>
 			<?php
