@@ -44,8 +44,13 @@ class MainPage extends Page {
 <br>
 <br>
 <div>
-	<?php startBox('News Archive');
-	echo 'Read <a href="'.rewriteURL('/world/newsarchive.html').'">older news</a>.';
+	<?php startBox('More News');?>
+	<ul class="menu">
+		<li><a href="<?php echo rewriteURL('/world/newsarchive.html');?>"><img src="/images/buttons/news_button.png" alt="">Older news</a></li>
+		<li><a href="<?php echo rewriteURL('/rss/news.rss');?>"><img src="/images/buttons/feed_button.png" alt="">RSS-Feead</a></li>
+		<li><a href="http://twitter.com/stendhaltrade"><img src="/images/buttons/twitter_button.png" alt="">Trading</a></li>
+	</ul>
+	<?php
 	endBox();
 	?>
 </div>
