@@ -46,9 +46,9 @@ class MainPage extends Page {
 <div>
 	<?php startBox('More News');?>
 	<ul class="menu">
-		<li><a href="<?php echo rewriteURL('/world/newsarchive.html');?>"><img src="/images/buttons/news_button.png" alt="">Older news</a></li>
-		<li><a href="<?php echo rewriteURL('/rss/news.rss');?>"><img src="/images/buttons/feed_button.png" alt="">RSS-Feed for this page</a></li>
-		<li><a href="http://twitter.com/stendhaltrade"><img src="/images/buttons/twitter_button.png" alt="">Harold's Trading Announcments</a></li>
+		<li style="width: 100%"><a href="<?php echo rewriteURL('/world/newsarchive.html');?>"><img src="/images/buttons/news_button.png" alt="">Older news</a></li>
+		<li style="width: 100%"><a href="<?php echo rewriteURL('/rss/news.rss');?>"><img src="/images/buttons/feed_button.png" alt="">RSS-Feed for this page</a></li>
+		<li style="width: 100%"><a href="http://twitter.com/stendhaltrade"><img src="/images/buttons/twitter_button.png" alt="">Harold's Trading Announcements</a></li>
 	</ul>
 	<?php
 	endBox();
