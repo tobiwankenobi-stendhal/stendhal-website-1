@@ -4,10 +4,10 @@ function webstart(minimumVersion, jnlp) {
 	}
 	if (!deployJava.isWebStartInstalled(minimumVersion)) {
 		if (deployJava.installLatestJRE()) {
-			if (deployJava.launch(jnlp)) {}
+			deployJava.launch(jnlp);
 		}
 	} else {
-		if (deployJava.launch(jnlp)) {}
+		deployJava.launch(jnlp);
 	};
 }
 
