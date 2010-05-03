@@ -169,7 +169,7 @@ if ($page->writeHttpHeader()) {
 	<div id="rightArea">
 		<script src="/css/00000001.js"></script>
 
-		<a href="#" onclick='javascript:webstart("1.6.0", "http://arianne.sourceforge.net/jws/stendhal.jnlp"); return false'><span class="block" id="playArea"></span></a>
+		<a href="#" onclick='javascript:webstart("1.5.0", "http://arianne.sourceforge.net/jws/stendhal.jnlp"); return false'><span class="block" id="playArea"></span></a>
 		<a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo STENDHAL_VERSION; ?>.zip"><span class="block" id="downloadArea"></span></a>
 
 
