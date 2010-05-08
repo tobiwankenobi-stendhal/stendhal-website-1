@@ -76,7 +76,7 @@ startBox(ucfirst($class).' Items');
 	if($item->class==$class) {
 	  ?>
   	  <div class="item">
-        <?php echo '<a class="item" href="'.rewriteURL('/item/'.surlencode($class).'/'. surlencode($item->name) . '.html').'">'; ?>'
+        <?php echo '<a class="item" href="'.rewriteURL('/item/'.surlencode($class).'/'. surlencode($item->name) . '.html').'">'; ?>
  	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt="">
 	      <span class="block item_name"><?php echo $item->name; ?></span>
 	    </a>
