@@ -189,9 +189,9 @@ if ($page->writeHttpHeader()) {
 
 		<?php startBox('Players'); ?>
 		<ul class="menu">
-			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
-			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
-			<li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
+			<li style="white-space: nowrap"><a id="menuPlayerOnline" href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
+			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
+			<li><a id="menuPlayerKillstats" href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
 		</ul>
 		<form method="get" action="/" accept-charset="iso-8859-1">
 			<input type="hidden" name="id" value="content/scripts/character">
@@ -211,11 +211,11 @@ if ($page->writeHttpHeader()) {
 			<ul id="adminmenu" class="menu">
 				<?php 
 				if(getAdminLevel()>=400) { ?>
-					<li><a href="/?id=content/admin/news"><img src="/images/buttons/news_button.png" alt="">News</a></li>
-					<li><a href="/?id=content/admin/screenshots"><img src="/images/buttons/screenshots_button.png" alt="">Screenshots</a></li>
+					<li><a id="menuAdminNews" href="/?id=content/admin/news"><img src="/images/buttons/news_button.png" alt="">News</a></li>
+					<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots"><img src="/images/buttons/screenshots_button.png" alt="">Screenshots</a></li>
 				<?php } ?>
-				<li><a href="/?id=content/admin/logs"><img src="/images/buttons/c_chat_button.png" alt="">Support Logs</a></li>
-				<li><a href="/?id=content/admin/playerhistory"><img src="/images/buttons/playerhistory_button.png" alt="">Player History</a></li>
+				<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs"><img src="/images/buttons/c_chat_button.png" alt="">Support Logs</a></li>
+				<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory"><img src="/images/buttons/playerhistory_button.png" alt="">Player History</a></li>
 			</ul>
 			<?php endBox();
 		}?>

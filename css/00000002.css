@@ -411,7 +411,11 @@ span.block {
 
 /* menu */
 #menuAtlas, #menuNPCs, #menuCreatures, #menuItems, #menuQuests, #menuHistory,
-#menuHelpManual, #menuHelpFAQ, #menuHelpBeginner, #menuHelpAsk, #menuHelpChat, #menuHelpSupport, #menuHelpForum, #menuHelpRules {
+#menuHelpManual, #menuHelpFAQ, #menuHelpBeginner, #menuHelpAsk, #menuHelpChat, #menuHelpSupport, #menuHelpForum, #menuHelpRules,
+#menuPlayerOnline, #menuPlayerHalloffame, #menuPlayerKillstats,
+#menuAdminNews, #menuAdminScreenshots, #menuAdminScreenshots, #menuAdminPlayerhistory,
+#menuContribChat, #menuContribWiki, #menuContribBugs, #menuContribQuests, #menuContribHelp, #menuContribTesting, #menuContribHistory, #menuContribDownload, #menuContribDevelopment
+{
 	padding-left: 32px;
 	display:inline-block;
 	line-height:25px;
@@ -420,7 +424,7 @@ span.block {
 #menuAtlas {background: url(/images/buttons/atlas_button.png) center left no-repeat}
 #menuNPCs {background: url(/images/buttons/npcs_button.png) center left no-repeat}
 #menuCreatures {background: url(/images/buttons/creatures_button.png) center left no-repeat}
-#menuItem {background: url(/images/buttons/items_button.png) center left no-repeat}
+#menuItems {background: url(/images/buttons/items_button.png) center left no-repeat}
 #menuQuests {background: url(/images/buttons/quests_button.png) center left no-repeat}
 #menuHistory {background: url(/images/buttons/history_button.png) center left no-repeat}
 
@@ -433,16 +437,21 @@ span.block {
 #menuHelpForum {background: url(/images/buttons/forum_button.png) center left no-repeat}
 #menuHelpRules {background: url(/images/buttons/rules_button.png) center left no-repeat}
 
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-#menu {background: url(/images/buttons/.png) center left no-repeat}
-v
+#menuPlayerOnline {background: url(/images/buttons/postman_button.png) center left no-repeat}
+#menuPlayerHalloffame {background: url(/images/buttons/quests_button.png) center left no-repeat}
+#menuPlayerKillstats {background: url(/images/buttons/items_button.png) center left no-repeat}
+
+#menuAdminNews {background: url(/images/buttons/news_button.png) center left no-repeat}
+#menuAdminScreenshots {background: url(/images/buttons/screenshots_button.png) center left no-repeat}
+#menuAdminScreenshots {background: url(/images/buttons/c_chat_button.png) center left no-repeat}
+#menuAdminPlayerhistory {background: url(/images/buttons/playerhistory_button.png) center left no-repeat}
+
+#menuContribChat {background: url(/images/buttons/c_chat_button.png) center left no-repeat}
+#menuContribWiki {background: url(/images/buttons/c_wiki_button.png) center left no-repeat}
+#menuContribBugs {background: url(/images/buttons/c_bug_button.png) center left no-repeat}
+#menuContribQuests {background: url(/images/buttons/quests_button.png) center left no-repeat}
+#menuContribHelp {background: url(/images/buttons/help_button.png) center left no-repeat}
+#menuContribTesting {background: url(/images/buttons/test_button.png) center left no-repeat}
+#menuContribHistory {background: url(/images/buttons/history_button.png) center left no-repeat}
+#menuContribDownload {background: url(/images/buttons/download_button.png) center left no-repeat}
+#menuContribDevelopment {background: url(/images/buttons/rpsystem_button.png) center left no-repeat}
