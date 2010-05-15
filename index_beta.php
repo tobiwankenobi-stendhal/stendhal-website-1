@@ -189,9 +189,9 @@ if ($page->writeHttpHeader()) {
 
 		<?php startBox('Players'); ?>
 		<ul class="menu">
-			<li style="white-space: nowrap"><a id="menuPlayerOnline" href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
-			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
-			<li><a id="menuPlayerKillstats" href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
+			<li style="white-space: nowrap"><a id="menuPlayerOnline" href="<?php echo rewriteURL('/world/online.html');?>"><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
+			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame.html')?>">Hall Of Fame</a></li>
+			<li><a id="menuPlayerKillstats" href="<?php echo rewriteURL('/world/kill-stats.html')?>">Kill stats</a></li>
 		</ul>
 		<form method="get" action="/" accept-charset="iso-8859-1">
 			<input type="hidden" name="id" value="content/scripts/character">
@@ -211,11 +211,11 @@ if ($page->writeHttpHeader()) {
 			<ul id="adminmenu" class="menu">
 				<?php 
 				if(getAdminLevel()>=400) { ?>
-					<li><a id="menuAdminNews" href="/?id=content/admin/news"><img src="/images/buttons/news_button.png" alt="">News</a></li>
-					<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots"><img src="/images/buttons/screenshots_button.png" alt="">Screenshots</a></li>
+					<li><a id="menuAdminNews" href="/?id=content/admin/news">News</a></li>
+					<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots">Screenshots</a></li>
 				<?php } ?>
-				<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs"><img src="/images/buttons/c_chat_button.png" alt="">Support Logs</a></li>
-				<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory"><img src="/images/buttons/playerhistory_button.png" alt="">Player History</a></li>
+				<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs">Support Logs</a></li>
+				<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></li>
 			</ul>
 			<?php endBox();
 		}?>
@@ -248,15 +248,15 @@ if ($page->writeHttpHeader()) {
 		<?php startBox('Contribute'); ?>
 		<ul id="contribmenu" class="menu">
 			<?php
-			echo '<li><a href="'.rewriteURL('/chat/').'"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://stendhalgame.org/wiki/Stendhal"><img src="/images/buttons/c_wiki_button.png" alt="">Wiki</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/development/bug.html').'"><img src="/images/buttons/c_bug_button.png" alt="">Report Bug</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Quest_Contribution"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="/images/buttons/help_button.png" alt="">Submit Patch</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://xplanner.homelinux.net"><img src="/images/buttons/test_button.png" alt="">Testing</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/development/cvslog.html').'"><img src="/images/buttons/history_button.png" alt="">CVS/Changes</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://sf.net/projects/arianne/files/stendhal"><img src="/images/buttons/download_button.png" alt="">All Downloads</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/development').'"><img src="/images/buttons/rpsystem_button.png" alt="">Development</a></li>'."\n";
+			echo '<li><a id="menuContribChat" href="'.rewriteURL('/chat/').'">Chat</a></li>'."\n";
+			echo '<li><a id="menuContribWiki" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
+			echo '<li><a id="menuContribBugs" href="'.rewriteURL('/development/bug.html').'">Report Bug</a></li>'."\n";
+			echo '<li><a id="menuContribQuests" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a></li>'."\n";
+			echo '<li><a id="menuContribHelp" href="'.$protocol.'://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111">Submit Patch</a></li>'."\n";
+			echo '<li><a id="menuContribTesting" href="'.$protocol.'://xplanner.homelinux.net">Testing</a></li>'."\n";
+			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/cvslog.html').'">Changes</a></li>'."\n";
+			echo '<li><a id="menuContribDownload" href="'.$protocol.'://sf.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
+			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
