@@ -410,7 +410,8 @@ span.block {
 }
 
 /* menu */
-#menuAtlas, #menuNPCs, #menuCreatures, #menuItem, #menuQuests, #menuHistory {
+#menuAtlas, #menuNPCs, #menuCreatures, #menuItems, #menuQuests, #menuHistory,
+#menuHelpManual, #menuHelpFAQ, #menuHelpBeginner, #menuHelpAsk, #menuHelpChat, #menuHelpSupport, #menuHelpForum, #menuHelpRules {
 	padding-left: 32px;
 	display:inline-block;
 	line-height:25px;
@@ -423,13 +424,25 @@ span.block {
 #menuQuests {background: url(/images/buttons/quests_button.png) center left no-repeat}
 #menuHistory {background: url(/images/buttons/history_button.png) center left no-repeat}
 
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
-#menu {background: url(/images/buttons/) center left no-repeat}
+#menuHelpManual {background: url(/images/buttons/manual_button.png) center left no-repeat}
+#menuHelpFAQ {background: url(/images/buttons/faq_button.png) center left no-repeat}
+#menuHelpBeginner {background: url(/images/buttons/beginner_button.png) center left no-repeat}
+#menuHelpAsk {background: url(/images/buttons/help_button.png) center left no-repeat}
+#menuHelpChat {background: url(/images/buttons/c_chat_button.png) center left no-repeat}
+#menuHelpSupport {background: url(/images/buttons/support_button.png) center left no-repeat}
+#menuHelpForum {background: url(/images/buttons/forum_button.png) center left no-repeat}
+#menuHelpRules {background: url(/images/buttons/rules_button.png) center left no-repeat}
+
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+#menu {background: url(/images/buttons/.png) center left no-repeat}
+v

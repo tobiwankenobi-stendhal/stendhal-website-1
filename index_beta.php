@@ -153,14 +153,14 @@ if ($page->writeHttpHeader()) {
 
 		<?php startBox('Help'); ?>
 		<ul id="helpmenu" class="menu">
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual"><img src="/images/buttons/manual_button.png" alt="">Manual</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/BeginnersGuide"><img src="/images/buttons/beginner_button.png" alt="">Beginner's Guide</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Ask For Help</a></li>
-			<li><a href="<?php echo rewriteURL('/chat/');?>"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>
-			<li><a href="<?php echo $protocol;?>://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/buttons/support_button.png" alt="">Support Ticket</a></li>
-			<li><a href="<?php echo $protocol;?>://sourceforge.net/forum/forum.php?forum_id=3190"><img src="/images/buttons/forum_button.png" alt="">Forum</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalRuleSystem"><img src="/images/buttons/rules_button.png" alt="">Rules</a></li>
+			<li><a id="menuHelpManual" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
+			<li><a id="menuHelpFAQ" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalFAQ">FAQ</a></li>
+			<li><a id="menuHelpBeginner" href="<?php echo $protocol;?>://stendhalgame.org/wiki/BeginnersGuide">Beginner's Guide</a></li>
+			<li><a id="menuHelpAsk" href="<?php echo $protocol;?>://stendhalgame.org/wiki/AskForHelp">Ask For Help</a></li>
+			<li><a id="menuHelpChat" href="<?php echo rewriteURL('/chat/');?>">Chat</a></li>
+			<li><a id="menuHelpSupport" href="<?php echo $protocol;?>://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111">Support Ticket</a></li>
+			<li><a id="menuHelpForum" href="<?php echo $protocol;?>://sourceforge.net/forum/forum.php?forum_id=3190">Forum</a></li>
+			<li><a id="menuHelpRules" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalRuleSystem">Rules</a></li>
 		</ul>
 		<?php endBox() ?>
 
