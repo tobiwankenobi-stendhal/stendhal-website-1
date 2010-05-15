@@ -272,8 +272,8 @@ if ($page->writeHttpHeader()) {
 	</div>
 
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2010 <a href="http://arianne.sourceforge.net">Arianne RPG</a></span>
-		<span><a href="http://sourceforge.net/projects/arianne"><img src="https://sflogo.sourceforge.net/sflogo.php?group_id=1111&amp;type=15" width="150" height="40" border="0" alt="Get Arianne RPG at SourceForge.net." ></a></span>
+		<span class="copyright">&copy; 1999-2010 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
+		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">Sourceforge</a></span>
 	</div>
 
 	<div class="time">
