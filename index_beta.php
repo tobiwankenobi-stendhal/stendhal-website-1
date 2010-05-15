@@ -91,7 +91,7 @@ if ($page->writeHttpHeader()) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/css/00000003.css">
+	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/css/00000002.css">
 	<link rel="icon" type="image/png" href="<?echo $folder;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
