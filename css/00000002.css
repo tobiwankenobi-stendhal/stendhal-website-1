@@ -412,9 +412,9 @@ span.block {
 /* menu */
 #menuAtlas {
 	background: url(/images/buttons/atlas_button.png) center left no-repeat;
-	padding-left: 30px; line-height:28px
+	padding-left: 30px; display:inline-block; line-height:28px;
 }
 #menuNPCs {
 	background: url(/images/buttons/npcs_button.png) center left no-repeat;
-	padding-left: 30px; line-height:28px
+	padding-left: 30px; display:inline-block; line-height:28px;
 }
