@@ -92,6 +92,8 @@ if ($page->writeHttpHeader()) {
 <html>
 	<head>
 	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/css/00000002.css">
+	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?echo $folder;?>/css/ie000002.css"><![endif]-->
+	
 	<link rel="icon" type="image/png" href="<?echo $folder;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
