@@ -273,7 +273,7 @@ if ($page->writeHttpHeader()) {
 
 	<div id="footerArea">
 		<span class="copyright">&copy; 1999-2010 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
-		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">Sourceforge</a></span>
+		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">&nbsp;</a></span>
 	</div>
 
 	<div class="time">
