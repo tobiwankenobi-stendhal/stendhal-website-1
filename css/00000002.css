@@ -414,7 +414,8 @@ span.block {
 #menuHelpManual, #menuHelpFAQ, #menuHelpBeginner, #menuHelpAsk, #menuHelpChat, #menuHelpSupport, #menuHelpForum, #menuHelpRules,
 #menuPlayerOnline, #menuPlayerHalloffame, #menuPlayerKillstats,
 #menuAdminNews, #menuAdminScreenshots, #menuAdminScreenshots, #menuAdminPlayerhistory,
-#menuContribChat, #menuContribWiki, #menuContribBugs, #menuContribQuests, #menuContribHelp, #menuContribTesting, #menuContribHistory, #menuContribDownload, #menuContribDevelopment
+#menuContribChat, #menuContribWiki, #menuContribBugs, #menuContribQuests, #menuContribHelp, #menuContribTesting, #menuContribHistory, #menuContribDownload, #menuContribDevelopment, 
+#menuNewsArchive, #menuNewsRss, #menuNewsTrade
 {
 	padding-left: 32px;
 	display:inline-block;
@@ -455,3 +456,7 @@ span.block {
 #menuContribHistory {background: url(/images/buttons/history_button.png) center left no-repeat}
 #menuContribDownload {background: url(/images/buttons/download_button.png) center left no-repeat}
 #menuContribDevelopment {background: url(/images/buttons/rpsystem_button.png) center left no-repeat}
+
+#menuNewsArchive {background: url(/images/buttons/news_button.png) center left no-repeat}
+#menuNewsRss {background: url(/images/buttons/feed_button.png) center left no-repeat}
+#menuNewsTrade {background: url(/images/buttons/twitter_button.png) center left no-repeat}
