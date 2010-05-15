@@ -91,7 +91,7 @@ if ($page->writeHttpHeader()) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/css/00000001.css">
+	<link rel="stylesheet" type="text/css" href="<?echo $folder;?>/css/00000003.css">
 	<link rel="icon" type="image/png" href="<?echo $folder;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
@@ -141,26 +141,26 @@ if ($page->writeHttpHeader()) {
 		<?php startBox('Game System'); ?>
 		<ul id="gamemenu" class="menu">
 			<?php 
-			echo '<li><a href="'.$protocol.'://stendhalgame.org/wiki/StendhalAtlas"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/npc/').'"><img src="/images/buttons/npcs_button.png" alt="">NPCs</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/creature/').'"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/item/').'"><img src="/images/buttons/items_button.png" alt="">Items</a></li>'."\n";
+			echo '<li><a id="menuAtlas" href="'.$protocol.'://stendhalgame.org/wiki/StendhalAtlas">Atlas</a></li>'."\n";
+			echo '<li><a id="menuNPCs" href="'.rewriteURL('/npc/').'">NPCs</a></li>'."\n";
+			echo '<li><a id="menuCreatures" href="'.rewriteURL('/creature/').'">Creatures</a></li>'."\n";
+			echo '<li><a id="menuItems" href="'.rewriteURL('/item/').'">Items</a></li>'."\n";
 			?>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalQuest"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalHistory"><img src="/images/buttons/history_button.png" alt="">History</a></li>
+			<li><a id="menuQuests" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalQuest">Quests</a></li>
+			<li><a id="menuHistory" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalHistory">History</a></li>
 		</ul>
 		<?php endBox(); ?>
 
 		<?php startBox('Help'); ?>
 		<ul id="helpmenu" class="menu">
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual"><img src="/images/buttons/manual_button.png" alt="">Manual</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalFAQ"><img src="/images/buttons/faq_button.png" alt="">FAQ</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/BeginnersGuide"><img src="/images/buttons/beginner_button.png" alt="">Beginner's Guide</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/AskForHelp"><img src="/images/buttons/help_button.png" alt="">Ask For Help</a></li>
-			<li><a href="<?php echo rewriteURL('/chat/');?>"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>
-			<li><a href="<?php echo $protocol;?>://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111"><img src="/images/buttons/support_button.png" alt="">Support Ticket</a></li>
-			<li><a href="<?php echo $protocol;?>://sourceforge.net/forum/forum.php?forum_id=3190"><img src="/images/buttons/forum_button.png" alt="">Forum</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalRuleSystem"><img src="/images/buttons/rules_button.png" alt="">Rules</a></li>
+			<li><a id="menuHelpManual" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
+			<li><a id="menuHelpFAQ" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalFAQ">FAQ</a></li>
+			<li><a id="menuHelpBeginner" href="<?php echo $protocol;?>://stendhalgame.org/wiki/BeginnersGuide">Beginner's Guide</a></li>
+			<li><a id="menuHelpAsk" href="<?php echo $protocol;?>://stendhalgame.org/wiki/AskForHelp">Ask For Help</a></li>
+			<li><a id="menuHelpChat" href="<?php echo rewriteURL('/chat/');?>">Chat</a></li>
+			<li><a id="menuHelpSupport" href="<?php echo $protocol;?>://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111">Support Ticket</a></li>
+			<li><a id="menuHelpForum" href="<?php echo $protocol;?>://sourceforge.net/forum/forum.php?forum_id=3190">Forum</a></li>
+			<li><a id="menuHelpRules" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalRuleSystem">Rules</a></li>
 		</ul>
 		<?php endBox() ?>
 
@@ -187,9 +187,9 @@ if ($page->writeHttpHeader()) {
 
 		<?php startBox('Players'); ?>
 		<ul class="menu">
-			<li style="white-space: nowrap"><a href="<?php echo rewriteURL('/world/online.html');?>"><img src="/images/buttons/faq_button.png" alt=""><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
-			<li><a href="<?php echo rewriteURL('/world/hall-of-fame.html')?>"><img src="/images/buttons/quests_button.png" alt="">Hall Of Fame</a></li>
-			<li><a href="<?php echo rewriteURL('/world/kill-stats.html')?>"><img src="/images/buttons/items_button.png" alt="">Kill stats</a></li>
+			<li style="white-space: nowrap"><a id="menuPlayerOnline" href="<?php echo rewriteURL('/world/online.html');?>"><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
+			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame.html')?>">Hall Of Fame</a></li>
+			<li><a id="menuPlayerKillstats" href="<?php echo rewriteURL('/world/kill-stats.html')?>">Kill stats</a></li>
 		</ul>
 		<form method="get" action="/" accept-charset="iso-8859-1">
 			<input type="hidden" name="id" value="content/scripts/character">
@@ -209,11 +209,11 @@ if ($page->writeHttpHeader()) {
 			<ul id="adminmenu" class="menu">
 				<?php 
 				if(getAdminLevel()>=400) { ?>
-					<li><a href="/?id=content/admin/news"><img src="/images/buttons/news_button.png" alt="">News</a></li>
-					<li><a href="/?id=content/admin/screenshots"><img src="/images/buttons/screenshots_button.png" alt="">Screenshots</a></li>
+					<li><a id="menuAdminNews" href="/?id=content/admin/news">News</a></li>
+					<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots">Screenshots</a></li>
 				<?php } ?>
-				<li><a href="/?id=content/admin/logs"><img src="/images/buttons/c_chat_button.png" alt="">Support Logs</a></li>
-				<li><a href="/?id=content/admin/playerhistory"><img src="/images/buttons/playerhistory_button.png" alt="">Player History</a></li>
+				<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs">Support Logs</a></li>
+				<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></li>
 			</ul>
 			<?php endBox();
 		}?>
@@ -246,15 +246,15 @@ if ($page->writeHttpHeader()) {
 		<?php startBox('Contribute'); ?>
 		<ul id="contribmenu" class="menu">
 			<?php
-			echo '<li><a href="'.rewriteURL('/chat/').'"><img src="/images/buttons/c_chat_button.png" alt="">Chat</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://stendhalgame.org/wiki/Stendhal"><img src="/images/buttons/c_wiki_button.png" alt="">Wiki</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/development/bug.html').'"><img src="/images/buttons/c_bug_button.png" alt="">Report Bug</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Quest_Contribution"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111"><img src="/images/buttons/help_button.png" alt="">Submit Patch</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://xplanner.homelinux.net"><img src="/images/buttons/test_button.png" alt="">Testing</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/development/cvslog.html').'"><img src="/images/buttons/history_button.png" alt="">CVS/Changes</a></li>'."\n";
-			echo '<li><a href="'.$protocol.'://sf.net/projects/arianne/files/stendhal"><img src="/images/buttons/download_button.png" alt="">All Downloads</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/development').'"><img src="/images/buttons/rpsystem_button.png" alt="">Development</a></li>'."\n";
+			echo '<li><a id="menuContribChat" href="'.rewriteURL('/chat/').'">Chat</a></li>'."\n";
+			echo '<li><a id="menuContribWiki" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
+			echo '<li><a id="menuContribBugs" href="'.rewriteURL('/development/bug.html').'">Report Bug</a></li>'."\n";
+			echo '<li><a id="menuContribQuests" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a></li>'."\n";
+			echo '<li><a id="menuContribHelp" href="'.$protocol.'://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111">Submit Patch</a></li>'."\n";
+			echo '<li><a id="menuContribTesting" href="'.$protocol.'://xplanner.homelinux.net">Testing</a></li>'."\n";
+			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/cvslog.html').'">Changes</a></li>'."\n";
+			echo '<li><a id="menuContribDownload" href="'.$protocol.'://sf.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
+			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
