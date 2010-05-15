@@ -410,11 +410,26 @@ span.block {
 }
 
 /* menu */
-#menuAtlas, #menuNPC {
-	padding-left: 30px;
+#menuAtlas, #menuNPCs {
+	padding-left: 32px;
 	display:inline-block;
 	line-height:25px;
 }
 
 #menuAtlas {background: url(/images/buttons/atlas_button.png) center left no-repeat}
 #menuNPCs {background: url(/images/buttons/npcs_button.png) center left no-repeat}
+#menuCreatures {background: url(/images/buttons/creatures_button.png) center left no-repeat}
+#menuItem {background: url(/images/buttons/items_button.png) center left no-repeat}
+#menuQuests {background: url(/images/buttons/quests_button.png) center left no-repeat}
+#menuHistory {background: url(/images/buttons/history_button.png) center left no-repeat}
+
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}
+#menu {background: url(/images/buttons/) center left no-repeat}

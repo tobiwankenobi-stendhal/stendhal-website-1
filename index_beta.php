@@ -143,11 +143,11 @@ if ($page->writeHttpHeader()) {
 			<?php 
 			echo '<li><a id="menuAtlas" href="'.$protocol.'://stendhalgame.org/wiki/StendhalAtlas">Atlas</a></li>'."\n";
 			echo '<li><a id="menuNPCs" href="'.rewriteURL('/npc/').'">NPCs</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/creature/').'"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a></li>'."\n";
-			echo '<li><a href="'.rewriteURL('/item/').'"><img src="/images/buttons/items_button.png" alt="">Items</a></li>'."\n";
+			echo '<li><a id="menuCreatures" href="'.rewriteURL('/creature/').'">Creatures</a></li>'."\n";
+			echo '<li><a id="menuItems" href="'.rewriteURL('/item/').'">Items</a></li>'."\n";
 			?>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalQuest"><img src="/images/buttons/quests_button.png" alt="">Quests</a></li>
-			<li><a href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalHistory"><img src="/images/buttons/history_button.png" alt="">History</a></li>
+			<li><a id="menuQuests" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalQuest">Quests</a></li>
+			<li><a id="menuHistory" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalHistory">History</a></li>
 		</ul>
 		<?php endBox(); ?>
 
