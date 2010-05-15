@@ -141,7 +141,7 @@ if ($page->writeHttpHeader()) {
 		<?php startBox('Game System'); ?>
 		<ul id="gamemenu" class="menu">
 			<?php 
-			echo '<li><a href="'.$protocol.'://stendhalgame.org/wiki/StendhalAtlas"><img src="/images/buttons/atlas_button.png" alt="">Atlas</a></li>'."\n";
+			echo '<li><a id="menuAtlas" href="'.$protocol.'://stendhalgame.org/wiki/StendhalAtlas">Atlas</a></li>'."\n";
 			echo '<li><a id="menuNPCs" href="'.rewriteURL('/npc/').'">NPCs</a></li>'."\n";
 			echo '<li><a href="'.rewriteURL('/creature/').'"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a></li>'."\n";
 			echo '<li><a href="'.rewriteURL('/item/').'"><img src="/images/buttons/items_button.png" alt="">Items</a></li>'."\n";

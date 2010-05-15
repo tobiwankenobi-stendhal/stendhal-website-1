@@ -410,11 +410,12 @@ span.block {
 }
 
 /* menu */
-#menuAtlas {
-	background: url(/images/buttons/atlas_button.png) center left no-repeat;
-	padding-left: 30px; display:inline-block; line-height:25px;
+#menuAtlas, #menuNPC {
+	background: center left no-repeat;
+	padding-left: 30px;
+	display:inline-block;
+	line-height:25px;
 }
-#menuNPCs {
-	background: url(/images/buttons/npcs_button.png) center left no-repeat;
-	padding-left: 30px; display:inline-block; line-height:25px;
-}
+
+#menuAtlas {background: url(/images/buttons/atlas_button.png)}
+#menuNPCs {background: url(/images/buttons/npcs_button.png)}
