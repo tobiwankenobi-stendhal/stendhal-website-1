@@ -413,7 +413,7 @@ span.block {
 #menuAtlas, #menuNPCs, #menuCreatures, #menuItems, #menuQuests, #menuHistory,
 #menuHelpManual, #menuHelpFAQ, #menuHelpBeginner, #menuHelpAsk, #menuHelpChat, #menuHelpSupport, #menuHelpForum, #menuHelpRules,
 #menuPlayerOnline, #menuPlayerHalloffame, #menuPlayerKillstats,
-#menuAdminNews, #menuAdminScreenshots, #menuAdminScreenshots, #menuAdminPlayerhistory,
+#menuAdminNews, #menuAdminScreenshots, #menuAdminSupportlog, #menuAdminPlayerhistory,
 #menuContribChat, #menuContribWiki, #menuContribBugs, #menuContribQuests, #menuContribHelp, #menuContribTesting, #menuContribHistory, #menuContribDownload, #menuContribDevelopment, 
 #menuNewsArchive, #menuNewsRss, #menuNewsTrade
 {
@@ -444,7 +444,7 @@ span.block {
 
 #menuAdminNews {background: url(/images/buttons/news_button.png) center left no-repeat}
 #menuAdminScreenshots {background: url(/images/buttons/screenshots_button.png) center left no-repeat}
-#menuAdminScreenshots {background: url(/images/buttons/c_chat_button.png) center left no-repeat}
+#menuAdminSupportlog {background: url(/images/buttons/c_chat_button.png) center left no-repeat}
 #menuAdminPlayerhistory {background: url(/images/buttons/playerhistory_button.png) center left no-repeat}
 
 #menuContribChat {background: url(/images/buttons/c_chat_button.png) center left no-repeat}
