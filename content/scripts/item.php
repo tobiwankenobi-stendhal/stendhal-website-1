@@ -207,15 +207,15 @@ foreach($this->items as $m) {
 				?>
 					<br>
 					My level ...
-		   			<form method="post" action="/item/all/<?php echo $m->name; ?>.html">
-            			<input type="text" name="level" size="3" maxlength="3">
-            			<input type="submit" value="Check stats">
-          			</form>
+					<form method="post" action="/item/<?php echo surlencode($m->class).'/'.surlencode($m->name); ?>.html">
+						<input type="text" name="level" size="3" maxlength="3">
+					<input type="submit" value="Check stats">
+					</form>
 				<?php 
 				}
 		}
-          ?>
-        </div>      
+	?>
+	</div>
 
 	<?php if (count($m->susceptibilities) > 0) {?>
 	<div class="table">
