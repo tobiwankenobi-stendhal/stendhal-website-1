@@ -260,7 +260,6 @@ foreach($this->items as $m) {
           </div>
           <div style="clear: left;"></div>
         </div>
-      </div>
     <?php      
     endBox();      
   }
