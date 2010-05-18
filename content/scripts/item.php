@@ -91,8 +91,9 @@ class ItemPage extends Page {
 		$this->items=getItems();
 
 		// does this name exist?
+		$this->counter = 0;
 		foreach($this->items as $m) {
-			if (($m->name == $this->name || (!$this->isExact && strpos($m->name, $this->name) != false)) && (($m->class == $this->class) || $this->class == 'all')) {
+			if (($m->name == $this->name || (!$this->isExact && strpos($m->name, $this->name) !== FALSE)) && (($m->class == $this->class) || $this->class == 'all')) {
 				$this->found = true;
 				$this->class = $m->class;
 				$this->counter++;
