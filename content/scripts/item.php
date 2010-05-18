@@ -93,11 +93,16 @@ class ItemPage extends Page {
 		// does this name exist?
 		$this->counter = 0;
 		foreach($this->items as $m) {
+			$x = ($m->name == $this->name || (!$this->isExact && strpos($m->name, $this->name) !== FALSE));
+			$y = (($m->class == $this->class) || $this->class == 'all');
 			if (($m->name == $this->name || (!$this->isExact && strpos($m->name, $this->name) !== FALSE)) && (($m->class == $this->class) || $this->class == 'all')) {
 				$this->found = true;
-				$this->class = $m->class;
 				$this->counter++;
+				$realClass = $m->class;
 			}
+		}
+		if (isset($realClass) && ($this->counter == 1)) {
+			$this->class = $realClass;
 		}
 	}
 
@@ -108,10 +113,12 @@ class ItemPage extends Page {
 			return true;
 		}
 
+
 		if (($this->isExact || $this->counter==1) && (strpos($_REQUEST['class'], ' ') !== FALSE || strpos($_REQUEST['name'], ' ') !== FALSE || $_REQUEST['class'] == 'all')) {
 			header('HTTP/1.0 301 Moved permanently.');
 			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", 
 				rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($this->name).'.html')));
+			echo ($this->isExact || $this->counter==1);
 			return false;
 		}
 		return true;
@@ -141,7 +148,7 @@ foreach($this->items as $m) {
   /*
    * If name of the creature match or contains part of the name.
    */
-  if (($m->name==$this->name || (!$this->isExact && strpos($m->name, $this->name) != false)) && (($m->class == $this->class) || ($this->class == 'all'))) {
+  if (($m->name==$this->name || (!$this->isExact && strpos($m->name, $this->name) !== FALSE)) && (($m->class == $this->class) || ($this->class == 'all'))) {
     startBox("Detailed information");
     ?>
     <div class="item">
