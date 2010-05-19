@@ -28,9 +28,9 @@ $size=getimagesize($url);
 $w=$size[0];
 $h=$size[1];
 
-if(strpos($url,"/boss")!=false) {
+if(strpos($url,"/ent/")!=false) {
   /*
-   * Boss images are tiles of 1x2 so we choose a single tile.
+   * Ent images are tiles of 1x2 so we choose a single tile.
    */	
   $w=$w;
   $h=$h/2;	
