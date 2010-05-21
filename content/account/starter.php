@@ -57,8 +57,10 @@ class StarterPage extends Page {
 		startBox("Starter");
 		if(!isset($_SESSION['username'])) {
 			echo '<p>Please login to start the Stendhal Client.</p>';
+		} else if (!$this->characterOkay) {
+			echo '<p>The specified character '.htmlspecialchars($this->character).' does not belong to your account.</p>';
 		} else {
-			echo '<p></p>';
+			echo '<p>An unknown error occured.</p>';
 		}
 		endBox();
 	}
