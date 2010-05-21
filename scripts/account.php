@@ -215,6 +215,25 @@ function logUserLogin($user, $ip, $success)
      return $result !== false;
 }
 
+/**
+ * verifies that thae specified characer belongs to the specified account
+ *
+ * @param string $username name of account
+ * @param string $charname name of character
+ * @return boolean
+ */
+function verifyCharacterBelongsToUsername($username, $charname) {
+	$sql = "SELECT player_id "
+		. "FROM account, characters "
+		. "WHERE account.username='".mysql_real_escape_string($username)
+		. "' AND account.id=characters.player_id "
+		. "AND characters.charname='".mysql_real_escape_string($charname)."'";
+	$result = mysql_query($sql, getGameDB());
+	$res = mysql_numrows($result) > 0;
+	mysql_free_result($result);
+	return $res;
+}
+
 
 /**
  * gets a list of recent login events for that player
