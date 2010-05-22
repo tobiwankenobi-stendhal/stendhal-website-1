@@ -47,11 +47,11 @@ $account=$choosen->getAccountInfo();
   <div style="float: right">
   <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
   </div>
-  <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></div>
-  <div class="statslabel">Age:</div><div class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</div>
-  <div class="statslabel">Level:</div><div class="data"><?php echo htmlspecialchars($choosen->level); ?></div>
-  <div class="statslabel">XP:</div><div class="data"><?php echo htmlspecialchars($choosen->xp); ?></div>
-  <div class="statslabel">DM Score:</div><div class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></div>
+  <div><span class="statslabel">Name:</span><span class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span></div>
+  <div><span class="statslabel">Age:</span><span class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</span></div>
+  <div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
+  <div><span class="statslabel">XP:</span><span class="data"><?php echo htmlspecialchars($choosen->xp); ?></span></div>
+  <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></span></div>
   <?php if ($account["status"] == "active") {
   	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
   }?>
