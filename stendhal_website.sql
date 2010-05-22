@@ -44,6 +44,14 @@ create table news_type (
   primary key(id)
 );
 
+insert into news_type(title, image_url) values ('Administrative', '/images/events/eventAdmin.png');
+insert into news_type(title, image_url) values ('Gift', '/images/events/eventGift.png');
+insert into news_type(title, image_url) values ('Meeting', '/images/events/eventMeeting.png');
+insert into news_type(title, image_url) values ('Quiz', '/images/events/eventQuiz.png');
+insert into news_type(title, image_url) values ('Raid', '/images/events/eventRaid.png');
+insert into news_type(title, image_url) values ('Release', '/images/events/eventRelease.png');
+insert into news_type(title, image_url) values ('Other', '/images/events/eventOther.png');
+
 insert into news values(null, "Edit this with your news title", "one line description one line description one line description one line description ", 
 "An html formatted extended description can go here.", null);
 
