@@ -85,8 +85,8 @@ $account=$choosen->getAccountInfo();
     $new = array("Attack Level", "Defense level", "Current health", "Karma");
     $key = str_replace($old, $new, $key);
     ?>
-    <div class="statslabel"><?php echo htmlspecialchars(ucwords($key)) ?>:</div>
-    <div class="data"><?php echo htmlspecialchars(ucwords($value)) ?></div>
+    <div><span class="statslabel"><?php echo htmlspecialchars(ucwords($key)) ?>:</span>
+    <span class="data"><?php echo htmlspecialchars(ucwords($value)) ?></span></div>
     <?php } ?>
 </div>
 
