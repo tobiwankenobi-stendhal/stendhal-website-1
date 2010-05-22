@@ -36,7 +36,7 @@ body {
 
 	/* must do this to center body as IE doesnt like auto margin on body */
 	text-align: center;
-	font-family: Geneva, Tahoma, Arial, Helvetica, Sans-serif;
+	font-family: Tahoma, Arial, Helvetica, Sans-serif;
 	font-size: 12pt;
 }
 
