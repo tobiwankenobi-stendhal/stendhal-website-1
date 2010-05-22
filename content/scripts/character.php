@@ -44,7 +44,9 @@ $account=$choosen->getAccountInfo();
 <?php startBox('Character info for '.htmlspecialchars(utf8_encode($choosen->name))); ?>
 <div class="table">
   <div class="title">Details</div>
+  <div style="float: right">
   <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
+  </div>
   <div class="statslabel">Name:</div><div class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></div>
   <div class="statslabel">Age:</div><div class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</div>
   <div class="statslabel">Level:</div><div class="data"><?php echo htmlspecialchars($choosen->level); ?></div>
