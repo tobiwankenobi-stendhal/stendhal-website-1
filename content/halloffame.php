@@ -64,8 +64,28 @@ function renderListOfPlayers($list, $f, $postfix='') {
 
 
 function writeContent() {
+	$detail = $_REQUEST['detail'];
+	if (!isset($detail)) {
+		$this->renderOverview();
+	} else {
+		$this->renderDetails($detail);
+	}
+}
 
-startBox("Best player"); 
+
+function renderDetail($detail) {
+	//TODO: add more
+	startBox("Strongest players");
+	?>
+	<div class="bubble">Based on XP and Karma</div>
+	<?php
+	$players= getPlayers(REMOVE_ADMINS_AND_POSTMAN.' AND character_stats.timedate>date_sub(now, interval 3 month) AND character_stats.level>=10', 'xp DESC, karma DESC');
+	$this->renderListOfPlayers($players, 'getXP', " xp");
+	endBox();
+}
+
+function renderOverview() {
+	startBox("Best player"); 
 $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
  ?>
   <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
@@ -80,7 +100,6 @@ $choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
   </div> 
   <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="">
  <?php endBox(); ?>
-
 <div style="float: left; width: 34%">
 <?php
 	
@@ -90,6 +109,7 @@ startBox("Strongest players");
   <?php
   $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'xp DESC, karma DESC', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getXP', " xp");
+  ##echo '<a href="'.rewriteURL('/world/hall-of-fame-strongest.html').'">More</a>';
 endBox();
 
 ?>
@@ -158,6 +178,7 @@ endBox();
 </div>
 <?php
 	}
+
 }
 $page = new HallOfFamePage();
 ?>
