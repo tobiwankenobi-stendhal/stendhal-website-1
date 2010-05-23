@@ -56,12 +56,16 @@ class Player {
 
   function show() {
     echo '<div class="playerBox">';
-    echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="">';
+    echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="" width="48px" height="64px">';
     echo '  <a href="'.rewriteURL('/character/'.surlencode($this->name).'.html').'">';
     echo '  <span class="block name">'.htmlspecialchars(utf8_encode($this->name)).'</span>';
     echo ' </a>';
     echo '  <div class="xp">'.$this->xp.' xp</div>';
-    echo '  <div class="quote">"'.htmlspecialchars(utf8_encode($this->sentence)).'"</div>';
+    if ($account["status"] == "active" && $this->sentence != '') {
+   	 echo ' <div class="quote">'.htmlspecialchars(utf8_encode($this->sentence)).'</div>';
+    } else {
+	 echo ' <div style="clear:left"></div>';
+	}
     echo '</div>';
   }
   

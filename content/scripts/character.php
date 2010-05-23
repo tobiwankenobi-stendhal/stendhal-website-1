@@ -52,7 +52,7 @@ $account=$choosen->getAccountInfo();
   <div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
   <div><span class="statslabel">XP:</span><span class="data"><?php echo htmlspecialchars($choosen->xp); ?></span></div>
   <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></span></div>
-  <?php if ($account["status"] == "active") {
+  <?php if ($account["status"] == "active" && $choosen->sentence != '') {
   	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
   }?>
 </div>
