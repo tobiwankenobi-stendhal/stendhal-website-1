@@ -61,7 +61,7 @@ class Player {
     echo '  <span class="block name">'.htmlspecialchars(utf8_encode($this->name)).'</span>';
     echo ' </a>';
     echo '  <div class="xp">'.$this->xp.' xp</div>';
-    if ($account["status"] == "active" && $this->sentence != '') {
+    if ($this->sentence != '') {
    	 echo ' <div class="quote">'.htmlspecialchars(utf8_encode($this->sentence)).'</div>';
     } else {
 	 echo ' <div style="clear:left"></div>';
