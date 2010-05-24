@@ -19,21 +19,22 @@
 
 class StarterPage extends Page {
 	private $loggedIn;
+	private $username;
 	private $characterOkay = FALSE;
 	private $character;
+	private $seed;
 
 	public function __construct__() {
-		$username = $_SESSION['username'];
-		$this->loggedIn = isset($username);
+		$this->username = $_SESSION['username'];
+		$this->loggedIn = isset($this->username);
 		$this->character = $_REQUEST['character'];
 		if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
-			$characterOkay = verifyCharacterBelongsToUsername($username, $this->character);
+			$characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
 		}
 	}
 
 	public function writeHttpHeader() {
 		header('Cache-Control: must-revalidate, private');
-		header('Pragma: no-cache');
 
 		// if everything is okay, we proceed with the login process
 		if ($this->loggedIn && $this->characterOkay) {
@@ -65,6 +66,17 @@ class StarterPage extends Page {
 		endBox();
 	}
 
+	/**
+	 * creates and stores a seed.
+	 */
+	function createSeed() {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    	$this->seed = '';
+		for ($i = 0; $i < 16; $i++) {
+        	$seed .= $characters[mt_rand(0, strlen($characters))];
+		}
+		storeSeed($this->username, $_SERVER['REMOTE_ADDR'], $this->seed, 1);
+	}
 }
 $page = new LoginHistoryPage();
 ?>
