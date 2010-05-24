@@ -33,7 +33,7 @@ class StarterPage extends Page {
 		
 		if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
 			$characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
-			echo $characterOkay:
+			echo $characterOkay;
 		}
 	}
 
