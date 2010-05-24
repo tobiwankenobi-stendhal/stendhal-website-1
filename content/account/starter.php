@@ -82,5 +82,5 @@ class StarterPage extends Page {
 		echo $this->seed;
 	}
 }
-$page = new LoginHistoryPage();
+$page = new StarterPage();
 ?>
