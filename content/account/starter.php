@@ -24,12 +24,12 @@ class StarterPage extends Page {
 	private $character;
 	private $seed;
 
-	public function __construct__() {
+	public function __construct() {
 		$this->username = $_SESSION['username'];
 		$this->loggedIn = isset($this->username);
-		$this->character = $_GET['character'];
+		$this->character = $_REQUEST['character'];
 		
-		echo 'username: '.$this->username.'   character: '.$this->character.'/'.$_GET['character'].'/'.$_REQUEST['character']; 
+//		echo 'username: '.$this->username.'   character: '.$this->character.'/'.$_GET['character'].'/'.$_REQUEST['character']; 
 		
 		if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
 			$characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
