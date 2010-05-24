@@ -27,7 +27,7 @@ class StarterPage extends Page {
 	public function __construct__() {
 		$this->username = $_SESSION['username'];
 		$this->loggedIn = isset($this->username);
-		$this->character = $_REQUEST['character'];
+		$this->character = $_GET['character'];
 		if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
 			$characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
 		}
