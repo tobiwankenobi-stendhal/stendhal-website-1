@@ -38,8 +38,9 @@ class StarterPage extends Page {
 
 		// if everything is okay, we proceed with the login process
 		if ($this->loggedIn && $this->characterOkay) {
-			$this->createSeed();
-			$this->streamWebstart();
+			echo '0';
+			$this->createSeed(); echo 'A';
+			$this->streamWebstart(); echo 'B';
 			// don't render the normal web page
 			return false;
 		}
