@@ -38,9 +38,8 @@ class StarterPage extends Page {
 
 		// if everything is okay, we proceed with the login process
 		if ($this->loggedIn && $this->characterOkay) {
-			echo '0';
-			$this->createSeed(); echo 'A';
-			$this->streamWebstart(); echo 'B';
+			$this->createSeed();
+			$this->streamWebstart();
 			// don't render the normal web page
 			return false;
 		}
@@ -74,7 +73,7 @@ class StarterPage extends Page {
 	    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     	$this->seed = '';
 		for ($i = 0; $i < 16; $i++) {
-        	$seed .= $characters[mt_rand(0, strlen($characters))];
+        	$this->seed .= $characters[mt_rand(0, strlen($characters))];
 		}
 		storeSeed($this->username, $_SERVER['REMOTE_ADDR'], $this->seed, 1);
 	}
