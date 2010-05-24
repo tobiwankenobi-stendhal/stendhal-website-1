@@ -32,8 +32,8 @@ class StarterPage extends Page {
 		echo 'username: '.$this->username.'   character: '.$this->character.'/'.$_GET['character'].'/'.$_REQUEST['character']; 
 		
 		if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
-			$characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
-			echo $characterOkay;
+			$this->characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
+			echo $this->characterOkay;
 		}
 	}
 
