@@ -69,13 +69,17 @@ class StarterPage extends Page {
 	/**
 	 * creates and stores a seed.
 	 */
-	function createSeed() {
+	private function createSeed() {
 	    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     	$this->seed = '';
 		for ($i = 0; $i < 16; $i++) {
         	$seed .= $characters[mt_rand(0, strlen($characters))];
 		}
 		storeSeed($this->username, $_SERVER['REMOTE_ADDR'], $this->seed, 1);
+	}
+	
+	private function streamWebstart() {
+		echo $this->seed;
 	}
 }
 $page = new LoginHistoryPage();
