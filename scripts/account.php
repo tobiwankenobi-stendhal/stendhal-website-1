@@ -236,9 +236,9 @@ function verifyCharacterBelongsToUsername($username, $charname) {
 
 
 function storeSeed($username, $ip, $seed, $authenticated) {
-	$query = 'INSERT INTO loginseed(player_id, address, seed, complete)'
+	$query = 'INSERT INTO loginseed(player_id, address, seed, complete, used)'
 		." SELECT id, '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($seed)."', '"
-		.mysql_real_escape_string($authenticated)."' FROM account WHERE username='".mysql_real_escape_string($username)."'";
+		.mysql_real_escape_string($authenticated)."', 0 FROM account WHERE username='".mysql_real_escape_string($username)."'";
 
 	mysql_query($query, getGameDB());
 }
