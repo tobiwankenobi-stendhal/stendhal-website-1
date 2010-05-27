@@ -52,7 +52,9 @@ $account=$choosen->getAccountInfo();
   <div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
   <div><span class="statslabel">XP:</span><span class="data"><?php echo htmlspecialchars($choosen->xp); ?></span></div>
   <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></span></div>
-  <div class="married"><?php if(!empty($choosen->married)) {  echo  htmlspecialchars($choosen->name); ?> is married to <a href="character/<?php echo  htmlspecialchars($choosen->married); ?>.html"><?php echo  htmlspecialchars($choosen->married); } ?></a> </div>
+  <div class="married"><?php if(!empty($choosen->married)) {  echo  htmlspecialchars($choosen->name); ?> is married to <a href="<?php echo 
+rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php echo  htmlspecialchars($choosen->married); } ?></a> 
+</div>
   <?php if ($account["status"] == "active" && $choosen->sentence != '') {
   	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
   }?>
