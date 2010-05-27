@@ -78,3 +78,8 @@
 	height: 32px;
 	border: 1px solid black;
 }
+
+.married {
+         margin-top: 3px;
+	 font-style: italic;
+}

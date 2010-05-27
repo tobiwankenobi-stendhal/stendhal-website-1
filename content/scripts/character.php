@@ -52,6 +52,7 @@ $account=$choosen->getAccountInfo();
   <div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
   <div><span class="statslabel">XP:</span><span class="data"><?php echo htmlspecialchars($choosen->xp); ?></span></div>
   <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></span></div>
+  <div class="married"><?php if(!empty($choosen->married)) {  echo  htmlspecialchars($choosen->name); ?> is married to <a href="character/<?php echo  htmlspecialchars($choosen->married); ?>.html"><?php echo  htmlspecialchars($choosen->married); } ?></a> </div>
   <?php if ($account["status"] == "active" && $choosen->sentence != '') {
   	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
   }?>
@@ -62,7 +63,7 @@ $account=$choosen->getAccountInfo();
   <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
   <div class="account_status">
     This account is <span class="<?php echo htmlspecialchars($account["status"]); ?>"><?php echo htmlspecialchars($account["status"]); ?></span>
-  </div> 
+  </div>
   <?php if (($account["status"]) == 'active' && ($choosen->adminlevel > 0) && ($choosen->name != 'postman')) {
   	if ($choosen->adminlevel < 300) {
 			echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
@@ -79,8 +80,8 @@ $account=$choosen->getAccountInfo();
 <div class="table">
   <div class="title">Attributes and statistics</div>
 
-  <?php 
-  foreach($choosen->attributes as $key=>$value) {  
+  <?php
+  foreach($choosen->attributes as $key=>$value) {
     $old = array("atk", "def", "hp", "karma");
     $new = array("Attack Level", "Defense level", "Current health", "Karma");
     $key = str_replace($old, $new, $key);
@@ -93,20 +94,20 @@ $account=$choosen->getAccountInfo();
 <div class="table">
 <div class="title">Equipment</div>
 <?php
-foreach($choosen->equipment as $slot=>$content) { 
+foreach($choosen->equipment as $slot=>$content) {
 	$old = array("head", "lhand", "rhand", "legs", "feet", "cloak", "finger");
 	$new = array("head", "left hand", "right hand", "legs", "feet", "cloak", "finger");
 	$slot = str_replace($old, $new, $slot);
 	?>
 	<div class="row">
-	<?php 
+	<?php
 	if($content!="") {
 		$item = getItem($content);
 		echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($content).'.html').'">'; ?>
 		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" "/>
 		<span class="block label"><?php echo htmlspecialchars(ucwords($slot)) ?></span>
 		<span class="block data"><?php echo htmlspecialchars(ucfirst($content)); ?></span></a>
-		<?php 
+		<?php
 	} else {
 		?>
 	<div class="emptybox"></div>

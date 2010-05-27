@@ -40,14 +40,15 @@ class Player {
   public $money;
   /* Equipment the player has in slots in a array slot=>item */
   public $equipment;
-  
-  function __construct($name, $sentence, $age, $level, $xp, $outfit, $money, $adminlevel, $attributes, $equipment) {
+
+  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $money, $adminlevel, $attributes, $equipment) {
     $this->name=$name;
     $this->sentence=$sentence;
     $this->age=$age;
     $this->level=$level;
     $this->outfit=$outfit;
     $this->xp=$xp;
+    $this->married=$married;
     $this->attributes=$attributes;
     $this->adminlevel=$adminlevel;
     $this->money=$money;
@@ -68,74 +69,74 @@ class Player {
 	}
     echo '</div>';
   }
-  
-  function getDeaths() {       
+
+  function getDeaths() {
     ##
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ## 
+    ##
     if(STENDHAL_PLEASE_MAKE_IT_FAST) {
       return array();
     }
     ##
     ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
     ##
-     
+
     $result = mysql_query("
-    select 
-      timedate, 
-      source 
-    from gameEvents 
-    where 
-      event='killed' and 
-      param1='".mysql_real_escape_string($this->name)."' and 
-      datediff(now(),timedate)<=7*52 and 
+    select
+      timedate,
+      source
+    from gameEvents
+    where
+      event='killed' and
+      param1='".mysql_real_escape_string($this->name)."' and
+      datediff(now(),timedate)<=7*52 and
       (param2 is null or param2 = '' or param2 = 'C P' or param2 = 'E P' or param2 = 'P P')
     order by timedate desc
     limit 4", getGameDB());
     $kills=array();
-    
+
     /*
      * TODO: Refactor to use the new table.
      */
 
-    while($row=mysql_fetch_assoc($result)) {      
+    while($row=mysql_fetch_assoc($result)) {
       $kills[$row['timedate']]=$row['source'];
     }
-    
+
     mysql_free_result($result);
     return $kills;
   }
-    
+
   function getAccountInfo() {
   	$result=mysql_query('select timedate,status from account where username="'.mysql_real_escape_string($this->name).'"',getGameDB());
     $account=array();
 
     $row=mysql_fetch_assoc($result);
-    
+
     $account["register"]=$row["timedate"];
     $account["status"]=$row["status"];
-    
+
     mysql_free_result($result);
-    
+
     return $account;
   }
 
   function getDMScore() {
    $result=mysql_query('select points from halloffame where charname="'.mysql_real_escape_string($this->name).'" and fametype="D"',getGameDB());
-      
-    while($row=mysql_fetch_assoc($result)) {      
+
+    while($row=mysql_fetch_assoc($result)) {
       $points=$row['points'];
     }
-    
+
     mysql_free_result($result);
     if(sizeof($points)==0){
 	$points=0;
 	}
     return $points;
-    
+
   }
 }
-  
+
 /**
   * Returns a list of players online and offline that meet the given condition.
   * Note: Parmaters must be sql escaped.
@@ -146,7 +147,7 @@ function getPlayers($where='', $sortby='name', $cond='limit 2') {
 
 function getPlayer($name) {
     $player=_getPlayers('select * from character_stats where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
-    return $player[0];	
+    return $player[0];
 }
 
 function getBestPlayer($where='') {
@@ -169,14 +170,14 @@ function getOnlinePlayers() {
 function _getPlayers($query) {
     $result = mysql_query($query,getGameDB());
     $list=array();
-    
-    while($row=mysql_fetch_assoc($result)) {            
+
+    while($row=mysql_fetch_assoc($result)) {
       $attributes=array();
       $attributes['atk']=$row['atk'];
       $attributes['def']=$row['def'];
       $attributes['hp']=$row['hp'];
       $attributes['karma']=$row['karma'];
-      
+
       $equipment=array();
       $equipment['head']=$row['head'];
       $equipment['armor']=$row['armor'];
@@ -185,21 +186,22 @@ function _getPlayers($query) {
       $equipment['legs']=$row['legs'];
       $equipment['feet']=$row['feet'];
       $equipment['cloak']=$row['cloak'];
-      
+
       $list[]=new Player($row['name'],
                      $row['sentence'],
                      $row['age'],
                      $row['level'],
                      $row['xp'],
+                     $row['married'],
                      $row['outfit'],
                      $row['money'],
                      $row['admin'],
                      $attributes,
                      $equipment);
     }
-    
+
     mysql_free_result($result);
-	
+
     return $list;
 }
 
