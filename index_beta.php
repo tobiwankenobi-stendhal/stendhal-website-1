@@ -103,7 +103,7 @@ if ($page->writeHttpHeader()) {
 		 */
 		if(file_exists($page_url.'.css')) {
 			?>
-			<link rel="stylesheet" type="text/css" href="/<?php echo STENDHAL_FOLDER.'/'.$page_url; ?>.css">
+			<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER.'/'.$page_url; ?>.css">
 			<?php
 		}
 		$page->writeHtmlHeader();
