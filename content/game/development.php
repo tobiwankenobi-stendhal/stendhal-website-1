@@ -8,8 +8,8 @@ class DevelopmentPage extends Page {
 
 	function writeContent() {
 
-startBox("Development"); ?>  
-<ul id="dmenu" >  
+startBox("Development"); ?>
+<ul id="dmenu" >
 	<li><a href="/wiki/StendhalCodeDesign"><img src="/images/buttons/c_code_button.png" alt="">Code</a> - details of code designs and conventions</li>
 	<li><a href="/hudson/"><img src="/images/buttons/c_code_button.png" alt="">Hudson</a> - continuous integration and testing</li>
 	<li><a href="/wiki/StendhalRPProposal"><img src="/images/buttons/rpsystem_button.png" alt="">RP System</a> - proposed new system which is in planning stages</li>

@@ -17,8 +17,8 @@ class LogoutPage extends Page {
  * cookie.
  */
 if(isset($_COOKIE['cookname']) && isset($_COOKIE['cookpass'])){
-   setcookie("cookname", "", time()-60*60*24*100, "/");
-   setcookie("cookpass", "", time()-60*60*24*100, "/");
+	setcookie("cookname", "", time()-60*60*24*100, "/");
+	setcookie("cookpass", "", time()-60*60*24*100, "/");
 }
 
 ?>
@@ -29,19 +29,18 @@ if(isset($_COOKIE['cookname']) && isset($_COOKIE['cookpass'])){
 
 <?php
 startBox("Logout");
-if(!checkLogin()){
-   echo "You are not currently logged in, logout failed. Back to <a href=\"?\">main</a>";
-}
-else{
-   /* Kill session variables */
-   unset($_SESSION['username']);
-   unset($_SESSION['password']);
-   $_SESSION = array(); // reset session array
-   session_destroy();   // destroy session.
+if(!checkLogin()) {
+	echo "You are not currently logged in, logout failed. Back to <a href=\"?\">main</a>";
+} else {
+	/* Kill session variables */
+	unset($_SESSION['username']);
+	unset($_SESSION['password']);
+	$_SESSION = array(); // reset session array
+	session_destroy();   // destroy session.
 
-   echo "<meta http-equiv=\"Refresh\" content=\"0;url=?\">";
-   echo "<h1>Logged Out</h1>\n";
-   echo "You have successfully <b>logged out</b>.<p>Back to <a href=\"?\">main</a>";
+	echo "<meta http-equiv=\"Refresh\" content=\"0;url=?\">";
+	echo "<h1>Logged Out</h1>\n";
+	echo "You have successfully <b>logged out</b>.<p>Back to <a href=\"?\">main</a>";
 }
 
 endBox();
