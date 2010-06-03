@@ -42,8 +42,9 @@ class LoginHistoryPage extends Page {
 		startBox('Login history');
 
 		echo '<p>This is a list of your most recent logins and password changes. '
-			.'If you suspect unauthorized access to your account, please change your '
-			.'password immediatelly and contact <code>/support</code> in game.</p>';
+			.'If you suspect unauthorized access to your account, please '
+			. '<a href="/index.php?id=login/changepassword">change your password</a>'
+			.' immediatelly and contact <code>/support</code> in game.</p>';
 
 		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th<th>event</th><th>result</th></tr>';
 		foreach ($events as $entry) {
