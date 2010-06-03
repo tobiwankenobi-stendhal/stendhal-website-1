@@ -39,7 +39,14 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/images/thumbnail/(.*)$ /thumbnail.php?img=$1 [L]
 
                 # account
+                RewriteRule ^/account/approve-password.html$ /index.php?id=content/account/approve [L]
                 RewriteRule ^/account/history.html$ /index.php?id=content/account/loginhistory [L]
+                RewriteRule ^/account/change-email.html$ /index.php?id=content/account/email [L]
+                RewriteRule ^/account/change-password.html$ /index.php?id=content/account/changepassword [L]
+                RewriteRule ^/account/login.html$ /index.php?id=content/account/login [L]
+                RewriteRule ^/account/logout.html$ /index.php?id=content/account/logout [L]
+                RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters [L]
+                RewriteRule ^/account/remind-mail.html$ /index.php?id=content/account/remind [L]
 
                 # characters
                 RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact [L]
@@ -198,8 +205,22 @@ function rewriteURL($url) {
 
 	// account
 	} else if (preg_match('|^/account.*|', $url)) {
-		if (preg_match('|^/account/history.html$|', $url)) {
+		if (preg_match('|^/account/approve-password.html$|', $url)) {
+			return preg_replace('|^/account/approve-password.html$|', $folder.'/?id=content/account/approve', $url);
+		} else if (preg_match('|^/account/change-password.html$|', $url)) {
+			return preg_replace('|^/account/change-password.html$|', $folder.'/?id=content/account/changepassword', $url);
+		} else if (preg_match('|^/account/change-email.html$|', $url)) {
+			return preg_replace('|^/account/change-email.html$|', $folder.'/?id=content/account/email', $url);
+		} else if (preg_match('|^/account/login.html$|', $url)) {
+			return preg_replace('|^/account/login.html$|', $folder.'/?id=content/account/login', $url);
+		} else if (preg_match('|^/account/history.html$|', $url)) {
 			return preg_replace('|^/account/history.html$|', $folder.'/?id=content/account/loginhistory', $url);
+		} else if (preg_match('|^/account/logout.html$|', $url)) {
+			return preg_replace('|^/account/logout.html$|', $folder.'/?id=content/account/logout', $url);
+		} else if (preg_match('|^/account/mycharacters.html$|', $url)) {
+			return preg_replace('|^/account/mycharacters.html$|', $folder.'/?id=content/account/mycharacters', $url);
+		} else if (preg_match('|^/account/remind-mail.html$|', $url)) {
+			return preg_replace('|^/account/remind-mail.html$|', $folder.'/?id=content/account/remind', $url);
 		}
 
 	// chat

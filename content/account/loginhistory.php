@@ -43,7 +43,7 @@ class LoginHistoryPage extends Page {
 
 		echo '<p>This is a list of your most recent logins and password changes. '
 			.'If you suspect unauthorized access to your account, please '
-			. '<a href="/index.php?id=login/changepassword">change your password</a>'
+			. '<a href="'.rewriteURL('/account/change-password.html').'">change your password</a>'
 			.' immediately and contact <code>/support</code> in game.</p>';
 
 		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th<th>event</th><th>result</th></tr>';
