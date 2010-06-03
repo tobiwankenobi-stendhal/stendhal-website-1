@@ -17,19 +17,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+require_once('scripts/website.php');
+require_once('scripts/account.php');
+require_once('scripts/authors.php');
+require_once('scripts/urlrewrite.php');
+
 if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 	$protocol = 'https';
 	ini_set('session.cookie_secure', 1);
 	session_start();
 } else {
+	if (!STENDHAL_SECURE_SESSION) {
+		session_start();
+	}
 	$protocol = 'http';
 }
 
-
-require_once('scripts/website.php');
-require_once('scripts/account.php');
-require_once('scripts/authors.php');
-require_once('scripts/urlrewrite.php');
 
 /*
  * Open connection to both databases.

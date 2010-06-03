@@ -66,6 +66,8 @@ define('STENDHAL_LOGIN_TARGET','https://stendhalgame.org');
 # DEVEL switch
 #
 define('STENDHAL_PLEASE_MAKE_IT_FAST',true);
+define('STENDHAL_SECURE_SESSION', false);
+
 # Counter
 define('STENDHAL_WEB_COUNTER', true);
 
