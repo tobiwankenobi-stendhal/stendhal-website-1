@@ -100,7 +100,7 @@ startBox("Login");
 
 <div class="bubble">
   Remember not to disclose your username or password to anyone, not even friends or administrators.<br>
-  Check that this webpage URL matchs your game server name.
+  Check that this webpage URL matches your game server name.
 </div>
 <form action="" method="post">
 <table>
