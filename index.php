@@ -46,47 +46,42 @@ connect();
  * @return string the name of the module to load.
  */
 function decidePageToLoad($url) {
-  $ERROR="content/main";
-  
-  if(strpos($url,".")!==false) {
-    return $ERROR;
-  }
-  
-  if(strpos($url,"//")!==false) {
-    return $ERROR;
-  }
-  
-  if(strpos($url,":")!==false) { // http://, https://, ftp://
-    return $ERROR;
-  }
+	$ERROR="content/main";
 
-  if(strpos($url,"http")!==false) {
-    return $ERROR;
-  }
-  
-  if(strpos($url,"/")==0) {
-    return $ERROR;
-  }
-  
-  if(strpos($url.'.php',".php")===false) {
-    return $ERROR;
-  }
- 
-  if(!file_exists($url.'.php')) {
-    return $ERROR;
-  }
-  
-  return $url;	
+	if(strpos($url,".")!==false) {
+		return $ERROR;
+	}
+
+	if(strpos($url,"//")!==false) {
+		return $ERROR;
+	}
+
+	if(strpos($url,":")!==false) { // http://, https://, ftp://
+		return $ERROR;
+	}
+
+	if(strpos($url,"/")==0) {
+		return $ERROR;
+	}
+
+	if(strpos($url.'.php',".php")===false) {
+		return $ERROR;
+	}
+
+	if(!file_exists($url.'.php')) {
+		return $ERROR;
+	}
+
+	return $url;	
 }
 
 /*
- * This code decide the page to load.
- */ 
+ * This code decides the page to load.
+ */
 $page_url="content/main";
-if(isset($_REQUEST["id"]))
-  {  
-  $page_url=decidePageToLoad($_REQUEST["id"]);  
-  }
+if(isset($_REQUEST["id"])) {
+	$page_url=decidePageToLoad($_REQUEST["id"]);  
+}
 
 require_once("content/page.php");
 require_once($page_url.'.php');
