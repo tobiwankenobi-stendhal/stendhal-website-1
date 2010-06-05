@@ -57,7 +57,7 @@ class Player {
 
   function show() {
     echo '<div class="playerBox">';
-    echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="" width="48px" height="64px">';
+    echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="" width="48" height="64">';
     echo '  <a href="'.rewriteURL('/character/'.surlencode($this->name).'.html').'">';
     echo '  <span class="block name">'.htmlspecialchars(utf8_encode($this->name)).'</span>';
     echo ' </a>';
