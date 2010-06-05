@@ -79,8 +79,41 @@ class StarterPage extends Page {
 	}
 	
 	private function streamWebstart() {
-		echo $this->seed;
+		header('Content-Type', 'application/x-java-jnlp-file', true);
+		echo '<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://arianne.sourceforge.net/jws" href="stendhal.jnlp">
+	<information>
+		<title>Stendhal</title>
+		<vendor>The Arianne Project</vendor>
+		<homepage href="http://arianne.sourceforge.net"/>
+		<description>Are you looking for adventure? Want to fight for riches? Develop yourself and your social standing? Meet new people? Do you want to be part of a brave new world?
+
+Stendhal is a fully fledged multiplayer online adventures game (MMORPG) developed using the Arianne game development system.
+
+Stendhal features a new, rich and expanding world in which you can explore towns, buildings, plains, caves and dungeons. You will meet NPCs and acquire tasks and quests for valuable experience and cold hard cash. Your character will develop and grow and with each new level up become stronger and better. With the money you acquire you can buy new items and improve your armour and weapons. And for the blood thirsty ones of you; satisfy your killing desires by roaming the world in search of evil monsters!
+
+So what are you waiting for?! A whole new world awaits...</description>
+		<description kind="short">A multiplayer online adventures game</description>
+		<icon href="http://stendhalgame.org/data/gui/StendhalIcon.png"/>
+		<icon kind="splash" href="http://stendhalgame.org/data/gui/StendhalSplash.jpg"/>
+	</information>
+	<security>
+		<all-permissions/>
+	</security>
+	<resources>
+		<j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+" max-heap-size="200m" />
+		<jar href="http://arianne.sourceforge.net/jws/stendhal-starter-0.79.jar" download="eager" main="true" />
+	</resources>
+	<application-desc>
+		<argument>-h</argument><argument>'.STENDHAL_SERVER_NAME.'</argument>
+		<argument>-u</argument><argument>'.$this->username.'</argument>
+		<argument>-c</argument><argument>'.$this->character.'</argument>
+		<argument>-p</argument><argument>32160</argument>
+		<argument>-S</argument><argument>'.$this->seed.'</argument>
+	</application-desc>
+</jnlp>';
 	}
 }
+
 $page = new StarterPage();
 ?>
