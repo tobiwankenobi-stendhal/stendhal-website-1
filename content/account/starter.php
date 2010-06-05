@@ -34,7 +34,7 @@ class StarterPage extends Page {
 	}
 
 	public function writeHttpHeader() {
-		header('Cache-Control: must-revalidate, private');
+		header('Cache-Control: must-revalidate');
 
 		// if everything is okay, we proceed with the login process
 		if ($this->loggedIn && $this->characterOkay) {
