@@ -86,7 +86,6 @@ if(isset($_REQUEST["id"])) {
 require_once("content/page.php");
 require_once($page_url.'.php');
 
-$folder = "";
 
 if ($page->writeHttpHeader()) {
 ?>

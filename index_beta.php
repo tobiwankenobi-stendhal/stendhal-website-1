@@ -84,8 +84,6 @@ if(isset($_REQUEST["id"]))
 require_once("content/page.php");
 require_once($page_url.'.php');
 
-$folder = "";
-
 if ($page->writeHttpHeader()) {
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
