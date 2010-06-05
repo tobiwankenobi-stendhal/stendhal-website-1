@@ -79,7 +79,7 @@ class StarterPage extends Page {
 	}
 	
 	private function streamWebstart() {
-		header('Content-Type', 'application/x-java-jnlp-file', true);
+		header('Content-Type: application/x-java-jnlp-file', true);
 		echo '<?xml version="1.0" encoding="utf-8"?>
 <jnlp spec="1.0+">
 	<information>
