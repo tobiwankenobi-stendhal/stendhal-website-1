@@ -18,9 +18,8 @@ echo '<div style="height: 700px;">';
 foreach($players as $p) {
     echo '<div class="onlinePlayer">';
     echo '  <a href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">';
-    echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt=""></a>';
-    echo '  <div class="onlinename"><a href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">';
-    echo htmlspecialchars(utf8_encode($p->name)).'</a></div>';
+    echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
+    echo '  <span class="block name">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
     echo '</div>';
 }
 echo '</div>';
