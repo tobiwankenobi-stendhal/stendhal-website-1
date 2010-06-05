@@ -30,6 +30,7 @@ define('STENDHAL_TITLE', ' &ndash; Stendhal MMORPG');
 #
 define('STENDHAL_SERVER_STATS_XML','server_stats.xml');
 
+define('STENDHAL_SERVER_NAME', 'stendhalgame.org');
 
 #
 # Website database to store news, events and other useful stuff.
