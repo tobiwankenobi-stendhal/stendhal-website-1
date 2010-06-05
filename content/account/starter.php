@@ -81,7 +81,7 @@ class StarterPage extends Page {
 	private function streamWebstart() {
 		header('Content-Type', 'application/x-java-jnlp-file', true);
 		echo '<?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0+" codebase="http://arianne.sourceforge.net/jws" href="stendhal.jnlp">
+<jnlp spec="1.0+">
 	<information>
 		<title>Stendhal</title>
 		<vendor>The Arianne Project</vendor>
