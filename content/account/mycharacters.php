@@ -25,23 +25,28 @@ class MyCharactersPage extends Page {
 	}
 
 	function writeContent() {
-		startBox("Starter");
 		if(!isset($_SESSION['username'])) {
+			startBox("Login Required");
 			echo '<p>Please login to see a list of your characters.</p>';
-		} else {
-		
-			$players = getCharactersForUsername($_SESSION['username']);
-			if(sizeof($players)==0) {
-				echo 'You have no characters.';
-			}
-			foreach($players as $p) {
-				echo '<div class="onlinePlayer">';
-				echo '  <a href="'.STENDHAL_FOLDER.'/index.php?id=content/account/starter&amp;character='.surlencode($p->name).'">';
-				echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
-				echo '  <span class="block">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
-				echo '</div>';
-			}
+			endBox();
+			return;
 		}
+		
+		startBox("Character Selector");
+		$players = getCharactersForUsername($_SESSION['username']);
+		if(sizeof($players)==0) {
+			echo 'You have no characters.';
+		}
+		foreach($players as $p) {
+			echo '<div class="onlinePlayer">';
+			echo '  <a href="'.STENDHAL_FOLDER.'/index.php?id=content/account/starter&amp;character='.surlencode($p->name).'">';
+			echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
+			echo '  <span class="block">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
+			echo '</div>';
+		}
+		endBox();
+		startBox("Note");
+		echo 'Starting the Stendhal client may take a minute. Please be patient after clicking on your character.';
 		endBox();
 	}
 }
