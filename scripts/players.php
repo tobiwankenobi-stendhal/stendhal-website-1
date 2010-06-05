@@ -168,6 +168,19 @@ function getOnlinePlayers() {
     return _getPlayers('select * from character_stats where online=1 order by name');
 }
 
+
+/**
+ * Returns a list of characters owned by this account.
+ *
+ * @param string $username
+ * @return List of Players
+ */
+function getCharactersForUsername($username) {
+	return _getPlayers('SELECT character_stats.* FROM character_stats, characters, account '
+		.'WHERE account.username=\''.mysql_real_escape_string($username).'\' AND '
+		.'characters.player_id=account.id AND character_stats.name=characters.charname');
+}
+
 function _getPlayers($query) {
     $result = mysql_query($query,getGameDB());
     $list=array();
