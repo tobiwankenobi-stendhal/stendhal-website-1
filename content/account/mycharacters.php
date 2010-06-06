@@ -39,7 +39,7 @@ class MyCharactersPage extends Page {
 		}
 		foreach($players as $p) {
 			echo '<div class="onlinePlayer">';
-			echo '  <a href="'.STENDHAL_FOLDER.'/index.php?id=content/account/starter&amp;character='.surlencode($p->name).'">';
+			echo '  <a href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';
 			echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
 			echo '  <span class="block">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
 			echo '</div>';
