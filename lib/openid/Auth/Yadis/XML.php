@@ -347,7 +347,7 @@ function &Auth_Yadis_getXMLParser()
 
     // Return a wrapper for the resident implementation, if any.
     foreach ($extensions as $name => $params) {
-        if (!extension_loaded($name)) {
+        if (!extension_loaded($name) && function_exists('dl')) {
             foreach ($params['libname'] as $libname) {
                 if (@dl($libname)) {
                     $classname = $params['classname'];
