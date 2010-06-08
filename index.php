@@ -46,33 +46,31 @@ connect();
  * @return string the name of the module to load.
  */
 function decidePageToLoad($url) {
-	$ERROR="content/main";
-
 	if(strpos($url,".")!==false) {
-		return $ERROR;
+		return null;
 	}
 
 	if(strpos($url,"//")!==false) {
-		return $ERROR;
+		return null;
 	}
 
 	if(strpos($url,":")!==false) { // http://, https://, ftp://
-		return $ERROR;
+		return null;
 	}
 
 	if(strpos($url,"/")==0) {
-		return $ERROR;
+		return null;
 	}
 
 	if(strpos($url.'.php',".php")===false) {
-		return $ERROR;
+		return null;
 	}
 
 	if(!file_exists($url.'.php')) {
-		return $ERROR;
+		return null;
 	}
 
-	return $url;	
+	return $url;
 }
 
 /*
@@ -80,7 +78,13 @@ function decidePageToLoad($url) {
  */
 $page_url="content/main";
 if(isset($_REQUEST["id"])) {
-	$page_url=decidePageToLoad($_REQUEST["id"]);  
+	$page_url = decidePageToLoad($_REQUEST["id"]);
+
+	// if the page does not exist, redirect to the main page
+	if (!isset($page_url)) {
+		header('Location: '.$protocol.'://'.STENDHAL_SERVER_NAME);
+		return;
+	}
 }
 
 require_once("content/page.php");

@@ -43,43 +43,47 @@ connect();
  * @return string the name of the module to load.
  */
 function decidePageToLoad($url) {
-  $ERROR="content/main";
-  
-  if(strpos($url,".")!==false) {
-    return $ERROR;
-  }
-  
-  if(strpos($url,"//")!==false) {
-    return $ERROR;
-  }
-  
-  if(strpos($url,":")!==false) { // http://, https://, ftp://
-    return $ERROR;
-  }
-  
-  if(strpos($url,"/")==0) {
-    return $ERROR;
-  }
-  
-  if(strpos($url.'.php',".php")===false) {
-    return $ERROR;
-  }
- 
-  if(!file_exists($url.'.php')) {
-    return $ERROR;
-  }
-  
-  return $url;	
+	if(strpos($url,".")!==false) {
+		return null;
+	}
+
+	if(strpos($url,"//")!==false) {
+		return null;
+	}
+
+	if(strpos($url,":")!==false) { // http://, https://, ftp://
+		return null;
+	}
+
+	if(strpos($url,"/")==0) {
+		return null;
+	}
+
+	if(strpos($url.'.php',".php")===false) {
+		return null;
+	}
+
+	if(!file_exists($url.'.php')) {
+		return null;
+	}
+
+	return $url;
 }
 
 /*
- * This code decide the page to load.
- */ 
+ * This code decides the page to load.
+ */
 $page_url="content/main";
-if(isset($_REQUEST["id"]))
-  {  
-  $page_url=decidePageToLoad($_REQUEST["id"]);  
-  }
+if(isset($_REQUEST["id"])) {
+	$page_url = decidePageToLoad($_REQUEST["id"]);
+
+	// if the page does not exist, redirect to the main page
+	if (!isset($page_url)) {
+		header('Location: '.$protocol.'://'.STENDHAL_SERVER_NAME);
+		return;
+	}
+}
+
 
 require_once("content/page.php");
 require_once($page_url.'.php');
