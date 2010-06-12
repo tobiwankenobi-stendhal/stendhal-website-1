@@ -37,9 +37,9 @@ if (defined('MEDIAWIKI')) {
 					'<script type="text/javascript" src="http://www.ohloh.net/'.$class.'/'.$id.'/widgets/'.$stat.'.js"></script>',
 					$parser->mStripState);
 			} else if ($class == "accounts") {
-					$this->parseAccountStats($parser, $id, $stat);
+					return $this->parseAccountStats($parser, $id, $stat);
 			} else {
-				return "Unknown ohloh widget class.";
+				return "Unknown ohloh widget class. Please use one of p, accounts.";
 			}
 		}
 
@@ -60,6 +60,8 @@ if (defined('MEDIAWIKI')) {
 					'<a href="http://www.ohloh.net/accounts/'.$id.'?ref=Detailed">'
 					.'<img alt="Ohloh profile" height="35" src="http://www.ohloh.net/accounts/'.$id.'/widgets/account_detailed.gif" width="191" />'
 					.'</a>');
+			} else {
+				return "Unknown stat. Please use one of tiny, rank, detailed.";
 			}
 		}
 	}
