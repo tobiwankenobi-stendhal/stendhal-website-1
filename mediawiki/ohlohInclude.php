@@ -44,7 +44,7 @@ if (defined('MEDIAWIKI')) {
 		}
 
 		function parseAccountStats($parser, $id, $stat) {
-			$stat = lower($stat);
+			$stat = strtolower($stat);
 			if ($stat == 'tiny') {
 				return $parser->insertStripItem(
 					'<a href="http://www.ohloh.net/accounts/'.$id.'?ref=Tiny">'
