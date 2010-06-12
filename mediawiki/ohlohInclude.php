@@ -32,11 +32,36 @@ if (defined('MEDIAWIKI')) {
 			$id = htmlspecialchars(urlencode($id));
 			$stat = htmlspecialchars(urlencode($stat));
 
-			return $parser->insertStripItem(
-				'<script type="text/javascript" src="http://www.ohloh.net/'.$class.'/'.$id.'/widgets/'.$stat.'.js"></script>',
-				$parser->mStripState);
+			if ($class == "p") {
+				return $parser->insertStripItem(
+					'<script type="text/javascript" src="http://www.ohloh.net/'.$class.'/'.$id.'/widgets/'.$stat.'.js"></script>',
+					$parser->mStripState);
+			} else if ($class == "accounts") {
+					$this->parseAccountStats($parser, $id, $stat);
+			} else {
+				return "Unknown ohloh widget class.";
+			}
 		}
 
+		function parseAccountStats($parser, $id, $stat) {
+			$stat = lower($stat);
+			if ($stat == 'tiny') {
+				return $parser->insertStripItem(
+					'<a href="http://www.ohloh.net/accounts/'.$id.'?ref=Tiny">'
+					.'<img alt="Ohloh profile" height="15" src="http://www.ohloh.net/accounts/'.$id.'/widgets/account_tiny.gif" width="80" />'
+					.'</a>');
+			} else if ($stat == "rank") {
+				return $parser->insertStripItem(
+					'<a href="http://www.ohloh.net/accounts/'.$id.'?ref=Rank">'
+  					.'<img alt="Ohloh profile" height="24" src="http://www.ohloh.net/accounts/'.$id.'/widgets/account_rank.gif" width="32" />'
+					.'</a>');
+			} else if ($stat == "detailed") {
+				return $parser->insertStripItem(
+					'<a href="http://www.ohloh.net/accounts/'.$id.'?ref=Detailed">'
+					.'<img alt="Ohloh profile" height="35" src="http://www.ohloh.net/accounts/'.$id.'/widgets/account_detailed.gif" width="191" />'
+					.'</a>');
+			}
+		}
 	}
 
 	# Create global instance and wire it up!
