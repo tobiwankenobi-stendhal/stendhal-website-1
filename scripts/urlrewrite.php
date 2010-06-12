@@ -152,7 +152,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # world
                 RewriteCond %{QUERY_STRING} id=content/game/atlas
                 RewriteRule ^/.* /world/atlas.html? [R=301]
-                RewriteCond %{QUERY_STRING} id=content/halloffame
+                RewriteCond %{QUERY_STRING} ^id=content/halloffame$
                 RewriteRule ^/.* /world/hall-of-fame.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/newsarchive
                 RewriteRule ^/.* /world/newsarchive.html? [R=301]
