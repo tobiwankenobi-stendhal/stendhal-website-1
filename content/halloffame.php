@@ -34,12 +34,13 @@ function getTotalDef($player) {
 }
 
 class HallOfFamePage extends Page {
+	private $filterFrom = '';
+	private $filterWhere = '';
 
 	public function writeHtmlHeader() {
 		echo '<title>Hall of Fame'.STENDHAL_TITLE.'</title>';
 	}
 
-	
 function renderListOfPlayers($list, $f, $postfix='') {
   $i=1;
   foreach($list as $player) {
@@ -64,6 +65,7 @@ function renderListOfPlayers($list, $f, $postfix='') {
 
 
 function writeContent() {
+	$this->setupFilter();
 	$detail = $_REQUEST['detail'];
 	if (!isset($detail)) {
 		$this->renderOverview();
@@ -72,21 +74,33 @@ function writeContent() {
 	}
 }
 
+function setupFilter() {
+	$filter = $_REQUEST['filter'];
+	if (isset($filter)) {
+		if ($filter=="alltimes") {
+			$this->filterWhere='';
+		} else if ($filter=="recent") {
+			$this->filterWhere = ' AND character_stats.lastseen>date_sub(CURRENT_TIMESTAMP, interval 1 month)';
+		} else if ($filter=="friends") {
+			// TODO
+		}
+	}
+}
 
-function renderDetail($detail) {
+function renderDetails($detail) {
 	//TODO: add more
 	startBox("Strongest players");
 	?>
 	<div class="bubble">Based on XP and Karma</div>
 	<?php
-	$players= getPlayers(REMOVE_ADMINS_AND_POSTMAN.' AND character_stats.timedate>date_sub(now, interval 3 month) AND character_stats.level>=10', 'xp DESC, karma DESC');
+	$players= getPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.' AND character_stats.level>=10 '.$this->filterWhere, 'xp DESC, karma DESC');
 	$this->renderListOfPlayers($players, 'getXP', " xp");
 	endBox();
 }
 
 function renderOverview() {
 	startBox("Best player"); 
-$choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
+$choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere);
  ?>
   <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
   <div class="best">
@@ -107,7 +121,7 @@ startBox("Strongest players");
   ?>
   <div class="bubble">Based on XP and Karma</div>
   <?php
-  $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'xp DESC, karma DESC', 'limit '.TOTAL_HOF_PLAYERS);
+  $players= getPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'xp DESC, karma DESC', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getXP', " xp");
   ##echo '<a href="'.rewriteURL('/world/hall-of-fame-strongest.html').'">More</a>';
 endBox();
@@ -122,7 +136,7 @@ startBox("Richest players");
   ?>
   <div class="bubble">Based on the amount of money</div>
   <?php
-  $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'money desc', 'limit '.TOTAL_HOF_PLAYERS);
+  $players= getPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'money desc', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getWealth', ' coins');
 endBox();
 
@@ -135,7 +149,7 @@ startBox("Eldest players");
   ?>
   <div class="bubble">Based on the age in hours</div>
   <?php
-  $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'age desc', 'limit '.TOTAL_HOF_PLAYERS);
+  $players= getPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'age desc', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getAge', ' hours');
 endBox();
 ?>
@@ -146,7 +160,8 @@ startBox("Deathmatch heroes");
   ?>
   <div class="bubble">Based on the deathmatch score</div>
   <?php
-  $players= getDMHeroes('limit '.TOTAL_HOF_PLAYERS);
+  // TODO: add filters
+  $players=getDMHeroes($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere.' and', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getDMScore',' points');
 endBox();
 
@@ -158,7 +173,7 @@ startBox("Best attackers");
   ?>
 <div class="bubble">Based on atk*(1+0.03*level)</div>
   <?php
-    $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'atk*(1+0.03*level) desc', 'limit '.TOTAL_HOF_PLAYERS);
+    $players= getPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'atk*(1+0.03*level) desc', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getTotalAtk', " total atk");
 endBox();
 
@@ -170,7 +185,7 @@ startBox("Best defenders");
   ?>
 <div class="bubble">Based on def*(1+0.03*level)</div>
   <?php
-   $players= getPlayers(REMOVE_ADMINS_AND_POSTMAN,'def*(1+0.03*level) desc', 'limit '.TOTAL_HOF_PLAYERS);
+   $players= getPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'def*(1+0.03*level) desc', 'limit '.TOTAL_HOF_PLAYERS);
   $this->renderListOfPlayers($players, 'getTotalDef', " total def");
 endBox();
 
