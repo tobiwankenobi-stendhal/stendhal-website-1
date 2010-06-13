@@ -144,11 +144,11 @@ class Player {
  * Note: Parmaters must be sql escaped.
  */
 function getPlayers($where='', $sortby='name', $cond='limit 2') {
-	return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+	return _getPlayers('select character_stats.* from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
 }
 
 function getPlayer($name) {
-	$player=_getPlayers('select * from character_stats where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
+	$player=_getPlayers('select character_stats.* from character_stats where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
 	return $player[0];
 }
 
@@ -166,7 +166,7 @@ function getDMHeroes($where='where', $cond='limit 2') {
  * Returns a list of players that are online right now.
  */
 function getOnlinePlayers() {
-	return _getPlayers('select * from character_stats where online=1 order by name');
+	return _getPlayers('select character_stats.* from character_stats where online=1 order by name');
 }
 
 

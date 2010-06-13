@@ -82,7 +82,11 @@ function setupFilter() {
 		} else if ($filter=="recent") {
 			$this->filterWhere = ' AND character_stats.lastseen>date_sub(CURRENT_TIMESTAMP, interval 1 month)';
 		} else if ($filter=="friends") {
-			// TODO
+			$this->filterFrom = ", (select characters.charname As charname from account, characters "
+				. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id "
+				. "UNION SELECT buddy.buddy FROM account, characters, buddy "
+				. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id AND characters.charname=buddy.charname) As x ";
+			$this->filterWhere = ' AND character_stats.name=x.charname';
 		}
 	}
 }
@@ -100,7 +104,7 @@ function renderDetails($detail) {
 
 function renderOverview() {
 	startBox("Best player"); 
-$choosen=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere);
+$choosen=getBestPlayer($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere);
  ?>
   <div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
   <div class="best">
