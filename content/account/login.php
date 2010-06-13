@@ -31,7 +31,7 @@ class LoginPage extends Page {
 			/* Check that all fields were typed in */
 		if(!$_POST['user'] || !$_POST['pass']) {
 			startBox("Login failed");
-			echo "You didn't fill in a required field.";
+			echo "<span class=\"error\">You didn't fill in a required field.</span>";
 			endBox();
 			return false;
 		}
@@ -40,7 +40,7 @@ class LoginPage extends Page {
 		$_POST['user'] = trim($_POST['user']);
 		if(strlen($_POST['user']) > 30) {
 			startBox("Login failed");
-			echo "Sorry, the username is longer than 30 characters, please shorten it.";
+			echo "<span class=\"error\">Sorry, the username is longer than 30 characters, please shorten it.</span>";
 			endBox();
 			return false;
 		}
@@ -52,7 +52,7 @@ class LoginPage extends Page {
 		if($result == 2) {
 			/* If result==1 then username doesn't exist, so we let the password check handle it. */
 			startBox("Login failed");
-			echo "Sorry. Your account is blocked by multiple passwords failures or it has been banned.";
+			echo "<span class=\"error\">Sorry. Your account is blocked by multiple passwords failures or it has been banned.</span>";
 			endBox();
 			return false;
 		}
@@ -73,7 +73,7 @@ class LoginPage extends Page {
 		/* Check error codes */
 		if($result != 0){
 			startBox("Login failed");
-			echo "Sorry. You mispelled either username or password.<br>Make sure you have an account at Stendhal.";
+			echo "<span class=\"error\">Sorry. You misspelled either username or password.<br>Please make sure you have an account at Stendhal.</span>";
 			endBox();
 			return false;
 		}
