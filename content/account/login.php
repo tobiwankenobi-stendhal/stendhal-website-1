@@ -17,18 +17,23 @@ class LoginPage extends Page {
 		 * if so, checks authenticity in database and
 		 * creates session.
 		 */
+		$showLoginForm = true;
 		if(isset($_POST['sublogin'])) {
-			$this->checkLogin();
-		} else {
+			$showLoginForm = ! $this->checkLoginForm();
+		}
+		if ($showLoginForm) {
 			$this->displayLoginForm();
 		}
 	}
 
 
-	function checkLogin() {
+	function checkLoginForm() {
 			/* Check that all fields were typed in */
 		if(!$_POST['user'] || !$_POST['pass']) {
-			die('You didn\'t fill in a required field.');
+			startBox("Login failed");
+			echo "You didn't fill in a required field.";
+			endBox();
+			return false;
 		}
 
 		/* Spruce up username, check length */
@@ -37,7 +42,7 @@ class LoginPage extends Page {
 			startBox("Login failed");
 			echo "Sorry, the username is longer than 30 characters, please shorten it.";
 			endBox();
-			return;
+			return false;
 		}
 
 		/* We first check that the username is not banned. */
@@ -49,7 +54,7 @@ class LoginPage extends Page {
 			startBox("Login failed");
 			echo "Sorry. Your account is blocked by multiple passwords failures or it has been banned.";
 			endBox();
-			return;
+			return false;
 		}
 
 		/* Checks that username is in database and password is correct */
@@ -70,7 +75,7 @@ class LoginPage extends Page {
 			startBox("Login failed");
 			echo "Sorry. You mispelled either username or password.<br>Make sure you have an account at Stendhal.";
 			endBox();
-			return;
+			return false;
 		}
 
 		/* Username and password correct, register session variables */
@@ -101,6 +106,7 @@ class LoginPage extends Page {
 		startBox("Login");
 		echo '<h1>Login correct.</h1> Moving to main page.';
 		endBox();
+		return true;
 	}
 
 
