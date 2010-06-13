@@ -90,12 +90,14 @@ class LoginPage extends Page {
 			setcookie("cookpass", $_SESSION['password'], time()+60*60*24*100, "/");
 		}
 
-		$url = "/";
-	// TODO: find a better way to whitelist parameters without hardcoding them.
-		if ($_POST['url'] == "content/account/meeting") {
-			$url = "/index.php?id=content/account/meeting";
+		$url = $_POST['url'];
+		if (!isset($url)) {
+			$url = '/';
 		}
-		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".$url."\">";
+		if (strpos($url, '/') !== 0) {
+			$url = '/'.$url;
+		}
+		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($url)."\">";
 		startBox("Login");
 		echo '<h1>Login correct.</h1> Moving to main page.';
 		endBox();
@@ -120,12 +122,8 @@ class LoginPage extends Page {
 			</table>
 
 			<?php
-			// TODO: merge _GET and _POST
-			if (isset($_GET['url'])) {
-				echo '<input type="hidden" name="url" value="'.htmlspecialchars($_GET['url']).'">';
-			}
-			if (isset($_POST['url'])) {
-				echo '<input type="hidden" name="url" value="'.htmlspecialchars($_POST['url']).'">';
+			if (isset($_REQUEST['url'])) {
+				echo '<input type="hidden" name="url" value="'.htmlspecialchars($_REQUEST['url']).'">';
 			}
 			?>
 		</form>
