@@ -60,12 +60,18 @@ function renderListOfPlayers($list, $f, $postfix='') {
 
     <?php
     $i++;
-  }
+ }
 }
 
+function writeHttpHeader() {
+	if (!$this->setupFilter()) {
+		header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login'); // TODO &returnto='.urlencode(rewriteURL()));
+		return false;
+	}
+	return true;
+}
 
 function writeContent() {
-	$this->setupFilter();
 	$detail = $_REQUEST['detail'];
 	if (!isset($detail)) {
 		$this->renderOverview();
@@ -82,6 +88,9 @@ function setupFilter() {
 		} else if ($filter=="recent") {
 			$this->filterWhere = ' AND character_stats.lastseen>date_sub(CURRENT_TIMESTAMP, interval 1 month)';
 		} else if ($filter=="friends") {
+			if (!isset($_SESSION['username'])) {
+				return false;
+			}
 			$this->filterFrom = ", (select characters.charname As charname from account, characters "
 				. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id "
 				. "UNION SELECT buddy.buddy FROM account, characters, buddy "
@@ -89,6 +98,7 @@ function setupFilter() {
 			$this->filterWhere = ' AND character_stats.name=x.charname';
 		}
 	}
+	return true;
 }
 
 function renderDetails($detail) {
