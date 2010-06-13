@@ -28,7 +28,7 @@ class LoginHistoryPage extends Page {
 	function writeContent() {
 		if(!isset($_SESSION['username'])) {
 			startBox("Login History");
-			echo '<p>Please login to view your personal login history.</p>';
+			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/history.html').'">login</a> to view your personal login history.</p>';
 			endBox();
 		} else {
 			$this->printLoginHistory();

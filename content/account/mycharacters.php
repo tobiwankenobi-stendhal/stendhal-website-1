@@ -27,7 +27,7 @@ class MyCharactersPage extends Page {
 	function writeContent() {
 		if(!isset($_SESSION['username'])) {
 			startBox("Login Required");
-			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.rewriteURL('/account/login.html').'">login</a> to see a list of your characters.</p>';
+			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/mycharacters.html').'">login</a> to see a list of your characters.</p>';
 			endBox();
 			return;
 		}

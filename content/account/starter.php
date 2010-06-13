@@ -58,7 +58,7 @@ class StarterPage extends Page {
 	function writeContent() {
 		startBox("Starter");
 		if(!isset($_SESSION['username'])) {
-			echo '<p>Please login to start the Stendhal Client.</p>';
+			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/mycharacters.html').'">login</a> to start the Stendhal Client.</p>';
 		} else if (!$this->characterOkay) {
 			echo '<p>The specified character '.htmlspecialchars($this->character).' does not belong to your account.</p>';
 		} else {
