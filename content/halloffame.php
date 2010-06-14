@@ -127,10 +127,14 @@ class HallOfFamePage extends Page {
 				<span class="block statslabel">Age:</span><span class="block data"><?php echo getAge($choosen); ?> hours</span>
 				<span class="block statslabel">Level:</span><span class="block data"><?php echo $choosen->level; ?></span>
 				<span class="block statslabel">XP:</span><span class="block data"><?php echo $choosen->xp; ?></span>
-				<?php if ($choosen->sentence != '') {echo '<span class="block sentence">'.$choosen->sentence.'</span>';}?>
 			</a>
 		</div>
+		<a href="<?php echo rewriteURL('/character/'.surlencode($choosen->name).'.html'); ?>">
 		<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="">
+		</a>
+		<?php if ($choosen->sentence != '') {
+			echo '<div class="sentence">'.htmlspecialchars(utf8_encode($choosen->sentence)).'</div>';
+		}?>
 		<?php endBox(); ?>
 
 		<div style="float: left; width: 34%">
