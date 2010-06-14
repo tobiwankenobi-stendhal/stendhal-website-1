@@ -96,7 +96,7 @@ if ($page->writeHttpHeader()) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?echo STENDHAL_FOLDER;?>/css/00000006.css">
+	<link rel="stylesheet" type="text/css" href="<?echo STENDHAL_FOLDER;?>/css/00000007.css">
 	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?echo STENDHAL_FOLDER;?>/css/ie000004.css"><![endif]-->
 	<link rel="icon" type="image/png" href="<?echo STENDHAL_FOLDER;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
