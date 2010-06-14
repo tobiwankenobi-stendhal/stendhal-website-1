@@ -110,7 +110,8 @@ class Player {
 	}
 
 	function getAccountInfo() {
-		$result=mysql_query('select timedate, status from account, characters where account.id=characters.player_id AND charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
+		// TODO: use character.timedate
+		$result=mysql_query('select account.timedate, status from account, characters where account.id=characters.player_id AND charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
 		$account=array();
 
 		$row=mysql_fetch_assoc($result);
