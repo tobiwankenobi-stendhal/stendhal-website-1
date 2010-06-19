@@ -63,7 +63,11 @@ class Player {
     echo ' </a>';
     echo '  <div class="xp">'.$this->xp.' xp</div>';
     if ($this->sentence != '') {
-		echo ' <div class="quote">'.htmlspecialchars(utf8_encode( substr($this->sentence, 0, strpos($this->sentence, ' ', 60) - 1))).'</div>';
+    	$temp = substr($this->sentence, 0, strpos($this->sentence, ' ', 55) - 1);
+    	if ($temp != $this->sentence) {
+    		$temp = $temp.'...';
+    	}
+		echo ' <div class="quote">'.htmlspecialchars(utf8_encode($temp)).'</div>';
     } else {
 		echo ' <div style="clear:left"></div>';
 	}
