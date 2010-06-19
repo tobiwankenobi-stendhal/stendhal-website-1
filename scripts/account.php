@@ -277,6 +277,18 @@ function storeSeed($username, $ip, $seed, $authenticated) {
 }
 
 
+function mergeAccount($oldUsername, $newUsername, $oldAccountId, $newAccountId) {
+	mysql_query("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
+	$result = mysql_query("SELECT charname FROM characters WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
+	while($row = mysql_fetch_assoc($result)) {
+		logAccountMerge($row['charname'], $oldAccountId, $oldUsername, $newUsername);
+	}
+	mysql_free_result($result);
+	mysql_query("UPDATE characters SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
+	mysql_query("UPDATE accountLink SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
+}
+
+
 /**
  * gets a list of recent login events for that player
  */
