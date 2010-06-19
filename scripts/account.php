@@ -20,6 +20,34 @@
 
 include_once('scripts/mysql.php');
 
+function checkAccount($username, $password) {
+	/* Check that all fields were typed in */
+	if(!$username || !$password) {
+		return 1;
+	}
+
+	/* We first check that the username is not banned. */
+	$result = confirmValidStatus($username);
+	if($result == 2) {
+		return 3;
+	}
+
+	/* Checks that username is in database and password is correct */
+	$md5pass = strtoupper(md5($password));
+	$result = confirmUser($username, $md5pass);
+
+	if ($result === 2) {
+		/* We need to check the pre-Marauroa 2.0 passwords */
+		$md5pass = strtoupper(md5(md5($password,true)));
+		$result = confirmUser($username, $md5pass);
+	}
+
+	/* Here we log the login attempt, with username, IP and whether failed or successful */
+	logUserLogin($$username, $_SERVER['REMOTE_ADDR'], $result == 0);
+
+	return $result;
+}
+
 /**
  * Checks whether or not the given username is in the
  * database, if so it checks if the given password is
@@ -161,60 +189,54 @@ function displayLogin(){
  }
 
 // Returns user id for username or false
-function getUserID($username)
-{
+function getUserID($username) {
 	$q = "SELECT id FROM account WHERE username = '".
-                           mysql_real_escape_string($username)."'";
+		mysql_real_escape_string($username)."'";
 
 	$result = mysql_query($q, getGameDB());
 
-     if (!$result || mysql_num_rows($result) !== 1)
-     {
-          /* Couldn't find the userid or DB failure */
-          return false;
-     }
+	if (!$result || mysql_num_rows($result) !== 1) {
+		/* Couldn't find the userid or DB failure */
+		return false;
+	}
 
-     $row = mysql_fetch_assoc($result);
+	$row = mysql_fetch_assoc($result);
 
-     return $row['id'];
+	return $row['id'];
 }
 
 // log password changes for user from ip
 // returns boolean successfully logged
-function logUserPasswordChange($user, $ip, $oldpass, $result)
-{
-     $userid = getUserID($user);
+function logUserPasswordChange($user, $ip, $oldpass, $result) {
+	$userid = getUserID($user);
 
-     if ( $userid === false )
-     {
-          return false;
-     }
+	if ( $userid === false) {
+		return false;
+	}
 
-     $q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
-          " values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website',".mysql_real_escape_string($result).")";
+	$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
+		" values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website',".mysql_real_escape_string($result).")";
 
-     $result = mysql_query($q, getGameDB());
+	$result = mysql_query($q, getGameDB());
 
-     return $result !== false;
+	return $result !== false;
 }
 
 // log logins for user from ip
 // returns boolean successfully logged
-function logUserLogin($user, $ip, $success)
-{
-     $userid = getUserID($user);
-	
-     if ( $userid === false )
-     {
-          return false;
-     }
+function logUserLogin($user, $ip, $success) {
+	$userid = getUserID($user);
 
-     $q = "INSERT INTO loginEvent (player_id,address,result,service) values ".
-          "(".$userid.",'".mysql_real_escape_string($ip)."',".($success ? '1' : '0').",'website')";
+	if ( $userid === false ) {
+		return false;
+	}
 
-     $result = mysql_query($q, getGameDB());
+	$q = "INSERT INTO loginEvent (player_id,address,result,service) values ".
+		"(".$userid.",'".mysql_real_escape_string($ip)."',".($success ? '1' : '0').",'website')";
 
-     return $result !== false;
+	$result = mysql_query($q, getGameDB());
+
+	return $result !== false;
 }
 
 /**
