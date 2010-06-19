@@ -57,51 +57,50 @@ function checkAccount($username, $password) {
  * On success it returns 0.
  */
 function confirmUser($username, $password){
-   $conn=getGameDB();
+	$conn=getGameDB();
 
-   /* Verify that user is in database */
-   $q = "select password from account where username = '".mysql_real_escape_string($username)."'";
-   $result = mysql_query($q,$conn);
-   if(!$result || (mysql_numrows($result) < 1)){
-      return 1; //Indicates username failure
-   }
+	/* Verify that user is in database */
+	$q = "select password from account where username = '".mysql_real_escape_string($username)."'";
+	$result = mysql_query($q,$conn);
+	if (!$result || (mysql_numrows($result) < 1)){
+		return 1; //Indicates username failure
+	}
 
-   /* Retrieve password from result, strip slashes */
-   $dbarray = mysql_fetch_array($result);
-   $dbarray['password']  = stripslashes($dbarray['password']);
-   
-   $password = stripslashes($password);
+	/* Retrieve password from result, strip slashes */
+	$dbarray = mysql_fetch_array($result);
+	$dbarray['password']  = stripslashes($dbarray['password']);
 
-   /* Validate that password is correct */
-   if($password==$dbarray['password']){
-      return 0; //Success! Username and password confirmed
-   }
-   else{
-      return 2; //Indicates password failure
-   }
+	$password = stripslashes($password);
+
+	/* Validate that password is correct */
+	if ($password==$dbarray['password']){
+		return 0; //Success! Username and password confirmed
+	} else {
+		return 2; //Indicates password failure
+	}
 }
 
 function confirmValidStatus($username){
-   $conn=getGameDB();
+	$conn=getGameDB();
 
-   /* Verify that user is in database */
-   $q = "select status from account where username = '".mysql_real_escape_string($username)."'";
-   $result = mysql_query($q,$conn);
-   if(!$result || (mysql_numrows($result) < 1)){
-      return 1; //Indicates username failure
-   }
+	/* Verify that user is in database */
+	$q = "select status from account where username = '".mysql_real_escape_string($username)."'";
+	$result = mysql_query($q,$conn);
+	if (!$result || (mysql_numrows($result) < 1)){
+		return 1; //Indicates username failure
+	}
 
-   /* Retrieve password from result, strip slashes */
-   $dbarray = mysql_fetch_array($result);
-   
-   $status=$dbarray['status'];
-   
-   /* Validate that password is correct */
-   if($status=='active'){
-      return 0; //Success!
-   } else {
-      return 2; //Indicates account is blocked or inactive.
-   }
+	/* Retrieve password from result, strip slashes */
+	$dbarray = mysql_fetch_array($result);
+
+	$status=$dbarray['status'];
+
+	/* Validate that password is correct */
+	if($status=='active'){
+		return 0; //Success!
+	} else {
+		return 2; //Indicates account is blocked or inactive.
+	}
 }
 
 
@@ -111,13 +110,13 @@ function confirmValidStatus($username){
  * database.
  */
 function existsUser($email){
-   $conn=getGameDB();
+	$conn=getGameDB();
 
-   /* Verify that user email is in database */
-   $q = "select * from account where email = '".mysql_real_escape_string($email)."'";
-   $result = mysql_query($q,$conn);
-   
-   return $result and mysql_numrows($result)==1;
+	/* Verify that user email is in database */
+	$q = "select * from account where email = '".mysql_real_escape_string($email)."'";
+	$result = mysql_query($q,$conn);
+
+	return $result and mysql_numrows($result)==1;
 }
 
 /**
@@ -128,45 +127,45 @@ function existsUser($email){
  * authenticity. Returns true if the user has logged in.
  */
 function checkLogin(){
-   /* Check if user has been remembered */
-   if(isset($_COOKIE['cookname']) && isset($_COOKIE['cookpass'])){
-      $_SESSION['username'] = $_COOKIE['cookname'];
-      $_SESSION['password'] = $_COOKIE['cookpass'];
-   }
+	/* Check if user has been remembered */
+	if(isset($_COOKIE['cookname']) && isset($_COOKIE['cookpass'])){
+		$_SESSION['username'] = $_COOKIE['cookname'];
+		$_SESSION['password'] = $_COOKIE['cookpass'];
+	}
 
-   /* Username and password have been set */
-   if(isset($_SESSION['username']) && isset($_SESSION['password'])){
-      /* Confirm that username and password are valid */
-      if(confirmUser($_SESSION['username'], $_SESSION['password']) != 0){
-         /* Variables are incorrect, user not logged in */
-         unset($_SESSION['username']);
-         unset($_SESSION['password']);
-         return false;
-      }
-      return true;
-   }
-   /* User not logged in */
-   else{
-      return false;
-   }
+	/* Username and password have been set */
+	if (isset($_SESSION['username']) && isset($_SESSION['password'])){
+		/* Confirm that username and password are valid */
+		if(confirmUser($_SESSION['username'], $_SESSION['password']) != 0){
+			/* Variables are incorrect, user not logged in */
+			unset($_SESSION['username']);
+			unset($_SESSION['password']);
+			return false;
+		}
+		return true;
+	}
+	/* User not logged in */
+	else{
+		return false;
+	}
 }
 
 function getAdminLevel() {
-  if(!checkLogin()) {
-    return -1;
-  }
-  
-  $result = mysql_query('select admin from character_stats where name="'.mysql_real_escape_string($_SESSION['username']).'"', getGameDB());
-  while($row=mysql_fetch_assoc($result)) {
-    return (int)$row['admin'];
-  }
+	if(!checkLogin()) {
+		return -1;
+	}
+
+	$result = mysql_query('select admin from character_stats where name="'.mysql_real_escape_string($_SESSION['username']).'"', getGameDB());
+	while($row=mysql_fetch_assoc($result)) {
+		return (int)$row['admin'];
+	}
 }
 
 function getUser($email) {
-  $result = mysql_query('select username from account where email="'.mysql_real_escape_string($email).'"', getGameDB());
-  while($row=mysql_fetch_assoc($result)) {
-    return $row['username'];
-  }
+	$result = mysql_query('select username from account where email="'.mysql_real_escape_string($email).'"', getGameDB());
+	while($row=mysql_fetch_assoc($result)) {
+		return $row['username'];
+	}
 }
 
 /**
@@ -175,18 +174,17 @@ function getUser($email) {
  * based on if the session variables are set.
  */
 function displayLogin(){
-   if(checkLogin()){ 
-     echo 'Logged in as <b>'.$_SESSION['username'].'</b>. <a href="'.rewriteURL('/account/history.html').'">Login history</a>'
-     .' - <a href="'.rewriteURL('/account/change-password.html').'">Change password</a>'
-     .' - <a href="'.rewriteURL('/account/logout.html').'">Logout</a>';
-   }
-   else{
-     echo '<a href="'.STENDHAL_LOGIN_TARGET.''.rewriteURL('/account/login.html').'">Login</a>';
-     /* TODO: Reenable when sending of emails is possible on the server.
-     echo '<a href="'.STENDHAL_LOGIN_TARGET.'/?id=login/login">Login</a> - <a href="/?id=login/remind">Forgot your Password?</a>';
-     */
-   }
- }
+	if(checkLogin()){ 
+		echo 'Logged in as <b>'.$_SESSION['username'].'</b>. <a href="'.rewriteURL('/account/history.html').'">Login history</a>'
+		.' - <a href="'.rewriteURL('/account/change-password.html').'">Change password</a>'
+		.' - <a href="'.rewriteURL('/account/logout.html').'">Logout</a>';
+	} else{
+		echo '<a href="'.STENDHAL_LOGIN_TARGET.''.rewriteURL('/account/login.html').'">Login</a>';
+		/* TODO: Reenable when sending of emails is possible on the server.
+		echo '<a href="'.STENDHAL_LOGIN_TARGET.'/?id=login/login">Login</a> - <a href="/?id=login/remind">Forgot your Password?</a>';
+	*/
+	}
+}
 
 // Returns user id for username or false
 function getUserID($username) {
