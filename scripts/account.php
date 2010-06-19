@@ -237,6 +237,17 @@ function logUserLogin($user, $ip, $success) {
 	return $result !== false;
 }
 
+
+function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) {
+	$q = "INSERT INTO gameEvents (source, event, param1, param2) values ".
+		"('".mysql_real_escape_string($character)."', 'accountmerge', '".mysql_real_escape_string($oldAccountId)."', '"
+		.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."'')";
+
+	$result = mysql_query($q, getGameDB());
+	return $result !== false;
+}
+
+
 /**
  * verifies that thae specified characer belongs to the specified account
  *
