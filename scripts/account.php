@@ -130,18 +130,16 @@ function checkLogin(){
 	/* Check if user has been remembered */
 	if(isset($_COOKIE['cookname']) && isset($_COOKIE['cookpass'])){
 		$_SESSION['username'] = $_COOKIE['cookname'];
-		$_SESSION['password'] = $_COOKIE['cookpass'];
-	}
-
-	/* Username and password have been set */
-	if (isset($_SESSION['username']) && isset($_SESSION['password'])){
-		/* Confirm that username and password are valid */
-		if(confirmUser($_SESSION['username'], $_SESSION['password']) != 0){
+		if(confirmUser($_SESSION['username'], $_COOKIE['cookpass']) != 0){
 			/* Variables are incorrect, user not logged in */
 			unset($_SESSION['username']);
-			unset($_SESSION['password']);
 			return false;
 		}
+	}
+
+	/* Username has been set */
+	if (isset($_SESSION['username'])){
+		/* Confirm that username and password are valid */
 		return true;
 	}
 	/* User not logged in */
