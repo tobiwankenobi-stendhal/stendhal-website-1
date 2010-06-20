@@ -38,33 +38,16 @@ class LoginPage extends Page {
 
 		/* Spruce up username, check length */
 		$_POST['user'] = trim($_POST['user']);
-		if(strlen($_POST['user']) > 30) {
-			startBox("Login failed");
-			echo "<span class=\"error\">Sorry, the username is longer than 30 characters, please shorten it.</span>";
-			endBox();
-			return false;
-		}
 
 		/* We first check that the username is not banned. */
-		$result = confirmValidStatus($_POST['user']);
+		$result = checkAccount($_POST['user'], $_POST['pass']);
 
 		/* Check error codes */
-		if($result == 2) {
-			/* If result==1 then username doesn't exist, so we let the password check handle it. */
+		if($result == 3) {
 			startBox("Login failed");
 			echo "<span class=\"error\">Sorry. Your account is blocked by multiple passwords failures or it has been banned.</span>";
 			endBox();
 			return false;
-		}
-
-		/* Checks that username is in database and password is correct */
-		$md5pass = strtoupper(md5($_POST['pass']));
-		$result = confirmUser($_POST['user'], $md5pass);
-
-		if ($result === 2) {
-			/* We need to check the pre-Marauroa 2.0 passwords */
-			$md5pass = strtoupper(md5(md5($_POST['pass'],true)));
-			$result = confirmUser($_POST['user'], $md5pass);
 		}
 
 		/* Here we log the login attempt, with username, IP and whether failed or successful */
@@ -79,9 +62,7 @@ class LoginPage extends Page {
 		}
 
 		/* Username and password correct, register session variables */
-		$_POST['user'] = stripslashes($_POST['user']);
 		$_SESSION['username'] = $_POST['user'];
-		$_SESSION['password'] = $md5pass;
 	
 		/**
 		 * This is the cool part: the user has requested that we remember that
@@ -92,7 +73,8 @@ class LoginPage extends Page {
 		 */
 		if(isset($_POST['remember'])){
 			setcookie("cookname", $_SESSION['username'], time()+60*60*24*100, "/");
-			setcookie("cookpass", $_SESSION['password'], time()+60*60*24*100, "/");
+			$md5pass = strtoupper(md5($_POST['pass']));
+			setcookie("cookpass", $md5pass, time()+60*60*24*100, "/");
 		}
 
 		$url = $_POST['url'];
