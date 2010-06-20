@@ -102,10 +102,10 @@ class LoginPage extends Page {
 		</div>
 		<form action="" method="post">
 			<table>
-				<tr><td>Username:</td><td><input type="text" name="user" maxlength="30"></td></tr>
-				<tr><td>Password:</td><td><input type="password" name="pass" maxlength="30"></td></tr>
-				<tr><td colspan="2" align="left"><input type="checkbox" name="remember">
-				<font size="2">Remember me next time</font></td></tr>
+				<tr><td><label for="user">Username:</label></td><td><input type="text" id="user" name="user" maxlength="30"></td></tr>
+				<tr><td><label for="pass">Password:</label></td><td><input type="password" id="pass" name="pass" maxlength="30"></td></tr>
+				<!-- <tr><td colspan="2" align="left"><input type="checkbox" id="remember" name="remember">
+				<label for="remember"><font size="2">Remember me next time</font></label></td></tr> -->
 				<tr><td colspan="2" align="right"><input type="submit" name="sublogin" value="Login"></td></tr>
 			</table>
 
