@@ -20,6 +20,7 @@ class AccountMerge extends Page {
 
 	function process() {
 		$this->displayHelp();
+		$this->processMerge();
 		$this->displayForm();
 	}
 
@@ -33,15 +34,37 @@ class AccountMerge extends Page {
 		<?php endBox();
 	}
 
-	function process() {
+	function processMerge() {
 		if (! isset($_POST['submerge'])) {
 			return;
 		}
 
 		startBox("Result");
-		// TODO: Check not the same account
-		// TODO: Check authentification
-		// TODO: Check checkbox
+		if ($_SESSION['username'] == trim($_POST['user'])) {
+			echo '<p class="error">You need to enter the username and password of another account you own.</p>';
+			endBox();
+			return;
+		}
+
+		if (!isset($_POST['confirm'])) {
+			echo '<p class="error">You need tick the confirm-checkbox.</p>';
+			endBox();
+			return;
+		}
+
+		$checkResult = checkAccount($_POST['user'], $_POST['pass']);
+		if ($checkResult == 3) {
+			echo '<p class="error">The account is temporary blocked or banned.</p>';
+			endBox();
+			return;
+		}
+
+		if ($checkResult != 0) {
+			echo '<p class="error">Username or password wrong.</p>';
+			endBox();
+			return;
+		}
+		
 		// TODO: Merge
 		endBox();
 	}
