@@ -62,8 +62,10 @@ class LoginPage extends Page {
 		}
 
 		/* Username and password correct, register session variables */
+		$md5pass = strtoupper(md5($_POST['pass']));
 		$_SESSION['username'] = $_POST['user'];
-	
+		$_SESSION['password'] = $md5pass;
+		
 		/**
 		 * This is the cool part: the user has requested that we remember that
 		 * he's logged in, so we set two cookies. One to hold his username,
@@ -73,7 +75,6 @@ class LoginPage extends Page {
 		 */
 		if(isset($_POST['remember'])){
 			setcookie("cookname", $_SESSION['username'], time()+60*60*24*100, "/");
-			$md5pass = strtoupper(md5($_POST['pass']));
 			setcookie("cookpass", $md5pass, time()+60*60*24*100, "/");
 		}
 
