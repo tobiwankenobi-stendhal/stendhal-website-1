@@ -19,7 +19,49 @@ class AccountMerge extends Page {
 	}
 
 	function process() {
-		// TODO
+		$this->displayHelp();
+		$this->displayForm();
+	}
+
+	function displayHelp() {
+		startBox("Account Merging");?>
+		<p>With the form below you can merge your other accounts.</p>
+		<p>This means that all characters previously associated with the other 
+		account will be available in this account. The other account will be 
+		disabled.</p>
+		<p class="warn">Merging accounts cannot be undone.</p>
+		<?php endBox();
+	}
+
+	function process() {
+		if (! isset($_POST['submerge'])) {
+			return;
+		}
+
+		startBox("Result");
+		// TODO: Check not the same account
+		// TODO: Check authentification
+		// TODO: Check checkbox
+		// TODO: Merge
+		endBox();
+	}
+
+	function displayForm() {
+		startBox("Account to merge in"); ?>
+		<p>You are currently logged into the account <b><?php echo htmlspecialchars($_SESSION['username']) ?></b>.</p>
+
+		<form action="" method="post">
+			<table>
+				<tr><td><label for="user">Username:</label></td><td><input type="text" id="user" name="user" maxlength="30"></td></tr>
+				<tr><td><label for="pass">Password:</label></td><td><input type="password" id="pass" name="pass" maxlength="30"></td></tr>
+				<tr><td colspan="2" align="left"><input type="checkbox" id="confirm" name="confirm">
+				<label for="confirm">I really want to merge these accounts.</label></td></tr>
+				<tr><td colspan="2" align="right"><input type="submit" name="submerge" value="Merge"></td></tr>
+			</table>
+		</form>
+
+		<?php endBox();
+		
 	}
 }
 $page = new AccountMerge();
