@@ -58,6 +58,12 @@ class AccountMerge extends Page {
 			endBox();
 			return;
 		}
+		
+		if ($checkResult == 4) {
+			echo '<p class="error">The account was already merged and does not exist anymore.</p>';
+			endBox();
+			return;
+		}
 
 		if ($checkResult != 0) {
 			echo '<p class="error">Username or password wrong.</p>';

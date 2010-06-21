@@ -50,6 +50,13 @@ class LoginPage extends Page {
 			return false;
 		}
 
+		if($result == 4) {
+			startBox("Login failed");
+			echo "<span class=\"error\">Sorry. Your account has been merged into another account. Please use the other account to login or contact support.</span>";
+			endBox();
+			return false;
+		}
+
 		/* Here we log the login attempt, with username, IP and whether failed or successful */
 		logUserLogin($_POST['user'], $_SERVER['REMOTE_ADDR'], $result == 0);
 

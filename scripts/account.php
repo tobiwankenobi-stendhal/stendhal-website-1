@@ -31,6 +31,9 @@ function checkAccount($username, $password) {
 	if($result == 2) {
 		return 3;
 	}
+	if($result == 3) {
+		return 4;
+	}
 
 	/* Checks that username is in database and password is correct */
 	$md5pass = strtoupper(md5($password));
@@ -98,6 +101,8 @@ function confirmValidStatus($username){
 	/* Validate that password is correct */
 	if($status=='active'){
 		return 0; //Success!
+	} else if ($status=='merged') {
+		return 3;
 	} else {
 		return 2; //Indicates account is blocked or inactive.
 	}
