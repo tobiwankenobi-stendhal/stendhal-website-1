@@ -65,7 +65,9 @@ class AccountMerge extends Page {
 			return;
 		}
 		
-		// TODO: Merge
+		mergeAccount($_POST['user'], $_SESSION['username']);
+		echo '<p class="success">Your old account <i>'.htmlspecialchars($_POST['user'])
+			.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['username']).'</i>.</p>';
 		endBox();
 	}
 

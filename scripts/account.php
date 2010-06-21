@@ -239,8 +239,7 @@ function logUserLogin($user, $ip, $success) {
 function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) {
 	$q = "INSERT INTO gameEvents (source, event, param1, param2) values ".
 		"('".mysql_real_escape_string($character)."', 'accountmerge', '".mysql_real_escape_string($oldAccountId)."', '"
-		.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."'')";
-
+		.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."')";
 	$result = mysql_query($q, getGameDB());
 	return $result !== false;
 }
@@ -275,7 +274,14 @@ function storeSeed($username, $ip, $seed, $authenticated) {
 }
 
 
-function mergeAccount($oldUsername, $newUsername, $oldAccountId, $newAccountId) {
+/**
+ * merges two accounts
+ * @param string $oldUsername
+ * @param string $newUsername
+ */
+function mergeAccount($oldUsername, $newUsername) {
+	$oldAccountId = getUserID($oldUsername);
+	$newAccountId = getUserID($newUsername);
 	mysql_query("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
 	$result = mysql_query("SELECT charname FROM characters WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
 	while($row = mysql_fetch_assoc($result)) {
