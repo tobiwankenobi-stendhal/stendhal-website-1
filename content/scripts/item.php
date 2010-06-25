@@ -188,7 +188,8 @@ foreach($this->items as $m) {
 				}
 			}
 		}
-   	  foreach($m->attributes as $label=>$data) {
+		foreach($m->attributes as $label=>$data) {
+			if ($label != "undroppableondeath") {
             ?>
             <div class="row">
               <div class="label"><?php echo strtoupper($label); ?></div>
@@ -221,6 +222,7 @@ foreach($this->items as $m) {
 					</form>
 				<?php 
 				}
+			}
 		}
 	?>
 	</div>
