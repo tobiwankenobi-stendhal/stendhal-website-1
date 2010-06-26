@@ -3,6 +3,10 @@
 require_once('scripts/account.php');
 
 class LoginPage extends Page {
+	
+	public function writeHttpHeader() {
+		return $this->handleRedirectIfAlreadyLoggedIn();
+	}
 
 	public function writeHtmlHeader() {
 		echo '<title>Login'.STENDHAL_TITLE.'</title>';
@@ -24,6 +28,15 @@ class LoginPage extends Page {
 		if ($showLoginForm) {
 			$this->displayLoginForm();
 		}
+	}
+
+	function handleRedirectIfAlreadyLoggedIn() {
+		$url = $this->getUrl();
+		if ($url != '/' && checkLogin()) {
+			header('Location: '.STENDHAL_LOGIN_TARGET.$url);
+			return false;
+		}
+		return true;
 	}
 
 
@@ -84,20 +97,27 @@ class LoginPage extends Page {
 			setcookie("cookpass", $md5pass, time()+60*60*24*100, "/");
 		}
 
-		$url = $_POST['url'];
-		if (!isset($url)) {
-			$url = '/';
-		}
-		if (strpos($url, '/') !== 0) {
-			$url = '/'.$url;
-		}
-		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($url)."\">";
+		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($this->getUrl())."\">";
 		startBox("Login");
 		echo '<h1>Login correct.</h1> Moving to main page.';
 		endBox();
 		return true;
 	}
 
+	function getUrl() {
+		$url = $_REQUEST['url'];
+		if (!isset($url)) {
+			$url = '/';
+		}
+		if (strpos($url, '/') !== 0) {
+			$url = '/'.$url;
+		}
+		// prevent header splitting
+		if (strpos($url, '\r') || strpos($url, '\n')) {
+			$url = '/';
+		}
+		return $url;
+	}
 
 	function displayLoginForm() {
 		startBox("Login");
