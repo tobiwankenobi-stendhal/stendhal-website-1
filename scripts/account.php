@@ -158,9 +158,9 @@ function getAdminLevel() {
 		return -1;
 	}
 
-	$result = mysql_query('select max(admin) from character_stats, characters, account where character_stats.name=characters.charname AND characters.player_id=account.id AND account.username="'.mysql_real_escape_string($_SESSION['username']).'"', getGameDB());
+	$result = mysql_query('select max(admin) As adminlevel from character_stats, characters, account where character_stats.name=characters.charname AND characters.player_id=account.id AND account.username="'.mysql_real_escape_string($_SESSION['username']).'"', getGameDB());
 	while($row=mysql_fetch_assoc($result)) {
-		return (int)$row['admin'];
+		return (int)$row['adminlevel'];
 	}
 }
 
