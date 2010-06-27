@@ -194,7 +194,7 @@ if ($page->writeHttpHeader()) {
 		<?php startBox('Players'); ?>
 		<ul class="menu">
 			<li style="white-space: nowrap"><a id="menuPlayerOnline" href="<?php echo rewriteURL('/world/online.html');?>"><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
-			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame.html')?>">Hall Of Fame</a></li>
+			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame/active_overview.html')?>">Hall Of Fame</a></li>
 			<li><a id="menuPlayerKillstats" href="<?php echo rewriteURL('/world/kill-stats.html')?>">Kill stats</a></li>
 		</ul>
 		<form method="get" action="/" accept-charset="iso-8859-1">
