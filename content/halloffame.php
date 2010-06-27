@@ -53,7 +53,7 @@ class HallOfFamePage extends Page {
 
 	function writeHttpHeader() {
 		if ($this->loginRequired) {
-			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url=/world/hall-of-fame/'.urlencode($filter).'_'.urlencode($detail).'.html');;
+			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url=/world/hall-of-fame/'.urlencode($this->filter).'_'.urlencode($this->detail).'.html');;
 			return false;
 		}
 		return true;
@@ -62,6 +62,16 @@ class HallOfFamePage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<title>Hall of Fame'.STENDHAL_TITLE.'</title>';
+
+		?><style type="text/css">
+.activeTab {padding: 0.5em; background-color: #CFC; line-height: 0.95em; border-width: 2px 2px 0pt; border-style: solid solid none; border-color: rgb(163, 177, 191) rgb(163, 177, 191) -moz-use-text-color; font-weight: bold; white-space: nowrap;}
+.activeTabA {color: #000; text-decoration: none; display: block}
+.backgroundTab {padding: 0.5em; background-color: #7A7; font-size: 90%; line-height: 0.95em; border: 2px solid rgb(163, 177, 191); border-bottom: 2px solid #000; white-space: nowrap;}
+.backgroundTabA {color: #FFF; text-decoration: none; display: block}
+.backgroundTabA:hover {font-weight:bold; text-decoration: underline}
+.barTab{border-bottom: 2px solid #000; }
+.tabPageContent{background-color: #CFC; border-left: 2px solid #000; border-right: 2px solid #000; border-bottom: 2px solid #000;}
+</style><?php 
 	}
 
 
@@ -90,7 +100,7 @@ class HallOfFamePage extends Page {
 			$this->filterWhere = ' AND character_stats.lastseen>date_sub(CURRENT_TIMESTAMP, interval 1 month)';
 		} else if ($this->filter=="friends") {
 			if (!isset($_SESSION['username'])) {
-				$loginRequired = true;;
+				$this->loginRequired = true;;
 				return;
 			}
 			$this->filterFrom = ", (select characters.charname As charname from account, characters "
@@ -119,29 +129,17 @@ class HallOfFamePage extends Page {
 		if (isset($_REQUEST['dev'])) {
 		?>
 		<br>
-
-<style type="text/css">
-.activeTab {padding: 0.5em; background-color: #CFC; line-height: 0.95em; border-width: 2px 2px 0pt; border-style: solid solid none; border-color: rgb(163, 177, 191) rgb(163, 177, 191) -moz-use-text-color; font-weight: bold; white-space: nowrap;}
-.activeTabA {color: #000; text-decoration: none; display: block}
-.backgroundTab {padding: 0.5em; background-color: #7A7; font-size: 90%; line-height: 0.95em; border: 2px solid rgb(163, 177, 191); border-bottom: 2px solid #000; white-space: nowrap;}
-.backgroundTabA {color: #FFF; text-decoration: none; display: block}
-.backgroundTabA:hover {font-weight:bold; text-decoration: underline}
-.barTab{border-bottom: 2px solid #000; }
-.tabPageContent{background-color: #CFC; border-left: 2px solid #000; border-right: 2px solid #000; border-bottom: 2px solid #000;}
-</style>
-<table style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
-<td class="barTab" width="2%"> &nbsp;</td>
-<?php echo '<td class="'.$this->getTabClass('active').'" width="25%"><a class="'.$this->getTabClass('active').'A" href="'.rewriteURL('/world/hall-of-fame/active_'.$this->detail.'.html').';">Active</a></td>';?>
-<td class="barTab" width="2%"> &nbsp;</td>
-<?php echo '<td class="'.$this->getTabClass('alltimes').'" width="25%"><a class="'.$this->getTabClass('alltimes').'A" href="'.rewriteURL('/world/hall-of-fame/alltimes_'.$this->detail.'.html').'">All times</a></td>';?>
-<td class="barTab" width="2%">&nbsp;</td>
-<?php echo '<td class="'.$this->getTabClass('friends').'" width="25%"><a class="'.$this->getTabClass('friends').'A" href="'.rewriteURL('/world/hall-of-fame/friends_'.$this->detail.'.html').'">Me &amp; my friends</a></td>';?>
-<td class="barTab"> &nbsp;</td>
-</tr>
-<tr><td colspan="7" class="tabPageContent">
-
-<br>
-
+		<table style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+		<td class="barTab" width="2%"> &nbsp;</td>
+		<?php echo '<td class="'.$this->getTabClass('active').'" width="25%"><a class="'.$this->getTabClass('active').'A" href="'.htmlspecialchars(rewriteURL('/world/hall-of-fame/active_'.$this->detail.'.html')).';">Active</a></td>';?>
+		<td class="barTab" width="2%"> &nbsp;</td>
+		<?php echo '<td class="'.$this->getTabClass('alltimes').'" width="25%"><a class="'.$this->getTabClass('alltimes').'A" href="'.htmlspecialchars(rewriteURL('/world/hall-of-fame/alltimes_'.$this->detail.'.html')).'">All times</a></td>';?>
+		<td class="barTab" width="2%">&nbsp;</td>
+		<?php echo '<td class="'.$this->getTabClass('friends').'" width="25%"><a class="'.$this->getTabClass('friends').'A" href="'.htmlspecialchars(rewriteURL('/world/hall-of-fame/friends_'.$this->detail.'.html')).'">Me &amp; my friends</a></td>';?>
+		<td class="barTab"> &nbsp;</td>
+		</tr>
+		<tr><td colspan="7" class="tabPageContent">
+		<br>
 		<?php
 		}
 	}
