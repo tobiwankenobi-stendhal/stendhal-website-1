@@ -86,7 +86,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # world
                 RewriteRule ^/world/atlas\.html$ /index.php?id=content/game/atlas [L]
-                RewriteRule ^/world/hall-of-fame\.html$ /index.php?id=content/halloffame [L]
+                RewriteRule ^/world/hall-of-fame\.html$ /world/hall-of-fame/active_overview.html [R=301]
+                RewriteRule ^/world/hall-of-fame/(.*)_(.*)\.html$ /index.php?id=content/halloffame&filter=$1&detail=$2 [L]
                 RewriteRule ^/world/newsarchive\.html$ /index.php?id=content/newsarchive [L]
                 RewriteRule ^/world/kill-stats\.html$ /index.php?id=content/scripts/killedstats [L]
                 RewriteRule ^/world/online\.html$ /index.php?id=content/scripts/online [L]
@@ -155,7 +156,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteCond %{QUERY_STRING} id=content/game/atlas
                 RewriteRule ^/.* /world/atlas.html? [R=301]
                 RewriteCond %{QUERY_STRING} ^id=content/halloffame$
-                RewriteRule ^/.* /world/hall-of-fame.html? [R=301]
+                RewriteRule ^/.* /world/hall-of-fame/active_overview.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/newsarchive
                 RewriteRule ^/.* /world/newsarchive.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/scripts/killedstats
@@ -301,6 +302,8 @@ function rewriteURL($url) {
 			return preg_replace('|^/world/atlas\.html$|', $folder.'/?id=content/game/atlas', $url);
 		} else if (preg_match('|^/world/hall-of-fame\.html$|', $url)) {
 			return preg_replace('|^/world/hall-of-fame\.html$|', $folder.'/?id=content/halloffame', $url);
+		} else if (preg_match('|^/world/hall-of-fame/(.*)_(.*)\.html$|', $url)) {
+			return preg_replace('|^/world/hall-of-fame/(.*)_(.*)\.html$|', $folder.'/?id=content/halloffame&filter=$1&detail=$2', $url);
 		} else if (preg_match('|^/world/newsarchive\.html$|', $url)) {
 			return preg_replace('|^/world/newsarchive\.html$|', $folder.'/?id=content/newsarchive', $url);
 		} else if (preg_match('|^/world/kill-stats\.html$|', $url)) {
