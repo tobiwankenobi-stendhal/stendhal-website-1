@@ -210,11 +210,12 @@ if ($page->writeHttpHeader()) {
 		 * Show the admin menu only if player is really an admin.
 		 * Admins are designed using the stendhal standard way.
 		 */
-		if(getAdminLevel()>=100) {
+		$adminLevel = getAdminLevel();
+		if($adminLevel >= 100) {
 			startBox('Administration'); ?>
 			<ul id="adminmenu" class="menu">
 				<?php 
-				if(getAdminLevel()>=400) { ?>
+				if($adminLevel >= 400) { ?>
 					<li><a id="menuAdminNews" href="/?id=content/admin/news">News</a></li>
 					<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots">Screenshots</a></li>
 				<?php } ?>
