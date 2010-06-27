@@ -47,6 +47,10 @@ class HallOfFamePage extends Page {
 	}
 
 
+	// ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
+
+
 	function writeHttpHeader() {
 		if ($this->loginRequired) {
 			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url=/world/hall-of-fame/'.urlencode($filter).'_'.urlencode($detail).'.html');;
@@ -61,6 +65,19 @@ class HallOfFamePage extends Page {
 	}
 
 
+	function writeContent() {
+		$this->writeTabs();
+		if ($this->detail == "overview") {
+			$this->renderOverview();
+		} else {
+			$this->renderDetails($detail);
+		}
+	}
+
+
+	// ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
+	
 	function setupFilter() {
 		$this->filter = 'active';
 		if (isset($_REQUEST['filter'])) {
@@ -92,7 +109,36 @@ class HallOfFamePage extends Page {
 		}
 		// TODO: 404 on invalid detail variable
 	}
-	
+
+
+	// ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
+
+	function writeTabs() {
+		if (isset($_REQUEST['dev'])) {
+		?>
+		<br><br>
+
+<style type="text/css">
+.activeTab {padding: 0.5em; background-color: #FFF; line-height: 0.95em; border-width: 2px 2px 0pt; border-style: solid solid none; border-color: rgb(163, 177, 191) rgb(163, 177, 191) -moz-use-text-color; font-weight: bold; white-space: nowrap;}
+.backgroundTab {padding: 0.5em; background-color: rgb(206, 224, 242); font-size: 90%; line-height: 0.95em; border: 2px solid rgb(163, 177, 191); white-space: nowrap;}
+.barTab{border-bottom: 2px solid rgb(163, 177, 191); }
+</style>
+<table style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+<td class="barTab" width="20px"> &nbsp;</td>
+<td class="activeTab" width="20"> <a href="<?php echo rewriteURL('/world/hall-of-fame/active_'.$this->detail.'.html');?>">Active</a></td>
+<td class="barTab" width="3"> &nbsp;</td>
+<td class="backgroundTab" width="20"> <a href="<?php echo rewriteURL('/world/hall-of-fame/alltimes_'.$this->detail.'.html');?>">All times</a></td>
+<td class="barTab" width="3">&nbsp;</td>
+<td class="backgroundTab" width="20"> <a href="<?php echo rewriteURL('/world/hall-of-fame/friends_'.$this->detail.'.html');?>">Me &amp; my friends</a></td>
+<td class="barTab" width="3000"> &nbsp;</td>
+</tr></table>
+
+<br><br>
+
+		<?php
+		}
+	}
 
 
 	function renderListOfPlayers($list, $f, $postfix='') {
@@ -114,17 +160,6 @@ class HallOfFamePage extends Page {
 			$i++;
 		}
 	}
-
-
-	function writeContent() {
-		$detail = $_REQUEST['detail'];
-		if (!isset($detail) || $detail == "overview") {
-			$this->renderOverview();
-		} else {
-			$this->renderDetails($detail);
-		}
-	}
-
 
 
 	function renderDetails($detail) {
