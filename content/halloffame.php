@@ -61,7 +61,7 @@ class HallOfFamePage extends Page {
 
 
 	public function writeHtmlHeader() {
-		echo '<title>Hall of Fame'.STENDHAL_TITLE.'</title>';
+		echo '<title>Hall of Fame ('.htmlspecialchars($this->filter).')'.STENDHAL_TITLE.'</title>';
 
 		// TODO: move this to CSS file
 		?><style type="text/css">
