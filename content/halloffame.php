@@ -36,10 +36,63 @@ class HallOfFamePage extends Page {
 	private $filterFrom = '';
 	private $filterWhere = '';
 
+	private $filter;
+	private $detail;
+
+	private $loginRequired = false;
+	
+	public function __construct() {
+		$this->setupFilter();
+		$this->setupDetail();
+	}
+
+
+	function writeHttpHeader() {
+		if ($this->loginRequired) {
+			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url=/world/hall-of-fame/'.urlencode($filter).'_'.urlencode($detail).'.html');;
+			return false;
+		}
+		return true;
+	}
+
 
 	public function writeHtmlHeader() {
 		echo '<title>Hall of Fame'.STENDHAL_TITLE.'</title>';
 	}
+
+
+	function setupFilter() {
+		$this->filter = 'active';
+		if (isset($_REQUEST['filter'])) {
+			$this->filter = urlencode($_REQUEST['filter']);
+		}
+		if ($this->filter=="alltimes") {
+			$this->filterWhere='';
+		} else if ($this->filter=="active") {
+			$this->filterWhere = ' AND character_stats.lastseen>date_sub(CURRENT_TIMESTAMP, interval 1 month)';
+		} else if ($this->filter=="friends") {
+			if (!isset($_SESSION['username'])) {
+				$loginRequired = true;;
+				return;
+			}
+			$this->filterFrom = ", (select characters.charname As charname from account, characters "
+				. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id "
+				. "UNION SELECT buddy.buddy FROM account, characters, buddy "
+				. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id AND characters.charname=buddy.charname) As x ";
+			$this->filterWhere = ' AND character_stats.name=x.charname';
+		}
+		// TODO: 404 on invalid filter variable
+		return;
+	}
+
+	function setupDetail() {
+		$this->detail = 'overview';
+		if (isset($_REQUEST['detail'])) {
+			$this->detail == urlencode($_REQUEST['detail']);
+		}
+		// TODO: 404 on invalid detail variable
+	}
+	
 
 
 	function renderListOfPlayers($list, $f, $postfix='') {
@@ -63,45 +116,15 @@ class HallOfFamePage extends Page {
 	}
 
 
-	function writeHttpHeader() {
-		if (!$this->setupFilter()) {
-			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login'); // TODO &returnto='.urlencode(rewriteURL()));
-			return false;
-		}
-		return true;
-	}
-
-
 	function writeContent() {
 		$detail = $_REQUEST['detail'];
-		if (!isset($detail)) {
+		if (!isset($detail) || $detail == "overview") {
 			$this->renderOverview();
 		} else {
 			$this->renderDetails($detail);
 		}
 	}
 
-
-	function setupFilter() {
-		$filter = $_REQUEST['filter'];
-		if (isset($filter)) {
-			if ($filter=="alltimes") {
-				$this->filterWhere='';
-			} else if ($filter=="recent") {
-				$this->filterWhere = ' AND character_stats.lastseen>date_sub(CURRENT_TIMESTAMP, interval 1 month)';
-			} else if ($filter=="friends") {
-				if (!isset($_SESSION['username'])) {
-					return false;
-				}
-				$this->filterFrom = ", (select characters.charname As charname from account, characters "
-					. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id "
-					. "UNION SELECT buddy.buddy FROM account, characters, buddy "
-					. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id AND characters.charname=buddy.charname) As x ";
-				$this->filterWhere = ' AND character_stats.name=x.charname';
-			}
-		}
-		return true;
-	}
 
 
 	function renderDetails($detail) {
