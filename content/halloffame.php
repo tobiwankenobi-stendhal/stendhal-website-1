@@ -131,7 +131,7 @@ class HallOfFamePage extends Page {
 		<br>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
 		<td class="barTab" width="2%"> &nbsp;</td>
-		<?php echo '<td class="'.$this->getTabClass('active').'" width="25%"><a class="'.$this->getTabClass('active').'A" href="'.htmlspecialchars(rewriteURL('/world/hall-of-fame/active_'.$this->detail.'.html')).';">Active</a></td>';?>
+		<?php echo '<td class="'.$this->getTabClass('active').'" width="25%"><a class="'.$this->getTabClass('active').'A" href="'.htmlspecialchars(rewriteURL('/world/hall-of-fame/active_'.$this->detail.'.html')).'">Active</a></td>';?>
 		<td class="barTab" width="2%"> &nbsp;</td>
 		<?php echo '<td class="'.$this->getTabClass('alltimes').'" width="25%"><a class="'.$this->getTabClass('alltimes').'A" href="'.htmlspecialchars(rewriteURL('/world/hall-of-fame/alltimes_'.$this->detail.'.html')).'">All times</a></td>';?>
 		<td class="barTab" width="2%">&nbsp;</td>
