@@ -178,7 +178,7 @@ function getUser($email) {
  */
 function displayLogin(){
 	if(checkLogin()){ 
-		echo 'Logged in as <b>'.$_SESSION['username'].'</b>. '
+		echo 'Logged in as <a href="'.rewriteURL('/account/myaccount.html').'"><b>'.$_SESSION['username'].'</b></a>. '
 		.'<a href="'.rewriteURL('/account/merge.html').'">Merge Accounts</a><br>'
 		.'<a href="'.rewriteURL('/account/history.html').'">Login history</a>'
 		.' - <a href="'.rewriteURL('/account/change-password.html').'">Change password</a>'
