@@ -63,6 +63,7 @@ class HallOfFamePage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Hall of Fame'.STENDHAL_TITLE.'</title>';
 
+		// TODO: move this to CSS file
 		?><style type="text/css">
 .activeTab {padding: 0.5em; background-color: #CFC; line-height: 0.95em; border-width: 2px 2px 0pt; border-style: solid solid none; border-color: rgb(163, 177, 191) rgb(163, 177, 191) -moz-use-text-color; font-weight: bold; white-space: nowrap;}
 .activeTabA {color: #000; text-decoration: none; display: block}
@@ -126,7 +127,6 @@ class HallOfFamePage extends Page {
 	// ------------------------------------------------------------------------
 
 	function writeTabs() {
-		if (isset($_REQUEST['dev'])) {
 		?>
 		<br>
 		<table style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
@@ -141,14 +141,11 @@ class HallOfFamePage extends Page {
 		<tr><td colspan="7" class="tabPageContent">
 		<br>
 		<?php
-		}
 	}
 
 
 	function closeTabs() {
-		if (isset($_REQUEST['dev'])) {
-			?></td></tr></table><?php 
-		}
+		?></td></tr></table><?php 
 	}
 
 	function getTabClass($tab) {
