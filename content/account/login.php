@@ -31,9 +31,8 @@ class LoginPage extends Page {
 	}
 
 	function handleRedirectIfAlreadyLoggedIn() {
-		$url = $this->getUrl();
-		if ($url != '/' && checkLogin()) {
-			header('Location: '.STENDHAL_LOGIN_TARGET.$url);
+		if (isset($_REQUEST['url']) && checkLogin()) {
+			header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
 			return false;
 		}
 		return true;
@@ -107,7 +106,7 @@ class LoginPage extends Page {
 	function getUrl() {
 		$url = $_REQUEST['url'];
 		if (!isset($url)) {
-			$url = '/';
+			$url = '/account/myaccount.html';
 		}
 		if (strpos($url, '/') !== 0) {
 			$url = '/'.$url;
