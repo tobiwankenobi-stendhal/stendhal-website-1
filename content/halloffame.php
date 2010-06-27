@@ -67,7 +67,7 @@ class HallOfFamePage extends Page {
 		?><style type="text/css">
 .activeTab {padding: 0.5em; text-align: center; background-color: #CFC; line-height: 0.95em; font-weight: bold; -moz-use-text-color; white-space: nowrap; background-image:url(../images/palegrasstab.jpg);}
 .activeTabA {color: #000; text-decoration: none; display: block}
-.backgroundTab {padding: 0.5em; text-align: center; background-color: #7A7; font-size: 90%; line-height: 0.95em; border: 2px solid rgb(161, 201, 158); border-bottom: 2px solid #000; white-space: nowrap; background-image:url(../images/darkgrass.jpg);}
+.backgroundTab {padding: 0.5em; text-align: center; background-color: #7A7; font-size: 90%; line-height: 0.95em; border-bottom: 2px solid #000; white-space: nowrap; background-image:url(../images/darkgrasstab.jpg);}
 .backgroundTabA {color: #FFF; text-decoration: none; display: block}
 .backgroundTabA:hover {font-weight:bold; text-decoration: underline}
 .barTab{border-bottom: 2px solid #000; }
