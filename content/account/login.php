@@ -98,7 +98,7 @@ class LoginPage extends Page {
 
 		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($this->getUrl())."\">";
 		startBox("Login");
-		echo '<h1>Login correct.</h1> Moving to main page.';
+		echo '<h1>Login correct.</h1> Please wait...';
 		endBox();
 		return true;
 	}
