@@ -65,9 +65,9 @@ class HallOfFamePage extends Page {
 
 		// TODO: move this to CSS file
 		?><style type="text/css">
-.activeTab {padding: 0.5em; background-color: #CFC; line-height: 0.95em; border-width: 2px 2px 0pt; border-style: solid solid none; border-color: rgb(163, 177, 191) rgb(163, 177, 191) -moz-use-text-color; font-weight: bold; white-space: nowrap;}
+.activeTab {padding: 0.5em; text-align: center; background-color: #CFC; line-height: 0.95em; border-width: 2px 2px 0pt; border-style: solid solid none; border-color: rgb(163, 177, 191) rgb(163, 177, 191) -moz-use-text-color; font-weight: bold; white-space: nowrap;}
 .activeTabA {color: #000; text-decoration: none; display: block}
-.backgroundTab {padding: 0.5em; background-color: #7A7; font-size: 90%; line-height: 0.95em; border: 2px solid rgb(163, 177, 191); border-bottom: 2px solid #000; white-space: nowrap;}
+.backgroundTab {padding: 0.5em; text-align: center; background-color: #7A7; font-size: 90%; line-height: 0.95em; border: 2px solid rgb(163, 177, 191); border-bottom: 2px solid #000; white-space: nowrap;}
 .backgroundTabA {color: #FFF; text-decoration: none; display: block}
 .backgroundTabA:hover {font-weight:bold; text-decoration: underline}
 .barTab{border-bottom: 2px solid #000; }
@@ -129,7 +129,7 @@ class HallOfFamePage extends Page {
 	function writeTabs() {
 		?>
 		<br>
-		<table style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
 		<td class="barTab" width="2%"> &nbsp;</td>
 		<?php echo '<td class="'.$this->getTabClass('active').'" width="25%"><a class="'.$this->getTabClass('active').'A" href="'.htmlspecialchars(rewriteURL('/world/hall-of-fame/active_'.$this->detail.'.html')).';">Active</a></td>';?>
 		<td class="barTab" width="2%"> &nbsp;</td>
