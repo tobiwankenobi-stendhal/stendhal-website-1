@@ -1,50 +1,34 @@
 {
 	"methods": {
-		"http-auth": {
-			"connect": {
-				"method": "GET",
-				"path": "/signin/"
-			},
-			"disconnect": {
-				"method": "GET",
-				"path": "/signout/"
-			}
-		}
 		"username-password-form": {
 			"connect": {
 				"method":"POST",
-				"path":"/signin/",
+				"path":"https://stendhalgame.org/account/login.html",
 				"params": {
-					"username":"unam",
-					"password":"pwd"
+					"username":"user",
+					"password":"pass"
 				}
 			},
 			"disconnect": {
-				"method":"POST",
-				"path":"/signout/"
-			},
-			"register": {
-				"method":"POST",
-				"path":"/register/",
-				"type": "email"
+				"method":"GET",
+				"path":"https://stendhalgame.org/account/logout.html"
 			},
 			"changepassword": {
 				"method":"POST",
-					"path":"/changepass/",
-					"params": {
-					"username":"unam",
-					"old_password":"old_pwd",
-					"password":"pwd",
-					"password_verify":"pwd2"
+				"path":"https://stendhalgame.org/account/change-password.html",
+				"params": {
+					"old_password":"pass",
+					"password":"newpass",
+					"password_verify":"newpass_retype"
 				}
 			},
 			"sessionstatus": {
 				"method":"GET",
-				"path":"/sessionstatus"
+				"path":"https://stendhalgame.org/account/sessionstatus.html"
 			},
 			"accountstatus": {
 				"method":"GET",
-				"path":"/account_status"
+				"path":"https://stendhalgame.org/account/account_status.html"
 			}
 		}
 	}
