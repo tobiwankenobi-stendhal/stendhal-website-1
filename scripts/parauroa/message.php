@@ -23,7 +23,7 @@ abstract class ParauroaMessage {
 	 *
 	 * @param out ParauroaSerializer the output serializer.
 	 */
-	public function writeObject($out) {
+	public function writeObject(&$out) {
 		$out->writeByte($this->protocolVersion);
 		$out->writeByte($this->messageType);
 		$out->writeInt($this->clientid);
@@ -35,7 +35,7 @@ abstract class ParauroaMessage {
 	 *
 	 * @param in ParauroaDeserializer the input deserializer
 	 */
-	public function readObject($in) {
+	public function readObject(&$in) {
 		$this->protocolVersion = $in->readByte();
 		// TODO: check if version is supported
 		$this->messageType = $in->readByte();

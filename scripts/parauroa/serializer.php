@@ -9,11 +9,11 @@ class ParauroaSerializer {
 	}
 
 	public function writeInt($int) {
-		$data = $data . pack($int, "N");
+		$data = $data . pack("N", $int);
 	}
 
 	public function writeString($string) {
-		writeInt(strlen($string));
+		$this->writeInt(strlen($string));
 		$data = $data . $string;
 	}
 
