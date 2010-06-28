@@ -23,13 +23,13 @@ class ParauroaMessageC2SCreateAccount extends ParauroaMessage{
 	 * @param password desired password
 	 * @param email email of the player
 	 */
-	public function __construct($username, $password, $email) {
-		parent::__construct(ParauroaMessageType::C2S_CREATEACCOUNT);
+	public function init($username, $password, $email) {
 		$this->username = username;
 		$this->password = password;
 		$this->email = email;
 	}
 
+	
 	/**
 	 * Returns desired account's username
 	 * @return desired account's username
@@ -54,15 +54,15 @@ class ParauroaMessageC2SCreateAccount extends ParauroaMessage{
 		return $this->email;
 	}
 
-	public function writeObject($out) {
-		parent::writeObject(out);
+	public function writeObject(&$out) {
+		parent::writeObject($out);
 		$out->writeString($this->username);
-		$out->write($this->password);
-		$out->write($this->email);
+		$out->writeString($this->password);
+		$out->writeString($this->email);
 	}
 
-	public function readObject($in) {
-		parent::readObject(in);
+	public function readObject(&$in) {
+		parent::readObject(§in);
 		$this->username = $in->readString();
 		$this->password = $in->readString();
 		$this->email = $in->readString();
