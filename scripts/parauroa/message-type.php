@@ -1,0 +1,37 @@
+<?php 
+	class ParauroaMessageType {
+		public $C2S_ACTION = 0;
+		public $C2S_CHOOSECHARACTER = 1;
+		public $C2S_LOGIN_REQUESTKEY = 2;
+		public $C2S_LOGIN_SENDNONCENAMEANDPASSWORD = 3;
+		public $C2S_LOGIN_SENDPROMISE = 4;
+		public $C2S_LOGOUT = 5;
+		public $C2S_OUTOFSYNC = 6;
+		public $C2S_TRANSFER_ACK = 7;
+		public $C2S_KEEPALIVE = 8;
+		public $S2C_CHARACTERLIST = 9;
+		public $S2C_CHOOSECHARACTER_ACK = 10;
+		public $S2C_CHOOSECHARACTER_NACK = 11;
+		public $S2C_INVALIDMESSAGE = 12;
+		public $S2C_LOGIN_ACK = 13;
+		public $S2C_LOGIN_NACK = 14;
+		public $S2C_LOGIN_SENDKEY = 15;
+		public $S2C_LOGIN_SENDNONCE = 16;
+		public $S2C_LOGOUT_ACK = 17;
+		public $S2C_LOGOUT_NACK = 18;
+		public $S2C_PERCEPTION = 19;
+		public $S2C_SERVERINFO = 20;
+		public $S2C_TRANSFER = 21;
+		public $S2C_TRANSFER_REQ = 22;
+		public $C2S_CREATEACCOUNT = 23;
+		public $S2C_CREATEACCOUNT_ACK = 24;
+		public $S2C_CREATEACCOUNT_NACK = 25;
+		public $C2S_CREATECHARACTER = 26;
+		public $S2C_CREATECHARACTER_ACK = 27;
+		public $S2C_CREATECHARACTER_NACK = 28;
+		public $S2C_CONNECT_NACK = 29;
+		public $C2S_LOGIN_SENDNONCENAMEPASSWORDANDSEED = 30;
+		public $S2C_LOGIN_MESSAGE_NACK = 31;
+	}
+
+?>
