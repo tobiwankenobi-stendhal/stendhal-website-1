@@ -11,7 +11,12 @@ class ParauroaSerializer {
 	public function writeInt($int) {
 		$data = $data . pack($int, "N");
 	}
-	
+
+	public function writeString($string) {
+		writeInt(strlen($string));
+		$data = $data . $string;
+	}
+
 	public function getData() {
 		return $data;
 	}
