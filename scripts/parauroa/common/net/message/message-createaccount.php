@@ -24,9 +24,9 @@ class ParauroaMessageC2SCreateAccount extends ParauroaMessage{
 	 * @param email email of the player
 	 */
 	public function init($username, $password, $email) {
-		$this->username = username;
-		$this->password = password;
-		$this->email = email;
+		$this->username = $username;
+		$this->password = $password;
+		$this->email = $email;
 	}
 
 	
