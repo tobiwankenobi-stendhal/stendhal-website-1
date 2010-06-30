@@ -39,7 +39,7 @@ abstract class ParauroaMessage {
 		$this->protocolVersion = $in->readByte();
 		// TODO: check if version is supported
 		$this->messageType = $in->readByte();
-		$this->clientid = $in.readInt();
-		$this->timestampMessage = $in.readInt();
+		$this->clientid = $in->readInt();
+		$this->timestampMessage = $in->readInt();
 	}
 }
