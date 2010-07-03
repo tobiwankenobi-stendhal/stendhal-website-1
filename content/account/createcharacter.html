@@ -1,31 +1,51 @@
 <html>
 
-<body>
+<body onload="update(0); update(1); update(2); update(3)">
 
 <script type="text/javascript">
-outfit = [1, 1, 1, 1];
+currentOutfit = [1, 1, 1, 1];
+outfitNames = ["hair", "head", "player_base", "dress"];
 
 function down(i) {
-	outfit[i]--;
+	currentOutfit[i]--;
 	update(i);
 }
 
 function up(i) {
-	outfit[i]++;
+	currentOutfit[i]++;
 	update(i);
 }
 
 function update(i) {
-	document.getElementById("outfit" + i).style.backgroundImage = "url('http://stendhalgame.org/data/sprites/outfit/hair_" + outfit[i] + ".png')";
+	document.getElementById("outfit" + i).style.backgroundImage = "url('http://stendhalgame.org/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
 }
 
 </script>
 
 <form>
 <input type="button" onclick="down(0); return false" value="&lt;">
-<span id="outfit0" style="display: block; width:48px; height: 64px; background: url('http://stendhalgame.org/data/sprites/outfit/hair_1.png') 0 0;"></span>
+<span id="outfit0" style="display: block; width:48px; height: 64px; background: 0 0;"></span>
 <input type="button" onclick="up(0); return false" value="&gt;">
-</form>
+
+
+
+<hr>
+
+<input type="button" onclick="down(1); return false" value="&lt;">
+<span id="outfit1" style="display: block; width:48px; height: 64px; background: 0 0;"></span>
+<input type="button" onclick="up(1); return false" value="&gt;">
+
+<hr>
+
+<input type="button" onclick="down(2); return false" value="&lt;">
+<span id="outfit2" style="display: block; width:48px; height: 64px; background: 0 0;"></span>
+<input type="button" onclick="up(2); return false" value="&gt;">
+
+<hr>
+
+<input type="button" onclick="down(3); return false" value="&lt;">
+<span id="outfit3" style="display: block; width:48px; height: 64px; background: 0 0;"></span>
+<input type="button" onclick="up(3); return false" value="&gt;"></form>
 
 </body>
 
