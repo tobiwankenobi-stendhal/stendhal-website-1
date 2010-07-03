@@ -3,17 +3,22 @@
 <body onload="update(0); update(1); update(2); update(3)">
 
 <script type="text/javascript">
-currentOutfit = [1, 1, 1, 1];
+currentOutfit = [1, 0, 0, 1];
+maxOutfit = [44, 21, 15, 53];
 outfitNames = ["hair", "head", "player_base", "dress"];
 
 function down(i) {
-	currentOutfit[i]--;
-	update(i);
+	if (currentOutfit[i] > 0) {
+		currentOutfit[i]--;
+		update(i);
+	}
 }
 
 function up(i) {
-	currentOutfit[i]++;
-	update(i);
+	if (currentOutfit[i] < maxOutfit[i]) {
+		currentOutfit[i]++;
+		update(i);
+	}
 }
 
 function update(i) {
