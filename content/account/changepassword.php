@@ -82,6 +82,16 @@ class ChangePasswordPage extends Page {
 	}
 
 	function writeContent() {
+		if (!isset($_SESSION['username'])) {
+			startBox("Change Password");
+			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/change-password.html">login</a> to change your password.</p>';
+			endBox();
+		} else {
+			$this->process();
+		}
+	}
+	
+	function process() {
 
 /**
  * Checks to see if the user has submitted his
