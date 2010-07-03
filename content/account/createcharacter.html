@@ -26,8 +26,30 @@ function up(i) {
 	}
 }
 
+function formatNumber(i) {
+	if (i < 10) {
+		return "0" + i;
+	} else {
+		return i;
+	}
+}
+
 function update(i) {
 	document.getElementById("outfit" + i).style.backgroundImage = "url('http://stendhalgame.org/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
+	document.getElementById("canvas").style.backgroundImage = "url('http://stendhalgame.org/images/outfit/" + formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]) + ".png')";
+
+/*  throws strange errors, so let the server render the outfit for now
+	var canvas = document.getElementById('canvas');
+	alert(canvas);
+	if (canvas.getContext) { 
+   		var ctx = canvas.getContext('2d');
+   		ctx.clearRect(0, 0, 48, 64);
+   		alert(document.getElementById('outfit2'));
+   		ctx.drawImage(document.getElementById('outfit2'), 0, 0);  
+   		ctx.drawImage(document.getElementById('outfit1'), 0, 0);  
+   		ctx.drawImage(document.getElementById('outfit3'), 0, 0);  
+   		ctx.drawImage(document.getElementById('outfit0'), 0, 0);
+   	}*/
 }
 
 </script>
@@ -65,6 +87,8 @@ function update(i) {
 
 </form>
 
+<br>
+<canvas id="canvas" width="48px" height="64px" style="border: 1px solid #AAA">Modern browsers display a preview here.</canvas>
 
 </body>
 
