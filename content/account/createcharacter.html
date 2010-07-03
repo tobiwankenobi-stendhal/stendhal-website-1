@@ -56,33 +56,38 @@ function update(i) {
 
 </script>
 
+<style type="text/css">
+.next {float: left; margin-top: 2em}
+.outfitpart {float: left; display: block; width:48px; height: 64px; background: 0 128px;}
+</style>
+
 <form action="">
 
 <div style="border: 1px solid black; width: 120px; height: 256px; padding: 2em; float: left; margin-right: 2em; margin-bottom: 2em">
 <div style="clear: both">
-<input style="float: left" type="button" onclick="down(0); return false" value="&lt;">
-<span id="outfit0" style="float: left; display: block; width:48px; height: 64px; background: 0 128px;"></span>
-<input style="float: left" type="button" onclick="up(0); return false" value="&gt;">
+<input class="next" type="button" onclick="down(0)" value="&lt;">
+<span id="outfit0" class="outfitpart"></span>
+<input class="next" type="button" onclick="up(0)" value="&gt;">
 </div>
 
 <div style="clear: both">
-<input style="float: left" type="button" onclick="down(1); return false" value="&lt;">
-<span id="outfit1" style="float: left;display: block; width:48px; height: 64px; background: 0 128px;"></span>
-<input style="float: left" type="button" onclick="up(1); return false" value="&gt;">
-</div>
-
-
-<div style="clear: both">
-<input style="float: left" type="button" onclick="down(2); return false" value="&lt;">
-<span id="outfit2" style="float: left; display: block; width:48px; height: 64px; background: 0 128px;"></span>
-<input style="float: left" type="button" onclick="up(2); return false" value="&gt;">
+<input class="next" type="button" onclick="down(1)" value="&lt;">
+<span id="outfit1" class="outfitpart"></span>
+<input class="next" type="button" onclick="up(1)" value="&gt;">
 </div>
 
 
 <div style="clear: both">
-<input style="float: left" type="button" onclick="down(3); return false" value="&lt;">
-<span id="outfit3" style="float: left; display: block; width:48px; height: 64px; background: 0 128px;"></span>
-<input style="float: left" type="button" onclick="up(3); return false" value="&gt;">
+<input class="next" type="button" onclick="down(2)" value="&lt;">
+<span id="outfit2" class="outfitpart"></span>
+<input class="next" type="button" onclick="up(2)" value="&gt;">
+</div>
+
+
+<div style="clear: both">
+<input class="next" type="button" onclick="down(3)" value="&lt;">
+<span id="outfit3" class="outfitpart"></span>
+<input class="next" type="button" onclick="up(3)" value="&gt;">
 </div>
 
 </div>
