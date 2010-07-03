@@ -20,7 +20,7 @@ function down(i) {
 }
 
 function up(i) {
-	if (currentOutfit[i] < maxOutfit[i]) {
+	if (currentOutfit[i] < maxOutfit[i] - 1) {
 		currentOutfit[i]++;
 		update(i);
 	}
@@ -30,13 +30,15 @@ function formatNumber(i) {
 	if (i < 10) {
 		return "0" + i;
 	} else {
-		return i;
+		return ""+i;
 	}
 }
 
 function update(i) {
 	document.getElementById("outfit" + i).style.backgroundImage = "url('http://stendhalgame.org/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
-	document.getElementById("canvas").style.backgroundImage = "url('http://stendhalgame.org/images/outfit/" + formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]) + ".png')";
+	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
+	document.getElementById("outfitcode").value = outfitCode;
+	document.getElementById("canvas").style.backgroundImage = "url('http://stendhalgame.org/images/outfit/" + outfitCode + ".png')";
 
 /*  throws strange errors, so let the server render the outfit for now
 	var canvas = document.getElementById('canvas');
@@ -56,7 +58,7 @@ function update(i) {
 
 <form action="">
 
-<div style="border: 1px solid black; width: 120px; height: 256px; padding: 2em">
+<div style="border: 1px solid black; width: 120px; height: 256px; padding: 2em; float: left; margin-right: 2em; margin-bottom: 2em">
 <div style="clear: both">
 <input style="float: left" type="button" onclick="down(0); return false" value="&lt;">
 <span id="outfit0" style="float: left; display: block; width:48px; height: 64px; background: 0 128px;"></span>
@@ -85,10 +87,18 @@ function update(i) {
 
 </div>
 
+<canvas id="canvas" width="48px" height="64px" style="border: 1px solid #AAA"; float: left">Modern browsers display a preview here.</canvas>
+
+
+<br style="clear: both">
+
+<input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
+<label for="name">Name: </label><input id="name" name="name" type="text">
+
+<br><br>
+<input type="submit" value="Create Character">
 </form>
 
-<br>
-<canvas id="canvas" width="48px" height="64px" style="border: 1px solid #AAA">Modern browsers display a preview here.</canvas>
 
 </body>
 
