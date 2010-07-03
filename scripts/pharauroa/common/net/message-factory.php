@@ -1,6 +1,6 @@
 <?php
 
-class ParauroaMessageFactory {
+class PharauroaMessageFactory {
 	private $sock;
 
 	function __construct($sock) {
@@ -14,7 +14,7 @@ class ParauroaMessageFactory {
 		$data = socket_read($this->sock, $size);
 
 		// TODO: make sure that $data contains the complete message
-		$deserializer = new ParauroaDeserializer($data);
+		$deserializer = new PharauroaDeserializer($data);
 		echo ord($data[1]);
 	}
 

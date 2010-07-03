@@ -1,6 +1,6 @@
 <?php
 
-class ParauroaDeserializer {
+class PharauroaDeserializer {
 	
 	private $data;
 

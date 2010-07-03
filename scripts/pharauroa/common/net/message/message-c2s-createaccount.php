@@ -1,5 +1,5 @@
 <?php
-class ParauroaMessageC2SCreateAccount extends ParauroaMessage{
+class PharauroaMessageC2SCreateAccount extends PharauroaMessage{
 
 	/** Desired username */
 	private $username;
@@ -12,7 +12,7 @@ class ParauroaMessageC2SCreateAccount extends ParauroaMessage{
 
 	/** Constructor for allowing creation of an empty message */
 	public function __construct() {
-		parent::__construct(ParauroaMessageType::C2S_CREATEACCOUNT);
+		parent::__construct(PharauroaMessageType::C2S_CREATEACCOUNT);
 	}
 
 	/**
@@ -67,7 +67,7 @@ class ParauroaMessageC2SCreateAccount extends ParauroaMessage{
 		$this->password = $in->readString();
 		$this->email = $in->readString();
 
-		if ($this->MessageType != ParauroaMessageType::C2S_CREATEACCOUNT) {
+		if ($this->MessageType != PharauroaMessageType::C2S_CREATEACCOUNT) {
 			// TODO: handle error
 		}
 	}

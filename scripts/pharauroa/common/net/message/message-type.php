@@ -1,5 +1,5 @@
 <?php 
-	class ParauroaMessageType {
+	class PharauroaMessageType {
 		const C2S_ACTION = 0;
 		const C2S_CHOOSECHARACTER = 1;
 		const C2S_LOGIN_REQUESTKEY = 2;

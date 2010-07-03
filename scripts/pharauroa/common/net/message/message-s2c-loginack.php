@@ -1,13 +1,13 @@
 <?php 
 
-class ParauroaMessageS2CLoginACK extends ParauroaMessage{
+class PharauroaMessageS2CLoginACK extends PharauroaMessage{
 
 	/** Desired username */
 	private $previousLogins;
 
 	/** Constructor for allowing creation of an empty message */
 	public function __construct() {
-		parent::__construct(ParauroaMessageType::S2C_CREATEACCOUNT_ACK);
+		parent::__construct(PharauroaMessageType::S2C_CREATEACCOUNT_ACK);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class ParauroaMessageS2CLoginACK extends ParauroaMessage{
 			$previousLogins[] = $in->read255LongString();
 		}
 
-		if ($this->MessageType != ParauroaMessageType::S2C_LOGIN_ACK) {
+		if ($this->MessageType != PharauroaMessageType::S2C_LOGIN_ACK) {
 			// handle error
 		}
 	}

@@ -1,17 +1,17 @@
 <?php
-abstract class ParauroaMessage {
+abstract class PharauroaMessage {
 
 	/** Type of the message */
 	protected $messageType;
 
 	/** Clientid of the player that generated the message */
-	protected $clientid = PARAUROA_CLIENTID_INVALID;
+	protected $clientid = PHARAUROA_CLIENTID_INVALID;
 
 	/** Timestamp about when the message was created */
 	protected $timestampMessage;
 
 	/** version of this message */
-	protected $protocolVersion = PARAUROA_NETWORK_PROTOCOL_VERSION;
+	protected $protocolVersion = PHARAUROA_NETWORK_PROTOCOL_VERSION;
 
 
 	public function __construct($messageType) {
@@ -21,7 +21,7 @@ abstract class ParauroaMessage {
 	/**
 	 * Serialize the object into an ObjectOutput
 	 *
-	 * @param out ParauroaSerializer the output serializer.
+	 * @param out PharauroaSerializer the output serializer.
 	 */
 	public function writeObject(&$out) {
 		$out->writeByte($this->protocolVersion);
@@ -33,7 +33,7 @@ abstract class ParauroaMessage {
 	/**
 	 * Serialize the object from an ObjectInput
 	 *
-	 * @param in ParauroaDeserializer the input deserializer
+	 * @param in PharauroaDeserializer the input deserializer
 	 */
 	public function readObject(&$in) {
 		$this->protocolVersion = $in->readByte();
