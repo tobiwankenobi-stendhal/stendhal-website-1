@@ -11,6 +11,10 @@ class CreateCharacterPage extends Page {
 			</style>';
 	}
 
+	public function getBodyTagAttributes() {
+		return 'onload="random()"';
+	}
+
 	function writeContent() {
 		if (!isset($_SESSION['username'])) {
 			startBox("Create Character");
@@ -77,6 +81,8 @@ class CreateCharacterPage extends Page {
 <script type="text/javascript">
 currentOutfit = [1, 0, 0, 1];
 maxOutfit = [44, 21, 15, 53];
+maxRndOutfit = [26, 15, 5, 15];
+
 outfitNames = ["hair", "head", "player_base", "dress"];
 
 function down(i) {
@@ -108,7 +114,14 @@ function update(i) {
 	document.getElementById("canvas").style.backgroundImage = "url('/images/outfit/" + outfitCode + ".png')";
 }
 
-function updateAll(i) {
+function random() {
+	for (i = 0; i < 4; i++) {
+		currentOutfit[i] = parseInt(Math.random() * maxRndOutfit[i]) + 1;
+	}
+	updateAll();
+}
+
+function updateAll() {
 	for (i = 0; i < 4; i++) {
 		document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
 	}
@@ -116,6 +129,8 @@ function updateAll(i) {
 	document.getElementById("outfitcode").value = outfitCode;
 	document.getElementById("canvas").style.backgroundImage = "url('/images/outfit/" + outfitCode + ".png')";
 }
+
+
 </script>
 <?php
 		endBox();
