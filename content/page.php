@@ -42,6 +42,15 @@ class Page {
 	}
 
 	/**
+	 * this methos can add attributes to the body tag.
+	 *
+	 * @return attributes for the body tag
+	 */
+	public function getBodyTagAttributes() {
+		return "";
+	}
+
+	/**
 	 * this methods writes the content area of the page.
 	 */
 	public function writeContent() {

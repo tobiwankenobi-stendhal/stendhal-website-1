@@ -117,7 +117,7 @@ if ($page->writeHttpHeader()) {
 	?>
 	</head>
 
-<body>
+<body <?php echo $page->getBodyTagAttributes()?>>
 <div id="container">
 	<div id="header">
 		<a href="<?echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
