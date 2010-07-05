@@ -3,6 +3,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>TODO</title>
+
+
+	<style type="text/css">
+		.outfitpanel {border: 1px solid black; width: 8.5em; height: 256px; padding: 2em; float: left; margin-right: 2em; margin-bottom: 2em}
+		.next {float: left; margin-top: 2em}
+		.outfitpart {float: left; display: block; width:48px; height: 64px; background: 0 128px;}
+	</style>
 </head>
 
 <body onload="update(0); update(1); update(2); update(3)">
@@ -35,35 +42,18 @@ function formatNumber(i) {
 }
 
 function update(i) {
-	document.getElementById("outfit" + i).style.backgroundImage = "url('http://stendhalgame.org/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
+	document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
 	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 	document.getElementById("outfitcode").value = outfitCode;
-	document.getElementById("canvas").style.backgroundImage = "url('http://stendhalgame.org/images/outfit/" + outfitCode + ".png')";
-
-/*  throws strange errors, so let the server render the outfit for now
-	var canvas = document.getElementById('canvas');
-	alert(canvas);
-	if (canvas.getContext) { 
-   		var ctx = canvas.getContext('2d');
-   		ctx.clearRect(0, 0, 48, 64);
-   		alert(document.getElementById('outfit2'));
-   		ctx.drawImage(document.getElementById('outfit2'), 0, 0);  
-   		ctx.drawImage(document.getElementById('outfit1'), 0, 0);  
-   		ctx.drawImage(document.getElementById('outfit3'), 0, 0);  
-   		ctx.drawImage(document.getElementById('outfit0'), 0, 0);
-   	}*/
+	document.getElementById("canvas").style.backgroundImage = "url('/images/outfit/" + outfitCode + ".png')";
 }
 
 </script>
 
-<style type="text/css">
-.next {float: left; margin-top: 2em}
-.outfitpart {float: left; display: block; width:48px; height: 64px; background: 0 128px;}
-</style>
 
 <form action="">
 
-<div style="border: 1px solid black; width: 120px; height: 256px; padding: 2em; float: left; margin-right: 2em; margin-bottom: 2em">
+<div class="outfitpanel">
 <div style="clear: both">
 <input class="next" type="button" onclick="down(0)" value="&lt;">
 <span id="outfit0" class="outfitpart"></span>
@@ -92,7 +82,7 @@ function update(i) {
 
 </div>
 
-<canvas id="canvas" width="48px" height="64px" style="border: 1px solid #AAA"; float: left">Modern browsers display a preview here.</canvas>
+<span id="canvas" style="border: 1px solid #AAA; float: left; display: block; width: 48px; height: 64px"></span>
 
 
 <br style="clear: both">
