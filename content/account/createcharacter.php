@@ -7,7 +7,7 @@ class CreateCharacterPage extends Page {
 		echo '<style type="text/css">
 				.outfitpanel {border: 1px solid black; width: 8.5em; height: 256px; padding: 2em; float: left; margin-right: 2em; margin-bottom: 2em}
 				.next {float: left; margin-top: 2em}
-				.outfitpart {float: left; display: block; width:48px; height: 64px; background: 0 128px;}
+				.outfitpart {float: left; display: block; width:48px; height: 64px; background-position: 0 128px;}
 			</style>';
 	}
 
@@ -64,6 +64,8 @@ class CreateCharacterPage extends Page {
 
 <div style="float:left; width: 50%">
 <span id="canvas" style="border: 1px solid #AAA; display: block; width: 48px; height: 64px"></span>
+<input class="next" type="button" onclick="turn(-1)" value="l">
+<input class="next" type="button" onclick="turn(1)" value="r">
 </div>
 
 
@@ -80,6 +82,7 @@ class CreateCharacterPage extends Page {
 </form>
 
 <script type="text/javascript">
+faceOffset = 2;
 currentOutfit = [1, 0, 0, 1];
 maxOutfit = [44, 21, 15, 53];
 maxRndOutfit = [26, 15, 5, 15];
@@ -131,6 +134,17 @@ function updateAll() {
 	document.getElementById("canvas").style.backgroundImage = "url('/images/outfit/" + outfitCode + ".png')";
 }
 
+function turn(i) {
+	faceOffset = (faceOffset + i) % 4;
+	if (faceOffset < 0) {
+		faceOffset = 3;
+	}
+
+	for (i = 0; i < 4; i++) {
+		document.getElementById("outfit" + i).style.backgroundPosition = "0 " + (faceOffset * 64) + "px";
+	}
+	document.getElementById("canvas").style.backgroundPosition = "0 " + (faceOffset * 64) + "px";
+}
 
 </script>
 <?php
