@@ -26,7 +26,7 @@ class CreateCharacterPage extends Page {
 		startBox("Create Character");
 ?>
 
-<form action="">
+<form action="" style="height:22em; padding: 1em">
 
 <div class="outfitpanel">
 <div style="clear: both">
@@ -57,17 +57,18 @@ class CreateCharacterPage extends Page {
 
 </div>
 
-<span id="canvas" style="border: 1px solid #AAA; float: left; display: block; width: 48px; height: 64px"></span>
+<div style="float:left; width: 50%">
+<span id="canvas" style="border: 1px solid #AAA; display: block; width: 48px; height: 64px"></span>
+</div>
 
 
+<div style="float:left; width: 50%; padding-top: 2em">
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
-<label for="name">Name: </label><input id="name" name="name" type="text">
+<label for="name" >Name: </label><input id="name" name="name" type="text">
 
-<br><br>
-<input type="submit" value="Create Character">
+<input style="margin-top: 2em" type="submit" value="Create Character">
+</div>
 </form>
-
-
 
 <script type="text/javascript">
 currentOutfit = [1, 0, 0, 1];
