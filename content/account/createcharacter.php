@@ -64,7 +64,11 @@ class CreateCharacterPage extends Page {
 
 <div style="float:left; width: 50%; padding-top: 2em">
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
-<label for="name" >Name: </label><input id="name" name="name" type="text">
+<label for="name" >Name: </label><input id="name" name="name" type="text"
+<?php 
+// TODO: if account name is a valid charactername, and the character does not exist {
+	echo 'value="'.htmlspecialchars($_SESSION['username']).'"';
+?>>
 
 <input style="margin-top: 2em" type="submit" value="Create Character">
 </div>
