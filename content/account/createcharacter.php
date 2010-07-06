@@ -74,8 +74,7 @@ class CreateCharacterPage extends Page {
 <label for="name" >Name: </label><input id="name" name="name" type="text"
 <?php 
 // TODO: if account name is a valid charactername, and the character does not exist {
-	echo 'value="'.htmlspecialchars($_SESSION['username']).'"';
-?>>
+	echo 'value="'.htmlspecialchars($_SESSION['username']).'"';?>>
 
 <input style="margin-top: 2em" type="submit" value="Create Character">
 </div>
@@ -131,7 +130,7 @@ function updateAll() {
 	}
 	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 	document.getElementById("outfitcode").value = outfitCode;
-	document.getElementById("canvas").style.backgroundImage = "url('/images/outfit/" + outfitCode + ".png')";
+	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
 }
 
 function turn(i) {
@@ -139,11 +138,13 @@ function turn(i) {
 	if (faceOffset < 0) {
 		faceOffset = 3;
 	}
+	cssOffset = 4 - faceOffset;
 
 	for (i = 0; i < 4; i++) {
-		document.getElementById("outfit" + i).style.backgroundPosition = "0 " + (faceOffset * 64) + "px";
+		document.getElementById("outfit" + i).style.backgroundPosition = "0 " + (cssOffset * 64) + "px";
 	}
-	document.getElementById("canvas").style.backgroundPosition = "0 " + (faceOffset * 64) + "px";
+	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
+	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
 }
 
 </script>
