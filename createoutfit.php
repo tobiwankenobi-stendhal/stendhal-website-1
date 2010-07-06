@@ -22,23 +22,22 @@ $OUTFITS_BASE="data/sprites/outfit";
 /**
  * Adds the image pointed by index to base image if the index != 0
  */
-function conditionalAddToImage($index, &$baseIm, $path)
+function conditionalAddToImage($index, &$baseIm, $path, $offset)
 {
-	if($index!=0)
-	{
-		addToImage($index,$baseIm,$path);
+	if ($index != 0) {
+		addToImage($index, $baseIm, $path, $offset);
 	}
 }
 
 /**
  * Add an image to the base image.
  */
-function addToImage($index, &$baseIm, $path)
+function addToImage($index, &$baseIm, $path, $offset)
 {
-	$tmpIm=imagecreatefrompng($path.$index.'.png');
-	$transColor=imagecolorat($tmpIm, 0,0);
+	$tmpIm = imagecreatefrompng($path.$index.'.png');
+	$transColor = imagecolorat($tmpIm, 0, 0);
 	imagecolortransparent($tmpIm, $transColor);
-	imagecopymerge($baseIm,$tmpIm,0,0,0,128,48,64,100);
+	imagecopymerge($baseIm,$tmpIm, 0, 0, 0, $offset * 64, 48, 64, 100);
 	imagedestroy($tmpIm);
 }
 
@@ -49,15 +48,19 @@ function addToImage($index, &$baseIm, $path)
  */
 
 $outfit = $_GET['outfit'];
+$offset = $_GET['offset'];
+if (!isset($offset)) {
+	$offset = 2;
+}
 
 /*
  * Create base image
  */
-$result=imagecreatetruecolor(48,64);
-$white=imagecolorallocate($result,255,255,0);
-imagefill($result,0,0,$white);
+$result=imagecreatetruecolor(48, 64);
+$white=imagecolorallocate($result, 255, 255,0);
+imagefill($result, 0, 0, $white);
 
-$transColor=imagecolorat($result, 0,0);
+$transColor=imagecolorat($result, 0, 0);
 imagecolortransparent($result, $transColor);
 
 /*
@@ -67,9 +70,9 @@ $baseIndex=($outfit % 100);
 $outfit=$outfit/100;
 
 $baseIm=imagecreatefrompng($OUTFITS_BASE.'/player_base_'.$baseIndex.'.png');
-$transColor=imagecolorat($baseIm, 0,0);
+$transColor=imagecolorat($baseIm, 0, 0);
 imagecolortransparent($baseIm, $transColor);
-imagecopymerge($result,$baseIm,0,0,0,128,48,64,100);
+imagecopymerge($result, $baseIm, 0, 0, 0, $offset * 64, 48, 64, 100);
 imagedestroy($baseIm);
 
 /*
@@ -77,21 +80,21 @@ imagedestroy($baseIm);
  */
 $dressIndex=($outfit % 100);
 $outfit=$outfit/100;
-conditionalAddToImage($dressIndex,$result,$OUTFITS_BASE.'/dress_');
+conditionalAddToImage($dressIndex, $result, $OUTFITS_BASE.'/dress_', $offset);
 
 /*
  * Load head image and display
  */
 $headIndex=($outfit % 100);
 $outfit=$outfit/100;
-addToImage($headIndex,$result,$OUTFITS_BASE.'/head_');
+addToImage($headIndex, $result, $OUTFITS_BASE.'/head_', $offset);
 
 /*
  * Finally load hair image and display.
  */
 $hairIndex=($outfit % 100);
 $outfit=$outfit/100;
-conditionalAddToImage($hairIndex,$result,$OUTFITS_BASE.'/hair_');
+conditionalAddToImage($hairIndex, $result, $OUTFITS_BASE.'/hair_', $offset);
 
 header("Content-type: image/png");
 header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
