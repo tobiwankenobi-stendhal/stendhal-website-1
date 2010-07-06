@@ -3,6 +3,15 @@
 class PharauroaSerializer {
 	
 	private $data;
+	private $protocolVersion = PHARAUROA_NETWORK_PROTOCOL_VERSION;
+
+	public function setProtocolVersion($protocolVersion) {
+		$this->$protocolVersion = min($protocolVersion, PHARAUROA_NETWORK_PROTOCOL_VERSION);
+	}
+
+	public function getProtocolVersion() {
+		return $this->protocolVersion;
+	}
 	
 	public function writeByte($byte) {
 		$this->data = $this->data . chr($byte);
