@@ -147,7 +147,7 @@ function updateAll() {
 }
 
 function validate() {
-	document.createcharacter.submit.disabled = !(document.createcharacter.name.value.length > 4);
+	document.createcharacter.submit.disabled = (document.createcharacter.name.value.length < 4);
 }
 
 function turn(i) {
@@ -166,7 +166,7 @@ function turn(i) {
 
 function key(field) {
 	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
-	return false;
+	validate();
 }
 
 </script>
