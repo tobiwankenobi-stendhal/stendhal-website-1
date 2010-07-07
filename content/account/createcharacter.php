@@ -1,5 +1,6 @@
 <?php
 class CreateCharacterPage extends Page {
+	private $outfitArray;
 
 	public function writeHtmlHeader() {
 		echo '<title>Create Character'.STENDHAL_TITLE.'</title>';
@@ -12,7 +13,7 @@ class CreateCharacterPage extends Page {
 	}
 
 	public function getBodyTagAttributes() {
-		return 'onload="random()"';
+		return 'onload="updateAll(); self.focus(); document.createcharacter.name.focus()"';
 	}
 
 	function writeContent() {
@@ -22,16 +23,27 @@ class CreateCharacterPage extends Page {
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/create-character.html">login</a> to create a character.</p>';
 			endBox();
 		} else {*/
+			// TODO: init $outfitArray from url
+			$this->random();
 			$this->process();
 		//}
 	}
+
+	function random() {
+		$maxRndOutfit = array(26, 15, 5, 15);
+		for ($i = 0; $i < 4; $i++) {
+			$this->outfitArray[$i] = rand(1, $maxRndOutfit[$i]);
+		}
 	
+}
+	
+
 	function process() {
 		// TODO: <body onload="updateAll();">
 		startBox("Create Character");
 ?>
 
-<form action="" style="height:22em; padding: 1em">
+<form name="createcharacter" action="" style="height:22em; padding: 1em">
 
 <div class="outfitpanel">
 <div style="clear: both">
@@ -82,9 +94,11 @@ class CreateCharacterPage extends Page {
 
 <script type="text/javascript">
 faceOffset = 2;
-currentOutfit = [1, 0, 0, 1];
+currentOutfit = [<?php
+echo $this->outfitArray[0].', '.$this->outfitArray[1].', '.$this->outfitArray[2].', '.$this->outfitArray[3];
+?>];
 maxOutfit = [44, 21, 15, 53];
-maxRndOutfit = [26, 15, 5, 15];
+
 
 outfitNames = ["hair", "head", "player_base", "dress"];
 
@@ -115,13 +129,6 @@ function update(i) {
 	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 	document.getElementById("outfitcode").value = outfitCode;
 	document.getElementById("canvas").style.backgroundImage = "url('/images/outfit/" + outfitCode + ".png')";
-}
-
-function random() {
-	for (i = 0; i < 4; i++) {
-		currentOutfit[i] = parseInt(Math.random() * maxRndOutfit[i]) + 1;
-	}
-	updateAll();
 }
 
 function updateAll() {
