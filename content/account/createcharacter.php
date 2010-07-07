@@ -13,7 +13,7 @@ class CreateCharacterPage extends Page {
 	}
 
 	public function getBodyTagAttributes() {
-		return 'onload="updateAll(); self.focus(); document.createcharacter.name.focus()"';
+		return 'onload="init()"';
 	}
 
 	function writeContent() {
@@ -39,7 +39,6 @@ class CreateCharacterPage extends Page {
 	
 
 	function process() {
-		// TODO: <body onload="updateAll();">
 		startBox("Create Character");
 ?>
 
@@ -83,12 +82,12 @@ class CreateCharacterPage extends Page {
 
 <div style="float:left; width: 50%; padding-top: 2em">
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
-<label for="name" >Name: </label><input id="name" name="name" type="text"
+<label for="name" >Name: </label><input id="name" onkeyup="key(this)" name="name" type="text" maxlength="20" 
 <?php 
 // TODO: if account name is a valid charactername, and the character does not exist {
 	echo 'value="'.htmlspecialchars($_SESSION['username']).'"';?>>
 
-<input style="margin-top: 2em" type="submit" value="Create Character">
+<input "name="submit" style="margin-top: 2em" type="submit" value="Create Character">
 </div>
 </form>
 
@@ -131,6 +130,13 @@ function update(i) {
 	document.getElementById("canvas").style.backgroundImage = "url('/images/outfit/" + outfitCode + ".png')";
 }
 
+function init() {
+	updateAll();
+	self.focus();
+	document.createcharacter.name.focus();
+	validate();
+}
+
 function updateAll() {
 	for (i = 0; i < 4; i++) {
 		document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
@@ -138,6 +144,10 @@ function updateAll() {
 	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 	document.getElementById("outfitcode").value = outfitCode;
 	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
+}
+
+function validate() {
+	document.createcharacter.submit.disabled = !(document.createcharacter.name.value.length > 4);
 }
 
 function turn(i) {
@@ -152,6 +162,11 @@ function turn(i) {
 	}
 	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
+}
+
+function key(field) {
+	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
+	return false;
 }
 
 </script>
