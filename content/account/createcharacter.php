@@ -5,7 +5,7 @@ class CreateCharacterPage extends Page {
 		echo '<title>Create Character'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<style type="text/css">
-				.outfitpanel {border: 1px solid black; width: 8.5em; height: 256px; padding: 2em; float: left; margin-right: 2em; margin-bottom: 2em}
+				.outfitpanel {border: 1px solid black; width: 8.5em; height: 256px; padding: 0em; float: left; margin-right: 2em; margin-bottom: 2em}
 				.next {float: left; margin-top: 2em}
 				.outfitpart {float: left; display: block; width:48px; height: 64px; background-position: 0 128px;}
 			</style>';
