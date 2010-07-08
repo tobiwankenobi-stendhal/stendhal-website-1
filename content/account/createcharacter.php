@@ -102,17 +102,16 @@ maxOutfit = [44, 21, 15, 53];
 outfitNames = ["hair", "head", "player_base", "dress"];
 
 function down(i) {
-	if (currentOutfit[i] > 0) {
-		currentOutfit[i]--;
-		update(i);
+	currentOutfit[i]--;
+	if (currentOutfit[i] < 0) {
+		currentOutfit[i] = maxOutfit[i] - 1;
 	}
+	update(i);
 }
 
 function up(i) {
-	if (currentOutfit[i] < maxOutfit[i] - 1) {
-		currentOutfit[i]++;
-		update(i);
-	}
+	currentOutfit[i] = (currentOutfit[i] + 1) % maxOutfit[i];
+	update(i);
 }
 
 function formatNumber(i) {
