@@ -86,7 +86,7 @@ class CreateCharacterPage extends Page {
 <?php 
 // TODO: if account name is a valid charactername, and the character does not exist {
 	echo 'value="'.htmlspecialchars($_SESSION['username']).'"';?>>
-
+<div id="warn" class="warn">S</div>
 <input "name="submit" style="margin-top: 2em" type="submit" value="Create Character">
 </div>
 </form>
@@ -146,7 +146,12 @@ function updateAll() {
 }
 
 function validate() {
-	document.createcharacter.submit.disabled = (document.createcharacter.name.value.length < 4);
+	//document.createcharacter.submit.disabled = (document.createcharacter.name.value.length < 4);
+	if (document.createcharacter.name.value.length < 4) {
+		document.getElementById("warn").innerHTML = "Name must be more than 4 letters.";
+	} else {
+		document.getElementById("warn").innerHTML = "";
+	}
 }
 
 function turn(i) {
