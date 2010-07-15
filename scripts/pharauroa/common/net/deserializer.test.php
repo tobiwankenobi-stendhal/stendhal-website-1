@@ -98,7 +98,7 @@
 		die('Test case readString() - 4');
 }
 
-// Test case readShortString() //
+// Test case read255LongString() //
 {
 	$string = '';
 
@@ -114,19 +114,19 @@
 
 	$deserializer = new PharauroaDeserializer($string);
 
-	$out_sstr1 = $deserializer->readShortString();
-	$out_sstr2 = $deserializer->readShortString();
-	$out_sstr3 = $deserializer->readShortString();
-	$out_sstr4 = $deserializer->readShortString();
+	$out_sstr1 = $deserializer->read255LongString();
+	$out_sstr2 = $deserializer->read255LongString();
+	$out_sstr3 = $deserializer->read255LongString();
+	$out_sstr4 = $deserializer->read255LongString();
 
 	if($out_sstr1 != $in_sstr1)
-		die('Test case readShortString() - 1');
+		die('Test case read255LongString() - 1');
 	if($out_sstr2 != $in_sstr2)
-		die('Test case readShortString() - 2');
+		die('Test case read255LongString() - 2');
 	if($out_sstr3 != $in_sstr3)
-		die('Test case readShortString() - 3');
+		die('Test case read255LongString() - 3');
 	if($out_sstr4 != $in_sstr4)
-		die('Test case readShortString() - 4');
+		die('Test case read255LongString() - 4');
 }
 
 // Test case mix //
@@ -177,18 +177,18 @@
 	$out_byte1 = $deserializer->readByte();
 	$out_int1 = $deserializer->readInt();
 	$out_str1 = $deserializer->readString();
-	$out_sstr1 = $deserializer->readShortString();
-	$out_sstr3 = $deserializer->readShortString();
+	$out_sstr1 = $deserializer->read255LongString();
+	$out_sstr3 = $deserializer->read255LongString();
 	$out_byte3 = $deserializer->readByte();
 	$out_int2 = $deserializer->readInt();
 	$out_byte4 = $deserializer->readByte();
 	$out_int3 = $deserializer->readInt();
 	$out_int4 = $deserializer->readInt();
 	$out_str2 = $deserializer->readString();
-	$out_sstr2 = $deserializer->readShortString();
+	$out_sstr2 = $deserializer->read255LongString();
 	$out_str3 = $deserializer->readString();
 	$out_str4 = $deserializer->readString();
-	$out_sstr4 = $deserializer->readShortString();
+	$out_sstr4 = $deserializer->read255LongString();
 	$out_byte2 = $deserializer->readByte();
 
 	if($out_byte1 != $in_byte1)
@@ -216,12 +216,14 @@
 	if($out_str4 != $in_str4)
 		die('Test case mix - readString() - 4');
 	if($out_sstr1 != $in_sstr1)
-		die('Test case mix - readShortString() - 1');
+		die('Test case mix - read255LongString() - 1');
 	if($out_sstr2 != $in_sstr2)
-		die('Test case mix - readShortString() - 2');
+		die('Test case mix - read255LongString() - 2');
 	if($out_sstr3 != $in_sstr3)
-		die('Test case mix - readShortString() - 3');
+		die('Test case mix - read255LongString() - 3');
 	if($out_sstr4 != $in_sstr4)
-		die('Test case mix - readShortString() - 4');
+		die('Test case mix - read255LongString() - 4');
 }
+
+echo "OK";
 ?>

@@ -30,9 +30,8 @@ class PharauroaDeserializer {
 		return $output; // TODO
 	}
 	public function readInt() {
-		// I recommend you use "V" - unsigned long (always 32 bit, little endian byte order) - to keep endian ordering and size accross network
 		// TODO opposite of: $this->data = $this->data . pack("I", $int);
-		$output = unpack("V", $this->data);
+		$output = unpack("I", $this->data);
 		$this->data = substr($this->data, 4);
 		return $output[1]; 
 	}
@@ -45,7 +44,8 @@ class PharauroaDeserializer {
 		$this->data = substr($this->data, $length);
 		return $output;
 	}
-	public function readShortString() {
+
+	public function read255LongString() {
 		// TODO opposite of: $this->writeByte(strlen($string)); $this->data = $this->data . $string;
 		$length = $this->readByte();
 		$output = substr($this->data, 0, $length);
