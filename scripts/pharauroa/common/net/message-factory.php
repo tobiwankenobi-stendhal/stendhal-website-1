@@ -15,7 +15,18 @@ class PharauroaMessageFactory {
 
 		// TODO: make sure that $data contains the complete message
 		$deserializer = new PharauroaDeserializer($data);
-		echo ord($data[1]);
+		$type = ord($data[1]);
+		if ($type == PharauroaMessageType::S2C_CREATEACCOUNT_ACK) {
+			echo "ACK";
+			// TODO
+		} else if ($type == PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
+			echo "NACK";
+			$message = new PharauroaMessageS2CCreateAccountNACK();
+		} else {
+			// TODO
+		}
+		$message->readObject($deserializer);
+		var_dump($message);
 	}
 
 }
