@@ -11,3 +11,5 @@ require_once ('common/net/message/message-type.php');
 require_once ('common/net/message/message.php');
 
 require_once ('common/net/message/message-c2s-createaccount.php');
+require_once ('common/net/message/message-s2c-loginack.php');
+require_once ('common/net/message/message-s2c-createaccountnack.php');
