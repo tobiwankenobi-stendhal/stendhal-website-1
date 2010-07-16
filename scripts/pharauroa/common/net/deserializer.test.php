@@ -1,105 +1,91 @@
 <?php
-{
-	require_once('deserializer.php');
-}
+require_once('deserializer.php');
 
-// Test case readByte() //
-{
-	$string = '';
 
-	$in_byte1 = 0xFF;
-	$in_byte2 = 0x00;
-	$in_byte3 = 128;
-	$in_byte4 = ord('a');
+class PharauroaDeserializerTest extends PHPUnit_Framework_TestCase {
 
-	$string = $string.chr($in_byte1);
-	$string = $string.chr($in_byte2);
-	$string = $string.chr($in_byte3);
-	$string = $string.chr($in_byte4);
+	public function testReadByte() {
+		$string = '';
 
-	$deserializer = new PharauroaDeserializer($string);
+		$in_byte1 = 0xFF;
+		$in_byte2 = 0x00;
+		$in_byte3 = 128;
+		$in_byte4 = ord('a');
 
-	$out_byte1 = $deserializer->readByte();
-	$out_byte2 = $deserializer->readByte();
-	$out_byte3 = $deserializer->readByte();
-	$out_byte4 = $deserializer->readByte();
+		$string = $string.chr($in_byte1);
+		$string = $string.chr($in_byte2);
+		$string = $string.chr($in_byte3);
+		$string = $string.chr($in_byte4);
 
-	if($out_byte1 != $in_byte1)
-		die('Test case readByte() - 1');
-	if($out_byte2 != $in_byte2)
-		die('Test case readByte() - 2');
-	if($out_byte3 != $in_byte3)
-		die('Test case readByte() - 3');
-	if($out_byte4 != $in_byte4)
-		die('Test case readByte() - 4');
-}
+		$deserializer = new PharauroaDeserializer($string);
 
-// Test case readInt() //
-{
-	$string = '';
+		$out_byte1 = $deserializer->readByte();
+		$out_byte2 = $deserializer->readByte();
+		$out_byte3 = $deserializer->readByte();
+		$out_byte4 = $deserializer->readByte();
 
-	$in_int1 = 0xFF;
-	$in_int2 = 0x00;
-	$in_int3 = 128;
-	$in_int4 = 65535;
+		$this->assertEquals($out_byte1, $in_byte1, 'Test case readByte() - 1');
+		$this->assertEquals($out_byte2, $in_byte2, 'Test case readByte() - 2');
+		$this->assertEquals($out_byte3, $in_byte3, 'Test case readByte() - 3');
+		$this->assertEquals($out_byte4, $in_byte4, 'Test case readByte() - 4');
+	}
 
-	$string = $string.pack("V", $in_int1);
-	$string = $string.pack("V", $in_int2);
-	$string = $string.pack("V", $in_int3);
-	$string = $string.pack("V", $in_int4);
+	public function testReadInt() {
+		$string = '';
 
-	$deserializer = new PharauroaDeserializer($string);
+		$in_int1 = 0xFF;
+		$in_int2 = 0x00;
+		$in_int3 = 128;
+		$in_int4 = 65535;
 
-	$out_int1 = $deserializer->readInt();
-	$out_int2 = $deserializer->readInt();
-	$out_int3 = $deserializer->readInt();
-	$out_int4 = $deserializer->readInt();
+		$string = $string.pack("V", $in_int1);
+		$string = $string.pack("V", $in_int2);
+		$string = $string.pack("V", $in_int3);
+		$string = $string.pack("V", $in_int4);
 
-	if($out_int1 != $in_int1)
-		die('Test case readInt() - 1');
-	if($out_int2 != $in_int2)
-		die('Test case readInt() - 2');
-	if($out_int3 != $in_int3)
-		die('Test case readInt() - 3');
-	if($out_int4 != $in_int4)
-		die('Test case readInt() - 4');
-}
+		$deserializer = new PharauroaDeserializer($string);
 
-// Test case readString() //
-{
-	$string = '';
+		$out_int1 = $deserializer->readInt();
+		$out_int2 = $deserializer->readInt();
+		$out_int3 = $deserializer->readInt();
+		$out_int4 = $deserializer->readInt();
 
-	$in_str1 = 'abc123';
-	$in_str2 = '';
-	$in_str3 = "a\nb\0c\rd";
-	$in_str4 = '';
-	for($i = 0; $i < 512; ++$i)
-		$in_str4 .= chr(rand(0, 255));
+		$this->assertEquals($out_int1, $in_int1, 'Test case readInt() - 1');
+		$this->assertEquals($out_int2, $in_int2, 'Test case readInt() - 2');
+		$this->assertEquals($out_int3, $in_int3, 'Test case readInt() - 3');
+		$this->assertEquals($out_int4, $in_int4, 'Test case readInt() - 4');
+	}
 
-	$string = $string.pack("V", strlen($in_str1)).$in_str1;
-	$string = $string.pack("V", strlen($in_str2)).$in_str2;
-	$string = $string.pack("V", strlen($in_str3)).$in_str3;
-	$string = $string.pack("V", strlen($in_str4)).$in_str4;
+	public function testReadString() {
+		$string = '';
 
-	$deserializer = new PharauroaDeserializer($string);
+		$in_str1 = 'abc123';
+		$in_str2 = '';
+		$in_str3 = "a\nb\0c\rd";
+		$in_str4 = '';
+		for($i = 0; $i < 512; ++$i) {
+			$in_str4 .= chr(rand(0, 255));
+		}
 
-	$out_str1 = $deserializer->readString();
-	$out_str2 = $deserializer->readString();
-	$out_str3 = $deserializer->readString();
-	$out_str4 = $deserializer->readString();
+		$string = $string.pack("V", strlen($in_str1)).$in_str1;
+		$string = $string.pack("V", strlen($in_str2)).$in_str2;
+		$string = $string.pack("V", strlen($in_str3)).$in_str3;
+		$string = $string.pack("V", strlen($in_str4)).$in_str4;
 
-	if($out_str1 != $in_str1)
-		die('Test case readString() - 1');
-	if($out_str2 != $in_str2)
-		die('Test case readString() - 2');
-	if($out_str3 != $in_str3)
-		die('Test case readString() - 3');
-	if($out_str4 != $in_str4)
-		die('Test case readString() - 4');
-}
+		$deserializer = new PharauroaDeserializer($string);
 
-// Test case read255LongString() //
-{
+		$out_str1 = $deserializer->readString();
+		$out_str2 = $deserializer->readString();
+		$out_str3 = $deserializer->readString();
+		$out_str4 = $deserializer->readString();
+
+		$this->assertEquals($out_str1, $in_str1, 'Test case readString() - 1');
+		$this->assertEquals($out_str2, $in_str2, 'Test case readString() - 2');
+		$this->assertEquals($out_str3, $in_str3, 'Test case readString() - 3');
+		$this->assertEquals($out_str4, $in_str4, 'Test case readString() - 4');
+	}
+
+	public function testRead255LongString() {
 	$string = '';
 
 	$in_sstr1 = 'abc123';
@@ -129,8 +115,7 @@
 		die('Test case read255LongString() - 4');
 }
 
-// Test case mix //
-{
+	public function testMixed() {
 	$string = '';
 
 	$in_byte1 = 0xFF;
@@ -225,5 +210,5 @@
 		die('Test case mix - read255LongString() - 4');
 }
 
-echo "OK";
+}
 ?>
