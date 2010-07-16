@@ -181,8 +181,7 @@ if ($page->writeHttpHeader()) {
                 <?php
                     if(checkLogin()) {
                 ?>
-                    <li><a id="menuAccountMain" href="<?php echo(rewriteURL('/account/myaccount.html')); ?>">Logged in as <strong><?php echo($_SESSION['user\
-name']); ?></strong></a></li>
+                    <li><a id="menuAccountMain" href="<?php echo(rewriteURL('/account/myaccount.html')); ?>">Logged in as <strong><?php echo($_SESSION['username']); ?></strong></a></li>
                     <li><a id="menuAccountHistory" href="<?php echo(rewriteURL('/account/history.html')); ?>">Login History</a></li>
                     <li><a id="menuAccountPassword" href="<?php echo(rewriteURL('/account/change-password.html')); ?>">New Password</a></li>
                     <li><a id="menuAccountMerge" href="<?php echo(rewriteURL('/account/merge.html')); ?>">Merge Accounts</a></li>
