@@ -26,7 +26,8 @@ class AccountMerge extends Page {
 
 	function displayHelp() {
 		startBox("Account Merging");?>
-		<p>With the form below you can merge your other accounts.</p>
+		<p>With the form below you can merge your other accounts. &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
+		(<a href="https://stendhalgame.org/wiki/Stendhal_Account_Merging">Help</a>)</p>
 		<p>This means that all characters previously associated with the other 
 		account will be available in this account. The other account will be 
 		disabled.</p>
