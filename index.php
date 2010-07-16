@@ -171,6 +171,37 @@ if ($page->writeHttpHeader()) {
 	<div id="rightArea">
 		<a href="http://arianne.sourceforge.net/jws/stendhal.jnlp"><span class="block" id="playArea"></span></a>
 		<a href="http://downloads.sourceforge.net/arianne/stendhal-FULL-<?php echo STENDHAL_VERSION; ?>.zip"><span class="block" id="downloadArea"></span></a>
+        <?php
+            /*
+             * Show the account menu only if player is logged in.
+             */
+            startBox('My Account');
+        ?>
+            <ul id="accountmenu" class="menu">
+                <?php
+                    if(checkLogin()) {
+                ?>
+                    <li><a id="menuAccountMain" href="<?php echo(rewriteURL('/account/myaccount.html')); ?>">Logged in as <strong><?php echo($_SESSION['user\
+name']); ?></strong></a></li>
+                    <li><a id="menuAccountHistory" href="<?php echo(rewriteURL('/account/history.html')); ?>">Login History</a></li>
+                    <li><a id="menuAccountPassword" href="<?php echo(rewriteURL('/account/change-password.html')); ?>">New Password</a></li>
+                    <li><a id="menuAccountMerge" href="<?php echo(rewriteURL('/account/merge.html')); ?>">Merge Accounts</a></li>
+                    <li><a id="menuAccountLogout" href="<?php echo(rewriteURL('/account/logout.html')); ?>">Logout</a></li>
+                <?php
+                    }
+                    else {
+                ?>
+                    <li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/login.html')); ?>">Login</a></li>
+                    <?php // TODO: Reenable when sending of emails is possible on the server. ?>
+                    <!-- <li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.'/?id=login/remind'); ?>">Forgot your password?</a></li> -->
+                <?php
+                    }
+                ?>
+            </ul>
+        <?php
+            endBox();
+        ?>
+
 
 
 		<?php 
@@ -200,36 +231,6 @@ if ($page->writeHttpHeader()) {
 		</form>
 		<?php endBox(); ?>
 
-
-		<?php 
-			/*
-			 * Show the account menu only if player is logged in.
-			 */
-			startBox('My Account');
-		?>
-			<ul id="accountmenu" class="menu">
-				<?php 
-					if(checkLogin()) {
-				?>
-					<li><a id="menuAccountMain" href="<?php echo(rewriteURL('/account/myaccount.html')); ?>">Logged in as <strong><?php echo($_SESSION['username']); ?></strong></a></li>
-					<li><a id="menuAccountHistory" href="<?php echo(rewriteURL('/account/history.html')); ?>">Login History</a></li>
-					<li><a id="menuAccountPassword" href="<?php echo(rewriteURL('/account/change-password.html')); ?>">Change Password</a></li>
-					<li><a id="menuAccountMerge" href="<?php echo(rewriteURL('/account/merge.html')); ?>">Merge Accounts</a></li>
-					<li><a id="menuAccountLogout" href="<?php echo(rewriteURL('/account/logout.html')); ?>">Logout</a></li>
-				<?php
-					}
-					else {
-				?>
-					<li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/login.html')); ?>">Login</a></li>
-					<?php // TODO: Reenable when sending of emails is possible on the server. ?>
-					<!-- <li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.'/?id=login/remind'); ?>">Forgot your password?</a></li> -->
-				<?php
-					}
-				?>
-			</ul>
-		<?php
-			endBox();
-		?>
 
 		<?php 
 		/*
