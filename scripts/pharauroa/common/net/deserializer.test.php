@@ -36,12 +36,12 @@ class PharauroaDeserializerTest extends PHPUnit_Framework_TestCase {
 		$in_int1 = 0xFF;
 		$in_int2 = 0x00;
 		$in_int3 = 128;
-		$in_int4 = 65535;
+		$in_int4 = -1;
 
-		$string = $string.pack("V", $in_int1);
-		$string = $string.pack("V", $in_int2);
-		$string = $string.pack("V", $in_int3);
-		$string = $string.pack("V", $in_int4);
+		$string = $string.pack("I", $in_int1);
+		$string = $string.pack("I", $in_int2);
+		$string = $string.pack("I", $in_int3);
+		$string = $string.pack("I", $in_int4);
 
 		$deserializer = new PharauroaDeserializer($string);
 
@@ -67,10 +67,10 @@ class PharauroaDeserializerTest extends PHPUnit_Framework_TestCase {
 			$in_str4 .= chr(rand(0, 255));
 		}
 
-		$string = $string.pack("V", strlen($in_str1)).$in_str1;
-		$string = $string.pack("V", strlen($in_str2)).$in_str2;
-		$string = $string.pack("V", strlen($in_str3)).$in_str3;
-		$string = $string.pack("V", strlen($in_str4)).$in_str4;
+		$string = $string.pack("I", strlen($in_str1)).$in_str1;
+		$string = $string.pack("I", strlen($in_str2)).$in_str2;
+		$string = $string.pack("I", strlen($in_str3)).$in_str3;
+		$string = $string.pack("I", strlen($in_str4)).$in_str4;
 
 		$deserializer = new PharauroaDeserializer($string);
 
@@ -138,19 +138,19 @@ class PharauroaDeserializerTest extends PHPUnit_Framework_TestCase {
 		$in_sstr4 = '0123456789';
 
 		$string = $string.chr($in_byte1);
-		$string = $string.pack("V", $in_int1);
-		$string = $string.pack("V", strlen($in_str1)).$in_str1;
+		$string = $string.pack("I", $in_int1);
+		$string = $string.pack("I", strlen($in_str1)).$in_str1;
 		$string = $string.chr(strlen($in_sstr1)).$in_sstr1;
 		$string = $string.chr(strlen($in_sstr3)).$in_sstr3;
 		$string = $string.chr($in_byte3);
-		$string = $string.pack("V", $in_int2);
+		$string = $string.pack("I", $in_int2);
 		$string = $string.chr($in_byte4);
-		$string = $string.pack("V", $in_int3);
-		$string = $string.pack("V", $in_int4);
-		$string = $string.pack("V", strlen($in_str2)).$in_str2;
+		$string = $string.pack("I", $in_int3);
+		$string = $string.pack("I", $in_int4);
+		$string = $string.pack("I", strlen($in_str2)).$in_str2;
 		$string = $string.chr(strlen($in_sstr2)).$in_sstr2;
-		$string = $string.pack("V", strlen($in_str3)).$in_str3;
-		$string = $string.pack("V", strlen($in_str4)).$in_str4;
+		$string = $string.pack("I", strlen($in_str3)).$in_str3;
+		$string = $string.pack("I", strlen($in_str4)).$in_str4;
 		$string = $string.chr(strlen($in_sstr4)).$in_sstr4;
 		$string = $string.chr($in_byte2);
 
