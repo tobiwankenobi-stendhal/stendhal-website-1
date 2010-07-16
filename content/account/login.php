@@ -106,7 +106,7 @@ class LoginPage extends Page {
 	function getUrl() {
 		$url = $_REQUEST['url'];
 		if (!isset($url)) {
-			$url = '/account/myaccount.html';
+			$url = rewriteURL('/account/myaccount.html');
 		}
 		if (strpos($url, '/') !== 0) {
 			$url = '/'.$url;
