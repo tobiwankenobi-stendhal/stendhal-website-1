@@ -176,6 +176,7 @@ function getUser($email) {
  * form or to show the user that he is logged in
  * based on if the session variables are set.
  */
+ /*
 function displayLogin(){
 	if(checkLogin()){ 
 		echo 'Logged in as <a href="'.rewriteURL('/account/myaccount.html').'"><b>'.$_SESSION['username'].'</b></a>. '
@@ -185,11 +186,11 @@ function displayLogin(){
 		.' - <a href="'.rewriteURL('/account/logout.html').'">Logout</a>';
 	} else{
 		echo '<a href="'.STENDHAL_LOGIN_TARGET.''.rewriteURL('/account/login.html').'">Login</a>';
-		/* TODO: Reenable when sending of emails is possible on the server.
+		 TODO: Reenable when sending of emails is possible on the server.
 		echo '<a href="'.STENDHAL_LOGIN_TARGET.'/?id=login/login">Login</a> - <a href="/?id=login/remind">Forgot your Password?</a>';
-	*/
+	
 	}
-}
+}*/
 
 // Returns user id for username or false
 function getUserID($username) {
