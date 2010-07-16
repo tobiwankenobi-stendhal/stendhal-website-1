@@ -11,14 +11,23 @@ class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
 	}
 
 	/**
-	 * Returns the reason
+	 * This method returns the resolution of the login event
 	 *
-	 * @return loginEvents
+	 * @return a byte representing the resolution given.
 	 */
-	public function getReason() {
-		return $this->reason;
+	public function getResolutionCode() {
+		return $this->reason->getResult();
 	}
 
+	/**
+	 * This method returns a String that represent the resolution given to the
+	 * login event
+	 *
+	 * @return a string representing the resolution.
+	 */
+	public function getResolution() {
+		return $this->reason->getMessage();
+	}
 
 	public function writeObject(&$out) {
 		parent::writeObject($out);
@@ -27,7 +36,7 @@ class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
 
 	public function readObject(&$in) {
 		parent::readObject($in);
-		$this->reason = $in->readByte();
+		$this->reason = new PharauroaResult($in->readByte());
 
 		if ($this->MessageType != PharauroaMessageType::S2C_LOGIN_ACK) {
 			// handle error

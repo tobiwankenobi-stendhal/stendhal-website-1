@@ -96,11 +96,19 @@ class PharauroaResult {
 		"Account was not created because the account creation limit for your network was reached.\nPlease try again later."
 	);
 
-	function wasSuccessful() {
-		return $result == PharauroaResult::OK_CREATED;
+	public function __construct($result) {
+		$this->result = $result;
 	}
 
-	function getMessage() {
-		return $reaons[$result];
+	public function wasSuccessful() {
+		return $this->result == PharauroaResult::OK_CREATED;
+	}
+
+	public function getMessage() {
+		return $this->reaons[$this->result];
+	}
+
+	public function getResult() {
+		return $this->result;
 	}
 }
