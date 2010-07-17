@@ -184,11 +184,11 @@ Note: You need to restart apache after editing these files.
  */
 function rewriteURL($url) {
 
-	if (STENDHAL_MODE_REWRITE) {
-		return $url;
-	}
-
 	$folder = STENDHAL_FOLDER;
+
+	if (STENDHAL_MODE_REWRITE) {
+		return $folder.$url;
+	}
 
 	// images
 	if (preg_match('|^/images/.*|', $url)) {
