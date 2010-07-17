@@ -96,9 +96,9 @@ if ($page->writeHttpHeader()) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?echo STENDHAL_FOLDER;?>/css/00000009.css">
-	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?echo STENDHAL_FOLDER;?>/css/ie000006.css"><![endif]-->
-	<link rel="icon" type="image/png" href="<?echo STENDHAL_FOLDER;?>/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000009.css">
+	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000006.css"><![endif]-->
+	<link rel="icon" type="image/png" href="<?php echo STENDHAL_FOLDER;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
 		/*
@@ -120,7 +120,7 @@ if ($page->writeHttpHeader()) {
 <body <?php echo $page->getBodyTagAttributes()?>>
 <div id="container">
 	<div id="header">
-		<a href="<?echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
+		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
 	</div>
 
 	<div id="topMenu"></div>
@@ -131,13 +131,13 @@ if ($page->writeHttpHeader()) {
 		// Return the latest screenshot added to the webpage.
 		$screen=getLatestScreenshot();
 		?>
-		<a href="<? echo rewriteURL(STENDHAL_FOLDER.'/images/image/'.htmlspecialchars($screen->url)); ?>">
+		<a href="<?php echo rewriteURL(STENDHAL_FOLDER.'/images/image/'.htmlspecialchars($screen->url)); ?>">
 			<?php $screen->showThumbnail(); ?>
 		</a>
 		<?php endBox() ?>
 
 		<?php startBox('Movie'); ?>
-			<a href="<?php echo $protocol;?>://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?echo STENDHAL_FOLDER;?>/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
+			<a href="<?php echo $protocol;?>://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?php echo STENDHAL_FOLDER;?>/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
 		<?php endBox() ?>
 
 		<?php startBox('Game System'); ?>
