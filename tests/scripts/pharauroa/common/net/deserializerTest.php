@@ -1,6 +1,5 @@
 <?php
-require_once('deserializer.php');
-
+require_once('scripts/pharauroa/pharauroa.php');
 
 class PharauroaDeserializerTest extends PHPUnit_Framework_TestCase {
 
