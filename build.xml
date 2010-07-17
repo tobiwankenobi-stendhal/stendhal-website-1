@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="Test Job" default="build">
+<project name="Stendhal Website Job" default="build">
 	<target name="clean">
 		<delete dir="${basedir}/build" />
 	</target>
@@ -19,13 +19,14 @@
 					-ti 'Stendhal Website PHPDoc'
 					--parseprivate on
 					--undocumentedelements on
-					--output HTML:Smarty:PHP" />
+					--output HTML:Smarty:PHP
+					-i lib/*" />
 		</exec>
 	</target>
 
 		<target name="phpcpd">
 			<exec dir="${basedir}" executable="phpcpd" failonerror="true">
-				<arg line="--log-pmd=build/logs/pmd.xml ." />
+				<arg line="--log-pmd build/logs/pmd.xml ." />
 			</exec>
 		</target>
 
@@ -45,17 +46,11 @@
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
 			<arg line="--log-junit build/logs/junit.xml
 					--coverage-clover build/logs/clover.xml
+					--coverage-html build/coverage
 					tests/allTests.php" />
 		</exec>
 	</target>
 
-	<target name="code-coverage">
-		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg line="--coverage-html build/coverage" />
-		</exec>
-	</target>
-
-
-	<target name="build" depends="clean,prepare, phpcpd, pdepend, phpunit, code-coverage" />
+	<target name="build" depends="clean,prepare, phpdoc, phpcpd, pdepend, phpunit" />
 </project>
 
