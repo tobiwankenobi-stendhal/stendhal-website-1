@@ -1,57 +1,25 @@
+<?xml version="1.0"?>
+
 <project name="Test Job" default="build">
 	<target name="clean">
-		<delete dir="${basedir}/svn/_build" />
 		<delete dir="${basedir}/build" />
 	</target>
 
 	<target name="prepare">
-		<mkdir dir="${basedir}/svn/_build/logs" />
+		<mkdir dir="${basedir}/build" />
 		<mkdir dir="${basedir}/build/logs" />
 		<mkdir dir="${basedir}/build/docs" />
 	</target>
 
-	<target name="phpdoc">
-		<exec dir="${basedir}" executable="phpdoc" failonerror="true">
-			<arg line="-t build/docs/
-					--directory svn
-					-ti 'Test Job Docs'
-					--parseprivate on
-					--undocumentedelements on
-					--output HTML:Smarty:PHP" />
-		</exec>
-	</target>
-
-	<target name="phpcpd">
-		<exec dir="${basedir}" executable="phpcpd" failonerror="true">
-			<arg line="--log-pmd=build/logs/pmd.xml svn" />
-		</exec>
-	</target>
-
-	<target name="pdepend">
-		<exec dir="${basedir}" executable="pdepend" failonerror="true">
-			<arg line="--jdepend-xml=build/logs/jdepend.xml svn" />
-		</exec>
-	</target>
-
-	<target name="phpcs">
-		<exec dir="${basedir}" executable="phpcs" output="${basedir}/build/logs/checkstyle.xml" failonerror="false">
-			<arg line="--report=checkstyle svn" />
-		</exec>
-	</target>
 
 	<target name="phpunit">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg line="--log-junit       svn/_build/logs/junit.xml
+			<arg line="--log-junit build/logs/junit.xml
 					--coverage-clover build/logs/clover.xml
-					svn/tests" />
+					tests" />
 		</exec>
 	</target>
 
-	<target name="code-coverage">
-		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg line="--coverage-html /path/to/webserver/that/can/serve/the/coverage/pages" />
-		</exec>
-	</target>
-	<target name="build" depends="clean,prepare, phpcpd, pdepend, phpunit, code-coverage" />
+	<target name="build" depends="clean,prepare, phpunit" />
 </project>
 
