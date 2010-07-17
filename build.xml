@@ -16,7 +16,7 @@
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
 			<arg line="--log-junit build/logs/junit.xml
 					--coverage-clover build/logs/clover.xml
-					tests" />
+					tests/allTests.php" />
 		</exec>
 	</target>
 
