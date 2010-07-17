@@ -7,10 +7,39 @@
 
 	<target name="prepare">
 		<mkdir dir="${basedir}/build" />
-		<mkdir dir="${basedir}/build/logs" />
+		<mkdir dir="${basedir}/build/coverage" />
 		<mkdir dir="${basedir}/build/docs" />
+		<mkdir dir="${basedir}/build/logs" />
 	</target>
 
+	<target name="phpdoc">
+		<exec dir="${basedir}" executable="phpdoc" failonerror="true">
+			<arg line="-t build/docs/
+					--directory .
+					-ti 'Stendhal Website PHPDoc'
+					--parseprivate on
+					--undocumentedelements on
+					--output HTML:Smarty:PHP" />
+		</exec>
+	</target>
+
+		<target name="phpcpd">
+			<exec dir="${basedir}" executable="phpcpd" failonerror="true">
+				<arg line="--log-pmd=build/logs/pmd.xml ." />
+			</exec>
+		</target>
+
+		<target name="pdepend">
+			<exec dir="${basedir}" executable="pdepend" failonerror="true">
+				<arg line="--jdepend-xml=build/logs/jdepend.xml ." />
+			</exec>
+		</target>
+
+		<target name="phpcs">
+			<exec dir="${basedir}" executable="phpcs" output="${basedir}/build/logs/checkstyle.xml" failonerror="false">
+				<arg line="--report=checkstyle ." />
+			</exec>
+		</target>
 
 	<target name="phpunit">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
@@ -20,6 +49,13 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="clean,prepare, phpunit" />
+	<target name="code-coverage">
+		<exec dir="${basedir}" executable="phpunit" failonerror="true">
+			<arg line="--coverage-html build/coverage" />
+		</exec>
+	</target>
+
+
+	<target name="build" depends="clean,prepare, phpcpd, pdepend, phpunit, code-coverage" />
 </project>
 
