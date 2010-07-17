@@ -80,7 +80,7 @@ class PharauroaResult {
 	 */
 	const FAILED_TOO_MANY = 13;
 
-	private $reasons = array("Account was created correctly.",
+	static $reasons = array("Account was created correctly.",
 		"Account was not created because one of the important parameters was missing.",
 		"Account was not created because an invalid character (special letters, signs, numbers) was used.",
 		"Account was not created because any of the parameters are either too long or too short.",
