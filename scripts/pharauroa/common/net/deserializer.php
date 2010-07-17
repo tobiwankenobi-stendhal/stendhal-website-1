@@ -1,8 +1,4 @@
 <?php
-{
-	if(!defined('PHARAUROA_NETWORK_PROTOCOL_VERSION'))
-		define('PHARAUROA_NETWORK_PROTOCOL_VERSION', 1);
-}
 
 class PharauroaDeserializer {
 	// Fields
