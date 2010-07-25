@@ -1,5 +1,10 @@
 <?php
-class PharauroaMessageC2SCreateAccount extends PharauroaMessage{
+class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
+	/** proxy credentials */
+	private $credentials;
+
+	/** acting for this ip-address */
+	private $forwardedFor;
 
 	/** Desired username */
 	private $username;
@@ -12,7 +17,7 @@ class PharauroaMessageC2SCreateAccount extends PharauroaMessage{
 
 	/** Constructor for allowing creation of an empty message */
 	public function __construct() {
-		parent::__construct(PharauroaMessageType::C2S_CREATEACCOUNT);
+		parent::__construct(PharauroaMessageType::P2S_CREATEACCOUNT);
 	}
 
 	/**
@@ -24,6 +29,8 @@ class PharauroaMessageC2SCreateAccount extends PharauroaMessage{
 	 * @param email email of the player
 	 */
 	public function init($username, $password, $email) {
+		$this->credentials = STENDHAL_PROXY_CREDENTIALS;
+		$this->forwardedFor = $_SERVER['REMOTE_ADDR'];
 		$this->username = $username;
 		$this->password = $password;
 		$this->email = $email;
@@ -56,6 +63,8 @@ class PharauroaMessageC2SCreateAccount extends PharauroaMessage{
 
 	public function writeObject(&$out) {
 		parent::writeObject($out);
+		$out->writeString($this->credentials);
+		$out->writeString($this->forwardedFor);
 		$out->writeString($this->username);
 		$out->writeString($this->password);
 		$out->writeString($this->email);
@@ -63,11 +72,13 @@ class PharauroaMessageC2SCreateAccount extends PharauroaMessage{
 
 	public function readObject(&$in) {
 		parent::readObject(§in);
+		$this->credentials = $in->readString();
+		$this->forwardedFor = $in->readString();
 		$this->username = $in->readString();
 		$this->password = $in->readString();
 		$this->email = $in->readString();
 
-		if ($this->MessageType != PharauroaMessageType::C2S_CREATEACCOUNT) {
+		if ($this->MessageType != PharauroaMessageType::P2S_CREATEACCOUNT) {
 			// TODO: handle error
 		}
 	}
