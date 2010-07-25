@@ -38,7 +38,7 @@ class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
 		parent::readObject($in);
 		$this->reason = new PharauroaResult($in->readByte());
 
-		if ($this->messageType != PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
+		if ($this->MessageType != PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
 			// handle error
 		}
 	}
