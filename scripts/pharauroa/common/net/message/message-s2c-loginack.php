@@ -46,7 +46,7 @@ class PharauroaMessageS2CLoginACK extends PharauroaMessage{
 			$previousLogins[] = $in->read255LongString();
 		}
 
-		if ($this->MessageType != PharauroaMessageType::S2C_LOGIN_ACK) {
+		if ($this->messageType != PharauroaMessageType::S2C_LOGIN_ACK) {
 			// handle error
 		}
 	}

@@ -80,7 +80,7 @@ class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
 		$this->character = $in->readString();
 		$this->template = $in->readString();
 
-		if ($this->MessageType != PharauroaMessageType::P2S_CREATECHARACTER) {
+		if ($this->messageType != PharauroaMessageType::P2S_CREATECHARACTER) {
 			// TODO: handle error
 		}
 	}
