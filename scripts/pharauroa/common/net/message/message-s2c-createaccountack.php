@@ -1,23 +1,15 @@
 <?php 
 
-class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
+class PharauroaMessageS2CCreateAccountACK extends PharauroaMessage{
 
 	/** Desired username */
-	private $reason;
+	private $username;
 
 	/** Constructor for allowing creation of an empty message */
 	public function __construct() {
 		parent::__construct(PharauroaMessageType::S2C_CREATEACCOUNT_NACK);
 	}
 
-	/**
-	 * This method returns the resolution of the login event
-	 *
-	 * @return a byte representing the resolution given.
-	 */
-	public function getResolutionCode() {
-		return $this->reason->getResult();
-	}
 
 	/**
 	 * This method returns a String that represent the resolution given to the
@@ -25,20 +17,20 @@ class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
 	 *
 	 * @return a string representing the resolution.
 	 */
-	public function getResolution() {
-		return $this->reason->getMessage();
+	public function getUsername() {
+		return $this->username;
 	}
 
 	public function writeObject(&$out) {
 		parent::writeObject($out);
-		$out->writeByte(($this->reason));
+		$out->writeString($this->username);
 	}
 
 	public function readObject(&$in) {
 		parent::readObject($in);
-		$this->reason = new PharauroaResult($in->readByte());
+		$this->username = $in->readString();
 
-		if ($this->MessageType != PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
+		if ($this->messageType != PharauroaMessageType::S2C_CREATEACCOUNT_ACK) {
 			// handle error
 		}
 	}
