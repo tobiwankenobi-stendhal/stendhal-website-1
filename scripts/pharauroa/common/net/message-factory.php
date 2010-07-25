@@ -17,11 +17,13 @@ class PharauroaMessageFactory {
 		$deserializer = new PharauroaDeserializer($data);
 		$type = ord($data[1]);
 		if ($type == PharauroaMessageType::S2C_CREATEACCOUNT_ACK) {
-			echo "ACK";
-			// TODO
+			$message = new PharauroaMessageS2CCreateAccountACK();
 		} else if ($type == PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
-			echo "NACK";
 			$message = new PharauroaMessageS2CCreateAccountNACK();
+		} else if ($type == PharauroaMessageType::S2C_CREATECHARACTER_ACK) {
+			//$message = new PharauroaMessageS2CCreateCharacterACK();
+		} else if ($type == PharauroaMessageType::S2C_CREATECHARACTER_NACK) {
+			$message = new PharauroaMessageS2CCreateCharacterNACK();
 		} else {
 			// TODO
 		}

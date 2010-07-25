@@ -1,5 +1,5 @@
 <?php
-class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
+class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 	/** proxy credentials */
 	private $credentials;
 
