@@ -1,6 +1,6 @@
 <?php 
 
-class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
+class PharauroaMessageS2CCreateCharacterNACK extends PharauroaMessage{
 
 	/** Desired username */
 	private $reason;
