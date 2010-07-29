@@ -3,6 +3,10 @@
 define('PHARAUROA_NETWORK_PROTOCOL_VERSION', 32);
 define('PHARAUROA_CLIENTID_INVALID', -1);
 
+// TODO: don't reference website configuration
+require_once('../../configuration.php');
+require_once('../../configuration.default.php');
+
 require_once ('common/game/attributes.php');
 require_once ('common/game/result.php');
 require_once ('common/game/rpobject.php');
