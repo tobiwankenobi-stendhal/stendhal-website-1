@@ -20,6 +20,6 @@ require_once ('common/net/message/message-p2s-createcharacter.php');
 require_once ('common/net/message/message-s2c-loginack.php');
 require_once ('common/net/message/message-s2c-createaccountack.php');
 require_once ('common/net/message/message-s2c-createaccountnack.php');
-//require_once ('common/net/message/message-s2c-createcharacterack.php');
+require_once ('common/net/message/message-s2c-createcharacterack.php');
 require_once ('common/net/message/message-s2c-createcharacternack.php');
 

@@ -21,7 +21,7 @@ class PharauroaMessageFactory {
 		} else if ($type == PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
 			$message = new PharauroaMessageS2CCreateAccountNACK();
 		} else if ($type == PharauroaMessageType::S2C_CREATECHARACTER_ACK) {
-			//$message = new PharauroaMessageS2CCreateCharacterACK();
+			$message = new PharauroaMessageS2CCreateCharacterACK();
 		} else if ($type == PharauroaMessageType::S2C_CREATECHARACTER_NACK) {
 			$message = new PharauroaMessageS2CCreateCharacterNACK();
 		} else {
