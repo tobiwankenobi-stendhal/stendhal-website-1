@@ -17,4 +17,8 @@ class PharauroaAttributes {
 			$out->writeString($value);
 		}
 	}
+
+	public function readObject(&$in) {
+		// TODO: implement Attributes.readObject
+	}
 }

@@ -4,7 +4,7 @@
 /**
  * RPObject
  */
-class PharauroaRPObject {
+class PharauroaRPObject extends PharauroaAttributes {
 
 	// TODO: Add support for RPClass
 
@@ -21,4 +21,9 @@ class PharauroaRPObject {
 		$out->writeInt(0); // TODO: add support for RPEvents
 	}
 	
+
+	public function readObject(&$in) {
+		parent::readObject($im);
+		// TODO: implement Attributes.readObject
+	}
 }
