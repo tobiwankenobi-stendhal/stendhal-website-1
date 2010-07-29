@@ -18,8 +18,8 @@
  */
 
 
-include('configuration.php');
-include('configuration.default.php');
+require_once('configuration.php');
+require_once('configuration.default.php');
 
 $websitedb=-1;
 $gamedb=-1;
