@@ -1,6 +1,6 @@
 <?php 
 
-class PharauroaMessageS2CCreateCharacterNACK extends PharauroaMessage{
+class PharauroaMessageS2CCreateCharacterACK extends PharauroaMessage{
 
 	/** The approved character name */
 	private $character;
