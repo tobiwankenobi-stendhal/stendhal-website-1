@@ -17,16 +17,15 @@ class CreateCharacterPage extends Page {
 	}
 
 	function writeContent() {
-		/* TODO
 		if (!isset($_SESSION['username'])) {
 			startBox("Create Character");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/create-character.html">login</a> to create a character.</p>';
 			endBox();
-		} else {*/
+		} else {
 			// TODO: init $outfitArray from url
 			$this->random();
 			$this->process();
-		//}
+		}
 	}
 
 	function random() {
