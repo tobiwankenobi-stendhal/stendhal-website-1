@@ -24,3 +24,4 @@ require_once ('common/net/message/message-s2c-createaccountnack.php');
 require_once ('common/net/message/message-s2c-createcharacterack.php');
 require_once ('common/net/message/message-s2c-createcharacternack.php');
 
+require_once ('client/clientframework.php');
