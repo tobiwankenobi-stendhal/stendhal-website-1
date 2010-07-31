@@ -28,8 +28,8 @@ class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
 	 * @param password desired password
 	 * @param email email of the player
 	 */
-	public function init($username, $password, $email) {
-		$this->credentials = STENDHAL_PROXY_CREDENTIALS;
+	public function init($credentials, $username, $password, $email) {
+		$this->credentials = $credentials;
 		$this->forwardedFor = $_SERVER['REMOTE_ADDR'];
 		$this->username = $username;
 		$this->password = $password;

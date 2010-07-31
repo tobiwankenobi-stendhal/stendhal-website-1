@@ -28,8 +28,8 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 	 * @param character name of new character
 	 * @param template template for the new object
 	 */
-	public function init($username, $password, $email) {
-		$this->credentials = STENDHAL_PROXY_CREDENTIALS;
+	public function init($credentials, $username, $password, $email) {
+		$this->credentials = $credentials;
 		$this->forwardedFor = $_SERVER['REMOTE_ADDR'];
 		$this->username = $username;
 		$this->password = $password;
