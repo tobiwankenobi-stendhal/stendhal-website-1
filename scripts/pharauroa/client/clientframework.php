@@ -26,8 +26,19 @@ class PharauroaClientFramework {
 	public function createAccount($username, $password, $email) {
 		// Create message
 		$message = new PharauroaMessageP2SCreateAccount();
-		$message->init($username, $password, $email);
+		$message->init($this->credentials, $username, $password, $email);
 		
+		$answer = sendMessage($message);
+		// TODO: analyse answer
+	}
+
+	/**
+	 * creates a new character
+	 */
+	public function createCharacter($username, $character, $template) {
+		$message = new PharauroaMessageP2SCreateCharacter();
+		$message->init($this->credentials, $username, $character, $template);
+
 		$answer = sendMessage($message);
 		// TODO: analyse answer
 	}
