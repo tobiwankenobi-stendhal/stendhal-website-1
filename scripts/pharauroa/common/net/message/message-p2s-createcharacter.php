@@ -28,12 +28,12 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 	 * @param character name of new character
 	 * @param template template for the new object
 	 */
-	public function init($credentials, $username, $password, $email) {
+	public function init($credentials, $username, $character, $template) {
 		$this->credentials = $credentials;
 		$this->forwardedFor = $_SERVER['REMOTE_ADDR'];
 		$this->username = $username;
-		$this->password = $password;
-		$this->email = $email;
+		$this->character = $character;
+		$this->template = $template;
 	}
 
 	
@@ -51,7 +51,7 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 	 *
 	 * @return desired character name
 	 */
-	public function getPassword() {
+	public function getCharacter() {
 		return $this->character;
 	}
 
