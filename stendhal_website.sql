@@ -25,7 +25,7 @@ create table movies (
 create table news (
   id int auto_increment not null,
   title varchar(256),
-  shortDescription varchar(256),
+  shortDescription varchar(256), 
   extendedDescription text,
   detailedDescription text,
   active int default 1,
@@ -52,8 +52,8 @@ insert into news_type(title, image_url) values ('Raid', '/images/events/eventRai
 insert into news_type(title, image_url) values ('Release', '/images/events/eventRelease.png');
 insert into news_type(title, image_url) values ('Other', '/images/events/eventOther.png');
 
-insert into news values(null, "Edit this with your news title", "one line description one line description one line description one line description ", 
-"An html formatted extended description can go here.", null);
+insert into news (title, shortDescription, extendedDescription, detailedDescription, news_type_id ) values ( "Edit this with your news title", "     ", 
+"An html formatted description can go here.<p>","More description to be hidden behind a link can go here", 1);
 
 create table news_images (
   id int auto_increment not null,
