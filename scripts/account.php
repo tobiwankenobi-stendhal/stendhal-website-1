@@ -349,3 +349,49 @@ class PlayerLoginEntry {
 		$this->success = $success;
 	}
 }
+
+/**
+ * gets a list of recent messages for that player
+ */
+function getStoredMessages($name) {
+    $sql = "SELECT source, timedate, message, messageType, delivered FROM "
+		. " postman WHERE target='".mysql_real_escape_string($name)
+		. "' ORDER BY timedate DESC LIMIT 100;";
+
+    $result = mysql_query($sql, getGameDB());
+    $list=array();
+
+    while($row = mysql_fetch_assoc($result)) {
+        $list[] = new StoredMessage($row['source'], $row['timedate'],
+            $row['message'], $row['messageType'], $row['delivered']);
+    }
+
+    mysql_free_result($result);
+
+    return $list;
+}
+
+
+/**
+  * A class that represents a StoredMessage
+  */
+class StoredMessage {
+	/* source of message (who sent it) */
+	public $source;
+    /* date and time of event */
+    public $timedate;
+    /* content of message */
+    public $message;
+    /* type of message: S (Support); P (player); N (NPC)  */
+    public $messageType;
+    /* whether it was delivered */
+    public $delivered;
+
+    function __construct($source, $timedate, $message, $messageType, $delivered) {
+        $this->source = $source;
+        $this->timedate = $timedate;
+        $this->message = $message;
+        $this->messageType = $messageType;
+        $this->delivered = $delivered;
+    }
+}
