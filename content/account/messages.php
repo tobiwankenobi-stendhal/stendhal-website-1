@@ -36,25 +36,32 @@ class MessagesPage extends Page {
 	}
 	
 	function printStoredMessages() {
-		$messages = getStoredMessages($_SESSION['username']);
+	    $playerId = getUserID($_SESSION['username']);
+		$messages = getStoredMessages($playerId);
 
 		startBox('Messages');
 
-		echo '<p>This is a list of the messages sent to you.';
+		echo '<p>This is a list of the recent messages sent to your characters.';
 
-		echo '<table class="prettytable"><tr><th>source</th><th>server time</th><th>message</th<th>message type</th><th>status</th></tr>';
+		echo '<table class="prettytable"><tr><th bgcolor="#D0D0D0">from</th><th bgcolor="#D0D0D0">to</th><th bgcolor="#D0D0D0">server time</th><th bgcolor="#D0D0D0">message</th></tr>';
 		foreach ($messages as $entry) {
-			echo '<tr><td>'.htmlspecialchars($entry->source)
+		    if ($entry->delivered == 0) {
+		      echo '<tr style="font-weight:bold;">';
+		    } else {
+		      echo '<tr>';
+		    }
+		    if ($entry->messageType == 'P') {
+              echo '<td><a href="'.rewriteURL('/character/'.htmlspecialchars($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>';
+            } else if ($entry->messageType == 'S') {
+              echo '<td><span style="color:orange">Support (<a href="'.rewriteURL('/character/'.htmlspecialchars($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>)</span>';
+            } else {
+                echo '<td>'.htmlspecialchars($entry->source);
+            }
+			echo '</td><td>'.htmlspecialchars($entry->target)
 				.'</td><td>'.htmlspecialchars($entry->timedate)
-				.'</td><td>'.htmlspecialchars($entry->message)
-				.'</td><td>'.htmlspecialchars($entry->messageType)
-				.'</td><td>';
-			if ($entry->delivered == 1) {
-				echo '<span style="color:#0A0">seen</span>';
-			} else {
-				echo '<span style="color:#A00">unseen</span>';
-			}
+				.'</td><td>'.htmlspecialchars($entry->message);
 			echo '</td></tr>';
+
 		}
 		echo '</table>';
 		endBox(); 

@@ -353,16 +353,16 @@ class PlayerLoginEntry {
 /**
  * gets a list of recent messages for that player
  */
-function getStoredMessages($name) {
-    $sql = "SELECT source, timedate, message, messageType, delivered FROM "
-		. " postman WHERE target='".mysql_real_escape_string($name)
-		. "' ORDER BY timedate DESC LIMIT 100;";
+function getStoredMessages($playerId) {
+    $sql = "SELECT postman.source, postman.target, postman.timedate, postman.message, postman.messageType, postman.delivered FROM "
+		. " postman JOIN characters ON characters.charname = postman.target WHERE characters.player_id=".mysql_real_escape_string($playerId)
+		. " ORDER BY postman.timedate DESC LIMIT 100;";
 
     $result = mysql_query($sql, getGameDB());
     $list=array();
 
     while($row = mysql_fetch_assoc($result)) {
-        $list[] = new StoredMessage($row['source'], $row['timedate'],
+        $list[] = new StoredMessage($row['source'], $row['target'], $row['timedate'],
             $row['message'], $row['messageType'], $row['delivered']);
     }
 
@@ -378,6 +378,8 @@ function getStoredMessages($name) {
 class StoredMessage {
 	/* source of message (who sent it) */
 	public $source;
+	/* target of message (who it was sent to) */
+    public $target;
     /* date and time of event */
     public $timedate;
     /* content of message */
@@ -387,8 +389,9 @@ class StoredMessage {
     /* whether it was delivered */
     public $delivered;
 
-    function __construct($source, $timedate, $message, $messageType, $delivered) {
+    function __construct($source, $target, $timedate, $message, $messageType, $delivered) {
         $this->source = $source;
+        $this->target = $target;
         $this->timedate = $timedate;
         $this->message = $message;
         $this->messageType = $messageType;
