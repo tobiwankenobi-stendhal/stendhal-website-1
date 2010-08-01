@@ -57,10 +57,14 @@ class MessagesPage extends Page {
             } else {
                 echo '<td>'.htmlspecialchars($entry->source);
             }
-			echo '</td><td>'.htmlspecialchars($entry->target)
-				.'</td><td>'.htmlspecialchars($entry->timedate)
-				.'</td><td>'.htmlspecialchars($entry->message);
-			echo '</td></tr>';
+			echo '</td><td>'.htmlspecialchars($entry->target);
+			if ($entry->timedate == '2010-07-20 00:00:00') {
+			    echo '</td><td>unknown';
+			} else {
+			    echo '</td><td>'.htmlspecialchars($entry->timedate);
+			}
+			echo '</td><td>'.htmlspecialchars($entry->message)
+			    .'</td></tr>';
 
 		}
 		echo '</table>';
