@@ -43,7 +43,7 @@ class MessagesPage extends Page {
 
 		echo '<p>This is a list of the recent messages sent to your characters.';
 
-		echo '<table class="prettytable"><tr><th bgcolor="#D0D0D0">from</th><th bgcolor="#D0D0D0">to</th><th bgcolor="#D0D0D0">server time</th><th bgcolor="#D0D0D0">message</th></tr>';
+		echo '<table class="prettytable"><tr><th>from</th><th>to</th><th>server time</th><th>message</th></tr>';
 		foreach ($messages as $entry) {
 		    if ($entry->delivered == 0) {
 		      echo '<tr style="font-weight:bold;">';
