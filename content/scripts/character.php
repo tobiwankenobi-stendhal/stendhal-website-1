@@ -45,7 +45,9 @@ $account=$choosen->getAccountInfo();
 <div class="table">
   <div class="title">Details</div>
   <div style="float: right">
-  <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
+    <?php if ($account["status"] == 'active') {?>
+      <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
+    <?php }?>
   </div>
   <div><span class="statslabel">Name:</span><span class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span></div>
   <div><span class="statslabel">Age:</span><span class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</span></div>
