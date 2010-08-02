@@ -96,8 +96,8 @@ if ($page->writeHttpHeader()) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000010.css">
-	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000007.css"><![endif]-->
+	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000011.css">
+	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000008.css"><![endif]-->
 	<link rel="icon" type="image/png" href="<?php echo STENDHAL_FOLDER;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
@@ -182,6 +182,7 @@ if ($page->writeHttpHeader()) {
                     if(checkLogin()) {
                 ?>
                     <li><a id="menuAccountMain" href="<?php echo(rewriteURL('/account/myaccount.html')); ?>">Logged in as <strong><?php echo($_SESSION['username']); ?></strong></a></li>
+                    <li><a id="menuAccountCharacters" href="<?php echo(rewriteURL('/account/mycharacters.html')); ?>">My Characters</a></li>
                     <li><a id="menuAccountMessages" href="<?php echo(rewriteURL('/account/messages.html')); ?>">Messages</a></li>
                     <li><a id="menuAccountHistory" href="<?php echo(rewriteURL('/account/history.html')); ?>">Login History</a></li>
                     <li><a id="menuAccountPassword" href="<?php echo(rewriteURL('/account/change-password.html')); ?>">New Password</a></li>
