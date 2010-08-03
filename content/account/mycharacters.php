@@ -36,18 +36,22 @@ class MyCharactersPage extends Page {
 		$players = getCharactersForUsername($_SESSION['username']);
 		if(sizeof($players)==0) {
 			echo 'You have no characters.';
-		}
-		foreach($players as $p) {
-			echo '<div class="onlinePlayer">';
-			echo '  <a href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';
-			echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
-			echo '  <span class="block">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
-			echo '  <span class="block">Level: '.$p->level.'</span>';
-			echo '  <span class="block">Age: '.intval($p->age/60).' h</span>';
-			echo '  <span class="block"><a href="'.rewriteURL('/character/'.htmlspecialchars(utf8_encode($p->name)).'.html').'">Details</a></span>';
-			echo '</div>';
+		} else {
+          echo '<div style="height: 280px;">';
+		  foreach($players as $p) {
+			 echo '<div class="onlinePlayer characterHeight">';
+			 echo '  <a class = "onlineLink" href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';
+			 echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
+			 echo '  <span class="block">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
+			 echo '  <span class="block">Level: '.$p->level.'</span>';
+			 echo '  <span class="block">Age: '.intval($p->age/60).' h</span>';
+			 echo '  <span class="block"><a class = "characterLink" href="'.rewriteURL('/character/'.htmlspecialchars(utf8_encode($p->name)).'.html').'">Details</a></span>';
+			 echo '</div>';
+		  }
+		  echo '</div>';
 		}
 		endBox();
+
 		startBox("Note");
 		?>
 		<p>Starting the Stendhal client may take a minute. Please be patient after clicking on your character.</p>

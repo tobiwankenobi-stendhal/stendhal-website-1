@@ -16,8 +16,8 @@ if(sizeof($players)==0) {
 }
 echo '<div style="height: 700px;">';
 foreach($players as $p) {
-    echo '<div class="onlinePlayer">';
-    echo '  <a href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">';
+    echo '<div class="onlinePlayer onlinePlayerHeight">';
+    echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">';
     echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
     echo '  <span class="block onlinename">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
     echo '</div>';

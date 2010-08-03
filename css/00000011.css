@@ -326,6 +326,35 @@ img.screenshot {
     font-weight: bold;
 }
 
+.onlinePlayer {
+	width: 80px;
+	text-align: center;
+	float: left;
+        font-size: 12px;
+        font-weight: bold;
+}
+
+.characterHeight {
+	height: 140px;
+}
+
+.onlinePlayerHeight {
+	height: 80px;
+}
+
+.onlineLink {
+	text-decoration: none;
+	color: black;
+}
+
+.onlinePlayer img {
+	border: 0;
+}
+
+.characterLink {
+	text-decoration: none;
+}
+
 /* -------------------------------------------------------------------------*/
 /* events.css */
 
