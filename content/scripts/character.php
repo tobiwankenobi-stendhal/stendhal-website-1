@@ -97,26 +97,23 @@ rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php
 
 <div class="table">
 <div class="title">Equipment</div>
+<div class ="equipment" height = "400px">
 <?php
 foreach($choosen->equipment as $slot=>$content) {
-	$old = array("head", "lhand", "rhand", "legs", "feet", "cloak", "finger");
-	$new = array("head", "left hand", "right hand", "legs", "feet", "cloak", "finger");
-	$slot = str_replace($old, $new, $slot);
+	$old = array("head", "armor", "lhand", "rhand", "legs", "feet", "cloak");
+	$new = array("head", "armor", "left hand", "right hand", "legs", "feet", "cloak"); 
+
 	?>
-	<div class="row">
-	<?php
+	<div class="row <?php echo $slot;?>">
+	<?php 
 	if($content!="") {
 		$item = getItem($content);
 		echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($content).'.html').'">'; ?>
-		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" "/>
-		<span class="block label"><?php echo htmlspecialchars(ucwords($slot)) ?></span>
-		<span class="block data"><?php echo htmlspecialchars(ucfirst($content)); ?></span></a>
+		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" " title = "<?php echo htmlspecialchars(ucfirst(str_replace($old, $new, $slot))); ?>:<?php echo htmlspecialchars(ucfirst($content)); ?>"/></a>
 		<?php
 	} else {
 		?>
 	<div class="emptybox"></div>
-		<span class="block label"><?php echo htmlspecialchars(ucwords($slot)) ?></span>
-		<span class="block data">Empty</span>
 		<?php
 	}
 	?>
@@ -125,7 +122,7 @@ foreach($choosen->equipment as $slot=>$content) {
 }
 	?>
 </div>
-
+</div>
 <div class="table">
   <div class="title">Deaths</div>
  <?php
