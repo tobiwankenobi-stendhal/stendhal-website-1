@@ -97,7 +97,7 @@ rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php
 
 <div class="table">
 <div class="title">Equipment</div>
-<div class ="equipment" height = "400px">
+<div class ="equipment">
 <?php
 foreach($choosen->equipment as $slot=>$content) {
 	$old = array("head", "armor", "lhand", "rhand", "legs", "feet", "cloak");
