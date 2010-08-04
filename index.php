@@ -131,7 +131,7 @@ if ($page->writeHttpHeader()) {
 		// Return the latest screenshot added to the webpage.
 		$screen=getLatestScreenshot();
 		?>
-		<a href="<?php echo rewriteURL(STENDHAL_FOLDER.'/images/image/'.htmlspecialchars($screen->url)); ?>">
+		<a href="<?php echo rewriteURL('/images/image/'.htmlspecialchars($screen->url)); ?>">
 			<?php $screen->showThumbnail(); ?>
 		</a>
 		<?php endBox() ?>
