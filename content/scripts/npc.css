@@ -31,14 +31,6 @@
 	font-weight: bolder;
 }
 
-.table {
-	border: 1px solid #BBBBBB;
-	background: #DDDDDD;
-	text-align: left;
-	padding: 5px;
-	margin-bottom: 12px;
-}
-
 .row {
 	margin-bottom: 10px;
 }

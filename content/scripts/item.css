@@ -31,15 +31,6 @@
 	margin-bottom: 12px;
 }
 
-
-.table {
-	border: 1px solid #BBBBBB;
-	background: #DDDDDD;
-	text-align: left;
-	padding: 5px;
-	margin-bottom: 12px;
-}
-
 .row {
 	margin-bottom: 5px;
 }
@@ -55,12 +46,6 @@
 .row a {
 	text-decoration: none;
 	color: black;
-}
-
-.title {
-	font-size: 110%;
-	border-bottom: 1px dotted black;
-	margin-bottom: 5px;
 }
 
 .label {

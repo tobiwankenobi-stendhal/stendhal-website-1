@@ -104,12 +104,12 @@ foreach($choosen->equipment as $slot=>$content) {
 	$new = array("head", "armor", "left hand", "right hand", "legs", "feet", "cloak"); 
 
 	?>
-	<div class="row <?php echo $slot;?>">
+	<div class="equiprow <?php echo $slot;?>">
 	<?php 
 	if($content!="") {
 		$item = getItem($content);
 		echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($content).'.html').'">'; ?>
-		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" " title = "<?php echo htmlspecialchars(ucfirst(str_replace($old, $new, $slot))); ?>:<?php echo htmlspecialchars(ucfirst($content)); ?>"/></a>
+		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" " title = "<?php echo htmlspecialchars(ucfirst(str_replace($old, $new, $slot))); ?>: <?php echo htmlspecialchars(ucfirst($content)); ?>"/></a>
 		<?php
 	} else {
 		?>

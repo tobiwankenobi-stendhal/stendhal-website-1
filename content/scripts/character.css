@@ -13,105 +13,6 @@
 	font-family: Arial;
 }
 
-.sentence {
-	border: 1px solid black;
-	background-color: rgb(180, 180, 180);
-	color: white;
-	padding: 4px;
-	margin-top: 12px;
-}
-
-.active {
-	color: green;
-}
-
-.banned {
-	color: red;
-	font-weight: bolder;
-}
-
-.table {
-	border: 1px solid #BBBBBB;
-	background: #DDDDDD;
-	text-align: left;
-	padding: 5px;
-	margin-bottom: 12px;
-}
-
-.equipment {
-        position:relative;
-	height:160px
-}
-
-.row {
-	margin-bottom: 10px;
-}
-
-.row img,.emptybox {
-	float: left;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	border: 1px solid black;
-}
-
-.head {
-         position:absolute;
- 	 top:0px;
- 	 left:40px;
-}
-
-.lhand {
-         position:absolute;
- 	 top:50px;
- 	 left:0px;
-}
-
-.rhand {
-         position:absolute;
- 	 top:50px;
- 	 left:80px;
-}
-
-.armor {
-         position:absolute;
- 	 top:40px;
- 	 left:40px;
-}
-
-.legs {
-         position:absolute;
- 	 top:80px;
- 	 left:40px;
-}
-
-
-.feet {
-         position:absolute;
- 	 top:120px;
- 	 left:40px;
-}
-
-.cloak {
-         position:absolute;
- 	 top:90px;
- 	 left:80px;
-}
-.creature {
-	width: 48px;
-	height: 64px;
-}
-
-.row a {
-	text-decoration: none;
-	color: black;
-}
-
-
-.title {
-	font-size: 110%;
-	border-bottom: 1px dotted black;
-	margin-bottom: 5px;
-}
 
 .label {
 	font-weight: bold;
@@ -121,13 +22,4 @@
 	font-style: italic;
 }
 
-.emptybox {
-	width: 32px;
-	height: 32px;
-	border: 1px solid black;
-}
 
-.married {
-         margin-top: 3px;
-	 font-style: italic;
-}
