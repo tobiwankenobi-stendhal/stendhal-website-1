@@ -225,10 +225,8 @@ if ($page->writeHttpHeader()) {
 			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame/active_overview.html')?>">Hall Of Fame</a></li>
 			<li><a id="menuPlayerKillstats" href="<?php echo rewriteURL('/world/kill-stats.html')?>">Kill stats</a></li>
 		</ul>
-		<form method="get" action="/" accept-charset="iso-8859-1">
-			<input type="hidden" name="id" value="<?php if( STENDHAL_FOLDER != '' ) {
-			     echo STENDHAL_FOLDER.'/';
-              }?>content/scripts/character">
+		<form method="get" action="<?php echo STENDHAL_FOLDER;?>/" accept-charset="iso-8859-1">
+			<input type="hidden" name="id" value="content/scripts/character">
 			<input type="text" name="name" maxlength="30" style="width:9.8em">
 			<input type="submit" name="search" value="Player search">
 		</form>
