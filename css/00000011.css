@@ -476,13 +476,13 @@ img.screenshot {
 .lhand {
          position:absolute;
  	 top:50px;
- 	 left:0px;
+ 	 left:80px;
 }
 
 .rhand {
          position:absolute;
  	 top:50px;
- 	 left:80px;
+ 	 left:0px;
 }
 
 .armor {
