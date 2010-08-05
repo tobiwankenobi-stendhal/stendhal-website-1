@@ -524,6 +524,45 @@ img.screenshot {
 	 font-style: italic;
 }
 
+/* partial monsters.css */
+
+.monster {
+	text-align: center;
+}
+
+.monster img {
+	border: 1px solid black;
+}
+
+.monster .name {
+	text-align: left;
+	font-size: 36px;
+	font-family: monospace tahoma courier;
+}
+
+.monster .level {
+	text-align: left;
+	font-size: 18px;
+}
+
+.monster .xp {
+	text-align: left;
+	font-size: 14px;
+}
+
+.monster .respawn {
+	text-align: left;
+	font-size: 14px;
+}
+
+.monster .description {
+	padding: 5px;
+	border: 1px solid #BBBBBB;
+	background: #DDDDDD;
+	font-style: italic;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
 
 /*-----------------------------------------------------------------------*/
 

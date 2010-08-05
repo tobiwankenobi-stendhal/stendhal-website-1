@@ -76,9 +76,9 @@ foreach($this->monsters as $m) {
 	if($m->name==$this->name || (!$this->isExact and strpos($m->name, $this->name) != false)) {
 	startBox("Detailed information");
 	?>
-	<div class="creature">
+	<div class="monster">
 		<div class="name"><?php echo ucfirst($m->name); ?></div>
-		<img class="creature" src="<?php echo $m->gfx; ?>" alt="">
+		<img class="monster" src="<?php echo $m->gfx; ?>" alt="">
 		<div class="level">Level <?php echo $m->level; ?></div>
 		<div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
 		<div class="respawn">Respawns on average in <?php echo printRespawn($m->respawn); ?> minutes.</div>
