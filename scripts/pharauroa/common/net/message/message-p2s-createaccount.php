@@ -79,7 +79,7 @@ class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
 		$this->email = $in->readString();
 
 		if ($this->MessageType != PharauroaMessageType::P2S_CREATEACCOUNT) {
-			// TODO: handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 }

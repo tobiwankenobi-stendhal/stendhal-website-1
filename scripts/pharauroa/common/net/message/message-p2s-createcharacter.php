@@ -81,7 +81,7 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 		$this->template = $in->readString();
 
 		if ($this->messageType != PharauroaMessageType::P2S_CREATECHARACTER) {
-			// TODO: handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 }

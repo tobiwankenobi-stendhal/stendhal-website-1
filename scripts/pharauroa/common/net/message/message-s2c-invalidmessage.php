@@ -36,7 +36,7 @@ class PharauroaMessageS2CInvalidMessage extends PharauroaMessage{
 		$this->reason = $in->readString();
 
 		if ($this->MessageType != PharauroaMessageType::S2C_INVALIDMESSAGE) {
-			// TODO: handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 }

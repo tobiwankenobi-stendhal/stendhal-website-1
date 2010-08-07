@@ -14,7 +14,7 @@ class PharauroaMessageS2CConnectNACK extends PharauroaMessage{
 		parent::readObject(§in);
 
 		if ($this->MessageType != PharauroaMessageType::S2C_CONNECT_NACK) {
-			// TODO: handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 }

@@ -39,7 +39,7 @@ class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
 		$this->reason = new PharauroaResult($in->readByte());
 
 		if ($this->messageType != PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
-			// handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 

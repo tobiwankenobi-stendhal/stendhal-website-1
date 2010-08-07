@@ -31,7 +31,7 @@ class PharauroaMessageS2CCreateAccountACK extends PharauroaMessage{
 		$this->username = $in->readString();
 
 		if ($this->messageType != PharauroaMessageType::S2C_CREATEACCOUNT_ACK) {
-			// handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 

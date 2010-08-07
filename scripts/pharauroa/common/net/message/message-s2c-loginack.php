@@ -47,7 +47,7 @@ class PharauroaMessageS2CLoginACK extends PharauroaMessage{
 		}
 
 		if ($this->messageType != PharauroaMessageType::S2C_LOGIN_ACK) {
-			// handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 

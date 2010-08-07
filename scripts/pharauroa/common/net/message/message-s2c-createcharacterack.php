@@ -44,7 +44,7 @@ class PharauroaMessageS2CCreateCharacterACK extends PharauroaMessage{
 		$this->tempalte->readObject($in);
 
 		if ($this->messageType != PharauroaMessageType::S2C_CREATECHARACTER_ACK) {
-			// handle error
+			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
 
