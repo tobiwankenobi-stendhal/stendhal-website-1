@@ -30,3 +30,8 @@ require_once ('common/net/message/message-s2c-createcharacternack.php');
 require_once ('common/net/message/message-s2c-invalidmessage.php');
 
 require_once ('client/clientframework.php');
+
+function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+}
+set_error_handler("exception_error_handler");
