@@ -9,6 +9,7 @@ require_once ('common/game/result.php');
 require_once ('common/game/rpobject.php');
 
 require_once ('common/net/invalid-version-exception.php');
+require_once ('common/net/io-exception.php');
 
 require_once ('common/net/deserializer.php');
 require_once ('common/net/serializer.php');
