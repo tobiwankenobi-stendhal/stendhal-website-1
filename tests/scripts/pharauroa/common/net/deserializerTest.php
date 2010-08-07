@@ -190,5 +190,15 @@ class PharauroaDeserializerTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($out_sstr4, $in_sstr4, 'Test case mix - read255LongString() - 4');
 	}
 
+	public function testIOException() {
+		$deserializer = new PharauroaDeserializer('a');
+		$deserializer->readByte();
+		try {
+			$deserializer->readByte();
+			fail('Excepted PharauroaIOException');
+		} catch (PharauroaIOException $e) {
+			// okay
+		}
+	}
 }
 ?>
