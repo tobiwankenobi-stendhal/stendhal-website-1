@@ -30,7 +30,7 @@ class PharauroaMessageFactory {
 		} else if ($type == PharauroaMessageType::S2C_INVALID_MESSAGE) {
 			$message = new PharauroaMessageS2CInvalidMessage();
 		} else {
-			// TODO
+			throw new PharauroaIOException('Unknown message type: '.$type);
 		}
 		$message->readObject($deserializer);
 		var_dump($message);
