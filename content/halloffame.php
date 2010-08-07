@@ -21,7 +21,7 @@ function printAge($minutes) {
 }
 
 function getDMScore($player) {
-	return $player->getDMScore();
+	return $player->getHallOfFameScore('D');
 }
 
 function getTotalAtk($player) {

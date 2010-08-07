@@ -127,8 +127,8 @@ class Player {
     return $account;
   }
 
-  function getDMScore() {
-   $result=mysql_query('select points from halloffame where charname="'.mysql_real_escape_string($this->name).'" and fametype="D"',getGameDB());
+  function getHallOfFameScore($fametype) {
+   $result=mysql_query('select points from halloffame where charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
 
     while($row=mysql_fetch_assoc($result)) {
       $points=$row['points'];
@@ -200,8 +200,8 @@ function _getPlayers($query) {
 
       $equipment=array();
       $equipment['head']=$row['head'];
-      $equipment['armor']=$row['armor'];
       $equipment['lhand']=$row['lhand'];
+      $equipment['armor']=$row['armor'];
       $equipment['rhand']=$row['rhand'];
       $equipment['legs']=$row['legs'];
       $equipment['feet']=$row['feet'];

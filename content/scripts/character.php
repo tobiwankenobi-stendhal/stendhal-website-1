@@ -52,8 +52,6 @@ $account=$choosen->getAccountInfo();
   <div><span class="statslabel">Name:</span><span class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span></div>
   <div><span class="statslabel">Age:</span><span class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</span></div>
   <div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
-  <div><span class="statslabel">XP:</span><span class="data"><?php echo htmlspecialchars($choosen->xp); ?></span></div>
-  <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getDMScore()); ?></span></div>
   <div class="married"><?php if(!empty($choosen->married)) {  echo  htmlspecialchars($choosen->name); ?> is married to <a href="<?php echo 
 rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php echo  htmlspecialchars($choosen->married); } ?></a> 
 </div>
@@ -61,27 +59,8 @@ rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php
   	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
   }?>
 </div>
-
-<div class="table">
-  <div class="title">Account information</div>
-  <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
-  <div class="account_status">
-    This account is <span class="<?php echo htmlspecialchars($account["status"]); ?>"><?php echo htmlspecialchars($account["status"]); ?></span>
-  </div>
-  <?php if (($account["status"]) == 'active' && ($choosen->adminlevel > 0) && ($choosen->name != 'postman')) {
-  	if ($choosen->adminlevel < 300) {
-			echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
-		} else if ($choosen->adminlevel < 500) {
-			echo '<div class="admin">This player has adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players.</div>';
-		} else {
-			echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
-		}
-	}
-  ?>
-</div>
-
-
-<div class="table">
+<div style="height:220px">
+<div class="table" style ="float:left; height:190px; margin-right: 12px;">
   <div class="title">Attributes and statistics</div>
 
   <?php
@@ -93,9 +72,10 @@ rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php
     <div><span class="statslabel"><?php echo htmlspecialchars(ucwords($key)) ?>:</span>
     <span class="data"><?php echo htmlspecialchars(ucwords($value)) ?></span></div>
     <?php } ?>
+     <div><span class="statslabel">XP:</span><span class="data"><?php echo htmlspecialchars($choosen->xp); ?></span></div>
+  <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('D')); ?></span></div>
 </div>
-
-<div class="table">
+<div class="table" style = "float:left; width:115px">
 <div class="title">Equipment</div>
 <div class ="equipment">
 <?php
@@ -123,6 +103,26 @@ foreach($choosen->equipment as $slot=>$content) {
 	?>
 </div>
 </div>
+</div>
+
+<div class="table">
+  <div class="title">Account information</div>
+  <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
+  <div class="account_status">
+    This account is <span class="<?php echo htmlspecialchars($account["status"]); ?>"><?php echo htmlspecialchars($account["status"]); ?></span>
+  </div>
+  <?php if (($account["status"]) == 'active' && ($choosen->adminlevel > 0) && ($choosen->name != 'postman')) {
+    if ($choosen->adminlevel < 300) {
+            echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
+        } else if ($choosen->adminlevel < 500) {
+            echo '<div class="admin">This player has adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players.</div>';
+        } else {
+            echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
+        }
+    }
+  ?>
+</div>
+
 <div class="table">
   <div class="title">Deaths</div>
  <?php
