@@ -62,17 +62,6 @@ class HallOfFamePage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<title>Hall of Fame ('.htmlspecialchars($this->filter).')'.STENDHAL_TITLE.'</title>';
-
-		// TODO: move this to CSS file
-		?><style type="text/css">
-.activeTab {padding: 0.5em; text-align: center; background-color: #CFC; line-height: 0.95em; font-weight: bold; -moz-use-text-color; white-space: nowrap; background-image:url(/images/palegrasstab.jpg);}
-.activeTabA {color: #000; text-decoration: none; display: block}
-.backgroundTab {padding: 0.5em; text-align: center; background-color: #7A7; font-size: 90%; line-height: 0.95em; border-bottom: 2px solid #000; white-space: nowrap; background-image:url(/images/darkgrasstab.jpg);}
-.backgroundTabA {color: #FFF; text-decoration: none; display: block}
-.backgroundTabA:hover {font-weight:bold; text-decoration: underline}
-.barTab{border-bottom: 2px solid #000; }
-.tabPageContent{background-color: #CFC; border-left: 2px solid #000; border-right: 2px solid #000; border-bottom: 2px solid #000; background-image:url(/images/palegrass.jpg);}
-</style><?php 
 	}
 
 
