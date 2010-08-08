@@ -46,7 +46,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/account/login.html$ /index.php?id=content/account/login [L]
                 RewriteRule ^/account/logout.html$ /index.php?id=content/account/logout [L]
                 RewriteRule ^/account/merge.html$ /index.php?id=content/account/merge [L]
-                RewriteRule ^/account/messages.html$ /index.php?id=content/account/messages [L]
+                RewriteRule ^/account/messages.html$ /index.php?id=content/account/messages/to-me.html [L]
+                RewriteRule ^/account/messages/(.*)\.html$ /index.php?id=content/account/messages&filter=$1 [L]
                 RewriteRule ^/account/myaccount.html$ /index.php?id=content/account/myaccount [L]
                 RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters [L]
                 RewriteRule ^/account/remind-mail.html$ /index.php?id=content/account/remind [L]
@@ -225,7 +226,9 @@ function rewriteURL($url) {
 			return preg_replace('|^/account/merge.html$|', $folder.'/?id=content/account/merge', $url);
 	    } else if (preg_match('|^/account/messages.html$|', $url)) {
             return preg_replace('|^/account/messages.html$|', $folder.'/?id=content/account/messages', $url);
-		} else if (preg_match('|^/account/myaccount.html$|', $url)) {
+		} else if (preg_match('|^/account/messages/(.*)\.html$|', $url)) {
+            return preg_replace('|^/account/messages/(.*)\.html$|', $folder.'/?id=content/account/messages&filter=$1', $url);
+        } else if (preg_match('|^/account/myaccount.html$|', $url)) {
 			return preg_replace('|^/account/myaccount.html$|', $folder.'/?id=content/account/myaccount', $url);
 		} else if (preg_match('|^/account/mycharacters.html$|', $url)) {
 			return preg_replace('|^/account/mycharacters.html$|', $folder.'/?id=content/account/mycharacters', $url);

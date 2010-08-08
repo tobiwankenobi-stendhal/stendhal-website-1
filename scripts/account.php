@@ -353,13 +353,14 @@ class PlayerLoginEntry {
 /**
  * gets a list of recent messages for that player
  */
-function getStoredMessages($playerId) {
+function getStoredMessages($playerId, $where) {
     $sql = "SELECT postman.source, postman.target, postman.timedate, postman.message, postman.messageType, postman.delivered "
-		. " FROM postman JOIN characters ON characters.charname = postman.target "
-		. " WHERE characters.player_id=".mysql_real_escape_string($playerId)
+		. " FROM postman , characters "
+		. " WHERE " . $where 
+		. " AND  characters.player_id=".mysql_real_escape_string($playerId)  
 		. " AND postman.timedate > DATE_SUB(CURDATE(),INTERVAL 3 MONTH) "
 		. " ORDER BY postman.timedate DESC LIMIT 100;";
-
+    // echo $sql;
     $result = mysql_query($sql, getGameDB());
     $list=array();
 

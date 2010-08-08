@@ -20,6 +20,10 @@
 
 class MessagesPage extends Page {
 
+    public function __construct() {
+        $this->setupFilter();
+    }
+
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>Messages'.STENDHAL_TITLE.'</title>';
@@ -31,21 +35,70 @@ class MessagesPage extends Page {
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/messages.html').'">login</a> to view your personal messages.</p>';
 			endBox();
 		} else {
-			$this->printStoredMessages();
+		    $this->writeTabs();
+		    $this->printStoredMessages();
+		    $this->closeTabs();
 		}
 	}
 	
+	function setupFilter() {
+        $this->filter = 'to-me';
+        if (isset($_REQUEST['filter'])) {
+            $this->filter = urlencode($_REQUEST['filter']);
+        }
+        if ($this->filter=="to-me") {
+            $this->filterWhere='characters.charname = postman.target ';
+        } else if ($this->filter=="from-me") {
+            $this->filterWhere = 'characters.charname = postman.source ';
+        } 
+        // TODO: 404 on invalid filter variable
+        return;
+    } 
+    
+	
+	function writeTabs() {
+        ?>
+        <br>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+        <td class="barTab" width="2%"> &nbsp;</td>
+        <?php echo '<td class="'.$this->getTabClass('to-me').'" width="25%"><a class="'.$this->getTabClass('to-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me.html')).'">To Me</a></td>';?>
+        <td class="barTab" width="2%"> &nbsp;</td>
+        <?php echo '<td class="'.$this->getTabClass('from-me').'" width="25%"><a class="'.$this->getTabClass('from-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/from-me.html')).'">From Me</a></td>';?>
+        <td class="barTab">&nbsp;</td>
+        </tr>
+        <tr><td colspan="7" class="tabPageContent">
+        <br>
+        <?php
+    }
+
+
+    function closeTabs() {
+        ?></td></tr></table><?php 
+    }
+
+    function getTabClass($tab) {
+        if ($this->filter == $tab) {
+            return 'activeTab';
+        } else {
+            return 'backgroundTab';
+        }
+    }
+	
 	function printStoredMessages() {
 	    $playerId = getUserID($_SESSION['username']);
-		$messages = getStoredMessages($playerId);
+		$messages = getStoredMessages($playerId, $this->filterWhere);
 
 		startBox('Messages');
-
-		echo '<p>This is a list of the recent messages sent to your characters.';
+        if ($this->filter=="to-me") {
+           $which =  ' to  ';
+        } else if ($this->filter=="from-me") {
+           $which = ' from '; 
+        }
+		echo '<p>This is a list of the recent messages'.$which.'your characters.';
 
 		echo '<table class="prettytable"><tr><th>from</th><th>to</th><th>server time</th><th>message</th></tr>';
 		foreach ($messages as $entry) {
-		    if ($entry->delivered == 0) {
+		    if ($this->filter=="to-me" && $entry->delivered == 0) {
 		      echo '<tr style="font-weight:bold;">';
 		    } else {
 		      echo '<tr>';
@@ -71,6 +124,7 @@ class MessagesPage extends Page {
 		endBox(); 
 
 	}
+	
 }
 $page = new MessagesPage();
 ?>
