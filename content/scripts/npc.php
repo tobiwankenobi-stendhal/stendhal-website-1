@@ -17,14 +17,14 @@ class NPCPage extends Page {
 	}
 
 	public function writeHttpHeader() {
+		global $protocol;
 		if (sizeof($this->npcs)==0) {
 			header('HTTP/1.0 404 Not Found');
 			return true;
 		}
-
-		if (strpos($_REQUEST['name'], ' ') !== FALSE) {
+		if ((strpos($_REQUEST['name'], ' ') !== FALSE) || isset($_REQUEST['search'])) {
 			header('HTTP/1.0 301 Moved permanently.');
-			header('Location: '.preg_replace('/[ +]/', '_', $_SERVER['PHP_SELF']));
+			header('Location: '.$protocol.'://'.$_SERVER['SERVER_NAME'].preg_replace('/&amp;/', '&', rewriteURL('/npc/'.preg_replace('/[ ]/', '_', $this->name.'.html'))));
 			return false;
 		}
 
