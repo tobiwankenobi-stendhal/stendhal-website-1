@@ -5,7 +5,7 @@ class NPCPage extends Page {
 	private $npcs;
 
 	public function __construct() {
-		$this->name = preg_replace('/_/', ' ', $_REQUEST['name']);
+		$this->name = preg_replace('/_/', ' ', trim($_REQUEST['name']));
 		$this->npcs = NPC::getNPCs('where name="'.mysql_real_escape_string($this->name).'"', 'name');
 	}
 
