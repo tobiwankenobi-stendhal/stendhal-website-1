@@ -33,7 +33,7 @@ I am assuming you have php installed. I am assuming your apache server knows how
 to deal with php. You might not have php5-mysql installed, you need that too.
 You can install them by writting:
   
-  apt-get install apache2 php5 php5-mysql mysql-server mysql
+  apt-get install apache2 php5 php5-mysql mysql-server mysql php5-gd
 
 
 ### Getting Stendhal Server
@@ -108,11 +108,6 @@ Make sure that HTTP server can write to that location.
   sudo chmod +uw tmp
 
 ### Extra tips
-
-To make outfit create script work you need gd installed, if you haven't got it already.
-The correct program name for apt types is php5-gd.
-
-  apt-get install php5-gd
 
 To edit news and events, login with an account from the game server with adminlevel >= 400 
 to the website (top right) and edit the news and events using the GUI.
