@@ -20,4 +20,19 @@
 	font-style: italic;
 }
 
+.row a { 	 
+	text-decoration: none; 	 
+	color: black; 	 
+} 	 
+	
 
+.row { 	 
+	 margin-bottom: 10px; 	 
+} 	 
+	  	 
+.row img { 	 
+	 float: left; 	 
+	 margin-right: 10px; 	 
+	 margin-bottom: 10px; 	 
+	 border: 1px solid black; 	 
+}
