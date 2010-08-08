@@ -31,9 +31,9 @@ $npcs=NPC::getNPCs();
 
 startBox('NPCs');
 ?>
-<form method="get" action="<?php echo STENDHAL_FOLDER;?>">
+<form method="get" action="<?php echo '/'.STENDHAL_FOLDER;?>">
   <input type="hidden" name="id" value="content/scripts/npc">
-  <input type="hidden" name="search" value="yes">
+  <input type="hidden" name="search" value="y">
   <input type="text" name="name" maxlength="60">
   <input type="submit" name="sublogin" value="Search">
 </form>
