@@ -401,3 +401,23 @@ class StoredMessage {
         $this->delivered = $delivered;
     }
 }
+
+/**
+ * gets a list of recent messages for that player
+ */
+function getCountUndeliveredMessages($playerId, $where) {
+    $sql = "SELECT count(*) as count "
+		. " FROM postman , characters "
+		. " WHERE " . $where 
+		. " AND characters.player_id=".mysql_real_escape_string($playerId)  
+		. " AND delivered = 0;";
+    $result = mysql_query($sql, getGameDB());
+
+    while($row = mysql_fetch_assoc($result)) {
+        $count = $row['count'];
+    }
+
+    mysql_free_result($result);
+
+    return $count;
+}

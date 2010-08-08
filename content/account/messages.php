@@ -41,31 +41,36 @@ class MessagesPage extends Page {
 		}
 	}
 	
+    function getFilter($filter) {
+        if ($filter=="to-me") {
+            $where='characters.charname = postman.target and messagetype <>"N"';
+        } else if ($filter=="to-me-npcs") {
+            $where='characters.charname = postman.target and messagetype ="N"';
+        } else if ($filter=="from-me") {
+            $where= 'characters.charname = postman.source ';
+        } 
+        return $where;
+    } 
+    
 	function setupFilter() {
         $this->filter = 'to-me';
         if (isset($_REQUEST['filter'])) {
             $this->filter = urlencode($_REQUEST['filter']);
         }
-        if ($this->filter=="to-me") {
-            $this->filterWhere='characters.charname = postman.target and messagetype <>"N"';
-        } else if ($this->filter=="to-me-npcs") {
-            $this->filterWhere='characters.charname = postman.target and messagetype ="N"';
-        } else if ($this->filter=="from-me") {
-            $this->filterWhere = 'characters.charname = postman.source ';
-        } 
+        $this->filterWhere=$this->getFilter($this->filter);
         // TODO: 404 on invalid filter variable
         return;
     } 
-    
 	
 	function writeTabs() {
+		$playerId = getUserID($_SESSION['username']);
         ?>
         <br>
         <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
         <td class="barTab" width="2%"> &nbsp;</td>
-        <?php echo '<td class="'.$this->getTabClass('to-me').'" width="25%"><a class="'.$this->getTabClass('to-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me.html')).'">To Me</a></td>';?>
+        <?php echo '<td class="'.$this->getTabClass('to-me').'" width="25%"><a class="'.$this->getTabClass('to-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me.html')).'">To Me ['.getCountUndeliveredMessages($playerId, $this->getFilter("to-me")).']</a></td>';?>
         <td class="barTab" width="2%"> &nbsp;</td>
-        <?php echo '<td class="'.$this->getTabClass('to-me-npcs').'" width="25%"><a class="'.$this->getTabClass('to-me-npcs').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me-npcs.html')).'">To Me (NPCs)</a></td>';?>
+        <?php echo '<td class="'.$this->getTabClass('to-me-npcs').'" width="25%"><a class="'.$this->getTabClass('to-me-npcs').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me-npcs.html')).'">To Me (NPCs) ['.getCountUndeliveredMessages($playerId, $this->getFilter("to-me-npcs")).']</a></td>';?>
         <td class="barTab" width="2%"> &nbsp;</td>
         <?php echo '<td class="'.$this->getTabClass('from-me').'" width="25%"><a class="'.$this->getTabClass('from-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/from-me.html')).'">From Me</a></td>';?>
         <td class="barTab">&nbsp;</td>
