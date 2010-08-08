@@ -47,7 +47,9 @@ class MessagesPage extends Page {
             $this->filter = urlencode($_REQUEST['filter']);
         }
         if ($this->filter=="to-me") {
-            $this->filterWhere='characters.charname = postman.target ';
+            $this->filterWhere='characters.charname = postman.target and messagetype <>"N"';
+        } else if ($this->filter=="to-me-npcs") {
+            $this->filterWhere='characters.charname = postman.target and messagetype ="N"';
         } else if ($this->filter=="from-me") {
             $this->filterWhere = 'characters.charname = postman.source ';
         } 
@@ -62,6 +64,8 @@ class MessagesPage extends Page {
         <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
         <td class="barTab" width="2%"> &nbsp;</td>
         <?php echo '<td class="'.$this->getTabClass('to-me').'" width="25%"><a class="'.$this->getTabClass('to-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me.html')).'">To Me</a></td>';?>
+        <td class="barTab" width="2%"> &nbsp;</td>
+        <?php echo '<td class="'.$this->getTabClass('to-me-npcs').'" width="25%"><a class="'.$this->getTabClass('to-me-npcs').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me-npcs.html')).'">To Me (NPCs)</a></td>';?>
         <td class="barTab" width="2%"> &nbsp;</td>
         <?php echo '<td class="'.$this->getTabClass('from-me').'" width="25%"><a class="'.$this->getTabClass('from-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/from-me.html')).'">From Me</a></td>';?>
         <td class="barTab">&nbsp;</td>
@@ -91,14 +95,16 @@ class MessagesPage extends Page {
 		startBox('Messages');
         if ($this->filter=="to-me") {
            $which =  ' to  ';
-        } else if ($this->filter=="from-me") {
+        } else if ($this->filter=="to-me-npcs") {
+           $which = ' from NPCs to '; 
+        }else if ($this->filter=="from-me") {
            $which = ' from '; 
         }
 		echo '<p>This is a list of the recent messages'.$which.'your characters.';
 
 		echo '<table class="prettytable"><tr><th>from</th><th>to</th><th>server time</th><th>message</th></tr>';
 		foreach ($messages as $entry) {
-		    if ($this->filter=="to-me" && $entry->delivered == 0) {
+		    if ($this->filter!="from-me" && $entry->delivered == 0) {
 		      echo '<tr style="font-weight:bold;">';
 		    } else {
 		      echo '<tr>';
