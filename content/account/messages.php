@@ -110,11 +110,13 @@ class MessagesPage extends Page {
 		      echo '<tr>';
 		    }
 		    if ($entry->messageType == 'P') {
-              echo '<td><a href="'.rewriteURL('/character/'.htmlspecialchars($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>';
+              echo '<td><a href="'.rewriteURL('/character/'.surlencode($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>';
             } else if ($entry->messageType == 'S') {
-              echo '<td><span style="color:orange">Support (<a href="'.rewriteURL('/character/'.htmlspecialchars($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>)</span>';
+              echo '<td><span style="color:orange">Support (<a href="'.rewriteURL('/character/'.surlencode($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>)</span>';
+            } else if ($entry->messageType == 'N') {
+                echo '<td><a href="'.rewriteURL('/npc/'.surlencode($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>';
             } else {
-                echo '<td>'.htmlspecialchars($entry->source);
+            	echo '<td>'.htmlspecialchars($entry->source);
             }
 			echo '</td><td>'.htmlspecialchars($entry->target);
 			if ($entry->timedate == '2010-07-20 00:00:00') {
