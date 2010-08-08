@@ -46,7 +46,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/account/login.html$ /index.php?id=content/account/login [L]
                 RewriteRule ^/account/logout.html$ /index.php?id=content/account/logout [L]
                 RewriteRule ^/account/merge.html$ /index.php?id=content/account/merge [L]
-                RewriteRule ^/account/messages.html$ /index.php?id=content/account/messages/to-me.html [L]
+                RewriteRule ^/account/messages.html$ /account/messages/to-me.html [R=301]
                 RewriteRule ^/account/messages/(.*)\.html$ /index.php?id=content/account/messages&filter=$1 [L]
                 RewriteRule ^/account/myaccount.html$ /index.php?id=content/account/myaccount [L]
                 RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters [L]
