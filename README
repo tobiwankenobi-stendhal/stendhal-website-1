@@ -95,17 +95,8 @@ Create a link to stendhal/data folder or copy it here so website knows how to ac
 stuff like sprites, items, configurations, etc...
 
 ###### Cache
-In order to avoid expensive queries to database and complex XML parsings, this
-website implements a cache.
-To make it work just enable it by doing:
-
-  define('STENDHAL_CACHE_ENABLED',true);
-  
-And set the proper path to where the cache files will be stored.
-Make sure that HTTP server can write to that location.
-
-  sudo chown www-data tmp
-  sudo chmod +uw tmp
+In order to avoid expensive queries to database and complex XML parsings, 
+ACP can be used for caching.
 
 ### Extra tips
 
