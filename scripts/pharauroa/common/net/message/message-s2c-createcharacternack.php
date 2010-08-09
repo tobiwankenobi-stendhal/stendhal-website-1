@@ -29,6 +29,13 @@ class PharauroaMessageS2CCreateCharacterNACK extends PharauroaMessage{
 		return $this->reason->getMessage();
 	}
 
+	/**
+	 * This method returns the PharauroaResult.
+	 */
+	public function getResult() {
+		return $this->reason;
+	}
+
 	public function writeObject(&$out) {
 		parent::writeObject($out);
 		$out->writeByte(($this->reason));

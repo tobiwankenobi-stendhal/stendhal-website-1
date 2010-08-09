@@ -29,7 +29,14 @@ class PharauroaClientFramework {
 		$message->init($this->credentials, $username, $password, $email);
 		
 		$answer = sendMessage($message);
-		// TODO: analyse answer
+	
+		if ($answer instanceof PharauroaMessageS2CCreateAccountACK) {
+			return new PharauroaResult(PharauroaResult::OK_CREATED);
+		} else if ($answer instanceof PharauroaMessageS2CCreateAccountNACK) {
+			return message.getResult();
+		} else {
+			return new PharauroaResult(PharauroaResult::FAILED_EXCEPTION);
+		}
 	}
 
 	/**
@@ -40,7 +47,14 @@ class PharauroaClientFramework {
 		$message->init($this->credentials, $username, $character, $template);
 
 		$answer = sendMessage($message);
-		// TODO: analyse answer
+
+		if ($answer instanceof PharauroaMessageS2CCreateCharacterACK) {
+			return new PharauroaResult(PharauroaResult::OK_CREATED);
+		} else if ($answer instanceof PharauroaMessageS2CCreateCharacterNACK) {
+			return message.getResult();
+		} else {
+			return new PharauroaResult(PharauroaResult::FAILED_EXCEPTION);
+		}
 	}
 
 	/**

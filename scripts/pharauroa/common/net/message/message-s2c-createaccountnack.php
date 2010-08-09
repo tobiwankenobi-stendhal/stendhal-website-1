@@ -20,6 +20,13 @@ class PharauroaMessageS2CCreateAccountNACK extends PharauroaMessage{
 	}
 
 	/**
+	 * This method returns the PharauroaResult.
+	 */
+	public function getResult() {
+		return $this->reason;
+	}
+
+	/**
 	 * This method returns a String that represent the resolution given to the
 	 * login event
 	 *
