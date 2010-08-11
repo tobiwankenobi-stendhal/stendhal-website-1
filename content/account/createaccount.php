@@ -1,6 +1,5 @@
 <?php
 class CreateAccountPage extends Page {
-	private $outfitArray;
 
 	public function writeHtmlHeader() {
 		echo '<title>Create Account'.STENDHAL_TITLE.'</title>';

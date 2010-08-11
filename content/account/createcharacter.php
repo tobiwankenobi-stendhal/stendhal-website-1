@@ -1,6 +1,26 @@
 <?php
 class CreateCharacterPage extends Page {
 	private $outfitArray;
+	private $result;
+
+	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	public function writeHttpHeader() {
+		if (!isset($_SESSION['username'])) {
+			// Show link to login box
+			return true;
+		}
+
+		$this->process();
+
+
+		// do nothing
+		return true;
+	}
+
 
 	public function writeHtmlHeader() {
 		echo '<title>Create Character'.STENDHAL_TITLE.'</title>';
@@ -22,26 +42,39 @@ class CreateCharacterPage extends Page {
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/create-character.html">login</a> to create a character.</p>';
 			endBox();
 		} else {
-			// TODO: init $outfitArray from url
-			$this->random();
-			$this->process();
+			$this->show();
 		}
 	}
-
-	function random() {
-		$maxRndOutfit = array(26, 15, 5, 15);
-		for ($i = 0; $i < 4; $i++) {
-			$this->outfitArray[$i] = rand(1, $maxRndOutfit[$i]);
-		}
 	
-}
-	
-
 	function process() {
+		global $protocol;
+		if (! isset($_POST['name'])) {
+			return true;
+		}
+
+		require_once('scripts/pharauroa/pharauroa.php');
+		$clientFramework = new PharauroaClientFramework(STENDHAL_MARAUROA_SERVER, STENDHAL_MARAUROA_PORT, STENDHAL_MARAUROA_CREDENTIALS);
+		$template = new PharauroaRPObject();
+		$template->put('outfit', $_REQUEST['outfit']);
+		$this->result = $clientFramework->createCharacter($_SESSION['username'], $_REQUEST['name'], $template);
+
+		if ($this->result->wasSuccessful()) {
+			// redirect to my characters page
+			header('HTTP/1.0 301 Moved permanently.');
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/mycharacters')));
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+
+	function show() {
+		$this->initOutfitArray();
 		startBox("Create Character");
 ?>
 
-<form name="createcharacter" action="" style="height:22em; padding: 1em">
+<form name="createcharacter" action="<?php echo rewriteURL('/account/createcharacter.html');?>" method="POST" style="height:22em; padding: 1em">
 
 <div class="outfitpanel">
 <div style="clear: both">
@@ -83,9 +116,20 @@ class CreateCharacterPage extends Page {
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
 <label for="name" >Name: </label><input id="name" onchange="key(this)" onkeyup="key(this)" name="name" type="text" maxlength="20" 
 <?php 
-// TODO: if account name is a valid charactername, and the character does not exist {
-	echo 'value="'.htmlspecialchars($_SESSION['username']).'"';?>>
-<div id="warn" class="warn">S</div>
+	if (isset($_REQUEST['name'])) {
+		echo 'value="'.htmlspecialchars($_REQUEST['name']).'"';
+	} else {
+		// TODO: if account name is a valid charactername, and the character does not exist {
+		echo 'value="'.htmlspecialchars($_SESSION['username']).'"';
+	}
+?>>
+<div id="warn" class="warn">
+<?php 
+	if (isset($this->result)) {
+		echo htmlspecialchars($this->result->getMessage());
+	}
+?>
+</div>
 <input "name="submit" style="margin-top: 2em" type="submit" value="Create Character">
 </div>
 </form>
@@ -176,6 +220,23 @@ function key(field) {
 <?php
 		endBox();
 	}
+
+	
+	function initOutfitArray() {
+		if (isset($_REQUEST['outfit'])) {
+			// TODO: init $outfitArray from url
+		} else {
+			$this->randomOutfit();
+		}
+	}
+
+	function randomOutfit() {
+		$maxRndOutfit = array(26, 15, 5, 15);
+		for ($i = 0; $i < 4; $i++) {
+			$this->outfitArray[$i] = rand(1, $maxRndOutfit[$i]);
+		}
+	}
+
 }
 
 $page = new CreateCharacterPage();

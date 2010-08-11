@@ -7,6 +7,10 @@ class PharauroaAttributes {
 	// TODO: Add support for RPClass
 	private $content = array();
 
+	public function put($key, $value) {
+		$content[$key] = $value;
+	}
+
 	public function writeObject(&$out) {
 		$out->writeString(""); // rpClass.getName()
 		$out->writeInt(size);

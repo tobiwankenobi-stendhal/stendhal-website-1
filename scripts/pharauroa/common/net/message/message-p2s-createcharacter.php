@@ -69,7 +69,7 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 		$out->writeString($this->forwardedFor);
 		$out->writeString($this->username);
 		$out->writeString($this->character);
-		$out->writeString($this->template);
+		$this->template->writeObject($out);
 	}
 
 	public function readObject(&$in) {
@@ -78,7 +78,8 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 		$this->forwardedFor = $in->readString();
 		$this->username = $in->readString();
 		$this->character = $in->readString();
-		$this->template = $in->readString();
+		$this->template = new PharauroaRPObject();
+		$this->template->readObject($in);
 
 		if ($this->messageType != PharauroaMessageType::P2S_CREATECHARACTER) {
 			throw new PharauroaIOException('Invalid message type in readObject');

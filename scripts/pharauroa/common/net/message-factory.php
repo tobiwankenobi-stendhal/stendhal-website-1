@@ -27,7 +27,7 @@ class PharauroaMessageFactory {
 			$message = new PharauroaMessageS2CCreateCharacterACK();
 		} else if ($type == PharauroaMessageType::S2C_CREATECHARACTER_NACK) {
 			$message = new PharauroaMessageS2CCreateCharacterNACK();
-		} else if ($type == PharauroaMessageType::S2C_INVALID_MESSAGE) {
+		} else if ($type == PharauroaMessageType::S2C_INVALIDMESSAGE) {
 			$message = new PharauroaMessageS2CInvalidMessage();
 		} else {
 			throw new PharauroaIOException('Unknown message type: '.$type);
