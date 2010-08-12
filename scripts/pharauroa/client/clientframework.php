@@ -68,7 +68,10 @@ class PharauroaClientFramework {
 
 		// connect and write message
 		$sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		socket_connect($sock, $this->server, $this->port);
+		$res = socket_connect($sock, $this->server, $this->port);
+		if ($res === FALSE) {
+			throw new PharauroaIOException(socket_strerror(socket_last_error()));
+		}
 		socket_write($sock, $data, strlen($data));
 
 		// read annswer and close connection
