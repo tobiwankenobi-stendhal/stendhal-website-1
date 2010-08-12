@@ -29,11 +29,29 @@ class GalleryPage extends Page {
 
 	function writeContent() {
 		startBox(htmlspecialchars($title));
-		
+		$images = $this->getGalleryImages($title);
+		var_dump($images);		
 		?>
 <img class="screenshot" src="http://arianne.sourceforge.net/screens/stendhal/worldsmall.png" alt="Miniature view of stendhal world map"/>
 		<?php 
 		endBox();
+	}
+
+	// TODO: put into scripts-folder
+	function getGalleryImages($title) {
+		$sql = "SELECT page_title As image, cl_sortkey As description FROM categorylinks, page WHERE categorylinks.cl_to = '"
+			.mysql_real_escape_string($title)
+			. "' AND categorylinks.cl_from = page.page_id AND page_namespace = 6 AND page_is_redirect = 0";
+			$result = mysql_query($sql, getWikiDB());
+			
+		$list = array();
+
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = $row;
+		}
+
+		mysql_free_result($result);
+		return $list;
 	}
 }
 $page = new GalleryPage();
