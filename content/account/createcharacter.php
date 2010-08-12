@@ -57,6 +57,8 @@ class CreateCharacterPage extends Page {
 		$template = new PharauroaRPObject();
 		$template->put('outfit', $_REQUEST['outfit']);
 		$this->result = $clientFramework->createCharacter($_SESSION['username'], $_REQUEST['name'], $template);
+		
+		//echo 'message: ' . $this->result->getMessage();
 
 		if ($this->result->wasSuccessful()) {
 			// redirect to my characters page
@@ -130,7 +132,7 @@ class CreateCharacterPage extends Page {
 	}
 ?>
 </div>
-<input "name="submit" style="margin-top: 2em" type="submit" value="Create Character">
+<input name="submit" style="margin-top: 2em" type="submit" value="Create Character">
 </div>
 </form>
 
