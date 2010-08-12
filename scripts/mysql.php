@@ -42,7 +42,7 @@ function getWikiDB() {
 	global $wikidb;
 	if (!isset($wikidb)) {
 		$wikidb = mysql_connect(STENDHAL_WIKI_HOSTNAME, STENDHAL_WIKI_USERNAME, STENDHAL_WIKI_PASSWORD, true);
-		@mysql_select_db(STENDHAL_WIKI_DB, $gamedb) or die( "Unable to select Wiki database");
+		@mysql_select_db(STENDHAL_WIKI_DB, $wikidb) or die( "Unable to select Wiki database");
 	}
 	return $wikidb;
 }
