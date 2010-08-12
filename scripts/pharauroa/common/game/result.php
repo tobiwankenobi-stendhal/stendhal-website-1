@@ -105,7 +105,7 @@ class PharauroaResult {
 	}
 
 	public function getMessage() {
-		return $this->reaons[$this->result];
+		return PharauroaResult::$reasons[$this->result];
 	}
 
 	public function getResult() {
