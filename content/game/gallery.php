@@ -29,11 +29,16 @@ class GalleryPage extends Page {
 
 	function writeContent() {
 		startBox(htmlspecialchars($this->title));
-		$images = $this->getGalleryImages($this->title);
-		var_dump($images);		
-		?>
-<img class="screenshot" src="http://arianne.sourceforge.net/screens/stendhal/worldsmall.png" alt="Miniature view of stendhal world map"/>
-		<?php 
+		//$images = $this->getGalleryImages($this->title);
+		$images[]['image'] = 'Ados_ship.png'; 
+		var_dump($images);
+		foreach ($images As $image) {
+			$hash = md5($image['image']);
+			echo '<img src="http://stendhalgame.org/wiki/images/'
+				.htmlspecialchars(substr($hash, 0, 1).'/'.substr($hash, 0, 2).'/'.$image['image'])
+				.'">';
+			echo htmlspecialchars($image['description']);
+		}
 		endBox();
 	}
 
