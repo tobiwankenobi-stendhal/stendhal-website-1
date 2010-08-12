@@ -28,8 +28,8 @@ class GalleryPage extends Page {
 	}
 
 	function writeContent() {
-		startBox(htmlspecialchars($title));
-		$images = $this->getGalleryImages($title);
+		startBox(htmlspecialchars($this->title));
+		$images = $this->getGalleryImages($this->title);
 		var_dump($images);		
 		?>
 <img class="screenshot" src="http://arianne.sourceforge.net/screens/stendhal/worldsmall.png" alt="Miniature view of stendhal world map"/>
