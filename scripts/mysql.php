@@ -1,4 +1,4 @@
- <?php
+<?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
  Copyright (C) 2008-2010  The Arianne Project
