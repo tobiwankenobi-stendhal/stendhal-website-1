@@ -30,6 +30,7 @@ class GalleryPage extends Page {
 	function writeContent() {
 		startBox(htmlspecialchars($this->title));
 		$images = $this->getGalleryImages($this->title);
+		//$images[]['image'] = 'A';
 
 		$cnt = count($images);
 		$index = $this->getIndex($cnt);		
@@ -48,6 +49,7 @@ class GalleryPage extends Page {
 		if (!isset($index)) {
 			$index = rand(0, $cnd - 1);
 		}
+		return $index;
 	}
 	
 	// TODO: put into scripts-folder
