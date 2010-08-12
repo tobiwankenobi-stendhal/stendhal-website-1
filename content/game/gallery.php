@@ -47,7 +47,7 @@ class GalleryPage extends Page {
 	function getIndex($cnt) {
 		$index = $_REQUEST['index'];
 		if (!isset($index)) {
-			$index = rand(0, $cnd - 1);
+			$index = rand(0, $cnt - 1);
 		}
 		return $index;
 	}
