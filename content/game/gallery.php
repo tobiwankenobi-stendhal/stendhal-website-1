@@ -29,9 +29,8 @@ class GalleryPage extends Page {
 
 	function writeContent() {
 		startBox(htmlspecialchars($this->title));
-		//$images = $this->getGalleryImages($this->title);
-		$images[]['image'] = 'Ados_ship.png'; 
-		var_dump($images);
+		$images = $this->getGalleryImages($this->title);
+		//$images[]['image'] = 'Ados_ship.png'; 
 		foreach ($images As $image) {
 			$hash = md5($image['image']);
 			echo '<img src="http://stendhalgame.org/wiki/images/'
