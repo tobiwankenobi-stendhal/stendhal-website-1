@@ -30,17 +30,26 @@ class GalleryPage extends Page {
 	function writeContent() {
 		startBox(htmlspecialchars($this->title));
 		$images = $this->getGalleryImages($this->title);
-		//$images[]['image'] = 'Ados_ship.png'; 
-		foreach ($images As $image) {
-			$hash = md5($image['image']);
-			echo '<img src="http://stendhalgame.org/wiki/images/'
-				.htmlspecialchars(substr($hash, 0, 1).'/'.substr($hash, 0, 2).'/'.$image['image'])
-				.'">';
-			echo htmlspecialchars($image['description']);
-		}
+
+		$cnt = count($images);
+		$index = $this->getIndex($cnt);		
+		$image = $images[$index];
+
+		$hash = md5($image['image']);
+		echo '<img src="http://stendhalgame.org/wiki/images/'
+			.htmlspecialchars(substr($hash, 0, 1).'/'.substr($hash, 0, 2).'/'.$image['image'])
+			.'">';
+		echo '<div>'.htmlspecialchars($image['description']).'</div>';
 		endBox();
 	}
 
+	function getIndex($cnt) {
+		$index = $_REQUEST['index'];
+		if (!isset($index)) {
+			$index = rand(0, $cnd - 1);
+		}
+	}
+	
 	// TODO: put into scripts-folder
 	function getGalleryImages($title) {
 		$sql = "SELECT page_title As image, cl_sortkey As description FROM categorylinks, page WHERE categorylinks.cl_to = '"
