@@ -1,0 +1,128 @@
+<?php
+/*
+ Stendhal website - a website to manage and ease playing of Stendhal game
+ Copyright (C) 2008  Miguel Angel Blanch Lardin
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+class Event {
+  public $source;
+  public $timedate;
+  
+  function __construct($source, $timedate) {
+  	$this->source=$source; 	  	  	
+    $this->timedate=$timedate;
+  }
+  
+}
+
+class KillEvent extends Event  {
+  public $victim;
+  public $sourcetype;  
+  public $victimtype;  
+  
+  function __construct($source, $victim, $sourcetype, $victimtype, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->victim=$victim;
+  	$this->sourcetype=$sourcetype;
+  	$this->victimtype=$victimtype;	  	  	  	
+  }
+  
+}
+
+function getKillEvents() {
+    $result = mysql_query('SELECT source, param1 as victim, left(param2,1) as sourcetype, right(trim(param2),1) as victimtype, timedate from gameEvents WHERE event=\'killed\' and timedate > subtime(now(), \'00:05:00\') limit 5', getGameDB());
+    $killevents=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $killevents[]=new KillEvent($row['source'],$row['victim'],$row['sourcetype'],$row['victimtype'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $killevents;
+}
+
+function getURL($type) {
+	if ($type == 'P') {
+		$url = 'character';
+	} else if ($type == 'C') {
+		$url = 'creature';
+	} else {
+		$url = '';
+	}
+	return $url;
+}
+
+
+  
+ function getOutfitEvents() {
+ 	// consider adding a distinct or group by so we don't get lots from same player
+    $result = mysql_query('SELECT source, timedate from gameEvents WHERE event=\'outfit\' and timedate > subtime(now(), \'01:00:00\') limit 2', getGameDB());
+    $outfitevents=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $outfitevents[]=new Event($row['source'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $outfitevents;
+}
+  
+  
+class QuestEvent extends Event  {
+  public $quest;
+  
+  function __construct($source, $quest, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->quest=$quest;	  	  	  	
+  }
+  
+}
+ function getQuestEvents() {
+ 	// distinct needed as for the daily item quest there are 3 updates per single quest
+    $result = mysql_query('SELECT distinct source, param1 as quest, timedate from gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'weekly_item\',\'daily_item\',\'deathmatch\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
+    $questevents=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $questevents[]=new QuestEvent($row['source'],$row['quest'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $questevents;
+}
+
+class LevelEvent extends Event  {
+  public $level;
+
+  function __construct($source, $level, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->level=$level;  	  	  	
+  }
+  
+}
+ function getLevelEvents() {
+ 
+    $result = mysql_query('SELECT source, param1 as level, timedate from gameEvents WHERE event=\'level\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
+    $levelevents=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $levelevents[]=new LevelEvent($row['source'],$row['level'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $levelevents;
+}
+
+?>

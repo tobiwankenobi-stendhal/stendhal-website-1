@@ -46,5 +46,6 @@ include('scripts/items.php');
 include('scripts/statistics.php');
 include('scripts/cache.php');
 include("scripts/meeting.php");
+include('scripts/events.php');
 
 ?>
