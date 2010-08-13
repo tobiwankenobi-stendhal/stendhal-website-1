@@ -81,14 +81,25 @@ function getKillEvents() {
 }
 
 
+class OutfitEvent extends Event  {
   
+  function __construct($source, $timedate) {
+  	parent::__construct($source, $timedate);  	  	  	
+  }
+  
+  function getHtml() {
+  	return '<p>'.$this->getCharacterHtml($this->source).' changed outfit at '.htmlspecialchars($this->timedate);
+  }
+  
+}
+ 
  function getOutfitEvents() {
  	// consider adding a distinct or group by so we don't get lots from same player
     $result = mysql_query('SELECT source, date_format(timedate,\'%H:%i\') as timedate ' .
     					  'FROM gameEvents WHERE event=\'outfit\' and timedate > subtime(now(), \'01:00:00\') limit 2', getGameDB());
     $outfitevents=array();
     while($row=mysql_fetch_assoc($result)) {      
-      $outfitevents[]=new Event($row['source'],$row['timedate']);
+      $outfitevents[]=new OutfitEvent($row['source'],$row['timedate']);
     }
     
     mysql_free_result($result);
