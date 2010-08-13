@@ -20,10 +20,7 @@ if(sizeof($killevents)+sizeof($outfitevents)+sizeof($questevents)+sizeof($levele
 }
 echo '<div>';
 foreach($killevents as $k) {
-	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
-	// cheat and create pages for them?
-    echo '<p><a href="'.rewriteURL('/'.getURL($k->sourcetype).'/'.surlencode($k->source).'.html').'">'.htmlspecialchars($k->source).'</a> ' .
-    		'killed <a href="'.rewriteURL('/'.getURL($k->victimtype).'/'.surlencode($k->victim).'.html').'">'.htmlspecialchars($k->victim).'</a>  at '.htmlspecialchars($k->timedate);
+    echo $k->getHtml();
 }
 foreach($outfitevents as $o) {
 	echo '<p><a href="'.rewriteURL('/character/'.surlencode($o->source).'.html').'">'.htmlspecialchars($o->source).'</a> changed their outfit at '.htmlspecialchars($o->timedate); 

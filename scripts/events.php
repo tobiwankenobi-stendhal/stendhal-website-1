@@ -40,6 +40,13 @@ class KillEvent extends Event  {
   	$this->victimtype=$victimtype;	  	  	  	
   }
   
+  function getHtml() {
+  	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
+	// cheat and create pages for them?
+  	return '<p><a href="'.rewriteURL('/'.getURL($this->sourcetype).'/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
+    		'killed <a href="'.rewriteURL('/'.getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.htmlspecialchars($this->timedate);
+  }
+  
 }
 
 function getKillEvents() {
