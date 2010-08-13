@@ -8,32 +8,33 @@ class EventsPage extends Page {
 
 	function writeContent() {
 
-$killevents=getKillEvents();
+$events=array_merge(getKillEvents(),getQuestEvents(),getLevelEvents(),getSignEvents());
 $outfitevents=getOutfitEvents();
-$questevents=getQuestEvents();
-$levelevents=getLevelEvents();
-$signevents=getSignEvents();
+
+function cmp($a, $b)
+{
+    if ($a->timedate == $b->timedate) {
+        return 0;
+    }
+    return ($a->timedate > $b->timedate) ? 1 : -1;
+}
+
+usort($events,"cmp");
+
 startBox('Recent Events');
 
-if(sizeof($killevents)+sizeof($outfitevents)+sizeof($questevents)+sizeof($levelevents)+sizeof($levelevents)==0) {
+if(sizeof($events)+sizeof($outfitevents)==0) {
   echo 'There are no recent events to report on';
 }
 echo '<div>';
-foreach($killevents as $k) {
-    echo $k->getHtml();
+
+foreach($events as $e) {
+    echo $e->getHtml();
 }
 foreach($outfitevents as $o) {
 	echo '<p><a href="'.rewriteURL('/character/'.surlencode($o->source).'.html').'">'.htmlspecialchars($o->source).'</a> changed their outfit at '.htmlspecialchars($o->timedate); 
 }
-foreach($questevents as $q) {
-	echo $q->getHtml(); 
-}	
-foreach($levelevents as $l) {
-	echo $l->getHtml(); 
-}
-foreach($signevents as $s) {
-	echo $s->getHtml(); 
-}
+
 echo '</div>';
 endBox();
 	}

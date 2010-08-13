@@ -40,6 +40,10 @@ class Event {
 	function getCharacterHtml($character) {
 		return '<a href="'.rewriteURL('/character/'.surlencode($character).'.html').'">'.htmlspecialchars($character).'</a>';
 	}
+	
+	public function getHtml() {
+		return '';
+	}
 }
 
 class KillEvent extends Event  {
