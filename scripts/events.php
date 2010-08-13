@@ -18,14 +18,28 @@
  */
 
 class Event {
-  public $source;
-  public $timedate;
-  
-  function __construct($source, $timedate) {
-  	$this->source=$source; 	  	  	
-    $this->timedate=$timedate;
-  }
-  
+	public $source;
+	public $timedate;
+	
+	function __construct($source, $timedate) {
+		$this->source=$source; 	  	  	
+		$this->timedate=$timedate;
+	}
+	
+	function getURL($type) {
+		if ($type == 'P') {
+			$url = 'character';
+		} else if ($type == 'C') {
+			$url = 'creature';
+		} else {
+			$url = '';
+		}
+		return $url;
+	} 
+	
+	function getCharacterHtml($character) {
+		return '<a href="'.rewriteURL('/character/'.surlencode($character).'.html').'">'.htmlspecialchars($character).'</a>';
+	}
 }
 
 class KillEvent extends Event  {
@@ -43,8 +57,8 @@ class KillEvent extends Event  {
   function getHtml() {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
-  	return '<p><a href="'.rewriteURL('/'.getURL($this->sourcetype).'/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
-    		'killed <a href="'.rewriteURL('/'.getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.htmlspecialchars($this->timedate);
+  	return '<p><a href="'.rewriteURL('/'.$this->getURL($this->sourcetype).'/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
+    		'killed <a href="'.rewriteURL('/'.$this->getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.htmlspecialchars($this->timedate);
   }
   
 }
@@ -59,17 +73,6 @@ function getKillEvents() {
     mysql_free_result($result);
 	
     return $killevents;
-}
-
-function getURL($type) {
-	if ($type == 'P') {
-		$url = 'character';
-	} else if ($type == 'C') {
-		$url = 'creature';
-	} else {
-		$url = '';
-	}
-	return $url;
 }
 
 
@@ -96,6 +99,10 @@ class QuestEvent extends Event  {
   	$this->quest=$quest;	  	  	  	
   }
   
+  function getHtml() {
+  	return '<p>'.$this->getCharacterHtml($this->source).' completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->quest))).' quest at '.htmlspecialchars($this->timedate);
+  }
+  
 }
  function getQuestEvents() {
  	// distinct needed as for the daily item quest there are 3 updates per single quest
@@ -116,6 +123,10 @@ class LevelEvent extends Event  {
   function __construct($source, $level, $timedate) {
   	parent::__construct($source, $timedate); 
   	$this->level=$level;  	  	  	
+  }
+  
+  function getHtml() {
+  	return '<p>'.$this->getCharacterHtml($this->source).' changed level to '.htmlspecialchars($this->level).' at '.htmlspecialchars($this->timedate);
   }
   
 }
@@ -139,6 +150,10 @@ class SignEvent extends Event  {
   function __construct($source, $text, $timedate) {
   	parent::__construct($source, $timedate); 
   	$this->text=$text;  	  	  	
+  }
+  
+  function getHtml(){
+  	return '<p>'.$this->getCharacterHtml($this->source).' rented a sign saying: "'.htmlspecialchars($this->text).'" at '.htmlspecialchars($this->timedate);
   }
   
 }

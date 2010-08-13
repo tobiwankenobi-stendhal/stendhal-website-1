@@ -26,13 +26,13 @@ foreach($outfitevents as $o) {
 	echo '<p><a href="'.rewriteURL('/character/'.surlencode($o->source).'.html').'">'.htmlspecialchars($o->source).'</a> changed their outfit at '.htmlspecialchars($o->timedate); 
 }
 foreach($questevents as $q) {
-	echo '<p><a href="'.rewriteURL('/character/'.surlencode($q->source).'.html').'">'.htmlspecialchars($q->source).'</a> completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$q->quest))).' quest at '.htmlspecialchars($q->timedate); 
+	echo $q->getHtml(); 
 }	
 foreach($levelevents as $l) {
-	echo '<p><a href="'.rewriteURL('/character/'.surlencode($l->source).'.html').'">'.htmlspecialchars($l->source).'</a> changed level to '.htmlspecialchars($l->level).' at '.htmlspecialchars($l->timedate); 
+	echo $l->getHtml(); 
 }
 foreach($signevents as $s) {
-	echo '<p><a href="'.rewriteURL('/character/'.surlencode($s->source).'.html').'">'.htmlspecialchars($l->source).'</a> rented a sign saying: "'.htmlspecialchars($s->text).'" at '.htmlspecialchars($s->timedate); 
+	echo $s->getHtml(); 
 }
 echo '</div>';
 endBox();
