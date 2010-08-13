@@ -8,7 +8,7 @@ class EventsPage extends Page {
 
 	function writeContent() {
 
-$events=array_merge(getKillEvents(),getQuestEvents(),getLevelEvents(),getSignEvents());
+$events=array_merge(getKillEvents(),getQuestEvents(),getLevelEvents(),getSignEvents(),getPoisonEvents(),getChangeZoneEvents());
 $outfitevents=getOutfitEvents();
 
 function cmp($a, $b)
@@ -32,7 +32,7 @@ foreach($events as $e) {
     echo $e->getHtml();
 }
 foreach($outfitevents as $o) {
-	echo '<p><a href="'.rewriteURL('/character/'.surlencode($o->source).'.html').'">'.htmlspecialchars($o->source).'</a> changed their outfit at '.htmlspecialchars($o->timedate); 
+	echo '<p><a href="'.rewriteURL('/character/'.surlencode($o->source).'.html').'">'.htmlspecialchars($o->source).'</a> changed outfit at '.htmlspecialchars($o->timedate); 
 }
 
 echo '</div>';

@@ -68,7 +68,8 @@ class KillEvent extends Event  {
 }
 
 function getKillEvents() {
-    $result = mysql_query('SELECT source, param1 as victim, left(param2,1) as sourcetype, right(trim(param2),1) as victimtype, timedate from gameEvents WHERE event=\'killed\' and timedate > subtime(now(), \'00:05:00\') limit 5', getGameDB());
+    $result = mysql_query('SELECT source, param1 as victim, left(param2,1) as sourcetype, right(trim(param2),1) as victimtype, date_format(timedate,\'%H:%i\') as timedate ' .
+    		'			 FROM gameEvents WHERE event=\'killed\' and timedate > subtime(now(), \'00:05:00\') limit 5', getGameDB());
     $killevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $killevents[]=new KillEvent($row['source'],$row['victim'],$row['sourcetype'],$row['victimtype'],$row['timedate']);
@@ -83,7 +84,8 @@ function getKillEvents() {
   
  function getOutfitEvents() {
  	// consider adding a distinct or group by so we don't get lots from same player
-    $result = mysql_query('SELECT source, timedate from gameEvents WHERE event=\'outfit\' and timedate > subtime(now(), \'01:00:00\') limit 2', getGameDB());
+    $result = mysql_query('SELECT source, date_format(timedate,\'%H:%i\') as timedate ' .
+    					  'FROM gameEvents WHERE event=\'outfit\' and timedate > subtime(now(), \'01:00:00\') limit 2', getGameDB());
     $outfitevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $outfitevents[]=new Event($row['source'],$row['timedate']);
@@ -110,7 +112,8 @@ class QuestEvent extends Event  {
 }
  function getQuestEvents() {
  	// distinct needed as for the daily item quest there are 3 updates per single quest
-    $result = mysql_query('SELECT distinct source, param1 as quest, timedate from gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'weekly_item\',\'daily_item\',\'deathmatch\') and timedate > subtime(now(), \'10:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
+    $result = mysql_query('SELECT distinct source, param1 as quest, date_format(timedate,\'%H:%i\') as timedate ' .
+    					  'FROM gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'weekly_item\',\'daily_item\',\'deathmatch\',\'zoo_food\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
     $questevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $questevents[]=new QuestEvent($row['source'],$row['quest'],$row['timedate']);
@@ -130,13 +133,14 @@ class LevelEvent extends Event  {
   }
   
   function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' changed level to '.htmlspecialchars($this->level).' at '.htmlspecialchars($this->timedate);
+  	return '<p>'.$this->getCharacterHtml($this->source).' reached level '.htmlspecialchars($this->level).' at '.htmlspecialchars($this->timedate);
   }
   
 }
  function getLevelEvents() {
  
-    $result = mysql_query('SELECT source, param1 as level, timedate from gameEvents WHERE event=\'level\'  and timedate > subtime(now(), \'10:00:00\')  limit 10', getGameDB());
+    $result = mysql_query('SELECT source, param1 as level, date_format(timedate,\'%H:%i\') as timedate ' .
+    					  'FROM gameEvents WHERE event=\'level\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
     $levelevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $levelevents[]=new LevelEvent($row['source'],$row['level'],$row['timedate']);
@@ -163,7 +167,8 @@ class SignEvent extends Event  {
 }
  function getSignEvents() {
  
-    $result = mysql_query('SELECT source, trim(param2) as text, timedate from gameEvents WHERE event=\'sign\'  and timedate > subtime(now(), \'10:00:00\')  limit 10', getGameDB());
+    $result = mysql_query('SELECT source, trim(param2) as text, date_format(timedate,\'%H:%i\') as timedate ' .
+    					  'FROM gameEvents WHERE event=\'sign\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
     $signevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $signevents[]=new SignEvent($row['source'],$row['text'],$row['timedate']);
@@ -172,6 +177,66 @@ class SignEvent extends Event  {
     mysql_free_result($result);
 	
     return $signevents;
+}
+
+
+class PoisonEvent extends Event  {
+  public $victim; 
+  
+  function __construct($source, $victim, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->victim=$victim; 	  	  	
+  }
+  
+  function getHtml() {
+  	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
+	// cheat and create pages for them?
+  	return '<p>A <a href="'.rewriteURL('/creature/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
+    		'poisoned '.$this->getCharacterHtml($this->victim).' at '.htmlspecialchars($this->timedate);
+  }
+  
+}
+
+function getPoisonEvents() {
+    $result = mysql_query('SELECT source, param1 as victim, date_format(timedate,\'%H:%i\') as timedate ' .
+    				      'FROM gameEvents WHERE event=\'poison\' and timedate > subtime(now(), \'00:05:00\') limit 3', getGameDB());
+    $events=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $events[]=new PoisonEvent($row['source'],$row['victim'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $events;
+}
+
+class ChangeZoneEvent extends Event  {
+  public $zone; 
+  
+  function __construct($source, $zone, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->zone=$zone; 	  	  	
+  }
+  
+  function getHtml() {
+  	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
+	// cheat and create pages for them?
+  	return '<p>'.$this->getCharacterHtml($this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.htmlspecialchars($this->timedate);
+  }
+  
+}
+
+function getChangeZoneEvents() {
+    $result = mysql_query('SELECT source, substring(param1,locate(\'_\',param1)+1) as zone, date_format(timedate,\'%H:%i\') as timedate ' .
+    					  'FROM gameEvents WHERE event=\'change zone\' and timedate > subtime(now(), \'00:05:00\') limit 3', getGameDB());
+    $events=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $events[]=new ChangeZoneEvent($row['source'],$row['zone'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $events;
 }
 
 ?>
