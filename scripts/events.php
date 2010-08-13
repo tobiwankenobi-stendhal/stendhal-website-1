@@ -92,7 +92,7 @@ class QuestEvent extends Event  {
 }
  function getQuestEvents() {
  	// distinct needed as for the daily item quest there are 3 updates per single quest
-    $result = mysql_query('SELECT distinct source, param1 as quest, timedate from gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'weekly_item\',\'daily_item\',\'deathmatch\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
+    $result = mysql_query('SELECT distinct source, param1 as quest, timedate from gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'weekly_item\',\'daily_item\',\'deathmatch\') and timedate > subtime(now(), \'10:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
     $questevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $questevents[]=new QuestEvent($row['source'],$row['quest'],$row['timedate']);
@@ -114,7 +114,7 @@ class LevelEvent extends Event  {
 }
  function getLevelEvents() {
  
-    $result = mysql_query('SELECT source, param1 as level, timedate from gameEvents WHERE event=\'level\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
+    $result = mysql_query('SELECT source, param1 as level, timedate from gameEvents WHERE event=\'level\'  and timedate > subtime(now(), \'10:00:00\')  limit 10', getGameDB());
     $levelevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $levelevents[]=new LevelEvent($row['source'],$row['level'],$row['timedate']);
@@ -123,6 +123,29 @@ class LevelEvent extends Event  {
     mysql_free_result($result);
 	
     return $levelevents;
+}
+
+
+class SignEvent extends Event  {
+  public $text;
+
+  function __construct($source, $text, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->text=$text;  	  	  	
+  }
+  
+}
+ function getSignEvents() {
+ 
+    $result = mysql_query('SELECT source, trim(param2) as text, timedate from gameEvents WHERE event=\'sign\'  and timedate > subtime(now(), \'10:00:00\')  limit 10', getGameDB());
+    $signevents=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $signevents[]=new SignEvent($row['source'],$row['text'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $signevents;
 }
 
 ?>
