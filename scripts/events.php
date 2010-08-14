@@ -62,13 +62,13 @@ class KillEvent extends Event  {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
   	return '<p><a href="'.rewriteURL('/'.$this->getURL($this->sourcetype).'/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
-    		'killed <a href="'.rewriteURL('/'.$this->getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.htmlspecialchars($this->timedate);
+    		'killed <a href="'.rewriteURL('/'.$this->getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
 
 function getKillEvents() {
-    $result = mysql_query('SELECT source, param1 as victim, left(param2,1) as sourcetype, right(trim(param2),1) as victimtype, date_format(timedate,\'%H:%i\') as timedate ' .
+    $result = mysql_query('SELECT source, param1 as victim, left(param2,1) as sourcetype, right(trim(param2),1) as victimtype,  timedate ' .
     		'			 FROM gameEvents WHERE event=\'killed\' and timedate > subtime(now(), \'00:05:00\') limit 5', getGameDB());
     $killevents=array();
     while($row=mysql_fetch_assoc($result)) {      
@@ -88,14 +88,14 @@ class OutfitEvent extends Event  {
   }
   
   function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' changed outfit at '.htmlspecialchars($this->timedate);
+  	return '<p>'.$this->getCharacterHtml($this->source).' changed outfit at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
  
  function getOutfitEvents() {
  	// consider adding a distinct or group by so we don't get lots from same player
-    $result = mysql_query('SELECT source, date_format(timedate,\'%H:%i\') as timedate ' .
+    $result = mysql_query('SELECT source,  timedate ' .
     					  'FROM gameEvents WHERE event=\'outfit\' and timedate > subtime(now(), \'01:00:00\') limit 2', getGameDB());
     $outfitevents=array();
     while($row=mysql_fetch_assoc($result)) {      
@@ -117,13 +117,13 @@ class QuestEvent extends Event  {
   }
   
   function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->quest))).' quest at '.htmlspecialchars($this->timedate);
+  	return '<p>'.$this->getCharacterHtml($this->source).' completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->quest))).' quest at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
  function getQuestEvents() {
  	// distinct needed as for the daily item quest there are 3 updates per single quest
-    $result = mysql_query('SELECT distinct source, param1 as quest, date_format(timedate,\'%H:%i\') as timedate ' .
+    $result = mysql_query('SELECT distinct source, param1 as quest, timedate ' .
     					  'FROM gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'weekly_item\',\'daily_item\',\'deathmatch\',\'zoo_food\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
     $questevents=array();
     while($row=mysql_fetch_assoc($result)) {      
@@ -144,13 +144,13 @@ class LevelEvent extends Event  {
   }
   
   function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' reached level '.htmlspecialchars($this->level).' at '.htmlspecialchars($this->timedate);
+  	return '<p>'.$this->getCharacterHtml($this->source).' reached level '.htmlspecialchars($this->level).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
  function getLevelEvents() {
  
-    $result = mysql_query('SELECT source, param1 as level, date_format(timedate,\'%H:%i\') as timedate ' .
+    $result = mysql_query('SELECT source, param1 as level,  timedate ' .
     					  'FROM gameEvents WHERE event=\'level\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
     $levelevents=array();
     while($row=mysql_fetch_assoc($result)) {      
@@ -172,13 +172,13 @@ class SignEvent extends Event  {
   }
   
   function getHtml(){
-  	return '<p>'.$this->getCharacterHtml($this->source).' rented a sign saying: "'.htmlspecialchars($this->text).'" at '.htmlspecialchars($this->timedate);
+  	return '<p>'.$this->getCharacterHtml($this->source).' rented a sign saying: "'.htmlspecialchars($this->text).'" at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
  function getSignEvents() {
  
-    $result = mysql_query('SELECT source, trim(param2) as text, date_format(timedate,\'%H:%i\') as timedate ' .
+    $result = mysql_query('SELECT source, trim(param2) as text,  timedate ' .
     					  'FROM gameEvents WHERE event=\'sign\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
     $signevents=array();
     while($row=mysql_fetch_assoc($result)) {      
@@ -203,13 +203,13 @@ class PoisonEvent extends Event  {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
   	return '<p>A <a href="'.rewriteURL('/creature/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
-    		'poisoned '.$this->getCharacterHtml($this->victim).' at '.htmlspecialchars($this->timedate);
+    		'poisoned '.$this->getCharacterHtml($this->victim).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
 
 function getPoisonEvents() {
-    $result = mysql_query('SELECT source, param1 as victim, date_format(timedate,\'%H:%i\') as timedate ' .
+    $result = mysql_query('SELECT source, param1 as victim,  timedate ' .
     				      'FROM gameEvents WHERE event=\'poison\' and timedate > subtime(now(), \'00:05:00\') limit 3', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
@@ -232,13 +232,13 @@ class ChangeZoneEvent extends Event  {
   function getHtml() {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
-  	return '<p>'.$this->getCharacterHtml($this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.htmlspecialchars($this->timedate);
+  	return '<p>'.$this->getCharacterHtml($this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
 
 function getChangeZoneEvents() {
-    $result = mysql_query('SELECT source, substring(param1,locate(\'_\',param1)+1) as zone, date_format(timedate,\'%H:%i\') as timedate ' .
+    $result = mysql_query('SELECT source, substring(param1,locate(\'_\',param1)+1) as zone,  timedate ' .
     					  'FROM gameEvents WHERE event=\'change zone\' and timedate > subtime(now(), \'00:05:00\') limit 3', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
