@@ -27,42 +27,25 @@ class Event {
 		$this->timedate=$timedate;
 	}
 	
-	function getURL($type) {
+	function getURL($string,$type) {
 		if ($type == 'P') {
-			$url = 'character';
+			$url = '<a class="menu" href="'.rewriteURL('/character/'.surlencode($string).'.html').'">'.htmlspecialchars($string).'</a> ';
 		} else if ($type == 'C') {
-			$url = 'creature';
+			$url = '<a class="menu" href="'.rewriteURL('/creature/'.surlencode($string).'.html').'"><img src="'.getMonster($string)->showImage().'" alt=" " title="'.htmlspecialchars($string).'"></a> ';
 		} else {
-			$url = '';
+			$url = htmlspecialchars($string);
 		}
 		return $url;
 	} 
 	
 	function getCharacterHtml($character) {
-		return '<a href="'.rewriteURL('/character/'.surlencode($character).'.html').'">'.htmlspecialchars($character).'</a>';
+		return $this->getURL($character,'P');
 	}
 	
 	public function getHtml() {
 		return '';
 	}
 	
-	function getPrefix($string,$type) {
-		if ($type == 'C') {
-			$prefix = a_an($string);
-		} else {
-			$prefix = '';
-		}
-		return $prefix;
-	}
-	
-	function getItemPrefix($string,$amount) {
-		if ($amount>1) {
-			$prefix = 'some';
-		} else {
-			$prefix = a_an($string);
-		}
-		return $prefix;
-	}
 }
 
 class KillEvent extends Event  {
@@ -80,8 +63,7 @@ class KillEvent extends Event  {
   function getHtml() {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
-  	return '<p>'.ucfirst($this->getPrefix($this->source,$this->sourcetype)).' <a href="'.rewriteURL('/'.$this->getURL($this->sourcetype).'/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
-    		'killed '.$this->getPrefix($this->victim,$this->victimtype).' <a href="'.rewriteURL('/'.$this->getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.date('H:i',strtoTime($this->timedate));
+  	return '<p>'.$this->getURL($this->source,$this->sourcetype).' killed '.$this->getURL($this->victim,$this->victimtype).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -219,8 +201,7 @@ class PoisonEvent extends Event  {
   }
   
   function getHtml() {
-  	return '<p>'.ucfirst(a_an($this->source)).' <a href="'.rewriteURL('/creature/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
-    		'poisoned '.$this->getCharacterHtml($this->victim).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<p>' .$this->getURL($this->source,'C').'poisoned '.$this->getCharacterHtml($this->victim).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -275,7 +256,8 @@ class EquipEvent extends Event  {
   }
   
   function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' picked up '.$this->getItemPrefix($this->item,$this->amount).' '.htmlspecialchars($this->item).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<p>'.$this->getCharacterHtml($this->source).' picked up ' .
+  			'<a class="menu" href="'.rewriteURL('/item/'.surlencode(getItem($this->item)->class).'/'.surlencode($this->item).'.html').'"><img src="'.htmlspecialchars(getItem($this->item)->showImage()).'" alt=" " title="'.htmlspecialchars($this->amount).' '.htmlspecialchars($this->item).'"></a> at '.date('H:i',strtoTime($this->timedate));
   }
   
 }

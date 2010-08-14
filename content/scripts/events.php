@@ -31,7 +31,7 @@ function cmp($a, $b)
 
 usort($events,"cmp");
 
-startBox('Recent Events');
+startBox('A selection of recent events');
 
 if(sizeof($events)==0) {
   echo 'There are no recent events to report on.';
