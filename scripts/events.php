@@ -1,7 +1,8 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008  Miguel Angel Blanch Lardin
+ Copyright (C) 2008-2010  The Arianne Project
+ 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -44,6 +45,15 @@ class Event {
 	public function getHtml() {
 		return '';
 	}
+	
+	function getPrefix($string,$type) {
+		if ($type == 'C') {
+			$prefix = a_an($string);
+		} else {
+			$prefix = '';
+		}
+		return $prefix;
+	}
 }
 
 class KillEvent extends Event  {
@@ -61,8 +71,8 @@ class KillEvent extends Event  {
   function getHtml() {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
-  	return '<p><a href="'.rewriteURL('/'.$this->getURL($this->sourcetype).'/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
-    		'killed <a href="'.rewriteURL('/'.$this->getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.date('H:i',strtoTime($this->timedate));
+  	return '<p>'.ucfirst($this->getPrefix($this->source,$this->sourcetype)).' <a href="'.rewriteURL('/'.$this->getURL($this->sourcetype).'/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
+    		'killed '.$this->getPrefix($this->victim,$this->victimtype).' <a href="'.rewriteURL('/'.$this->getURL($this->victimtype).'/'.surlencode($this->victim).'.html').'">'.htmlspecialchars($this->victim).'</a>  at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -200,9 +210,7 @@ class PoisonEvent extends Event  {
   }
   
   function getHtml() {
-  	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
-	// cheat and create pages for them?
-  	return '<p>A <a href="'.rewriteURL('/creature/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
+  	return '<p>'.ucfirst(a_an($this->source)).' <a href="'.rewriteURL('/creature/'.surlencode($this->source).'.html').'">'.htmlspecialchars($this->source).'</a> ' .
     		'poisoned '.$this->getCharacterHtml($this->victim).' at '.date('H:i',strtoTime($this->timedate));
   }
   
@@ -230,8 +238,6 @@ class ChangeZoneEvent extends Event  {
   }
   
   function getHtml() {
-  	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
-	// cheat and create pages for them?
   	return '<p>'.$this->getCharacterHtml($this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
   }
   
@@ -249,5 +255,21 @@ function getChangeZoneEvents() {
 	
     return $events;
 }
-
+/*
+class EquipEvent extends Event  {
+  public $zone; 
+  
+  function __construct($source, $item, $slot, $amount, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->item=$item; 	 
+  	$this->slot=$slot; 
+  	$this->amount=$amount; 
+  }
+  
+  function getHtml() {
+  	return '<p>'.$this->getCharacterHtml($this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
+  }
+  
+}
+ */
 ?>
