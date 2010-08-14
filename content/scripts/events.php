@@ -7,14 +7,18 @@ class EventsPage extends Page {
 	}
 
 	function writeContent() {
-
-$events=array_merge(getKillEvents(),
+		global $cache;
+		$events = $cache->fetchAsArray('stendhal_events');
+		if (!isset($events)) {
+			$events=array_merge(getKillEvents(),
 					getQuestEvents(),
 					getLevelEvents(),
 					getSignEvents(),
 					getPoisonEvents(),
 					getChangeZoneEvents(),
 					getOutfitEvents());
+			$cache->store('stendhal_events', new ArrayObject($events), 60);				
+		}
 
 function cmp($a, $b)
 {
