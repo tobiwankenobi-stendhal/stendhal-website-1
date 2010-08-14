@@ -21,7 +21,7 @@ function cmp($a, $b)
     if ($a->timedate == $b->timedate) {
         return 0;
     }
-    return ($a->timedate > $b->timedate) ? 1 : -1;
+    return ($a->timedate < $b->timedate) ? 1 : -1;
 }
 
 usort($events,"cmp");
@@ -29,7 +29,7 @@ usort($events,"cmp");
 startBox('Recent Events');
 
 if(sizeof($events)==0) {
-  echo 'There are no recent events to report on';
+  echo 'There are no recent events to report on.';
 }
 echo '<div>';
 
