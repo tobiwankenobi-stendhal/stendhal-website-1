@@ -67,7 +67,7 @@ class KillEvent extends Event  {
   function getHtml($outfits) {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
-  	return '<p>'.$this->getURL($outfits,$this->source,$this->sourcetype).' killed '.$this->getURL($outfits,$this->victim,$this->victimtype).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>'.$this->getURL($outfits,$this->source,$this->sourcetype).' killed '.$this->getURL($outfits,$this->victim,$this->victimtype).' at '.date('H:i',strtoTime($this->timedate));
   }
   
   function addPlayersToList(&$players) {
@@ -98,7 +98,7 @@ class OutfitEvent extends Event  {
   }
   
   function getHtml($outfits) {
-  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' changed outfit at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' changed outfit at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -127,7 +127,7 @@ class QuestEvent extends Event  {
   }
   
   function getHtml($outfits) {
-  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->quest))).' quest at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->quest))).' quest at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -154,7 +154,7 @@ class LevelEvent extends Event  {
   }
   
   function getHtml($outfits) {
-  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' reached level '.htmlspecialchars($this->level).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' reached level '.htmlspecialchars($this->level).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -182,7 +182,7 @@ class SignEvent extends Event  {
   }
   
   function getHtml($outfits){
-  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' rented a sign saying: "'.htmlspecialchars($this->text).'" at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' rented a sign saying: "'.htmlspecialchars($this->text).'" at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -210,7 +210,7 @@ class PoisonEvent extends Event  {
   }
   
   function getHtml($outfits) {
-  	return '<p>' .$this->getURL($outfits,$this->source,'C').'poisoned '.$this->getCharacterHtml($outfits,$this->victim).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>' .$this->getURL($outfits,$this->source,'C').'poisoned '.$this->getCharacterHtml($outfits,$this->victim).' at '.date('H:i',strtoTime($this->timedate));
   }
   
   function addPlayersToList(&$players) {
@@ -242,7 +242,7 @@ class ChangeZoneEvent extends Event  {
   }
   
   function getHtml($outfits) {
-  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -270,7 +270,7 @@ class EquipEvent extends Event  {
   }
   
   function getHtml($outfits) {
-  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' picked up ' .
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' picked up ' .
   			'<a class="menu" href="'.rewriteURL('/item/'.surlencode(getItem($this->item)->class).'/'.surlencode($this->item).'.html').'"><img src="'.htmlspecialchars(getItem($this->item)->showImage()).'" alt=" " title="'.htmlspecialchars($this->amount).' '.htmlspecialchars($this->item).'"></a> at '.date('H:i',strtoTime($this->timedate));
   }
   
