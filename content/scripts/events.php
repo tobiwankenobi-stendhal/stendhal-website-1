@@ -37,9 +37,15 @@ if(sizeof($events)==0) {
   echo 'There are no recent events to report on.';
 }
 echo '<div>';
+$players = array();
+foreach($events as $e) {
+    $e->addPlayersToList($players);
+}
+
+$outfits = getOutfitsForPlayers($players);
 
 foreach($events as $e) {
-    echo $e->getHtml();
+    echo $e->getHtml($outfits);
 }
 
 echo '</div>';

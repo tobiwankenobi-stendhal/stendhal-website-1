@@ -27,24 +27,28 @@ class Event {
 		$this->timedate=$timedate;
 	}
 	
-	function getURL($string,$type) {
+	function getURL($outfits,$string,$type) {
 		if ($type == 'P') {
-			$url = '<a class="menu" href="'.rewriteURL('/character/'.surlencode($string).'.html').'">'.htmlspecialchars($string).'</a> ';
+			$url = '<a class="menu" href="'.rewriteURL('/character/'.surlencode($string).'.html').'"><img src="'.rewriteURL('/images/outfit/'.surlencode($outfits[$string]).'.png').'" alt="" width="32" height="48" title="'.htmlspecialchars($string).'"></a> ';
 		} else if ($type == 'C') {
-			$url = '<a class="menu" href="'.rewriteURL('/creature/'.surlencode($string).'.html').'"><img src="'.getMonster($string)->showImage().'" alt=" " title="'.htmlspecialchars($string).'"></a> ';
+			$url = '<a class="menu" href="'.rewriteURL('/creature/'.surlencode($string).'.html').'"><img src="'.getMonster($string)->showImage().'" alt=" " width="32" height="48" title="'.htmlspecialchars($string).'"></a> ';
 		} else {
 			$url = htmlspecialchars($string);
 		}
 		return $url;
 	} 
 	
-	function getCharacterHtml($character) {
-		return $this->getURL($character,'P');
+	function getCharacterHtml($outfits,$character) {
+		return $this->getURL($outfits,$character,'P');
 	}
 	
-	public function getHtml() {
+	public function getHtml($outfits) {
 		return '';
 	}
+	  
+    public function addPlayersToList(&$players) {
+  	    $players[]=$this->source;
+    }
 	
 }
 
@@ -60,10 +64,15 @@ class KillEvent extends Event  {
   	$this->victimtype=$victimtype;	  	  	  	
   }
   
-  function getHtml() {
+  function getHtml($outfits) {
   	// known issue with urls of baby dragon, cat and sheep which are down as type 'C'
 	// cheat and create pages for them?
-  	return '<p>'.$this->getURL($this->source,$this->sourcetype).' killed '.$this->getURL($this->victim,$this->victimtype).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<p>'.$this->getURL($outfits,$this->source,$this->sourcetype).' killed '.$this->getURL($outfits,$this->victim,$this->victimtype).' at '.date('H:i',strtoTime($this->timedate));
+  }
+  
+  function addPlayersToList(&$players) {
+	parent::addPlayersToList($players);
+  	$players[]=$this->victim;
   }
   
 }
@@ -88,8 +97,8 @@ class OutfitEvent extends Event  {
   	parent::__construct($source, $timedate);  	  	  	
   }
   
-  function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' changed outfit at '.date('H:i',strtoTime($this->timedate));
+  function getHtml($outfits) {
+  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' changed outfit at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -117,8 +126,8 @@ class QuestEvent extends Event  {
   	$this->quest=$quest;	  	  	  	
   }
   
-  function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->quest))).' quest at '.date('H:i',strtoTime($this->timedate));
+  function getHtml($outfits) {
+  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' completed the '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->quest))).' quest at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -144,8 +153,8 @@ class LevelEvent extends Event  {
   	$this->level=$level;  	  	  	
   }
   
-  function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' reached level '.htmlspecialchars($this->level).' at '.date('H:i',strtoTime($this->timedate));
+  function getHtml($outfits) {
+  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' reached level '.htmlspecialchars($this->level).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -172,8 +181,8 @@ class SignEvent extends Event  {
   	$this->text=$text;  	  	  	
   }
   
-  function getHtml(){
-  	return '<p>'.$this->getCharacterHtml($this->source).' rented a sign saying: "'.htmlspecialchars($this->text).'" at '.date('H:i',strtoTime($this->timedate));
+  function getHtml($outfits){
+  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' rented a sign saying: "'.htmlspecialchars($this->text).'" at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -200,8 +209,13 @@ class PoisonEvent extends Event  {
   	$this->victim=$victim; 	  	  	
   }
   
-  function getHtml() {
-  	return '<p>' .$this->getURL($this->source,'C').'poisoned '.$this->getCharacterHtml($this->victim).' at '.date('H:i',strtoTime($this->timedate));
+  function getHtml($outfits) {
+  	return '<p>' .$this->getURL($outfits,$this->source,'C').'poisoned '.$this->getCharacterHtml($outfits,$this->victim).' at '.date('H:i',strtoTime($this->timedate));
+  }
+  
+  function addPlayersToList(&$players) {
+	parent::addPlayersToList($players);
+  	$players[]=$this->victim;
   }
   
 }
@@ -227,8 +241,8 @@ class ChangeZoneEvent extends Event  {
   	$this->zone=$zone; 	  	  	
   }
   
-  function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
+  function getHtml($outfits) {
+  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -255,8 +269,8 @@ class EquipEvent extends Event  {
   	$this->amount=$amount; 
   }
   
-  function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' picked up ' .
+  function getHtml($outfits) {
+  	return '<p>'.$this->getCharacterHtml($outfits,$this->source).' picked up ' .
   			'<a class="menu" href="'.rewriteURL('/item/'.surlencode(getItem($this->item)->class).'/'.surlencode($this->item).'.html').'"><img src="'.htmlspecialchars(getItem($this->item)->showImage()).'" alt=" " title="'.htmlspecialchars($this->amount).' '.htmlspecialchars($this->item).'"></a> at '.date('H:i',strtoTime($this->timedate));
   }
   
@@ -272,5 +286,16 @@ function getEquipEvents() {
     mysql_free_result($result);
 	
     return $events;
+}
+
+function getOutfitsForPlayers($players) {
+	$result = mysql_query('SELECT distinct name, outfit FROM character_stats where name IN ("'.implode('","',$players).'")',getGameDB());
+    $outfits=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $outfits[$row['name']]=$row['outfit'];
+    }
+    
+    mysql_free_result($result);
+    return $outfits;
 }
 ?>
