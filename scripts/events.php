@@ -79,7 +79,7 @@ class KillEvent extends Event  {
 
 function getKillEvents() {
     $result = mysql_query('SELECT source, param1 as victim, left(param2,1) as sourcetype, right(trim(param2),1) as victimtype,  timedate ' .
-    		'			 FROM gameEvents WHERE event=\'killed\' and timedate > subtime(now(), \'00:05:00\') limit 5', getGameDB());
+    		'			 FROM gameEvents WHERE event=\'killed\' and source <> \'baby_dragon\' and timedate > subtime(now(), \'00:05:00\') limit 5', getGameDB());
     $killevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $killevents[]=new KillEvent($row['source'],$row['victim'],$row['sourcetype'],$row['victimtype'],$row['timedate']);
