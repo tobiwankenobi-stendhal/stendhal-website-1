@@ -146,7 +146,7 @@ foreach($choosen->equipment as $slot=>$content) {
 	<div class="row">
 		<?php echo '<a href="'.rewriteURL('/creature/'.surlencode($monster->name).'.html').'">'; ?>
 		<img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt=""/>
-		Killed by a <span class="label"><?php echo htmlspecialchars($monster->name); ?></span>
+		Killed by <?php echo a_an($monster->name) ?> <span class="label"><?php echo htmlspecialchars($monster->name); ?></span>
 		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
 		<div style="margin-bottom: 50px;"></div>
 	</div>
