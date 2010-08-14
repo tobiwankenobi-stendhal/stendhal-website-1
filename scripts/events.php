@@ -54,6 +54,15 @@ class Event {
 		}
 		return $prefix;
 	}
+	
+	function getItemPrefix($string,$amount) {
+		if ($amount>1) {
+			$prefix = 'some';
+		} else {
+			$prefix = a_an($string);
+		}
+		return $prefix;
+	}
 }
 
 class KillEvent extends Event  {
@@ -255,21 +264,31 @@ function getChangeZoneEvents() {
 	
     return $events;
 }
-/*
+
 class EquipEvent extends Event  {
   public $zone; 
   
-  function __construct($source, $item, $slot, $amount, $timedate) {
+  function __construct($source, $item, $amount, $timedate) {
   	parent::__construct($source, $timedate); 
   	$this->item=$item; 	 
-  	$this->slot=$slot; 
   	$this->amount=$amount; 
   }
   
   function getHtml() {
-  	return '<p>'.$this->getCharacterHtml($this->source).' visited '.htmlspecialchars(ucfirst(str_replace('_',' ',$this->zone))).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<p>'.$this->getCharacterHtml($this->source).' picked up '.$this->getItemPrefix($this->item,$this->amount).' '.htmlspecialchars($this->item).' at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
- */
+function getEquipEvents() {
+    $result = mysql_query('SELECT  source, param1 as item, substring_index(trim(param2),\' \',-1) as amount, timedate       ' .
+    					  'FROM gameEvents WHERE event=\'equip\'  and timedate > subtime(now(), \'00:10:00\') and (left(param2,7)=\'content\' or left(param2,4)=\'null\') limit 5', getGameDB());
+    $events=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $events[]=new EquipEvent($row['source'],$row['item'],$row['amount'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $events;
+}
 ?>

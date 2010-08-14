@@ -16,7 +16,8 @@ class EventsPage extends Page {
 					getSignEvents(),
 					getPoisonEvents(),
 					getChangeZoneEvents(),
-					getOutfitEvents());
+					getOutfitEvents(),
+					getEquipEvents());
 			$cache->store('stendhal_events', new ArrayObject($events), 60);				
 		}
 
