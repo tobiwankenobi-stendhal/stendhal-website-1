@@ -1,8 +1,8 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008  Miguel Angel Blanch Lardin
  Copyright (C) 2008-2010  The Arianne Project
+ Copyright (C) 2008  Miguel Angel Blanch Lardin
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -16,37 +16,16 @@
 
  You should have received a copy of the GNU Affero General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
- /*
- * This file is the PHP code that generate each of the website sections. 
  */
-include('scripts/mysql.php');
-include('scripts/xml.php');
 
-function startBox($title) {
-  echo '<div class="box">';
-  echo '<div class="boxTitle">'.$title.'</div>';
-  echo '<div class="boxContent">';
+function a_an($string) {
+	// May wish to refine this by adding exceptions from src.games.stendhal.common.Grammar.a_an
+	$vowels = array('a', 'e', 'i', 'o', 'u');
+	if (in_array(strtolower($string[0]),$vowels)){
+		return 'an';
+	} else {
+		return 'a';
+	}
 }
 
-function endBox() {
-  echo '</div></div>';
-}
 
-
-include('scripts/screenshots.php');
-include('scripts/news.php');
-include('scripts/players.php');
-include('scripts/playerhistory.php');
-include('scripts/monsters.php');
-include('scripts/npcs.php');
-include('scripts/items.php');
-include('scripts/statistics.php');
-include('scripts/cache.php');
-include("scripts/meeting.php");
-include('scripts/events.php');
-include('scripts/grammar.php');
-
-?>
