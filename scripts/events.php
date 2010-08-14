@@ -277,7 +277,7 @@ class EquipEvent extends Event  {
 }
 function getEquipEvents() {
     $result = mysql_query('SELECT  source, param1 as item, substring_index(trim(param2),\' \',-1) as amount, timedate       ' .
-    					  'FROM gameEvents WHERE event=\'equip\'  and timedate > subtime(now(), \'00:10:00\') and (left(param2,7)=\'content\' or left(param2,4)=\'null\') limit 5', getGameDB());
+    					  'FROM gameEvents WHERE event=\'equip\'  and timedate > subtime(now(), \'00:05:00\') and (left(param2,7)=\'content\' or left(param2,4)=\'null\') limit 5', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
       $events[]=new EquipEvent($row['source'],$row['item'],$row['amount'],$row['timedate']);
