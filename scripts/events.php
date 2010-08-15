@@ -132,9 +132,8 @@ class QuestEvent extends Event  {
   
 }
  function getQuestEvents() {
- 	// distinct needed as for the daily item quest there are 3 updates per single quest
-    $result = mysql_query('SELECT distinct source, param1 as quest, timedate ' .
-    					  'FROM gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'weekly_item\',\'daily_item\',\'deathmatch\',\'zoo_food\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
+    $result = mysql_query('SELECT source, param1 as quest, timedate ' .
+    					  'FROM gameEvents WHERE event=\'quest\' and param1 IN (\'daily\',\'deathmatch\',\'zoo_food\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
     $questevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $questevents[]=new QuestEvent($row['source'],$row['quest'],$row['timedate']);
