@@ -19,7 +19,7 @@ startBox("My Account"); ?>
 	<p>You are logged in as <b><?php echo htmlspecialchars($_SESSION['username']);?></b>.</p>
 <ul id="dmenu" >
 	<?php 
-		echo '<li><a href="'.rewriteURL('/account/mycharacters.html').'"><img src="/images/buttons/players_button.png" alt=" "> My Characters</a></li>';
+//		echo '<li><a href="'.rewriteURL('/account/mycharacters.html').'"><img src="/images/buttons/players_button.png" alt=" "> My Characters</a></li>';
 		echo '<li><a href="'.rewriteURL('/account/messages.html').'"><img src="/images/buttons/postman_button.png" alt=" "> Messages</a></li>';
 		echo '<li><a href="'.rewriteURL('/account/history.html').'"><img src="/images/buttons/history_button.png" alt=" "> Login History</a></li>';
 		echo '<li><a href="'.rewriteURL('/account/change-password.html').'"><img src="/images/buttons/password_button.png" alt=" "> New Password</a></li>';
