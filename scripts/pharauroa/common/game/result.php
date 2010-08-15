@@ -80,6 +80,13 @@ class PharauroaResult {
 	 */
 	const FAILED_TOO_MANY = 13;
 
+	/**
+	 * Server is offline.
+	 *
+	 * @since 3.8.5
+	 */
+	const FAILED_OFFLINE = 14;
+	
 	static $reasons = array("Account was created correctly.",
 		"Account was not created because one of the important parameters was missing.",
 		"Account was not created because an invalid character (special letters, signs, numbers) was used.",
@@ -93,7 +100,8 @@ class PharauroaResult {
 		"Account was not created because the name is reserved (or contains a reserved name).",
 		"Account was not created because the password is too close to the username.",
 		"Account was not created because the password is too weak.",
-		"Account was not created because the account creation limit for your network was reached.\nPlease try again later."
+		"Account was not created because the account creation limit for your network was reached.\nPlease try again later.",
+		"Creation failed because the server is temporary not available. Please try again later."
 	);
 
 	public function __construct($result) {
