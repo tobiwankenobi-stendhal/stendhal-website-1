@@ -27,8 +27,13 @@ class PharauroaClientFramework {
 		// Create message
 		$message = new PharauroaMessageP2SCreateAccount();
 		$message->init($this->credentials, $username, $password, $email);
-		
-		$answer = $this->sendMessage($message);
+
+		try {
+			$answer = $this->sendMessage($message);
+		} catch (PharauroaIOException $e) {
+			error_log($e);
+			return new PharauroaResult(PharauroaResult::FAILED_OFFLINE);
+		}
 	
 		if ($answer instanceof PharauroaMessageS2CCreateAccountACK) {
 			return new PharauroaResult(PharauroaResult::OK_CREATED);
@@ -46,7 +51,12 @@ class PharauroaClientFramework {
 		$message = new PharauroaMessageP2SCreateCharacter();
 		$message->init($this->credentials, $username, $character, $template);
 
-		$answer = $this->sendMessage($message);
+		try {
+			$answer = $this->sendMessage($message);
+		} catch (PharauroaIOException $e) {
+			error_log($e);
+			return new PharauroaResult(PharauroaResult::FAILED_OFFLINE);
+		}
 
 		if ($answer instanceof PharauroaMessageS2CCreateCharacterACK) {
 			return new PharauroaResult(PharauroaResult::OK_CREATED);
