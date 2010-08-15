@@ -223,8 +223,12 @@ function key(field) {
 
 	
 	function initOutfitArray() {
-		if (isset($_REQUEST['outfit'])) {
-			// TODO: init $outfitArray from url
+		if (isset($_REQUEST['outfitcode'])) {
+			$code = intval($_REQUEST['outfitcode'], 10);
+			$this->outfitArray[2] = $code % 100;
+			$this->outfitArray[3] = $code / 100 % 100;
+			$this->outfitArray[1] = $code / 10000 % 100;
+			$this->outfitArray[0] = $code / 1000000 % 100;
 		} else {
 			$this->randomOutfit();
 		}
