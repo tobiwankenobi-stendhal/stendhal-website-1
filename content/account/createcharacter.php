@@ -73,6 +73,13 @@ class CreateCharacterPage extends Page {
 
 	function show() {
 		$this->initOutfitArray();
+
+		if (isset($this->result) && !$this->result->wasSuccessful()) {
+			startBox("Error");
+			echo '<span class="error">'.htmlspecialchars($this->result->getMessage()).'</span>';
+			endBox();
+		}
+
 		startBox("Create Character");
 ?>
 
@@ -125,13 +132,7 @@ class CreateCharacterPage extends Page {
 		echo 'value="'.htmlspecialchars($_SESSION['username']).'"';
 	}
 ?>>
-<div id="warn" class="warn">
-<?php 
-	if (isset($this->result)) {
-		echo htmlspecialchars($this->result->getMessage());
-	}
-?>
-</div>
+<div id="warn" class="warn"></div>
 <input name="submit" style="margin-top: 2em" type="submit" value="Create Character">
 </div>
 </form>
