@@ -14,11 +14,7 @@ class CreateCharacterPage extends Page {
 			return true;
 		}
 
-		$this->process();
-
-
-		// do nothing
-		return true;
+		return $this->process();
 	}
 
 
@@ -58,12 +54,12 @@ class CreateCharacterPage extends Page {
 		$template->put('outfit', $_REQUEST['outfit']);
 		$this->result = $clientFramework->createCharacter($_SESSION['username'], $_REQUEST['name'], $template);
 		
-		//echo 'message: ' . $this->result->getMessage();
+		//echo 'message: ' . $this->result->getMessage() . 'XXX: ' . $this->result->wasSuccessful();
 
 		if ($this->result->wasSuccessful()) {
 			// redirect to my characters page
 			header('HTTP/1.0 301 Moved permanently.');
-			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/mycharacters')));
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/mycharacters.html')));
 			return false;
 		} else {
 			return true;
