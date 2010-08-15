@@ -53,7 +53,7 @@ class HallOfFamePage extends Page {
 
 	function writeHttpHeader() {
 		if ($this->loginRequired) {
-			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url=/world/hall-of-fame/'.urlencode($this->filter).'_'.urlencode($this->detail).'.html');;
+			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url='.urlencode(rewriteURL('/world/hall-of-fame/'.urlencode($this->filter).'_'.urlencode($this->detail).'.html')));
 			return false;
 		}
 		return true;
