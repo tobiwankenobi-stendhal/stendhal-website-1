@@ -38,7 +38,7 @@ class PharauroaClientFramework {
 		if ($answer instanceof PharauroaMessageS2CCreateAccountACK) {
 			return new PharauroaResult(PharauroaResult::OK_CREATED);
 		} else if ($answer instanceof PharauroaMessageS2CCreateAccountNACK) {
-			return message.getResult();
+			return $answer->getResult();
 		} else {
 			return new PharauroaResult(PharauroaResult::FAILED_EXCEPTION);
 		}
@@ -61,7 +61,7 @@ class PharauroaClientFramework {
 		if ($answer instanceof PharauroaMessageS2CCreateCharacterACK) {
 			return new PharauroaResult(PharauroaResult::OK_CREATED);
 		} else if ($answer instanceof PharauroaMessageS2CCreateCharacterNACK) {
-			return message.getResult();
+			return $answer->getResult();
 		} else {
 			return new PharauroaResult(PharauroaResult::FAILED_EXCEPTION);
 		}
