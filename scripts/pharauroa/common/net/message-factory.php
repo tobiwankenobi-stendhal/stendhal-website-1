@@ -33,7 +33,7 @@ class PharauroaMessageFactory {
 			throw new PharauroaIOException('Unknown message type: '.$type);
 		}
 		$message->readObject($deserializer);
-		var_dump($message);
+		//var_dump($message);
 		return $message;
 	}
 
