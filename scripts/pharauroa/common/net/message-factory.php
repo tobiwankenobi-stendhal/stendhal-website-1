@@ -34,6 +34,7 @@ class PharauroaMessageFactory {
 		}
 		$message->readObject($deserializer);
 		var_dump($message);
+		return $message;
 	}
 
 }
