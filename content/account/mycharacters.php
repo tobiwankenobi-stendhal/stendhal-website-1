@@ -33,11 +33,13 @@ class MyCharactersPage extends Page {
 		}
 		
 		startBox("Character Selector");
+
 		$players = getCharactersForUsername($_SESSION['username']);
 		if(sizeof($players)==0) {
 			echo 'You have no characters.';
 		} else {
-		echo '<div style="height: 280px;">';
+			echo '<div>Click on a character to play.</div>';
+			echo '<div style="height: 280px;">';
 			foreach($players as $p) {
 				echo '<div class="onlinePlayer characterHeight">';
 				echo '  <a class = "onlineLink" href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';
