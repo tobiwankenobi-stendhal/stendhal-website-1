@@ -101,7 +101,7 @@ class PharauroaResult {
 		"Account was not created because the password is too close to the username.",
 		"Account was not created because the password is too weak.",
 		"Account was not created because the account creation limit for your network was reached.\nPlease try again later.",
-		"Creation failed because the server is temporary not available. Please try again later."
+		"Creation failed because the server is temporarily not available. Please try again later."
 	);
 
 	public function __construct($result) {
