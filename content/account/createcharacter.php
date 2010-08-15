@@ -126,7 +126,7 @@ class CreateCharacterPage extends Page {
 		echo 'value="'.htmlspecialchars($_REQUEST['name']).'"';
 	} else {
 		// TODO: if account name is a valid charactername, and the character does not exist {
-		echo 'value="'.htmlspecialchars($_SESSION['username']).'"';
+		// echo 'value="'.htmlspecialchars($_SESSION['username']).'"';
 	}
 ?>>
 <div id="warn" class="warn"></div>
