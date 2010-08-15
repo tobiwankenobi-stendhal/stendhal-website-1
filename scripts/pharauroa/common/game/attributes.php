@@ -13,7 +13,7 @@ class PharauroaAttributes {
 
 	public function writeObject(&$out) {
 		$out->writeString(""); // rpClass.getName()
-		$out->writeInt(size);
+		$out->writeInt(count($this->content));
 
 		foreach ($this->content As $key => $value) {	
 			$out->writeShort(-1);
