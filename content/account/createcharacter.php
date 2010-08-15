@@ -54,8 +54,6 @@ class CreateCharacterPage extends Page {
 		$template->put('outfit', $_REQUEST['outfitcode']);
 
 		$this->result = $clientFramework->createCharacter($_SESSION['username'], $_REQUEST['name'], $template);
-		
-		//echo 'message: ' . $this->result->getMessage() . 'XXX: ' . $this->result->wasSuccessful();
 
 		if ($this->result->wasSuccessful()) {
 			// redirect to my characters page
@@ -189,7 +187,6 @@ function updateAll() {
 }
 
 function validate() {
-	//document.createcharacter.submit.disabled = (document.createcharacter.name.value.length < 4);
 	if (document.createcharacter.name.value.length < 4) {
 		document.getElementById("warn").innerHTML = "Name must be more than 4 letters.";
 	} else {
