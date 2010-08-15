@@ -8,7 +8,7 @@ class PharauroaAttributes {
 	private $content = array();
 
 	public function put($key, $value) {
-		$content[$key] = $value;
+		$this->content[$key] = $value;
 	}
 
 	public function writeObject(&$out) {
