@@ -183,7 +183,8 @@ function getOnlinePlayers() {
 function getCharactersForUsername($username) {
 	return _getPlayers('SELECT character_stats.* FROM character_stats, characters, account '
 		.'WHERE account.username=\''.mysql_real_escape_string($username).'\' AND '
-		.'characters.player_id=account.id AND character_stats.name=characters.charname');
+		.'characters.player_id=account.id AND character_stats.name=characters.charname '
+		.'ORDER BY character_stats.name');
 }
 
 function _getPlayers($query) {
