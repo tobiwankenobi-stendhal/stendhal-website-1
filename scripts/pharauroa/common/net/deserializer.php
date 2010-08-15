@@ -43,6 +43,20 @@ class PharauroaDeserializer {
 	}
 
 	/**
+	 * This method reads a byte
+	 *
+	 * @return the byte 
+	 */
+	public function readShort() {
+		if (strlen($this->data) < 2) {
+			throw new PharauroaIOException('Trying to read short beyond end of stream.');
+		}
+		$output = unpack("s", $this->data);
+		$this->data = substr($this->data, 2);
+		return $output[1]; 
+	}
+
+	/**
 	 * This method reads an integer
 	 *
 	 * @return the integer

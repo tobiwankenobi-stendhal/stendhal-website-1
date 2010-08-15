@@ -16,6 +16,10 @@ class PharauroaSerializer {
 	public function writeByte($byte) {
 		$this->data = $this->data . chr($byte);
 	}
+	
+	public function writeShort($short) {
+		$this->data = $this->data . pack("s", $short);
+	}
 
 	public function writeInt($int) {
 		$this->data = $this->data . pack("I", $int);
