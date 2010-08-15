@@ -98,7 +98,23 @@ stuff like sprites, items, configurations, etc...
 In order to avoid expensive queries to database and complex XML parsings, 
 ACP can be used for caching.
 
-### Extra tips
+###### Communication with the game server
+
+In order for the website to communicate with the server, you have to
+define the following configuration settings:
+
+define('STENDHAL_MARAUROA_SERVER', '127.0.0.1');
+define('STENDHAL_MARAUROA_PORT', 32160);
+define('STENDHAL_MARAUROA_CREDENTIALS', '<something random>');
+
+And in server.ini:
+proxy_credentials=<something random>
+
+The credentials are used for authentication, so make sure that you put
+something random in there. It needs to be the same value in both
+configuration.php and server.ini
+
+###### Extra tips
 
 To edit news and events, login with an account from the game server with adminlevel >= 400 
 to the website (top right) and edit the news and events using the GUI.
