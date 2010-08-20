@@ -172,10 +172,43 @@ Slot zaras_chest_ados:
 		return $res;
 	}
 
+	/**
+	 * renders the result of a deep inspect
+	 *
+	 * @param $inspectData
+	 */
 	private function renderInspectResult($inspectData) {
+		$this->renderItemSlots($inspectData);
 		$this->renderKeyedSlots($inspectData);
 	}
 
+	/**
+	 * renders a slot with items
+	 *
+	 * @param $inspectData data of an deep inspect
+	 */
+	private function renderItemSlots($inspectData) {
+		foreach ($inspectData as $slotName => $slot) {
+			if (in_array($slotName, InspectPage::$KEYED_SLOTS)) {
+				continue;
+			}
+
+			echo '<h2>'.htmlspecialchars($slotName).'</h2>';
+			foreach ($slot as $item) {
+				echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
+				foreach ($item as $key => $value) {
+					echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
+				}
+				echo '</table>';
+			}
+		}
+	}
+
+	/**
+	 * renders a slot with an object that is a map
+	 *
+	 * @param $inspectData data of an deep inspect
+	 */
 	private function renderKeyedSlots($inspectData) {
 		foreach (InspectPage::$KEYED_SLOTS as $keyedSlot) {
 			if (!isset($inspectData[$keyedSlot])) {
