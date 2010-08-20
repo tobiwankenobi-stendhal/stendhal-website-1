@@ -152,7 +152,7 @@ Slot zaras_chest_ados:
 	private function parse($data) {
 		$res = array();
 		$res[] = array();
-		$res[0]['!quests']['mykey'] = 'myvalue';
+		$res[0]['!quests'][]['mykey'] = 'myvalue';
 		return $res;
 	}
 
@@ -163,7 +163,7 @@ Slot zaras_chest_ados:
 			}
 			echo '<h2>'.htmlspecialchars($keyedSlot).'</h2>';
 			echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
-			foreach ($inspectData[$keyedSlot] as $key => $value) {
+			foreach ($inspectData[$keyedSlot][0] as $key => $value) {
 				echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
 			}
 			echo '</table>';
