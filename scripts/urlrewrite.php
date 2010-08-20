@@ -42,6 +42,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/account/approve-password.html$ /index.php?id=content/account/approve [L]
                 RewriteRule ^/account/change-email.html$ /index.php?id=content/account/email [L]
                 RewriteRule ^/account/change-password.html$ /index.php?id=content/account/changepassword [L]
+                RewriteRule ^/account/create-account.html$ /index.php?id=content/account/createaccount [L]
+                RewriteRule ^/account/create-character.html$ /index.php?id=content/account/createcharacter [L]
                 RewriteRule ^/account/history.html$ /index.php?id=content/account/loginhistory [L]
                 RewriteRule ^/account/login.html$ /index.php?id=content/account/login [L]
                 RewriteRule ^/account/logout.html$ /index.php?id=content/account/logout [L]
@@ -216,6 +218,10 @@ function rewriteURL($url) {
 			return preg_replace('|^/account/change-email.html$|', $folder.'/?id=content/account/email', $url);
 		} else if (preg_match('|^/account/change-password.html$|', $url)) {
 			return preg_replace('|^/account/change-password.html$|', $folder.'/?id=content/account/changepassword', $url);
+		} else if (preg_match('|^/account/create-account.html$|', $url)) {
+			return preg_replace('|^/account/create-account.html$|', $folder.'/?id=content/account/createaccount', $url);
+		} else if (preg_match('|^/account/create-character.html$|', $url)) {
+			return preg_replace('|^/account/create-character.html$|', $folder.'/?id=content/account/createcharacter', $url);
 		} else if (preg_match('|^/account/history.html$|', $url)) {
 			return preg_replace('|^/account/history.html$|', $folder.'/?id=content/account/loginhistory', $url);
 		} else if (preg_match('|^/account/login.html$|', $url)) {
@@ -224,11 +230,11 @@ function rewriteURL($url) {
 			return preg_replace('|^/account/logout.html$|', $folder.'/?id=content/account/logout', $url);
 		} else if (preg_match('|^/account/merge.html$|', $url)) {
 			return preg_replace('|^/account/merge.html$|', $folder.'/?id=content/account/merge', $url);
-	    } else if (preg_match('|^/account/messages.html$|', $url)) {
-            return preg_replace('|^/account/messages.html$|', $folder.'/?id=content/account/messages', $url);
+		} else if (preg_match('|^/account/messages.html$|', $url)) {
+			return preg_replace('|^/account/messages.html$|', $folder.'/?id=content/account/messages', $url);
 		} else if (preg_match('|^/account/messages/(.*)\.html$|', $url)) {
-            return preg_replace('|^/account/messages/(.*)\.html$|', $folder.'/?id=content/account/messages&filter=$1', $url);
-        } else if (preg_match('|^/account/myaccount.html$|', $url)) {
+			return preg_replace('|^/account/messages/(.*)\.html$|', $folder.'/?id=content/account/messages&filter=$1', $url);
+		} else if (preg_match('|^/account/myaccount.html$|', $url)) {
 			return preg_replace('|^/account/myaccount.html$|', $folder.'/?id=content/account/myaccount', $url);
 		} else if (preg_match('|^/account/mycharacters.html$|', $url)) {
 			return preg_replace('|^/account/mycharacters.html$|', $folder.'/?id=content/account/mycharacters', $url);
