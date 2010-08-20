@@ -153,10 +153,30 @@ Slot zaras_chest_ados:
 		$res = array();
 		$res[] = array();
 		$res[0]['!quests'][]['mykey'] = 'myvalue';
+
+		$res[0]['bag'][0]['type'] = 'item';
+		$res[0]['bag'][0]['class'] = 'cloak';
+		$res[0]['bag'][0]['logid'] = '10196';
+		$res[0]['bag'][0]['def'] = '4';
+		$res[0]['bag'][0]['name'] = 'dwarf cloak';
+		$res[0]['bag'][0]['subclass'] = 'dwarf_cloak';
+
+		$res[0]['bag'][1]['type'] = 'item';
+		$res[0]['bag'][1]['class'] = 'scroll';
+		$res[0]['bag'][1]['logid'] = '10203';
+		$res[0]['bag'][1]['quantity'] = '20';
+		$res[0]['bag'][1]['name'] = 'marked scroll';
+		$res[0]['bag'][1]['subclass'] = 'marked';
+		$res[0]['bag'][1]['infostring'] = 'int_kirdneh_house_44 20 18';
+
 		return $res;
 	}
 
 	private function renderInspectResult($inspectData) {
+		$this->renderKeyedSlots($inspectData);
+	}
+
+	private function renderKeyedSlots($inspectData) {
 		foreach (InspectPage::$KEYED_SLOTS as $keyedSlot) {
 			if (!isset($inspectData[$keyedSlot])) {
 				continue;
