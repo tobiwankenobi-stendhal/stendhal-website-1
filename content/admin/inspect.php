@@ -1,7 +1,8 @@
 <?php
 
 class InspectPage extends Page {
-
+	private static $KEYED_SLOTS = array("!quests", "!features", "!tutorial", "skills", "!kills", "!visited");
+	
 	private $data = '
 
 [21:29] This release is EXPERIMENTAL. Need help? http://stendhalgame.org/wiki/AskForHelp - please report problems, suggestions and bugs. Remember to keep your password completely secret, never tell to another friend, player, or admin.
@@ -140,6 +141,32 @@ Slot zaras_chest_ados:
 
 		if(getAdminLevel() < 5000) {
 			die("Ooops!");
+		}
+
+		$parsedData = $this->parse($this->data);
+		foreach ($parsedData as $inspectData) {
+			$this->renderInspectResult($inspectData);
+		}
+	}
+
+	private function parse($data) {
+		$res = array();
+		$res[] = array();
+		$res[0]['!quests']['mykey'] = 'myvalue';
+		return $res;
+	}
+
+	private function renderInspectResult($inspectData) {
+		foreach (InspectPage::$KEYED_SLOTS as $keyedSlot) {
+			if (!isset($inspectData[$keyedSlot])) {
+				continue;
+			}
+			echo '<h2>'.htmlspecialchars($keyedSlot).'</h2>';
+			echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
+			foreach ($inspectData[$keyedSlot] as $key => $value) {
+				echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
+			}
+			echo '</table>';
 		}
 	}
 }
