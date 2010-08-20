@@ -1,6 +1,6 @@
 <?php
 
-class ChcheInfoPage extends Page {
+class CacheInfoPage extends Page {
 	function writeContent() {
 
 		if(getAdminLevel() < 5000) {
@@ -27,5 +27,5 @@ class ChcheInfoPage extends Page {
 	}
 }
 
-$page = new ChcheInfoPage();
+$page = new CacheInfoPage();
 ?>
