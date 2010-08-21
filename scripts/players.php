@@ -75,16 +75,6 @@ class Player {
   }
 
   function getDeaths() {
-    ##
-    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ##
-    if(STENDHAL_PLEASE_MAKE_IT_FAST) {
-      return array();
-    }
-    ##
-    ## HACK AHEAD - MOVE AWAY - HACK AHEAD - MAKE ROOM
-    ##
-
     $result = mysql_query("
     select
       timedate,
