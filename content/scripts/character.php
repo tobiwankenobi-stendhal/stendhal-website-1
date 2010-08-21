@@ -23,6 +23,7 @@ class CharacterPage extends Page {
 			echo '<meta name="robots" content="noindex">'."\n";
 		}
 		echo '<title>Player '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
 	}
 
 	function writeContent() {
@@ -89,9 +90,7 @@ foreach($choosen->equipment as $slot=>$content) {
 	<?php 
 	if($content!="") {
 		$item = getItem($content);
-		echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($content).'.html').'">'; ?>
-		<img src="<?php echo htmlspecialchars($item->showImage()); ?>" alt=" " title = "<?php echo htmlspecialchars(ucfirst(str_replace($old, $new, $slot))); ?>: <?php echo htmlspecialchars(ucfirst($content)); ?>"/></a>
-		<?php
+		$item->showImageWithPopup(ucfirst(str_replace($old, $new, $slot))). ': ';
 	} else {
 		?>
 	<div class="emptybox"></div>
