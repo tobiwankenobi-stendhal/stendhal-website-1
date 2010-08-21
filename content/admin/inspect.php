@@ -2,7 +2,8 @@
 
 class InspectPage extends Page {
 	private static $KEYED_SLOTS = array("!quests", "!features", "!tutorial", "skills", "!kills", "!visited");
-
+	private static $CHARACTER_SLOTS = array("head", "rhand", "armor", "lhand", "finger", "cloak", "legs", "feet");
+	
 	public function writeHtmlHeader() {
 		echo '<title>Inspect'.STENDHAL_TITLE.'</title>';
 		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
@@ -52,7 +53,8 @@ class InspectPage extends Page {
 	private function renderInspectResult($inspectData) {
 		echo '<h1><a name="result">Deep inspect of '.htmlspecialchars($inspectData['name']).'</a></h1>';
 		$this->renderTopLevelAttributes($inspectData);
-		$this->renderItemSlots($inspectData);
+		$this->renderCharacterItemSlots($inspectData);
+		$this->renderNonCharacterItemSlots($inspectData);
 		$this->renderKeyedSlots($inspectData);
 	}
 
@@ -78,9 +80,42 @@ class InspectPage extends Page {
 	 *
 	 * @param $inspectData data of an deep inspect
 	 */
-	private function renderItemSlots($inspectData) {
+	private function renderCharacterItemSlots($inspectData) {
+		echo '<h2>Character</h2>';
+		foreach (InspectPage::$CHARACTER_SLOTS as $slotName) {
+			$slot = $inspectData[$slotName];
+			if (!isset($slot)) {
+				continue;
+			}
+			echo '<b>'.htmlspecialchars($slotName).'</b>';
+			foreach ($slot as $item) {
+				$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
+				$html = $this->getItemTableHtml($item);
+				echo $item['quantity'];
+
+				echo ' <a href="' . $link . '"'
+					. ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\','
+					. 'DECODE, FULLHTML'
+					. ');" onmouseout="return nd();" class="' . $cssclass . '">';
+
+				$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
+				echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
+				echo '</a>, ';
+			}
+		}
+	}
+
+	/**
+	 * renders a slot with items
+	 *
+	 * @param $inspectData data of an deep inspect
+	 */
+	private function renderNonCharacterItemSlots($inspectData) {
 		foreach ($inspectData as $slotName => $slot) {
 			if (in_array($slotName, InspectPage::$KEYED_SLOTS)) {
+				continue;
+			}
+			if (in_array($slotName, InspectPage::$CHARACTER_SLOTS)) {
 				continue;
 			}
 			if (!is_array($slot)) {
@@ -104,6 +139,7 @@ class InspectPage extends Page {
 			}
 		}
 	}
+
 
 	private function getItemTableHtml($item) {
 		$res = '<table class="prettytable" style="text-align: left"><tr><th>key</th><th>value</th></tr>';
