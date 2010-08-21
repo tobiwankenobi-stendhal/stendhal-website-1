@@ -152,34 +152,6 @@ Slot zaras_chest_ados:
 	private function parse($data) {
 		$parser = new InspectParser($data);
 		$res = $parser->parse();
-		//var_dump($res);
-
-		// TODO: removed dummy data
-
-		$res = array();
-		$res[] = array();
-		$res[0]['name'] = 'hendrikus';
-		$res[0]['zoneid'] = 'int_semos_blacksmith';
-		$res[0]['sentence'] = '<script>alert("test")</script>';
-		$res[0]['def'] = '4711';
-		
-		$res[0]['!quests'][]['mykey'] = 'myvalue';
-
-		$res[0]['bag'][0]['type'] = 'item';
-		$res[0]['bag'][0]['class'] = 'cloak';
-		$res[0]['bag'][0]['logid'] = '10196';
-		$res[0]['bag'][0]['def'] = '4';
-		$res[0]['bag'][0]['name'] = 'dwarf cloak';
-		$res[0]['bag'][0]['subclass'] = 'dwarf_cloak';
-
-		$res[0]['bag'][1]['type'] = 'item';
-		$res[0]['bag'][1]['class'] = 'scroll';
-		$res[0]['bag'][1]['logid'] = '10203';
-		$res[0]['bag'][1]['quantity'] = '20';
-		$res[0]['bag'][1]['name'] = 'marked scroll';
-		$res[0]['bag'][1]['subclass'] = 'marked';
-		$res[0]['bag'][1]['infostring'] = 'int_kirdneh_house_44 20 18';
-
 		return $res;
 	}
 
