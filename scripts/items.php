@@ -20,58 +20,58 @@
  * A class representing an item.
  */
 class Item {
-  public static $classes=array();
-  public static $items=array();
-  
-  /* Name of the item */
-  public $name;
-  /* Description of the item */
-  public $description;
-  /* Class of the item */
-  public $class;
-  /* GFX URL of the item. */
-  public $gfx;
-  /* Attributes of the item as an array attribute=>value */
-  public $attributes;
-  /* susceptibilities and resistances */
-  public $susceptibilities;
-  /* Where the item can be wore as an array slot=>item */
-  public $equipableat;
+	public static $classes=array();
+	public static $items=array();
 
-  function __construct($name, $description, $class, $gfx, $attributes, $susceptibilities, $equipableat) {
-    $this->name=$name;
-    $this->description=$description;
-    $this->class=$class;
-    self::$classes[$class]=0;
-    $this->gfx=$gfx;
-    $this->attributes=$attributes;
-    $this->equipableat=$equipableat;
-    $this->susceptibilities=$susceptibilities;
-  }
-  
-  function showImage() {
-  	return $this->gfx;
-  }
-  
-  function getClasses() {
-    return self::$classes;
-  }
+	/** Name of the item */
+	public $name;
+	/** Description of the item */
+	public $description;
+	/** Class of the item */
+	public $class;
+	/** GFX URL of the item. */
+	public $gfx;
+	/** Attributes of the item as an array attribute=>value */
+	public $attributes;
+	/** susceptibilities and resistances */
+	public $susceptibilities;
+	/** Where the item can be wore as an array slot=>item */
+	public $equipableat;
+
+	function __construct($name, $description, $class, $gfx, $attributes, $susceptibilities, $equipableat) {
+		$this->name=$name;
+		$this->description=$description;
+		$this->class=$class;
+		self::$classes[$class]=0;
+		$this->gfx=$gfx;
+		$this->attributes=$attributes;
+		$this->equipableat=$equipableat;
+		$this->susceptibilities=$susceptibilities;
+	}
+
+	function showImage() {
+		return $this->gfx;
+	}
+
+	function getClasses() {
+		return self::$classes;
+	}
+
 }
 
 function getItem($name) {
-  $items=getItems();
-  foreach($items as $i) {
-    if($i->name==$name) {
-      return $i;
-    }
-  }
-
-  return null;
+	$items=getItems();
+	foreach($items as $i) {
+		if($i->name == $name) {
+			return $i;
+		}
+	}
+	return null;
 }
 
 /**
-  * Returns a list of Items
-  */
+ * Returns a list of Items
+ */
 function getItems() {
 	global $cache;
 	if(sizeof(Item::$items) == 0) {
@@ -136,9 +136,7 @@ function getItems() {
 		return strcmp($a->name,$b->name);
 	}
 
-	/*
-	 * Sort it alphabetically.
-	 */
+	// Sort it alphabetically.
 	usort($list, 'compare');
 	Item::$items = $list;
 	$cache->store('stendhal_items', new ArrayObject($list));
