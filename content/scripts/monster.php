@@ -134,7 +134,6 @@ foreach($this->monsters as $m) {
 					$item->showImageWithPopup();
 					?>
 					<span class="block label"><?php echo ucfirst($k["name"]); ?></span>
-					</a>
 					<div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
 					<div class="data">Probability: <?php echo $k["probability"]; ?>%</div>
 				</div>

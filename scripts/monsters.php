@@ -84,6 +84,35 @@ class Monster {
 		return $this->gfx;
 	}
 
+	function showImageWithPopup() {
+		$popup = '<div class="stendhalCreature"><span class="stendhalCreatureIconNameBanner">';
+
+		$popup .= '<span class="stendhalCreatureIcon">';
+		$popup .= '<img src="' . htmlspecialchars($this->gfx) . '" />';
+		$popup .= '</span>';
+
+		$popup .= '<a href="'.rewriteURL('/creature/'.surlencode($this->name).'.html').'">';
+		$popup .= $this->name;
+		$popup .= '</a></span>';
+
+		$popup .= '<br />';
+		$popup .= 'Class: ' . htmlspecialchars(ucfirst($this->class)) . '<br />';
+		$popup .= 'Level: ' . htmlspecialchars($this->level) . '<br />';
+
+		foreach($this->attributes as $label=>$data) {
+			$popup .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
+		}
+
+		if (isset($this->description) && ($this->description != '')) {
+			$popup .= '<br />' . $this->description . '<br />';
+		}
+
+		$popup .= '</div>';
+
+		echo '<a href="'.rewriteURL('/creature/'.surlencode($this->name).'.html').'"'.getOverlibCode($popup).'>';
+		echo '<img class="creature" src="'.htmlspecialchars($this->showImage()). '" alt=""></a>';
+	}
+
 	function getClasses() {
 		return self::$classes;
 	}

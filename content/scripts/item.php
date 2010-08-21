@@ -129,6 +129,7 @@ class ItemPage extends Page {
 		if (!$this->found) {
 			echo '<meta name="robots" content="noindex">'."\n";
 		}
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
 	}
 
 	function writeContent() {
@@ -254,10 +255,8 @@ foreach($this->items as $m) {
               if($k["name"]==$m->name) {
               ?>
               <div class="row">
-                <?php echo '<a href="'.rewriteURL('/creature/'.surlencode($monster->name).'.html').'">' ?>
-                <img src="<?php echo $monster->showImage(); ?>" alt="<?php echo $monster->name; ?>"/>
+                <?php $monster->showImageWithPopup() ?>
                 <span class="block label"><?php echo $monster->name; ?></span>
-                </a>
                 <div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
                 <div class="data">Probability: <?php echo formatNumber($k["probability"]); ?>%</div>
                 <div style="clear: left;"></div>

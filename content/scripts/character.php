@@ -143,10 +143,11 @@ foreach($choosen->equipment as $slot=>$content) {
 				if($monster->name==$source) {
 			?>
 	<div class="row">
-		<?php echo '<a href="'.rewriteURL('/creature/'.surlencode($monster->name).'.html').'">'; ?>
-		<img class="creature" src="<?php echo htmlspecialchars($monster->showImage()); ?>" alt=""/>
+		<?php 
+		$monster->showImageWithPopup();
+		?>
 		Killed by <?php echo a_an($monster->name) ?> <span class="label"><?php echo htmlspecialchars($monster->name); ?></span>
-		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
+		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span>
 		<div style="margin-bottom: 50px;"></div>
 	</div>
 			<?php
