@@ -13,6 +13,7 @@ class InspectParser {
 	private $res;
 
 	public function __construct($data) {
+		$data = str_replace("\r\n", "\n", $data);
 		$this->data = explode("\n", $data);
 	}
 
