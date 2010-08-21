@@ -151,7 +151,8 @@ Slot zaras_chest_ados:
 
 	private function parse($data) {
 		$parser = new InspectParser($data);
-		$parser->parse();
+		$res = $parser->parse();
+		var_dump($res);
 
 		// TODO: removed dummy data
 
