@@ -51,4 +51,16 @@ function startBox($title) {
 function endBox() {
 	echo '</div></div>';
 }
+
+/**
+ * gets the code to put into the a-tag of an overlib popup
+ *
+ * @param string $html
+ */
+function getOverlibCode($html) {
+	return ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\','
+		. 'DECODE, FULLHTML'
+		. ');" onmouseout="return nd();"';
+}
+
 ?>

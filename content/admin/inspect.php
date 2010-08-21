@@ -147,10 +147,7 @@ class InspectPage extends Page {
 
 			$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
 			$html = $this->getItemTableHtml($item);
-			echo ' <a href="' . $link . '"'
-				. ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\','
-				. 'DECODE, FULLHTML'
-				. ');" onmouseout="return nd();" class="' . $cssclass . '">';
+			echo ' <a href="' . $link . '"' . getOverlibCode($html) . '>';
 
 			$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
 			echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
