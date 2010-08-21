@@ -65,6 +65,7 @@ class InspectPage extends Page {
 	 */
 	private function renderTopLevelAttributes($inspectData) {
 		echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
+		ksort($inspectData);
 		foreach ($inspectData as $key => $value) {
 			if (is_array($value)) {
 				continue;
@@ -160,6 +161,7 @@ class InspectPage extends Page {
 
 	private function getItemTableHtml($item) {
 		$res = '<table class="prettytable" style="text-align: left"><tr><th>key</th><th>value</th></tr>';
+		ksort($item);
 		foreach ($item as $key => $value) {
 			$res .= '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
 		}
@@ -179,7 +181,9 @@ class InspectPage extends Page {
 			}
 			echo '<h2>'.htmlspecialchars($keyedSlot).'</h2>';
 			echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
-			foreach ($inspectData[$keyedSlot][0] as $key => $value) {
+			$slot = $inspectData[$keyedSlot][0];
+			ksort($slot);
+			foreach ($slot as $key => $value) {
 				echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
 			}
 			echo '</table>';
