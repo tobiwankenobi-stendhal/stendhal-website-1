@@ -210,7 +210,7 @@ Slot zaras_chest_ados:
 				$link = ''; // TODO
 				$cssclass = ''; // TODO;
 				$html = $this->getItemTableHtml($item);
-				$res .= $item['quantity']. ' <a href="' . $link . '"';
+				$res = $item['quantity']. ' <a href="' . $link . '"';
 				$res .= ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',';
 				$res .= 'DECODE, FULLHTML';
 				$res .= ');" onmouseout="return nd();" class="' . $cssclass . '">';
