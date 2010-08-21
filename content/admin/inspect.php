@@ -88,22 +88,27 @@ class InspectPage extends Page {
 				continue;
 			}
 			echo '<b>'.htmlspecialchars($slotName).'</b>';
-			foreach ($slot as $item) {
-				$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
-				$html = $this->getItemTableHtml($item);
-				echo $item['quantity'];
-
-				echo ' <a href="' . $link . '"'
-					. ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\','
-					. 'DECODE, FULLHTML'
-					. ');" onmouseout="return nd();" class="' . $cssclass . '">';
-
-				$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
-				echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
-				echo '</a>, ';
-			}
+			$this->renderItemSlot($slot);
 		}
 	}
+
+	private function renderItemSlot($slot) {
+		foreach ($slot as $item) {
+			echo $item['quantity'];
+
+			$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
+			$html = $this->getItemTableHtml($item);
+			echo ' <a href="' . $link . '"'
+				. ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\','
+				. 'DECODE, FULLHTML'
+				. ');" onmouseout="return nd();" class="' . $cssclass . '">';
+
+			$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
+			echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
+			echo '</a>';
+		}
+	}
+
 
 	/**
 	 * renders a slot with items
@@ -123,20 +128,7 @@ class InspectPage extends Page {
 			}
 
 			echo '<h2>'.htmlspecialchars($slotName).'</h2>';
-			foreach ($slot as $item) {
-				$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
-				$html = $this->getItemTableHtml($item);
-				echo $item['quantity'];
-
-				echo ' <a href="' . $link . '"'
-					. ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\','
-					. 'DECODE, FULLHTML'
-					. ');" onmouseout="return nd();" class="' . $cssclass . '">';
-
-				$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
-				echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
-				echo '</a>, ';
-			}
+			$this->renderItemSlot($slot);
 		}
 	}
 
