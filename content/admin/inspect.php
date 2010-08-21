@@ -137,6 +137,11 @@ Slot zaras_chest_ados:
 [21:29] Script "DeepInspect.class" was successfully executed.	
 	';
 
+	public function writeHtmlHeader() {
+		echo '<title>Inspect'.STENDHAL_TITLE.'</title>';
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
+	}
+
 	function writeContent() {
 
 		if(getAdminLevel() < 5000) {
@@ -202,15 +207,28 @@ Slot zaras_chest_ados:
 			foreach ($slot as $item) {
 				// TODO: render as quantity + icon
 				// TODO: render table as javascript mouse over popup
-				echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
-				foreach ($item as $key => $value) {
-					echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
-				}
-				echo '</table>';
+				$link = ''; // TODO
+				$cssclass = ''; // TODO;
+				$html = $this->getItemTableHtml($item);
+				$res .= $item['quantity']. ' <a href="' . $link . '"';
+				$res .= ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',';
+				$res .= 'DECODE, FULLHTML';
+				$res .= ');" onmouseout="return nd();" class="' . $cssclass . '">';
+				$res .= htmlspecialchars($item['name']);
+				$res .= '</a>, ';
+				echo $res;
 			}
 		}
 	}
 
+	private function getItemTableHtml($item) {
+		$res = '<table class="prettytable" style="text-align: left"><tr><th>key</th><th>value</th></tr>';
+		foreach ($item as $key => $value) {
+			$res .= '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
+		}
+		$res .= '</table>';
+		return $res;
+	}
 
 	/**
 	 * renders a slot with an object that is a map
