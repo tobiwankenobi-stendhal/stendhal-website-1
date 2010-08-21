@@ -152,12 +152,17 @@ Slot zaras_chest_ados:
 	private function parse($data) {
 		$parser = new InspectParser($data);
 		$res = $parser->parse();
-		var_dump($res);
+		//var_dump($res);
 
 		// TODO: removed dummy data
 
 		$res = array();
 		$res[] = array();
+		$res[0]['name'] = 'hendrikus';
+		$res[0]['zoneid'] = 'int_semos_blacksmith';
+		$res[0]['sentence'] = '<script>alert("test")</script>';
+		$res[0]['def'] = '4711';
+		
 		$res[0]['!quests'][]['mykey'] = 'myvalue';
 
 		$res[0]['bag'][0]['type'] = 'item';
@@ -185,9 +190,27 @@ Slot zaras_chest_ados:
 	 */
 	private function renderInspectResult($inspectData) {
 		echo '<h1>Deep inspect of '.htmlspecialchars($inspectData['name']).'</h1>';
+		$this->renderTopLevelAttributes($inspectData);
 		$this->renderItemSlots($inspectData);
 		$this->renderKeyedSlots($inspectData);
 	}
+
+	/**
+	 * renders the top level attributes
+	 *
+	 * @param $inspectData data of an deep inspect
+	 */
+	private function renderTopLevelAttributes($inspectData) {
+		echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
+		foreach ($inspectData as $key => $value) {
+			if (is_array($value)) {
+				continue;
+			}
+			echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
+		}
+		echo '</table>';
+	}
+
 
 	/**
 	 * renders a slot with items
@@ -197,6 +220,9 @@ Slot zaras_chest_ados:
 	private function renderItemSlots($inspectData) {
 		foreach ($inspectData as $slotName => $slot) {
 			if (in_array($slotName, InspectPage::$KEYED_SLOTS)) {
+				continue;
+			}
+			if (!is_array($slot)) {
 				continue;
 			}
 
@@ -212,6 +238,7 @@ Slot zaras_chest_ados:
 			}
 		}
 	}
+
 
 	/**
 	 * renders a slot with an object that is a map
