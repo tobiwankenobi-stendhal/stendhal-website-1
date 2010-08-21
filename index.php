@@ -248,6 +248,7 @@ if ($page->writeHttpHeader()) {
 					<li><a id="menuAdminNews" href="/?id=content/admin/news">News</a></li>
 					<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots">Screenshots</a></li>
 				<?php } ?>
+				<li><a id="menuAdminInspect" href="/?id=content/admin/inspect">Render Inspect</a></li>
 				<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs">Support Logs</a></li>
 				<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></li>
 			</ul>
