@@ -22,32 +22,33 @@
  /*
  * This file is the PHP code that generate each of the website sections. 
  */
-include('scripts/mysql.php');
-include('scripts/xml.php');
+
+require_once('scripts/account.php');
+require_once('scripts/cache.php');
+require_once('scripts/events.php');
+require_once('scripts/grammar.php');
+require_once('scripts/inspect.php');
+require_once('scripts/items.php');
+require_once('scripts/monsters.php');
+require_once('scripts/mysql.php');
+require_once('scripts/news.php');
+require_once('scripts/npcs.php');
+require_once('scripts/playerhistory.php');
+require_once('scripts/players.php');
+require_once('scripts/screenshots.php');
+require_once('scripts/statistics.php');
+require_once('scripts/urlrewrite.php');
+require_once('scripts/xml.php');
+require_once("scripts/meeting.php");
+
 
 function startBox($title) {
-  echo '<div class="box">';
-  echo '<div class="boxTitle">'.$title.'</div>';
-  echo '<div class="boxContent">';
+	echo '<div class="box">';
+	echo '<div class="boxTitle">'.$title.'</div>';
+	echo '<div class="boxContent">';
 }
 
 function endBox() {
-  echo '</div></div>';
+	echo '</div></div>';
 }
-
-
-include('scripts/screenshots.php');
-include('scripts/news.php');
-include('scripts/players.php');
-include('scripts/playerhistory.php');
-include('scripts/monsters.php');
-include('scripts/npcs.php');
-include('scripts/inspect.php');
-include('scripts/items.php');
-include('scripts/statistics.php');
-include('scripts/cache.php');
-include("scripts/meeting.php");
-include('scripts/events.php');
-include('scripts/grammar.php');
-
 ?>

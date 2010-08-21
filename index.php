@@ -18,9 +18,6 @@
   */
 
 require_once('scripts/website.php');
-require_once('scripts/account.php');
-require_once('scripts/authors.php');
-require_once('scripts/urlrewrite.php');
 
 if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 	$protocol = 'https';
