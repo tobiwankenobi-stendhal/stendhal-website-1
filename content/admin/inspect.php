@@ -59,6 +59,7 @@ class InspectPage extends Page {
 	 * @param $inspectData data of an deep inspect
 	 */
 	private function renderTopLevelAttributes($inspectData) {
+		startBox('Attributes');
 		echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
 		ksort($inspectData);
 		foreach ($inspectData as $key => $value) {
@@ -68,6 +69,7 @@ class InspectPage extends Page {
 			echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
 		}
 		echo '</table>';
+		endBox();
 	}
 
 
@@ -77,7 +79,7 @@ class InspectPage extends Page {
 	 * @param $inspectData data of an deep inspect
 	 */
 	private function renderCharacterItemSlots($inspectData) {
-		echo '<h2>character</h2>';
+		startBox('Character');
 
 		echo 'head: ';
 		$this->renderItemSlot($inspectData['head']);
@@ -98,6 +100,8 @@ class InspectPage extends Page {
 		echo '<br>';
 		echo 'feet: ';
 		$this->renderItemSlot($inspectData['feet']);
+
+		endBox();
 	}
 
 
@@ -118,8 +122,9 @@ class InspectPage extends Page {
 				continue;
 			}
 
-			echo '<h2>'.htmlspecialchars($slotName).'</h2>';
+			startBox(htmlspecialchars($slotName));
 			$this->renderItemSlot($slot);
+			endBox();
 		}
 	}
 
@@ -174,7 +179,7 @@ class InspectPage extends Page {
 			if (!isset($inspectData[$keyedSlot])) {
 				continue;
 			}
-			echo '<h2>'.htmlspecialchars($keyedSlot).'</h2>';
+			startBox(htmlspecialchars($keyedSlot));
 			echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
 			$slot = $inspectData[$keyedSlot][0];
 			ksort($slot);
@@ -182,6 +187,7 @@ class InspectPage extends Page {
 				echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
 			}
 			echo '</table>';
+			endBox();
 		}
 	}
 }
