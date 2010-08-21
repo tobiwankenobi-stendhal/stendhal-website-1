@@ -57,7 +57,7 @@ class Item {
 		return self::$classes;
 	}
 
-	function showImageWithPopup($title) {
+	function showImageWithPopup($title = null) {
 		$popup = '<div class="stendhalItem"><span class="stendhalItemIconNameBanner">';
 
 		if (isset($title)) {
@@ -81,10 +81,12 @@ class Item {
 			}
 		}
 
-		$popup .= '<br />' . $this->description . '<br />';
+		if (isset($this->description) && ($this->description != '')) {
+			$popup .= '<br />' . $this->description . '<br />';
+		}
 		$popup .= '</div>';
 		
-		echo '<a href="'.rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($content).'.html').'"'.getOverlibCode($popup).'>';
+		echo '<a href="'.rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($this->name).'.html').'"'.getOverlibCode($popup).'>';
 		echo '<img src="'.htmlspecialchars($this->showImage()).'" alt=" "></a>';
 	}
 }
