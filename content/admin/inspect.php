@@ -150,6 +150,11 @@ Slot zaras_chest_ados:
 	}
 
 	private function parse($data) {
+		$parser = new InspectParser($data);
+		$parser->parse();
+
+		// TODO: removed dummy data
+
 		$res = array();
 		$res[] = array();
 		$res[0]['!quests'][]['mykey'] = 'myvalue';
@@ -196,6 +201,8 @@ Slot zaras_chest_ados:
 
 			echo '<h2>'.htmlspecialchars($slotName).'</h2>';
 			foreach ($slot as $item) {
+				// TODO: render as quantity + icon
+				// TODO: render table as javascript mouse over popup
 				echo '<table class="prettytable"><tr><th>key</th><th>value</th></tr>';
 				foreach ($item as $key => $value) {
 					echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars($value).'</td></tr>';
