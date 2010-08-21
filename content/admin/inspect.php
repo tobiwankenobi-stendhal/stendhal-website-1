@@ -178,6 +178,7 @@ Slot zaras_chest_ados:
 	 * @param $inspectData
 	 */
 	private function renderInspectResult($inspectData) {
+		echo '<h1>Deep inspect of '.htmlspecialchars($inspectData['name']).'</h1>';
 		$this->renderItemSlots($inspectData);
 		$this->renderKeyedSlots($inspectData);
 	}
