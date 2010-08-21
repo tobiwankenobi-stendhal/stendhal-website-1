@@ -57,6 +57,7 @@ class MonsterPage extends Page {
 		if (!$this->found) {
 			echo '<meta name="robots" content="noindex">'."\n";
 		}
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
 	}
 
 	function writeContent() {
@@ -130,9 +131,8 @@ foreach($this->monsters as $m) {
 				<div class="row">
 					<?php
 					$item = getItem($k["name"]);
-					echo '<a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($k["name"]).'.html').'">';
+					$item->showImageWithPopup();
 					?>
-					<img src="<?php echo $item->showImage(); ?>" alt="<?php echo ucfirst($k["name"]); ?>"/>
 					<span class="block label"><?php echo ucfirst($k["name"]); ?></span>
 					</a>
 					<div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
