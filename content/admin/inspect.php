@@ -10,11 +10,6 @@ class InspectPage extends Page {
 	}
 
 	function writeContent() {
-
-		if(getAdminLevel() < 5000) {
-			die("Ooops!");
-		}
-
 		$this->writeInputForm();
 
 		$data = $_POST['data'];
