@@ -93,7 +93,14 @@ class InspectPage extends Page {
 	}
 
 	private function renderItemSlot($slot) {
+		$first = true;
 		foreach ($slot as $item) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ', ';
+			}
+
 			echo $item['quantity'];
 
 			$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
