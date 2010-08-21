@@ -205,18 +205,18 @@ Slot zaras_chest_ados:
 
 			echo '<h2>'.htmlspecialchars($slotName).'</h2>';
 			foreach ($slot as $item) {
-				// TODO: render as quantity + icon
-				// TODO: render table as javascript mouse over popup
-				$link = ''; // TODO
-				$cssclass = ''; // TODO;
+				$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
 				$html = $this->getItemTableHtml($item);
-				$res = $item['quantity']. ' <a href="' . $link . '"';
-				$res .= ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\',';
-				$res .= 'DECODE, FULLHTML';
-				$res .= ');" onmouseout="return nd();" class="' . $cssclass . '">';
-				$res .= htmlspecialchars($item['name']);
-				$res .= '</a>, ';
-				echo $res;
+				echo $item['quantity'];
+
+				echo ' <a href="' . $link . '"'
+					. ' onmouseover="return overlib(\''.rawurlencode($html).'\', FGCOLOR, \'#000\', BGCOLOR, \'#FFF\','
+					. 'DECODE, FULLHTML'
+					. ');" onmouseout="return nd();" class="' . $cssclass . '">';
+
+				$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
+				echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
+				echo '</a>, ';
 			}
 		}
 	}
