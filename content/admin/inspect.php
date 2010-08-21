@@ -131,7 +131,7 @@ class InspectPage extends Page {
 
 	private function renderItemSlot($slot) {
 		if (!isset($slot)) {
-			echo '<span style="display: inline-block; width: 32px; height: 32px; background-color: white; border: 2px solid blue"></span>';
+			echo '<span style="display: inline-block; width: 32px; height: 32px; border: 2px solid blue"></span>';
 			return;
 		}
 
@@ -153,7 +153,7 @@ class InspectPage extends Page {
 				. ');" onmouseout="return nd();" class="' . $cssclass . '">';
 
 			$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
-			echo '<img style="background-color: #FFF" src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
+			echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';
 			echo '</a>';
 		}
 	}
