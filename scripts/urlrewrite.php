@@ -96,8 +96,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/world/kill-stats\.html$ /index.php?id=content/scripts/killedstats [L]
                 RewriteRule ^/world/online\.html$ /index.php?id=content/scripts/online [L]
                 RewriteRule ^/world/server-stats\.html$ /index.php?id=content/scripts/serverstats [L]
- 				RewriteRule ^/world/events\.html$ /index.php?id=content/scripts/events [L]
-
+                RewriteRule ^/world/events\.html$ /world/events/all.html [R=301]
+                RewriteRule ^/world/events/(.*)\.html$ /index.php?id=content/scripts/events&filter=$1 [L]
 
 
                 # images
@@ -326,6 +326,8 @@ function rewriteURL($url) {
 			return preg_replace('|^/world/server-stats\.html$|', $folder.'/?id=content/scripts/serverstats', $url);
 		} else if (preg_match('|^/world/events\.html$|', $url)) {
 			return preg_replace('|^/world/events\.html$|', $folder.'/?id=content/scripts/events', $url);
+		} else if (preg_match('|^/world/events/(.*)\.html$|', $url)) {
+            return preg_replace('|^/world/events/(.*)\.html$|', $folder.'/?id=content/scripts/events&filter=$1', $url);
 		}
 
 
