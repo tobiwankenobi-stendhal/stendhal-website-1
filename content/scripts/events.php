@@ -19,9 +19,9 @@ class EventsPage extends Page {
 	}
 
 	function writeContent() {
-		$this->writeTabs();
+		// $this->writeTabs();
 		$this->printRecentEvents();
-		$this->closeTabs();
+		// $this->closeTabs();
 	}
 	
 	function writeTabs() {
