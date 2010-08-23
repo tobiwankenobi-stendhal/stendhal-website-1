@@ -61,7 +61,7 @@ class EventsPage extends Page {
 	
 	function printRecentEvents(){
 		global $cache;
-		$events = $cache->fetchAsArray('stendhal_events');
+		$events = $cache->fetchAsArray('stendhal_events_'.$this->filter);
 		if (!isset($events)) {
 			$events=array_merge(getKillEvents($this->filter),
 				getQuestEvents($this->filter),
@@ -71,7 +71,7 @@ class EventsPage extends Page {
 				getChangeZoneEvents($this->filter),
 				getOutfitEvents($this->filter),
 				getEquipEvents($this->filter));
-			$cache->store('stendhal_events', new ArrayObject($events), 60);				
+			$cache->store('stendhal_events_'.$this->filter, new ArrayObject($events), 60);				
 		}
 		
 		
