@@ -61,18 +61,34 @@ class EventsPage extends Page {
 	
 	function printRecentEvents(){
 		global $cache;
-		$events = $cache->fetchAsArray('stendhal_events_'.$this->filter);
-		if (!isset($events)) {
-			$events=array_merge(getKillEvents($this->filter),
-				getQuestEvents($this->filter),
-				getLevelEvents($this->filter),
-				getSignEvents($this->filter),
-				getPoisonEvents($this->filter),
-				getChangeZoneEvents($this->filter),
-				getOutfitEvents($this->filter),
-				getEquipEvents($this->filter));
-			$cache->store('stendhal_events_'.$this->filter, new ArrayObject($events), 60);				
+		if (!isset($_REQUEST['profiling'])) {
+			$events = $cache->fetchAsArray('stendhal_events_'.$this->filter);
+			if (!isset($events)) {
+				$events=array_merge(getKillEvents($this->filter),
+					getQuestEvents($this->filter),
+					getLevelEvents($this->filter),
+					getSignEvents($this->filter),
+					getPoisonEvents($this->filter),
+					getChangeZoneEvents($this->filter),
+					getOutfitEvents($this->filter),
+					getEquipEvents($this->filter));
+					
+				$cache->store('stendhal_events_'.$this->filter, new ArrayObject($events), 60);
+			}
+		} else {
+			echo '<pre>';
+			$time_start = microtime(true); getKillEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getKillEvents: '. $time."\n";
+			$time_start = microtime(true); getQuestEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getQuestEvents: '. $time."\n";
+			$time_start = microtime(true); getLevelEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getLevelEvents: '. $time."\n";
+			$time_start = microtime(true); getSignEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getSignEvents: '. $time."\n";
+			$time_start = microtime(true); getPoisonEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getPoisonEvents: '. $time."\n";
+			$time_start = microtime(true); getChangeZoneEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getChangeZoneEvents: '. $time."\n";
+			$time_start = microtime(true); getOutfitEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getOutfitEvents: '. $time."\n";
+			$time_start = microtime(true); getEquipEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getEquipEvents: '. $time."\n";
+			echo '</pre>';
+			return;
 		}
+	
 		
 		
 		function cmp($a, $b)
