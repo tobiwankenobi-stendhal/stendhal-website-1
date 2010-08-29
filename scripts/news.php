@@ -212,16 +212,20 @@ function deleteNews($id) {
     }
 }
 
-function updateNews($id, $title, $oneline, $body, $images, $details, $type) {
+function updateNews($id, $title, $oneline, $body, $images, $details, $type, $incUpdateCount = true) {
 	$id=mysql_real_escape_string($id);
 	$title=mysql_real_escape_string($title);
 	$oneline=mysql_real_escape_string($oneline);
 	$body=mysql_real_escape_string($body);
 	$details=mysql_real_escape_string($details);
 	$type=mysql_real_escape_string($type);
+	$update = '';
+	if ($incUpdateCount) {
+		$update = ', updateCount=updateCount+1';
+	}
 	
 	$query="UPDATE news SET title='".$title."', shortDescription='".$oneline."',extendedDescription='".$body
-		."', detailedDescription='".$details."', news_type_id='".$type."', updateCount=updateCount+1 WHERE id='".$id."'";
+		."', detailedDescription='".$details."', news_type_id='".$type."' ".$update." WHERE id='".$id."'";
 	mysql_query($query, getWebsiteDB());
 	if(mysql_affected_rows()==0) {
 		echo '<span class="error">There has been a problem while updating news.</span>';

@@ -13,7 +13,7 @@ if(isset($_POST['action'])) {
     endBox();
   } elseif($_REQUEST['action']=='update') {
     startBox("Updating news item");
-      updateNews($_REQUEST['news_id'], $_REQUEST['title'], $_REQUEST['onelinedescription'], $_REQUEST['description'], $_REQUEST['images'], $_REQUEST['details'], $_REQUEST['newsTypeId']);
+      updateNews($_REQUEST['news_id'], $_REQUEST['title'], $_REQUEST['onelinedescription'], $_REQUEST['description'], $_REQUEST['images'], $_REQUEST['details'], $_REQUEST['newsTypeId'], isset($_REQUEST['incUpdateCounter']));
     endBox();
   } elseif($_REQUEST['action']=='delete') {
     startBox("Deleting news item");
@@ -99,6 +99,10 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 
 		<tr><td>Details (only displayed on its own page)</td></tr>
 		<tr><td><textarea rows="24" name="details"><?php if(isset($edited)) echo $edited->detailedDescription; ?></textarea></td></tr>
+
+		<?php if (isset($_REQUEST['edit'])) { ?>
+			<tr><td><input name="incUpdateCounter" id="incUpdateCounter" type="checkbox" checked> <label for="incUpdateCounter">Increase update counter for RSS</label></td></tr>
+		<?php } ?>
 
 		<tr><td><input type="submit" value="Submit"></td></tr>
 	</tbody>
