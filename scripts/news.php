@@ -117,8 +117,8 @@ class News {
 	 */
 	function getNiceURL() {
 		$res = strtolower($this->title.'-'.$this->id);
-		$res = preg_replace('/[ _,;.:<>|!?\'"] /', ' ', $res);
-		$res = preg_replace('/[ _,;.:<>|!?\'"]/', '-', $res);
+		$res = preg_replace('/[ _,;.:<>|!?\'"()] /', ' ', $res);
+		$res = preg_replace('/[ _,;.:<>|!?\'"()]/', '-', $res);
 		return urlencode($res.'.html');
 	}
 };
