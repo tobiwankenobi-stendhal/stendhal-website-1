@@ -6,6 +6,7 @@ require_once('scripts/slr.php');
 class SystematicLiteratureReviewPage extends Page {
 	private static $READONLY_ATTRIBUTES = array('id', 'reviewer', 'timedate');
 	private $edited;
+	private $columns;
 	function writeContent() {
 
 if(getAdminLevel()<1000) {
@@ -35,6 +36,12 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   } 
 }
 
+	$this->columns = 2;
+	if (isset($_REQUEST['columns'])) {
+		$this->columns = intval($_REQUEST['columns']);
+	}
+
+
   /*
    * Show all the previous slr items, just header and to tickets approbed and deleted.
    */ 
@@ -47,7 +54,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
     ?>
     <div class="slr_list">
     <span class="date"><?php echo $item['paper_bibkey']; ?></span>
-    <span><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>#editform"><?php echo $item['paper_title']; ?></a></span>
+    <span><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>&amp;columns=<?php echo $this->columns?>#editform"><?php echo $item['paper_title']; ?></a></span>
     </div>
     <?php
     }
@@ -65,16 +72,23 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 	<input type="hidden" name="action" value="submit"/>
 
 	<table width="100%">
-	<tbody>
+	<tbody style="vertical-align: top">
 		<?php
 		$metadata = getSlrMetadata();
 		for ($i = 0; $i < count($metadata); $i++) {
-			$meta = $metadata[$i];
 			echo '<tr>';
-			$this->writeInputHeader($meta);
+			for ($j = 0; $j < $this->columns; $j++) {
+				if ($i + $j > count($metadata)) {
+					break;
+				}
+				$this->writeInputHeader($metadata[$i+$j]);
+			}
 			echo '</tr><tr>';
-			$this->writeInputBody($meta);
+			for ($j = 0; $j < $this->columns; $j++) {
+				$this->writeInputBody($metadata[$i+$j]);
+			}
 			echo '</tr>';
+			$i = $i + $j - 1;
 		}
 		?>
 
