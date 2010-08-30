@@ -4,6 +4,8 @@
  */
 require_once('scripts/slr.php');
 class SystematicLiteratureReviewPage extends Page {
+	private static $READONLY_ATTRIBUTES = array('id', 'reviewer', 'timedate');
+	private $edited;
 	function writeContent() {
 
 if(getAdminLevel()<1000) {
@@ -29,7 +31,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
       echo '<div class="error">No such slr item</div';
     endBox();
   } else {
-    $edited=$slrtoEdit[0];
+    $this->edited=$slrtoEdit[0];
   } 
 }
 
@@ -55,7 +57,10 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 ?>
 
 <a name="editform"></a>
-<?php startBox((isset($edited)?'Edit':'Submit').' slr item'); ?>
+<?php
+startBox((isset($this->edited)?'Edit':'Submit').' slr item');
+
+?>
 <form class="slr" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr" name="submitslr">
 	<input type="hidden" name="action" value="submit"/>
 
@@ -63,30 +68,13 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 	<tbody>
 		<?php
 		$metadata = getSlrMetadata();
-		$readonly = array('id', 'reviewer', 'timedate');
-		foreach ($metadata As $meta) {
-			echo '<tr><td><b>'.htmlspecialchars($meta['column_name']).'</b> ';
-			if (isset($meta['column_comment']) && trim($meta['column_comment']) != '') {
-				echo '('.htmlspecialchars($meta['column_comment']).')';
-			}
-			echo '</td></tr><tr><td>';
-
-			if (in_array($meta['column_name'], $readonly)) {
-				echo htmlspecialchars($edited[$meta['column_name']]);
-			} else if ($meta['column_type'] == "text") {
-				echo '<textarea rows="10" style="width:99%" name="'.htmlspecialchars($meta['column_name']).'"';
-				if (isset($edited[$meta['column_name']])) {
-					echo htmlspecialchars($edited[$meta['column_name']]);
-				}
-				echo '</textarea>';
-			} else {
-				echo '<input name="'.htmlspecialchars($meta['column_name']).'" style="width:99%" ';
-				if (isset($edited[$meta['column_name']])) {
-					echo 'value="'.htmlspecialchars($edited[$meta['column_name']]).'"';
-				}
-				echo '>';
-			}
-			echo '</td></tr>';
+		for ($i = 0; $i < count($metadata); $i++) {
+			$meta = $metadata[$i];
+			echo '<tr>';
+			$this->writeInputHeader($meta);
+			echo '</tr><tr>';
+			$this->writeInputBody($meta);
+			echo '</tr>';
 		}
 		?>
 
@@ -98,6 +86,34 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 </form>
 <?php
 		endBox();
+	}
+
+	function writeInputHeader($meta) {
+		echo '<td><b>'.htmlspecialchars($meta['column_name']).'</b> ';
+		if (isset($meta['column_comment']) && trim($meta['column_comment']) != '') {
+			echo '('.htmlspecialchars($meta['column_comment']).')';
+		}
+		echo '</td>';
+	}
+
+	function writeInputBody($meta) {
+		echo '<td>';
+		if (in_array($meta['column_name'], SystematicLiteratureReviewPage::$READONLY_ATTRIBUTES)) {
+			echo htmlspecialchars($this->edited[$meta['column_name']]);
+		} else if ($meta['column_type'] == "text") {
+			echo '<textarea rows="10" style="width:99%" name="'.htmlspecialchars($meta['column_name']).'"';
+			if (isset($this->edited[$meta['column_name']])) {
+				echo htmlspecialchars($this->edited[$meta['column_name']]);
+			}
+			echo '</textarea>';
+		} else {
+			echo '<input name="'.htmlspecialchars($meta['column_name']).'" style="width:99%" ';
+			if (isset($this->edited[$meta['column_name']])) {
+				echo 'value="'.htmlspecialchars($this->edited[$meta['column_name']]).'"';
+			}
+			echo '>';
+		}
+		echo '</td>';
 	}
 }
 $page = new SystematicLiteratureReviewPage();
