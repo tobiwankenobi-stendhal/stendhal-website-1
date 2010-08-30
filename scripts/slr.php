@@ -39,14 +39,7 @@ function getSlrMetadata() {
 }
 
 function addSlr($metadata, $parameterMap) {
-	/*$title=mysql_real_escape_string($title);
-	$oneline=mysql_real_escape_string($oneline);
-	$body=mysql_real_escape_string($body);
-	$details=mysql_real_escape_string($details);
-	$type=mysql_real_escape_string($type);
-
-	$query="insert into slr (title, shortDescription, extendedDescription, active, detailedDescription, slr_type_id) values "
-		."('$title', '$oneline', '$body', 1, '$details', '$type')";
+	$query = generateSlrInsertFromMap('slr', $metadata, $parameterMap);
 	mysql_query($query, getWebsiteDB());
 	if(mysql_affected_rows()==0) {
 		echo '<span class="error">There has been a problem while inserting slr:'.mysql_affected_rows().'</span>';
@@ -56,14 +49,10 @@ function addSlr($metadata, $parameterMap) {
 
 	$result=mysql_query('select LAST_INSERT_ID() As lastid from slr;', getWebsiteDB());
 	while($rowimages=mysql_fetch_assoc($result)) {      
-		$slrid=$rowimages['lastid'];
+		$slrid = $rowimages['lastid'];
 	}
 	mysql_free_result($result);
-
-	foreach(explode("\n",$images) as $image) {
-		mysql_query('insert into slr_images values(null,'.$slrid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
-	}*/
-	echo generateSlrInsertFromMap('slr', $metadata, $parameterMap);
+	return $slrid;	
 }
 
 
