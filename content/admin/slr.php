@@ -65,7 +65,12 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 		$metadata = getSlrMetadata();
 		$readonly = array('id', 'reviewer', 'timedate');
 		foreach ($metadata As $meta) {
-			echo '<tr><td>'.htmlspecialchars($meta['column_name']).'</td></tr><tr><td>';
+			echo '<tr><td><b>'.htmlspecialchars($meta['column_name']).'</b> ';
+			if (isset($meta['column_comment']) && trim($meta['column_comment']) != '') {
+				echo '('.htmlspecialchars($meta['column_comment']).')';
+			}
+			echo '</td></tr><tr><td>';
+
 			if (in_array($meta['column_name'], $readonly)) {
 				echo htmlspecialchars($edited[$meta['column_name']]);
 			} else if ($meta['column_type'] == "text") {
