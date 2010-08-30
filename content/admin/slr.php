@@ -57,42 +57,25 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 <a name="editform"></a>
 <?php startBox((isset($edited)?'Edit':'Submit').' slr item'); ?>
 <form class="slr" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr" name="submitslr">
-	<?php if(isset($edited)) { ?>
-		<input type="hidden" name="action" value="update"/>
-		<input type="hidden" name="slr_id" value="<?php echo htmlspecialchars($_REQUEST['edit']); ?>"/>
-	<?php } else { ?>
-		<input type="hidden" name="action" value="submit"/>
-	<?php }?>
+	<input type="hidden" name="action" value="submit"/>
 
 	<table width="100%">
 	<tbody>
-		<tr><td>Title</td></tr>
-		<tr><td><input name="title" <?php if(isset($edited)) echo 'value="'.$edited->title.'"'; ?>></td></tr>
+		<?php
+		$metadata = getSlrMetadata();
+		var_dump($metadata);
+		foreach ($metadata As $meta) {
+			echo '<tr><td>'.htmlspecialchars($meta['column_name']).'</td></tr><tr><td>';
+						echo '<input name="'.htmlspecialchars($meta['column_name']).'"';
+			if (isset($edited[$meta['column_name']])) {
+				echo 'value="'.htmlspecialchars($edited[$meta['column_name']]).'"';
+			}
+			echo '>';
+			echo '</td></tr>';
+		}
+//		<tr><td><textarea rows="24" name="details"><?php if(isset($edited)) echo $edited->detailedDescription; ?></textarea></td></tr>
+		?>
 
-		<tr><td>Short description (deprecated)</td></tr>
-		<tr><td><input name="onelinedescription" <?php if(isset($edited)) echo 'value="'.$edited->oneLineDescription.'"'; ?>></td></tr>
-		<tr><td>Slr Type</td></tr>
-		<tr><td>
-		
-			<select name="slrTypeId">
-			<?php 
-				$types = getSlrTypes();
-				foreach($types as $type) {
-					echo '<option value="'.htmlspecialchars($type->id).'"';
-					if (isset($edited->typeId) && ($edited->typeId == $type->id)) {
-						echo ' selected="selected"';
-					}
-					echo '>'.htmlspecialchars($type->title).'</option>';
-				}
-			?>
-			</select>
-		</td></tr>
-		
-		<tr><td>Body</td></tr>
-		<tr><td><textarea rows="24" name="description"><?php if(isset($edited)) echo $edited->extendedDescription; ?></textarea></td></tr>
-
-		<tr><td>Details (only displayed on its own page)</td></tr>
-		<tr><td><textarea rows="24" name="details"><?php if(isset($edited)) echo $edited->detailedDescription; ?></textarea></td></tr>
 
 		<tr><td><input type="submit" value="Submit"></td></tr>
 	</tbody>
