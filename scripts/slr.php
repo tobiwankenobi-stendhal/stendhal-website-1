@@ -3,119 +3,25 @@
  * An interface to handle systematic literature review data. Not really related to Stendhal.
  */
 
-/**
-  * A class representing a slr item without comments.
-  */
-class Slr {
-	public $id;
-
-	/** Title of the slr item */
-	public $title;
-
-	/** Date in ISO format YYYY-MM-DD HH:mm */
-	public $date;
-
-	/** One line description of the slr item. */
-	public $oneLineDescription;
-
-	/** Extended description of the slr item that follow the one line one. */
-	public $extendedDescription;
-
-	/** Images of the slr item */
-	public $images;
-
-	/** description for detail page */
-	public $detailedDescription;
-
-	/** active */
-	public $active;
-
-	/** id of type */
-	public $typeId;
-
-	/** name of type */
-	public $typeTitle;
-
-	/** image of type */
-	public $typeImage;
-
-	/** counts the number of updates */
-	public $updateCount;
-
-	function __construct($id, $title, $date, $shortDesc, $longDesc, $images, $detailedDescription, $active, $typeId, $typeTitle, $typeImage, $updateCount) {
-		$this->id=$id;
-		$this->title=$title;
-		$this->date=$date;
-		$this->oneLineDescription=$shortDesc;
-		$this->extendedDescription=$longDesc;
-		$this->images=$images;
-		$this->detailedDescription = $detailedDescription;
-		$this->active = $active;
-		$this->typeId = $typeId;
-		$this->typeTitle = $typeTitle;
-		$this->typeImage = $typeImage;
-		$this->updateCount = $updateCount;
-	}
-
-	function show($detail=false) {
-		// link the title unless we are in detail view
-		$heading = '<div class="slrDate">'.$this->date.'</div><div class="slrTitle">';
-		if (!$detail) {
-			$heading .= '<a style="slrTitle" href="'.rewriteURL('/slr/'.$this->getNiceURL()).'">'.$this->title.'</a>';
-		} else {
-			$heading .= $this->title;
-		}
-		$heading .= '</div>';
-		
-		startBox($heading);
-
-		// image for type of slr
-		if (isset($this->typeImage) && strlen($this->typeImage) > 0) {
-			echo '<div class="slrIcon" style="float: right; padding-left: 2em"><img src="'.$folder.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt=""></div>';
-		}
-
-		// render one line description
-		if (isset($this->oneLineDescription) && strlen($this->oneLineDescription) > 0) {
-			echo '<div class="slrContent">'.$this->oneLineDescription.'</div>';
-		}
-
-		// render slr posting (add more link if there is a detail version)
-		echo '<div class="slrContent slrTeaser">'.$this->extendedDescription;
-		if (!$detail) {
-			if (isset($this->detailedDescription) && (trim($this->detailedDescription) != '')) {
-				echo ' <a href="'.rewriteURL('/slr/'.$this->getNiceURL()).'" title="Read More...">(read more)</a>';
-			}
-		}
-		echo '</div>';
-
-		// in detail view, include the details
-		if ($detail) {
-			echo '<div class="slrContent slrDetail">'.$this->detailedDescription.'</div>';
-		}
-		endBox();
-		/* END NOTE */
-	}
-
-	/**
-	 * gets a nice url
-	 *
-	 * @return nice url
-	 */
-	function getNiceURL() {
-		$res = strtolower($this->title.'-'.$this->id);
-		$res = preg_replace('/[ _,;.:<>|!?\'"] /', ' ', $res);
-		$res = preg_replace('/[ _,;.:<>|!?\'"]/', '-', $res);
-		return urlencode($res.'.html');
-	}
-};
-
-
 
 /**
   * Returns a list of slr for a specified reviewer
   */
-function getSlr($reviewer) {
-	$sql = "SELECT * FROM slr WHERE id in (SELECT max(id) FROM slr WHERE reviewer='".mysql_real_escape_String($reviewer)."' GROUP BY reviewer,paper_bibkey) ORDER BY paper_bibkey;";
+function getAllSlr($reviewer) {
+	$filter = '';
+	if (isset($reviewer)) {
+		$filter = "WHERE reviewer='".mysql_real_escape_String($reviewer)."'";
+	}
+	$sql = "SELECT * FROM slr WHERE id in (SELECT max(id) FROM slr ".$filter." GROUP BY reviewer,paper_bibkey) ORDER BY paper_bibkey;";
+	return getSlrArray($sql);
+}
+
+function getSlr($id) {
+	$sql = "SELECT * FROM slr WHERE id ='".mysql_real_escape_String($id)."'";
+	return getSlrArray($sql);
+}
+
+function getSlrArray($sql) {
 	$result = mysql_query($sql, getWebsiteDB());
 
 	$list = array();

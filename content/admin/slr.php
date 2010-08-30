@@ -22,8 +22,8 @@ if(isset($_POST['action'])) {
 }
 
 if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {  
-  $id=mysql_real_escape_string($_REQUEST['edit']);  
-  $slrtoEdit=getSlr('where slr.id="'.$id.'"');
+  $id = mysql_real_escape_string($_REQUEST['edit']);  
+  $slrtoEdit=getSlr($id);
   if(sizeof($slrtoEdit)==0) {
     startBox("Edit slr item");
       echo '<div class="error">No such slr item</div';
@@ -39,7 +39,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   $usernames = array('hendrikus', 'metzgermeister');
   $reviewers = array('hendrik', 'markus');
   $reviewer = str_replace($usernames, $reviewers, $_SESSION['username']);
-  $slr=getSlr($reviewer);
+  $slr=getAllSlr($reviewer);
   startBox("Admin on existing slr");
   foreach($slr as $item) {
     ?>
