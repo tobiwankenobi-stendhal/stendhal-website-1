@@ -38,8 +38,8 @@ function getSlrMetadata() {
 	return getSlrArray($sql);
 }
 
-function addSlr($title, $oneline, $body, $images, $details, $type) {
-	$title=mysql_real_escape_string($title);
+function addSlr($metadata, $parameterMap) {
+	/*$title=mysql_real_escape_string($title);
 	$oneline=mysql_real_escape_string($oneline);
 	$body=mysql_real_escape_string($body);
 	$details=mysql_real_escape_string($details);
@@ -62,8 +62,43 @@ function addSlr($title, $oneline, $body, $images, $details, $type) {
 
 	foreach(explode("\n",$images) as $image) {
 		mysql_query('insert into slr_images values(null,'.$slrid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
-	}
+	}*/
+	echo generateSlrInsertFromMap('slr', $metadata, $parameterMap);
 }
+
+
+/**
+ * generates an insert statement from a given parameter map
+ * excludes the following column names from the insert statement:
+ * id and timedate
+ */
+function generateSlrInsertFromMap ($tablename, $metadata, $parameterMap) {
+	$readonly = array('id', 'timedate');
+	
+	$statement = "INSERT INTO ".$tablename." (";
+	
+	$columnList = "";
+	$valueList = "";
+
+	foreach ($metadata As $meta) {
+		$column = $meta['column_name'];
+		if (in_array($meta['column_name'], $readonly)) {
+			continue;
+		}
+		if (isset($parameterMap[$column])) {
+			$columnList .= $column.",";
+			$valueList .="'".mysql_real_escape_string($parameterMap[$column])."',";
+		}
+	}
+
+	$columnList[strlen($columnList)-1] = " ";
+	$valueList[strlen($valueList)-1] = " ";
+	
+	$statement .= $columnList.") VALUES (".$valueList.");";
+	
+	return $statement;
+}
+
 
 
 /**

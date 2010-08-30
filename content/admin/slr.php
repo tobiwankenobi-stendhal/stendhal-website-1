@@ -13,13 +13,15 @@ if(getAdminLevel()<1000) {
  die("Ooops!");
 }
 
+$metadata = getSlrMetadata();
+
 if(isset($_POST['action'])) {
   if($_REQUEST['action']=='submit') {
     startBox("Adding slr item");
     if (!isset($_REQUEST['paper_bibkey']) || trim($_REQUEST['paper_bibkey']) == '') {
     	die('Sorry you forgot the bibkey, all your data is lost.');
     }
-      addSlr($_REQUEST['title'], $_REQUEST['onelinedescription'], $_REQUEST['description'], $_REQUEST['images'], $_REQUEST['details'], $_REQUEST['slrTypeId']);
+      addSlr($metadata, $_REQUEST);
     endBox();
   }
 }
@@ -74,7 +76,6 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 	<table width="100%">
 	<tbody style="vertical-align: top">
 		<?php
-		$metadata = getSlrMetadata();
 		for ($i = 0; $i < count($metadata); $i++) {
 			echo '<tr>';
 			for ($j = 0; $j < $this->columns; $j++) {
@@ -85,6 +86,9 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 			}
 			echo '</tr><tr>';
 			for ($j = 0; $j < $this->columns; $j++) {
+				if ($i + $j > count($metadata)) {
+					break;
+				}
 				$this->writeInputBody($metadata[$i+$j]);
 			}
 			echo '</tr>';
