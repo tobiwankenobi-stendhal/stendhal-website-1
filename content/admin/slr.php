@@ -5,6 +5,8 @@
 require_once('scripts/slr.php');
 class SystematicLiteratureReviewPage extends Page {
 	private static $READONLY_ATTRIBUTES = array('id', 'reviewer', 'timedate');
+	private static $usernames = array('hendrikus', 'metzgermeister');
+	private static $reviewers = array('hendrik', 'markus');
 	private $edited;
 	private $columns;
 	function writeContent() {
@@ -21,13 +23,21 @@ if(isset($_POST['action'])) {
     if (!isset($_REQUEST['paper_bibkey']) || trim($_REQUEST['paper_bibkey']) == '') {
     	die('Sorry you forgot the bibkey, all your data is lost.');
     }
-      addSlr($metadata, $_REQUEST);
+  	$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
+  	$_REQUEST['reviewer'] = $reviewer;
+    $slrid = addSlr($metadata, $_REQUEST);
+    if (isset($slrid) && $slrid > 0) {
+    	echo 'Insert was successful.';
+    }
     endBox();
   }
 }
 
-if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {  
-  $id = mysql_real_escape_string($_REQUEST['edit']);  
+if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['action']=='submit')) {  
+  $id = mysql_real_escape_string($_REQUEST['edit']);
+  if (isset($slrid)) {
+  	$id = $slrid;
+  }
   $slrtoEdit=getSlr($id);
   if(sizeof($slrtoEdit)==0) {
     startBox("Edit slr item");
@@ -47,9 +57,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   /*
    * Show all the previous slr items, just header and to tickets approbed and deleted.
    */ 
-  $usernames = array('hendrikus', 'metzgermeister');
-  $reviewers = array('hendrik', 'markus');
-  $reviewer = str_replace($usernames, $reviewers, $_SESSION['username']);
+  $reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
   $slr=getAllSlr($reviewer);
   startBox("Admin on existing slr");
   foreach($slr as $item) {
@@ -72,6 +80,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 ?>
 <form class="slr" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr" name="submitslr">
 	<input type="hidden" name="action" value="submit"/>
+	<input type="hidden" name="columns" value="<?php echo htmlspecialchars($this->columns);?>"/>
 
 	<table width="100%">
 	<tbody style="vertical-align: top">
@@ -79,14 +88,14 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 		for ($i = 0; $i < count($metadata); $i++) {
 			echo '<tr>';
 			for ($j = 0; $j < $this->columns; $j++) {
-				if ($i + $j > count($metadata)) {
+				if ($i + $j >= count($metadata)) {
 					break;
 				}
 				$this->writeInputHeader($metadata[$i+$j]);
 			}
 			echo '</tr><tr>';
 			for ($j = 0; $j < $this->columns; $j++) {
-				if ($i + $j > count($metadata)) {
+				if ($i + $j >= count($metadata)) {
 					break;
 				}
 				$this->writeInputBody($metadata[$i+$j]);
@@ -119,7 +128,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 		if (in_array($meta['column_name'], SystematicLiteratureReviewPage::$READONLY_ATTRIBUTES)) {
 			echo htmlspecialchars($this->edited[$meta['column_name']]);
 		} else if ($meta['column_type'] == "text") {
-			echo '<textarea rows="10" style="width:99%" name="'.htmlspecialchars($meta['column_name']).'"';
+			echo '<textarea rows="10" style="width:99%" name="'.htmlspecialchars($meta['column_name']).'">';
 			if (isset($this->edited[$meta['column_name']])) {
 				echo htmlspecialchars($this->edited[$meta['column_name']]);
 			}
