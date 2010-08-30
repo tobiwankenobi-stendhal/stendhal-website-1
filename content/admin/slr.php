@@ -63,17 +63,26 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 	<tbody>
 		<?php
 		$metadata = getSlrMetadata();
-		var_dump($metadata);
+		$readonly = array('id', 'reviewer', 'timedate');
 		foreach ($metadata As $meta) {
 			echo '<tr><td>'.htmlspecialchars($meta['column_name']).'</td></tr><tr><td>';
-						echo '<input name="'.htmlspecialchars($meta['column_name']).'"';
-			if (isset($edited[$meta['column_name']])) {
-				echo 'value="'.htmlspecialchars($edited[$meta['column_name']]).'"';
+			if (in_array($meta['column_name'], $readonly)) {
+				echo htmlspecialchars($edited[$meta['column_name']]);
+			} else if ($meta['column_type'] == "text") {
+				echo '<textarea rows="10" name="'.htmlspecialchars($meta['column_name']).'"';
+				if (isset($edited[$meta['column_name']])) {
+					echo htmlspecialchars($edited[$meta['column_name']]);
+				}
+				echo '</textarea>';
+			} else {
+				echo '<input name="'.htmlspecialchars($meta['column_name']).'"';
+				if (isset($edited[$meta['column_name']])) {
+					echo 'value="'.htmlspecialchars($edited[$meta['column_name']]).'"';
+				}
+				echo '>';
 			}
-			echo '>';
 			echo '</td></tr>';
 		}
-//		<tr><td><textarea rows="24" name="details"><?php if(isset($edited)) echo $edited->detailedDescription; ?></textarea></td></tr>
 		?>
 
 
