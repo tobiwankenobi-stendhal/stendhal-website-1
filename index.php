@@ -242,12 +242,12 @@ if ($page->writeHttpHeader()) {
 			<ul id="adminmenu" class="menu">
 				<?php 
 				if($adminLevel >= 400) { ?>
-					<li><a id="menuAdminNews" href="/?id=content/admin/news">News</a></li>
-					<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots">Screenshots</a></li>
+					<li><a id="menuAdminNews" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/news">News</a></li>
+					<li><a id="menuAdminScreenshots" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/screenshots">Screenshots</a></li>
 				<?php } ?>
-				<li><a id="menuAdminInspect" href="/?id=content/admin/inspect">Render Inspect</a></li>
-				<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs">Support Logs</a></li>
-				<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></li>
+				<li><a id="menuAdminInspect" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/inspect">Render Inspect</a></li>
+				<li><a id="menuAdminSupportlog" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/logs">Support Logs</a></li>
+				<li><a id="menuAdminPlayerhistory" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/playerhistory">Player History</a></li>
 			</ul>
 			<?php endBox();
 		}?>
