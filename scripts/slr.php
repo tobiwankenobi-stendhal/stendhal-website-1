@@ -33,6 +33,10 @@ function getSlrArray($sql) {
 	return $list;
 }
 
+function getSlrMetadata() {
+	$sql = "SELECT column_name, column_type, column_comment FROM information_schema.columns WHERE table_name = 'slr';";
+	return getSlrArray($sql);
+}
 
 function addSlr($title, $oneline, $body, $images, $details, $type) {
 	$title=mysql_real_escape_string($title);
