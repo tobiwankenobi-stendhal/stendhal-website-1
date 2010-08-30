@@ -56,7 +56,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 
 <a name="editform"></a>
 <?php startBox((isset($edited)?'Edit':'Submit').' slr item'); ?>
-<form class="slr" method="post" action="/?id=content/admin/slr" name="submitslr">
+<form class="slr" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr" name="submitslr">
 	<?php if(isset($edited)) { ?>
 		<input type="hidden" name="action" value="update"/>
 		<input type="hidden" name="slr_id" value="<?php echo htmlspecialchars($_REQUEST['edit']); ?>"/>
