@@ -69,13 +69,13 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 			if (in_array($meta['column_name'], $readonly)) {
 				echo htmlspecialchars($edited[$meta['column_name']]);
 			} else if ($meta['column_type'] == "text") {
-				echo '<textarea rows="10" name="'.htmlspecialchars($meta['column_name']).'"';
+				echo '<textarea rows="10" style="width:99%" name="'.htmlspecialchars($meta['column_name']).'"';
 				if (isset($edited[$meta['column_name']])) {
 					echo htmlspecialchars($edited[$meta['column_name']]);
 				}
 				echo '</textarea>';
 			} else {
-				echo '<input name="'.htmlspecialchars($meta['column_name']).'"';
+				echo '<input name="'.htmlspecialchars($meta['column_name']).'" style="width:99%" ';
 				if (isset($edited[$meta['column_name']])) {
 					echo 'value="'.htmlspecialchars($edited[$meta['column_name']]).'"';
 				}
