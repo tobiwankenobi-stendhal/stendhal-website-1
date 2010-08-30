@@ -45,7 +45,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
     ?>
     <div class="slr_list">
     <span class="date"><?php echo $item['paper_bibkey']; ?></span>
-    <span><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>"><?php echo $item['paper_title']; ?></a></span>
+    <span><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>#editform"><?php echo $item['paper_title']; ?></a></span>
     </div>
     <?php
     }
@@ -54,6 +54,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   endBox();  
 ?>
 
+<a name="editform"></a>
 <?php startBox((isset($edited)?'Edit':'Submit').' slr item'); ?>
 <form class="slr" method="post" action="/?id=content/admin/slr" name="submitslr">
 	<?php if(isset($edited)) { ?>
