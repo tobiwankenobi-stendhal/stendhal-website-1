@@ -76,6 +76,7 @@ class BingoPage extends Page {
 		} else {
 			echo "<div>Killed by ".htmlspecialchars($this->killer).' ('.htmlspecialchars($this->killer_type).')</div>';
 		}
+			}
 		?>
 		
 	</div>
