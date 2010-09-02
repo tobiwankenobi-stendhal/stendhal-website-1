@@ -22,7 +22,7 @@ class BingoPage extends Page {
 	}
 
 	function writeContent() {
-		echo htmlspecialchars($query);
+		echo htmlspecialchars($this->query);
 		startBox('Bingo');
 
 		$monsters = getMonsters();
