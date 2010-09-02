@@ -2,7 +2,7 @@
 class BingoPage extends Page {
 	
 	public function __construct() {
-		$result = mysql_query("SELECT id, param1 FROM gameEvents WHERE id<'".mysql_real_escape_string($this->id)."' ORDER BY id DESC LIMIT 1", getGameDB());
+		$result = mysql_query("SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($this->id)."' AND killed_type='C' ORDER BY id DESC LIMIT 1", getGameDB());
 
         $row=mysql_fetch_assoc($result);
 		$this->id = $row['id'];
@@ -13,7 +13,7 @@ class BingoPage extends Page {
 	
 	public function writeHtmlHeader() {
 		echo '<title>Bingo'.STENDHAL_TITLE.'</title>';
-		echo '<meta http-equiv="refresh" content="30; URL=/index.php?id=content/admin/bingo&lastid='.$this->id.'">';
+		echo '<meta http-equiv="refresh" content="30; URL=/index.php?id=content/admin/bingo&lastid='.htmlspecialchars($this->id).'">';
 	}
 
 	function writeContent() {
