@@ -19,7 +19,8 @@ class BingoPage extends Page {
 	function writeContent() {
 		startBox('Bingo');
 
-		foreach($this->monsters as $m) {
+		$monsters = getMonsters();
+		foreach($monsters as $m) {
 			if($m->name==$this->name) {
 			?>
 	<div class="monster">
