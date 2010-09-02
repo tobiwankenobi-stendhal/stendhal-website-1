@@ -37,8 +37,9 @@ class BingoPage extends Page {
 		}
 		?>
 	</div>
-	<?php 
-			}		
+	<?php
+			}
+		}		
 		endBox();
 	}
 }
