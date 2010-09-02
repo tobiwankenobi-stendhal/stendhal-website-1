@@ -17,7 +17,7 @@ class BingoPage extends Page {
 	
 	public function writeHtmlHeader() {
 		echo '<title>Bingo'.STENDHAL_TITLE.'</title>';
-		echo '<meta http-equiv="refresh" content="30; URL=/index.php?id=content/admin/bingo&amp;lastid='.htmlspecialchars($this->id).'">';
+		echo '<meta http-equiv="refresh" content="10; URL=/index.php?id=content/admin/bingo&amp;lastid='.htmlspecialchars($this->id).'">';
 	}
 
 	function writeContent() {
