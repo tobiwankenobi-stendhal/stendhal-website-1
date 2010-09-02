@@ -2,10 +2,11 @@
 class BingoPage extends Page {
 	private $id;
 	private $name;
+	private $query;
 	
 	public function __construct() {
-		$query = "SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($this->id)."' AND killed_type='C' ORDER BY id DESC LIMIT 1";
-		$result = mysql_query($query, getGameDB());
+		$this->query = "SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($this->id)."' AND killed_type='C' ORDER BY id DESC LIMIT 1";
+		$result = mysql_query($this->query, getGameDB());
 
 		
         $row=mysql_fetch_assoc($result);
@@ -21,6 +22,7 @@ class BingoPage extends Page {
 	}
 
 	function writeContent() {
+		echo htmlspecialchars($query);
 		startBox('Bingo');
 
 		$monsters = getMonsters();
