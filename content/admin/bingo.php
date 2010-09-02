@@ -10,6 +10,7 @@ class BingoPage extends Page {
 
 		
         $row=mysql_fetch_assoc($result);
+        var_dump($row);
 		$this->id = $row['id'];
 		$this->name = $row['param1'];
 
@@ -26,7 +27,6 @@ class BingoPage extends Page {
 		startBox('Bingo');
 
 		$monsters = getMonsters();
-		echo 'Name: ' . htmlspecialchars($this->name);
 		foreach($monsters as $m) {
 			if($m->name==$this->name) {
 			?>
