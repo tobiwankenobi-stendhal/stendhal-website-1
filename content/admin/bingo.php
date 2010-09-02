@@ -3,6 +3,10 @@ class BingoPage extends Page {
 	private $id;
 	private $name;
 	private $query;
+	private $killer;
+	private $killer_type;
+	private $level;
+	private $outfit;
 	
 	public function __construct() {
 		$this->query = "SELECT id, killed, killer, killer_type FROM kills WHERE id='".mysql_real_escape_string($_REQUEST['lastid'])."'-1 AND killed_type='C'";
@@ -13,6 +17,16 @@ class BingoPage extends Page {
 		$this->name = $row['killed'];
 		$this->killer = $row['killer'];
 		$this->killer_type = $row['killer_type'];
+
+        mysql_free_result($result);
+
+
+		$this->query = "SELECT level, outfit FROM characters WHERE charname='".mysql_real_escape_string($this->killer)."'";
+		$result = mysql_query($this->query, getGameDB());
+		
+        $row=mysql_fetch_assoc($result);
+		$this->level = $row['level'];
+		$this->outfit = $row['outfit'];
 
         mysql_free_result($result);
 	}
@@ -53,7 +67,11 @@ class BingoPage extends Page {
 		} else {
 			echo $m->description;
 		}
-		echo "<div>Killed by ".htmlspecialchars($this->killer).' ('.htmlspecialchars($this->killer_type).')</div>';
+		if ($this->killer_type == 'P') {			
+			echo '<div>Killed by <img src="/images/outfit/'.htmlspecialchar($this->outfit).'.png"> '.htmlspecialchars($this->killer).' ('.htmlspecialchars($this->level).')</div>';
+		} else {
+			echo "<div>Killed by ".htmlspecialchars($this->killer).' ('.htmlspecialchars($this->killer_type).')</div>';
+		}
 		?>
 		
 	</div>
