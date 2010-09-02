@@ -5,7 +5,7 @@ class BingoPage extends Page {
 	private $query;
 	
 	public function __construct() {
-		$this->query = "SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($_REQUEST['id'])."' AND killed_type='C' ORDER BY id DESC LIMIT 1";
+		$this->query = "SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($_REQUEST['lastid'])."' AND killed_type='C' ORDER BY id DESC LIMIT 1";
 		$result = mysql_query($this->query, getGameDB());
 
 		
