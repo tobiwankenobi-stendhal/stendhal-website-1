@@ -4,17 +4,19 @@ class BingoPage extends Page {
 	private $name;
 	private $query;
 	private $killer;
+	private $killed_type;
 	private $killer_type;
 	private $level;
 	private $outfit;
 	
 	public function __construct() {
-		$this->query = "SELECT id, killed, killer, killer_type FROM kills WHERE id='".mysql_real_escape_string($_REQUEST['lastid'])."'-1 AND killed_type='C'";
+		$this->query = "SELECT id, killed, killed_type, killer, killer_type FROM kills WHERE id='".mysql_real_escape_string($_REQUEST['lastid'])."'-1 ";
 		$result = mysql_query($this->query, getGameDB());
 		
         $row=mysql_fetch_assoc($result);
 		$this->id = $row['id'];
 		$this->name = $row['killed'];
+		$this->killed_type = $row['killed_type'];
 		$this->killer = $row['killer'];
 		$this->killer_type = $row['killer_type'];
 
@@ -52,6 +54,7 @@ class BingoPage extends Page {
 	function writeContent() {
 		startBox('Bingo');
 
+		if ($this->killed_type == 'C') {
 		$monsters = getMonsters();
 		foreach($monsters as $m) {
 			if($m->name==$this->name) {
@@ -67,6 +70,7 @@ class BingoPage extends Page {
 		} else {
 			echo $m->description;
 		}
+		
 		if ($this->killer_type == 'P') {			
 			echo '<div>Killed by <img src="/images/outfit/'.htmlspecialchar($this->outfit).'.png"> '.htmlspecialchars($this->killer).' ('.htmlspecialchars($this->level).')</div>';
 		} else {
