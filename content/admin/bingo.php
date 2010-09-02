@@ -23,7 +23,7 @@ class BingoPage extends Page {
         mysql_free_result($result);
 
 
-		$this->query = "SELECT level, outfit FROM characters WHERE charname='".mysql_real_escape_string($this->killer)."'";
+		$this->query = "SELECT level, outfit FROM character_stats WHERE name='".mysql_real_escape_string($this->killer)."'";
 		$result = mysql_query($this->query, getGameDB());
 		
         $row=mysql_fetch_assoc($result);
@@ -72,7 +72,7 @@ class BingoPage extends Page {
 		}
 		
 		if ($this->killer_type == 'P') {			
-			echo '<div>Killed by <img src="/images/outfit/'.htmlspecialchar($this->outfit).'.png"> '.htmlspecialchars($this->killer).' ('.htmlspecialchars($this->level).')</div>';
+			echo '<div>Killed by <img src="/images/outfit/'.htmlspecialchars($this->outfit).'.png"> '.htmlspecialchars($this->killer).' ('.htmlspecialchars($this->level).')</div>';
 		} else {
 			echo "<div>Killed by ".htmlspecialchars($this->killer).' ('.htmlspecialchars($this->killer_type).')</div>';
 		}
