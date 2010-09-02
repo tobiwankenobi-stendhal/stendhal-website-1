@@ -1,9 +1,13 @@
 <?php
 class BingoPage extends Page {
+	private $id;
+	private $name;
 	
 	public function __construct() {
-		$result = mysql_query("SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($this->id)."' AND killed_type='C' ORDER BY id DESC LIMIT 1", getGameDB());
+		$query = "SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($this->id)."' AND killed_type='C' ORDER BY id DESC LIMIT 1";
+		$result = mysql_query($query, getGameDB());
 
+		
         $row=mysql_fetch_assoc($result);
 		$this->id = $row['id'];
 		$this->name = $row['param1'];
@@ -13,13 +17,14 @@ class BingoPage extends Page {
 	
 	public function writeHtmlHeader() {
 		echo '<title>Bingo'.STENDHAL_TITLE.'</title>';
-		echo '<meta http-equiv="refresh" content="30; URL=/index.php?id=content/admin/bingo&lastid='.htmlspecialchars($this->id).'">';
+		echo '<meta http-equiv="refresh" content="30; URL=/index.php?id=content/admin/bingo&amp;lastid='.htmlspecialchars($this->id).'">';
 	}
 
 	function writeContent() {
 		startBox('Bingo');
 
 		$monsters = getMonsters();
+		echo 'Name: ' . htmlspecialchars($this->name);
 		foreach($monsters as $m) {
 			if($m->name==$this->name) {
 			?>
