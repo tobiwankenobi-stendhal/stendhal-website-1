@@ -7,7 +7,6 @@ class BingoPage extends Page {
 	public function __construct() {
 		$this->query = "SELECT id, killed FROM kills WHERE id<'".mysql_real_escape_string($_REQUEST['lastid'])."' AND killed_type='C' ORDER BY id DESC LIMIT 1";
 		$result = mysql_query($this->query, getGameDB());
-
 		
         $row=mysql_fetch_assoc($result);
 		$this->id = $row['id'];
@@ -22,7 +21,6 @@ class BingoPage extends Page {
 	}
 
 	function writeContent() {
-		echo htmlspecialchars($this->query);
 		startBox('Bingo');
 
 		$monsters = getMonsters();
@@ -33,8 +31,6 @@ class BingoPage extends Page {
 		<div class="name"><?php echo ucfirst($m->name); ?></div>
 		<img class="monster" src="<?php echo $m->gfx; ?>" alt="">
 		<div class="level">Level <?php echo $m->level; ?></div>
-		<div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
-		<div class="respawn">Respawns on average in <?php echo printRespawn($m->respawn); ?> minutes.</div>
 		<div class="description">
 		<?php 
 		if($m->description=="") {
@@ -43,10 +39,12 @@ class BingoPage extends Page {
 			echo $m->description;
 		}
 		?>
+		
 	</div>
 	<?php
 			}
 		}		
+		echo htmlspecialchars($this->id);
 		endBox();
 	}
 }
