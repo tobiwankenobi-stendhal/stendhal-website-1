@@ -10,9 +10,8 @@ class BingoPage extends Page {
 
 		
         $row=mysql_fetch_assoc($result);
-        var_dump($row);
 		$this->id = $row['id'];
-		$this->name = $row['param1'];
+		$this->name = $row['killed'];
 
         mysql_free_result($result);
 	}
