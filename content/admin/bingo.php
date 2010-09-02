@@ -37,10 +37,11 @@ class BingoPage extends Page {
 		}
 		?>
 	</div>
+	<?php 
 			}		
 		endBox();
 	}
-
+}
 
 $page = new BingoPage();
 ?>
