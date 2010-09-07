@@ -9,11 +9,32 @@ class SystematicLiteratureReviewPage extends Page {
 	private static $reviewers = array('hendrik', 'markus');
 	private $edited;
 	private $columns;
-	function writeContent() {
 
-if(getAdminLevel()<1000) {
- die("Ooops!");
-}
+	public function writeHttpHeader() {
+		if(getAdminLevel()<1000) {
+			die("Ooops!");
+		}
+		
+		if (isset($_REQUEST['format']) && ($_REQUEST['format'] == 'csv')) {
+			header('Content-Type: text/csv');
+			$this->csvExport();
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public function writeHtmlHeader() {
+		echo '<title>Systematic Literature Review'.STENDHAL_TITLE.'</title>';
+	}
+	function writeContent() {
+		if(getAdminLevel()<1000) {
+			die("Ooops!");
+		}
+		$this->renderWebsite();
+	}
+
+	function renderWebsite() {
 
 $metadata = getSlrMetadata();
 
@@ -55,20 +76,22 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
 
 
   /*
-   * Show all the previous slr items, just header and to tickets approbed and deleted.
+   * Show all the previous slr items, just header
    */ 
   $reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
   $slr=getAllSlr($reviewer);
   startBox("Admin on existing slr");
+  echo '<ul>';
   foreach($slr as $item) {
     ?>
-    <div class="slr_list">
-    <span class="date"><?php echo $item['paper_bibkey']; ?></span>
-    <span><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>&amp;columns=<?php echo $this->columns?>#editform"><?php echo $item['paper_title']; ?></a></span>
-    </div>
+    <li>
+    <span class="date"><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>&amp;columns=<?php echo $this->columns?>#editform"><?php echo $item['paper_bibkey']; ?></a></span>
+    <span><?php echo $item['paper_title']; ?></span>
+    </li>
     <?php
     }
-  ?> 
+  ?>
+  </ul> 
   <?php
   endBox();  
 ?>
@@ -141,6 +164,23 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 			echo '>';
 		}
 		echo '</td>';
+	}
+
+	function csvExport() {
+  		$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
+  		$slr = getAllSlr($reviewer);
+		foreach ($slr as $row) {
+			$first = true;
+			foreach ($row as $cell) {
+				if ($first) {
+					$first = false;
+				} else {
+					echo '; ';
+				}
+				echo '"'.str_replace(array('"', '\\'), array('\\"', '\\\\'), $cell).'"';
+			}
+			echo "\n";
+		}
 	}
 }
 $page = new SystematicLiteratureReviewPage();
