@@ -99,6 +99,12 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/world/events\.html$ /world/events/all.html [R=301]
                 RewriteRule ^/world/events/(.*)\.html$ /index.php?id=content/scripts/events&filter=$1 [L]
 
+                ######################### Other rewrite rules #########################
+
+                RewriteRule ^/javadoc/(.*)\.html$ /hudson/job/stendhal_HEAD/javadoc/$1 [L]
+
+
+                ######################### Old style URL rewrite to new style #########################
 
                 # images
                 RewriteCond %{QUERY_STRING} url=data/sprites/monsters/(.*)\.png
