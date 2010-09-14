@@ -107,6 +107,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 
 	<table width="100%">
 	<tbody style="vertical-align: top">
+		<tr><td><input type="submit" value="Submit"></td></tr>
 		<?php
 		for ($i = 0; $i < count($metadata); $i++) {
 			echo '<tr>';
