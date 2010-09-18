@@ -3,9 +3,7 @@
 // License: CC-BY 2010 Hendrik Brummermann <nhb_web@nexgo.de>
 
 
-# Define a setup function
 $wgHooks['ParserFirstCallInit'][] = 'efRDFaBreadcrumbs_Setup';
-# Add a hook to initialise the magic word
 $wgHooks['LanguageGetMagic'][]       = 'efRDFaBreadcrumbs_Magic';
 
 $wgExtensionCredits['parserhook'][] = array(
@@ -25,10 +23,7 @@ function efRDFaBreadcrumbs_Setup( &$parser ) {
 
 function efRDFaBreadcrumbs_Magic( &$magicWords, $langCode ) {
 	# Add the magic word
-	# The first array element is whether to be case sensitive, in this case (0) it is not case sensitive, 1 would be sensitive
-	# All remaining elements are synonyms for our parser function
 	$magicWords['breadcrumbs'] = array( 0, 'breadcrumbs' );
-	# unless we return true, other parser functions extensions won't get loaded.
 	return true;
 }
 
