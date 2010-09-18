@@ -26,10 +26,12 @@ function RDFaBreadcrumbs_Render($parser) {
 			$output .= ' &gt; ';
 		}
 		$output .= '<span typeof="v:Breadcrumb">';
-		$output .= '<a href="/wiki/'.urlencode(preg_replace('/[ +]/', '_', func_get_arg($i)))
+		$param = func_get_arg($i);
+		$output .= '<a href="/wiki/'.urlencode(preg_replace('/[ +]/', '_', $param))
 			.'" rel="v:url" property="v:title">';
 		$i++;
-		$output .= htmlspecialchars(func_get_arg($i));
+		$param = func_get_arg($i);
+		$output .= htmlspecialchars($param);
 		$output .= '</a></span>';
 	}
 	$output = $output . '</div>';
