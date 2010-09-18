@@ -26,12 +26,10 @@ function RDFaBreadcrumbs_Render($parser) {
 			$output .= ' &gt; ';
 		}
 		$output .= '<span typeof="v:Breadcrumb">';
-		$param = func_get_arg($i);
-		$output .= '<a href="/wiki/'.urlencode(preg_replace('/[ +]/', '_', $param))
+		$item = func_get_arg($i);
+		$output .= '<a href="'.htmlspecialchars(getURLFromLink($item))
 			.'" rel="v:url" property="v:title">';
-		$i++;
-		$param = func_get_arg($i);
-		$output .= htmlspecialchars($param);
+		$output .= htmlspecialchars(getTextFromLink($item));
 		$output .= '</a></span>';
 	}
 	$output = $output . '</div>';
@@ -39,7 +37,30 @@ function RDFaBreadcrumbs_Render($parser) {
 }
 
 function getURLFromLink($link) {
-	
+	global $wgArticlePath;
+	if (strpos($link, '[[') === 0) {
+		// internal link
+		$delimiter = '|';
+		$start = 2;
+		$pos2 = strpos($link, $delimiter);
+		if ($pos2 === FALSE) {
+			$pos2 = strlen($link) - 2;
+		}
+		$url = substr($link, $start, $pos2 - $start);
+		return trim(preg_replace('/\$1/', urlencode(preg_replace('/[ +]/', '_', trim($url))), $wgArticlePath));
+	} else if (strpos($link, '[') === 0) {
+		// external link
+		$delimiter = ' ';
+		$start = 1;
+		$pos2 = strpos($link, $delimiter);
+		if ($pos2 === FALSE) {
+			$pos2 = strlen($link) - 1;
+		}
+		$url = substr($link, $start, $pos2 - $start);
+		return trim($url);
+	} else {
+		return trim(preg_replace('/\$1/', urlencode(preg_replace('/[ +]/', '_', trim($link))), $wgArticlePath));
+	}
 }
 
 function getTextFromLink($link) {
@@ -52,12 +73,12 @@ function getTextFromLink($link) {
 		$delimiter = ' ';
 		$start = 0;
 	} else {
-		return $link;
+		return trim($link);
 	}
 	$pos1 = strpos($link, $delimiter);
 	if ($pos1 === FALSE) {
 		$pos1 = $start;
 	}
 	$pos2 = strpos($link, ']');
-	return substr($link, $pos1 + 1, $pos2 - $pos1 - 1);
+	return trim(substr($link, $pos1 + 1, $pos2 - $pos1 - 1));
 }
