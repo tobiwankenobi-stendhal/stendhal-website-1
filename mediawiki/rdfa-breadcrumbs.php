@@ -1,6 +1,6 @@
 <?php
 # Define a setup function
-$wgHooks['ParserFirstCallInit'][] = 'efRDFaBreadcrumbs';
+$wgHooks['ParserFirstCallInit'][] = 'efRDFaBreadcrumbs_Setup';
 # Add a hook to initialise the magic word
 $wgHooks['LanguageGetMagic'][]       = 'efRDFaBreadcrumbs_Magic';
 
@@ -19,10 +19,10 @@ function efRDFaBreadcrumbs_Magic( &$magicWords, $langCode ) {
 	return true;
 }
 
-function RDFaBreadcrumbs_Render( $parser, $param1 = '', $param2 = '' ) {
+function RDFaBreadcrumbs_Render($parser) {
 	$output = '<div xmlns:v="http://rdf.data-vocabulary.org/#">';
-	for ($i = 0; $i < func_num_args(); $i++) {
-		if ($i > 0) {
+	for ($i = 1; $i < func_num_args(); $i++) {
+		if ($i > 1) {
 			$output .= '&gt;';
 		}
 		$output .= '<span typeof="v:Breadcrumb">';
