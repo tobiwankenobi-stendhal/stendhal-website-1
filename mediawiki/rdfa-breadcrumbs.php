@@ -37,3 +37,27 @@ function RDFaBreadcrumbs_Render($parser) {
 	$output = $output . '</div>';
 	return array($output, 'noparse' => true, 'isHTML' => true);
 }
+
+function getURLFromLink($link) {
+	
+}
+
+function getTextFromLink($link) {
+	if (strpos($link, '[[') === 0) {
+		// internal link
+		$delimiter = '|';
+		$start = 1;
+	} else if (strpos($link, '[') === 0) {
+		// external link
+		$delimiter = ' ';
+		$start = 0;
+	} else {
+		return $link;
+	}
+	$pos1 = strpos($link, $delimiter);
+	if ($pos1 === FALSE) {
+		$pos1 = $start;
+	}
+	$pos2 = strpos($link, ']');
+	return substr($link, $pos1 + 1, $pos2 - $pos1 - 1);
+}
