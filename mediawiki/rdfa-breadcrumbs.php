@@ -4,6 +4,15 @@ $wgHooks['ParserFirstCallInit'][] = 'efRDFaBreadcrumbs_Setup';
 # Add a hook to initialise the magic word
 $wgHooks['LanguageGetMagic'][]       = 'efRDFaBreadcrumbs_Magic';
 
+$wgExtensionCredits['parserhook'][] = array(
+	'name' => 'RDFa_Breadcrumbs',
+	'version' => '1.0',
+	'url' => 'http://www.mediawiki.org/wiki/Extension:RDFa_Breadcrumbs',
+	'author' => 'Hendrik Brummermann',
+	'description' => 'Breadcrumbs with RDFa markup',
+);
+
+
 function efRDFaBreadcrumbs_Setup( &$parser ) {
 	# Set a function hook associating the "example" magic word with our function
 	$parser->setFunctionHook('breadcrumbs', 'RDFaBreadcrumbs_Render' );
