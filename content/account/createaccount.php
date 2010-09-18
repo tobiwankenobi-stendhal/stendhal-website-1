@@ -28,6 +28,19 @@ class CreateAccountPage extends Page {
 
 <input "name="submit" style="margin-top: 2em" type="submit" value="Create Account">
 </form>
+<?php endBox(); ?>
+<br><br>
+<?php startBox("Logging and privacy");?>
+<p>
+<font size="-1">On login information which identifies your computer on the internet will be 
+logged to prevent abuse (like many attempts to guess a password in order to
+hack an account or creation of many accounts to cause trouble).</font></p>
+
+<p><font size="-1">
+Furthermore all events and actions that happen within the game-world 
+(like solving quests, attacking monsters) are logged. This information is 
+used to analyse bugs and in rare cases for abuse handling.</font></p>
+<?php endBox();?>
 <script type="text/javascript">
 
 <!-- TODO: check all fields -->
@@ -46,7 +59,6 @@ function key(field) {
 }
 </script>
 <?php
-		endBox();
 	}
 }
 
