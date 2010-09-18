@@ -20,10 +20,10 @@ function efRDFaBreadcrumbs_Magic( &$magicWords, $langCode ) {
 }
 
 function RDFaBreadcrumbs_Render($parser) {
-	$output = '<div xmlns:v="http://rdf.data-vocabulary.org/#">';
+	$output = '<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
 	for ($i = 1; $i < func_num_args(); $i++) {
 		if ($i > 1) {
-			$output .= '&gt;';
+			$output .= ' &gt; ';
 		}
 		$output .= '<span typeof="v:Breadcrumb">';
 		$output .= '<a href="/wiki/'.urlencode(preg_replace('/[ +]/', '_', func_get_arg($i)))
