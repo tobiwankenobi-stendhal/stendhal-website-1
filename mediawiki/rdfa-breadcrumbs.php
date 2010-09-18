@@ -26,7 +26,7 @@ function RDFaBreadcrumbs_Render($parser) {
 			$output .= ' &gt; ';
 		}
 		$output .= '<span typeof="v:Breadcrumb">';
-		$item = func_get_arg($i);
+		$item = trim(func_get_arg($i));
 		$output .= '<a href="'.htmlspecialchars(getURLFromLink($item))
 			.'" rel="v:url" property="v:title">';
 		$output .= htmlspecialchars(getTextFromLink($item));
