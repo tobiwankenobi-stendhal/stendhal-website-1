@@ -1,4 +1,8 @@
 <?php
+
+// License: CC-BY 2010 Hendrik Brummermann <nhb_web@nexgo.de>
+
+
 # Define a setup function
 $wgHooks['ParserFirstCallInit'][] = 'efRDFaBreadcrumbs_Setup';
 # Add a hook to initialise the magic word
