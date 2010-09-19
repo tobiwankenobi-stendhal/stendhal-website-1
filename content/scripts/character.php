@@ -1,6 +1,6 @@
 <?php
 function printAge($minutes) {
-  return round($minutes/60,2);
+	return round($minutes/60,2);
 }
 
 class CharacterPage extends Page {
@@ -30,13 +30,13 @@ class CharacterPage extends Page {
 
 
 if(sizeof($this->players)==0) {
-  startBox("No such player");
-  ?>
-  There is no such player at Stendhal.<br>
-  Please make sure you spelled it correctly.
-  <?php
-  endBox();
-  return;
+	startBox("No such player");
+	?>
+	There is no such player at Stendhal.<br>
+	Please make sure you spelled it correctly.
+	<?php
+	endBox();
+	return;
 }
 $choosen=$this->players[0];
 $account=$choosen->getAccountInfo();
@@ -44,21 +44,25 @@ $account=$choosen->getAccountInfo();
 
 <?php startBox('Character info for '.htmlspecialchars(utf8_encode($choosen->name))); ?>
 <div class="table">
-  <div class="title">Details</div>
-  <div style="float: right">
-    <?php if ($account["status"] == 'active') {?>
-      <img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
-    <?php }?>
-  </div>
-  <div><span class="statslabel">Name:</span><span class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span></div>
-  <div><span class="statslabel">Age:</span><span class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</span></div>
-  <div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
-  <div class="married"><?php if(!empty($choosen->married)) {  echo  htmlspecialchars($choosen->name); ?> is married to <a href="<?php echo 
-rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php echo  htmlspecialchars($choosen->married); } ?></a> 
-</div>
-  <?php if ($account["status"] == "active" && $choosen->sentence != '') {
-  	echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
-  }?>
+	<div class="title">Details</div>
+	<div style="float: right">
+		<?php if ($account["status"] == 'active') {?>
+		<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
+		<?php }?>
+	</div>
+	<div><span class="statslabel">Name:</span><span class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span></div>
+	<div><span class="statslabel">Age:</span><span class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</span></div>
+	<div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
+	<div class="married">
+		<?php if(!empty($choosen->married)) {
+			echo htmlspecialchars($choosen->name); ?> is married to <a href="<?php 
+			echo rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html');
+			?>"><?php echo  htmlspecialchars($choosen->married);
+		} ?></a> 
+	</div>
+	<?php if ($account["status"] == "active" && $choosen->sentence != '') {
+		echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
+	}?>
 </div>
 <div style="height:220px">
 <div class="table" style ="float:left; height:190px; margin-right: 12px;">
@@ -77,7 +81,7 @@ rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html'); ?>"><?php
     <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('D')); ?></span></div>
     <div><span class="statslabel">Maze Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('M')); ?></span></div>
 </div>
-<div class="table" style = "float:left; width:115px">
+<div class="table" style = "float:left; width:115px; height:190px; margin-right: 12px;">
 <div class="title">Equipment</div>
 <div class ="equipment">
 <?php
@@ -103,6 +107,25 @@ foreach($choosen->equipment as $slot=>$content) {
 	?>
 </div>
 </div>
+<div class="table" style ="float:left; height:190px; margin-right: 12px;">
+<div class="title">Rank</div>
+
+	<?php
+	$ranks = getCharacterRanks($choosen->name);
+	$names = array('Best', 'Strongest', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
+	$fametypes = array('B', 'X', 'W', 'A', 'D', 'T', 'F', 'M');
+	for ($i = 0; $i < count($names); $i++) {
+		echo '<div><span class="statslabel">'.$names[$i].'</span><span class="data">';
+		if (isset($ranks[$fametypes[$i]])) {
+			echo htmlspecialchars($ranks[$fametypes[$i]]);
+		} else {
+			echo '-';
+		}
+		echo '</span></div>';
+	}
+	?>
+</div>
+
 </div>
 
 <div class="table">
