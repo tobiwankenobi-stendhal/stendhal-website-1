@@ -77,7 +77,13 @@ $account=$choosen->getAccountInfo();
     <div><span class="statslabel"><?php echo htmlspecialchars(ucwords($key)) ?>:</span>
     <span class="data"><?php echo htmlspecialchars(ucwords($value)) ?></span></div>
     <?php } ?>
-    <div><span class="statslabel">XP:</span><span class="data"><?php echo htmlspecialchars($choosen->xp); ?></span></div>
+	<div><span class="statslabel">XP:</span><span class="data"><?php
+	if ($choosen->xp > 10000) {
+		echo htmlspecialchars(intval(intval($choosen->xp) / 1000)).'k';
+	} else {
+		echo htmlspecialchars($choosen->xp);
+	}
+	?></span></div>
     <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('D')); ?></span></div>
     <div><span class="statslabel">Maze Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('M')); ?></span></div>
 </div>
