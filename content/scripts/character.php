@@ -78,7 +78,9 @@ $account=$choosen->getAccountInfo();
     <span class="data"><?php echo htmlspecialchars(ucwords($value)) ?></span></div>
     <?php } ?>
 	<div><span class="statslabel">XP:</span><span class="data"><?php
-	if ($choosen->xp > 10000) {
+	if ($choosen->xp > 100000000) {
+		echo htmlspecialchars(intval(intval($choosen->xp) / 1000000)).'m';
+	} else if ($choosen->xp > 10000) {
 		echo htmlspecialchars(intval(intval($choosen->xp) / 1000)).'k';
 	} else {
 		echo htmlspecialchars($choosen->xp);
