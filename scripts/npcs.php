@@ -32,9 +32,9 @@ class NPC {
 	public $pos;
 	public $description;
 	public $job;
-
+	public $altimage;
  
-	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $pos, $description, $job) {
+	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $pos, $description, $job, $altimage) {
 		$this->name=$name;
 		$this->title=$title;
 		$this->class=$class;
@@ -42,6 +42,9 @@ class NPC {
 		$imagefile = '/images/npc/'.surlencode($class).'.png';
 		if (isset($outfit) && $outfit != '') {
 			$imagefile = '/images/outfit/'.surlencode($outfit).'.png';
+		}
+		if (isset($altimage) && $altimage != '') {
+			$imagefile = '/images/npc/alternative/'.surlencode($altimage).'.png';
 		}
 		$this->imagefile=rewriteURL($imagefile);
 		$this->level=$level;
@@ -98,7 +101,8 @@ class NPC {
 				$zone,
 				$pos,
 				$row['description'],
-				$row['job']);
+				$row['job'],
+				$row['image']);
 		}
 		mysql_free_result($result);
 		return $list;
