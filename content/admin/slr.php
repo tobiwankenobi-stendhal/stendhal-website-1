@@ -80,7 +80,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
    */ 
   $reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
   $slr=getAllSlr($reviewer);
-  startBox("Admin on existing slr");
+  startBox("Manage existing slr entries");
   echo '<ul>';
   foreach($slr as $item) {
     ?>
@@ -168,8 +168,33 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 	}
 
 	function csvExport() {
-  		$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
+		$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
   		$slr = getAllSlr($reviewer);
+		$metadata = getSlrMetadata();
+
+		$first = true;
+		foreach ($metadata as $meta) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo '; ';
+			}
+			echo $this->escapeCsv($meta['column_name']);
+		}
+		echo "\n";
+
+		$first = true;
+		foreach ($metadata as $meta) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo '; ';
+			}
+			echo $this->escapeCsv($meta['column_comment']);
+		}
+		echo "\n";
+		echo "\n";
+
 		foreach ($slr as $row) {
 			$first = true;
 			foreach ($row as $cell) {
@@ -178,10 +203,14 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 				} else {
 					echo '; ';
 				}
-				echo '"'.str_replace(array('"', '\\'), array('\\"', '\\\\'), $cell).'"';
+				echo $this->escapeCsv($cell);
 			}
 			echo "\n";
 		}
+	}
+
+	function escapeCev($cell) {
+		return '"'.str_replace(array('"', '\\'), array('\\"', '\\\\'), $cell).'"';
 	}
 }
 $page = new SystematicLiteratureReviewPage();
