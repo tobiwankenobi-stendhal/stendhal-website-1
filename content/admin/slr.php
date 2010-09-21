@@ -209,7 +209,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 		}
 	}
 
-	function escapeCev($cell) {
+	function escapeCsv($cell) {
 		return '"'.str_replace(array('"', '\\'), array('\\"', '\\\\'), $cell).'"';
 	}
 }
