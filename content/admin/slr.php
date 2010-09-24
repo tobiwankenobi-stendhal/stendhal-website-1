@@ -137,6 +137,9 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 </form>
 <?php
 		endBox();
+		beginBox("Caption");
+		echo 'Y: details           A: alludes without details        N: not mentioned        (X: want discuss)';
+		endBox();
 	}
 
 	function writeInputHeader($meta) {
