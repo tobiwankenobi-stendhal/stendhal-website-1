@@ -10,7 +10,7 @@ class OpenidPage extends Page {
 			if (isset($_POST['openid_identifier'])) {
 				$openid = new LightOpenID;
 				$openid->identity = $_POST['openid_identifier'];
-				$openid->optional = array('contact/email');
+				$openid->required = array('contact/email');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 				$openid->returnUrl = $openid->realm . $_SERVER['REQUEST_URI'];
 				header('Location: ' . $openid->authUrl());
@@ -28,22 +28,26 @@ class OpenidPage extends Page {
 	function writeContent() {
 
 
-		startBox("Open ID"); 
+
 		try {
 			if (!isset($_GET['openid_mode'])) {
-				?>
+		startBox("Open ID");
+?>
 <form action="" method="post">
     OpenID: <input type="text" name="openid_identifier" /> <button>Submit</button>
 </form>
 <?php
+		endBox();
 			} elseif($_GET['openid_mode'] == 'cancel') {
 				echo 'User has canceled authentication!';
 			} else {
+				startBox("Result");
 				$openid = new LightOpenID;
 				echo 'Validate: ' . $openid->validate() . '<br>';
 				echo 'Identity: ' . htmlspecialchars($openid->identity) . '<br>';
 				$attributes = $openid->getAttributes();
 				echo 'E-Mail: ' . htmlspecialchars($attributes['contact/email']);
+				endBox();
 			}
 		} catch(ErrorException $e) {
 			echo $e->getMessage();
