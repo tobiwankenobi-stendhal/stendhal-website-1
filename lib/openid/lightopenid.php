@@ -469,8 +469,8 @@ class LightOpenID
             'openid.signed'       => $this->data['openid_signed'],
             'openid.sig'          => $this->data['openid_sig'],
             );
-        
-        if ($this->data['openid_return_to'] != $this->returnUrl) {
+
+        if (strpos($this->data['openid_return_to'], $this->returnUrl) !== 0) {
             # The return_to url must match the url of current request.
             # I'm assuing that noone will set the returnUrl to something that doesn't make sense.
             return false;
