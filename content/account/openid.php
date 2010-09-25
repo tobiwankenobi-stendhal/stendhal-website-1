@@ -8,12 +8,14 @@ class OpenidPage extends Page {
 	public function writeHttpHeader() {
 		if (!isset($_GET['openid_mode'])) {
 			if (isset($_POST['openid_identifier'])) {
+				ini_set('allow_url_fopen', 'on');
 				$openid = new LightOpenID;
 				$openid->identity = $_POST['openid_identifier'];
 				$openid->required = array('contact/email');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 				$openid->returnUrl = $openid->realm . $_SERVER['REQUEST_URI'];
 				header('Location: ' . $openid->authUrl());
+				ini_set('allow_url_fopen', 'off');
 				return false;
 			}
 		}
