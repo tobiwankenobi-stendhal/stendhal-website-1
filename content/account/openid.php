@@ -59,5 +59,3 @@ class OpenidPage extends Page {
 	}
 }
 $page = new OpenidPage();
-?>
-
