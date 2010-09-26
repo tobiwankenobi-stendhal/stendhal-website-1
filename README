@@ -1,7 +1,7 @@
 			Stendhal Website README
 ==============================================================================
-    Copyright (C) 2008  Miguel Angel Blanch Lardin, Hendrik Brummermann
     Copyright (C) 2008-2010  The Arianne Project
+    Copyright (C) 2008  Miguel Angel Blanch Lardin, Hendrik Brummermann
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -125,3 +125,12 @@ To allow people to upload screenshots you need to chmod a+w on your screenshots 
 You should probably deactivate magic quotes to avoid double escape of quotes.
 Open /etc/php5/apache2/php.ini (well, that's where it lives for me!) and search for magic_quotes. 
 Turn them off. 
+
+
+
+### Third party libraries
+
+jquery: http://jquery.com/   MIT or GPLv2
+lightopenid: http://code.google.com/p/lightopenid/   MIT
+openid-selector: http://code.google.com/p/openid-selector/   New BSD
+overlib: http://www.macridesweb.com/oltest/
