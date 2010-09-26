@@ -486,7 +486,8 @@ class LightOpenID
             # Even though we should know location of the endpoint,
             # we still need to verify it by discovery, so $server is not set here
             $params['openid.ns'] = 'http://specs.openid.net/auth/2.0';
-        } elseif(isset($this->data['openid_claimed_id'])) {
+        }
+        if(isset($this->data['openid_claimed_id']) && ($this->data['openid_claimed_id'] != $this->data['openid_identity'])) {
             # If it's an OpenID 1 provider, and we've got claimed_id,
             # we have to append it to the returnUrl, like authUrl_v1 does.
             $this->returnUrl .= (strpos($this->returnUrl, '?') ? '&' : '?')
