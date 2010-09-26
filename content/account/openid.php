@@ -4,19 +4,22 @@ require_once('lib/openid/lightopenid.php');
 
 
 class OpenidPage extends Page {
+	private $error;
 
 	public function writeHttpHeader() {
 		if (!isset($_GET['openid_mode'])) {
 			if (isset($_POST['openid_identifier'])) {
-				ini_set('allow_url_fopen', 'on');
 				$openid = new LightOpenID;
 				$openid->identity = $_POST['openid_identifier'];
 				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 				$openid->returnUrl = $openid->realm . $_SERVER['REQUEST_URI'];
-				header('Location: ' . $openid->authUrl());
-				ini_set('allow_url_fopen', 'off');
-				return false;
+				try {
+					header('Location: ' . $openid->authUrl());
+					return false;
+				} catch (ErrorException $e) {
+					$this->error = $e->getMessage();
+				}
 			}
 		}
 		return true;
@@ -111,6 +114,11 @@ a.openid_large_btn:focus{
 	</script>
 
 <?php
+
+	if (isset($this->error)) {
+		echo '<div class="error">'.htmlspecialchars($this->error).'</div>';
+	}
+
 		endBox();
 			} elseif($_GET['openid_mode'] == 'cancel') {
 				echo 'User has canceled authentication!';
