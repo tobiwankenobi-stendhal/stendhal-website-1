@@ -13,7 +13,7 @@ class OpenidPage extends Page {
 				$openid->identity = $_POST['openid_identifier'];
 				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-				$openid->returnUrl = $openid->realm . $_SERVER['REQUEST_URI'];
+				$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
 				try {
 					header('Location: ' . $openid->authUrl());
 					return false;
@@ -125,18 +125,18 @@ a.openid_large_btn:focus{
 			} else {
 				startBox("Result");
 				$openid = new LightOpenID;
+				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+				$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
 				echo 'Validate: ' . $openid->validate() . '<br>';
 				echo 'Identity: ' . htmlspecialchars($openid->identity) . '<br>';
 				$attributes = $openid->getAttributes();
-				echo 'E-Mail: ' . htmlspecialchars($attributes['contact/email']);
+				echo 'E-Mail: ' . htmlspecialchars($attributes['contact/email']) . '<br>';
 				echo 'Nickname: ' . htmlspecialchars($attributes['namePerson/friendly']);
 				endBox();
 			}
 		} catch(ErrorException $e) {
 			echo $e->getMessage();
 		}
-
-		endBox();
 	}
 }
 $page = new OpenidPage();
