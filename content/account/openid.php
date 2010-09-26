@@ -11,7 +11,7 @@ class OpenidPage extends Page {
 				ini_set('allow_url_fopen', 'on');
 				$openid = new LightOpenID;
 				$openid->identity = $_POST['openid_identifier'];
-				$openid->required = array('contact/email');
+				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 				$openid->returnUrl = $openid->realm . $_SERVER['REQUEST_URI'];
 				header('Location: ' . $openid->authUrl());
@@ -121,6 +121,7 @@ a.openid_large_btn:focus{
 				echo 'Identity: ' . htmlspecialchars($openid->identity) . '<br>';
 				$attributes = $openid->getAttributes();
 				echo 'E-Mail: ' . htmlspecialchars($attributes['contact/email']);
+				echo 'Nickname: ' . htmlspecialchars($attributes['namePerson/friendly']);
 				endBox();
 			}
 		} catch(ErrorException $e) {

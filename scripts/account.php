@@ -302,6 +302,27 @@ function mergeAccount($oldUsername, $newUsername) {
 
 
 /**
+ * adds an account link (like an openid)
+ *
+ * @param string $username the name of the logged in user to add the link to
+ * @param $identifier the openid identifier
+ * @param $type "openid" or "connect"
+ * @param $email email address provided by the identity provider
+ * @param $nickname nick name
+ */
+function addAccountLink($username, $type, $identifier, $email, $nickname) {
+	$accountId = getUserID($username);
+	$sql = "INSERT INTO accountLink (player_id, type, username, nickname, email) VALUES ('"
+		. mysql_real_escape_string($accountId)."', '"
+		. mysql_real_escape_string($type)."', '"
+		. mysql_real_escape_string($identifier)."', '"
+		. mysql_real_escape_string($email)."', '"
+		. mysql_real_escape_string($nickname)."');";
+	mysql_query($sql, getGameDB());
+}
+
+
+/**
  * gets a list of recent login events for that player
  */
 function getLoginHistory($playerId) {

@@ -48,7 +48,7 @@ class AccountMerge extends Page {
 		}
 
 		if (!isset($_POST['confirm'])) {
-			echo '<p class="error">You need tick the confirm-checkbox.</p>';
+			echo '<p class="error">You need to tick the confirm-checkbox.</p>';
 			endBox();
 			return;
 		}
