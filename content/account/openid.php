@@ -33,23 +33,23 @@ class OpenidPage extends Page {
 	margin-top:10px; display:none;
 }
 #openid_input_area{
-	padding-top:10px; margin-bottom:30px; margin-left:35px; clear:both;
+	padding-top:10px; margin-bottom:30px; margin-left:35px
 }
 #openid_username{margin-right:5px;}
 #openid_btns, #openid_btns br{
-	margin-left:30px; clear:both;
+	margin-left:30px
 }
 #openid_highlight{
-	padding:3px; background-color:#FFFCC9; float:left;
+	padding:3px; background-color:#FFFCC9; display: inline-block;
 }
 .openid_large_btn{
-	width:100px; height:60px; border:2px solid #DDD; border-right:2px solid #ccc; border-bottom:2px solid #ccc; margin:3px; float:left;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow:2px 2px 4px #ddd;-moz-box-shadow:2px 2px 4px #ddd;-webkit-box-shadow:2px 2px 4px #ddd;
+	width:100px; height:60px; border:2px solid #DDD; border-right:2px solid #ccc; border-bottom:2px solid #ccc; margin:3px; display: inline-block;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow:2px 2px 4px #ddd;-moz-box-shadow:2px 2px 4px #ddd;-webkit-box-shadow:2px 2px 4px #ddd;
 }
 .openid_large_btn:hover{
 	margin:4px 0 0 6px;border:2px solid #999;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;
 }
 .openid_small_btn{
-	width:24px;height:24px;border:2px solid #DDD;border-right:2px solid #ccc;border-bottom:2px solid #ccc;margin:3px;float:left;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow:2px 2px 4px #ddd;-moz-box-shadow:2px 2px 4px #ddd;-webkit-box-shadow:2px 2px 4px #ddd;
+	width:24px;height:24px;border:2px solid #DDD;border-right:2px solid #ccc;border-bottom:2px solid #ccc;margin:3px; display: inline-block;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow:2px 2px 4px #ddd;-moz-box-shadow:2px 2px 4px #ddd;-webkit-box-shadow:2px 2px 4px #ddd;
 }
 .openid_small_btn:hover{margin:4px 0 0 6px;border:2px solid #999;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;
 }
@@ -82,7 +82,7 @@ a.openid_large_btn:focus{
 		<input id="oauth_server" name="oauth_server" type="hidden">
 
 		<div id="openid_choice">
-			<p>Do you already have an account on one of these sites?:</p>
+			<p>Do you already have an account on one of these sites?</p>
 			<div id="openid_btns"></div>
 		</div>
 
