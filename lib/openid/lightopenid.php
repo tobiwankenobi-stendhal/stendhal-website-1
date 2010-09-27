@@ -148,8 +148,16 @@ class LightOpenID
             );
 
             $url = $url . ($params ? '?' . $params : '');
-            $headers_tmp = get_headers ($url);
-            
+
+            # connecting to server
+            if (!$this->doesServerExist($url)) {
+                return null;
+            }
+            $headers_tmp = @get_headers($url);
+            if (!isset($headers_tmp)) {
+                return null;
+            }
+
             # Parsing headers.
             $headers = array();
             foreach($headers_tmp as $header) {
@@ -225,6 +233,9 @@ class LightOpenID
         for ($i = 0; $i < 5; $i ++) {
             if ($yadis) {
                 $headers = $this->request($url, 'HEAD');
+                if (!isset($headers)) {
+                    throw new ErrorException('No servers found!');
+                }
 
                 $next = false;
                     if (isset($headers['x-xrds-location'])) {
@@ -601,5 +612,25 @@ class LightOpenID
             return $this->getAxAttributes() + $this->getSregAttributes();
         }
         return $this->getSregAttributes();
+    }
+
+    /**
+     * checks if the server specified in the url exists.
+     *
+     * @param $url url to check
+     * @return true, if the server exists; false otherwise
+     */
+    function doesServerExist($url)
+    {
+        if (strpos($url, '/') === false) {
+            $server = $url;
+        } else {
+            $server = @parse_url($url, PHP_URL_HOST);
+        }
+        if ($server === false) {
+            return false;
+        }
+        $ip = gethostbynamel($server);
+        return ($ip !== false);
     }
 }
