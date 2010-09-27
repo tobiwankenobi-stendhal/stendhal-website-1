@@ -227,8 +227,8 @@ class LightOpenID
                 $headers = $this->request($url, 'HEAD');
 
                 $next = false;
-                    if (isset($headers['x-xrds-Location'])) {
-                        $url = $this->build_url(parse_url($url), parse_url(trim($headers['x-xrds-Location'])));
+                    if (isset($headers['x-xrds-location'])) {
+                        $url = $this->build_url(parse_url($url), parse_url(trim($headers['x-xrds-location'])));
                         $next = true;
                     }
 
@@ -481,13 +481,12 @@ class LightOpenID
             'openid.sig'          => $this->data['openid_sig'],
             );
         
-        if (isset($this->data['openid_op_endpoint'])) {
+        if (isset($this->data['openid_ns'])) {
             # We're dealing with an OpenID 2.0 server, so let's set an ns
             # Even though we should know location of the endpoint,
             # we still need to verify it by discovery, so $server is not set here
             $params['openid.ns'] = 'http://specs.openid.net/auth/2.0';
-        }
-        if(isset($this->data['openid_claimed_id']) && ($this->data['openid_claimed_id'] != $this->data['openid_identity'])) {
+        } elseif(isset($this->data['openid_claimed_id'])) {
             # If it's an OpenID 1 provider, and we've got claimed_id,
             # we have to append it to the returnUrl, like authUrl_v1 does.
             $this->returnUrl .= (strpos($this->returnUrl, '?') ? '&' : '?')
