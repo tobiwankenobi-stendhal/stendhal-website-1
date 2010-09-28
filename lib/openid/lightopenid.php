@@ -39,7 +39,7 @@
  * To get the values, use $openid->getAttributes().
  *
  *
- * The library requires PHP 5 with http/https stream wrappers enabled..
+ * The library requires PHP >= 5.1.2 with http/https stream wrappers enabled..
  * @author Mewp
  * @copyright Copyright (c) 2010, Mewp
  * @license http://www.opensource.org/licenses/mit-license.php MIT
@@ -78,7 +78,7 @@ class LightOpenID
     {
         switch ($name) {
         case 'identity':
-            if (strlen($value = trim($value))) {
+            if (strlen($value = trim((String) $value))) {
                 if (preg_match('#^xri:/*#i', $value, $m)) {
                     $value = substr($value, strlen($m[0]));
                 } elseif (!preg_match('/^(?:[=@+\$!\(]|https?:)/i', $value)) {
@@ -109,9 +109,35 @@ class LightOpenID
             return $this->trustRoot;
         }
     }
+    
+    /**
+     * Checks if the server specified in the url exists.
+     *
+     * @param $url url to check
+     * @return true, if the server exists; false otherwise
+     */
+    function hostExists($url)
+    {
+        if (strpos($url, '/') === false) {
+            $server = $url;
+        } else {
+            $server = @parse_url($url, PHP_URL_HOST);
+        }
+        
+        if (!$server) {
+            return false;
+        }
+        
+        return !!gethostbynamel($server);
+    }
+
 
     protected function request($url, $method='GET', $params=array())
     {
+        if(!$this->hostExists($url)) {
+            throw new ErrorException('Invalid request.');
+        }
+        
         $params = http_build_query($params, '', '&');
         switch($method) {
         case 'GET':
@@ -148,22 +174,33 @@ class LightOpenID
             );
 
             $url = $url . ($params ? '?' . $params : '');
-
-            # connecting to server
-            if (!$this->doesServerExist($url)) {
-                return null;
+            $headers_tmp = @get_headers ($url);
+            if(!$headers_tmp) {
+                return array();
             }
-            $headers_tmp = @get_headers($url);
-            if (!isset($headers_tmp)) {
-                return null;
-            }
-
+            
             # Parsing headers.
             $headers = array();
             foreach($headers_tmp as $header) {
                 $pos = strpos($header,':');
                 $name = strtolower(trim(substr($header, 0, $pos)));
                 $headers[$name] = trim(substr($header, $pos+1));
+                
+                # Following possible redirections. The point is just to have
+                # claimed_id change with them, because get_headers() will
+                # follow redirections automatically.
+                # We ignore redirections with relative paths.
+                # If any known provider uses them, file a bug report.
+                if($name == 'location') {
+                    if(strpos($headers[$name], 'http') === 0) {
+                        $this->claimed_id = $headers[$name];
+                    } elseif($headers[$name][0] == '/') {
+                        $parsed_url = parse_url($this->claimed_id);
+                        $this->claimed_id = $parsed_url['scheme'] . '://'
+                                          . $parsed_url['host']
+                                          . $headers[$name];
+                    }
+                }
             }
 
             # And restore them.
@@ -171,8 +208,7 @@ class LightOpenID
             return $headers;
         }
         $context = stream_context_create ($opts);
-
-        return file_get_contents($url, false, $context);
+        return @file_get_contents($url, false, $context);
     }
 
     protected function build_url($url, $parts)
@@ -233,9 +269,6 @@ class LightOpenID
         for ($i = 0; $i < 5; $i ++) {
             if ($yadis) {
                 $headers = $this->request($url, 'HEAD');
-                if (!isset($headers)) {
-                    throw new ErrorException('No servers found!');
-                }
 
                 $next = false;
                     if (isset($headers['x-xrds-location'])) {
@@ -612,25 +645,5 @@ class LightOpenID
             return $this->getAxAttributes() + $this->getSregAttributes();
         }
         return $this->getSregAttributes();
-    }
-
-    /**
-     * checks if the server specified in the url exists.
-     *
-     * @param $url url to check
-     * @return true, if the server exists; false otherwise
-     */
-    function doesServerExist($url)
-    {
-        if (strpos($url, '/') === false) {
-            $server = $url;
-        } else {
-            $server = @parse_url($url, PHP_URL_HOST);
-        }
-        if ($server === false) {
-            return false;
-        }
-        $ip = gethostbynamel($server);
-        return ($ip !== false);
     }
 }

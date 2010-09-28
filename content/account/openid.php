@@ -69,9 +69,6 @@ a.openid_large_btn:focus{
 	}
 
 	function writeContent() {
-
-
-
 		try {
 			if (!isset($_GET['openid_mode'])) {
 				startBox("Open ID");
