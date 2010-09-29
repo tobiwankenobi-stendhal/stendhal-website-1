@@ -56,7 +56,7 @@ function checkAccount($username, $password) {
  * database, if so it checks if the given password is
  * the same password in the database for that user.
  * If the user doesn't exist or if the passwords don't
- * match up, it returns an error code (1 or 2). 
+ * match up, it returns an error code (1 or 2).
  * On success it returns 0.
  */
 function confirmUser($username, $password){
@@ -156,7 +156,7 @@ function getUser($email) {
 // Returns user id for username or false
 function getUserID($username) {
 	$q = "SELECT id FROM account WHERE username = '".
-		mysql_real_escape_string($username)."'";
+	mysql_real_escape_string($username)."'";
 
 	$result = mysql_query($q, getGameDB());
 
@@ -209,8 +209,8 @@ function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) 
 	$q = "INSERT INTO gameEvents (source, event, param1, param2) values ".
 		"('".mysql_real_escape_string($character)."', 'accountmerge', '".mysql_real_escape_string($oldAccountId)."', '"
 		.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."')";
-	$result = mysql_query($q, getGameDB());
-	return $result !== false;
+		$result = mysql_query($q, getGameDB());
+		return $result !== false;
 }
 
 
@@ -223,10 +223,10 @@ function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) 
  */
 function verifyCharacterBelongsToUsername($username, $charname) {
 	$sql = "SELECT player_id "
-		. "FROM account, characters "
-		. "WHERE account.username='".mysql_real_escape_string($username)
-		. "' AND account.id=characters.player_id "
-		. "AND characters.charname='".mysql_real_escape_string($charname)."'";
+	. "FROM account, characters "
+	. "WHERE account.username='".mysql_real_escape_string($username)
+	. "' AND account.id=characters.player_id "
+	. "AND characters.charname='".mysql_real_escape_string($charname)."'";
 	$result = mysql_query($sql, getGameDB());
 	$res = mysql_numrows($result) > 0;
 	mysql_free_result($result);
@@ -236,8 +236,8 @@ function verifyCharacterBelongsToUsername($username, $charname) {
 
 function storeSeed($username, $ip, $seed, $authenticated) {
 	$query = 'INSERT INTO loginseed(player_id, address, seed, complete, used)'
-		." SELECT id, '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($seed)."', '"
-		.mysql_real_escape_string($authenticated)."', 0 FROM account WHERE username='".mysql_real_escape_string($username)."'";
+	." SELECT id, '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($seed)."', '"
+	.mysql_real_escape_string($authenticated)."', 0 FROM account WHERE username='".mysql_real_escape_string($username)."'";
 
 	mysql_query($query, getGameDB());
 }
@@ -274,11 +274,11 @@ function mergeAccount($oldUsername, $newUsername) {
 function addAccountLink($username, $type, $identifier, $email, $nickname) {
 	$accountId = getUserID($username);
 	$sql = "INSERT INTO accountLink (player_id, type, username, nickname, email) VALUES ('"
-		. mysql_real_escape_string($accountId)."', '"
-		. mysql_real_escape_string($type)."', '"
-		. mysql_real_escape_string($identifier)."', '"
-		. mysql_real_escape_string($email)."', '"
-		. mysql_real_escape_string($nickname)."');";
+	. mysql_real_escape_string($accountId)."', '"
+	. mysql_real_escape_string($type)."', '"
+	. mysql_real_escape_string($identifier)."', '"
+	. mysql_real_escape_string($email)."', '"
+	. mysql_real_escape_string($nickname)."');";
 	mysql_query($sql, getGameDB());
 }
 
@@ -288,18 +288,18 @@ function addAccountLink($username, $type, $identifier, $email, $nickname) {
  */
 function getLoginHistory($playerId) {
 	$sql = "SELECT address, timedate, service, event, result FROM "
-		. "(SELECT address, timedate, service, 'login' As event, result FROM loginEvent "
-		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY) "
-		. "UNION SELECT address, timedate, service, 'password change' As event, result FROM passwordChange "
-		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
-		. "ORDER BY timedate DESC LIMIT 25;";
+	. "(SELECT address, timedate, service, 'login' As event, result FROM loginEvent "
+	. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY) "
+	. "UNION SELECT address, timedate, service, 'password change' As event, result FROM passwordChange "
+	. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
+	. "ORDER BY timedate DESC LIMIT 25;";
 
 	$result = mysql_query($sql, getGameDB());
 	$list=array();
 
 	while($row = mysql_fetch_assoc($result)) {
 		$list[] = new PlayerLoginEntry($row['timedate'],
-			$row['address'], $row['service'], $row['event'],$row['result']);
+		$row['address'], $row['service'], $row['event'],$row['result']);
 	}
 
 	mysql_free_result($result);
@@ -309,8 +309,8 @@ function getLoginHistory($playerId) {
 
 
 /**
-  * A class that represent a player history entry
-  */
+ * A class that represent a player history entry
+ */
 class PlayerLoginEntry {
 	/* date and time of event */
 	public $timedate;
@@ -322,7 +322,7 @@ class PlayerLoginEntry {
 	public $eventType;
 	/* success */
 	public $success;
-	
+
 	function __construct($timedate, $address, $service, $eventType, $success) {
 		$this->timedate = $timedate;
 		$this->address = $address;
@@ -332,77 +332,76 @@ class PlayerLoginEntry {
 	}
 }
 
+
 /**
- * gets a list of recent messages for that player
+ * A class that represents a StoredMessage
  */
-function getStoredMessages($playerId, $where) {
-    $sql = "SELECT postman.source, postman.target, postman.timedate, postman.message, postman.messageType, postman.delivered "
-		. " FROM postman , characters "
-		. " WHERE " . $where 
-		. " AND  characters.player_id=".mysql_real_escape_string($playerId)  
-		. " AND postman.timedate > DATE_SUB(CURDATE(),INTERVAL 3 MONTH) "
-		. " ORDER BY postman.timedate DESC LIMIT 100;";
-    // echo $sql;
-    $result = mysql_query($sql, getGameDB());
-    $list=array();
-
-    while($row = mysql_fetch_assoc($result)) {
-        $list[] = new StoredMessage($row['source'], $row['target'], $row['timedate'],
-            $row['message'], $row['messageType'], $row['delivered']);
-    }
-
-    mysql_free_result($result);
-
-    return $list;
-}
-
-
-/**
-  * A class that represents a StoredMessage
-  */
 class StoredMessage {
 	/* source of message (who sent it) */
 	public $source;
 	/* target of message (who it was sent to) */
-    public $target;
-    /* date and time of event */
-    public $timedate;
-    /* content of message */
-    public $message;
-    /* type of message: S (Support); P (player); N (NPC)  */
-    public $messageType;
-    /* whether it was delivered */
-    public $delivered;
+	public $target;
+	/* date and time of event */
+	public $timedate;
+	/* content of message */
+	public $message;
+	/* type of message: S (Support); P (player); N (NPC)  */
+	public $messageType;
+	/* whether it was delivered */
+	public $delivered;
 
-    function __construct($source, $target, $timedate, $message, $messageType, $delivered) {
-        $this->source = $source;
-        $this->target = $target;
-        $this->timedate = $timedate;
-        $this->message = $message;
-        $this->messageType = $messageType;
-        $this->delivered = $delivered;
-    }
-}
+	function __construct($source, $target, $timedate, $message, $messageType, $delivered) {
+		$this->source = $source;
+		$this->target = $target;
+		$this->timedate = $timedate;
+		$this->message = $message;
+		$this->messageType = $messageType;
+		$this->delivered = $delivered;
+	}
 
-/**
- * gets a list of recent messages for that player
- */
-function getCountUndeliveredMessages($playerId, $where) {
-    $sql = "SELECT count(*) as count "
+	/**
+	 * gets a list of recent messages for that player
+	 */
+	public static function getCountUndeliveredMessages($playerId, $where) {
+		$sql = "SELECT count(*) as count "
 		. " FROM postman , characters "
-		. " WHERE " . $where 
-		. " AND characters.player_id=".mysql_real_escape_string($playerId)  
+		. " WHERE " . $where
+		. " AND characters.player_id=".mysql_real_escape_string($playerId)
 		. " AND delivered = 0;";
-    $result = mysql_query($sql, getGameDB());
+		$result = mysql_query($sql, getGameDB());
 
-    while($row = mysql_fetch_assoc($result)) {
-        $count = $row['count'];
-    }
+		while($row = mysql_fetch_assoc($result)) {
+			$count = $row['count'];
+		}
 
-    mysql_free_result($result);
+		mysql_free_result($result);
+		return $count;
+	}
 
-    return $count;
+	/**
+	 * gets a list of recent messages for that player
+	 */
+	public static function getStoredMessages($playerId, $where) {
+		$sql = "SELECT postman.source, postman.target, postman.timedate, postman.message, postman.messageType, postman.delivered "
+		. " FROM postman , characters "
+		. " WHERE " . $where
+		. " AND  characters.player_id=".mysql_real_escape_string($playerId)
+		. " AND postman.timedate > DATE_SUB(CURDATE(),INTERVAL 3 MONTH) "
+		. " ORDER BY postman.timedate DESC LIMIT 100;";
+		// echo $sql;
+		$result = mysql_query($sql, getGameDB());
+		$list=array();
+
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = new StoredMessage($row['source'], $row['target'], $row['timedate'],
+			$row['message'], $row['messageType'], $row['delivered']);
+		}
+
+		mysql_free_result($result);
+		return $list;
+	}
 }
+
 
 
 /**
@@ -450,13 +449,13 @@ class AccountLink {
 	public static function getAccountLinks($playerId) {
 		$links = array();
 		$sql = "SELECT id, player_id, type, username, nickname, email, secret "
-			. "FROM accountLink "
-			. "WHERE player_id ='".mysql_real_escape_string($playerId)."'";
+		. "FROM accountLink "
+		. "WHERE player_id ='".mysql_real_escape_string($playerId)."'";
 		$result = mysql_query($sql, getGameDB());
 		while($row = mysql_fetch_assoc($result)) {
-			$links[] = new AccountLink($row['id'], $row['player_id'], 
-					$row['type'], $row['username'], $row['nickname'], 
-					$row['email'], $row['secret']);
+			$links[] = new AccountLink($row['id'], $row['player_id'],
+			$row['type'], $row['username'], $row['nickname'],
+			$row['email'], $row['secret']);
 		}
 		mysql_free_result($result);
 		return $links;
@@ -464,14 +463,14 @@ class AccountLink {
 
 	public static function findAccountLink($type, $username) {
 		$sql = "SELECT id, player_id, type, username, nickname, email, secret "
-			. "FROM accountLink "
-			. "WHERE username ='".mysql_real_escape_string($username)."'"
-			. " AND type = '".mysql_real_escape_string($username)."'";
+		. "FROM accountLink "
+		. "WHERE username ='".mysql_real_escape_string($username)."'"
+		. " AND type = '".mysql_real_escape_string($username)."'";
 		$result = mysql_query($sql, getGameDB());
 		while($row = mysql_fetch_assoc($result)) {
-			$links[] = new AccountLink($row['id'], $row['player_id'], 
-					$row['type'], $row['username'], $row['nickname'], 
-					$row['email'], $row['secret']);
+			$links[] = new AccountLink($row['id'], $row['player_id'],
+			$row['type'], $row['username'], $row['nickname'],
+			$row['email'], $row['secret']);
 		}
 		mysql_free_result($result);
 		return $links;

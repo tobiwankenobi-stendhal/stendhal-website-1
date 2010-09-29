@@ -68,9 +68,9 @@ class MessagesPage extends Page {
         <br>
         <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
         <td class="barTab" width="2%"> &nbsp;</td>
-        <?php echo '<td class="'.$this->getTabClass('to-me').'" width="25%"><a class="'.$this->getTabClass('to-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me.html')).'">To Me ['.getCountUndeliveredMessages($playerId, $this->getFilter("to-me")).']</a></td>';?>
+        <?php echo '<td class="'.$this->getTabClass('to-me').'" width="25%"><a class="'.$this->getTabClass('to-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me.html')).'">To Me ['.StoredMessage::getCountUndeliveredMessages($playerId, $this->getFilter("to-me")).']</a></td>';?>
         <td class="barTab" width="2%"> &nbsp;</td>
-        <?php echo '<td class="'.$this->getTabClass('to-me-npcs').'" width="25%"><a class="'.$this->getTabClass('to-me-npcs').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me-npcs.html')).'">To Me (NPCs) ['.getCountUndeliveredMessages($playerId, $this->getFilter("to-me-npcs")).']</a></td>';?>
+        <?php echo '<td class="'.$this->getTabClass('to-me-npcs').'" width="25%"><a class="'.$this->getTabClass('to-me-npcs').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/to-me-npcs.html')).'">To Me (NPCs) ['.StoredMessage::getCountUndeliveredMessages($playerId, $this->getFilter("to-me-npcs")).']</a></td>';?>
         <td class="barTab" width="2%"> &nbsp;</td>
         <?php echo '<td class="'.$this->getTabClass('from-me').'" width="25%"><a class="'.$this->getTabClass('from-me').'A" href="'.htmlspecialchars(rewriteURL('/account/messages/from-me.html')).'">From Me</a></td>';?>
         <td class="barTab">&nbsp;</td>
@@ -95,7 +95,7 @@ class MessagesPage extends Page {
 	
 	function printStoredMessages() {
 	    $playerId = getUserID($_SESSION['username']);
-		$messages = getStoredMessages($playerId, $this->filterWhere);
+		$messages = StoredMessage::getStoredMessages($playerId, $this->filterWhere);
 
 		startBox('Messages');
         if ($this->filter=="to-me") {
