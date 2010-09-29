@@ -20,6 +20,7 @@
 
 include_once('scripts/mysql.php');
 
+
 function checkAccount($username, $password) {
 	/* Check that all fields were typed in */
 	if(!$username || !$password) {
@@ -46,7 +47,7 @@ function checkAccount($username, $password) {
 	}
 
 	/* Here we log the login attempt, with username, IP and whether failed or successful */
-	PlayerLoginEntry::logUserLogin($$username, $_SERVER['REMOTE_ADDR'], $result == 0);
+	PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $result == 0);
 
 	return $result;
 }
@@ -417,7 +418,64 @@ class Account {
 	public $email;
 	public $timedate;
 	public $status;
+	public $banMessage;
+	public $banExpire;
 	public $links;
+
+	public static function tryLogin($type, $username, $password) {
+		if (!Account::checkIpBan()) {
+			return "Your IP Address has been banned.";
+		}
+
+		// ask database
+		if ($type == 'password' || $type == 'passwordchange') {
+			// TODO: check account block because of too many wrong logins
+			$account = readAccountByName($username);
+			$success = $account->checkPassword($password);
+		} else {
+			$account = readAccountByLink($type, $username, $password);
+			if (isset($account)) {
+				$success = true;
+			}
+		}
+		if ($success && $account instanceof Account) {
+			$success = $account->readAccountBan();
+		}
+
+		// Log loginEvent or passwordChange
+		if ($type != 'passwordchange') {
+			PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $success);
+		} else {
+			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $password, $success);
+		}
+
+		// TODO: isset(), wrong password, banned
+		return $account;
+	}
+
+	private static function checkIPBans() {
+		// TODO: implement me
+		return true;
+	}
+
+	private static function readAccountByName($username) {
+		// TODO: implement me
+	}
+
+	private static function readAccountByLink($type, $username, $password) {
+		// TODO: implement me
+	}
+	
+
+	private function checkPassword() {
+		// TODO: implement me
+		return true;
+	}
+
+	private function readAccountBan() {
+		// TODO: implement me
+		return true;
+	}
 }
 
 /**
