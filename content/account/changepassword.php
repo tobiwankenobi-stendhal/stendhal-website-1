@@ -59,7 +59,6 @@ function changePassword() {
 	/* Username and password correct, register session variables */
 	$_POST['user'] = $username;
 	$_SESSION['username'] = $username;
-	$_SESSION['password'] = $md5newpass;
 
 	echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
 	startBox("Password Change");

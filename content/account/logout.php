@@ -8,7 +8,6 @@ class LogoutPage extends Page {
 
 		// Kill session variables
 		unset($_SESSION['username']);
-		unset($_SESSION['password']);
 		$_SESSION = array(); // reset session array
 		session_destroy();   // destroy session.
 		return true;
