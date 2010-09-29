@@ -46,7 +46,7 @@ function checkAccount($username, $password) {
 	}
 
 	/* Here we log the login attempt, with username, IP and whether failed or successful */
-	logUserLogin($$username, $_SERVER['REMOTE_ADDR'], $result == 0);
+	PlayerLoginEntry::logUserLogin($$username, $_SERVER['REMOTE_ADDR'], $result == 0);
 
 	return $result;
 }
@@ -166,52 +166,10 @@ function getUserID($username) {
 	}
 
 	$row = mysql_fetch_assoc($result);
-
 	return $row['id'];
 }
 
-// log password changes for user from ip
-// returns boolean successfully logged
-function logUserPasswordChange($user, $ip, $oldpass, $result) {
-	$userid = getUserID($user);
 
-	if ( $userid === false) {
-		return false;
-	}
-
-	$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
-		" values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website',".mysql_real_escape_string($result).")";
-
-	$result = mysql_query($q, getGameDB());
-
-	return $result !== false;
-}
-
-// log logins for user from ip
-// returns boolean successfully logged
-function logUserLogin($user, $ip, $success) {
-	$userid = getUserID($user);
-
-	if ( $userid === false ) {
-		return false;
-	}
-
-	$q = "INSERT INTO loginEvent (player_id,address,result,service) values ".
-		"(".$userid.",'".mysql_real_escape_string($ip)."',".($success ? '1' : '0').",'website')";
-
-	$result = mysql_query($q, getGameDB());
-
-	return $result !== false;
-}
-
-
-function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) {
-	$q = "INSERT INTO gameEvents (source, event, param1, param2) values ".
-		"('".mysql_real_escape_string($character)."', 'accountmerge', '".mysql_real_escape_string($oldAccountId)."', '"
-		.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."')";
-		$result = mysql_query($q, getGameDB());
-		return $result !== false;
-}
 
 
 /**
@@ -254,7 +212,7 @@ function mergeAccount($oldUsername, $newUsername) {
 	mysql_query("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
 	$result = mysql_query("SELECT charname FROM characters WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
 	while($row = mysql_fetch_assoc($result)) {
-		logAccountMerge($row['charname'], $oldAccountId, $oldUsername, $newUsername);
+		PlayerLoginEntry::logAccountMerge($row['charname'], $oldAccountId, $oldUsername, $newUsername);
 	}
 	mysql_free_result($result);
 	mysql_query("UPDATE characters SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
@@ -284,31 +242,6 @@ function addAccountLink($username, $type, $identifier, $email, $nickname) {
 
 
 /**
- * gets a list of recent login events for that player
- */
-function getLoginHistory($playerId) {
-	$sql = "SELECT address, timedate, service, event, result FROM "
-	. "(SELECT address, timedate, service, 'login' As event, result FROM loginEvent "
-	. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY) "
-	. "UNION SELECT address, timedate, service, 'password change' As event, result FROM passwordChange "
-	. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
-	. "ORDER BY timedate DESC LIMIT 25;";
-
-	$result = mysql_query($sql, getGameDB());
-	$list=array();
-
-	while($row = mysql_fetch_assoc($result)) {
-		$list[] = new PlayerLoginEntry($row['timedate'],
-		$row['address'], $row['service'], $row['event'],$row['result']);
-	}
-
-	mysql_free_result($result);
-
-	return $list;
-}
-
-
-/**
  * A class that represent a player history entry
  */
 class PlayerLoginEntry {
@@ -329,6 +262,74 @@ class PlayerLoginEntry {
 		$this->service = $service;
 		$this->eventType = $eventType;
 		$this->success = $success;
+	}
+
+
+	/**
+	 * gets a list of recent login events for that player
+	 */
+	public static function getLoginHistory($playerId) {
+		$sql = "SELECT address, timedate, service, event, result FROM "
+		. "(SELECT address, timedate, service, 'login' As event, result FROM loginEvent "
+		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY) "
+		. "UNION SELECT address, timedate, service, 'password change' As event, result FROM passwordChange "
+		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
+		. "ORDER BY timedate DESC LIMIT 25;";
+
+		$result = mysql_query($sql, getGameDB());
+		$list=array();
+
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = new PlayerLoginEntry($row['timedate'],
+			$row['address'], $row['service'], $row['event'],$row['result']);
+		}
+
+		mysql_free_result($result);
+		return $list;
+	}
+
+	/**
+	 * log password changes for user from ip
+	 * returns boolean successfully logged
+	 */
+	public static function logUserPasswordChange($user, $ip, $oldpass, $result) {
+		$userid = getUserID($user);
+
+		if ( $userid === false) {
+			return false;
+		}
+
+		$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
+			" values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website',".mysql_real_escape_string($result).")";
+
+		$result = mysql_query($q, getGameDB());
+		return $result !== false;
+	}
+
+	/**
+	 * log logins for user from ip
+	 * returns boolean successfully logged
+	 */
+	public static function logUserLogin($user, $ip, $success) {
+		$userid = getUserID($user);
+
+		if ( $userid === false ) {
+			return false;
+		}
+
+		$q = "INSERT INTO loginEvent (player_id,address,result,service) values ".
+			"(".$userid.",'".mysql_real_escape_string($ip)."',".($success ? '1' : '0').",'website')";
+
+		$result = mysql_query($q, getGameDB());
+		return $result !== false;
+	}
+
+	public static function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) {
+		$q = "INSERT INTO gameEvents (source, event, param1, param2) values ".
+			"('".mysql_real_escape_string($character)."', 'accountmerge', '".mysql_real_escape_string($oldAccountId)."', '"
+			.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."')";
+			$result = mysql_query($q, getGameDB());
+			return $result !== false;
 	}
 }
 

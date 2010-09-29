@@ -37,7 +37,7 @@ class LoginHistoryPage extends Page {
 	
 	function printLoginHistory() {
 		$playerId = getUserID($_SESSION['username']);
-		$events = getLoginHistory($playerId);
+		$events = PlayerLoginEntry::getLoginHistory($playerId);
 
 		startBox('Login history');
 

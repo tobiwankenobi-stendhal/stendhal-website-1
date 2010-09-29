@@ -70,7 +70,7 @@ class LoginPage extends Page {
 		}
 
 		/* Here we log the login attempt, with username, IP and whether failed or successful */
-		logUserLogin($_POST['user'], $_SERVER['REMOTE_ADDR'], $result == 0);
+		PlayerLoginEntry::logUserLogin($_POST['user'], $_SERVER['REMOTE_ADDR'], $result == 0);
 
 		/* Check error codes */
 		if($result != 0){

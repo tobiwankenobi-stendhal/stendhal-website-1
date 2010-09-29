@@ -25,7 +25,7 @@ function validateParameters() {
 
 	/* Check error codes */
 	if($result != 0){
-		logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], '', 0);
+		PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], '', 0);
 		return 'Incorrect password, please try again.';
 	}
 
@@ -54,7 +54,7 @@ function changePassword() {
 
 	/* Here we log the pw change, with user id, IP and hash of the old pass */
 	$md5pass = strtoupper(md5($_POST['pass']));
-	logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $md5pass, 1);
+	PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $md5pass, 1);
 
 	/* Username and password correct, register session variables */
 	$_POST['user'] = $username;
