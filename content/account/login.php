@@ -82,19 +82,6 @@ class LoginPage extends Page {
 
 		/* Username and password correct, register session variables */
 		$_SESSION['username'] = $_POST['user'];
-		
-		/**
-		 * This is the cool part: the user has requested that we remember that
-		 * he's logged in, so we set two cookies. One to hold his username,
-		 * and one to hold his md5 encrypted password. We set them both to
-		 * expire in 100 days. Now, next time he comes to our site, we will
-		 * log him in automatically.
-		 */
-		if(isset($_POST['remember'])){
-			setcookie("cookname", $_SESSION['username'], time()+60*60*24*100, "/");
-			$md5pass = strtoupper(md5($_POST['pass']));
-			setcookie("cookpass", $md5pass, time()+60*60*24*100, "/");
-		}
 
 		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($this->getUrl())."\">";
 		startBox("Login");

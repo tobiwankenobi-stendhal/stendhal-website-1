@@ -127,31 +127,12 @@ function existsUser($email){
 /**
  * checkLogin - Checks if the user has already previously
  * logged in, and a session with the user has already been
- * established. Also checks to see if user has been remembered.
- * If so, the database is queried to make sure of the user's 
- * authenticity. Returns true if the user has logged in.
+ * established. Returns true if the user has logged in.
  */
 function checkLogin(){
-	/* Check if user has been remembered */
-	if(isset($_COOKIE['cookname']) && isset($_COOKIE['cookpass'])){
-		$_SESSION['username'] = $_COOKIE['cookname'];
-		if(confirmUser($_SESSION['username'], $_COOKIE['cookpass']) != 0){
-			/* Variables are incorrect, user not logged in */
-			unset($_SESSION['username']);
-			return false;
-		}
-	}
-
-	/* Username has been set */
-	if (isset($_SESSION['username'])){
-		/* Confirm that username and password are valid */
-		return true;
-	}
-	/* User not logged in */
-	else{
-		return false;
-	}
+	return (isset($_SESSION['username']));
 }
+
 
 function getAdminLevel() {
 	if(!checkLogin()) {
@@ -171,26 +152,6 @@ function getUser($email) {
 	}
 }
 
-/**
- * Determines whether or not to display the login
- * form or to show the user that he is logged in
- * based on if the session variables are set.
- */
- /*
-function displayLogin(){
-	if(checkLogin()){ 
-		echo 'Logged in as <a href="'.rewriteURL('/account/myaccount.html').'"><b>'.$_SESSION['username'].'</b></a>. '
-		.'<a href="'.rewriteURL('/account/merge.html').'">Merge Accounts</a><br>'
-		.'<a href="'.rewriteURL('/account/history.html').'">Login history</a>'
-		.' - <a href="'.rewriteURL('/account/change-password.html').'">Change password</a>'
-		.' - <a href="'.rewriteURL('/account/logout.html').'">Logout</a>';
-	} else{
-		echo '<a href="'.STENDHAL_LOGIN_TARGET.''.rewriteURL('/account/login.html').'">Login</a>';
-		 TODO: Reenable when sending of emails is possible on the server.
-		echo '<a href="'.STENDHAL_LOGIN_TARGET.'/?id=login/login">Login</a> - <a href="/?id=login/remind">Forgot your Password?</a>';
-	
-	}
-}*/
 
 // Returns user id for username or false
 function getUserID($username) {
