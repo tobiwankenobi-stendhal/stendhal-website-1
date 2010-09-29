@@ -442,3 +442,77 @@ function getCountUndeliveredMessages($playerId, $where) {
 
     return $count;
 }
+
+
+/**
+ * Account
+ *
+ * @author hendrik
+ */
+class Account {
+	public $id;
+	public $username;
+	public $password;
+	public $email;
+	public $timedate;
+	public $status;
+	public $links;
+}
+
+/**
+ * Account Link
+ *
+ * @author hendrik
+ */
+class AccountLink {
+	public $id;
+	public $playerId;
+	public $type;
+	public $username;
+	public $nickname;
+	public $email;
+	public $secret;
+
+	/**
+	 * creates a new AccountLink
+	 */
+	public function __construct($id, $playerId, $type, $username, $nickname, $email, $secret) {
+		$this->id = $id;
+		$this->playerId = $playerId;
+		$this->type = $type;
+		$this->username = $username;
+		$this->nickname = $nickname;
+		$this->email = $email;
+		$this->secret = $secret;
+	}
+
+	public static function getAccountLinks($playerId) {
+		$links = array();
+		$sql = "SELECT id, player_id, type, username, nickname, email, secret "
+			. "FROM accountLink "
+			. "WHERE player_id ='".mysql_real_escape_string($playerId)."'";
+		$result = mysql_query($sql, getGameDB());
+		while($row = mysql_fetch_assoc($result)) {
+			$links[] = new AccountLink($row['id'], $row['player_id'], 
+					$row['type'], $row['username'], $row['nickname'], 
+					$row['email'], $row['secret']);
+		}
+		mysql_free_result($result);
+		return $links;
+	}
+
+	public static function findAccountLink($type, $username) {
+		$sql = "SELECT id, player_id, type, username, nickname, email, secret "
+			. "FROM accountLink "
+			. "WHERE username ='".mysql_real_escape_string($username)."'"
+			. " AND type = '".mysql_real_escape_string($username)."'";
+		$result = mysql_query($sql, getGameDB());
+		while($row = mysql_fetch_assoc($result)) {
+			$links[] = new AccountLink($row['id'], $row['player_id'], 
+					$row['type'], $row['username'], $row['nickname'], 
+					$row['email'], $row['secret']);
+		}
+		mysql_free_result($result);
+		return $links;
+	}
+}
