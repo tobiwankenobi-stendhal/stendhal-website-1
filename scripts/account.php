@@ -422,6 +422,15 @@ class Account {
 	public $banExpire;
 	public $links;
 
+	public function __construct($id, $username, $password, $email, $timedate, $status) {
+		$this->id = $id;
+		$this->username = $username;
+		$this->password = $password;
+		$this->email = $email;
+		$this->timedate = $timedate;
+		$this->status = $status;
+	}
+
 	public static function tryLogin($type, $username, $password) {
 		if (!Account::checkIpBan()) {
 			return "Your IP Address has been banned.";
@@ -458,14 +467,57 @@ class Account {
 		return true;
 	}
 
+	/**
+	 * reads an account object based on the username.
+	 *
+	 * @param string $username username
+	 */
 	private static function readAccountByName($username) {
-		// TODO: implement me
+		$sql = "SELECT id, username, password, email, timedate, status "
+		. " FROM account WHERE username='".mysql_real_escape_string($username)."'";
+		$result = mysql_query($sql, getGameDB());
+		$list=array();
+
+		$row = mysql_fetch_assoc($result);
+		if ($row) {
+			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], $row['timedate'], $row['status']);
+		}
+
+		mysql_free_result($result);
+		return $res;
 	}
 
+	/**
+	 * reads an account object from the database based on an account link.
+	 *
+	 * @param string $type "openid", "facebook"
+	 * @param string $username identifier (e. g. openid url)
+	 * @param string $password an optional secret
+	 */
 	private static function readAccountByLink($type, $username, $password) {
-		// TODO: implement me
+		$sql = "SELECT account.id As id, account.username As username, "
+		. " account.password As password, account.email As email, "
+		. " account.timedate As timedate, account.status As status "
+		. " FROM account, accountLink WHERE account.id = accountLink.player_id "
+		. " AND type='".mysql_real_escape_string($type)."'"
+		. " AND username='".mysql_real_escape_string($username)."'";
+		if (isset($password)) {
+			$sql = $sql . " AND secret='".mysql_real_escape_string($password)."'";
+		} else {
+			$sql = $sql . " AND secret IS NULL";
+		}
+		$result = mysql_query($sql, getGameDB());
+		$list=array();
+
+		$row = mysql_fetch_assoc($result);
+		if ($row) {
+			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], $row['timedate'], $row['status']);
+		}
+
+		mysql_free_result($result);
+		return $res;
 	}
-	
+
 
 	/**
 	 * checks that the password is correct
