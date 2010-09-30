@@ -467,14 +467,51 @@ class Account {
 	}
 	
 
-	private function checkPassword() {
-		// TODO: implement me
-		return true;
+	/**
+	 * checks that the password is correct
+	 *
+	 * @param string password
+	 */
+	private function checkPassword($password) {
+		// TODO: Test UTF-8
+		$md5pass = strtoupper(md5($password));
+		$result = ($md5pass == $this->password);
+
+		if (!$result) {
+			// We need to check the pre-Marauroa 2.0 passwords
+			$md5pass = strtoupper(md5(md5($password, true)));
+			$result = ($md5pass == $this->password);
+		}
+		
+		return $result;
 	}
 
 	private function readAccountBan() {
 		// TODO: implement me
 		return true;
+	}
+
+	/**
+	 * get a message telling the player why the account is not active
+	 * 
+	 * @return message or <code>null</code> if the account is active
+	 */
+	public function getAccountStatusMessage() {
+		if (isset($this->banMessage)) {
+			if (isset($this->banExpire)) {
+				$res = "Your account is temporarily banned until " . $banExpire . " server time.\n";
+			} else {
+				$res = "Your account is banned.\n";
+			}
+			$res = $res + "The reason given was: " + $banMessage;
+		} else if ($this->status == "banned") {
+			$res = "Your account has been banned. Please contact support.";
+		} else if ($this->status == "inactive") {
+			$res = "Your account has been flagged as inactive. Please contact support.";
+		} else if ($this->status == "merged") {
+			$res = "Your account has been merged into another account. Please login with that account or contact support.";
+		}
+		return $res;
 	}
 }
 
