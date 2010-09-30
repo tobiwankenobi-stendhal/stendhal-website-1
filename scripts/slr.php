@@ -7,7 +7,7 @@
 /**
   * Returns a list of slr for a specified reviewer
   */
-function getAllSlr($reviewer) {
+function getAllSlr($reviewer = null) {
 	$filter = '';
 	if (isset($reviewer)) {
 		$filter = "WHERE reviewer='".mysql_real_escape_String($reviewer)."'";
