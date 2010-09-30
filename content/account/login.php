@@ -49,39 +49,21 @@ class LoginPage extends Page {
 		}
 
 		/* Spruce up username, check length */
-		$_POST['user'] = trim($_POST['user']);
+		$username = trim($_POST['user']);
+		$password = trim($_POST['pass']);
 
-		/* We first check that the username is not banned. */
-		$result = checkAccount($_POST['user'], $_POST['pass']);
+		$result = Account::tryLogin("password", $username, $password);
 
-		/* Check error codes */
-		if($result == 3) {
+		if (! ($result instanceof Account)) {
 			startBox("Login failed");
-			echo "<span class=\"error\">Sorry. Your account is blocked by multiple passwords failures or it has been banned.</span>";
-			endBox();
-			return false;
-		}
-
-		if($result == 4) {
-			startBox("Login failed");
-			echo "<span class=\"error\">Sorry. Your account has been merged into another account. Please use the other account to login or contact support.</span>";
-			endBox();
-			return false;
-		}
-
-		/* Here we log the login attempt, with username, IP and whether failed or successful */
-		PlayerLoginEntry::logUserLogin($_POST['user'], $_SERVER['REMOTE_ADDR'], $result == 0);
-
-		/* Check error codes */
-		if($result != 0){
-			startBox("Login failed");
-			echo "<span class=\"error\">Sorry. You misspelled either username or password.<br>Please make sure you have an account at Stendhal.</span>";
+			echo '<span class="error">'.htmlspecialchars($result).'</span>';
 			endBox();
 			return false;
 		}
 
 		/* Username and password correct, register session variables */
-		$_SESSION['username'] = $_POST['user'];
+		$_SESSION['username'] = $username;
+		$_SESSION['account'] = $result;
 
 		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($this->getUrl())."\">";
 		startBox("Login");

@@ -8,25 +8,10 @@ function validateParameters() {
 	if(!checkLogin()){
 		return "You need to login first";
 	}
+
 	/* Check that all fields were typed in */
-	if(!$_SESSION['username'] || !$_POST['pass']){
+	if(!$_POST['pass'] || !$_POST['newpass'] || !$_POST['newpass_retype']){
 		return 'You didn\'t fill in a required field.';
-	}
-
-	/* Checks that username is in database and password is correct */
-	$md5pass = strtoupper(md5($_POST['pass']));
-	$result = confirmUser($username, $md5pass);
-
-	if ($result === 2) {
-		/* We need to check the pre-Marauroa 2.0 passwords */
-		$md5pass = strtoupper(md5(md5($_POST['pass'],true)));
-		$result = confirmUser($username, $md5pass);
-	}
-
-	/* Check error codes */
-	if($result != 0){
-		PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], '', 0);
-		return 'Incorrect password, please try again.';
 	}
 
 	if($_POST['newpass']!=$_POST['newpass_retype']) {
@@ -36,7 +21,12 @@ function validateParameters() {
 	if(strlen($_POST['newpass']) < 6) {
 		return 'The password needs to be at least 6 characters long.';
 	}
-	
+
+	$result = Account::tryLogin("passwordchange", $username, $_POST['pass']);
+	if (! ($result instanceof Account)) {
+		return 'The old password was wrong.';
+	}
+
 	return "";
 }
 
@@ -51,10 +41,6 @@ function changePassword() {
 	if(mysql_affected_rows()!=1) {
 		die('Problem updating database');
 	}
-
-	/* Here we log the pw change, with user id, IP and hash of the old pass */
-	$md5pass = strtoupper(md5($_POST['pass']));
-	PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $md5pass, 1);
 
 	/* Username and password correct, register session variables */
 	$_POST['user'] = $username;
