@@ -439,14 +439,19 @@ class Account {
 		// ask database
 		if ($type == 'password' || $type == 'passwordchange') {
 			// TODO: check account block because of too many wrong logins
-			$account = readAccountByName($username);
-			$success = $account->checkPassword($password);
+			$account = Account::readAccountByName($username);
+			if (isset($account)) {
+				$success = $account->checkPassword($password);
+			} else {
+				$success = false;
+			}
 		} else {
-			$account = readAccountByLink($type, $username, $password);
+			$account = Account::readAccountByLink($type, $username, $password);
 			if (isset($account)) {
 				$success = true;
 			}
 		}
+
 		if ($account instanceof Account) {
 			$account->readAccountBan();
 			$banMessage = $account->getAccountStatusMessage();
@@ -454,28 +459,27 @@ class Account {
 				$success = false;
 			}
 		}
-
+		
 		// Log loginEvent or passwordChange
 		if ($type != 'passwordchange') {
 			PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $success);
 		} else {
 			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $password, $success);
 		}
-
+		
 		// if the account does not exist or the password was wrong
-		if (!isset($account) || (!$success && !isset($banMessage))) {
+		if (!($account instanceof Account) || (!$success && !isset($banMessage))) {
 			return "Invalid username or password";
 		}
-
+		
 		// if the account is banned
 		if (isset($banMessage)) {
 			return $banMessage;
 		}
-
 		return $account;
 	}
 
-	private static function checkIPBans() {
+	private static function checkIpBan() {
 		// TODO: implement me
 		return true;
 	}
@@ -538,7 +542,6 @@ class Account {
 	 * @param string password
 	 */
 	private function checkPassword($password) {
-		// TODO: Test UTF-8
 		$md5pass = strtoupper(md5($password));
 		$result = ($md5pass == $this->password);
 
@@ -553,8 +556,8 @@ class Account {
 
 	private function readAccountBan() {
 		$sql = "SELECT reason, expire FROM accountban "
-			." WHERE accountban.player_id='"."'"
-			." AND (accountban.expire > CURRENT_TIMESTAMP OR accountban.expire IS NULL)) ORDER BY ifnull(expire,'9999-12-31') desc limit 1 ";
+			." WHERE accountban.player_id='".mysql_real_escape_string($this->id)."'"
+			." AND (accountban.expire > CURRENT_TIMESTAMP OR accountban.expire IS NULL) ORDER BY ifnull(expire,'9999-12-31') desc limit 1 ";
 		$result = mysql_query($sql, getGameDB());
 		$list=array();
 
@@ -576,11 +579,11 @@ class Account {
 	public function getAccountStatusMessage() {
 		if (isset($this->banMessage)) {
 			if (isset($this->banExpire)) {
-				$res = "Your account is temporarily banned until " . $banExpire . " server time.\n";
+				$res = "Your account is temporarily banned until " . $this->banExpire . " server time.\n";
 			} else {
 				$res = "Your account is banned.\n";
 			}
-			$res = $res + "The reason given was: " + $banMessage;
+			$res = $res . "The reason given was: " . $this->banMessage;
 		} else if ($this->status == "banned") {
 			$res = "Your account has been banned. Please contact support.";
 		} else if ($this->status == "inactive") {
