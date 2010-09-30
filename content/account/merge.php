@@ -53,25 +53,14 @@ class AccountMerge extends Page {
 			return;
 		}
 
-		$checkResult = checkAccount($_POST['user'], $_POST['pass']);
-		if ($checkResult == 3) {
-			echo '<p class="error">The account is temporary blocked or banned.</p>';
-			endBox();
-			return;
-		}
-		
-		if ($checkResult == 4) {
-			echo '<p class="error">The account was already merged and does not exist anymore.</p>';
+		$result = Account::tryLogin("password", $_POST['user'], $_POST['pass']);
+
+		if (! ($result instanceof Account)) {
+			echo '<span class="error">'.htmlspecialchars($result).'</span>';
 			endBox();
 			return;
 		}
 
-		if ($checkResult != 0) {
-			echo '<p class="error">Username or password wrong.</p>';
-			endBox();
-			return;
-		}
-		
 		mergeAccount($_POST['user'], $_SESSION['username']);
 		echo '<p class="success">Your old account <i>'.htmlspecialchars($_POST['user'])
 			.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['username']).'</i>.</p>';
