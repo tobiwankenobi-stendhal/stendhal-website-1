@@ -87,7 +87,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
     <li>
     <span class="date"><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>&amp;columns=<?php echo $this->columns?>#editform"><?php echo $item['paper_bibkey']; ?></a></span>
     <span><?php echo $item['paper_title']; ?></span>
-    <span><?php echo $item['reviewer']; ?></span>
+    <span><i><?php echo $item['reviewer']; ?></i></span>
     </li>
     <?php
     }
