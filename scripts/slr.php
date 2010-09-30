@@ -16,13 +16,6 @@ function getAllSlr($reviewer) {
 	return getSlrArray($sql);
 }
 
-/**
-  * Returns a list of all slr
-  */
-function getAllSlr() {
-	return getAllSlr(null);
-}
-
 function getSlr($id) {
 	$sql = "SELECT * FROM slr WHERE id ='".mysql_real_escape_String($id)."'";
 	return getSlrArray($sql);
