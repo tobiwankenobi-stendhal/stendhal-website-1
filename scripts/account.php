@@ -539,8 +539,20 @@ class Account {
 	}
 
 	private function readAccountBan() {
-		// TODO: implement me
-		return true;
+		$sql = "SELECT reason, expire FROM accountban "
+			." WHERE accountban.player_id='"."'"
+			." AND (accountban.expire > CURRENT_TIMESTAMP OR accountban.expire IS NULL)) ORDER BY ifnull(expire,'9999-12-31') desc limit 1 ";
+		$result = mysql_query($sql, getGameDB());
+		$list=array();
+
+		$row = mysql_fetch_assoc($result);
+		if ($row) {
+			$this->banMessage = $row['reason'];
+			$this->banExpire = $row['expire'];
+		}
+
+		mysql_free_result($result);
+		return $res;
 	}
 
 	/**
