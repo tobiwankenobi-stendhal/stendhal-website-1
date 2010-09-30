@@ -301,8 +301,7 @@ class PlayerLoginEntry {
 		}
 
 		$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
-			" values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website',".mysql_real_escape_string($result).")";
-
+			" values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website', ".($result ? '1' : '0').")";
 		$result = mysql_query($q, getGameDB());
 		return $result !== false;
 	}
@@ -311,15 +310,22 @@ class PlayerLoginEntry {
 	 * log logins for user from ip
 	 * returns boolean successfully logged
 	 */
-	public static function logUserLogin($user, $ip, $success) {
+	public static function logUserLogin($user, $ip, $accountLink, $success) {
 		$userid = getUserID($user);
 
 		if ( $userid === false ) {
 			return false;
 		}
 
-		$q = "INSERT INTO loginEvent (player_id,address,result,service) values ".
-			"(".$userid.",'".mysql_real_escape_string($ip)."',".($success ? '1' : '0').",'website')";
+		$q = "INSERT INTO loginEvent (player_id, address, result, service";
+		if ($accountLink) {
+			$q = $q .', account_link_id';
+		}
+		$q = $q . ") values (".$userid.", '".mysql_real_escape_string($ip)." ',".($success ? '1' : '0').", 'website'";
+		if ($accountLink) {
+			$q = $q . ", '".mysql_real_escape_string($accountLink)."'";
+		}
+		$q = $q . ")";
 
 		$result = mysql_query($q, getGameDB());
 		return $result !== false;
@@ -421,6 +427,7 @@ class Account {
 	public $banMessage;
 	public $banExpire;
 	public $links;
+	public $usedAccountLink;
 
 	public function __construct($id, $username, $password, $email, $timedate, $status) {
 		$this->id = $id;
@@ -458,13 +465,16 @@ class Account {
 			if (isset($banMessage)) {
 				$success = false;
 			}
+			$passhash = $account->password;
+			$usedAccountLink = $account->usedAccountLink;
 		}
+
 		
 		// Log loginEvent or passwordChange
 		if ($type != 'passwordchange') {
-			PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $success);
+			PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $usedAccountLink, $success);
 		} else {
-			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $password, $success);
+			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $passhash, $success);
 		}
 		
 		// if the account does not exist or the password was wrong
@@ -543,14 +553,21 @@ class Account {
 	 */
 	private function checkPassword($password) {
 		$md5pass = strtoupper(md5($password));
-		$result = ($md5pass == $this->password);
-
+		if ($md5pass == $this->password) {
+			$result = true;
+		} else {
+			$result = false;
+		}
+		
 		if (!$result) {
 			// We need to check the pre-Marauroa 2.0 passwords
 			$md5pass = strtoupper(md5(md5($password, true)));
-			$result = ($md5pass == $this->password);
+			if ($md5pass == $this->password) {
+				$result = true;
+			} else {
+				$result = false;
+			}
 		}
-		
 		return $result;
 	}
 
