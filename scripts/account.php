@@ -447,8 +447,12 @@ class Account {
 				$success = true;
 			}
 		}
-		if ($success && $account instanceof Account) {
-			$success = $account->readAccountBan();
+		if ($account instanceof Account) {
+			$account->readAccountBan();
+			$banMessage = $account->getAccountStatusMessage();
+			if (isset($banMessage)) {
+				$success = false;
+			}
 		}
 
 		// Log loginEvent or passwordChange
@@ -458,7 +462,16 @@ class Account {
 			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $password, $success);
 		}
 
-		// TODO: isset(), wrong password, banned
+		// if the account does not exist or the password was wrong
+		if (!isset($account) || (!$success && !isset($banMessage))) {
+			return "Invalid username or password";
+		}
+
+		// if the account is banned
+		if (isset($banMessage)) {
+			return $banMessage;
+		}
+
 		return $account;
 	}
 
