@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2009  The Arianne Project
+ Copyright (C) 2008-2010  The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -70,6 +70,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/development/chat\.html$ /chat/ [R=301]
                 RewriteRule ^/development/cvslog\.html$ /index.php?id=content/game/cvslog [L]
                 RewriteRule ^/development/cvslog/(.*)\.html$ /index.php?id=content/game/cvslog&month=$1 [L]
+                RewriteRule ^/development/download\.html$ /index.php?id=content/game/download [L]
                 RewriteRule ^/development/?$ /index.php?id=content/game/development [L]
 
                 # items
@@ -282,6 +283,8 @@ function rewriteURL($url) {
 			return preg_replace('|^/development/cvslog\.html$|', $folder.'/?id=content/game/cvslog', $url);
 		} else if (preg_match('|^/development/cvslog/(.*)\.html$|', $url)) {
 			return preg_replace('|^/development/cvslog/(.*)\.html$|', $folder.'/?id=content/game/cvslog&amp;month=$1', $url);
+		} else if (preg_match('|^/development/download\.html$|', $url)) {
+			return preg_replace('|^/development/download\.html$|', $folder.'/?id=content/game/download', $url);
 		}
 
 	// items
