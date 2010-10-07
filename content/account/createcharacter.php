@@ -9,7 +9,7 @@ class CreateCharacterPage extends Page {
 	 * @return true, to continue the rendering, false to not render the normal content
 	 */
 	public function writeHttpHeader() {
-		if (!isset($_SESSION['username'])) {
+		if (!isset($_SESSION['account'])) {
 			// Show link to login box
 			return true;
 		}
@@ -33,7 +33,7 @@ class CreateCharacterPage extends Page {
 	}
 
 	function writeContent() {
-		if (!isset($_SESSION['username'])) {
+		if (!isset($_SESSION['account'])) {
 			startBox("Create Character");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/create-character.html">login</a> to create a character.</p>';
 			endBox();
@@ -53,7 +53,7 @@ class CreateCharacterPage extends Page {
 		$template = new PharauroaRPObject();
 		$template->put('outfit', $_REQUEST['outfitcode']);
 
-		$this->result = $clientFramework->createCharacter($_SESSION['username'], $_REQUEST['name'], $template);
+		$this->result = $clientFramework->createCharacter($_SESSION['account']->username, $_REQUEST['name'], $template);
 
 		if ($this->result->wasSuccessful()) {
 			// redirect to my characters page
@@ -124,7 +124,7 @@ class CreateCharacterPage extends Page {
 		echo 'value="'.htmlspecialchars($_REQUEST['name']).'"';
 	} else {
 		// TODO: if account name is a valid charactername, and the character does not exist {
-		// echo 'value="'.htmlspecialchars($_SESSION['username']).'"';
+		// echo 'value="'.htmlspecialchars($_SESSION['account'])->username.'"';
 	}
 ?>>
 <div id="warn" class="warn"></div>

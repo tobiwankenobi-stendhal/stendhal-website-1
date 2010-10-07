@@ -7,7 +7,7 @@ class LogoutPage extends Page {
 	public function writeHttpHeader() {
 
 		// Kill session variables
-		unset($_SESSION['username']);
+		unset($_SESSION['account']);
 		$_SESSION = array(); // reset session array
 		session_destroy();   // destroy session.
 		return true;

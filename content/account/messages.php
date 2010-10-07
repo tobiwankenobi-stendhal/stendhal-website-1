@@ -30,7 +30,7 @@ class MessagesPage extends Page {
 	}
 
 	function writeContent() {
-		if(!isset($_SESSION['username'])) {
+		if(!isset($_SESSION['account'])) {
 			startBox("Messages");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/messages.html').'">login</a> to view your personal messages.</p>';
 			endBox();
@@ -63,7 +63,7 @@ class MessagesPage extends Page {
     } 
 	
 	function writeTabs() {
-		$playerId = getUserID($_SESSION['username']);
+		$playerId = $_SESSION['account']->id;
         ?>
         <br>
         <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
@@ -94,7 +94,7 @@ class MessagesPage extends Page {
     }
 	
 	function printStoredMessages() {
-	    $playerId = getUserID($_SESSION['username']);
+	    $playerId = $_SESSION['account']->id;
 		$messages = StoredMessage::getStoredMessages($playerId, $this->filterWhere);
 
 		startBox('Messages');

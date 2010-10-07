@@ -44,7 +44,7 @@ function existsUser($email){
  * established. Returns true if the user has logged in.
  */
 function checkLogin(){
-	return (isset($_SESSION['username']));
+	return (isset($_SESSION['account']));
 }
 
 
@@ -53,7 +53,10 @@ function getAdminLevel() {
 		return -1;
 	}
 
-	$result = mysql_query('select max(admin) As adminlevel from character_stats, characters, account where character_stats.name=characters.charname AND characters.player_id=account.id AND account.username="'.mysql_real_escape_string($_SESSION['username']).'"', getGameDB());
+	$sql = "select max(admin) As adminlevel FROM character_stats, characters, account "
+		. " WHERE character_stats.name=characters.charname AND characters.player_id=account.id "
+		. " AND account.username='".mysql_real_escape_string($_SESSION['account']->username)."'";
+	$result = mysql_query($sql, getGameDB());
 	while($row=mysql_fetch_assoc($result)) {
 		return (int)$row['adminlevel'];
 	}

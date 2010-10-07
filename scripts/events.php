@@ -21,12 +21,12 @@
 class Event {
 	public $source;
 	public $timedate;
-	
+
 	function __construct($source, $timedate) {
 		$this->source=$source; 	  	  	
 		$this->timedate=$timedate;
 	}
-	
+
 	function getURL($outfits,$string,$type) {
 		if ($type == 'P') {
 			$url = '<a class="small_image_link" href="'.rewriteURL('/character/'.surlencode($string).'.html').'"><img src="'.rewriteURL('/images/outfit/'.surlencode($outfits[$string]).'.png').'" alt="" width="36" height="48" title="'.htmlspecialchars($string).'"></a> ';
@@ -37,23 +37,23 @@ class Event {
 		}
 		return $url;
 	} 
-	
+
 	function getCharacterHtml($outfits,$character) {
 		return $this->getURL($outfits,$character,'P');
 	}
-	
+
 	public function getHtml($outfits) {
 		return '';
 	}
-	  
-    public function addPlayersToList(&$players) {
-  	    $players[]=$this->source;
-    }
+
+	public function addPlayersToList(&$players) {
+		$players[]=$this->source;
+	}
 	
 	function getFilterFrom($filter) {
 		if($filter=="friends") {
-			return ", (SELECT buddy.buddy as charname FROM account, characters, buddy "
-				. "WHERE username='".mysql_real_escape_string($_SESSION['username'])."' AND account.id=characters.player_id AND characters.charname=buddy.charname) As x ";
+			return ", (SELECT buddy.buddy as charname FROM characters, buddy "
+				. "WHERE characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."' AND account.id=characters.player_id AND characters.charname=buddy.charname) As x ";
 		} else {
 			return '';
 		}

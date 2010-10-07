@@ -9,7 +9,7 @@ class AccountMerge extends Page {
 	}
 
 	function writeContent() {
-		if (!isset($_SESSION['username'])) {
+		if (!isset($_SESSION['account'])) {
 			startBox("Account Merging");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/merge.html">login</a> first to merge accounts.</p>';
 			endBox();
@@ -41,7 +41,7 @@ class AccountMerge extends Page {
 		}
 
 		startBox("Result");
-		if ($_SESSION['username'] == trim($_POST['user'])) {
+		if ($_SESSION['account']->username == trim($_POST['user'])) {
 			echo '<p class="error">You need to enter the username and password of another account you own.</p>';
 			endBox();
 			return;
@@ -61,15 +61,15 @@ class AccountMerge extends Page {
 			return;
 		}
 
-		mergeAccount($_POST['user'], $_SESSION['username']);
+		mergeAccount($_POST['user'], $_SESSION['account']->username);
 		echo '<p class="success">Your old account <i>'.htmlspecialchars($_POST['user'])
-			.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['username']).'</i>.</p>';
+			.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['account']->username).'</i>.</p>';
 		endBox();
 	}
 
 	function displayForm() {
 		startBox("Account to merge in"); ?>
-		<p>You are currently logged into the account <b><?php echo htmlspecialchars($_SESSION['username']) ?></b>.</p>
+		<p>You are currently logged into the account <b><?php echo htmlspecialchars($_SESSION['account']->username) ?></b>.</p>
 
 		<form action="" method="post">
 			<table>

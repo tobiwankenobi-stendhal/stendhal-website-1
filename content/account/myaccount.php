@@ -8,7 +8,7 @@ class MyAccountPage extends Page {
 	}
 
 	function writeContent() {
-		if (!isset($_SESSION['username'])) {
+		if (!isset($_SESSION['account'])) {
 			startBox("Login Required");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login">login</a>.</p>';
 			endBox();
@@ -16,7 +16,7 @@ class MyAccountPage extends Page {
 		}
 
 startBox("My Account"); ?>
-	<p>You are logged in as <b><?php echo htmlspecialchars($_SESSION['username']);?></b>.</p>
+	<p>You are logged in as <b><?php echo htmlspecialchars($_SESSION['account']->username);?></b>.</p>
 <ul id="dmenu" >
 	<?php 
 //		echo '<li><a href="'.rewriteURL('/account/mycharacters.html').'"><img src="/images/buttons/players_button.png" alt=" "> My Characters</a></li>';

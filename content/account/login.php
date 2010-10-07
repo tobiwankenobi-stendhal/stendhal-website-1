@@ -62,7 +62,6 @@ class LoginPage extends Page {
 		}
 
 		/* Username and password correct, register session variables */
-		$_SESSION['username'] = $username;
 		$_SESSION['account'] = $result;
 
 		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($this->getUrl())."\">";

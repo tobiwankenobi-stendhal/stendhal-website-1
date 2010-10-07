@@ -25,7 +25,7 @@ class StarterPage extends Page {
 	private $seed;
 
 	public function __construct() {
-		$this->username = $_SESSION['username'];
+		$this->username = $_SESSION['account']->username;
 		$this->loggedIn = isset($this->username);
 		$this->character = $_REQUEST['character'];		
 		if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
@@ -57,7 +57,7 @@ class StarterPage extends Page {
 
 	function writeContent() {
 		startBox("Starter");
-		if(!isset($_SESSION['username'])) {
+		if(!isset($_SESSION['account'])) {
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/mycharacters.html').'">login</a> to start the Stendhal Client.</p>';
 		} else if (!$this->characterOkay) {
 			echo '<p>The specified character '.htmlspecialchars($this->character).' does not belong to your account.</p>';

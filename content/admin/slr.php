@@ -44,7 +44,7 @@ if(isset($_POST['action'])) {
     if (!isset($_REQUEST['paper_bibkey']) || trim($_REQUEST['paper_bibkey']) == '') {
     	die('Sorry you forgot the bibkey, all your data is lost.');
     }
-  	$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
+  	$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['account']->username);
   	$_REQUEST['reviewer'] = $reviewer;
     $slrid = addSlr($metadata, $_REQUEST);
     if (isset($slrid) && $slrid > 0) {
@@ -78,7 +78,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
   /*
    * Show all the previous slr items, just header
    */ 
-  $reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
+  $reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['account']->username);
   $slr=getAllSlr();
   startBox("Manage existing slr entries");
   echo '<ul>';
@@ -172,7 +172,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 	}
 
 	function csvExport() {
-		$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['username']);
+		$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['accpimt']->username);
   		$slr = getAllSlr($reviewer);
 		$metadata = getSlrMetadata();
 

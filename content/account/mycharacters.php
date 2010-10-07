@@ -25,7 +25,7 @@ class MyCharactersPage extends Page {
 	}
 
 	function writeContent() {
-		if(!isset($_SESSION['username'])) {
+		if(!isset($_SESSION['account'])) {
 			startBox("Login Required");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/mycharacters.html').'">login</a> to see a list of your characters.</p>';
 			endBox();
@@ -34,7 +34,7 @@ class MyCharactersPage extends Page {
 		
 		startBox("Character Selector");
 
-		$players = getCharactersForUsername($_SESSION['username']);
+		$players = getCharactersForUsername($_SESSION['account']->username);
 		if(sizeof($players)==0) {
 			echo 'You have no characters.';
 		} else {

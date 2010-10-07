@@ -3,7 +3,7 @@
 require_once('scripts/account.php');
 
 function validateParameters() {
-	$username = $_SESSION['username'];
+	$username = $_SESSION['account']->username;
 
 	if(!checkLogin()){
 		return "You need to login first";
@@ -31,7 +31,7 @@ function validateParameters() {
 }
 
 function changePassword() {
-	$username = $_SESSION['username'];
+	$username = $_SESSION['account']->username;
 	
 	/* Verify that user is in database */
 	$md5newpass = strtoupper(md5($_POST['newpass']));
@@ -44,7 +44,6 @@ function changePassword() {
 
 	/* Username and password correct, register session variables */
 	$_POST['user'] = $username;
-	$_SESSION['username'] = $username;
 
 	echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
 	startBox("Password Change");
@@ -67,7 +66,7 @@ class ChangePasswordPage extends Page {
 	}
 
 	function writeContent() {
-		if (!isset($_SESSION['username'])) {
+		if (!isset($_SESSION['account'])) {
 			startBox("Change Password");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/change-password.html">login</a> to change your password.</p>';
 			endBox();

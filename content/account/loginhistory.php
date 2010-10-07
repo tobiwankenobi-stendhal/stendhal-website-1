@@ -26,7 +26,7 @@ class LoginHistoryPage extends Page {
 	}
 
 	function writeContent() {
-		if(!isset($_SESSION['username'])) {
+		if(!isset($_SESSION['account'])) {
 			startBox("Login History");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/history.html').'">login</a> to view your personal login history.</p>';
 			endBox();
@@ -36,7 +36,7 @@ class LoginHistoryPage extends Page {
 	}
 	
 	function printLoginHistory() {
-		$playerId = getUserID($_SESSION['username']);
+		$playerId = $_SESSION['account']->id;
 		$events = PlayerLoginEntry::getLoginHistory($playerId);
 
 		startBox('Login history');

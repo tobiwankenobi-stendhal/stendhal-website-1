@@ -7,7 +7,7 @@ class EventsPage extends Page {
 	}
 	
 	function writeHttpHeader() {
-		if ($this->filter=="friends" && !isset($_SESSION['username'])) {
+		if ($this->filter=="friends" && !isset($_SESSION['account'])) {
 			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url='.urlencode(rewriteURL('/world/events/'.urlencode($this->filter).'.html')));
 			return false;
 		}
@@ -62,7 +62,7 @@ class EventsPage extends Page {
 	function printRecentEvents(){
 		global $cache;
 		if (!isset($_REQUEST['profiling'])) {
-			$events = $cache->fetchAsArray('stendhal_events_'.$this->filter.'_'.$_SESSION['username']);
+			$events = $cache->fetchAsArray('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id);
 			if (!isset($events)) {
 				$events=array_merge(getKillEvents($this->filter),
 					getQuestEvents($this->filter),
@@ -73,7 +73,7 @@ class EventsPage extends Page {
 					getOutfitEvents($this->filter),
 					getEquipEvents($this->filter));
 					
-				$cache->store('stendhal_events_'.$this->filter.'_'.$_SESSION['username'], new ArrayObject($events), 60);
+				$cache->store('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id, new ArrayObject($events), 60);
 			}
 		} else {
 			echo '<pre>';
