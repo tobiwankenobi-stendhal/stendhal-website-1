@@ -93,11 +93,9 @@ class HallOfFamePage extends Page {
 				$this->loginRequired = true;;
 				return;
 			}
-			$this->filterFrom = ", (select characters.charname As charname from characters "
-				. "WHERE player_id='".mysql_real_escape_string($_SESSION['account']->id)."' "
-				. "UNION SELECT buddy.buddy FROM characters, buddy "
-				. "WHERE player_id='".mysql_real_escape_string($_SESSION['account']->id)."'AND characters.charname=buddy.charname) As x ";
-			$this->filterWhere = ' AND character_stats.name=x.charname';
+			$this->filterFrom = ", characters, buddy ";
+			$this->filterWhere = " AND character_stats.name=buddy.buddy AND buddy.charname=characters.charname "
+				. " AND characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."'";
 		}
 		// TODO: 404 on invalid filter variable
 		return;
