@@ -118,22 +118,70 @@ a.openid_large_btn:focus{
 
 		endBox();
 			} elseif($_GET['openid_mode'] == 'cancel') {
-				echo 'User has canceled authentication!';
-			} else {
-				startBox("Result");
-				$openid = new LightOpenID;
-				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-				$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
-				echo 'Validate: ' . $openid->validate() . '<br>';
-				echo 'Identity: ' . htmlspecialchars($openid->identity) . '<br>';
-				$attributes = $openid->getAttributes();
-				echo 'E-Mail: ' . htmlspecialchars($attributes['contact/email']) . '<br>';
-				echo 'Nickname: ' . htmlspecialchars($attributes['namePerson/friendly']);
+				startBox('OpenID-Authentication');
+				echo 'OpenID-Authentication was canceled.';
 				endBox();
+			} else {
+				$accountLink = $this->createAccountLink();
+				if (!$accountLink) {
+					startBox('OpenID-Authentication');
+					echo 'OpenID-Authentication failed.';
+					endBox();
+				} else {
+					if (isset($_SESSION['account'])) {
+						$this->succesfulOpenidAuthWhileLoggedIn($accountLink);
+					} else {
+						$this->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
+					}
+				}
 			}
 		} catch(ErrorException $e) {
-			echo $e->getMessage();
+			echo htmlspecialchars($e->getMessage());
 		}
+	}
+
+	/**
+	 * creates an AccountLink object based on the openid identification
+	 * 
+	 * @return AccountLink or <code>FALSE</code> if  the validation failed
+	 */
+	public function createAccountLink() {
+		$openid = new LightOpenID;
+		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+		$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
+		if (!$openid->validate()) {
+			return false;
+		}
+		$attributes = $openid->getAttributes();
+		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
+			$attributes['namePerson/friendly'], $attributes['contact/email'], $secret);
+		return $accountLink;
+	}
+
+	/**
+	 * handles a succesful openid authentication
+	 * 
+	 * @param AccountLink $accountLink the account link created for the login
+	 */
+	public function succesfulOpenidAuthWhileLoggedIn($accountLink) {
+		$account = Account::tryLogin('openid', $accountLink->username, null);
+
+		// TODO: logged in, unknown   --> ask for merge
+		// TODO: logged in, known     --> ???
+	}
+
+	public function succesfulOpenidAuthWhileNotLoggedIn($accountLink) {
+		$account = Account::tryLogin('openid', $accountLink->username, null);
+
+		if (!$account) {
+			$account = $accountLink->createAccount();
+		}
+		$_SESSION['account'] = $account;
+
+		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL('/account/myaccount.html'))."\">";
+		startBox("Login");
+		echo '<h1>Login correct.</h1> Please wait...';
+		endBox();
 	}
 }
 $page = new OpenidPage();

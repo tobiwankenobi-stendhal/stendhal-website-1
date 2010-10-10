@@ -442,13 +442,14 @@ class Account {
 		. " account.password As password, account.email As email, "
 		. " account.timedate As timedate, account.status As status "
 		. " FROM account, accountLink WHERE account.id = accountLink.player_id "
-		. " AND type='".mysql_real_escape_string($type)."'"
-		. " AND username='".mysql_real_escape_string($username)."'";
-		if (isset($password)) {
-			$sql = $sql . " AND secret='".mysql_real_escape_string($password)."'";
+		. " AND accountLink.type='".mysql_real_escape_string($type)."'"
+		. " AND accountLink.username='".mysql_real_escape_string($username)."'";
+		/*if (isset($password)) {
+			$sql = $sql . " AND accountLink.secret='".mysql_real_escape_string($password)."'";
 		} else {
-			$sql = $sql . " AND secret IS NULL";
-		}
+			$sql = $sql . " AND accountLink.secret IS NULL";
+		}*/
+
 		$result = mysql_query($sql, getGameDB());
 		$list=array();
 
@@ -583,5 +584,9 @@ class AccountLink {
 		}
 		mysql_free_result($result);
 		return $links;
+	}
+
+	public function createAccount() {
+		// TODO: create account
 	}
 }
