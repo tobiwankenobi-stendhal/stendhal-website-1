@@ -1,12 +1,22 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<link rel="stylesheet" type="text/css"
-	href="<?php echo STENDHAL_FOLDER; ?>/css/00000013.css">
-<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000009.css"><![endif]-->
-<link rel="icon" type="image/png"
-	href="<?php echo STENDHAL_FOLDER;?>/favicon.ico">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<?php
+class MapPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Map'.STENDHAL_TITLE.'</title>';
+		?>
+		<style type="text/css">
+			#canvas {border: 1px solid black}
+		</style>
+		<?php
+	}
+
+	function getBodyTagAttributes() {
+		return 'onload="load()"';
+	}
+
+	function writeContent() {
+?>
+<canvas id="canvas" width="1000" height="300"></canvas>
 
 <script type="text/javascript">
 	var tileSize = 32;
@@ -178,6 +188,8 @@
 				}
 			}
 			new ImagePreloader(images, draw);
+
+			// read map size and adjust size of canvas
 			var canvas = document.getElementById("canvas")
 			numberOfXTiles = root.getAttribute("width")
 			numberOfYTiles = root.getAttribute("height")
@@ -201,15 +213,7 @@
 		makeRequest(location, parseMap);
 	}
 </script>
-<style type="text/css">
-#canvas {
-	border: 1px solid black
+<?php
+	}
 }
-</style>
-</head>
-<body onload="load()">
-
-<canvas id="canvas" width="1000" height="300"></canvas>
-
-</body>
-</html>
+$page = new MapPage();
