@@ -12,7 +12,7 @@ class MapPage extends Page {
 	}
 
 	function getBodyTagAttributes() {
-		return 'onload="load()"';
+		return 'id="body" onload="load()"';
 	}
 
 	function writeContent() {
@@ -152,6 +152,8 @@ class MapPage extends Page {
 				}
 			}
 		}
+		var body = document.getElementById("body");
+		body.style.cursor = "default";
 	}
 
 	/**
@@ -200,6 +202,9 @@ class MapPage extends Page {
 	}
 
 	function load() {
+		var body = document.getElementById("body");
+		body.style.cursor = "wait";
+
 		var location = window.location.toString();
 		var pos = location.toString().indexOf("#!");
 		if (pos > -1) {
