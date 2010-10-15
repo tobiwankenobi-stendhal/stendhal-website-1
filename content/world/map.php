@@ -6,6 +6,7 @@ class MapPage extends Page {
 		?>
 		<style type="text/css">
 			#canvas {border: 1px solid black}
+			#container {width:99%}
 		</style>
 		<?php
 	}
