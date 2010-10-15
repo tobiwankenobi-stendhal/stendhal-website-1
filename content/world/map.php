@@ -127,7 +127,7 @@
 //			ctx.drawImage(aImages[i], sourceX, sourceY, 32, 32, (i % columns) * 32, Math.floor(i / columns) * 32, zoom, zoom)
 		}
 
-		for (var z =0 ; z < layers.length; u++) {
+		for (var z =0 ; z < layers.length; z++) {
 			var layer = layers[0];
 			for (var y =0 ; y < numberOfYTiles; y++) {
 				for (var x =0 ; x < numberOfXTiles; x++) {
