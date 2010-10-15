@@ -46,7 +46,7 @@ class LoginHistoryPage extends Page {
 			. '<a href="'.rewriteURL('/account/change-password.html').'">change your password</a>'
 			.' immediately and contact <code>/support</code> in game.</p>';
 
-		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th<th>event</th><th>result</th></tr>';
+		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th><th>event</th><th>result</th></tr>';
 		foreach ($events as $entry) {
 			$timedate = htmlspecialchars($entry->timedate);
 			echo '<tr><td>'.$timedate.'</td><td>'.htmlspecialchars($entry->address)
