@@ -259,7 +259,7 @@ class MapPage extends Page {
 	function loadMap() {
 		var body = document.getElementById("body")
 		body.style.cursor = "wait";
-		var location = window.location.hash.substring(2);
+		var location = window.location.hash.substring(2).replace(/%20/, " ");
 		if (location.indexOf(":") > -1) {
 			var body = document.getElementById("body")
 			body.style.cursor = "auto";
