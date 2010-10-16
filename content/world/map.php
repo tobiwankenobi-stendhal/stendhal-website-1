@@ -151,7 +151,10 @@ class MapPage extends Page {
 						}
 					} catch (e) {
 						// ignore
-						alert(e + " gid: " + gid + " tileset: " + tileset);
+						alert(e + " gid: " + gid + " tileset: " + tileset + " base: " + base);
+						alert("tilesetWidth: " + tilesetWidth 
+								+ " x : " + ((idx * tileSize) % tilesetWidth) 
+								+ " y: " + (Math.floor((idx * tileSize) / tilesetWidth) * tileSize));
 					}
 				}
 			}
@@ -192,19 +195,15 @@ class MapPage extends Page {
 			for (var iNode = 0; iNode < root.childNodes.length; iNode++) {
 				var node = root.childNodes.item(iNode);
 				if (node.nodeName == "tileset") {
-					filename = node.getAttribute("name").replace(/\.\.\/\.\.\//g, "");
+					filename = getTilesetFilename(node)
 					images.push(filename);
 					firstgids.push(node.getAttribute("firstgid"));
 				} else if (node.nodeName == "layer") {
-					for (var iChildNode = 0; iChildNode < node.childNodes.length; iChildNode++) {
-						var data = node.childNodes.item(iChildNode);
-						if (data.nodeName=="data") {
-							var mapData = data.firstChild.nodeValue.trim();
-							var decoder = new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(mapData));
-							var data = decoder.unzip()[0][0];
-							readLayer(data);
-						}
-					}
+					var data = node.getElementsByTagName("data")[0];
+					var mapData = data.firstChild.nodeValue.trim();
+					var decoder = new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(mapData));
+					var data = decoder.unzip()[0][0];
+					readLayer(data);
 				}
 			}
 			new ImagePreloader(images, draw);
@@ -216,6 +215,11 @@ class MapPage extends Page {
 			canvas.width = numberOfXTiles * zoomSize;
 			canvas.height = numberOfYTiles * zoomSize;
 		}
+	}
+
+	function getTilesetFilename(node) {
+		var image = node.getElementsByTagName("image");
+		return image[0].getAttribute("source").replace(/\.\.\/\.\.\//g, "");
 	}
 
 	/**
