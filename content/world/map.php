@@ -146,20 +146,13 @@ class MapPage extends Page {
 					var gid = layer[y * numberOfXTiles + x];
 					if (gid > 0) {
 						var tileset = getTilesetForGid(gid);
-
 						var base = firstgids[tileset];
 						var idx = gid - base;
 						var tilesetWidth = aImages[tileset].width;
-						//try {
-							ctx.drawImage(aImages[tileset], 
-									(idx * tileSize) % tilesetWidth, Math.floor((idx * tileSize) / tilesetWidth) * tileSize, tileSize, tileSize, 
-									x * zoomSize, y * zoomSize, zoomSize, zoomSize);
-						/*} catch (e) {
-							alert(e + " gid: " + gid + " tileset: " + tileset + " base: " + base);
-							alert("tilesetWidth: " + tilesetWidth 
-									+ " x : " + ((idx * tileSize) % tilesetWidth) 
-									+ " y: " + (Math.floor((idx * tileSize) / tilesetWidth) * tileSize));
-						}*/
+
+						ctx.drawImage(aImages[tileset], 
+								(idx * tileSize) % tilesetWidth, Math.floor((idx * tileSize) / tilesetWidth) * tileSize, tileSize, tileSize, 
+								x * zoomSize, y * zoomSize, zoomSize, zoomSize);
 					}
 				}
 			}
@@ -252,7 +245,7 @@ class MapPage extends Page {
 
 	function checkMapChange() {
 		setTimeout("checkMapChange()", 200);
-		var location = window.location.hash.substring(2);
+		var location = window.location.hash.substring(2).replace(/%20/, " ");;
 		if (lastMap != location) {
 			lastMap = location;
 			loadMap();
