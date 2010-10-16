@@ -138,17 +138,20 @@ class MapPage extends Page {
 				for (var x=0; x < numberOfXTiles; x++) {
 					try {
 						var gid = layer[y * numberOfXTiles + x];
-						var tileset = getTilesetForGid(gid);
-
-						var base = firstgids[tileset];
-						var idx = gid - base;
-						var tilesetWidth = aImages[tileset].width;
-
-						ctx.drawImage(aImages[tileset], 
-								(idx * tileSize) % tilesetWidth, Math.floor((idx * tileSize) / tilesetWidth) * tileSize, tileSize, tileSize, 
-								x * zoomSize, y * zoomSize, zoomSize, zoomSize);
+						if (gid > 0) {
+							var tileset = getTilesetForGid(gid);
+	
+							var base = firstgids[tileset];
+							var idx = gid - base;
+							var tilesetWidth = aImages[tileset].width;
+	
+							ctx.drawImage(aImages[tileset], 
+									(idx * tileSize) % tilesetWidth, Math.floor((idx * tileSize) / tilesetWidth) * tileSize, tileSize, tileSize, 
+									x * zoomSize, y * zoomSize, zoomSize, zoomSize);
+						}
 					} catch (e) {
 						// ignore
+						alert(e + " gid: " + gid + " tileset: " + tileset);
 					}
 				}
 			}
