@@ -20,9 +20,22 @@ class MapPage extends Page {
 		startBox("Map");
 ?>
 <form name="mapform" onsubmit="return refreshButton()">
-<label for="mapname">Map name: </label><input name="mapname" id="mapname">
+<label for="mapname">Map name: </label><input name="mapname" id="mapname" style="width:16em">
 <label for="zoom">Tile size: </label><input name="zoom" id="zoom" value="16" maxlength="3" style="width:3em">
-<input type="submit" value="Refresh">
+<input type="submit" value="Refresh"><br><br>
+<table border="0">
+<tr>
+<td><label for="zoom">protection: </label></td><td><input name="alpha_protection" id="alpha_protection" value="0" maxlength="3" style="width:3em"></td>
+<td><label for="zoom">collision: </label></td><td><input name="alpha_collision" id="alpha_collision" value="0" maxlength="3" style="width:3em"></td>
+<td><label for="zoom">objects: </label></td><td><input name="alpha_objects" id="alpha_objects" value="0" maxlength="3" style="width:3em"></td>
+<td><label for="zoom">4_roof_add: </label></td><td><input name="alpha_4_roof_add" id="alpha_4_roof_add" value="100" maxlength="3" style="width:3em"></td>
+</tr><tr>
+<td><label for="zoom">3_roof: </label></td><td><input name="alpha_3_roof" id="alpha_3_roof" value="100" maxlength="3" style="width:3em"></td>
+<td><label for="zoom">2_object: </label></td><td><input name="alpha_2_object" id="alpha_2_object" value="100" maxlength="3" style="width:3em"></td>
+<td><label for="zoom">1_terrain: </label></td><td><input name="alpha_1_terrain" id="alpha_1_terrain" value="100" maxlength="3" style="width:3em"></td>
+<td><label for="zoom">0_floor: </label></td><td><input name="alpha_0_floor" id="alpha_0_floor" value="100" maxlength="3" style="width:3em"></td>
+</tr>
+</table>
 <div></div>
 </form>
 		<?php endBox(); ?>
@@ -35,6 +48,7 @@ class MapPage extends Page {
 	var zoomSize = 16;
 
 	var aImages;
+	var layerNames;
 	var layers;
 	var firstgids;
 	var numberOfXTiles;
@@ -118,7 +132,14 @@ class MapPage extends Page {
 		canvas.width = numberOfXTiles * zoomSize;
 		canvas.height = numberOfYTiles * zoomSize;
 		var ctx = canvas.getContext("2d");
-		for (var z=0; z < layers.length-2; z++) {
+		for (var z=0; z < layers.length; z++) {
+			var name = layerNames[z];
+			var element = document.getElementById("alpha_" + name);
+			if (element) {
+				ctx.globalAlpha = element.value.trim() / 100;
+			} else {
+				ctx.globalAlpha = 1.0;
+			}
 			var layer = layers[z];
 			for (var y=0; y < numberOfYTiles; y++) {
 				for (var x=0; x < numberOfXTiles; x++) {
@@ -177,6 +198,7 @@ class MapPage extends Page {
 			var images = new Array;
 			firstgids = new Array;
 			layers = new Array;
+			layerNames = new Array;
 			for (var iNode = 0; iNode < root.childNodes.length; iNode++) {
 				var node = root.childNodes.item(iNode);
 				if (node.nodeName == "tileset") {
@@ -188,7 +210,7 @@ class MapPage extends Page {
 					var mapData = data.firstChild.nodeValue.trim();
 					var decoder = new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(mapData));
 					var data = decoder.unzip()[0][0];
-					readLayer(data);
+					readLayer(node.getAttribute("name"), data);
 				}
 			}
 			new ImagePreloader(images, draw);
@@ -206,7 +228,7 @@ class MapPage extends Page {
 	/**
 	 * reads the tile information for a layer
 	 */
-	function readLayer(dataString) {
+	function readLayer(name, dataString) {
 		var layer = new Array;
 		data = dataString;
 		for (var i = 0; i < data.length - 3; i=i+4) {
@@ -216,6 +238,7 @@ class MapPage extends Page {
 				+ (data.charCodeAt(i + 3) << 24);
 			layer.push(tileId)
 		}
+		layerNames.push(name);
 		layers.push(layer);
 	}
 
@@ -253,7 +276,7 @@ class MapPage extends Page {
 	}
 
 	function refreshButton() {
-		var location = escape(document.getElementById("mapname").value.trim());
+		var location = document.getElementById("mapname").value.trim();
 		if (lastMap != location) {
 			window.location.hash = "#!" + location;
 		} else {
