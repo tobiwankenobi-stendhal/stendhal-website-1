@@ -20,18 +20,21 @@ class MapPage extends Page {
 		startBox("Map");
 ?>
 <form name="mapform" onsubmit="return refreshButton()">
-<label for="mapname">File name: </label><input name="mapname" id="mapname">
+<label for="mapname">Map name: </label><input name="mapname" id="mapname">
+<label for="zoom">Tile size: </label><input name="zoom" id="zoom" value="16" maxlength="3" style="width:3em">
 <input type="submit" value="Refresh">
+<div></div>
 </form>
 		<?php endBox(); ?>
 
-<canvas id="canvas" width="1000" height="300"></canvas>
+<canvas id="canvas" width="300" height="300">Sorry, this pages only works in modern web browsers.</canvas>
 
 <script type="text/javascript">
 	var lastMap = ""
 	var tileSize = 32;
 	var zoomSize = 16;
 
+	var aImages;
 	var layers;
 	var firstgids;
 	var numberOfXTiles;
@@ -46,7 +49,7 @@ class MapPage extends Page {
 		// initialize internal state.
 		this.nLoaded = 0;
 		this.nProcessed = 0;
-		this.aImages = new Array;
+		aImages = new Array;
 
 		// record the number of images.
 		this.nImages = images.length;
@@ -59,7 +62,7 @@ class MapPage extends Page {
 	ImagePreloader.prototype.preload = function(image) {
 		// create new Image object and add to array
 		var oImage = new Image;
-		this.aImages.push(oImage);
+		aImages.push(oImage);
 
 		// set up event handlers for the Image object
 		oImage.onload = ImagePreloader.prototype.onload;
@@ -77,7 +80,7 @@ class MapPage extends Page {
 	ImagePreloader.prototype.onComplete = function() {
 		this.nProcessed++;
 		if (this.nProcessed == this.nImages) {
-			this.callback(this.aImages, this.nLoaded);
+			this.callback();
 		}
 	}
 
@@ -110,10 +113,11 @@ class MapPage extends Page {
 		httpRequest.send(null);
 	}
 
-	function draw(aImages, nLoaded) {
+	function draw() {
 		var canvas = document.getElementById("canvas");
+		canvas.width = numberOfXTiles * zoomSize;
+		canvas.height = numberOfYTiles * zoomSize;
 		var ctx = canvas.getContext("2d");
-
 		for (var z=0; z < layers.length-2; z++) {
 			var layer = layers[z];
 			for (var y=0; y < numberOfYTiles; y++) {
@@ -132,7 +136,6 @@ class MapPage extends Page {
 									x * zoomSize, y * zoomSize, zoomSize, zoomSize);
 						}
 					} catch (e) {
-						// ignore
 						alert(e + " gid: " + gid + " tileset: " + tileset + " base: " + base);
 						alert("tilesetWidth: " + tilesetWidth 
 								+ " x : " + ((idx * tileSize) % tilesetWidth) 
@@ -190,12 +193,8 @@ class MapPage extends Page {
 			}
 			new ImagePreloader(images, draw);
 
-			// read map size and adjust size of canvas
-			var canvas = document.getElementById("canvas")
 			numberOfXTiles = root.getAttribute("width")
 			numberOfYTiles = root.getAttribute("height")
-			canvas.width = numberOfXTiles * zoomSize;
-			canvas.height = numberOfYTiles * zoomSize;
 		}
 	}
 
@@ -249,11 +248,18 @@ class MapPage extends Page {
 			return;
 		}
 		document.getElementById("mapname").value = location;
+		zoomSize = document.getElementById("zoom").value;
 		makeRequest("tiled/" + escape(location), parseMap);
 	}
 
 	function refreshButton() {
-		window.location = "#!" + escape(document.getElementById("mapname").value.trim());
+		var location = escape(document.getElementById("mapname").value.trim());
+		if (lastMap != location) {
+			window.location.hash = "#!" + location;
+		} else {
+			zoomSize = document.getElementById("zoom").value;
+			draw();
+		}
 		return false;
 	}
 </script>
