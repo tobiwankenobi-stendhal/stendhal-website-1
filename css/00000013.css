@@ -565,7 +565,7 @@ img.screenshot {
 }
 
 /* recent events */
-.small_image_link a, {
+.small_image_link a {
 	text-decoration: none;
 	color: black;
 }
@@ -584,7 +584,6 @@ img.screenshot {
 	background-color: #CFC; 
 	line-height: 0.95em; 
 	font-weight: bold;
-	-moz-use-text-color; 
 	white-space: nowrap; 
 	background-image:url(/images/palegrasstab.jpg);
 }
