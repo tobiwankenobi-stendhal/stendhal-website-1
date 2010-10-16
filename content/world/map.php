@@ -17,10 +17,16 @@ class MapPage extends Page {
 	}
 
 	function writeContent() {
+		startBox("Map");
 ?>
+<label for="mapname">File name: </label><input name="mapname" id="mapname">
+<input type="submit" value="Refresh" onclick="refreshButton()">
+		<?php endBox(); ?>
+
 <canvas id="canvas" width="1000" height="300"></canvas>
 
 <script type="text/javascript">
+	var lastMap = ""
 	var tileSize = 32;
 	var zoomSize = 16;
 
@@ -168,6 +174,8 @@ class MapPage extends Page {
 	function parseMap() {
 		if (http_request.readyState == 4) {
 			if (http_request.status != 200) {
+				var body = document.getElementById("body")
+				body.style.cursor = "auto";
 				alert("Could not find map");
 				return;
 			}
@@ -222,21 +230,40 @@ class MapPage extends Page {
 	}
 
 	function load() {
-		var body = document.getElementById("body");
-		body.style.cursor = "wait";
-
-		var location = window.location.toString();
-		var pos = location.toString().indexOf("#!");
-		if (pos > -1) {
-			location = location.substring(pos + 2);
-		} else {
-			location = "tiled/Level%200/semos/city.tmx";
+		var location = window.location.hash.substring(2);
+		if (location == "") {
+			document.getElementById("mapname").value = "Level 0/semos/city.tmx";
+			refreshButton();
 		}
+		checkMapChange();
+	}
+
+	function checkMapChange() {
+		setTimeout("checkMapChange()", 200);
+		var location = window.location.hash.substring(2);
+		if (lastMap != location) {
+			lastMap = location;
+			loadMap();
+		}
+	}
+
+	function loadMap() {
+		var body = document.getElementById("body")
+		body.style.cursor = "wait";
+		var location = window.location.hash.substring(2);
 		if (location.indexOf(":") > -1) {
+			var body = document.getElementById("body")
+			body.style.cursor = "auto";
 			alert("Invalid map name");
 			return;
 		}
-		makeRequest(location, parseMap);
+		document.getElementById("mapname").value = location;
+		makeRequest("tiled/" + escape(location), parseMap);
+	}
+
+	function refreshButton() {
+		window.location = "#!" + escape(document.getElementById("mapname").value.trim());
+		return false;
 	}
 </script>
 <?php
