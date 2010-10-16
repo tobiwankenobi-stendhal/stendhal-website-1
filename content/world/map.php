@@ -19,8 +19,10 @@ class MapPage extends Page {
 	function writeContent() {
 		startBox("Map");
 ?>
+<form name="mapform" onsubmit="return refreshButton()">
 <label for="mapname">File name: </label><input name="mapname" id="mapname">
-<input type="submit" value="Refresh" onclick="refreshButton()">
+<input type="submit" value="Refresh">
+</form>
 		<?php endBox(); ?>
 
 <canvas id="canvas" width="1000" height="300"></canvas>
