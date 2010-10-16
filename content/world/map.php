@@ -43,7 +43,7 @@ class MapPage extends Page {
 <canvas id="canvas" width="300" height="300">Sorry, this pages only works in modern web browsers.</canvas>
 
 <script type="text/javascript">
-	var lastMap = ""
+var lastMap = ""
 	var tileSize = 32;
 	var zoomSize = 16;
 
@@ -143,24 +143,23 @@ class MapPage extends Page {
 			var layer = layers[z];
 			for (var y=0; y < numberOfYTiles; y++) {
 				for (var x=0; x < numberOfXTiles; x++) {
-					try {
-						var gid = layer[y * numberOfXTiles + x];
-						if (gid > 0) {
-							var tileset = getTilesetForGid(gid);
-	
-							var base = firstgids[tileset];
-							var idx = gid - base;
-							var tilesetWidth = aImages[tileset].width;
-	
+					var gid = layer[y * numberOfXTiles + x];
+					if (gid > 0) {
+						var tileset = getTilesetForGid(gid);
+
+						var base = firstgids[tileset];
+						var idx = gid - base;
+						var tilesetWidth = aImages[tileset].width;
+						//try {
 							ctx.drawImage(aImages[tileset], 
 									(idx * tileSize) % tilesetWidth, Math.floor((idx * tileSize) / tilesetWidth) * tileSize, tileSize, tileSize, 
 									x * zoomSize, y * zoomSize, zoomSize, zoomSize);
-						}
-					} catch (e) {
-						alert(e + " gid: " + gid + " tileset: " + tileset + " base: " + base);
-						alert("tilesetWidth: " + tilesetWidth 
-								+ " x : " + ((idx * tileSize) % tilesetWidth) 
-								+ " y: " + (Math.floor((idx * tileSize) / tilesetWidth) * tileSize));
+						/*} catch (e) {
+							alert(e + " gid: " + gid + " tileset: " + tileset + " base: " + base);
+							alert("tilesetWidth: " + tilesetWidth 
+									+ " x : " + ((idx * tileSize) % tilesetWidth) 
+									+ " y: " + (Math.floor((idx * tileSize) / tilesetWidth) * tileSize));
+						}*/
 					}
 				}
 			}
@@ -271,7 +270,8 @@ class MapPage extends Page {
 			return;
 		}
 		document.getElementById("mapname").value = location;
-		zoomSize = document.getElementById("zoom").value;
+		// + makes an explicit type conversion required by Opera in drawImage
+		zoomSize = +document.getElementById("zoom").value;
 		makeRequest("tiled/" + escape(location), parseMap);
 	}
 
@@ -280,7 +280,8 @@ class MapPage extends Page {
 		if (lastMap != location) {
 			window.location.hash = "#!" + location;
 		} else {
-			zoomSize = document.getElementById("zoom").value;
+			// + makes an explicit type conversion required by Opera in drawImage
+			zoomSize = +document.getElementById("zoom").value;
 			draw();
 		}
 		return false;
