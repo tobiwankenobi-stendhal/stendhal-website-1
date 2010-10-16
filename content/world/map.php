@@ -43,7 +43,7 @@ class MapPage extends Page {
 <canvas id="canvas" width="300" height="300">Sorry, this pages only works in modern web browsers.</canvas>
 
 <script type="text/javascript">
-var lastMap = ""
+	var lastMap = ""
 	var tileSize = 32;
 	var zoomSize = 16;
 
@@ -285,6 +285,11 @@ var lastMap = ""
 			draw();
 		}
 		return false;
+	}
+
+	// String.trim() is too new for Firefox 2 and Konqueror
+	String.prototype.trim = function() {
+		return this.replace(/^\s+|\s+$/g, "");
 	}
 </script>
 <?php
