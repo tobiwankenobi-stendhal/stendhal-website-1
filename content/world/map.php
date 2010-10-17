@@ -37,7 +37,7 @@ class MapPage extends Page {
 <td><label for="zoom">0_floor: </label></td><td><input name="alpha_0_floor" id="alpha_0_floor" value="100" maxlength="3" style="width:3em"></td>
 </tr>
 </table><br>
-<div>Status: <span id="status"></span><span id="debug"></span></div>
+<div>Status: <span id="status">Loading...</span><span id="debug"></span></div>
 </form>
 		<?php endBox(); ?>
 
@@ -101,6 +101,9 @@ class MapPage extends Page {
 	}
 
 	ImagePreloader.prototype.onload = function() {
+		if (this.oImagePreloader.nLoaded % 10 == 0) {
+			status("Downloading images... " + this.oImagePreloader.nLoaded);
+		}
 		this.bLoaded = true;
 		this.oImagePreloader.nLoaded++;
 		this.oImagePreloader.onComplete();
@@ -317,7 +320,8 @@ class MapPage extends Page {
 	}
 
 	function status(message, finished) {
-		document.getElementById("status").innerHTML = message;
+		//document.getElementById("status").innerHTML = message;
+		document.getElementById("status").firstChild.data = message;
 		if (finished) {
 			var body = document.getElementById("body")
 			body.style.cursor = "auto";
