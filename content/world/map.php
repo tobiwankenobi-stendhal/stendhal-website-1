@@ -9,6 +9,7 @@ class MapPage extends Page {
 			#container {width:99%}
 		</style>
 		<script type="text/javascript" src="<?php echo STENDHAL_FOLDER; ?>/css/jsxgraph-util.js"></script>
+		<!--[if IE]><script type="text/javascript" src="<?php echo STENDHAL_FOLDER; ?>/css/excanvas.compiled.js"></script><![endif]-->
 		<?php
 	}
 
@@ -118,9 +119,17 @@ class MapPage extends Page {
 
 	var httpRequest;
 	function makeRequest(url, callback) {
-		httpRequest = new XMLHttpRequest();
-		if (httpRequest.overrideMimeType) {
-			httpRequest.overrideMimeType('text/xml');
+		if (window.XMLHttpRequest) {
+			httpRequest = new XMLHttpRequest();
+			if (httpRequest.overrideMimeType) {
+				httpRequest.overrideMimeType('text/xml');
+			}
+		} else if (window.ActiveXObject) {
+			try {
+				httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}
 		}
 		httpRequest.onreadystatechange = callback;
 		httpRequest.open('GET', url, true);
@@ -181,7 +190,6 @@ class MapPage extends Page {
 		if (httpRequest.readyState != 4) {
 			return;
 		}
-
 		if (httpRequest.status != 200) {
 			status("Error: Could not find map", true);
 			return;
@@ -193,18 +201,22 @@ class MapPage extends Page {
 		firstgids = new Array;
 		layers = new Array;
 		layerNames = new Array;
+
 		for (var iNode = 0; iNode < root.childNodes.length; iNode++) {
 			var node = root.childNodes.item(iNode);
 			if (node.nodeName == "tileset") {
 				filename = getTilesetFilename(node)
 				images.push(filename);
 				firstgids.push(node.getAttribute("firstgid"));
+//				status("Parsing map...   (Tileset: " + filename + ")", false);
 			} else if (node.nodeName == "layer") {
+				var layerName = node.getAttribute("name");
+//				status("Parsing map...   (Layer: " + layerName + ")", false);
 				var data = node.getElementsByTagName("data")[0];
 				var mapData = data.firstChild.nodeValue.trim();
 				var decoder = new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(mapData));
 				var data = decoder.unzip()[0][0];
-				readLayer(node.getAttribute("name"), data);
+				readLayer(layerName, data);
 			}
 		}
 		status("Downloading images...", false);
