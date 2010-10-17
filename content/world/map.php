@@ -22,7 +22,7 @@ class MapPage extends Page {
 ?>
 <form name="mapform" onsubmit="return refreshButton()">
 <label for="mapname">Map name: </label><input name="mapname" id="mapname" style="width:16em">
-<label for="zoom">Tile size: </label><input name="zoom" id="zoom" value="16" maxlength="3" style="width:3em">
+<label for="zoom">Zoom: </label><input name="zoom" id="zoom" value="50" maxlength="3" style="width:3em">
 <input type="submit" value="Refresh"><br><br>
 <table border="0">
 <tr>
@@ -37,7 +37,7 @@ class MapPage extends Page {
 <td><label for="zoom">0_floor: </label></td><td><input name="alpha_0_floor" id="alpha_0_floor" value="100" maxlength="3" style="width:3em"></td>
 </tr>
 </table><br>
-<div>Status: <span id="status"></span></div>
+<div>Status: <span id="status"></span><span id="debug"></span></div>
 </form>
 		<?php endBox(); ?>
 
@@ -45,8 +45,9 @@ class MapPage extends Page {
 
 <script type="text/javascript">
 	var lastMap = ""
-	var tileSize = 32;
-	var zoomSize = 16;
+	var tileWidth = 32;
+	var tileHeight = 32;
+	var zoom = 50;
 
 	var aImages;
 	var layerNames;
@@ -108,11 +109,13 @@ class MapPage extends Page {
 	ImagePreloader.prototype.onerror = function() {
 		this.bError = true;
 		this.oImagePreloader.onComplete();
+		document.getElementById("debug").innerHTML = document.getElementById("debug").innerHTML + "<p> Error: " + this.src;
 	}
 
 	ImagePreloader.prototype.onabort = function() {
 		this.bAbort = true;
 		this.oImagePreloader.onComplete();
+		document.getElementById("debug").innerHTML = document.getElementById("debug").innerHTML + "<p> Abort: " + this.src;
 	}
 
 	// End http://www.webreference.com/programming/javascript/gr/column3/
@@ -139,9 +142,12 @@ class MapPage extends Page {
 	function draw() {
 		status("Drawing...", false);
 		var canvas = document.getElementById("canvas");
-		canvas.width = numberOfXTiles * zoomSize;
-		canvas.height = numberOfYTiles * zoomSize;
+		var targetTileWidth = Math.floor(tileWidth * zoom / 100);
+		var targetTileHeight = Math.floor(tileHeight * zoom / 100);
+		canvas.width = numberOfXTiles * targetTileWidth;
+		canvas.height = numberOfYTiles * targetTileHeight;
 		var ctx = canvas.getContext("2d");
+		var error = false;
 		for (var z=0; z < layers.length; z++) {
 			var name = layerNames[z];
 			var element = document.getElementById("alpha_" + name);
@@ -160,14 +166,23 @@ class MapPage extends Page {
 						var idx = gid - base;
 						var tilesetWidth = aImages[tileset].width;
 
-						ctx.drawImage(aImages[tileset], 
-								(idx * tileSize) % tilesetWidth, Math.floor((idx * tileSize) / tilesetWidth) * tileSize, tileSize, tileSize, 
-								x * zoomSize, y * zoomSize, zoomSize, zoomSize);
+						try {
+							if (aImages[tileset].height > 0) {
+								ctx.drawImage(aImages[tileset], 
+									(idx * tileWidth) % tilesetWidth, Math.floor((idx * tileWidth) / tilesetWidth) * tileHeight, tileWidth, tileHeight, 
+									x * targetTileWidth, y * targetTileHeight, targetTileWidth, targetTileHeight);
+							}
+						} catch (e) {
+							status("Error while drawing tileset " + tileset + " " + aImages[tileset] + ": " + e, true);
+							error = true;
+						}
 					}
 				}
 			}
 		}
-		status("Ready", true);
+		if (!error) {
+			status("Ready", true);
+		}
 	}
 
 	/**
@@ -202,16 +217,19 @@ class MapPage extends Page {
 		layers = new Array;
 		layerNames = new Array;
 
+		tileWidth = root.getAttribute("tilewidth");
+		tileHeight = root.getAttribute("tileheight");
+
 		for (var iNode = 0; iNode < root.childNodes.length; iNode++) {
 			var node = root.childNodes.item(iNode);
 			if (node.nodeName == "tileset") {
 				filename = getTilesetFilename(node)
 				images.push(filename);
 				firstgids.push(node.getAttribute("firstgid"));
-//				status("Parsing map...   (Tileset: " + filename + ")", false);
+				status("Parsing map...   (Tileset: " + filename + ")", false);
 			} else if (node.nodeName == "layer") {
 				var layerName = node.getAttribute("name");
-//				status("Parsing map...   (Layer: " + layerName + ")", false);
+				status("Parsing map...   (Layer: " + layerName + ")", false);
 				var data = node.getElementsByTagName("data")[0];
 				var mapData = data.firstChild.nodeValue.trim();
 				var decoder = new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(mapData));
@@ -228,7 +246,11 @@ class MapPage extends Page {
 
 	function getTilesetFilename(node) {
 		var image = node.getElementsByTagName("image");
-		return image[0].getAttribute("source").replace(/\.\.\/\.\.\//g, "");
+		var name = node.getAttribute("name");
+		if (image.length > 0) {
+			name = image[0].getAttribute("source")
+		}
+		return name.replace(/\.\.\/\.\.\//g, "");
 	}
 
 	/**
@@ -276,7 +298,7 @@ class MapPage extends Page {
 		}
 		document.getElementById("mapname").value = location;
 		// + makes an explicit type conversion required by Opera in drawImage
-		zoomSize = +document.getElementById("zoom").value;
+		zoom = +document.getElementById("zoom").value;
 		status("Requesting map...", false);
 		makeRequest("tiled/" + escape(location), parseMap);
 	}
@@ -288,7 +310,7 @@ class MapPage extends Page {
 			status("Preparing...", false);
 		} else {
 			// + makes an explicit type conversion required by Opera in drawImage
-			zoomSize = +document.getElementById("zoom").value;
+			zoom = +document.getElementById("zoom").value;
 			draw();
 		}
 		return false;
