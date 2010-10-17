@@ -62,7 +62,7 @@ body {
 
 	/* must do this to center body as IE doesnt like auto margin on body */
 	text-align: center;
-	font-family: Geneva, Tahoma, Arial, Helvetica, Sans-serif;
+	font-family: Geneva, Tahoma, Arial, Helvetica, "Liberation Sans", Sans-serif;
 	font-size: 12pt;
 }
 
@@ -83,28 +83,6 @@ body {
 	padding: 20px 0 20px 20px;
 }
 
-/* Account system links on top-right area */
-#account {
-	margin: 0;
-	padding: 4px;
-	position: relative;
-	float: right;
-	top: -105px;
-	width: 400px;
-	font-family: Optima, Arial, sans;
-	font-size: 75%;
-	text-align: right;
-	color: white;
-}
-
-#account a {
-	color: white;
-	text-decoration: none;
-}
-
-#account a:hover {
-	color: blue;
-}
 
 /* Top horizontal menu */
 #topMenu {
@@ -342,45 +320,11 @@ img.screenshot {
 	padding: 2px 0 0 2px;
 	
 	clear: left;
-	
-	font-family: Courier New;
+	font-family: "Courier New", Courier, "Liberation Mono", monospace;
 	font-size: 10px;
 	line-height: 12px;
 }
 
-/* -------------------------------------------------------------------------*/
-/* events.css */
-
-.event {
-	background: yellow;
-	border: 1px solid black;
-	padding: 4px;
-	margin-bottom: 4px;
-}
-
-.event .date {
-	font-family: Lucida Console, Arial, sans;
-	font-size: 60%;
-}
-
-.event img {
-	float: right;
-	margin: 2px 2px 4px 2px;
-	border: 1px solid black;
-}
-
-.event .location {
-	font-family: Arial;
-	font-size: 70%;
-}
-
-.event .description {
-	font-size: 90%;
-}
-
-.event .description a {
-	text-decoration: none;
-}
 
 /* -------------------------------------------------------------------------*/
 
