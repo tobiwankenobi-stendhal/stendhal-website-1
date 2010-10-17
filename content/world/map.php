@@ -142,49 +142,68 @@ class MapPage extends Page {
 		httpRequest.send(null);
 	}
 
+	var drawingError = false;
+	var drawingLayer = 0;
+	var targetTileWidth = 0;
+	var targetTileHeight = 0;
+	
 	function draw() {
-		status("Drawing...", false);
+		status("Drawing...   (Layer 0)" , false);
 		var canvas = document.getElementById("canvas");
-		var targetTileWidth = Math.floor(tileWidth * zoom / 100);
-		var targetTileHeight = Math.floor(tileHeight * zoom / 100);
+		canvas.style.display = "none";
+		targetTileWidth = Math.floor(tileWidth * zoom / 100);
+		targetTileHeight = Math.floor(tileHeight * zoom / 100);
 		canvas.width = numberOfXTiles * targetTileWidth;
 		canvas.height = numberOfYTiles * targetTileHeight;
-		var ctx = canvas.getContext("2d");
-		var error = false;
-		for (var z=0; z < layers.length; z++) {
-			var name = layerNames[z];
-			var element = document.getElementById("alpha_" + name);
-			if (element) {
-				ctx.globalAlpha = element.value.trim() / 100;
-			} else {
-				ctx.globalAlpha = 1.0;
-			}
-			var layer = layers[z];
-			for (var y=0; y < numberOfYTiles; y++) {
-				for (var x=0; x < numberOfXTiles; x++) {
-					var gid = layer[y * numberOfXTiles + x];
-					if (gid > 0) {
-						var tileset = getTilesetForGid(gid);
-						var base = firstgids[tileset];
-						var idx = gid - base;
-						var tilesetWidth = aImages[tileset].width;
+		drawingError = false;
+		drawingLayer = 0;
+		setTimeout("drawNextLayer()", 1);
+	}
 
-						try {
-							if (aImages[tileset].height > 0) {
-								ctx.drawImage(aImages[tileset], 
-									(idx * tileWidth) % tilesetWidth, Math.floor((idx * tileWidth) / tilesetWidth) * tileHeight, tileWidth, tileHeight, 
-									x * targetTileWidth, y * targetTileHeight, targetTileWidth, targetTileHeight);
-							}
-						} catch (e) {
-							status("Error while drawing tileset " + tileset + " " + aImages[tileset] + ": " + e, true);
-							error = true;
+	function drawNextLayer() {
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+
+		var name = layerNames[drawingLayer];
+		var element = document.getElementById("alpha_" + name);
+		if (element) {
+			ctx.globalAlpha = element.value.trim() / 100;
+		} else {
+			ctx.globalAlpha = 1.0;
+		}
+		var layer = layers[drawingLayer];
+		for (var y=0; y < numberOfYTiles; y++) {
+			for (var x=0; x < numberOfXTiles; x++) {
+				var gid = layer[y * numberOfXTiles + x];
+				if (gid > 0) {
+					var tileset = getTilesetForGid(gid);
+					var base = firstgids[tileset];
+					var idx = gid - base;
+					var tilesetWidth = aImages[tileset].width;
+
+					try {
+						if (aImages[tileset].height > 0) {
+							ctx.drawImage(aImages[tileset], 
+								(idx * tileWidth) % tilesetWidth, Math.floor((idx * tileWidth) / tilesetWidth) * tileHeight, tileWidth, tileHeight, 
+								x * targetTileWidth, y * targetTileHeight, targetTileWidth, targetTileHeight);
 						}
+					} catch (e) {
+						status("Error while drawing tileset " + tileset + " " + aImages[tileset] + ": " + e, true);
+						drawingError = true;
 					}
 				}
 			}
 		}
-		if (!error) {
-			status("Ready", true);
+
+		drawingLayer++;
+		if (drawingLayer < layers.length) {
+			status("Drawing...   (Layer " + drawingLayer + ")" , false);
+			setTimeout("drawNextLayer()", 1);
+		} else {
+			if (!drawingError) {
+				status("Ready", true);
+			}
+			canvas.style.display = "block";
 		}
 	}
 
