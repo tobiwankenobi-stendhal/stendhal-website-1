@@ -35,8 +35,8 @@ class MapPage extends Page {
 <td><label for="zoom">1_terrain: </label></td><td><input name="alpha_1_terrain" id="alpha_1_terrain" value="100" maxlength="3" style="width:3em"></td>
 <td><label for="zoom">0_floor: </label></td><td><input name="alpha_0_floor" id="alpha_0_floor" value="100" maxlength="3" style="width:3em"></td>
 </tr>
-</table>
-<div></div>
+</table><br>
+<div>Status: <span id="status"></span></div>
 </form>
 		<?php endBox(); ?>
 
@@ -128,6 +128,7 @@ class MapPage extends Page {
 	}
 
 	function draw() {
+		status("Drawing...", false);
 		var canvas = document.getElementById("canvas");
 		canvas.width = numberOfXTiles * zoomSize;
 		canvas.height = numberOfYTiles * zoomSize;
@@ -157,8 +158,7 @@ class MapPage extends Page {
 				}
 			}
 		}
-		var body = document.getElementById("body");
-		body.style.cursor = "default";
+		status("Ready", true);
 	}
 
 	/**
@@ -178,38 +178,40 @@ class MapPage extends Page {
 	 * parses the map file, loads the tileset and resizes the canvas.
 	 */
 	function parseMap() {
-		if (httpRequest.readyState == 4) {
-			if (httpRequest.status != 200) {
-				var body = document.getElementById("body")
-				body.style.cursor = "auto";
-				alert("Could not find map");
-				return;
-			}
-			var xmldoc = httpRequest.responseXML;
-			var root = xmldoc.getElementsByTagName('map').item(0);
-			var images = new Array;
-			firstgids = new Array;
-			layers = new Array;
-			layerNames = new Array;
-			for (var iNode = 0; iNode < root.childNodes.length; iNode++) {
-				var node = root.childNodes.item(iNode);
-				if (node.nodeName == "tileset") {
-					filename = getTilesetFilename(node)
-					images.push(filename);
-					firstgids.push(node.getAttribute("firstgid"));
-				} else if (node.nodeName == "layer") {
-					var data = node.getElementsByTagName("data")[0];
-					var mapData = data.firstChild.nodeValue.trim();
-					var decoder = new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(mapData));
-					var data = decoder.unzip()[0][0];
-					readLayer(node.getAttribute("name"), data);
-				}
-			}
-			new ImagePreloader(images, draw);
-
-			numberOfXTiles = root.getAttribute("width")
-			numberOfYTiles = root.getAttribute("height")
+		if (httpRequest.readyState != 4) {
+			return;
 		}
+
+		if (httpRequest.status != 200) {
+			status("Error: Could not find map", true);
+			return;
+		}
+		status("Parsing map...", false);
+		var xmldoc = httpRequest.responseXML;
+		var root = xmldoc.getElementsByTagName('map').item(0);
+		var images = new Array;
+		firstgids = new Array;
+		layers = new Array;
+		layerNames = new Array;
+		for (var iNode = 0; iNode < root.childNodes.length; iNode++) {
+			var node = root.childNodes.item(iNode);
+			if (node.nodeName == "tileset") {
+				filename = getTilesetFilename(node)
+				images.push(filename);
+				firstgids.push(node.getAttribute("firstgid"));
+			} else if (node.nodeName == "layer") {
+				var data = node.getElementsByTagName("data")[0];
+				var mapData = data.firstChild.nodeValue.trim();
+				var decoder = new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(mapData));
+				var data = decoder.unzip()[0][0];
+				readLayer(node.getAttribute("name"), data);
+			}
+		}
+		status("Downloading images...", false);
+		new ImagePreloader(images, draw);
+
+		numberOfXTiles = root.getAttribute("width")
+		numberOfYTiles = root.getAttribute("height")
 	}
 
 	function getTilesetFilename(node) {
@@ -257,14 +259,13 @@ class MapPage extends Page {
 		body.style.cursor = "wait";
 		var location = window.location.hash.substring(2).replace(/%20/, " ");
 		if (location.indexOf(":") > -1) {
-			var body = document.getElementById("body")
-			body.style.cursor = "auto";
-			alert("Invalid map name");
+			status("Error: Invalid map name", true);
 			return;
 		}
 		document.getElementById("mapname").value = location;
 		// + makes an explicit type conversion required by Opera in drawImage
 		zoomSize = +document.getElementById("zoom").value;
+		status("Requesting map...", false);
 		makeRequest("tiled/" + escape(location), parseMap);
 	}
 
@@ -272,6 +273,7 @@ class MapPage extends Page {
 		var location = document.getElementById("mapname").value.trim();
 		if (lastMap != location) {
 			window.location.hash = "#!" + location;
+			status("Preparing...", false);
 		} else {
 			// + makes an explicit type conversion required by Opera in drawImage
 			zoomSize = +document.getElementById("zoom").value;
@@ -280,10 +282,19 @@ class MapPage extends Page {
 		return false;
 	}
 
+	function status(message, finished) {
+		document.getElementById("status").innerHTML = message;
+		if (finished) {
+			var body = document.getElementById("body")
+			body.style.cursor = "auto";
+		}
+	}
+
 	// String.trim() is too new for Firefox 2 and Konqueror
 	String.prototype.trim = function() {
 		return this.replace(/^\s+|\s+$/g, "");
 	}
+
 </script>
 <?php
 	}
