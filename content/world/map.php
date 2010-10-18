@@ -123,30 +123,13 @@ class MapPage extends Page {
 
 	// End http://www.webreference.com/programming/javascript/gr/column3/
 
-	var httpRequest;
-	function makeRequest(url, callback) {
-		if (window.XMLHttpRequest) {
-			httpRequest = new XMLHttpRequest();
-			if (httpRequest.overrideMimeType) {
-				httpRequest.overrideMimeType('text/xml');
-			}
-		} else if (window.ActiveXObject) {
-			try {
-				httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-		}
-		httpRequest.onreadystatechange = callback;
-		httpRequest.open('GET', url, true);
-		httpRequest.send(null);
-	}
 
 	var drawingError = false;
 	var drawingLayer = 0;
 	var targetTileWidth = 0;
 	var targetTileHeight = 0;
-	
+
+
 	function draw() {
 		status("Drawing...   (Layer 0)" , false);
 		var canvas = document.getElementById("canvas");
@@ -171,6 +154,23 @@ class MapPage extends Page {
 		} else {
 			ctx.globalAlpha = 1.0;
 		}
+		if (ctx.globalAlpha > 0.1) {
+			paintLayer(ctx);
+		}
+
+		drawingLayer++;
+		if (drawingLayer < layers.length) {
+			status("Drawing...   (Layer " + drawingLayer + ")" , false);
+			setTimeout("drawNextLayer()", 1);
+		} else {
+			if (!drawingError) {
+				status("Ready", true);
+			}
+			canvas.style.display = "block";
+		}
+	}
+
+	function paintLayer(ctx) {
 		var layer = layers[drawingLayer];
 		for (var y=0; y < numberOfYTiles; y++) {
 			for (var x=0; x < numberOfXTiles; x++) {
@@ -194,17 +194,6 @@ class MapPage extends Page {
 				}
 			}
 		}
-
-		drawingLayer++;
-		if (drawingLayer < layers.length) {
-			status("Drawing...   (Layer " + drawingLayer + ")" , false);
-			setTimeout("drawNextLayer()", 1);
-		} else {
-			if (!drawingError) {
-				status("Ready", true);
-			}
-			canvas.style.display = "block";
-		}
 	}
 
 	/**
@@ -219,6 +208,26 @@ class MapPage extends Page {
 		}
 		return pos - 1;
 	}
+
+	var httpRequest;
+	function makeRequest(url, callback) {
+		if (window.XMLHttpRequest) {
+			httpRequest = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			try {
+				httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		}
+		if (httpRequest.overrideMimeType) {
+			httpRequest.overrideMimeType('text/xml');
+		}
+		httpRequest.onreadystatechange = callback;
+		httpRequest.open('GET', url, true);
+		httpRequest.send(null);
+	}
+
 
 	/**
 	 * parses the map file, loads the tileset and resizes the canvas.
