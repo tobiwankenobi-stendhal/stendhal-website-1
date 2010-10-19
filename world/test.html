@@ -38,18 +38,18 @@
 		var node = xmldoc.getElementsByTagName('layer').item(1);
 		var data = node.getElementsByTagName("data")[0];
 		var mapData = data.firstChild.nodeValue.trim();
-		alert(mapData.length);
+		alert("responseXML complete? " + (mapData.length > 5000));
 
 
 		var text = httpRequest.responseText
 		text = text.substring(text.indexOf("1_terrain"));
 		text = text.substring(text.indexOf("gzip\">") + 8)
 		text = text.substring(0, text.indexOf("</data>"))
-		alert(text.length);
+		alert("responseText complete? " + (text.length > 5000));
 	}
 
 	function load() {
-		makeRequest("http://stendhalgame.org/world/tiled/Level%200/kalavan/city.tmx", callback);
+		makeRequest("tiled/Level%200/kalavan/city.tmx", callback);
 	}
 
 </script>
