@@ -37,7 +37,7 @@ class MapPage extends Page {
 <td><label for="zoom">0_floor: </label></td><td><input name="alpha_0_floor" id="alpha_0_floor" value="100" maxlength="3" style="width:3em"></td>
 </tr>
 </table><br>
-<div>Status: <span id="status">Loading...</span><span id="debug"></span></div>
+<div>Status: <span id="status">Loading...</span><span id="debug"> </span></div>
 </form>
 		<?php endBox(); ?>
 
@@ -183,11 +183,12 @@ class MapPage extends Page {
 
 					try {
 						if (aImages[tileset].height > 0) {
-							ctx.drawImage(aImages[tileset], 
+							ctx.drawImage(aImages[tileset],
 								(idx * tileWidth) % tilesetWidth, Math.floor((idx * tileWidth) / tilesetWidth) * tileHeight, tileWidth, tileHeight, 
 								x * targetTileWidth, y * targetTileHeight, targetTileWidth, targetTileHeight);
 						}
 					} catch (e) {
+						document.getElementById("debug").firstChild.data = document.getElementById("debug").firstChild.data + ", " + e;
 						status("Error while drawing tileset " + tileset + " " + aImages[tileset] + ": " + e, true);
 						drawingError = true;
 					}
@@ -248,8 +249,8 @@ class MapPage extends Page {
 		layers = new Array;
 		layerNames = new Array;
 
-		tileWidth = root.getAttribute("tilewidth");
-		tileHeight = root.getAttribute("tileheight");
+		tileWidth = +root.getAttribute("tilewidth");
+		tileHeight = +root.getAttribute("tileheight");
 
 		for (var iNode = 0; iNode < root.childNodes.length; iNode++) {
 			var node = root.childNodes.item(iNode);
