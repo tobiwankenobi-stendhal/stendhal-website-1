@@ -4,6 +4,7 @@ require_once 'PHPUnit/Framework.php';
 require_once 'tests/lib/openid/lightopenidTest.php';
 require_once 'tests/mediawiki/rdfa-breadcrumbsTest.php';
 require_once 'tests/scripts/pharauroa/common/net/deserializerTest.php';
+require_once 'tests/scripts/accountTest.php';
 
 
 class AllTests {

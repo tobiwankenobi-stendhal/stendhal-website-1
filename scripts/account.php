@@ -527,6 +527,24 @@ class Account {
 		}
 		return $res;
 	}
+
+	/**
+	 * tries to convert a proposed username into a valid one
+	 *
+	 * @param string $username proposed username
+	 * @return valid username or <code>null</code>.
+	 */
+	public static function convertToValidUsername($username) {
+		$temp = preg_replace('/[^a-z]/g', '', strtolower($username));
+		if (strlen($temp) > 0) {
+			while (strlen($temp) < 6) {
+				$temp = $temp + $temp;
+			}
+		} else {
+			unset($temp);
+		}
+		return $temp;
+	}
 }
 
 /**
