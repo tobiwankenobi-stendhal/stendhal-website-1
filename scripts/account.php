@@ -535,10 +535,11 @@ class Account {
 	 * @return valid username or <code>null</code>.
 	 */
 	public static function convertToValidUsername($username) {
-		$temp = preg_replace('/[^a-z]/g', '', strtolower($username));
+		$temp = preg_replace('/[^a-z]/', '', strtolower($username));
 		if (strlen($temp) > 0) {
+			$org = $temp;
 			while (strlen($temp) < 6) {
-				$temp = $temp + $temp;
+				$temp = $temp . $org;
 			}
 		} else {
 			unset($temp);
@@ -602,6 +603,31 @@ class AccountLink {
 		}
 		mysql_free_result($result);
 		return $links;
+	}
+
+	public function proposeUsernames() {
+		$res = array();
+		$res[] = Account::convertToValidUsername($this->nickname);
+		if (isset($this->email)) {
+			$pos = strpos($this->email, '@');
+			if ($pos !== false) {
+				$res[] = Account::convertToValidUsername(substr($this->email, 0, $pos));
+			}
+		}
+		if (strpos($this->username, 'http') === 0) {
+			// apply openid url magic
+			$lastSlash = strrpos($this->username, '/');
+			if ($lastSlash < strlen($this->username) - 1) {
+				$res[] = Account::convertToValidUsername(substr($this->username, $lastSlash + 1));
+			} else {
+				$lastSlash = strpos($this->username, '://') + 2;
+				$dot = strpos($this->username, '.');
+				$res[] = Account::convertToValidUsername(substr($this->username, $lastSlash + 1, $dot - $lastSlash - 1));
+			}
+		}
+		$res[] = Account::convertToValidUsername($this->username);
+		$res[] = $this->username;
+		return $res;
 	}
 
 	public function createAccount() {

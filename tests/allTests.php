@@ -14,6 +14,8 @@ class AllTests {
 		$suite->addTestSuite('LightOpenidTest');
 		$suite->addTestSuite('PharauroaDeserializerTest');
 		$suite->addTestSuite('RDFaBreadcrumbsTest');
+		$suite->addTestSuite('AccountTest');
+		$suite->addTestSuite('AccountLinkTest');
 		
 		return $suite;
 	}
