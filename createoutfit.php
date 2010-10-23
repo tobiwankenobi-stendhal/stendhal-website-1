@@ -90,11 +90,18 @@ $outfit=$outfit/100;
 addToImage($headIndex, $result, $OUTFITS_BASE.'/head_', $offset);
 
 /*
- * Finally load hair image and display.
+ * Load hair image and display.
  */
 $hairIndex=($outfit % 100);
 $outfit=$outfit/100;
 conditionalAddToImage($hairIndex, $result, $OUTFITS_BASE.'/hair_', $offset);
+
+/*
+ * Finally load details 
+ */
+$detailIndex=($outfit % 100);
+$outfit=$outfit/100;
+conditionalAddToImage($hairIndex, $result, $OUTFITS_BASE.'/detail_', $offset);
 
 header("Content-type: image/png");
 header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
