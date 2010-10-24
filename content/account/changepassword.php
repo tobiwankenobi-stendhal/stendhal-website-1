@@ -10,9 +10,17 @@ function validateParameters() {
 	}
 
 	/* Check that all fields were typed in */
-	if(!$_POST['pass'] || !$_POST['newpass'] || !$_POST['newpass_retype']){
-		return 'You didn\'t fill in a required field.';
+
+	if (!$_POST['newpass'] || !$_POST['newpass_retype']){
+		return 'You didn\'t fill in all fields.';
 	}
+
+	if ($_SESSION['account']->password) {
+		if (!$_POST['pass']) {
+			return 'You didn\'t enter your old password.';
+		}
+	}
+	
 
 	if($_POST['newpass']!=$_POST['newpass_retype']) {
 		return 'Password incorrectly typed.';
@@ -20,6 +28,10 @@ function validateParameters() {
 
 	if(strlen($_POST['newpass']) < 6) {
 		return 'The password needs to be at least 6 characters long.';
+	}
+
+	if (!$_SESSION['account']->password) {
+		return '';
 	}
 
 	$result = Account::tryLogin("passwordchange", $username, $_POST['pass']);
@@ -94,11 +106,17 @@ if(isset($_POST['sublogin'])){
 	
 } else {
 startBox("Change password");
+if (!$_SESSION['account']->password) {
+	echo '<p>You can create a local account here. The local account can be used in the download client.</p>';
+}
 ?>
 
 <form action="" method="post">
 <table>
+  <tr><td>Account name:</td><td><?php echo htmlspecialchars($_SESSION['account']->username);?></td></tr>
+  <?php if ($_SESSION['account']->password) {?>
   <tr><td>Old Password:</td><td><input type="password" name="pass" maxlength="30"></td></tr>
+  <?php }?>
   <tr><td>New Password:</td><td><input type="password" name="newpass" maxlength="30"></td></tr>
   <tr><td>Retype new Password:</td><td><input type="password" name="newpass_retype" maxlength="30"></td></tr>
   <tr><td colspan="2" align="right"><input type="submit" name="sublogin" value="Change Password"></td></tr>
