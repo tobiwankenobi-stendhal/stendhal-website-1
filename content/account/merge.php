@@ -29,8 +29,12 @@ class AccountMerge extends Page {
 		<p>With the form below you can merge your other accounts. &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
 		(<a href="https://stendhalgame.org/wiki/Stendhal_Account_Merging">Help</a>)</p>
 		<p>This means that all characters previously associated with the other 
-		account will be available in this account. The other account will be 
-		disabled.</p>
+		account will be available in this account.
+		<?php
+		if ($_SESSION['account']->password) {
+			echo 'The other account will be disabled.';
+		}?>
+		</p>
 		<p class="warn">Merging accounts cannot be undone.</p>
 		<?php endBox();
 	}
@@ -61,9 +65,16 @@ class AccountMerge extends Page {
 			return;
 		}
 
-		mergeAccount($_POST['user'], $_SESSION['account']->username);
-		echo '<p class="success">Your old account <i>'.htmlspecialchars($_POST['user'])
-			.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['account']->username).'</i>.</p>';
+		if ($_SESSION['account']->password) {
+			mergeAccount($_POST['user'], $_SESSION['account']->username);
+			echo '<p class="success">Your old account <i>'.htmlspecialchars($_POST['user'])
+				.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['account']->username).'</i>.</p>';
+		} else {
+			mergeAccount($_SESSION['account']->username, $_POST['user']);
+			echo '<p class="success">Your accounts <i>'.htmlspecialchars($_POST['user'])
+				.'</i> and <i>'.htmlspecialchars($_SESSION['account']->username)
+				.'</i> have been merged.</p>';
+		}
 		endBox();
 	}
 
