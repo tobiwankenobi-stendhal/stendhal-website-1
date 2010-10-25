@@ -64,7 +64,7 @@ a.openid_large_btn:focus{
 }
 	</style>
 	<script src="/css/jquery-00000001.js" type="text/javascript"></script>
-	<script src="/css/openid-00000001.js" type="text/javascript"></script>
+	<script src="/css/openid-00000002.js" type="text/javascript"></script>
 		<?php 
 	}
 
