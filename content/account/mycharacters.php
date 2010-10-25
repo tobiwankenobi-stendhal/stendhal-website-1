@@ -36,9 +36,9 @@ class MyCharactersPage extends Page {
 
 		$players = getCharactersForUsername($_SESSION['account']->username);
 		if(sizeof($players)==0) {
-			echo 'You have no characters.';
+			echo '<div>Please <a href="'.rewriteURL('/account/create-character.html').'">create a new character</a>.</div>';
 		} else {
-			echo '<div>Click on a character to play.</div>';
+			echo '<div>Click on a character below to play or <a href="'.rewriteURL('/account/create-character.html').'">create a new character</a>.</div>';
 			echo '<div style="height: 280px;">';
 			foreach($players as $p) {
 				echo '<div class="onlinePlayer characterHeight">';
