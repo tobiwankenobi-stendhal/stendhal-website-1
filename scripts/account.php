@@ -120,8 +120,9 @@ function storeSeed($username, $ip, $seed, $authenticated) {
 
 /**
  * merges two accounts
- * @param string $oldUsername
- * @param string $newUsername
+ *
+ * @param string $oldUsername the account to merge in
+ * @param string $newUsername the account to keep
  */
 function mergeAccount($oldUsername, $newUsername) {
 	$oldAccountId = getUserID($oldUsername);

@@ -14,6 +14,11 @@ class OpenidPage extends Page {
 				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 				$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
+				if ($_REQUEST['merge']) {
+					$_SESSION['merge'] = true;
+				} else {
+					unset($_SESSION['merge']);
+				}
 				try {
 					header('Location: ' . $openid->authUrl());
 					return false;
@@ -77,6 +82,11 @@ a.openid_large_btn:focus{
 	<form id="openid_form" action="" method="post">
 		<input id="oauth_version" name="oauth_version" type="hidden">
 		<input id="oauth_server" name="oauth_server" type="hidden">
+		<?php
+		if ($_REQUEST['merge']) {
+			echo '<input id="merge" name="merge" type="hidden" value="true">';
+		}
+		?>
 
 		<div id="openid_choice">
 			<p>Do you already have an account on one of these sites?</p>
@@ -128,11 +138,17 @@ a.openid_large_btn:focus{
 					echo 'OpenID-Authentication failed.';
 					endBox();
 				} else {
-					if (isset($_SESSION['account'])) {
+					if (isset($_SESSION['account']) && isset($_SESSION['merge'])) {
 						$this->succesfulOpenidAuthWhileLoggedIn($accountLink);
 					} else {
 						$this->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
 					}
+
+					echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL('/account/myaccount.html'))."\">";
+					startBox("Login");
+					echo '<h1>Login correct.</h1> Please wait...';
+					endBox();
+
 				}
 			}
 		} catch(ErrorException $e) {
@@ -164,25 +180,27 @@ a.openid_large_btn:focus{
 	 * @param AccountLink $accountLink the account link created for the login
 	 */
 	public function succesfulOpenidAuthWhileLoggedIn($accountLink) {
-		$account = Account::tryLogin('openid', $accountLink->username, null);
+		$oldAccount = $_SESSION['account'];
+		$newAccount = Account::tryLogin('openid', $accountLink->username, null);
 
-		die('NOT IMPLEMENTED');
-		// TODO: logged in, unknown   --> ask for merge
-		// TODO: logged in, known     --> ???
+		if (!$newAccount || is_string($newAccount)) {
+			$accountLink->playerId = $oldAccount->id;
+			$accountLink->insert();
+		} else {
+			if ($oldAccount->username != $newAccount->username) {
+				mergeAccount($newAccount->username, $oldAccount->username);
+			}
+		}
 	}
 
 	public function succesfulOpenidAuthWhileNotLoggedIn($accountLink) {
+		unset($_SESSION['account']);
 		$account = Account::tryLogin('openid', $accountLink->username, null);
 
 		if (!$account || is_string($account)) {
 			$account = $accountLink->createAccount();
 		}
 		$_SESSION['account'] = $account;
-
-		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL('/account/myaccount.html'))."\">";
-		startBox("Login");
-		echo '<h1>Login correct.</h1> Please wait...';
-		endBox();
 	}
 }
 $page = new OpenidPage();
