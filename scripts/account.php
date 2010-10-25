@@ -444,11 +444,11 @@ class Account {
 		. " FROM account, accountLink WHERE account.id = accountLink.player_id "
 		. " AND accountLink.type='".mysql_real_escape_string($type)."'"
 		. " AND accountLink.username='".mysql_real_escape_string($username)."'";
-		/*if (isset($password)) {
+		if (isset($password)) {
 			$sql = $sql . " AND accountLink.secret='".mysql_real_escape_string($password)."'";
 		} else {
 			$sql = $sql . " AND accountLink.secret IS NULL";
-		}*/
+		}
 
 		$result = mysql_query($sql, getGameDB());
 		$list=array();
@@ -546,6 +546,25 @@ class Account {
 		}
 		return $temp;
 	}
+
+	/**
+	 * inserst a record in the account table.
+	 */
+	public function insert() {
+		$sql = "INSERT INTO account(username, email, status";
+		$sql2 = ") VALUES ('".mysql_real_escape_string($this->username)
+			."', '".mysql_real_escape_string($this->email)
+			."', '".mysql_real_escape_string($this->status)."'";
+		if ($this->password) {
+			$sql .= ", password";
+			$sql2 .= ", '".mysql_real_escape_string($this->password)."'";
+		}
+		$sql = $sql.$sql2.');';
+		if (!mysql_query($sql, getGameDB())) {
+			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
+		}
+		$this->id = mysql_insert_id(getGameDB());
+	}
 }
 
 /**
@@ -631,6 +650,83 @@ class AccountLink {
 	}
 
 	public function createAccount() {
-		// TODO: create account
+		// suggest usernames
+		$proposedUsernames = $this->proposeUsernames();
+		
+		// create sql statement to check which suggestions exist
+		mysql_query("BEGIN WORK", getGameDB());
+		$first = true;
+		$in = '';
+		foreach($proposedUsernames As $name ) {
+			if (!isset($name) || ($name == '')) {
+				continue;
+			}
+			if ($first) {
+				$first = false;
+			} else {
+				$in .= ', ';
+			}
+			$in .= "'".mysql_real_escape_string($name)."'";
+		}
+
+		$sql = "SELECT username FROM account WHERE username in (".$in.") FOR UPDATE "
+			. "UNION SELECT charname FROM characters WHERE charname in (".$in.") FOR UPDATE;";
+
+		// check database
+		$existingUsernames = array();
+		$result = mysql_query($sql, getGameDB());
+		if (!$result) {
+			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
+		}
+
+		while($row = mysql_fetch_assoc($result)) {
+			$existingUsernames[] = $row['username'];
+		}
+		mysql_free_result($result);
+
+		// pick username
+		foreach($proposedUsernames As $name ) {
+			if (!in_array($name, $existingUsernames)) {
+				$username = $name;
+				break;
+			}
+		}
+
+		// insert
+		$account = new Account(-1, $username, null, $this->email, date("Y-m-d").' '.date("H:i:s"), 'active');
+		$account->insert();
+		$this->playerId = $account->id;
+		$this->insert();
+		
+		mysql_query("COMMIT", getGameDB());
+
+		return $account;
+	}
+
+	/**
+	 * inserst a record in the accountLink table.
+	 */
+	public function insert() {
+		$sql = "INSERT INTO accountLink(player_id, type, username";
+		$sql2 = ") VALUES ('".mysql_real_escape_string($this->playerId)
+			."', '".mysql_real_escape_string($this->type)
+			."', '".mysql_real_escape_string($this->username)."'";
+		if ($this->nickname) {
+			$sql .= ", nickname";
+			$sql2 .= ", '".mysql_real_escape_string($this->nickname)."'";
+		}
+		if ($this->email) {
+			$sql .= ", email";
+			$sql2 .= ", '".mysql_real_escape_string($this->email)."'";
+		}
+		if ($this->secret) {
+			$sql .= ", secret";
+			$sql2 .= ", '".mysql_real_escape_string($this->secret)."'";
+		}
+		$sql = $sql.$sql2.');';
+		if (!mysql_query($sql, getGameDB())) {
+			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
+		}
+		$this->id = mysql_insert_id(getGameDB());
 	}
 }

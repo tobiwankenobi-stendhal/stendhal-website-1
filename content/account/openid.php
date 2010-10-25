@@ -166,6 +166,7 @@ a.openid_large_btn:focus{
 	public function succesfulOpenidAuthWhileLoggedIn($accountLink) {
 		$account = Account::tryLogin('openid', $accountLink->username, null);
 
+		die('NOT IMPLEMENTED');
 		// TODO: logged in, unknown   --> ask for merge
 		// TODO: logged in, known     --> ???
 	}
@@ -173,7 +174,7 @@ a.openid_large_btn:focus{
 	public function succesfulOpenidAuthWhileNotLoggedIn($accountLink) {
 		$account = Account::tryLogin('openid', $accountLink->username, null);
 
-		if (!$account) {
+		if (!$account || is_string($account)) {
 			$account = $accountLink->createAccount();
 		}
 		$_SESSION['account'] = $account;
