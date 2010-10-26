@@ -152,7 +152,7 @@ function getBestPlayer($where='') {
 }
 
 function getDMHeroes($where='where', $cond='limit 2') {
-	return _getPlayers('select character_stats.* from character_stats join halloffame on (charname=name) '.$where.' fametype="D" order by points desc '.$cond, getGameDB());
+	return _getPlayers('select distinct character_stats.* from character_stats join halloffame on (charname=name) '.$where.' fametype="D" order by points desc '.$cond, getGameDB());
 
 }
 
