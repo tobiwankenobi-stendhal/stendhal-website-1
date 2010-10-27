@@ -325,6 +325,22 @@ class StoredMessage {
 		mysql_free_result($result);
 		return $list;
 	}
+
+	public static function deleteSentMessages($playerId, $ids) {
+		// TODO
+		$sql = "DELETE FROM postman USING characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.name=postman.source AND (postman.deleted='R' OR postman.messagetype='N') AND postman.id IN (".$id.")";
+		$sql = "UPDATE postman USING characters SET deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.name=postman.source AND postman.id IN (".$id.")";
+	}
+
+	public static function deleteReceivedMessages($playerId, $ids) {
+		// TODO
+		$sql = "DELETE FROM postman USING characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.name=postman.target AND postman.deleted='S' AND postman.id IN (".$id.")";
+		$sql = "UPDATE postman USING characters SET deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.name=postman.target AND postman.id IN (".$id.")";
+	}
 }
 
 
@@ -416,7 +432,7 @@ class Account {
 	 *
 	 * @param string $username username
 	 */
-	private static function readAccountByName($username) {
+	public static function readAccountByName($username) {
 		$sql = "SELECT id, username, password, email, timedate, status "
 		. " FROM account WHERE username='".mysql_real_escape_string($username)."'";
 		$result = mysql_query($sql, getGameDB());
