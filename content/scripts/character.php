@@ -102,7 +102,9 @@ foreach($choosen->equipment as $slot=>$content) {
 	<?php 
 	if($content!="") {
 		$item = getItem($content);
-		$item->showImageWithPopup(ucfirst(str_replace($old, $new, $slot))). ': ';
+		if (isset($item)) {
+			$item->showImageWithPopup(ucfirst(str_replace($old, $new, $slot))). ': ';
+		}
 	} else {
 		?>
 	<div class="emptybox"></div>
@@ -120,16 +122,22 @@ foreach($choosen->equipment as $slot=>$content) {
 
 	<?php
 	$ranks = getCharacterRanks($choosen->name);
-	$names = array('Best', 'Strongest', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
-	$fametypes = array('B', 'X', 'W', 'A', 'D', 'T', 'F', 'M');
-	for ($i = 0; $i < count($names); $i++) {
-		echo '<div><span class="statslabel">'.$names[$i].'</span><span class="data">';
-		if (isset($ranks[$fametypes[$i]])) {
-			echo htmlspecialchars($ranks[$fametypes[$i]]);
-		} else {
-			echo '-';
+	if ($choosen->adminlevel >= 600) {
+		echo 'Game masters <br>are not normal<br> players and<br> therefore <br>don\'t appear in <br>the hall of fame.';
+	} else if (count($ranks) == 1 && $ranks['__']) {
+		echo htmlspecialchars($choosen->name). 'is <br>new in Stendhal.<br><br>Please check back <br>tomorrow because <br>ranks are only <br>calculated once a day.';
+	} else {
+		$names = array('Best', 'Strongest', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
+		$fametypes = array('B', 'X', 'W', 'A', 'D', 'T', 'F', 'M');
+		for ($i = 0; $i < count($names); $i++) {
+			echo '<div><span class="statslabel">'.$names[$i].'</span><span class="data">';
+			if (isset($ranks[$fametypes[$i]])) {
+				echo htmlspecialchars($ranks[$fametypes[$i]]);
+			} else {
+				echo '-';
+			}
+			echo '</span></div>';
 		}
-		echo '</span></div>';
 	}
 	?>
 </div>
