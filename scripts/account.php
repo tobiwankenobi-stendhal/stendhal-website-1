@@ -687,9 +687,11 @@ class AccountLink {
 
 		// pick username
 		foreach($proposedUsernames As $name ) {
-			if (!in_array($name, $existingUsernames)) {
-				$username = $name;
-				break;
+			if ($name && trim($name) != '') {
+				if (!in_array($name, $existingUsernames)) {
+					$username = $name;
+					break;
+				}
 			}
 		}
 
