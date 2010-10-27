@@ -70,9 +70,11 @@ class AccountMerge extends Page {
 			echo '<p class="success">Your old account <i>'.htmlspecialchars($_POST['user'])
 				.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['account']->username).'</i>.</p>';
 		} else {
-			mergeAccount($_SESSION['account']->username, $_POST['user']);
+			$oldUsername = $_SESSION['account']->username;
+			mergeAccount($oldUsername, $_POST['user']);
+			$_SESSION['account'] = Account::readAccountByName($_POST['user']);
 			echo '<p class="success">Your accounts <i>'.htmlspecialchars($_POST['user'])
-				.'</i> and <i>'.htmlspecialchars($_SESSION['account']->username)
+				.'</i> and <i>'.htmlspecialchars($oldUsername)
 				.'</i> have been merged.</p>';
 		}
 		endBox();
