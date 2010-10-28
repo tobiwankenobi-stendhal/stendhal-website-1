@@ -125,7 +125,7 @@ foreach($choosen->equipment as $slot=>$content) {
 	if ($choosen->adminlevel >= 600) {
 		echo 'Game masters <br>are not normal<br> players and<br> therefore <br>don\'t appear in <br>the hall of fame.';
 	} else if (count($ranks) == 1 && $ranks['__']) {
-		echo htmlspecialchars($choosen->name). 'is <br>new in Stendhal.<br><br>Please check back <br>tomorrow because <br>ranks are only <br>calculated once a day.';
+		echo htmlspecialchars($choosen->name). ' is <br>new in Stendhal.<br><br>Please check back <br>tomorrow because <br>ranks are only <br>calculated once a day.';
 	} else {
 		$names = array('Best', 'Strongest', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
 		$fametypes = array('B', 'X', 'W', 'A', 'D', 'T', 'F', 'M');
