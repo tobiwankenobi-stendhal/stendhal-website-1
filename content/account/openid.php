@@ -161,7 +161,7 @@ a.openid_large_btn:focus{
 						$this->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
 					}
 
-					echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL('/account/myaccount.html'))."\">";
+					echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL('/account/mycharacters.html'))."\">";
 					startBox("Login");
 					echo '<h1>Login correct.</h1> Please wait...';
 					endBox();
