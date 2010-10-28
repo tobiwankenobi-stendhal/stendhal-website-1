@@ -108,6 +108,21 @@ function verifyCharacterBelongsToUsername($username, $charname) {
 	return $res;
 }
 
+/**
+ * checks if a character exist
+ *
+ * @param string $username name of account
+ * @return boolean
+ */
+function doesCharacterExist($charname) {
+	$sql = "SELECT player_id "
+	. "FROM characters "
+	. "WHERE characters.charname='".mysql_real_escape_string($charname)."'";
+	$result = mysql_query($sql, getGameDB());
+	$res = mysql_numrows($result) > 0;
+	mysql_free_result($result);
+	return $res;
+}
 
 function storeSeed($username, $ip, $seed, $authenticated) {
 	$query = 'INSERT INTO loginseed(player_id, address, seed, complete, used)'

@@ -54,12 +54,14 @@ class MyCharactersPage extends Page {
 		}
 		endBox();
 
-		startBox("Note");
-		?>
-		<p>Starting the Stendhal client may take a minute. Please be patient after clicking on your character.</p>
-		<p>You need <a href="http://java.com">Java</a> in order to play. On the very first start additional files of
-		Stendhal will be downloaded. Subsequent starts will be a lot faster.</p>
-		<?php endBox();
+		if(sizeof($players) > 0) {
+			startBox("Note");
+			?>
+			<p>Starting the Stendhal client may take a minute. Please be patient after clicking on your character.</p>
+			<p>You need <a href="http://java.com">Java</a> in order to play. On the very first start additional files of
+			Stendhal will be downloaded. Subsequent starts will be a lot faster.</p>
+			<?php endBox();
+		}
 	}
 }
 $page = new MyCharactersPage();
