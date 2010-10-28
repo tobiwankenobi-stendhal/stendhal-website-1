@@ -121,6 +121,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # characters
                 RewriteCond %{QUERY_STRING} id=content/scripts/character&name=([^&]*)
                 RewriteRule ^/.* /character/%1.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fcharacter&name=([^&]*)
+                RewriteRule ^/.* /creature/%1.html? [R=301]
 
                 # chat
                 RewriteCond %{QUERY_STRING} id=content/game/chat&date=([^&]*)
@@ -132,6 +134,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteCond %{QUERY_STRING} id=content/game/creatures
                 RewriteRule ^/.* /creature/? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/scripts/monster&name=([^&]*)
+                RewriteRule ^/.* /creature/%1.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fmonster&name=([^&]*)
                 RewriteRule ^/.* /creature/%1.html? [R=301]
 
                 # development
@@ -152,6 +156,12 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteCond %{QUERY_STRING} id=content/scripts/item&name=([^&]*)
                 RewriteRule ^/.* /item/all/%1.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/items&class=([^&]*)
+                RewriteRule ^/.* /item/%1.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fitem&class=([^&]*)&name=([^&]*)
+                RewriteRule ^/.* /item/%1/%2.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fitem&name=([^&]*)
+                RewriteRule ^/.* /item/all/%1.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content%2Fgame%2Fitems&class=([^&]*)
                 RewriteRule ^/.* /item/%1.html? [R=301]
 
                 # news
