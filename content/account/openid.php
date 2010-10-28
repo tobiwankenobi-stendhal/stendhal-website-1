@@ -218,6 +218,7 @@ a.openid_large_btn:focus{
 			$account = $accountLink->createAccount();
 		}
 		$_SESSION['account'] = $account;
+		$_SESSION['csrf'] = createRandomString();
 	}
 }
 $page = new OpenidPage();

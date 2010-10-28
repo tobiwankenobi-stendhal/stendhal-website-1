@@ -8,6 +8,7 @@ class LogoutPage extends Page {
 
 		// Kill session variables
 		unset($_SESSION['account']);
+		unset($_SESSION['csrf']);
 		$_SESSION = array(); // reset session array
 		session_destroy();   // destroy session.
 		return true;

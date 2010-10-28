@@ -63,6 +63,7 @@ class LoginPage extends Page {
 
 		/* Username and password correct, register session variables */
 		$_SESSION['account'] = $result;
+		$_SESSION['csrf'] = createRandomString();
 
 		echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars($this->getUrl())."\">";
 		startBox("Login");

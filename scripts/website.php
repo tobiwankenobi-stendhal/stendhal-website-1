@@ -63,4 +63,15 @@ function getOverlibCode($html) {
 		. ');" onmouseout="return nd();"';
 }
 
+/**
+ * creates a random string
+ */
+function createRandomString() {
+	$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	$res = '';
+	for ($i = 0; $i < 20; $i++) {
+		$res .= $characters[mt_rand(0, strlen($characters))];
+	}
+	return $res;
+}
 ?>

@@ -57,6 +57,12 @@ class AccountMerge extends Page {
 			return;
 		}
 
+		if ($_POST['csrf'] != $_SESSION['csrf']) {
+			echo '<p class="error">Session information was lost.</p>';
+			endBox();
+			return;
+		}
+
 		$result = Account::tryLogin("password", $_POST['user'], $_POST['pass']);
 
 		if (! ($result instanceof Account)) {
@@ -85,6 +91,7 @@ class AccountMerge extends Page {
 		<p>You are currently logged into the account <b><?php echo htmlspecialchars($_SESSION['account']->username) ?></b>.</p>
 
 		<form action="" method="post">
+			<input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 			<table>
 				<tr><td><label for="user">Username:</label></td><td><input type="text" id="user" name="user" maxlength="30"></td></tr>
 				<tr><td><label for="pass">Password:</label></td><td><input type="password" id="pass" name="pass" maxlength="30"></td></tr>
