@@ -190,7 +190,26 @@ if ($page->writeHttpHeader()) {
 			endBox();
 		?>
 
-
+		<?php 
+		/*
+		 * Show the admin menu only if player is really an admin.
+		 * Admins are designed using the stendhal standard way.
+		 */
+		$adminLevel = getAdminLevel();
+		if($adminLevel >= 100) {
+			startBox('Administration'); ?>
+			<ul id="adminmenu" class="menu">
+				<?php 
+				if($adminLevel >= 400) { ?>
+					<li><a id="menuAdminNews" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/news">News</a></li>
+					<li><a id="menuAdminScreenshots" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/screenshots">Screenshots</a></li>
+				<?php } ?>
+				<li><a id="menuAdminInspect" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/inspect">Render Inspect</a></li>
+				<li><a id="menuAdminSupportlog" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/logs">Support Logs</a></li>
+				<li><a id="menuAdminPlayerhistory" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/playerhistory">Player History</a></li>
+			</ul>
+			<?php endBox();
+		}?>
 
 		<?php 
 		startBox('Best Player');
@@ -220,27 +239,6 @@ if ($page->writeHttpHeader()) {
 		</form>
 		<?php endBox(); ?>
 
-
-		<?php 
-		/*
-		 * Show the admin menu only if player is really an admin.
-		 * Admins are designed using the stendhal standard way.
-		 */
-		$adminLevel = getAdminLevel();
-		if($adminLevel >= 100) {
-			startBox('Administration'); ?>
-			<ul id="adminmenu" class="menu">
-				<?php 
-				if($adminLevel >= 400) { ?>
-					<li><a id="menuAdminNews" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/news">News</a></li>
-					<li><a id="menuAdminScreenshots" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/screenshots">Screenshots</a></li>
-				<?php } ?>
-				<li><a id="menuAdminInspect" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/inspect">Render Inspect</a></li>
-				<li><a id="menuAdminSupportlog" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/logs">Support Logs</a></li>
-				<li><a id="menuAdminPlayerhistory" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/playerhistory">Player History</a></li>
-			</ul>
-			<?php endBox();
-		}?>
 
 <?php 
 /*
