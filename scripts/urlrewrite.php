@@ -122,7 +122,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteCond %{QUERY_STRING} id=content/scripts/character&name=([^&]*)
                 RewriteRule ^/.* /character/%1.html? [R=301]
                 RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fcharacter&name=([^&]*)
-                RewriteRule ^/.* /creature/%1.html? [R=301]
+                RewriteRule ^/.* /character/%1.html? [R=301]
 
                 # chat
                 RewriteCond %{QUERY_STRING} id=content/game/chat&date=([^&]*)
