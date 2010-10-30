@@ -27,12 +27,16 @@ class CreateAccountPage extends Page {
 	}
 
 	function writeContent() {
+		$this->show();
+	}
+
+	function show() {
+		$_SESSION['csrf'] = createRandomString();
 		startBox("Create Account");
 ?>
 
 <form name="createaccount" action="" onsubmit="return checkForm()">
-
-
+<input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <label for="name">Name:<sup>*</sup> </label><input id="name" name="name" type="text" maxlength="20" onchange="nameChanged(this)" onkeyup="nameChanged(this)" onblur="validateMinLengthFail(this)">
 <div id="namewarn" class="warn"></div>
