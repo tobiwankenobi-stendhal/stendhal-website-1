@@ -4,23 +4,24 @@ class CreateAccountPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Create Account'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
+		echo '<style type="text/css">label {width: 9em; display: inline-block} .warn {margin-left: 9em; height: 1em}</style>';
 	}
 
 	function writeContent() {
 		startBox("Create Account");
 ?>
 
-<form name="createaccount" action="">
+<form name="createaccount" action="" onsubmit="return checkForm()">
 
 
 
-<label for="name">Name: </label><input id="name" name="name" type="text" maxlength="20" onchange="key(this)" onkeyup="key(this)">
+<label for="name">Name:<sup>*</sup> </label><input id="name" name="name" type="text" maxlength="20" onchange="nameChanged(this)" onkeyup="nameChanged(this)" onblur="validateMinLengthFail(this)">
 <div id="namewarn" class="warn"></div>
 
-<label for="pw">Password: </label><input id="pw" name="name" type="text" maxlength="20">
+<label for="pw">Password:<sup>*</sup> </label><input id="pw" name="name" type="password" onchange="validateMinLengthOk(this)" onkeyup="validateMinLengthOk(this)" onblur="validateMinLengthFail(this)">
 <div id="pwwarn" class="warn"></div>
 
-<label for="pr">Password Repeat: </label><input id="pr" name="name" type="text" maxlength="20">
+<label for="pr">Password Repeat:<sup>*</sup> </label><input id="pr" name="name" type="password">
 <div id="prwarn" class="warn"></div>
 
 <label for="email">E-Mail: </label><input id="email" name="name" type="text" maxlength="50">
@@ -43,19 +44,46 @@ used to analyse bugs and in rare cases for abuse handling.</font></p>
 <?php endBox();?>
 <script type="text/javascript">
 
-<!-- TODO: check all fields -->
-function validate() {
-	//document.createcharacter.submit.disabled = (document.createcharacter.name.value.length < 4);
-	if (document.createcharacter.name.value.length < 4) {
-		document.getElementById("warn").innerHTML = "Name must be more than 4 letters.";
-	} else {
-		document.getElementById("warn").innerHTML = "";
+function validateMinLengthFail(field) {
+	if (field.value.length < 6) {
+		document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters long.";
 	}
 }
 
-function key(field) {
+function validateMinLengthOk(field) {
+	if (field.value.length >= 6) {
+		document.getElementById(field.id + "warn").innerHTML = "";
+	}
+}
+
+function nameChanged(field) {
 	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
-	validate();
+	validateMinLengthOk(field);
+}
+
+function checkForm() {
+	var name = document.getElementById("name");
+	if (name.value.length < 6) {
+		name.focus();
+		alert("Your account name needs to be at least 6 letters long.");
+		return false;
+	}
+
+	var pw = document.getElementById("pw");
+	if (pw.value.length < 6) {
+		pw.focus();
+		alert("Your password needs to be at least 6 letters long.");
+		return false;
+	}
+
+	var pr = document.getElementById("pr");
+	if (pw.value != pr.value) {
+		pw.focus();
+		alert("Your password and repetition do not match.");
+		return false;
+	}
+
+	return true;
 }
 </script>
 <?php
