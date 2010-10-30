@@ -144,7 +144,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 	}
 
 	function writeInputHeader($meta) {
-		echo '<td><b>'.htmlspecialchars($meta['column_name']).'</b> ';
+		echo '<td><b>'.htmlspecialchars(str_replace('_', ' ', $meta['column_name'])).'</b> ';
 		if (isset($meta['column_comment']) && trim($meta['column_comment']) != '') {
 			echo '('.htmlspecialchars($meta['column_comment']).')';
 		}
