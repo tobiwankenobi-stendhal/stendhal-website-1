@@ -1,6 +1,25 @@
 <?php
 class CreateAccountPage extends Page {
 
+	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	public function writeHttpHeader() {
+		if (strpos(STENDHAL_LOGIN_TARGET, 'https://')) {
+			if (!isset($_SERVER['HTTPS']) || ($_SERVER['HTTPS'] != "on")) {
+				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/create-account.html'));
+				return false;
+			}
+		}
+		if (isset($_SESSION['account'])) {
+			header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));
+			return false;
+		}
+		return true;
+	}
+
 	public function writeHtmlHeader() {
 		echo '<title>Create Account'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
