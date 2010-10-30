@@ -65,6 +65,10 @@ class CreateCharacterPage extends Page {
 			return true;
 		}
 
+		if ($_POST['csrf'] != $_SESSION['csrf']) {
+			return true;
+		}
+
 		require_once('scripts/pharauroa/pharauroa.php');
 		$clientFramework = new PharauroaClientFramework(STENDHAL_MARAUROA_SERVER, STENDHAL_MARAUROA_PORT, STENDHAL_MARAUROA_CREDENTIALS);
 		$template = new PharauroaRPObject();
@@ -86,6 +90,12 @@ class CreateCharacterPage extends Page {
 	function show() {
 		$this->initOutfitArray();
 
+		if (isset($_POST['name']) && ($_POST['csrf'] != $_SESSION['csrf'])) {
+			startBox("Error");
+			echo '<p class="error">Session information was lost.</p>';
+			endBox();
+		}
+
 		if (isset($this->result) && !$this->result->wasSuccessful()) {
 			startBox("Error");
 			echo '<span class="error">'.htmlspecialchars($this->result->getMessage()).'</span>';
@@ -96,6 +106,7 @@ class CreateCharacterPage extends Page {
 ?>
 
 <form name="createcharacter" action="<?php echo rewriteURL('/account/createcharacter.html');?>" method="POST" style="height:22em; padding: 1em">
+<input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <div class="outfitpanel">
 <div style="clear: both">
