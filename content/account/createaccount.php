@@ -7,7 +7,7 @@ class CreateAccountPage extends Page {
 	 * @return true, to continue the rendering, false to not render the normal content
 	 */
 	public function writeHttpHeader() {
-		if (strpos(STENDHAL_LOGIN_TARGET, 'https://')) {
+		if (strpos(STENDHAL_LOGIN_TARGET, 'https://') !== false) {
 			if (!isset($_SERVER['HTTPS']) || ($_SERVER['HTTPS'] != "on")) {
 				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/create-account.html'));
 				return false;
