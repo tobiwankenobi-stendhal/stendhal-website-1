@@ -21,7 +21,7 @@ class MyCharactersPage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
-		echo '<title>Starter'.STENDHAL_TITLE.'</title>';
+		echo '<title>My Characters'.STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
@@ -58,9 +58,15 @@ class MyCharactersPage extends Page {
 			startBox("Note");
 			?>
 			<p>Starting the Stendhal client may take a minute. Please be patient after clicking on your character.</p>
-			<p>You need <a href="http://java.com">Java</a> in order to play. On the very first start additional files of
-			Stendhal will be downloaded. Subsequent starts will be a lot faster.</p>
-			<?php endBox();
+			<p>On the very first start additional Stendhal will need to download some additional files. Subsequent starts will be a lot faster.</p>
+			<?php 
+			endBox();
+			startBox("Trouble Shooting");
+			?>
+			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
+			If the application is unknown, please download and install <a href="http://java.com">Java</a>.</p>
+			<?php
+			endBox();
 		}
 	}
 }
