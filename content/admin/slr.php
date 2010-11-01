@@ -182,7 +182,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 			} else {
 				echo '; ';
 			}
-			echo $this->escapeCsv($meta['column_name']);
+			echo $this->escapeCsv(str_replace('_', ' ', $meta['column_name']));
 		}
 		echo "\n";
 
