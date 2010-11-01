@@ -213,7 +213,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 	}
 
 	function escapeCsv($cell) {
-		return '"'.str_replace(array('"', '\\', ';'), array('\\"', '\\\\', ',.'), $cell).'"';
+		return '"'.str_replace(array('"', '\\', ';'), array('\'', '\\\\', ',.'), $cell).'"';
 	}
 }
 $page = new SystematicLiteratureReviewPage();
