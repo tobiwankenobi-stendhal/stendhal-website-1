@@ -612,6 +612,20 @@ class Account {
 		}
 		$this->id = mysql_insert_id(getGameDB());
 	}
+
+	/**
+	 * checks if a name is available for account/character creation
+	 *
+	 * @param $name name to check
+	 */
+	public static function isNameAvailable($name) {
+		$sql = "SELECT username FROM account WHERE username = '".mysql_real_escape_string($name)."' "
+			. "UNION SELECT charname FROM characters WHERE charname = '".mysql_real_escape_string($name)."';";
+		$result = mysql_query($sql, getGameDB());
+		$res = mysql_numrows($result) == 0;
+		mysql_free_result($result);
+		return $res;
+	}
 }
 
 /**
