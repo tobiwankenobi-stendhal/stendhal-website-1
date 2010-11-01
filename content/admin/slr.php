@@ -172,8 +172,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 	}
 
 	function csvExport() {
-		$reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['accpimt']->username);
-  		$slr = getAllSlr($reviewer);
+		$slr = getAllSlr(null);
 		$metadata = getSlrMetadata();
 
 		$first = true;
