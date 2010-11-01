@@ -15,7 +15,9 @@ class InspectPage extends Page {
 		$data = $_POST['data'];
 
 		if (isset($data)) {
+			echo '<a name="result"></a>';
 			$parsedData = $this->parse($data);
+			$this->writeNavigationBox($parsedData);
 			foreach ($parsedData as $inspectData) {
 				$this->renderInspectResult($inspectData);
 			}
@@ -40,16 +42,29 @@ class InspectPage extends Page {
 		return $res;
 	}
 
+	private function writeNavigationBox($parsedData) {
+		if (count($parsedData) > 1) {
+			echo '<div style="width: 12em; position: fixed; left: 0; top: 0"><ul style="margin: 0; padding: 0">';
+			startBox("Navigation");
+			foreach ($parsedData as $inspectData) {
+				echo '<li style="margin: 0; padding: 0"><a href="#result_'.htmlspecialchars($inspectData['name']).'">';
+				echo htmlspecialchars($inspectData['name']).'</a></li>';
+			}
+			endBox();
+			echo '<ul></div>';
+		}
+	}
+
 	/**
 	 * renders the result of a deep inspect
 	 *
 	 * @param $inspectData
 	 */
 	private function renderInspectResult($inspectData) {
-		echo '<h1><a name="result">Deep inspect of '.htmlspecialchars($inspectData['name']).'</a></h1>';
-		$this->renderTopLevelAttributes($inspectData);
+		echo '<h1><a name="result_'.htmlspecialchars($inspectData['name']).'">Deep inspect of '.htmlspecialchars($inspectData['name']).'</a></h1>';
 		$this->renderCharacterItemSlots($inspectData);
 		$this->renderNonCharacterItemSlots($inspectData);
+		$this->renderTopLevelAttributes($inspectData);
 		$this->renderKeyedSlots($inspectData);
 	}
 
