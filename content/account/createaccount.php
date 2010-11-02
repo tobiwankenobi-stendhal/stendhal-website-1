@@ -1,5 +1,7 @@
 <?php
 class CreateAccountPage extends Page {
+	private $result;
+	private $error;
 
 	/**
 	 * this method can write additional http headers, for example for cache control.
@@ -17,7 +19,39 @@ class CreateAccountPage extends Page {
 			header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));
 			return false;
 		}
-		return true;
+
+		return $this->process();
+	}
+
+	function process() {
+		global $protocol;
+		if (!$_POST['name'] || !$_POST['pw'] || !$_POST['pr']) {
+			$error = ''; // TODO
+			return true;
+		}
+
+		if ($_POST['csrf'] != $_SESSION['csrf']) {
+			$error = ''; // TODO
+			return true;
+		}
+
+		// TODO: validate user, pw, pw=pr
+
+		require_once('scripts/pharauroa/pharauroa.php');
+		$clientFramework = new PharauroaClientFramework(STENDHAL_MARAUROA_SERVER, STENDHAL_MARAUROA_PORT, STENDHAL_MARAUROA_CREDENTIALS);
+		$template = new PharauroaRPObject();
+		$template->put('outfit', $_REQUEST['outfitcode']);
+
+		$this->result = $clientFramework->createAccount($_POST['name'], $_POST['pw'], $_POST['email']);
+
+		if ($this->result->wasSuccessful()) {
+			// redirect to my characters page
+			header('HTTP/1.0 301 Moved permanently.');
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/mycharacters.html')));
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public function writeHtmlHeader() {
