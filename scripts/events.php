@@ -319,6 +319,34 @@ function getEquipEvents($filter) {
     return $events;
 }
 
+class AchievementEvent extends Event  {
+  public $zone; 
+  
+  function __construct($source, $title, $description, $timedate) {
+  	parent::__construct($source, $timedate); 
+  	$this->title=$title; 	 
+  	$this->description=$description; 
+  }
+  
+  function getHtml($outfits) {
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' reached achievement ' .
+  			$this->title.': '. $this->description.' at '.date('H:i',strtoTime($this->timedate));
+  }
+  
+}
+function getAchievementEvents($filter) {
+    $result = mysql_query('SELECT charname as source, title, description, timedate       ' .
+    					  'FROM reached_achievement JOIN achievement ON achievement.id = reached_achievement.achievement_id '. Event::getFilterFrom($filter) .' HAVING '. Event::getFilterWhereSource($filter) .' timedate > subtime(now(), \'06:00:00\') limit 10', getGameDB());
+    $events=array();
+    while($row=mysql_fetch_assoc($result)) {      
+      $events[]=new AchievementEvent($row['source'],$row['title'],$row['description'],$row['timedate']);
+    }
+    
+    mysql_free_result($result);
+	
+    return $events;
+}
+
 function getOutfitsForPlayers($players) {
 	$result = mysql_query('SELECT distinct name, outfit FROM character_stats where name IN ("'.implode('","',$players).'")',getGameDB());
     $outfits=array();

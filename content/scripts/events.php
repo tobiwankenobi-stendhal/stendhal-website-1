@@ -71,7 +71,8 @@ class EventsPage extends Page {
 					getPoisonEvents($this->filter),
 					getChangeZoneEvents($this->filter),
 					getOutfitEvents($this->filter),
-					getEquipEvents($this->filter));
+					getEquipEvents($this->filter),
+					getAchievementEvents($this->filter));
 					
 				$cache->store('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id, new ArrayObject($events), 60);
 			}
@@ -85,6 +86,7 @@ class EventsPage extends Page {
 			$time_start = microtime(true); getChangeZoneEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getChangeZoneEvents: '. $time."\n";
 			$time_start = microtime(true); getOutfitEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getOutfitEvents: '. $time."\n";
 			$time_start = microtime(true); getEquipEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getEquipEvents: '. $time."\n";
+			$time_start = microtime(true); getAchievementEvents($this->filter); $time_end = microtime(true); $time = ($time_end - $time_start); echo 'getAchievementEvents: '. $time."\n";
 			echo '</pre>';
 			return;
 		}
