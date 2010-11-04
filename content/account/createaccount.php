@@ -25,17 +25,23 @@ class CreateAccountPage extends Page {
 
 	function process() {
 		global $protocol;
+		if (!$_POST) {
+			return true;
+		}
 		if (!$_POST['name'] || !$_POST['pw'] || !$_POST['pr']) {
-			$error = ''; // TODO
+			$this->error = 'One of the mandatory fields was empty.';
 			return true;
 		}
 
 		if ($_POST['csrf'] != $_SESSION['csrf']) {
-			$error = ''; // TODO
+			$this->error = 'Session information was lost.';
 			return true;
 		}
 
-		// TODO: validate user, pw, pw=pr
+		if ($_POST['pw'] != $_POST['pr']) {
+			$this->error = 'Your password and repetition do not match.';
+			return true;
+		}
 
 		require_once('scripts/pharauroa/pharauroa.php');
 		$clientFramework = new PharauroaClientFramework(STENDHAL_MARAUROA_SERVER, STENDHAL_MARAUROA_PORT, STENDHAL_MARAUROA_CREDENTIALS);
@@ -57,7 +63,7 @@ class CreateAccountPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Create Account'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
-		echo '<style type="text/css">label {width: 9em; display: inline-block} .warn {margin-left: 9em; height: 1em}</style>';
+		echo '<script src="/css/jquery-00000001.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {
@@ -65,26 +71,50 @@ class CreateAccountPage extends Page {
 	}
 
 	function show() {
+		if ($this->error || (isset($this->result) && !$this->result->wasSuccessful())) {
+			startBox("Error");
+			if ($this->error) {
+				echo '<span class="error">'.htmlspecialchars($this->error).'</span>';
+			} else {
+				echo '<span class="error">'.htmlspecialchars($this->result->getMessage()).'</span>';
+			}
+			endBox();
+		}
+
 		$_SESSION['csrf'] = createRandomString();
 		startBox("Create Account");
 ?>
 
-<form name="createaccount" action="" onsubmit="return checkForm()">
+<form name="createaccount" action="" method="post" onsubmit="return checkForm()">
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
-<label for="name">Name:<sup>*</sup> </label><input id="name" name="name" type="text" maxlength="20" onchange="nameChanged(this)" onkeyup="nameChanged(this)" onblur="validateMinLengthFail(this)">
-<div id="namewarn" class="warn"></div>
+<table>
+<tr>
+<td><label for="name">Name:<sup>*</sup> </label></td>
+<td><input id="name" name="name" type="text" maxlength="20" onchange="nameChanged(this)" onkeyup="nameChanged(this)" onblur="blurName(this)"></td>
+<td><div id="namewarn" class="warn"></div></td>
+</tr>
 
-<label for="pw">Password:<sup>*</sup> </label><input id="pw" name="name" type="password" onchange="validateMinLengthOk(this)" onkeyup="validateMinLengthOk(this)" onblur="validateMinLengthFail(this)">
-<div id="pwwarn" class="warn"></div>
+<tr>
+<td><label for="pw">Password:<sup>*</sup> </label></td>
+<td><input id="pw" name="pw" type="password" onchange="validateMinLengthOk(this)" onkeyup="validateMinLengthOk(this)" onblur="validateMinLengthFail(this)"></td>
+<td><div id="pwwarn" class="warn"></div></td>
+</tr>
 
-<label for="pr">Password Repeat:<sup>*</sup> </label><input id="pr" name="name" type="password">
-<div id="prwarn" class="warn"></div>
+<tr>
+<td><label for="pr">Password Repeat:<sup>*</sup> </label></td>
+<td><input id="pr" name="pr" type="password"></td>
+<td><div id="prwarn" class="warn"></div></td>
+</tr>
 
-<label for="email">E-Mail: </label><input id="email" name="name" type="text" maxlength="50">
-<div id="emailwarn" class="warn"></div>
+<tr>
+<td><label for="email">E-Mail: </label></td>
+<td><input id="email" name="email" type="text" maxlength="50"></td>
+<td><div id="emailwarn" class="warn"></div></td>
+</tr>
+</table>
 
-<input "name="submit" style="margin-top: 2em" type="submit" value="Create Account">
+<input name="submit" style="margin-top: 2em" type="submit" value="Create Account">
 </form>
 <?php endBox(); ?>
 <br><br>
@@ -100,6 +130,18 @@ Furthermore all events and actions that happen within the game-world
 used to analyse bugs and in rare cases for abuse handling.</font></p>
 <?php endBox();?>
 <script type="text/javascript">
+function validateMinLength(field) {
+	if (field.value.length >= 6) {
+		document.getElementById(field.id + "warn").innerHTML = "";
+		minLengthOnceReached = true;
+		return true;
+	} else {
+		if (minLengthOnceReached) {
+			document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters long.";
+		}
+	}
+	return false;
+}
 
 function validateMinLengthFail(field) {
 	if (field.value.length < 6) {
@@ -110,12 +152,35 @@ function validateMinLengthFail(field) {
 function validateMinLengthOk(field) {
 	if (field.value.length >= 6) {
 		document.getElementById(field.id + "warn").innerHTML = "";
+		return true;
+	}
+	return false;
+}
+
+var lastRequestedName = "";
+var minLengthOnceReached = false;
+function nameChanged(field) {
+	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
+	if (lastRequestedName != field.value) {
+		lastRequestedName = field.value;
+		var res = validateMinLength(field);
+		if (res) {
+			$.getJSON('/index.php?id=content/scripts/api&method=isNameAvailable&param=' + escape(lastRequestedName), function(data) {
+				if (lastRequestedName == data.name) {
+					if (data.result) {
+						document.getElementById(field.id + "warn").innerHTML = "";
+					} else {
+						document.getElementById(field.id + "warn").innerHTML = "This name is not available.";
+					}
+				}
+			});
+		}
 	}
 }
 
-function nameChanged(field) {
-	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
-	validateMinLengthOk(field);
+function blurName(field) {
+	validateMinLengthFail(field);
+	nameChanged(field);
 }
 
 function checkForm() {
