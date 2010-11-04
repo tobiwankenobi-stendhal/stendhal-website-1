@@ -329,8 +329,8 @@ class AchievementEvent extends Event  {
   }
   
   function getHtml($outfits) {
-  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' reached achievement ' .
-  			htmlspecialchars($this->title).': '. htmlspecialchars($this->description).' at '.date('H:i',strtoTime($this->timedate));
+  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' reached achievement <abbr title="'.htmlspecialchars($this->description).'">'.
+  			htmlspecialchars($this->title).'</abbr> at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
