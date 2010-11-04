@@ -63,7 +63,7 @@ class EventsPage extends Page {
 		global $cache;
 		if (!isset($_REQUEST['profiling'])) {
 			$events = $cache->fetchAsArray('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id);
-			if (!isset($events)) {
+			if (!isset($events) || $_REQUEST['test']) {
 				$events=array_merge(getKillEvents($this->filter),
 					getQuestEvents($this->filter),
 					getLevelEvents($this->filter),
@@ -71,10 +71,12 @@ class EventsPage extends Page {
 					getPoisonEvents($this->filter),
 					getChangeZoneEvents($this->filter),
 					getOutfitEvents($this->filter),
-					getEquipEvents($this->filter),
-					getAchievementEvents($this->filter));
-					
-				$cache->store('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id, new ArrayObject($events), 60);
+					getEquipEvents($this->filter));
+				if ($_REQUEST['test']) {
+					$events=array_merge($events, getAchievementEvents($this->filter));
+				} else {
+					$cache->store('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id, new ArrayObject($events), 60);
+				}
 			}
 		} else {
 			echo '<pre>';
