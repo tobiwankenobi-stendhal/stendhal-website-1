@@ -51,9 +51,11 @@ class CreateAccountPage extends Page {
 		$this->result = $clientFramework->createAccount($_POST['name'], $_POST['pw'], $_POST['email']);
 
 		if ($this->result->wasSuccessful()) {
-			// redirect to my characters page
+			// on success: login and redirect to character creation
 			header('HTTP/1.0 301 Moved permanently.');
-			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/mycharacters.html')));
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/create-character.html')));
+			$_SESSION['account'] = Account::readAccountByName($_POST['name']);
+			$_SESSION['csrf'] = createRandomString();
 			return false;
 		} else {
 			return true;
@@ -137,7 +139,7 @@ function validateMinLength(field) {
 		return true;
 	} else {
 		if (minLengthOnceReached) {
-			document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters long.";
+			document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters.";
 		}
 	}
 	return false;
@@ -145,7 +147,7 @@ function validateMinLength(field) {
 
 function validateMinLengthFail(field) {
 	if (field.value.length < 6) {
-		document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters long.";
+		document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters.";
 	}
 }
 
@@ -165,7 +167,7 @@ function nameChanged(field) {
 		lastRequestedName = field.value;
 		var res = validateMinLength(field);
 		if (res) {
-			$.getJSON('/index.php?id=content/scripts/api&method=isNameAvailable&param=' + escape(lastRequestedName), function(data) {
+			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&param=" + escape(lastRequestedName), function(data) {
 				if (lastRequestedName == data.name) {
 					if (data.result) {
 						document.getElementById(field.id + "warn").innerHTML = "";
