@@ -43,6 +43,7 @@ class CreateCharacterPage extends Page {
 				.next {float: left; margin-top: 2em}
 				.outfitpart {float: left; display: block; width:48px; height: 64px; background-position: 0 128px;}
 			</style>';
+		echo '<script src="/css/jquery-00000001.js" type="text/javascript"></script>';
 	}
 
 	public function getBodyTagAttributes() {
@@ -105,7 +106,7 @@ class CreateCharacterPage extends Page {
 		startBox("Create Character");
 ?>
 
-<form name="createcharacter" action="<?php echo rewriteURL('/account/create-character.html');?>" method="POST" style="height:22em; padding: 1em">
+<form name="createcharacter" action="<?php echo rewriteURL('/account/create-character.html');?>" method="POST" onsubmit="return checkForm()" style="height:22em; padding: 1em">
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <div class="outfitpanel">
@@ -146,7 +147,7 @@ class CreateCharacterPage extends Page {
 
 <div style="float:left; width: 50%; padding-top: 2em">
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
-<label for="name" >Name: </label><input id="name" onchange="key(this)" onkeyup="key(this)" name="name" type="text" maxlength="20" 
+<label for="name" >Name: </label><input id="name" onchange="nameChanged(this)" onkeyup="nameChanged(this)" name="name" type="text" maxlength="20" 
 <?php 
 	if (isset($_REQUEST['name'])) {
 		echo 'value="'.htmlspecialchars($_REQUEST['name']).'"';
@@ -157,7 +158,7 @@ class CreateCharacterPage extends Page {
 		}
 	}
 ?>>
-<div id="warn" class="warn"></div>
+<div id="warn" class="warn">&nbsp;</div>
 <input name="submit" style="margin-top: 2em" type="submit" value="Create Character">
 </div>
 </form>
@@ -204,7 +205,6 @@ function init() {
 	updateAll();
 	self.focus();
 	document.createcharacter.name.focus();
-	validate();
 }
 
 function updateAll() {
@@ -214,14 +214,6 @@ function updateAll() {
 	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 	document.getElementById("outfitcode").value = outfitCode;
 	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
-}
-
-function validate() {
-	if (document.createcharacter.name.value.length < 4) {
-		document.getElementById("warn").innerHTML = "Name must be more than 4 letters.";
-	} else {
-		document.getElementById("warn").innerHTML = "";
-	}
 }
 
 function turn(i) {
@@ -238,11 +230,50 @@ function turn(i) {
 	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
 }
 
-function key(field) {
-	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
-	validate();
+function validateMinLength(field) {
+	if (field.value.length >= 6) {
+		document.getElementById("warn").innerHTML = "&nbsp;";
+		minLengthOnceReached = true;
+		return true;
+	} else {
+		if (minLengthOnceReached) {
+			document.getElementById("warn").innerHTML = "Must be at least 6 letters.";
+		}
+	}
+	return false;
 }
 
+var lastRequestedName = "";
+var minLengthOnceReached = false;
+function nameChanged(field) {
+	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
+	if (lastRequestedName != field.value) {
+		lastRequestedName = field.value;
+		var res = validateMinLength(field);
+		if (res) {
+			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&param=" + escape(lastRequestedName), function(data) {
+				if (lastRequestedName == data.name) {
+					if (data.result) {
+						document.getElementById("warn").innerHTML = "&nbsp;";
+					} else {
+						document.getElementById("warn").innerHTML = "This name is not available.";
+					}
+				}
+			});
+		}
+	}
+}
+
+
+function checkForm() {
+	var name = document.getElementById("name");
+	if (name.value.length < 6) {
+		name.focus();
+		alert("Your character name needs to be at least 6 letters long.");
+		return false;
+	}
+	return true;
+}
 </script>
 <?php
 		endBox();
