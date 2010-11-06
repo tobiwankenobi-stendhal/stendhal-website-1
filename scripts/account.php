@@ -428,17 +428,18 @@ class Account {
 			if (isset($banMessage)) {
 				$success = false;
 			}
+			$username = $account->username;
 			$passhash = $account->password;
 			$usedAccountLink = $account->usedAccountLink;
 		}
 
-		
 		// Log loginEvent or passwordChange
 		if ($type != 'passwordchange') {
 			PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $usedAccountLink, $success);
 		} else {
 			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $passhash, $success);
 		}
+
 		
 		// if the account does not exist or the password was wrong
 		if (!($account instanceof Account) || (!$success && !isset($banMessage))) {
@@ -487,7 +488,8 @@ class Account {
 	private static function readAccountByLink($type, $username, $password) {
 		$sql = "SELECT account.id As id, account.username As username, "
 		. " account.password As password, account.email As email, "
-		. " account.timedate As timedate, account.status As status "
+		. " account.timedate As timedate, account.status As status, "
+		. " accountLink.id As usedAccountLink"
 		. " FROM account, accountLink WHERE account.id = accountLink.player_id "
 		. " AND accountLink.type='".mysql_real_escape_string($type)."'"
 		. " AND accountLink.username='".mysql_real_escape_string($username)."'";
@@ -503,6 +505,7 @@ class Account {
 		$row = mysql_fetch_assoc($result);
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], $row['timedate'], $row['status']);
+			$res->usedAccountLink = $row['usedAccountLink'];
 		}
 
 		mysql_free_result($result);
