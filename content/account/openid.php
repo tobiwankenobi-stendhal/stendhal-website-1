@@ -19,30 +19,91 @@
 
 require_once('lib/openid/lightopenid.php');
 
+class OpenID {
+	public $error;
+	public $isAuth = false;
 
-class OpenidPage extends Page {
-	private $error;
-
-	public function writeHttpHeader() {
+	public function doOpenidRedirectIfRequired() {
 		if (!isset($_GET['openid_mode'])) {
 			if (isset($_POST['openid_identifier'])) {
+				$isAuth = true;
 				$openid = new LightOpenID;
 				$openid->identity = $_POST['openid_identifier'];
 				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 				$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
-				if ($_REQUEST['merge']) {
-					$_SESSION['merge'] = true;
-				} else {
-					unset($_SESSION['merge']);
-				}
 				try {
 					header('Location: ' . $openid->authUrl());
-					return false;
 				} catch (ErrorException $e) {
 					$this->error = $e->getMessage();
 				}
 			}
+		}
+	}
+
+
+	/**
+	 * creates an AccountLink object based on the openid identification
+	 * 
+	 * @return AccountLink or <code>FALSE</code> if  the validation failed
+	 */
+	public function createAccountLink() {
+		$openid = new LightOpenID;
+		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+		$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
+		if (!$openid->validate()) {
+			return false;
+		}
+		$attributes = $openid->getAttributes();
+		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
+			$attributes['namePerson/friendly'], $attributes['contact/email'], $secret);
+		return $accountLink;
+	}
+
+	/**
+	 * handles a succesful openid authentication
+	 * 
+	 * @param AccountLink $accountLink the account link created for the login
+	 */
+	public function succesfulOpenidAuthWhileLoggedIn($accountLink) {
+		$oldAccount = $_SESSION['account'];
+		$newAccount = Account::tryLogin('openid', $accountLink->username, null);
+
+		if (!$newAccount || is_string($newAccount)) {
+			$accountLink->playerId = $oldAccount->id;
+			$accountLink->insert();
+		} else {
+			if ($oldAccount->username != $newAccount->username) {
+				mergeAccount($newAccount->username, $oldAccount->username);
+			}
+		}
+	}
+
+	public function succesfulOpenidAuthWhileNotLoggedIn($accountLink) {
+		unset($_SESSION['account']);
+		$account = Account::tryLogin('openid', $accountLink->username, null);
+
+		if (!$account || is_string($account)) {
+			$account = $accountLink->createAccount();
+		}
+		$_SESSION['account'] = $account;
+		$_SESSION['csrf'] = createRandomString();
+	}
+}
+
+class OpenidPage extends Page {
+	private $openid;
+
+	public function writeHttpHeader() {
+		if ($_REQUEST['merge']) {
+			$_SESSION['merge'] = true;
+		} else {
+			unset($_SESSION['merge']);
+		}
+		$this->openid = new OpenID();
+		$this->openid->doOpenidRedirectIfRequired();
+		if ($this->openid->isAuth && !$this->openid->error) {
+			return false;
 		}
 		return true;
 	}
@@ -50,9 +111,7 @@ class OpenidPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>Openid'.STENDHAL_TITLE.'</title>';
-		?><style type="text/css">
-
-	</style>
+		?>
 	<script src="/css/jquery-00000001.js" type="text/javascript"></script>
 	<script src="/css/openid-00000002.js" type="text/javascript"></script>
 		<?php 
@@ -107,8 +166,8 @@ class OpenidPage extends Page {
 
 <?php
 
-	if (isset($this->error)) {
-		echo '<div class="error">'.htmlspecialchars($this->error).'</div>';
+	if (isset($this->openid->error)) {
+		echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
 	}
 
 		endBox();
@@ -117,16 +176,16 @@ class OpenidPage extends Page {
 				echo 'OpenID-Authentication was canceled.';
 				endBox();
 			} else {
-				$accountLink = $this->createAccountLink();
+				$accountLink = $this->openid->createAccountLink();
 				if (!$accountLink) {
 					startBox('OpenID-Authentication');
 					echo 'OpenID-Authentication failed.';
 					endBox();
 				} else {
 					if (isset($_SESSION['account']) && isset($_SESSION['merge'])) {
-						$this->succesfulOpenidAuthWhileLoggedIn($accountLink);
+						$this->openid->succesfulOpenidAuthWhileLoggedIn($accountLink);
 					} else {
-						$this->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
+						$this->openid->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
 					}
 					$target = '/account/mycharacters.html';
 					$players = getCharactersForUsername($_SESSION['account']->username);
@@ -145,52 +204,5 @@ class OpenidPage extends Page {
 		}
 	}
 
-	/**
-	 * creates an AccountLink object based on the openid identification
-	 * 
-	 * @return AccountLink or <code>FALSE</code> if  the validation failed
-	 */
-	public function createAccountLink() {
-		$openid = new LightOpenID;
-		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-		$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
-		if (!$openid->validate()) {
-			return false;
-		}
-		$attributes = $openid->getAttributes();
-		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
-			$attributes['namePerson/friendly'], $attributes['contact/email'], $secret);
-		return $accountLink;
-	}
-
-	/**
-	 * handles a succesful openid authentication
-	 * 
-	 * @param AccountLink $accountLink the account link created for the login
-	 */
-	public function succesfulOpenidAuthWhileLoggedIn($accountLink) {
-		$oldAccount = $_SESSION['account'];
-		$newAccount = Account::tryLogin('openid', $accountLink->username, null);
-
-		if (!$newAccount || is_string($newAccount)) {
-			$accountLink->playerId = $oldAccount->id;
-			$accountLink->insert();
-		} else {
-			if ($oldAccount->username != $newAccount->username) {
-				mergeAccount($newAccount->username, $oldAccount->username);
-			}
-		}
-	}
-
-	public function succesfulOpenidAuthWhileNotLoggedIn($accountLink) {
-		unset($_SESSION['account']);
-		$account = Account::tryLogin('openid', $accountLink->username, null);
-
-		if (!$account || is_string($account)) {
-			$account = $accountLink->createAccount();
-		}
-		$_SESSION['account'] = $account;
-		$_SESSION['csrf'] = createRandomString();
-	}
 }
 $page = new OpenidPage();
