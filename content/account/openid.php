@@ -160,8 +160,12 @@ a.openid_large_btn:focus{
 					} else {
 						$this->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
 					}
-
-					echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL('/account/mycharacters.html'))."\">";
+					$target = '/account/mycharacters.html';
+					$players = getCharactersForUsername($_SESSION['account']->username);
+					if(sizeof($players)==0) {
+						$target = '/account/create-character.html';
+					}
+					echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL($target))."\">";
 					startBox("Login");
 					echo '<h1>Login correct.</h1> Please wait...';
 					endBox();
