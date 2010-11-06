@@ -58,7 +58,7 @@ class MyCharactersPage extends Page {
 			startBox("Note");
 			?>
 			<p>Starting the Stendhal client may take a minute. Please be patient after clicking on your character.</p>
-			<p>On the very first start additional Stendhal will need to download some additional files. Subsequent starts will be a lot faster.</p>
+			<p>On the very first start Stendhal will need to download some additional files. Subsequent starts will be a lot faster.</p>
 			<?php 
 			endBox();
 			startBox("Trouble Shooting");
