@@ -111,6 +111,7 @@ class LoginPage extends Page {
 			?>
 		</form>
 
+		<p style="padding-left:2em">New? <a href="<?php echo rewriteURL('/account/create-account.html')?>">Create account...</a></p>
 		<?php
 		endBox();
 
