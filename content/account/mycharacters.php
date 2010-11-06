@@ -61,6 +61,7 @@ class MyCharactersPage extends Page {
 			<p>On the very first start Stendhal will need to download some additional files. Subsequent starts will be a lot faster.</p>
 			<?php 
 			endBox();
+
 			startBox("Trouble Shooting");
 			?>
 			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
