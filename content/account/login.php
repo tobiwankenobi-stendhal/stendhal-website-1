@@ -1,16 +1,33 @@
 <?php
 
 require_once('scripts/account.php');
+require_once('content/account/openid.php');
 
 class LoginPage extends Page {
 	private $error;
-	
+	private $oprnid;
+
 	public function writeHttpHeader() {
 		if ($this->handleRedirectIfAlreadyLoggedIn()) {
 			return false;
 		}
 
-		return !$this->verifyLoginByPassword();
+		// redirect to openid provider?
+		$this->openid = new OpenID();
+		$this->openid->doOpenidRedirectIfRequired();
+		if ($this->openid->isAuth && !$this->openid->error) {
+			return false;
+		}
+
+		if ($this->verifyLoginByPassword()) {
+			return false;
+		}
+
+		if ($this->verifyLoginByOpenid()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public function verifyLoginByPassword() {
@@ -26,7 +43,6 @@ class LoginPage extends Page {
 		$username = trim($_POST['user']);
 		$password = trim($_POST['pass']);
 		$result = Account::tryLogin("password", $username, $password);
-
 		if (! ($result instanceof Account)) {
 			$this->error = $result;
 			return false;
@@ -35,6 +51,26 @@ class LoginPage extends Page {
 		/* Username and password correct, register session variables */
 		$_SESSION['account'] = $result;
 		$_SESSION['csrf'] = createRandomString();
+		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
+		return true;
+	}
+
+	public function verifyLoginByOpenid() {
+		if (!isset($_GET['openid_mode'])) {
+			return false;
+		}
+
+		if($_GET['openid_mode'] == 'cancel') {
+			$this->openid->error = 'OpenID-Authentication was canceled.';
+			return false;
+		}
+
+		$accountLink = $this->openid->createAccountLink();
+		if (!$accountLink) {
+			$this->openid->error = 'OpenID-Authentication failed.';
+			return false;
+		}
+		$this->openid->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
 		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
 		return true;
 	}
@@ -62,6 +98,10 @@ class LoginPage extends Page {
 		$url = $_REQUEST['url'];
 		if (!isset($url)) {
 			$url = rewriteURL('/account/mycharacters.html');
+			$players = getCharactersForUsername($_SESSION['account']->username);
+			if(sizeof($players)==0) {
+				$url = rewriteURL('/account/create-character.html');
+			}
 		}
 		if (strpos($url, '/') !== 0) {
 			$url = '/'.$url;
@@ -80,7 +120,7 @@ class LoginPage extends Page {
 		<div class="bubble">
 			Remember not to disclose your username or password to anyone, not even friends or administrators.<br>
 			Check that this webpage URL matches your game server name.
-		</div>
+		</div><br>
 
 		<?php
 		if ($this->error) {
@@ -93,22 +133,24 @@ class LoginPage extends Page {
 				<tr><td><label for="pass">Password:</label></td><td><input type="password" id="pass" name="pass" maxlength="30"></td></tr>
 				<tr><td colspan="2" align="right"><input type="submit" name="sublogin" value="Login"></td></tr>
 			</table>
-
 			<?php
 			if (isset($_REQUEST['url'])) {
 				echo '<input type="hidden" name="url" value="'.htmlspecialchars($_REQUEST['url']).'">';
 			}
 			?>
 		</form>
+		<br>
 
-		<p style="padding-left:2em">New? <b><a href="<?php echo rewriteURL('/account/create-account.html')?>">Create account...</a></b></p>
+		<p style="text-align: center">New? <b><a href="<?php echo rewriteURL('/account/create-account.html')?>">Create account...</a></b></p>
+		<br>
 		<?php
 		endBox();
 
 		if ($_REQUEST['test']) {
-			startBox("Open ID");
+			echo '<br>';
+			startBox("External Account");
 			?>
-				<form id="openid_form" action="<?php echo STENDHAL_FOLDER.'/index.php?id=content/account/openid'?>" method="post">
+				<form id="openid_form" action="" method="post">
 		<input id="oauth_version" name="oauth_version" type="hidden">
 		<input id="oauth_server" name="oauth_server" type="hidden">
 		<?php
@@ -122,7 +164,6 @@ class LoginPage extends Page {
 			<div id="openid_btns"></div>
 		</div>
 
-		<div id="openid_input_area"></div>
 		<div>
 			<noscript>
 				<p>OpenID is a service that allows you to log on to many different websites using a single identity.</p>
@@ -151,8 +192,8 @@ class LoginPage extends Page {
 
 <?php
 
-	if (isset($this->error)) {
-		echo '<div class="error">'.htmlspecialchars($this->error).'</div>';
+	if (isset($this->openid->error)) {
+		echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
 	}
 
 		endBox();

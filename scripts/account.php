@@ -552,7 +552,6 @@ class Account {
 		}
 
 		mysql_free_result($result);
-		return $res;
 	}
 
 	/**
