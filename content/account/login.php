@@ -12,6 +12,14 @@ class LoginPage extends Page {
 			return false;
 		}
 
+		// force SSL if supported
+		if (strpos(STENDHAL_LOGIN_TARGET, 'https://') !== false) {
+			if (!isset($_SERVER['HTTPS']) || ($_SERVER['HTTPS'] != "on")) {
+				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/login.html'));
+				return false;
+			}
+		}
+
 		// redirect to openid provider?
 		$this->openid = new OpenID();
 		$this->openid->doOpenidRedirectIfRequired();
