@@ -169,8 +169,6 @@ class LoginPage extends Page {
 				<p>OpenID is a service that allows you to log on to many different websites using a single identity.</p>
 			</noscript>
 		</div>
-
-		<p>Or, you can manually enter your OpenID</p>
 		<table id="openid-url-input">
 		<tbody><tr>
 			<td class="vt large">
