@@ -153,7 +153,8 @@ class CreateCharacterPage extends Page {
 		echo 'value="'.htmlspecialchars($_REQUEST['name']).'"';
 	} else {
 		$username = Account::convertToValidUsername($_SESSION['account']->username);
-		if (!doesCharacterExist($username)) {
+		// don't suggest charnames based on the long ugly openid identifiers of google and yahoo
+		if (strlen($username) < 20 && !doesCharacterExist($username)) {
 			echo 'value="'.htmlspecialchars($username).'"';
 		}
 	}
