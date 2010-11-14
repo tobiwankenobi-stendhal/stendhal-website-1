@@ -93,7 +93,7 @@ class CreateAccountPage extends Page {
 <table>
 <tr>
 <td><label for="name">Name:<sup>*</sup> </label></td>
-<td><input id="name" name="name" type="text" maxlength="20" onchange="nameChanged(this)" onkeyup="nameChanged(this)" onblur="blurName(this)"></td>
+<td><input id="name" name="name" value="<?php echo htmlspecialchars($_REQUEST['name']);?>" type="text" maxlength="20" onchange="nameChanged(this)" onkeyup="nameChanged(this)" onblur="blurName(this)"></td>
 <td><div id="namewarn" class="warn"></div></td>
 </tr>
 
@@ -111,7 +111,7 @@ class CreateAccountPage extends Page {
 
 <tr>
 <td><label for="email">E-Mail: </label></td>
-<td><input id="email" name="email" type="text" maxlength="50"></td>
+<td><input id="email" name="email" value="<?php echo htmlspecialchars($_REQUEST['email']);?>" type="text" maxlength="50"></td>
 <td><div id="emailwarn" class="warn"></div></td>
 </tr>
 </table>
