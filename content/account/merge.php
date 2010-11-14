@@ -1,7 +1,47 @@
 <?php
+/*
+ Stendhal website - a website to manage and ease playing of Stendhal game
+ Copyright (C) 2008-2010 The Arianne Project
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 require_once('scripts/account.php');
+require_once('content/account/openid.php');
 
 class AccountMerge extends Page {
+	private $error;
+	private $openid;
+
+	public function writeHttpHeader() {
+		// force SSL if supported
+		if (strpos(STENDHAL_LOGIN_TARGET, 'https://') !== false) {
+			if (!isset($_SERVER['HTTPS']) || ($_SERVER['HTTPS'] != "on")) {
+				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/merge.html'));
+				return false;
+			}
+		}
+
+		// redirect to openid provider?
+		$this->openid = new OpenID();
+		$this->openid->doOpenidRedirectIfRequired();
+		if ($this->openid->isAuth && !$this->openid->error) {
+			return false;
+		}
+
+		return true;
+	}
 
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
@@ -87,7 +127,7 @@ class AccountMerge extends Page {
 	}
 
 	function displayForm() {
-		startBox("Account to merge in"); ?>
+		startBox("Account to merge"); ?>
 		<p>You are currently logged into the account <b><?php echo htmlspecialchars($_SESSION['account']->username) ?></b>.</p>
 
 		<form action="" method="post">
@@ -102,7 +142,55 @@ class AccountMerge extends Page {
 		</form>
 
 		<?php endBox();
-		
+
+			if ($_REQUEST['test']) {
+			echo '<br>';
+			startBox("External Account");
+			?>
+				<form id="openid_form" action="" method="post">
+		<input id="oauth_version" name="oauth_version" type="hidden">
+		<input id="oauth_server" name="oauth_server" type="hidden">
+
+		<div id="openid_choice">
+			<p>Do you already have an account on one of these sites?</p>
+			<div id="openid_btns"></div>
+		</div>
+
+		<div>
+			<noscript>
+				<p>OpenID is a service that allows you to log on to many different websites using a single identity.</p>
+			</noscript>
+		</div>
+		<table id="openid-url-input">
+		<tbody><tr>
+			<td class="vt large">
+				<input id="openid_identifier" name="openid_identifier" class="openid-identifier" style="height: 28px; width: 450px;" tabindex="100" type="text">
+			</td>
+
+			<td class="vt large">
+				<input id="submit-button" style="margin-left: 5px; height: 36px;" value="Log in" tabindex="101" type="submit">
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		<input type="hidden" id="merge" name="merge" value="true">
+	</form>
+
+	<script type="text/javascript">
+		$().ready(function() {
+			openid.init('openid_identifier');
+		});
+	</script>
+
+<?php
+
+	if (isset($this->openid->error)) {
+		echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
+	}
+
+		endBox();
+		}
+
 	}
 }
 $page = new AccountMerge();
