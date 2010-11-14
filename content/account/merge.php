@@ -40,8 +40,52 @@ class AccountMerge extends Page {
 			return false;
 		}
 
+		if ($this->processMerge()) {
+			header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));
+			return false;
+		}
 		return true;
 	}
+
+
+	function processMerge() {
+		if (! isset($_POST['submerge'])) {
+			return false;
+		}
+
+		if ($_SESSION['account']->username == trim($_POST['user'])) {
+			$this->error = 'You need to enter the username and password of another account you own.';
+			return false;
+		}
+
+		if (!isset($_POST['confirm'])) {
+			$this->error = 'You need to tick the confirm-checkbox.';
+			return false;
+		}
+
+		if ($_POST['csrf'] != $_SESSION['csrf']) {
+			$this->error = 'Session information was lost.';
+			return false;
+		}
+
+		$result = Account::tryLogin("password", $_POST['user'], $_POST['pass']);
+
+		if (! ($result instanceof Account)) {
+			$this->error = htmlspecialchars($result);
+			return false;
+		}
+
+		if ($_SESSION['account']->password) {
+			mergeAccount($_POST['user'], $_SESSION['account']->username);
+		} else {
+			$oldUsername = $_SESSION['account']->username;
+			mergeAccount($oldUsername, $_POST['user']);
+			$_SESSION['account'] = Account::readAccountByName($_POST['user']);
+		}
+
+		return true;
+	}
+
 
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
@@ -60,7 +104,7 @@ class AccountMerge extends Page {
 
 	function process() {
 		$this->displayHelp();
-		$this->processMerge();
+		$this->displayMerge();
 		$this->displayForm();
 	}
 
@@ -79,52 +123,18 @@ class AccountMerge extends Page {
 		<?php endBox();
 	}
 
-	function processMerge() {
+	function displayMerge() {
 		if (! isset($_POST['submerge'])) {
 			return;
 		}
 
-		startBox("Result");
-		if ($_SESSION['account']->username == trim($_POST['user'])) {
-			echo '<p class="error">You need to enter the username and password of another account you own.</p>';
+		if ($this->error) {
+			startBox("Result");
+			echo '<p class="error">'.htmlspecialchars($this->error).'</p>';
 			endBox();
-			return;
 		}
-
-		if (!isset($_POST['confirm'])) {
-			echo '<p class="error">You need to tick the confirm-checkbox.</p>';
-			endBox();
-			return;
-		}
-
-		if ($_POST['csrf'] != $_SESSION['csrf']) {
-			echo '<p class="error">Session information was lost.</p>';
-			endBox();
-			return;
-		}
-
-		$result = Account::tryLogin("password", $_POST['user'], $_POST['pass']);
-
-		if (! ($result instanceof Account)) {
-			echo '<span class="error">'.htmlspecialchars($result).'</span>';
-			endBox();
-			return;
-		}
-
-		if ($_SESSION['account']->password) {
-			mergeAccount($_POST['user'], $_SESSION['account']->username);
-			echo '<p class="success">Your old account <i>'.htmlspecialchars($_POST['user'])
-				.'</i> was integrated into your account <i>'.htmlspecialchars($_SESSION['account']->username).'</i>.</p>';
-		} else {
-			$oldUsername = $_SESSION['account']->username;
-			mergeAccount($oldUsername, $_POST['user']);
-			$_SESSION['account'] = Account::readAccountByName($_POST['user']);
-			echo '<p class="success">Your accounts <i>'.htmlspecialchars($_POST['user'])
-				.'</i> and <i>'.htmlspecialchars($oldUsername)
-				.'</i> have been merged.</p>';
-		}
-		endBox();
 	}
+
 
 	function displayForm() {
 		startBox("Account to merge"); ?>
