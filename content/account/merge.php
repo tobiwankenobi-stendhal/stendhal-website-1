@@ -146,12 +146,7 @@ class AccountMerge extends Page {
 		<p>With the form below you can merge your other accounts. &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
 		(<a href="https://stendhalgame.org/wiki/Stendhal_Account_Merging">Help</a>)</p>
 		<p>This means that all characters previously associated with the other 
-		account will be available in this account.
-		<?php
-		if ($_SESSION['account']->password) {
-			echo 'The other account will be disabled.';
-		}?>
-		</p>
+		account will be available in this account.</p>
 		<p class="warn">Merging accounts cannot be undone.</p>
 		<?php endBox();
 	}
@@ -189,7 +184,7 @@ class AccountMerge extends Page {
 		<input id="oauth_server" name="oauth_server" type="hidden">
 
 		<div id="openid_choice">
-			<p>Do you already have an account on one of these sites?</p>
+			<p>You can add external identities to your account.</p>
 			<div id="openid_btns"></div>
 		</div>
 
