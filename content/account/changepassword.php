@@ -113,18 +113,50 @@ if (!$_SESSION['account']->password) {
 }
 ?>
 
-<form action="" method="post">
+<form action="" method="post" onsubmit="return checkForm()">
 <table>
   <tr><td>Account name:</td><td><?php echo htmlspecialchars($_SESSION['account']->username);?></td></tr>
   <?php if ($_SESSION['account']->password) {?>
-  <tr><td>Old Password:</td><td><input type="password" name="pass" maxlength="30"></td></tr>
+  <tr><td>Old Password:</td><td><input type="password" id="pass" name="pass" maxlength="30"></td></tr>
   <?php }?>
-  <tr><td>New Password:</td><td><input type="password" name="newpass" maxlength="30"></td></tr>
-  <tr><td>Retype new Password:</td><td><input type="password" name="newpass_retype" maxlength="30"></td></tr>
+  <tr><td>New Password:</td><td><input type="password" id="newpass" name="newpass" maxlength="30"></td></tr>
+  <tr><td>Retype new Password:</td><td><input type="password" id="newpass_retype" name="newpass_retype" maxlength="30"></td></tr>
   <tr><td colspan="2" align="right"><input type="submit" name="sublogin" value="Change Password"></td></tr>
 </table>
 </form>
 
+<script type="text/javascript">
+function checkForm() {
+	var old = document.getElementById("pass");
+	if ((old != null) && (old.value.length < 1)) {
+		old.focus();
+		alert("Please enter your old password.");
+		return false;
+	}
+
+	var pw = document.getElementById("newpass");
+	if (pw.value.length < 6) {
+		pw.focus();
+		alert("Your new password needs to be at least 6 letters long.");
+		return false;
+	}
+
+	if (pw.value == "<?php echo htmlspecialchars($_SESSION['account']->username);?>") {
+		pw.focus();
+		alert("Your password must not be your username.");
+		return false;
+	}
+
+	var pr = document.getElementById("newpass_retype");
+	if (pw.value != pr.value) {
+		pw.focus();
+		alert("Your password and repetition do not match.");
+		return false;
+	}
+
+	return true;
+}
+</script>
 <?php
 endBox();
 
