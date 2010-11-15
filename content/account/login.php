@@ -199,6 +199,11 @@ class LoginPage extends Page {
 			</td>
 		</tr></tbody>
 		</table>
+		<?php 
+		if (isset($_REQUEST['url'])) {
+			echo '<input type="hidden" name="url" value="'.htmlspecialchars($_REQUEST['url']).'">';
+		}
+		?>
 	</form>
 
 	<script type="text/javascript">

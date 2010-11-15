@@ -31,7 +31,7 @@ class OpenID {
 				$openid->identity = $_POST['openid_identifier'];
 				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-				$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
+				$openid->returnUrl = $this->createReturnUrl();
 				try {
 					header('Location: ' . $openid->authUrl());
 				} catch (ErrorException $e) {
@@ -41,6 +41,16 @@ class OpenID {
 		}
 	}
 
+	/**
+	 * creates the return url
+	 */
+	private function createReturnUrl() {
+		$res = $_SERVER['SCRIPT_URI'].'?id='.urlencode($_REQUEST['id']);
+		if ($_REQUEST['url']) {
+			$res .= '&url='.urlencode($_REQUEST['url']);
+		}
+		return $res;
+	}
 
 	/**
 	 * creates an AccountLink object based on the openid identification
@@ -50,10 +60,14 @@ class OpenID {
 	public function createAccountLink() {
 		$openid = new LightOpenID;
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-		$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
-		if (!$openid->validate()) {
-			$this-$openid->error = 'Open ID validation failed.';
-			return false;
+		$openid->returnUrl = $this->createReturnUrl();
+		try {
+			if (!$openid->validate()) {
+				$this-$openid->error = 'Open ID validation failed.';
+				return false;
+			}
+		} catch (Exception $e) {
+			$this->openid->error = $e->getMessage();
 		}
 		$attributes = $openid->getAttributes();
 		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
