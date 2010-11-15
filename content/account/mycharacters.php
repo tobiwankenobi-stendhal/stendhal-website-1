@@ -66,7 +66,7 @@ class MyCharactersPage extends Page {
 			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
 			If the application is unknown, please download and install <a href="http://java.com">Java</a>.</p>
 
-			<p>If you have trouble to join the game, please ask in the <a href="/chat/">#arianne-chat</a> or create a 
+			<p>If you have trouble to join the game, please ask in the <a href="/chat/">#arianne</a> chat or create a 
 			<a href="https://sourceforge.net/tracker/?group_id=1111&amp;atid=201111">support ticket</a>.</p>
 			<?php
 			endBox();
