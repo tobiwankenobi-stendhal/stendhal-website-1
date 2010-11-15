@@ -20,7 +20,10 @@ function validateParameters() {
 			return 'You didn\'t enter your old password.';
 		}
 	}
-	
+
+	if($_SESSION['account']->username == $_POST['newpass']) {
+		return 'You cannot use your username as password.';
+	}
 
 	if($_POST['newpass']!=$_POST['newpass_retype']) {
 		return 'Password incorrectly typed.';
@@ -54,10 +57,9 @@ function changePassword() {
 		die('Problem updating database');
 	}
 
-	/* Username and password correct, register session variables */
-	$_POST['user'] = $username;
+	// reread the accoutn form the database, so that it is not flagged as passwordless account anymore.
+	$_SESSION['account'] = Account::readAccountByName($_SESSION['account']->username);
 
-	echo "<meta http-equiv=\"Refresh\" content=\"5;url=?\">";
 	startBox("Password Change");
 		echo '<h1>Your password has been changed successfully.</h1> <h4>Remember to update and re-save any login profile you may have stored.</h4> Moving to main page.';
 	endBox();
