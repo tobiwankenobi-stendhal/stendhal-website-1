@@ -200,6 +200,13 @@ function checkForm() {
 		return false;
 	}
 
+	var pw = document.getElementById("pw");
+	if (name.value = pw.value) {
+		pw.focus();
+		alert("Your password must not be your username.");
+		return false;
+	}
+
 	var pr = document.getElementById("pr");
 	if (pw.value != pr.value) {
 		pw.focus();
