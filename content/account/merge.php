@@ -33,6 +33,10 @@ class AccountMerge extends Page {
 			}
 		}
 
+		if ($_POST['merge']) {
+			$_SESSION['merge'] = $_POST['merge'];
+		}
+
 		// redirect to openid provider?
 		$this->openid = new OpenID();
 		$this->openid->doOpenidRedirectIfRequired();
@@ -49,47 +53,78 @@ class AccountMerge extends Page {
 
 
 	function processMerge() {
-		if (! isset($_POST['submerge'])) {
-			return false;
+
+		if ($_POST['pass']) {
+			if (! isset($_POST['submerge'])) {
+				return false;
+			}
+
+			if ($_SESSION['account']->username == trim($_POST['user'])) {
+				$this->error = 'You need to enter the username and password of another account you own.';
+				return false;
+			}
+
+			if (!isset($_POST['confirm'])) {
+				$this->error = 'You need to tick the confirm-checkbox.';
+				return false;
+			}
+
+			if ($_POST['csrf'] != $_SESSION['csrf']) {
+				$this->error = 'Session information was lost.';
+				return false;
+			}
+	
+			$result = Account::tryLogin("password", $_POST['user'], $_POST['pass']);
+	
+			if (! ($result instanceof Account)) {
+				$this->error = htmlspecialchars($result);
+				return false;
+			}
+
+			if ($_SESSION['account']->password) {
+				mergeAccount($_POST['user'], $_SESSION['account']->username);
+			} else {
+				$oldUsername = $_SESSION['account']->username;
+				mergeAccount($oldUsername, $_POST['user']);
+				$_SESSION['account'] = Account::readAccountByName($_POST['user']);
+			}
+
+			return true;
+
+		} else if (isset($_GET['openid_mode'])) {
+
+			if($_GET['openid_mode'] == 'cancel') {
+				$this->error = 'OpenID-Authentication was canceled.';
+				return false;
+			}
+
+			if ($_SESSION['merge'] != $_SESSION['csrf']) {
+				$this->error = 'Session information was lost.';
+				return false;
+			}
+			unset($_SESSION['merge']);
+
+			$accountLink = $this->openid->createAccountLink();
+			if (!$accountLink) {
+				$this->error = $this->openid->error;
+				return false;
+			}
+
+			$this->openid->merge($accountLink);
+			return true;
 		}
-
-		if ($_SESSION['account']->username == trim($_POST['user'])) {
-			$this->error = 'You need to enter the username and password of another account you own.';
-			return false;
-		}
-
-		if (!isset($_POST['confirm'])) {
-			$this->error = 'You need to tick the confirm-checkbox.';
-			return false;
-		}
-
-		if ($_POST['csrf'] != $_SESSION['csrf']) {
-			$this->error = 'Session information was lost.';
-			return false;
-		}
-
-		$result = Account::tryLogin("password", $_POST['user'], $_POST['pass']);
-
-		if (! ($result instanceof Account)) {
-			$this->error = htmlspecialchars($result);
-			return false;
-		}
-
-		if ($_SESSION['account']->password) {
-			mergeAccount($_POST['user'], $_SESSION['account']->username);
-		} else {
-			$oldUsername = $_SESSION['account']->username;
-			mergeAccount($oldUsername, $_POST['user']);
-			$_SESSION['account'] = Account::readAccountByName($_POST['user']);
-		}
-
-		return true;
+		
+		return false;
 	}
 
 
 	public function writeHtmlHeader() {
+						var_dump($_SESSION);
+		
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>Account Merging'.STENDHAL_TITLE.'</title>';
+		echo '<script src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js" type="text/javascript"></script>';
+		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000002.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {
@@ -104,7 +139,7 @@ class AccountMerge extends Page {
 
 	function process() {
 		$this->displayHelp();
-		$this->displayMerge();
+		$this->displayMergeError();
 		$this->displayForm();
 	}
 
@@ -123,11 +158,7 @@ class AccountMerge extends Page {
 		<?php endBox();
 	}
 
-	function displayMerge() {
-		if (! isset($_POST['submerge'])) {
-			return;
-		}
-
+	function displayMergeError() {
 		if ($this->error) {
 			startBox("Result");
 			echo '<p class="error">'.htmlspecialchars($this->error).'</p>';
@@ -153,11 +184,9 @@ class AccountMerge extends Page {
 
 		<?php endBox();
 
-			if ($_REQUEST['test']) {
-			echo '<br>';
 			startBox("External Account");
 			?>
-				<form id="openid_form" action="" method="post">
+				<form id="openid_form" action="<?php echo STENDHAL_FOLDER;?>/?id=content/account/merge" method="post">
 		<input id="oauth_version" name="oauth_version" type="hidden">
 		<input id="oauth_server" name="oauth_server" type="hidden">
 
@@ -178,12 +207,12 @@ class AccountMerge extends Page {
 			</td>
 
 			<td class="vt large">
-				<input id="submit-button" style="margin-left: 5px; height: 36px;" value="Log in" tabindex="101" type="submit">
+				<input id="submit-button" style="margin-left: 5px; height: 36px;" value="Merge" tabindex="101" type="submit">
 			</td>
 		</tr>
 		</tbody>
 		</table>
-		<input type="hidden" id="merge" name="merge" value="true">
+		<input type="hidden" id="merge" name="merge" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 	</form>
 
 	<script type="text/javascript">
@@ -200,8 +229,6 @@ class AccountMerge extends Page {
 
 		endBox();
 		}
-
-	}
 }
 $page = new AccountMerge();
 ?>

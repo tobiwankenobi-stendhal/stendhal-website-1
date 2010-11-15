@@ -171,18 +171,12 @@ class LoginPage extends Page {
 		<?php
 		endBox();
 
-		if ($_REQUEST['test']) {
 			echo '<br>';
 			startBox("External Account");
 			?>
-				<form id="openid_form" action="" method="post">
+				<form id="openid_form" action="<?php echo STENDHAL_FOLDER;?>/?id=content/account/login" method="post">
 		<input id="oauth_version" name="oauth_version" type="hidden">
 		<input id="oauth_server" name="oauth_server" type="hidden">
-		<?php
-		if ($_REQUEST['merge']) {
-			echo '<input id="merge" name="merge" type="hidden" value="true">';
-		}
-		?>
 
 		<div id="openid_choice">
 			<p>Do you already have an account on one of these sites?</p>
@@ -220,7 +214,6 @@ class LoginPage extends Page {
 	}
 
 		endBox();
-		}
 	}
 }
 $page = new LoginPage();

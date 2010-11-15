@@ -52,6 +52,7 @@ class OpenID {
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 		$openid->returnUrl = $_SERVER['SCRIPT_URI'].'?id='.$_REQUEST['id'];
 		if (!$openid->validate()) {
+			$this-$openid->error = 'Open ID validation failed.';
 			return false;
 		}
 		$attributes = $openid->getAttributes();
@@ -60,14 +61,15 @@ class OpenID {
 		return $accountLink;
 	}
 
+
 	/**
 	 * handles a succesful openid authentication
 	 * 
 	 * @param AccountLink $accountLink the account link created for the login
 	 */
-	public function succesfulOpenidAuthWhileLoggedIn($accountLink) {
+	public function merge($accountLink) {
 		$oldAccount = $_SESSION['account'];
-		$newAccount = Account::tryLogin('openid', $accountLink->username, null);
+		$newAccount = Account::readAccountByLink('openid', $accountLink->username, null);
 
 		if (!$newAccount || is_string($newAccount)) {
 			$accountLink->playerId = $oldAccount->id;
@@ -91,118 +93,3 @@ class OpenID {
 	}
 }
 
-class OpenidPage extends Page {
-	private $openid;
-
-	public function writeHttpHeader() {
-		if ($_REQUEST['merge']) {
-			$_SESSION['merge'] = true;
-		} else {
-			unset($_SESSION['merge']);
-		}
-		$this->openid = new OpenID();
-		$this->openid->doOpenidRedirectIfRequired();
-		if ($this->openid->isAuth && !$this->openid->error) {
-			return false;
-		}
-		return true;
-	}
-
-	public function writeHtmlHeader() {
-		echo '<meta name="robots" content="noindex">'."\n";
-		echo '<title>Openid'.STENDHAL_TITLE.'</title>';
-		?>
-	<script src="/css/jquery-00000001.js" type="text/javascript"></script>
-	<script src="/css/openid-00000002.js" type="text/javascript"></script>
-		<?php 
-	}
-
-	function writeContent() {
-		try {
-			if (!isset($_GET['openid_mode'])) {
-				startBox("Open ID");
-?>
-
-	<form id="openid_form" action="" method="post">
-		<input id="oauth_version" name="oauth_version" type="hidden">
-		<input id="oauth_server" name="oauth_server" type="hidden">
-		<?php
-		if ($_REQUEST['merge']) {
-			echo '<input id="merge" name="merge" type="hidden" value="true">';
-		}
-		?>
-
-		<div id="openid_choice">
-			<p>Do you already have an account on one of these sites?</p>
-			<div id="openid_btns"></div>
-		</div>
-
-		<div id="openid_input_area"></div>
-		<div>
-			<noscript>
-				<p>OpenID is a service that allows you to log on to many different websites using a single identity.</p>
-			</noscript>
-		</div>
-
-		<p>Or, you can manually enter your OpenID</p>
-		<table id="openid-url-input">
-		<tbody><tr>
-			<td class="vt large">
-				<input id="openid_identifier" name="openid_identifier" class="openid-identifier" style="height: 28px; width: 450px;" tabindex="100" type="text">
-			</td>
-
-			<td class="vt large">
-				<input id="submit-button" style="margin-left: 5px; height: 36px;" value="Log in" tabindex="101" type="submit">
-			</td>
-		</tr></tbody>
-		</table>
-	</form>
-
-	<script type="text/javascript">
-		$().ready(function() {
-			openid.init('openid_identifier');
-		});
-	</script>
-
-<?php
-
-	if (isset($this->openid->error)) {
-		echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
-	}
-
-		endBox();
-			} elseif($_GET['openid_mode'] == 'cancel') {
-				startBox('OpenID-Authentication');
-				echo 'OpenID-Authentication was canceled.';
-				endBox();
-			} else {
-				$accountLink = $this->openid->createAccountLink();
-				if (!$accountLink) {
-					startBox('OpenID-Authentication');
-					echo 'OpenID-Authentication failed.';
-					endBox();
-				} else {
-					if (isset($_SESSION['account']) && isset($_SESSION['merge'])) {
-						$this->openid->succesfulOpenidAuthWhileLoggedIn($accountLink);
-					} else {
-						$this->openid->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
-					}
-					$target = '/account/mycharacters.html';
-					$players = getCharactersForUsername($_SESSION['account']->username);
-					if(sizeof($players)==0) {
-						$target = '/account/create-character.html';
-					}
-					echo "<meta http-equiv=\"Refresh\" content=\"1;url=".htmlspecialchars(rewriteURL($target))."\">";
-					startBox("Login");
-					echo '<h1>Login correct.</h1> Please wait...';
-					endBox();
-
-				}
-			}
-		} catch(ErrorException $e) {
-			echo htmlspecialchars($e->getMessage());
-		}
-	}
-
-}
-$page = new OpenidPage();
