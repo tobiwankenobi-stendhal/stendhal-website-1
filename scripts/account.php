@@ -485,7 +485,7 @@ class Account {
 	 * @param string $username identifier (e. g. openid url)
 	 * @param string $password an optional secret
 	 */
-	private static function readAccountByLink($type, $username, $password) {
+	public static function readAccountByLink($type, $username, $password) {
 		$sql = "SELECT account.id As id, account.username As username, "
 		. " account.password As password, account.email As email, "
 		. " account.timedate As timedate, account.status As status, "
