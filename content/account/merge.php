@@ -119,8 +119,6 @@ class AccountMerge extends Page {
 
 
 	public function writeHtmlHeader() {
-						var_dump($_SESSION);
-		
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>Account Merging'.STENDHAL_TITLE.'</title>';
 		echo '<script src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js" type="text/javascript"></script>';
