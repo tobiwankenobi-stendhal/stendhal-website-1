@@ -19,19 +19,32 @@
 
 class MyCharactersPage extends Page {
 
+	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	public function writeHttpHeader() {
+		if (strpos(STENDHAL_LOGIN_TARGET, 'https://') !== false) {
+			if (!isset($_SERVER['HTTPS']) || ($_SERVER['HTTPS'] != "on")) {
+				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacter.html'));
+				return false;
+			}
+		}
+		if (!isset($_SESSION['account'])) {
+			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url='.rewriteURL('/account/mycharacters.html'));
+			return false;
+		}
+
+		return true;
+	}
+
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>My Characters'.STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
-		if(!isset($_SESSION['account'])) {
-			startBox("Login Required");
-			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/mycharacters.html').'">login</a> to see a list of your characters.</p>';
-			endBox();
-			return;
-		}
-		
 		startBox("Character Selector");
 
 		$players = getCharactersForUsername($_SESSION['account']->username);
