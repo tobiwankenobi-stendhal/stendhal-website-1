@@ -201,7 +201,7 @@ function checkForm() {
 	}
 
 	var pw = document.getElementById("pw");
-	if (name.value = pw.value) {
+	if (name.value == pw.value) {
 		pw.focus();
 		alert("Your password must not be your username.");
 		return false;
