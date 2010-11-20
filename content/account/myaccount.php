@@ -68,5 +68,3 @@ startBox("My Account"); ?>
 	}
 }
 $page = new MyAccountPage();
-?>
-

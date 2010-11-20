@@ -27,7 +27,7 @@ class MyCharactersPage extends Page {
 	public function writeHttpHeader() {
 		if (strpos(STENDHAL_LOGIN_TARGET, 'https://') !== false) {
 			if (!isset($_SERVER['HTTPS']) || ($_SERVER['HTTPS'] != "on")) {
-				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacter.html'));
+				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));
 				return false;
 			}
 		}
@@ -87,4 +87,3 @@ class MyCharactersPage extends Page {
 	}
 }
 $page = new MyCharactersPage();
-?>
