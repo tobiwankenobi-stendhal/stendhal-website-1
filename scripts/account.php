@@ -277,6 +277,8 @@ class PlayerLoginEntry {
  * A class that represents a StoredMessage
  */
 class StoredMessage {
+	/* id */
+	public $id;
 	/* source of message (who sent it) */
 	public $source;
 	/* target of message (who it was sent to) */
@@ -290,7 +292,8 @@ class StoredMessage {
 	/* whether it was delivered */
 	public $delivered;
 
-	function __construct($source, $target, $timedate, $message, $messageType, $delivered) {
+	function __construct($id, $source, $target, $timedate, $message, $messageType, $delivered) {
+		$this->id = $id;
 		$this->source = $source;
 		$this->target = $target;
 		$this->timedate = $timedate;
@@ -322,7 +325,7 @@ class StoredMessage {
 	 * gets a list of recent messages for that player
 	 */
 	public static function getStoredMessages($playerId, $where) {
-		$sql = "SELECT postman.source, postman.target, postman.timedate, postman.message, postman.messageType, postman.delivered "
+		$sql = "SELECT postman.id, postman.source, postman.target, postman.timedate, postman.message, postman.messageType, postman.delivered "
 		. " FROM postman , characters "
 		. " WHERE " . $where
 		. " AND  characters.player_id=".mysql_real_escape_string($playerId)
@@ -333,7 +336,7 @@ class StoredMessage {
 		$list=array();
 
 		while($row = mysql_fetch_assoc($result)) {
-			$list[] = new StoredMessage($row['source'], $row['target'], $row['timedate'],
+			$list[] = new StoredMessage($row['id'], $row['source'], $row['target'], $row['timedate'],
 			$row['message'], $row['messageType'], $row['delivered']);
 		}
 
