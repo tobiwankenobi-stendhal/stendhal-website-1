@@ -35,6 +35,7 @@ class MessagesPage extends Page {
 			endBox();
 		} else {
 			$this->writeTabs();
+			$this->deleteMessagesIfRequested();
 			$this->printStoredMessages();
 			$this->closeTabs();
 		}
@@ -90,7 +91,37 @@ class MessagesPage extends Page {
 			return 'backgroundTab';
 		}
 	}
-	
+
+	function deleteMessagesIfRequested() {
+		if (!$_POST['csrf']) {
+			return;
+		}
+		if (($_POST['csrf'] != $_SESSION['csrf'])) {
+			startBox("Error");
+			echo '<p class="error">Session information was lost.</p>';
+			endBox();
+			return;
+		}
+
+		// extract id list
+		$ids = '';
+		foreach ($_POST as $key => $value) {
+			if (substr($key, 0, 3) == 'id_') {
+				$ids .= "'".mysql_real_escape_string(substr($key, 3)). "', ";
+			}
+		}
+		if (strlen($ids) > 4) {
+			$ids = substr($ids, 0, -2);
+		}
+
+		// execute it
+		if ($this->filter=="from-me") {
+			StoredMessage::deleteSentMessages($_SESSION['account']->id, $ids);
+		} else {
+			StoredMessage::deleteReceivedMessages($_SESSION['account']->id, $ids);
+		}
+	}
+
 	function printStoredMessages() {
 		$playerId = $_SESSION['account']->id;
 		$messages = StoredMessage::getStoredMessages($playerId, $this->filterWhere);
@@ -105,13 +136,16 @@ class MessagesPage extends Page {
 		}
 		echo '<p>This is a list of the recent messages'.$which.'your characters.';
 
-		echo '<table class="prettytable"><tr><th>from</th><th>to</th><th>server time</th><th>message</th></tr>';
+		echo '<form name="messages" id="messages" method="POST" action="'.rewriteURL('/account/messages/'.surlencode($this->filter).'.html').'">';
+		echo '<input type="hidden" name="csrf" value="'.htmlspecialchars($_SESSION['csrf']).'">';
+		echo '<table class="prettytable"><tr><th>mark</th><th>from</th><th>to</th><th>server time</th><th>message</th></tr>'."\n";
 		foreach ($messages as $entry) {
 			if ($this->filter!="from-me" && $entry->delivered == 0) {
 			echo '<tr style="font-weight:bold;">';
 			} else {
 				echo '<tr>';
 			}
+			echo '<td><input type="checkbox" name="id_'.htmlspecialchars($entry->id).'"></td>';
 			if ($entry->messageType == 'P') {
 				echo '<td><a href="'.rewriteURL('/character/'.surlencode($entry->source).'.html').'">'.htmlspecialchars($entry->source).'</a>';
 			} else if ($entry->messageType == 'S') {
@@ -128,10 +162,12 @@ class MessagesPage extends Page {
 				echo '</td><td>'.htmlspecialchars($entry->timedate);
 			}
 			echo '</td><td>'.htmlspecialchars($entry->message)
-					.'</td></tr>';
+					.'</td></tr>'."\n";
 
 		}
 		echo '</table>';
+		echo '<input type="submit" value="Delete marked messages">';
+		echo '</form>';
 		endBox(); 
 
 	}

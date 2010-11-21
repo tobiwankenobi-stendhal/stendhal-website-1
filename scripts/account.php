@@ -351,11 +351,12 @@ class StoredMessage {
 	 * @param $ids id of messages to delete (need to be sql escaped)
 	 */
 	public static function deleteSentMessages($playerId, $ids) {
-		$sql = "DELETE FROM postman USING characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.name=postman.source AND (postman.deleted='R' OR postman.messagetype='N') AND postman.id IN (".$id.")";
+		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.charname=postman.source AND (postman.deleted='R' OR postman.messagetype='N') AND postman.id IN (".$ids.")";
 		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
-		$sql = "UPDATE postman USING characters SET deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.name=postman.source AND postman.id IN (".$id.")";
+
+		$sql = "UPDATE postman, characters SET postman.deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.charname=postman.source AND postman.id IN (".$ids.")";
 		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
 	}
 
@@ -367,11 +368,12 @@ class StoredMessage {
 	 * @param $ids id of messages to delete (need to be sql escaped)
 	 */
 		public static function deleteReceivedMessages($playerId, $ids) {
-		$sql = "DELETE FROM postman USING characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.name=postman.target AND postman.deleted='S' AND postman.id IN (".$id.")";
+		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.charname=postman.target AND postman.deleted='S' AND postman.id IN (".$ids.")";
 		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
-		$sql = "UPDATE postman USING characters SET deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.name=postman.target AND postman.id IN (".$id.")";
+
+		$sql = "UPDATE postman, characters SET postman.deleted='R' WHERE characters.player_id='".mysql_real_escape_string($playerId)
+			."' AND characters.charname=postman.target AND postman.id IN (".$ids.")";
 		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
 	}
 }
