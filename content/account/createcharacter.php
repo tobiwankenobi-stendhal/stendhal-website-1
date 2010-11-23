@@ -257,7 +257,7 @@ function nameChanged(field) {
 					if (data.result) {
 						document.getElementById("warn").innerHTML = "&nbsp;";
 					} else {
-						document.getElementById("warn").innerHTML = "This name is not available.";
+//						document.getElementById("warn").innerHTML = "This name is not available.";
 					}
 				}
 			});
