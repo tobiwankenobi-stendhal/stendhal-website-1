@@ -9,7 +9,7 @@ class DownloadPage extends Page {
 	function writeContent() {
 		startBox("Download");
 		?>
-		<p><b>These is the most recent development snapshots.</b> 
+		<p><b>These are the most recent development snapshots.</b> 
 		They are good for testing.</p>
 
 		<p>If you are interested in the last stable release, you can download it at
