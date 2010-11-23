@@ -252,12 +252,12 @@ function nameChanged(field) {
 		lastRequestedName = field.value;
 		var res = validateMinLength(field);
 		if (res) {
-			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&param=" + escape(lastRequestedName), function(data) {
+			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&ignoreAccount=<?php echo htmlspecialchars($_SESSION['account']->username);?>&param=" + escape(lastRequestedName), function(data) {
 				if (lastRequestedName == data.name) {
 					if (data.result) {
 						document.getElementById("warn").innerHTML = "&nbsp;";
 					} else {
-//						document.getElementById("warn").innerHTML = "This name is not available.";
+						document.getElementById("warn").innerHTML = "This name is not available.";
 					}
 				}
 			});

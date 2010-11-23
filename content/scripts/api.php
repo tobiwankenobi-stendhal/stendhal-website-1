@@ -22,7 +22,7 @@ class APIPage extends Page {
 	public function writeHttpHeader() {
 		header("Content-Type: text/javascript", true);
 		if ($_REQUEST['method'] == 'isNameAvailable') {
-			$this->isNameAvailable($_REQUEST['param']);
+			$this->isNameAvailable($_REQUEST['param'], $_REQUEST['ignoreAccount']);
 		} else {
 			$this->unknown($_REQUEST['param']);
 		}
@@ -33,11 +33,12 @@ class APIPage extends Page {
 	 * checks if a name is available for account or character creation
 	 *
 	 * @param $name account/character name to check
+	 * @param $ignoreAccount ignore this account on the character check (to allow someone to create a character with his own account name)
 	 */
-	public function isNameAvailable($name) {
+	public function isNameAvailable($name, $ignoreAccount) {
 		$res = array();
 		$res['name'] = $name;
-		$res['result'] = Account::isNameAvailable($name);
+		$res['result'] = Account::isNameAvailable($name, $ignoreAccount);
 		echo json_encode($res);
 	}
 

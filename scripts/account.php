@@ -624,10 +624,14 @@ class Account {
 	 * checks if a name is available for account/character creation
 	 *
 	 * @param $name name to check
+	 * @param $ignoreAccount ignore this account on the character check (to allow someone to create a character with his own account name)
 	 */
-	public static function isNameAvailable($name) {
-		$sql = "SELECT username FROM account WHERE username = '".mysql_real_escape_string($name)."' "
-			. "UNION SELECT charname FROM characters WHERE charname = '".mysql_real_escape_string($name)."';";
+	public static function isNameAvailable($name, $ignoreAccount) {
+		$sql = '';
+		if (!$ignoreAccount || trim($name) != trim($ignoreAccount)) {
+			$sql = "SELECT username FROM account WHERE username = '".mysql_real_escape_string($name)."' UNION ";
+		}
+		$sql .= "SELECT charname FROM characters WHERE charname = '".mysql_real_escape_string($name)."';";
 		$result = mysql_query($sql, getGameDB());
 		$res = mysql_numrows($result) == 0;
 		mysql_free_result($result);
