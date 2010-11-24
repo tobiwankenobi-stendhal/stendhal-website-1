@@ -112,8 +112,12 @@ class LoginPage extends Page {
 	}
 
 	function handleRedirectIfAlreadyLoggedIn() {
-		if (isset($_REQUEST['url']) && checkLogin()) {
-			header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
+		if (checkLogin()) {
+			if (isset($_REQUEST['url'])) {
+				header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
+			} else {
+				header('Location: '.STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));
+			}
 			return true;
 		}
 		return false;
