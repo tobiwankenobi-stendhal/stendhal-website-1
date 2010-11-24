@@ -352,7 +352,7 @@ class StoredMessage {
 	 */
 	public static function deleteSentMessages($playerId, $ids) {
 		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.charname=postman.source AND (postman.deleted='R' OR postman.messagetype='N') AND postman.id IN (".$ids.")";
+			."' AND characters.charname=postman.source AND (postman.deleted='R') AND postman.id IN (".$ids.")";
 		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
 
 		$sql = "UPDATE postman, characters SET postman.deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
@@ -369,7 +369,7 @@ class StoredMessage {
 	 */
 		public static function deleteReceivedMessages($playerId, $ids) {
 		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.charname=postman.target AND postman.deleted='S' AND postman.id IN (".$ids.")";
+			."' AND characters.charname=postman.target AND (postman.deleted='S' OR postman.messagetype='N') AND postman.id IN (".$ids.")";
 		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
 
 		$sql = "UPDATE postman, characters SET postman.deleted='R' WHERE characters.player_id='".mysql_real_escape_string($playerId)
