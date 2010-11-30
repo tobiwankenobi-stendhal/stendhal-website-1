@@ -24,6 +24,7 @@
  */
 
 require_once('scripts/account.php');
+require_once('scripts/achievement.php');
 require_once('scripts/cache.php');
 require_once('scripts/events.php');
 require_once('scripts/grammar.php');
