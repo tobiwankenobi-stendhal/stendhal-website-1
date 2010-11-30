@@ -8,7 +8,15 @@ class AchievementPage extends Page {
 	function writeContent() {
 		startBox("Achievement");
 		$list = Achievement::getAchievements();
-		var_dump($list);
+		echo '<table class="prettytable">';
+		foreach ($list as $achievement) {
+			echo '<tr>';
+			echo '<td>'.htmlspecialchars($achievement->category).'</td>';
+			echo '<td><abbr title="'.htmlspecialchars($achievement->description).'">'.htmlspecialchars($achievement->title).'</abbr></td>';
+			echo '<td>'.htmlspecialchars($achievement->count).'</td>';
+			echo '</tr>';
+		}
+		echo '</table>';
 		endBox();
 	}
 }
