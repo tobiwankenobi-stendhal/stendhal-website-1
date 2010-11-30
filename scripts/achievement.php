@@ -49,8 +49,7 @@ class Achievement {
 			. 'count(character_stats.admin) As cnt '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
-			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name '
-			. 'WHERE character_stats.admin <= 600 '
+			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name AND character_stats.admin <= 600 '
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
