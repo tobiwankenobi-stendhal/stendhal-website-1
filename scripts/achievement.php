@@ -50,7 +50,8 @@ class Achievement {
 			. 'FROM achievement, reached_achievement '
 			. 'WHERE achievement.id = reached_achievement.achievement_id '
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
-			. 'achievement.category, achievement.base_score, achievement.description';
+			. 'achievement.category, achievement.base_score, achievement.description '
+			. 'ORDER BY achievement.category, achievement.identifier';
 		$result = mysql_query($query, getGameDB());
 		$list = array();
 
