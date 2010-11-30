@@ -46,13 +46,14 @@ class Achievement {
 	public static function getAchievements($where='', $sortby='name', $cond='') {
 		$query = 'SELECT achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description, '
-			. 'count(charname) As cnt '
-			. 'FROM achievement LEFT JOIN reached_achievement '
-			. 'ON achievement.id = reached_achievement.achievement_id '
+			. 'count(character_stats.admin) As cnt '
+			. 'FROM achievement '
+			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
+			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name '
+			. 'WHERE character_stats.admin <= 600 '
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
-		echo $query;
 		$result = mysql_query($query, getGameDB());
 		$list = array();
 
