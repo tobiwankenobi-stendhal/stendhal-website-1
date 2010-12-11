@@ -87,7 +87,7 @@ class CreateAccountPage extends Page {
 		startBox("Create Account");
 ?>
 
-<form name="createaccount" action="" method="post" onsubmit="return checkForm()">
+<form name="createaccount" action="" method="post"> <!-- onsubmit="return checkForm()" -->
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <table>
