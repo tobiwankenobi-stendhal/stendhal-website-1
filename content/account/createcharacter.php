@@ -106,7 +106,7 @@ class CreateCharacterPage extends Page {
 		startBox("Create Character");
 ?>
 
-<form name="createcharacter" action="<?php echo rewriteURL('/account/create-character.html');?>" method="POST" onsubmit="return checkForm()" style="height:22em; padding: 1em">
+<form name="createcharacter" action="<?php echo rewriteURL('/account/create-character.html');?>" method="POST" style="height:22em; padding: 1em"> <!-- onsubmit="return checkForm()"  -->
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <div class="outfitpanel">
