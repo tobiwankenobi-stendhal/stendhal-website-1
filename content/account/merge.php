@@ -59,7 +59,7 @@ class AccountMerge extends Page {
 				return false;
 			}
 
-			if ($_SESSION['account']->username == trim($_POST['user'])) {
+			if (strtolower($_SESSION['account']->username) == strtolower(trim($_POST['user']))) {
 				$this->error = 'You need to enter the username and password of another account you own.';
 				return false;
 			}
