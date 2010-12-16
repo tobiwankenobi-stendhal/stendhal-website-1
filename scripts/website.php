@@ -30,6 +30,7 @@ require_once('scripts/events.php');
 require_once('scripts/grammar.php');
 require_once('scripts/inspect.php');
 require_once('scripts/items.php');
+require_once('scripts/itemlog.php');
 require_once('scripts/monsters.php');
 require_once('scripts/mysql.php');
 require_once('scripts/news.php');
