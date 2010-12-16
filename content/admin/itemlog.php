@@ -6,6 +6,7 @@ class AdminItemlogPage extends Page {
 			#container {width:99%;}
 			.important {font-weight: bold}
 			.highlight {background-color: #FAA}
+			.hide {display: none}
 		</style>
 		<?php
 	}
@@ -16,18 +17,20 @@ class AdminItemlogPage extends Page {
 		die("Ooops!");
 	}
 	$itemid=$_REQUEST["itemid"];
+	$highlightTimestamp = $_REQUEST['timestamp'];
 	startBox('Search itemlog');
 ?>
 	<form method="get" action="" accept-charset="iso-8859-1">
 		<input type="hidden" name="id" value="content/admin/itemlog">
-		<input type="text" name="itemid" value="<?php if (isset($itemid)) {echo htmlspecialchars(utf8_encode($itemid));}?>">
+		<label for="itemid">itemid: </label><input type="text" id="itemid" name="itemid" value="<?php if (isset($itemid)) {echo htmlspecialchars(utf8_encode($itemid));}?>">
+		<label for="timestamp">timestamp: </label><input type="text" id="timestamp" name="timestamp" value="<?php if (isset($highlightTimestamp)) {echo htmlspecialchars(utf8_encode($highlightTimestamp));}?>">
 		<input type="submit" name="sublogin" value="Search">
 	</form>
 <?php
 	endBox(); 
 
 	if (isset($itemid)) {
-		startBox('History for item '. htmlspecialchars(utf8_encode($itemid)));
+		startBox('Item History');
 
 		echo '<p>History for item '.htmlspecialchars(utf8_encode($itemid)).'</a>.</p>';
 
@@ -38,6 +41,9 @@ class AdminItemlogPage extends Page {
 			$timedate = htmlspecialchars($entry->timedate);
 			$timedate = '<a href="/?id=content/admin/logs&amp;date='.substr($timedate, 0, 10).'">'.$timedate.'</a>';
 			$class = '';
+			if (isset($highlightTimestamp) && $entry->timedate < $highlightTimestamp) {
+				$class = 'hide ';
+			}
 			if ($entry->event == 'register') {
 				$class = 'important ';
 			}
