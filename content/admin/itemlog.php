@@ -20,7 +20,7 @@ class AdminItemlogPage extends Page {
 ?>
 	<form method="get" action="" accept-charset="iso-8859-1">
 		<input type="hidden" name="id" value="content/admin/itemlog">
-		<input type="text" name="itemid" maxlength="60" value="<?php if (isset($itemid)) {echo htmlspecialchars(utf8_encode($itemid));}?>">
+		<input type="text" name="itemid" value="<?php if (isset($itemid)) {echo htmlspecialchars(utf8_encode($itemid));}?>">
 		<input type="submit" name="sublogin" value="Search">
 	</form>
 <?php
