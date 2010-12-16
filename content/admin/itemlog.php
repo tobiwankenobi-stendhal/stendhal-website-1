@@ -1,6 +1,15 @@
 <?php
 class AdminItemlogPage extends Page {
-	function writeContent() {
+	public function writeHtmlHeader() {
+		?>
+		<style type="text/css">
+			.important {font-weight: bold}
+			.highlight {background-color: #FAA}
+		</style>
+		<?php
+	}
+
+	public function writeContent() {
 
 	if(getAdminLevel() < 5000) {
 		die("Ooops!");
@@ -27,7 +36,11 @@ class AdminItemlogPage extends Page {
 		foreach ($history as $entry) {
 			$timedate = htmlspecialchars($entry->timedate);
 			$timedate = '<a href="/?id=content/admin/logs&amp;date='.substr($timedate, 0, 10).'">'.$timedate.'</a>';
-			echo '<tr><td>'.htmlspecialchars($entry->itemid).'</td>'
+			$class = '';
+			if ($entry->event == 'register') {
+				$class = 'important ';
+			}
+			echo '<tr class="'.$class.'"><td>'.htmlspecialchars($entry->itemid).'</td>'
 				.'<td>'.$timedate.'</td>'
 				.'<td>'.htmlspecialchars($entry->source).'</td>'
 				.'<td>'.htmlspecialchars($entry->event).'</td>'
