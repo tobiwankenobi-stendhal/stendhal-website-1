@@ -3,6 +3,7 @@ class AdminItemlogPage extends Page {
 	public function writeHtmlHeader() {
 		?>
 		<style type="text/css">
+			#container {width:99%;}
 			.important {font-weight: bold}
 			.highlight {background-color: #FAA}
 		</style>
