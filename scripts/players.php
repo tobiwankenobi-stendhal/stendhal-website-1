@@ -55,24 +55,27 @@ class Player {
     $this->equipment=$equipment;
   }
 
-  function show() {
-    echo '<div class="playerBox">';
-    echo '  <a href="'.rewriteURL('/character/'.surlencode($this->name).'.html').'">';
-    echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="" width="48" height="64">';
-    echo '  <span class="block name">'.htmlspecialchars(utf8_encode($this->name)).'</span>';
-    echo ' </a>';
-    echo '  <div class="xp">'.$this->xp.' xp</div>';
-    if ($this->sentence != '') {
-    	$temp = substr($this->sentence, 0, strpos($this->sentence, ' ', 55) - 1);
-    	if ($temp != $this->sentence) {
-    		$temp = $temp.'...';
-    	}
-		echo ' <div class="quote">'.htmlspecialchars(utf8_encode($temp)).'</div>';
-    } else {
-		echo ' <div style="clear:left"></div>';
+	function show() {
+		echo '<div class="playerBox">';
+		echo '  <a href="'.rewriteURL('/character/'.surlencode($this->name).'.html').'">';
+		echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="" width="48" height="64">';
+		echo '  <span class="block name">'.htmlspecialchars(utf8_encode($this->name)).'</span>';
+		echo ' </a>';
+		echo '  <div class="xp">'.$this->xp.' xp</div>';
+		if ($this->sentence != '') {
+			$temp = $this->sentence;
+			if(strlen($temp)>=54) {
+				$temp = substr($this->sentence, 0, strpos($this->sentence, ' ', 55) - 1);
+			}
+			if ($temp != $this->sentence) {
+				$temp = $temp.'...';
+			}
+			echo ' <div class="quote">'.htmlspecialchars(utf8_encode($temp)).'</div>';
+		} else {
+			echo ' <div style="clear:left"></div>';
+		}
+		echo '</div>';
 	}
-    echo '</div>';
-  }
 
   function getDeaths() {
     $result = mysql_query("
