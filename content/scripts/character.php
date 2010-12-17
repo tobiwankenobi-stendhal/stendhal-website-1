@@ -16,7 +16,7 @@ class CharacterPage extends Page {
 		if(sizeof($this->players) > 0) {
 			$choosen = $this->players[0];
 			$account = $choosen->getAccountInfo();
-			if ($account["status"] != 'active') {
+			if (($account["status"] != 'active') || ($account["charstatus"] != 'active')) {
 				echo '<meta name="robots" content="noindex">'."\n";
 			}
 		} else {
@@ -46,7 +46,7 @@ $account=$choosen->getAccountInfo();
 <div class="table">
 	<div class="title">Details</div>
 	<div style="float: right">
-		<?php if ($account["status"] == 'active') {?>
+		<?php if (($account["status"] == 'active') && ($account["charstatus"] == 'active')) {?>
 		<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
 		<?php }?>
 	</div>
@@ -60,7 +60,7 @@ $account=$choosen->getAccountInfo();
 			?>"><?php echo  htmlspecialchars($choosen->married);
 		} ?></a> 
 	</div>
-	<?php if ($account["status"] == "active" && $choosen->sentence != '') {
+	<?php if ($account["status"] == "active" && $account["charstatus"] == 'active' && $choosen->sentence != '') {
 		echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
 	}?>
 </div>
@@ -153,7 +153,13 @@ foreach($choosen->equipment as $slot=>$content) {
   <div class="title">Account information</div>
   <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
   <div class="account_status">
-    This account is <span class="<?php echo htmlspecialchars($account["status"]); ?>"><?php echo htmlspecialchars($account["status"]); ?></span>
+  <?php
+	$status = $account["status"];
+	if ($account["charstatus"] != 'active') {
+		$status=$account["charstatus"];
+	}
+  ?>
+    This account is <span class="<?php echo htmlspecialchars($status); ?>"><?php echo htmlspecialchars($status); ?></span>
   </div>
   <?php if (($account["status"]) == 'active' && ($choosen->adminlevel > 0) && ($choosen->name != 'postman')) {
     if ($choosen->adminlevel < 300) {

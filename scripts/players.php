@@ -20,6 +20,8 @@
   * A class that represent a player, what it is and what it equips.
   */
 class Player {
+  /* character id */
+  public $id;
   /* Name of the player */
   public $name;
   /* Sentence that the player wrote using /sentence */
@@ -41,7 +43,8 @@ class Player {
   /* Equipment the player has in slots in a array slot=>item */
   public $equipment;
 
-  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $money, $adminlevel, $attributes, $equipment) {
+  function __construct($id, $name, $sentence, $age, $level, $xp, $married, $outfit, $money, $adminlevel, $attributes, $equipment) {
+    $this->id=$id;
     $this->name=$name;
     $this->sentence=$sentence;
     $this->age=$age;
@@ -107,14 +110,15 @@ class Player {
 
   function getAccountInfo() {
   		// TODO: pay attention to characters.status as well
-		$result=mysql_query('select characters.timedate, account.status from account, characters where account.id=characters.player_id AND charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
+		$result=mysql_query('select characters.timedate, account.status, characters.status As charstatus from account, characters where account.id=characters.player_id AND charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
     $account=array();
 
     $row=mysql_fetch_assoc($result);
 
     $account["register"]=$row["timedate"];
     $account["status"]=$row["status"];
-
+    $account["charstatus"]=$row["charstatus"];
+    
     mysql_free_result($result);
 
     return $account;
@@ -141,21 +145,27 @@ class Player {
   * Note: Parmaters must be sql escaped.
   */
 function getPlayers($where='', $sortby='name', $cond='limit 2') {
-	return _getPlayers('select distinct character_stats.* from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+	if (trim($where) != '') {
+		$where .= ' and ';
+	}
+	return _getPlayers('select distinct characters.id As id, character_stats.* from character_stats, characters '.$where.'character_stats.name=characters.charname order by '.$sortby.' '.$cond, getGameDB());
 }
 
 function getPlayer($name) {
-	$player=_getPlayers('select character_stats.* from character_stats where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
-    return $player[0];
+	$player=_getPlayers('select characters.id As id, character_stats..* from character_stats, characters where name="'.mysql_real_escape_string($name).'" and character_stats.name=characters.charname limit 1', getGameDB());
+	return $player[0];
 }
 
 function getBestPlayer($where='') {
-    $player=_getPlayers('select  *,xp/(age+1) as xp_age_rel from character_stats '.$where.' order by xp_age_rel desc limit 1', getGameDB());
-    return $player[0];
+	if (trim($where) != '') {
+		$where .= ' and ';
+	}
+	$player=_getPlayers('select characters.id As id, character_stats.*,xp/(age+1) as xp_age_rel from character_stats, characters '.$where.'character_stats.name=characters.charname order by xp_age_rel desc limit 1', getGameDB());
+	return $player[0];
 }
 
 function getDMHeroes($where='where', $cond='limit 2') {
-	return _getPlayers('select distinct character_stats.* from character_stats join halloffame on (charname=name) '.$where.' fametype="D" order by points desc '.$cond, getGameDB());
+	return _getPlayers('select distinct characters.id As id, character_stats.* from character_stats, characters join halloffame on (halloffame.charname=name) '.$where.' fametype="D" and character_stats.name=characters.charname order by points desc '.$cond, getGameDB());
 
 }
 
@@ -163,7 +173,7 @@ function getDMHeroes($where='where', $cond='limit 2') {
   * Returns a list of players that are online right now.
   */
 function getOnlinePlayers() {
-	return _getPlayers('select character_stats.* from character_stats where online=1 order by name');
+	return _getPlayers('select characters.id As id, character_stats.* from character_stats, characters where online=1 and character_stats.name=characters.charname order by name');
 }
 
 
@@ -174,7 +184,7 @@ function getOnlinePlayers() {
  * @return List of Players
  */
 function getCharactersForUsername($username) {
-	return _getPlayers('SELECT character_stats.* FROM character_stats, characters, account '
+	return _getPlayers('SELECT characters.id As id, character_stats.* FROM character_stats, characters, account '
 		.'WHERE account.username=\''.mysql_real_escape_string($username).'\' AND '
 		.'characters.player_id=account.id AND character_stats.name=characters.charname '
 		.'ORDER BY character_stats.name');
@@ -201,7 +211,8 @@ function _getPlayers($query) {
       $equipment['feet']=$row['feet'];
       $equipment['cloak']=$row['cloak'];
 
-      $list[]=new Player($row['name'],
+      $list[]=new Player($row['id'],
+                     $row['name'],
                      $row['sentence'],
                      $row['age'],
                      $row['level'],
