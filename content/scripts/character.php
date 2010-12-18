@@ -248,6 +248,9 @@ endBox();
 		$lastCategory = '';
 		foreach ($list as $achievement) {
 			if ($achievement->category != $lastCategory) {
+				if ($lastCategory != '') {
+					echo "</div>\n";
+				}
 				echo '<div class="row">';
 				$lastCategory = $achievement->category;
 			}
@@ -256,7 +259,7 @@ endBox();
 			} else {
 				$class = "achievementOpen";
 			}
-			echo '<img src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
+			echo '<img class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
 		}
 		echo '</div>';
 		?>
