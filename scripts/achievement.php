@@ -79,6 +79,9 @@ class Achievement {
 		$list = array();
 
 		while($row = mysql_fetch_assoc($result)) {
+			echo '<!--';
+			var_dump($row);
+			echo ' -->';
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
 				$row['category'], $row['base_score'], $row['description'], $row['cnt']);
 		}
