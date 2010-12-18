@@ -251,7 +251,7 @@ endBox();
 				if ($lastCategory != '') {
 					echo "</div>\n";
 				}
-				echo '<div class="row">';
+				echo '<div>';
 				$lastCategory = $achievement->category;
 			}
 			if ($achievement->count > 0) {
@@ -259,7 +259,8 @@ endBox();
 			} else {
 				$class = "achievementOpen";
 			}
-			echo '<img class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
+			echo "\n".$class.' '. $achievement->count;
+			echo '<img class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'"> ';
 		}
 		echo '</div>';
 		?>
