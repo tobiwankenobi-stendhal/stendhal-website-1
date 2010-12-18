@@ -218,7 +218,10 @@ foreach($choosen->equipment as $slot=>$content) {
 		<div style="margin-bottom: 50px;"></div>
 	</div>
 			<?php
+			echo '<!-- a -->';
+			echo '<!-- '.htmlspecialchars($_REQUEST['test']).' -->';
 			if (isset($_REQUEST['test'])) {
+				echo '<!-- b -->';
 				$this->renderAchievements();
 			}
 		}
