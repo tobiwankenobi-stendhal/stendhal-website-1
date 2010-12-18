@@ -220,14 +220,15 @@ foreach($choosen->equipment as $slot=>$content) {
 <?php
 		}
 	}
-	
-	if (isset($_REQUEST['test'])) {
-		$this->renderAchievements();
-	}
 ?>
 </div>
 
 <?php
+
+	if (isset($_REQUEST['test'])) {
+		$this->renderAchievements();
+	}
+
 endBox();
 	}
 
