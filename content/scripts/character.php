@@ -218,6 +218,9 @@ foreach($choosen->equipment as $slot=>$content) {
 		<div style="margin-bottom: 50px;"></div>
 	</div>
 			<?php
+			if ($_REQUEST['test']) {
+				$this->renderAchievements();
+			}
 		}
 	}
 ?>
@@ -225,6 +228,39 @@ foreach($choosen->equipment as $slot=>$content) {
 
 <?php
 endBox();
+	}
+
+	private function reanderAchievements() {
+		?>
+	<style type="text/css">
+		.achievementOpen{
+			filter:alpha(opacity=30);
+			-moz-opacity:0.3;
+			-khtml-opacity: 0.3;
+			opacity: 0.3;
+		}
+	</style>
+	<div class="table">
+	<div class="title">Achievements</div>
+		<?php
+		$list = Achievement::getAchievementForCharacter($choosen->name);
+		$lastCategory = '';
+		foreach ($list as $achievement) {
+			if ($achievement->category != $lastCategory) {
+				echo '<div class="row">';
+				$lastCategory = $achievement->category;
+			}
+			if ($achievement->count > 0) {
+				$class = "achievementDone";
+			} else {
+				$class = "achievementOpen";
+			}
+			echo '<img src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
+		}
+		echo '</div>';
+		?>
+		</div>
+		<?php
 	}
 }
 $page = new CharacterPage();

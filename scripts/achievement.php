@@ -39,6 +39,24 @@ class Achievement {
 	}
 
 
+
+	/**
+	  * Returns a list of npcs that meet the given condition.
+	  * Note: Parmaters must be sql escaped.
+	  */
+	public static function getAchievementForCharacter($charname) {
+		$query = 'SELECT achievement.id, achievement.identifier, achievement.title, '
+			. 'achievement.category, achievement.base_score, achievement.description, '
+			. 'count(reached_achievement.charname) As cnt '
+			. 'FROM achievement '
+			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
+			. 'AND reached_achievement.charname=\''.mysql_real_escape_string($charname).'\''
+			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
+			. 'achievement.category, achievement.base_score, achievement.description '
+			. 'ORDER BY achievement.category, achievement.identifier';
+		return Achievement::_getAchievements($query);
+	}
+
 	/**
 	  * Returns a list of npcs that meet the given condition.
 	  * Note: Parmaters must be sql escaped.
@@ -53,6 +71,10 @@ class Achievement {
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
+		return Achievement::_getAchievements($query);
+	}
+	
+	private static function _getAchievements($query) {
 		$result = mysql_query($query, getGameDB());
 		$list = array();
 
