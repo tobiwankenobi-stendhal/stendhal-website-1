@@ -245,7 +245,7 @@ endBox();
 	<div class="table">
 	<div class="title">Achievements</div>
 		<?php
-		$list = Achievement::getAchievementForCharacter($choosen->name);
+		$list = Achievement::getAchievementForCharacter($this->name);
 		$lastCategory = '';
 		foreach ($list as $achievement) {
 			if ($achievement->category != $lastCategory) {
