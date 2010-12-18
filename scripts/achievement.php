@@ -77,9 +77,12 @@ class Achievement {
 	private static function _getAchievements($query) {
 		$result = mysql_query($query, getGameDB());
 		$list = array();
-
+		echo '<!--';
+			echo htmlspecialchars($query);
+						echo ' -->';
 		while($row = mysql_fetch_assoc($result)) {
-			echo '<!--';
+			
+
 			var_dump($row);
 			echo ' -->';
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
