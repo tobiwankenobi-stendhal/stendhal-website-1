@@ -218,7 +218,7 @@ foreach($choosen->equipment as $slot=>$content) {
 		<div style="margin-bottom: 50px;"></div>
 	</div>
 			<?php
-			if ($_REQUEST['test']) {
+			if (isset($_REQUEST['test'])) {
 				$this->renderAchievements();
 			}
 		}
@@ -230,7 +230,7 @@ foreach($choosen->equipment as $slot=>$content) {
 endBox();
 	}
 
-	private function reanderAchievements() {
+	private function renderAchievements() {
 		?>
 	<style type="text/css">
 		.achievementOpen{
