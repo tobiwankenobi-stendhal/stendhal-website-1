@@ -50,7 +50,7 @@ class Achievement {
 			. 'count(reached_achievement.charname) As cnt '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
-			. 'AND reached_achievement.charname=\''.mysql_real_escape_string($charname).'\''
+			. 'AND reached_achievement.charname = \''.mysql_real_escape_string($charname).'\''
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
@@ -77,14 +77,7 @@ class Achievement {
 	private static function _getAchievements($query) {
 		$result = mysql_query($query, getGameDB());
 		$list = array();
-		echo '<!--';
-			echo htmlspecialchars($query);
-						echo ' -->';
 		while($row = mysql_fetch_assoc($result)) {
-			
-
-			var_dump($row);
-			echo ' -->';
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
 				$row['category'], $row['base_score'], $row['description'], $row['cnt']);
 		}

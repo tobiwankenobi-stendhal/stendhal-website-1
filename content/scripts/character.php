@@ -260,7 +260,6 @@ endBox();
 			} else {
 				$class = "achievementOpen";
 			}
-			echo "\n".$class.' '. $achievement->count;
 			echo '<img class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'"> ';
 		}
 		echo '</div>';
