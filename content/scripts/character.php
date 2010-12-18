@@ -217,14 +217,12 @@ foreach($choosen->equipment as $slot=>$content) {
 		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
 		<div style="margin-bottom: 50px;"></div>
 	</div>
-			<?php
-			echo '<!-- a -->';
-			echo '<!-- '.htmlspecialchars($_REQUEST['test']).' -->';
-			if (isset($_REQUEST['test'])) {
-				echo '<!-- b -->';
-				$this->renderAchievements();
-			}
+<?php
 		}
+	}
+	
+	if (isset($_REQUEST['test'])) {
+		$this->renderAchievements();
 	}
 ?>
 </div>
