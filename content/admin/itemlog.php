@@ -34,12 +34,10 @@ class AdminItemlogPage extends Page {
 
 		echo '<p>History for item '.htmlspecialchars(utf8_encode($itemid)).'</a>.</p>';
 
-		echo '<table class="prettytable"><tr><th>id</th><th>time</th><th>source</th><th>event</th><th colspan="4">parameters</th></tr>';
+		echo '<table class="prettytable"><tr><th>itemid</th><th>time</th><th>source</th><th>event</th><th colspan="4">parameters</th></tr>';
 
 		$history = ItemLog::getLogEntriesForItem($itemid);
 		foreach ($history as $entry) {
-			$timedate = htmlspecialchars($entry->timedate);
-			$timedate = '<a href="/?id=content/admin/logs&amp;date='.substr($timedate, 0, 10).'">'.$timedate.'</a>';
 			$class = '';
 			if (isset($highlightTimestamp) && $entry->timedate < $highlightTimestamp) {
 				$class = 'hide ';
@@ -47,14 +45,20 @@ class AdminItemlogPage extends Page {
 			if ($entry->event == 'register') {
 				$class = 'important ';
 			}
-			echo '<tr class="'.$class.'"><td>'.htmlspecialchars($entry->itemid).'</td>'
-				.'<td>'.$timedate.'</td>'
-				.'<td>'.htmlspecialchars($entry->source).'</td>'
-				.'<td>'.htmlspecialchars($entry->event).'</td>'
-				.'<td>'.htmlspecialchars($entry->param1).'</td>'
-				.'<td>'.htmlspecialchars($entry->param2).'</td>'
-				.'<td>'.htmlspecialchars($entry->param3).'</td>'
-				.'<td>'.htmlspecialchars($entry->param4).'</td></tr>';
+			echo '<tr class="'.$class.'">';
+
+			$itemid = '<a href="/?id=content/admin/itemlog&itemid='.urlencode($entry->itemid).'">'.htmlspecialchars($entry->itemid).'</a>';
+			echo '<td>'.$itemid.'</td>';
+
+			$timedate = htmlspecialchars($entry->timedate);
+			$timedate = '<a href="/?id=content/admin/logs&amp;date='.substr($timedate, 0, 10).'">'.$timedate.'</a>';
+			echo '<td>'.$timedate.'</td>';
+			echo '<td>'.htmlspecialchars($entry->source).'</td>';
+			echo '<td>'.htmlspecialchars($entry->event).'</td>';
+			echo '<td>'.htmlspecialchars($entry->param1).'</td>';
+			echo '<td>'.htmlspecialchars($entry->param2).'</td>';
+			echo '<td>'.htmlspecialchars($entry->param3).'</td>';
+			echo '<td>'.htmlspecialchars($entry->param4).'</td></tr>';
 		}
 		echo '</table>';
 		echo '<p><b>These logs are for administrators eyes ONLY and should not be copied or pasted to others.</b></p>';
