@@ -42,7 +42,7 @@ $choosen=$this->players[0];
 $account=$choosen->getAccountInfo();
 ?>
 
-<?php startBox('Character info for '.htmlspecialchars(utf8_encode($choosen->name))); ?>
+<?php startBox('Character info for '.htmlspecialchars($choosen->name)); ?>
 <div class="table">
 	<div class="title">Details</div>
 	<div style="float: right">
@@ -50,7 +50,7 @@ $account=$choosen->getAccountInfo();
 		<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="Player outfit"/>
 		<?php }?>
 	</div>
-	<div><span class="statslabel">Name:</span><span class="data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span></div>
+	<div><span class="statslabel">Name:</span><span class="data"><?php echo htmlspecialchars($choosen->name); ?></span></div>
 	<div><span class="statslabel">Age:</span><span class="data"><?php echo htmlspecialchars(printAge($choosen->age)); ?> hours</span></div>
 	<div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
 	<div class="married">
@@ -61,7 +61,7 @@ $account=$choosen->getAccountInfo();
 		} ?></a> 
 	</div>
 	<?php if ($account["status"] == "active" && $account["charstatus"] == 'active' && $choosen->sentence != '') {
-		echo '<div class="sentence">' . htmlspecialchars(utf8_encode($choosen->sentence)). '</div>';
+		echo '<div class="sentence">' . htmlspecialchars($choosen->sentence). '</div>';
 	}?>
 </div>
 <div style="height:220px">
@@ -212,8 +212,8 @@ foreach($choosen->equipment as $slot=>$content) {
 		echo '<a href="'.rewriteURL('/character/'.surlencode($source).'.html').'">';
 		$killer=getPlayer($source);
 		?>
-		<img class="creature" src="<?php echo rewriteURL('/images/outfit/'.htmlspecialchars($killer->outfit).'.png'); ?>" alt="<?php echo utf8_encode($source); ?>"/>
-		Killed by <span class="label"><?php echo htmlspecialchars(utf8_encode($source)); ?></span>
+		<img class="creature" src="<?php echo rewriteURL('/images/outfit/'.htmlspecialchars($killer->outfit).'.png'); ?>" alt="<?php echo htmlspecialchars($source); ?>"/>
+		Killed by <span class="label"><?php echo htmlspecialchars($source); ?></span>
 		<span class="block data">Happened at <?php echo htmlspecialchars($date); ?>.</span></a>
 		<div style="margin-bottom: 50px;"></div>
 	</div>

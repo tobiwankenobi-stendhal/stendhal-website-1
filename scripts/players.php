@@ -59,7 +59,7 @@ class Player {
 		echo '<div class="playerBox">';
 		echo '  <a href="'.rewriteURL('/character/'.surlencode($this->name).'.html').'">';
 		echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="" width="48" height="64">';
-		echo '  <span class="block name">'.htmlspecialchars(utf8_encode($this->name)).'</span>';
+		echo '  <span class="block name">'.htmlspecialchars($this->name).'</span>';
 		echo ' </a>';
 		echo '  <div class="xp">'.$this->xp.' xp</div>';
 		if ($this->sentence != '') {
@@ -70,7 +70,7 @@ class Player {
 			if ($temp != $this->sentence) {
 				$temp = $temp.'...';
 			}
-			echo ' <div class="quote">'.htmlspecialchars(utf8_encode($temp)).'</div>';
+			echo ' <div class="quote">'.htmlspecialchars($temp).'</div>';
 		} else {
 			echo ' <div style="clear:left"></div>';
 		}

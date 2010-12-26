@@ -22,8 +22,8 @@ class AdminItemlogPage extends Page {
 ?>
 	<form method="get" action="" accept-charset="iso-8859-1">
 		<input type="hidden" name="id" value="content/admin/itemlog">
-		<label for="itemid">itemid: </label><input type="text" id="itemid" name="itemid" value="<?php if (isset($itemid)) {echo htmlspecialchars(utf8_encode($itemid));}?>">
-		<label for="timestamp">timestamp: </label><input type="text" id="timestamp" name="timestamp" value="<?php if (isset($highlightTimestamp)) {echo htmlspecialchars(utf8_encode($highlightTimestamp));}?>">
+		<label for="itemid">itemid: </label><input type="text" id="itemid" name="itemid" value="<?php if (isset($itemid)) {echo htmlspecialchars($itemid);}?>">
+		<label for="timestamp">timestamp: </label><input type="text" id="timestamp" name="timestamp" value="<?php if (isset($highlightTimestamp)) {echo htmlspecialchars($highlightTimestamp);}?>">
 		<input type="submit" name="sublogin" value="Search">
 	</form>
 <?php
@@ -32,7 +32,7 @@ class AdminItemlogPage extends Page {
 		if (isset($itemid)) {
 			startBox('Item History');
 
-			echo '<p>History for item '.htmlspecialchars(utf8_encode($itemid)).'</a>.</p>';
+			echo '<p>History for item '.htmlspecialchars($itemid).'</a>.</p>';
 			echo '<table class="prettytable"><tr><th>itemid</th><th>time</th><th>source</th><th>event</th><th colspan="4">parameters</th></tr>';
 
 			$history = ItemLog::getLogEntriesForItem($itemid);

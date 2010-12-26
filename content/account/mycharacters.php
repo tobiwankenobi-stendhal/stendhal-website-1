@@ -57,10 +57,10 @@ class MyCharactersPage extends Page {
 				echo '<div class="onlinePlayer characterHeight">';
 				echo '  <a class = "onlineLink" href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';
 				echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
-				echo '  <span class="block">'.htmlspecialchars(utf8_encode($p->name)).'</span></a>';
+				echo '  <span class="block">'.htmlspecialchars($p->name).'</span></a>';
 				echo '  <span class="block">Level: '.$p->level.'</span>';
 				echo '  <span class="block">Age: '.intval($p->age/60).' h</span>';
-				echo '  <span class="block"><a class = "characterLink" href="'.rewriteURL('/character/'.htmlspecialchars(utf8_encode($p->name)).'.html').'">Details</a></span>';
+				echo '  <span class="block"><a class = "characterLink" href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">Details</a></span>';
 				echo '</div>';
 			}
 			echo '</div>';

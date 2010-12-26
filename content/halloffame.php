@@ -151,7 +151,7 @@ class HallOfFamePage extends Page {
 				<div class="position"><?php echo $i; ?></div>
 				<a href="<?php echo rewriteURL('/character/'.surlencode($player->name).'.html'); ?>">
 					<img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($player->outfit).'.png')?>" alt="Player outfit"/>
-					<span class="block label"><?php echo htmlspecialchars(utf8_encode($player->name)); ?></span>
+					<span class="block label"><?php echo htmlspecialchars($player->name); ?></span>
 					<?php $var=$f($player); ?>
 					<span class="block data"><?php echo $var.$postfix; ?></span>
 				</a>
@@ -183,7 +183,7 @@ class HallOfFamePage extends Page {
 		<div class="bubble">The best player is decided based on the relation between XP and age, so the best players are those the spend most time earning XP instead of being idle around in game.</div>    
 		<div class="best">
 			<a href="<?php echo rewriteURL('/character/'.surlencode($choosen->name).'.html'); ?>">
-				<span class="block statslabel">Name:</span><span class="block data"><?php echo htmlspecialchars(utf8_encode($choosen->name)); ?></span>
+				<span class="block statslabel">Name:</span><span class="block data"><?php echo htmlspecialchars($choosen->name); ?></span>
 				<span class="block statslabel">Age:</span><span class="block data"><?php echo getAge($choosen); ?> hours</span>
 				<span class="block statslabel">Level:</span><span class="block data"><?php echo $choosen->level; ?></span>
 				<span class="block statslabel">XP:</span><span class="block data"><?php echo $choosen->xp; ?></span>
@@ -193,7 +193,7 @@ class HallOfFamePage extends Page {
 		<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen->outfit).'.png')?>" alt="">
 		</a>
 		<?php if ($choosen->sentence != '') {
-			echo '<div class="sentence">'.htmlspecialchars(utf8_encode($choosen->sentence)).'</div>';
+			echo '<div class="sentence">'.htmlspecialchars($choosen->sentence).'</div>';
 		}?>
 		<?php endBox(); ?>
 
