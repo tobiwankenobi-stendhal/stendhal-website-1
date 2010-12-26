@@ -43,6 +43,7 @@ function getWikiDB() {
 	if (!isset($wikidb)) {
 		$wikidb = mysql_connect(STENDHAL_WIKI_HOSTNAME, STENDHAL_WIKI_USERNAME, STENDHAL_WIKI_PASSWORD, true);
 		@mysql_select_db(STENDHAL_WIKI_DB, $wikidb) or die( "Unable to select Wiki database");
+		mysql_query('set character set utf8;', $wikidb);
 	}
 	return $wikidb;
 }
@@ -52,9 +53,11 @@ function connect() {
 	global $websitedb, $gamedb;
 	$websitedb = mysql_connect(STENDHAL_WEB_HOSTNAME, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD, true);
 	@mysql_select_db(STENDHAL_WEB_DB, $websitedb) or die( "Unable to select Website database");
+	mysql_query('set character set utf8;', $websitedb);
 
 	$gamedb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
 	@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( "Unable to select Game database");
+	mysql_query('set character set utf8;', $gamedb);
 }
 
 function disconnect() {
