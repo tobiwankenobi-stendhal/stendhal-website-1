@@ -111,13 +111,15 @@ for ($day = 1; $day <= 31; $day++) {
 <?php
 	} else {
 		$dir = opendir($directory);
-		while (false !== ($file = readdir($dir))) {
-			if (strpos($file, ".log") == 10) {
-				$filearray[] = $file;
+		if ($dir !== false) {
+			while (false !== ($file = readdir($dir))) {
+				if (strpos($file, ".log") == 10) {
+					$filearray[] = $file;
+				}
 			}
+			closedir($dir);
+			rsort($filearray);
 		}
-		closedir($dir);
-		rsort($filearray);
 ?>
 	<ul>
 <?php
