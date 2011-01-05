@@ -87,7 +87,14 @@ for ($day = 1; $day <= 31; $day++) {
 	
 					$line = substr($line, $pos + 1);
 					$pos = strpos($line, '/');
-					$module = '<span class="sourcemodule">' . substr($line, 0, $pos) . '</span>';
+					$module = substr($line, 0, $pos);
+					$posRev = strpos($line, ' ');
+					if ($posRev !== false) {
+						$rev = substr($line, 1, $posRev);
+						$rev = '<a class="sourcerev" href="http://arianne.git.sourceforge.net/git/gitweb.cgi?p=arianne/marauroa.git;a=commitdiff;h="'.$rev.'>'.$rev.'</a>';
+						$module = substr($line, $posRev + 1, $pos);
+					}
+					$module = '<span class="sourcemodule">' . $module . '</span>';
 	
 					$line = substr($line, $pos + 1);
 					$pos = strpos($line, ':');

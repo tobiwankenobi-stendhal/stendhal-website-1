@@ -25,6 +25,13 @@
 	font-style: italic;
 }
 
+a.sourcerev {
+	text-decoration: none;
+}
+a.sourcerev:hover {
+	text-decoration: underline;
+}
+
 
 ul.source {
 	margin-left: 0;
