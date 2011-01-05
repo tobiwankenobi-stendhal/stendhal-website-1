@@ -143,6 +143,10 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /development/? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/bug
                 RewriteRule ^/.* /development/bug\.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/cvslog&month=([^&]*)
+                RewriteRule ^/.* /development/sourcelog/%1.html? [R=301,L]
+                RewriteCond %{QUERY_STRING} id=content/game/cvslog
+                RewriteRule ^/.* /development/sourcelog\.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/game/sourcelog&month=([^&]*)
                 RewriteRule ^/.* /development/sourcelog/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/game/sourcelog
