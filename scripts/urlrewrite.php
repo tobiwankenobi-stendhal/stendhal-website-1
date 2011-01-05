@@ -68,8 +68,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # development
                 RewriteRule ^/development/bug\.html$ /index.php?id=content/game/bug [L]
                 RewriteRule ^/development/chat\.html$ /chat/ [R=301]
-                RewriteRule ^/development/cvslog\.html$ /index.php?id=content/game/cvslog [L]
-                RewriteRule ^/development/cvslog/(.*)\.html$ /index.php?id=content/game/cvslog&month=$1 [L]
+                RewriteRule ^/development/sourcelog\.html$ /index.php?id=content/game/sourcelog [L]
+                RewriteRule ^/development/sourcelog/(.*)\.html$ /index.php?id=content/game/sourcelog&month=$1 [L]
                 RewriteRule ^/development/download\.html$ /index.php?id=content/game/download [L]
                 RewriteRule ^/development/?$ /index.php?id=content/game/development [L]
 
@@ -143,10 +143,11 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /development/? [R=301]
                 RewriteCond %{QUERY_STRING} id=content/game/bug
                 RewriteRule ^/.* /development/bug\.html? [R=301]
-                RewriteCond %{QUERY_STRING} id=content/game/cvslog&month=([^&]*)
-                RewriteRule ^/.* /development/cvslog/%1.html? [R=301]
-                RewriteCond %{QUERY_STRING} id=content/game/cvslog
-                RewriteRule ^/.* /development/cvslog\.html? [R=301]
+                RewriteCond %{QUERY_STRING} id=content/game/sourcelog&month=([^&]*)
+                RewriteRule ^/.* /development/sourcelog/%1.html? [R=301,L]
+                RewriteCond %{QUERY_STRING} id=content/game/sourcelog
+                RewriteRule ^/.* /development/sourcelog\.html? [R=301,L]
+                RewriteRule ^/development/cvslog(.*) /development/sourcelog$1? [R=301,L]
 
                 # items
                 RewriteCond %{QUERY_STRING} id=content/game/items$
@@ -290,10 +291,10 @@ function rewriteURL($url) {
 			return preg_replace('|^/development/bug\.html$|', $folder.'/?id=content/game/bug', $url);
 		} else if (preg_match('|^/development/chat\.html$|', $url)) {
 			return preg_replace('|^/development/chat\.html$|', $folder.'/?id=content/game/chat', $url);
-		} else if (preg_match('|^/development/cvslog\.html$|', $url)) {
-			return preg_replace('|^/development/cvslog\.html$|', $folder.'/?id=content/game/cvslog', $url);
-		} else if (preg_match('|^/development/cvslog/(.*)\.html$|', $url)) {
-			return preg_replace('|^/development/cvslog/(.*)\.html$|', $folder.'/?id=content/game/cvslog&amp;month=$1', $url);
+		} else if (preg_match('|^/development/sourcelog\.html$|', $url)) {
+			return preg_replace('|^/development/sourcelog\.html$|', $folder.'/?id=content/game/sourcelog', $url);
+		} else if (preg_match('|^/development/sourcelog/(.*)\.html$|', $url)) {
+			return preg_replace('|^/development/sourcelog/(.*)\.html$|', $folder.'/?id=content/game/sourcelog&amp;month=$1', $url);
 		} else if (preg_match('|^/development/download\.html$|', $url)) {
 			return preg_replace('|^/development/download\.html$|', $folder.'/?id=content/game/download', $url);
 		}

@@ -1,16 +1,16 @@
 <?php 
 
-class CVSLogPage extends Page {
+class SourceLogPage extends Page {
 
 	public function writeHtmlHeader() {
 		$month = $_GET['month'];
 		if (!isset($month)) {
-			echo '<title>Source Code Changes in CVS'.STENDHAL_TITLE.'</title>';
+			echo '<title>Source Code Changes'.STENDHAL_TITLE.'</title>';
 		} else {
 			if (preg_match("/^\d\d\d\d-\d\d$/", $month)) {
-				echo '<title>Source Code Changes in CVS in '.$month.STENDHAL_TITLE.'</title>';
+				echo '<title>Source Code Changes in '.$month.STENDHAL_TITLE.'</title>';
 			} else {
-				echo '<title>Source Code Changes in CVS'.STENDHAL_TITLE.'</title>';
+				echo '<title>Source Code Changes '.STENDHAL_TITLE.'</title>';
 				echo '<meta name="robots" content="noindex">'."\n";
 			}
 		}
@@ -30,12 +30,12 @@ startBox("CVS"); ?>
 	if (isset($month) && preg_match("/^\d\d\d\d-\d\d$/", $month)) {
 ?>
 	<p>
-		<a href="<?php echo rewriteURL('/development/cvslog.html')?>">Index of logs</a>
+		<a href="<?php echo rewriteURL('/development/sourcelog.html')?>">Index of logs</a>
 	</p>
 
 	<p>Timestamps are in server time.</p>
 
-	<ul class="cvs">
+	<ul class="source">
 
 <?php
 for ($day = 1; $day <= 31; $day++) {
@@ -64,17 +64,17 @@ for ($day = 1; $day <= 31; $day++) {
 				
 	
 					$line = htmlspecialchars($line);
-					$time = '<span class="cvstime">' . $month . '-' . $daystr . ' ' . substr($line, 0, 5) . '</span>';
+					$time = '<span class="sourcetime">' . $month . '-' . $daystr . ' ' . substr($line, 0, 5) . '</span>';
 	
 					$pos = strpos($line, 'arianne_rpg: ');
 					$line = substr($line, $pos + 13);
 					$pos = strpos($line, ' ');
-					$user = '<span class="cvsuser">' . substr($line, 0, $pos) . '</span>';
+					$user = '<span class="sourceuser">' . substr($line, 0, $pos) . '</span>';
 	
 					$line = substr($line, $pos + 1);
 					$pos = strpos($line, ' ');
 					if (substr($line, 0, $pos) != '*') {
-						$branch = '<span class="cvsbranch">&nbsp;' . substr($line, 0, $pos) . '&nbsp;</span>';
+						$branch = '<span class="sourcebranch">&nbsp;' . substr($line, 0, $pos) . '&nbsp;</span>';
 						$pos = $pos + 2;
 					} else {
 						$branch = '';
@@ -82,13 +82,13 @@ for ($day = 1; $day <= 31; $day++) {
 	
 					$line = substr($line, $pos + 1);
 					$pos = strpos($line, '/');
-					$module = '<span class="cvsmodule">' . substr($line, 0, $pos) . '</span>';
+					$module = '<span class="sourcemodule">' . substr($line, 0, $pos) . '</span>';
 	
 					$line = substr($line, $pos + 1);
 					$pos = strpos($line, ':');
-					$files = '<span class="cvsfiles">' . substr($line, 0, $pos) . '</span>';
+					$files = '<span class="sourcefiles">' . substr($line, 0, $pos) . '</span>';
 	
-					$commit = '<span class="cvscommit">' . substr($line, $pos + 1);
+					$commit = '<span class="sourcecommit">' . substr($line, $pos + 1);
 	
 					$res = $time .' '. $user .' '. $branch .' '. $module .' '. $files .':<br>'. $commit;
 				} else {
@@ -127,7 +127,7 @@ for ($day = 1; $day <= 31; $day++) {
 		foreach ($filearray as $file) {
 			$month = substr($file, 0, 7);
 			if ($month != $last) {
-				echo '<li><a href="'.rewriteURL('/development/cvslog/'.htmlspecialchars($month).'.html').'">' . $month . '</a></li>';
+				echo '<li><a href="'.rewriteURL('/development/sourcelog/'.htmlspecialchars($month).'.html').'">' . $month . '</a></li>';
 				$last = $month;
 			}
 		}
@@ -140,5 +140,5 @@ endBox();
 
 	}
 }
-$page = new CVSLogPage();
+$page = new SourceLogPage();
 ?>
