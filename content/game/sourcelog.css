@@ -10,6 +10,9 @@
 	background-color: #FF0;
 	font-weight: bold;
 }
+.sourcedevbranch {
+	background-color: #AFA;
+}
 .sourcemodule {
 	color: #00A;
 }

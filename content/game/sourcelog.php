@@ -73,8 +73,13 @@ for ($day = 1; $day <= 31; $day++) {
 	
 					$line = substr($line, $pos + 1);
 					$pos = strpos($line, ' ');
-					if (substr($line, 0, $pos) != '*') {
-						$branch = '<span class="sourcebranch">&nbsp;' . substr($line, 0, $pos) . '&nbsp;</span>';
+					$branch = substr($line, 0, $pos);
+					if ($branch != '*') {
+						$class = 'sourcebranch';
+						if (strtoupper($branch) != $branch) {
+							$class = 'sourcedevbranch';
+						}
+						$branch = '<span class="'.$class.'">&nbsp;' . $branch . '&nbsp;</span>';
 						$pos = $pos + 2;
 					} else {
 						$branch = '';
