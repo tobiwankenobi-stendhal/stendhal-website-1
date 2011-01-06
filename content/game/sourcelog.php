@@ -147,8 +147,8 @@ endBox();
 		$posRev = strpos($module, ' ');
 		if ($posRev !== FALSE) {
 			$rev = substr($line, 1, $posRev - 1);
-			$rev = '<a class="sourcerev" href="http://arianne.git.sourceforge.net/git/gitweb.cgi?p=arianne/marauroa.git;a=commitdiff;h='.$rev.'">'.$rev.'</a>';
 			$module = substr($line, $posRev + 1, $pos - $posRev - 1);
+			$rev = '<a class="sourcerev" href="http://arianne.git.sourceforge.net/git/gitweb.cgi?p=arianne/'.$module.'.git;a=commitdiff;h='.$rev.'">'.$rev.'</a>';
 		}
 		$module = '<span class="sourcemodule">' . $module . '</span>';
 
