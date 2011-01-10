@@ -44,8 +44,8 @@ define('STENDHAL_WEB_DB','stendhal_website');
 # This user should only be able to read the tables but the account table that should be read/write
 # in order for change password to work.
 #
-#  grant read on stendhal.* to FOO@localhost identified by 'BAR');
-#  grant write on stendhal.account to FOO@localhost identified by 'BAR');
+#  grant select on stendhal.* to FOO@localhost identified by 'BAR';
+#  grant select,insert,update,delete on stendhal.account to FOO@localhost identified by 'BAR';
 #
 define('STENDHAL_GAME_HOSTNAME','127.0.0.1');
 define('STENDHAL_GAME_USERNAME','username');
