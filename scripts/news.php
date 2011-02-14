@@ -106,6 +106,12 @@ class News {
 		if ($detail) {
 			echo '<div class="newsContent newsDetail">'.$this->detailedDescription.'</div>';
 		}
+		
+		// add a tweet button
+		if ($_REQUEST['test']) {
+			echo '<div class="newsContent newsDetail">'.$this->renderTweetButton().'</div>';
+		}
+		
 		endBox();
 		/* END NOTE */
 	}
@@ -120,6 +126,21 @@ class News {
 		$res = preg_replace('/[ _,;.:<>|!?\'"()\/*] /', ' ', $res);
 		$res = preg_replace('/[ _,;.:<>|!?\'"()\/*]/', '-', $res);
 		return urlencode($res.'.html');
+	}
+
+	/**
+	 * Creates a button for posting tweets about this message
+	 * 
+	 * @return the html code for a fitting tweet button
+	 */
+	function renderTweetButton() {
+		$res = '<a href="http://twitter.com/share" class="twitter-share-button" data-url="';
+		$res = $res.rewriteURL('/news/'.$this->getNiceURL());
+		$res = $res.'" data-text="';
+		$res = $res.$this->title;
+		$res = $res.'" data-count="horizontal" data-via="stendhalgame">Tweet</a><script ';
+		$res = $res.'type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
+		return $res;
 	}
 };
 
