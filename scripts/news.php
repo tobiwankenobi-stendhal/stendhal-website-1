@@ -134,12 +134,13 @@ class News {
 	 * @return the html code for a fitting tweet button
 	 */
 	function renderTweetButton() {
-		$res = '<a href="http://twitter.com/share" class="twitter-share-button" data-url="';
-		$res = $res.rewriteURL('/news/'.$this->getNiceURL());
-		$res = $res.'" data-text="';
-		$res = $res.$this->title;
-		$res = $res.'" data-count="horizontal" data-via="stendhalgame">Tweet</a><script ';
-		$res = $res.'type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
+		$res = '<a href="http://twitter.com/home?status=';
+		$res = $res.urlencode('http://').STENDHAL_SERVER_NAME;
+		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
+		$res = $res.urlencode(' @stendhalgame');
+		$res = $res.'" target="_blank" title="Twitter">';
+		$res = $res.'<img src="images/buttons/twitter_button.png" width="32" height="32" border="0" hspace="0" alt="Twitter">';
+		$res = $res.'</a>';
 		return $res;
 	}
 };
