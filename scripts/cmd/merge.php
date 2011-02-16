@@ -30,7 +30,7 @@ if (!isset($oldAccountId) || !isset($newAccountId) || $oldAccountId <= 0 || $new
 	exit;
 }
 
-if ($oldAccountId = $newAccountId) {
+if ($oldAccountId == $newAccountId) {
 	echo 'You need to provide different account names.'."\r\n";
 	exit;
 }
