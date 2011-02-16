@@ -102,7 +102,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
 startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 
 ?>
-<form class="slr" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr" name="submitslr">
+<form class="slr" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr#editform" name="submitslr">
 	<input type="hidden" name="action" value="submit"/>
 	<input type="hidden" name="columns" value="<?php echo htmlspecialchars($this->columns);?>"/>
 
