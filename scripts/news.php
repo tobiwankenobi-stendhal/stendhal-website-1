@@ -139,7 +139,7 @@ class News {
 		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
 		$res = $res.urlencode(' @stendhalgame');
 		$res = $res.'" target="_blank" title="Twitter">';
-		$res = $res.'<img src="images/buttons/twitter_button.png" width="32" height="32" border="0" hspace="0" alt="Twitter">';
+		$res = $res.'<img src="images/buttons/twitter_button.png" width="24" height="24" border="0" hspace="0" alt="Twitter">';
 		$res = $res.'</a>';
 		return $res;
 	}
