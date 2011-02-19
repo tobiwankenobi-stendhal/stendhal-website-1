@@ -51,6 +51,7 @@ define('STENDHAL_GAME_HOSTNAME','127.0.0.1');
 define('STENDHAL_GAME_USERNAME','username');
 define('STENDHAL_GAME_PASSWORD','password');
 define('STENDHAL_GAME_DB','stendhal');
+define('STENDHAL_TEST_DB','stendhaltest');
 
 
 /*

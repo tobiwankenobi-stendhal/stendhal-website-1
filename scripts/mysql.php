@@ -48,6 +48,15 @@ function getWikiDB() {
 	return $wikidb;
 }
 
+function getTestDB() {
+	global $testdb;
+	if (!isset($testdb)) {
+		$wikidb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
+		@mysql_select_db(STENDHAL_TEST_DB, $testdb) or die( "Unable to select test database");
+		mysql_query('set character set utf8;', $testdb);
+	}
+	return $testdb;
+}
 
 function connect() {
 	global $websitedb, $gamedb;
