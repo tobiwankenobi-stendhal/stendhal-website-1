@@ -87,6 +87,7 @@ class AccountMerge extends Page {
 				$oldUsername = $_SESSION['account']->username;
 				mergeAccount($oldUsername, $_POST['user']);
 				$_SESSION['account'] = Account::readAccountByName($_POST['user']);
+				$_SESSION['marauroa_authenticated_username'] = $_SESSION['account']->username;
 			}
 
 			return true;
