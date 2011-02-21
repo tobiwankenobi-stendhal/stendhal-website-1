@@ -67,13 +67,21 @@ class Achievement {
 			. 'count(character_stats.admin) As cnt '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
-			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name AND character_stats.admin <= 600 '
+			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name AND character_stats.admin <= 600 '.$where
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
 		return Achievement::_getAchievements($query);
 	}
-	
+
+	public static function getAchievement($name) {
+		$res = Achievement::getAchievements("where title='".mysql_real_escape_string($name)."'");
+		if (count($res) > 0) {
+			return $res[0];
+		}
+	}
+
+
 	private static function _getAchievements($query) {
 		$db = getGameDB();
 		if ($_REQUEST['test'] && $_REQUEST['test'] == "testdb") {
