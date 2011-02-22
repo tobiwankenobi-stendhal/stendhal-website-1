@@ -109,7 +109,7 @@ class News {
 		
 		// add a tweet button
 		if ($_REQUEST['test']) {
-			echo '<div class="newsContent newsDetail">'.$this->renderTweetButton().$this->renderFacebookButton().'</div>';
+			echo '<div class="newsContent newsDetail">'.$this->renderTweetButton().$this->renderFacebookButton().$this->renderBuzzButton().'</div>';
 		}
 		
 		endBox();
@@ -145,7 +145,7 @@ class News {
 	}
 	
 	/**
-	 * Creates a button for shareing this message on facebook
+	 * Creates a button for sharing this news on facebook
 	 * 
 	 * @return the html code for a fitting share button
 	 */
@@ -156,6 +156,25 @@ class News {
 		$res = $res.urlencode('&t='.$this->title);
 		$res = $res.'" target="_blank" title="Facebook">';
 		$res = $res.'<img src="images/buttons/facebook_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
+		$res = $res.'</a>';
+		return $res;
+	}
+	
+/**
+	 * Creates a button for sharing this news on google buzz
+	 * 
+	 * @return the html code for a fitting share button
+	 */
+	function renderBuzzButton() {
+		$res = '<a href="http://www.google.com/buzz/post?url=';
+		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
+		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
+		$res = $res.urlencode('&h1='.$this->title);
+		if (isset($this->oneLineDescription) && strlen($this->oneLineDescription) > 0) {
+			$res = $res.urlencode('&message='.$this->oneLineDescription);
+		}
+		$res = $res.'" target="_blank" title="Facebook">';
+		$res = $res.'<img src="images/buttons/google_buzz_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
 		$res = $res.'</a>';
 		return $res;
 	}
