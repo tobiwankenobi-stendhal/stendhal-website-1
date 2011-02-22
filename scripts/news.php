@@ -151,8 +151,9 @@ class News {
 	 */
 	function renderFacebookButton() {
 		$res = '<a href="http://facebook.com/sharer.php?u=';
-		$res = $res.urlencode('http://').STENDHAL_SERVER_NAME;
+		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
 		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
+		$res = $res.urlencode('&t='.$this->title);
 		$res = $res.'" target="_blank" title="Facebook">';
 		$res = $res.'<img src="images/buttons/facebook_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
 		$res = $res.'</a>';
