@@ -77,6 +77,7 @@ class LoginPage extends Page {
 		$_SESSION['account'] = $result;
 		$_SESSION['marauroa_authenticated_username'] = $result->username;
 		$_SESSION['csrf'] = createRandomString();
+		fixSessionPermission();
 		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
 		return true;
 	}

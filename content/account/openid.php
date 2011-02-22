@@ -104,6 +104,8 @@ class OpenID {
 		}
 		$_SESSION['account'] = $account;
 		$_SESSION['csrf'] = createRandomString();
+		$_SESSION['marauroa_authenticated_username'] = $account->username;
+		fixSessionPermission();
 	}
 }
 
