@@ -149,29 +149,11 @@ foreach($choosen->equipment as $slot=>$content) {
 
 </div>
 
-<div class="table">
-  <div class="title">Account information</div>
-  <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
-  <div class="account_status">
-  <?php
-	$status = $account["status"];
-	if ($account["charstatus"] != 'active') {
-		$status=$account["charstatus"];
+<?php 
+	if(STENDHAL_ACHIEVEMENTS) {
+		$this->renderAchievements();
 	}
-  ?>
-    This account is <span class="<?php echo htmlspecialchars($status); ?>"><?php echo htmlspecialchars($status); ?></span>
-  </div>
-  <?php if (($account["status"]) == 'active' && ($choosen->adminlevel > 0) && ($choosen->name != 'postman')) {
-    if ($choosen->adminlevel < 300) {
-            echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
-        } else if ($choosen->adminlevel < 500) {
-            echo '<div class="admin">This player has adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players.</div>';
-        } else {
-            echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
-        }
-    }
-  ?>
-</div>
+?>
 
 <div class="table">
   <div class="title">Deaths</div>
@@ -223,11 +205,31 @@ foreach($choosen->equipment as $slot=>$content) {
 ?>
 </div>
 
-<?php
-
-	if (isset($_REQUEST['test'])) {
-		$this->renderAchievements();
+<div class="table">
+  <div class="title">Account information</div>
+  <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
+  <div class="account_status">
+  <?php
+	$status = $account["status"];
+	if ($account["charstatus"] != 'active') {
+		$status=$account["charstatus"];
 	}
+  ?>
+    This account is <span class="<?php echo htmlspecialchars($status); ?>"><?php echo htmlspecialchars($status); ?></span>
+  </div>
+  <?php if (($account["status"]) == 'active' && ($choosen->adminlevel > 0) && ($choosen->name != 'postman')) {
+    if ($choosen->adminlevel < 300) {
+            echo '<div class="admin">This player volunteered to answer support questions about Stendhal.</div>';
+        } else if ($choosen->adminlevel < 500) {
+            echo '<div class="admin">This player has adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a> to provide support for Stendhal players.</div>';
+        } else {
+            echo '<div class="admin">This account is a game master with adminlevel <a href="/wiki/Stendhal:Administration#Required_adminlevel">' . htmlspecialchars($choosen->adminlevel). '</a>.</div>';
+        }
+    }
+  ?>
+</div>
+
+<?php
 
 endBox();
 	}
