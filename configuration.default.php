@@ -72,6 +72,8 @@ define('STENDHAL_SECURE_SESSION', false);
 # Counter
 define('STENDHAL_WEB_COUNTER', true);
 
+# Show achievements on character page
+define('STENDHAL_ACHIEVEMENTS', true);
 
 # URL-Rewriting. 
 # Please see scripts/urlrewrite.php for the mod_rewrite rules required in your apache configuration file.
