@@ -40,8 +40,11 @@ class Player {
   public $money;
   /* Equipment the player has in slots in a array slot=>item */
   public $equipment;
+  
+  /* When was this player last seen */
+  public $lastseen;
 
-  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $money, $adminlevel, $attributes, $equipment) {
+  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $money, $adminlevel, $attributes, $equipment, $lastseen) {
     $this->name=$name;
     $this->sentence=$sentence;
     $this->age=$age;
@@ -53,6 +56,7 @@ class Player {
     $this->adminlevel=$adminlevel;
     $this->money=$money;
     $this->equipment=$equipment;
+    $this->lastseen=$lastseen;
   }
 
 	function show() {
@@ -210,7 +214,8 @@ function _getPlayers($query) {
                      $row['money'],
                      $row['admin'],
                      $attributes,
-                     $equipment);
+                     $equipment,
+                     $row['lastseen']);
     }
 
     mysql_free_result($result);
