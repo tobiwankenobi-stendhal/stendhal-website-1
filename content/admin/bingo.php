@@ -10,7 +10,7 @@ class BingoPage extends Page {
 	private $outfit;
 	
 	public function __construct() {
-		$this->query = "SELECT id, killed, killed_type, killer, killer_type FROM kills WHERE id>'".mysql_real_escape_string($_REQUEST['lastid'])."'+1 AND killed_type='C' ORDER BY id LIMIT 1";
+		$this->query = "SELECT id, killed, killed_type, killer, killer_type FROM kills WHERE id>'".mysql_real_escape_string($_REQUEST['lastid'])."'+1 ORDER BY id LIMIT 1";
 		$result = mysql_query($this->query, getGameDB());
 		
         $row=mysql_fetch_assoc($result);
