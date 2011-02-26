@@ -173,7 +173,7 @@ class News {
 		if (isset($this->oneLineDescription) && strlen($this->oneLineDescription) > 0) {
 			$res = $res.urlencode('&message='.$this->oneLineDescription);
 		}
-		$res = $res.'" target="_blank" title="Facebook">';
+		$res = $res.'" target="_blank" title="Google Buzz">';
 		$res = $res.'<img src="images/buttons/google_buzz_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
 		$res = $res.'</a>';
 		return $res;
