@@ -146,6 +146,7 @@ if ($page->writeHttpHeader()) {
 			echo '<li><a id="menuItems" href="'.rewriteURL('/item/').'">Items</a></li>'."\n";
 			?>
 			<li><a id="menuQuests" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalQuest">Quests</a></li>
+			<?php echo '<li><a id="menuQuests" href="'.rewriteURL('/achievement.html').'">Achievements</a></li>'."\n"; ?>
 			<li><a id="menuHistory" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalHistory">History</a></li>
 		</ul>
 		<?php endBox(); ?>
