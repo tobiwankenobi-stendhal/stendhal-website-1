@@ -66,7 +66,7 @@ $account=$choosen->getAccountInfo();
 </div>
 <div style="height:220px">
 <div class="table" style ="float:left; height:190px; margin-right: 12px;">
-  <div class="title">Attributes and statistics</div>
+  <div class="title"><a name="attributes">Attributes and statistics</a></div>
 
   <?php
   foreach($choosen->attributes as $key=>$value) {
@@ -95,7 +95,7 @@ $account=$choosen->getAccountInfo();
     ?>
 </div>
 <div class="table" style = "float:left; width:115px; height:190px; margin-right: 12px;">
-<div class="title">Equipment</div>
+<div class="title"><a name="equipment">Equipment</a></div>
 <div class ="equipment">
 <?php
 foreach($choosen->equipment as $slot=>$content) {
@@ -123,7 +123,7 @@ foreach($choosen->equipment as $slot=>$content) {
 </div>
 </div>
 <div class="table" style ="float:left; height:190px; margin-right: 12px;">
-<div class="title">Rank</div>
+<div class="title"><a name="rank">Rank</a></div>
 
 	<?php
 	$ranks = getCharacterRanks($choosen->name);
@@ -156,7 +156,7 @@ foreach($choosen->equipment as $slot=>$content) {
 ?>
 
 <div class="table">
-  <div class="title">Deaths</div>
+  <div class="title"><a name="death">Deaths</a></div>
  <?php
   $deaths=$choosen->getDeaths();
 
@@ -206,7 +206,7 @@ foreach($choosen->equipment as $slot=>$content) {
 </div>
 
 <div class="table">
-  <div class="title">Account information</div>
+  <div class="title"><a name="account">Account information</a></div>
   <div class="register">Registered at <?php echo htmlspecialchars($account["register"]); ?></div>
   <div class="account_status">
   <?php
@@ -245,7 +245,7 @@ endBox();
 		}
 	</style>
 	<div class="table">
-	<div class="title">Achievements</div>
+	<div class="title"><a name="achievements">Achievements</a></div>
 	<?php
 		if($choosen->lastseen < '2011-02-26') {
 	?>
