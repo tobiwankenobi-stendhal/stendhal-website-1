@@ -249,7 +249,7 @@ endBox();
 	<?php
 		if($this->players[0]->lastseen < '2011-02-26 11:35') {
 	?>
-		<div class="bubble"><!-- <?php echo $this->players[0]->lastseen?> -->This detail page previews achievements. Reached achievements will be updated on next login.</div>
+		<div class="bubble">This detail page previews achievements. Reached achievements will be updated on next login.</div>
 	<?php
 		}
 	?> 
