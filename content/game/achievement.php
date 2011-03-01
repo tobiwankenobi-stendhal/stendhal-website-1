@@ -4,7 +4,7 @@ class AchievementPage extends Page {
 
 	public function __construct() {
 		if ($_REQUEST['name']) {
-			$this->achievements = Achievement::getAchievement($_REQUEST['name']);
+			$this->achievements = Achievement::getAchievement(preg_replace('/_/', ' ', $_REQUEST['name']));
 		} else {
 			$this->achievements = Achievement::getAchievements();
 		}
