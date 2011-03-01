@@ -54,9 +54,9 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters [L]
                 RewriteRule ^/account/remind-mail.html$ /index.php?id=content/account/remind [L]
 
-                # npcs
+                # achievement
                 RewriteRule ^/achievement.html$ /index.php?id=content/game/achievement [L]
-                RewriteRule ^/achievement/(.*)\.html$ /index.php?id=content/scripts/achievement&name=$1&exact [L]
+                RewriteRule ^/achievement/(.*)\.html$ /index.php?id=content/game/achievement&name=$1&exact [L]
 
                 # characters
                 RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact [L]
@@ -274,7 +274,7 @@ function rewriteURL($url) {
 		if (preg_match('|^/achievement\.html$|', $url)) {
 			return preg_replace('|^/achievement\.html$|', $folder.'/?id=content/game/achievement', $url);
 		} else if (preg_match('|^/achievement/.*\.html$|', $url)) {
-			return preg_replace('|^/achievement/.*\.html$|', $folder.'/?id=content/scripts/achievement&name=$1&exact', $url);
+			return preg_replace('|^/achievement/.*\.html$|', $folder.'/?id=content/game/achievement&name=$1&exact', $url);
 		}
 
 	// chat
