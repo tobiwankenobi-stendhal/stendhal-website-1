@@ -109,7 +109,7 @@ class News {
 		
 		// add a tweet button
 		if ($_REQUEST['test']) {
-			echo '<div class="newsContent newsDetail">'.$this->renderTweetButton().$this->renderFacebookButton().$this->renderBuzzButton().'</div>';
+			echo '<div id="social_buttons" class="newsContent newsDetail">'.$this->renderTweetButton().$this->renderFacebookButton().$this->renderBuzzButton().'</div>';
 		}
 		
 		endBox();
