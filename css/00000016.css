@@ -229,6 +229,31 @@ img.screenshot {
 
 
 /* -------------------------------------------------------------------------*/
+/* achievement.css */
+
+.achievement {
+	text-align: center;
+}
+
+.achievement img {
+	border: 1px solid black;
+}
+
+.achievement .name {
+	text-align: left;
+	font-size: 36px;
+}
+
+.achievement .description {
+	padding: 5px;
+	border: 1px solid #BBBBBB;
+	background: #DDDDDD;
+	font-style: italic;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+
 /* server_status.css */
 .status {
 	padding: 4px;

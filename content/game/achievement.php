@@ -55,9 +55,16 @@ class AchievementPage extends Page {
 		if (count($list) == 0) {
 			echo 'No character has earned this achievement, yet. Be the first!';
 		} else {
+
+			echo '<div style="height: 180px;">';
 			foreach ($list as $entry) {
-				echo '<img src="'.rewriteURL('/images/outfit/'.urlencode($entry[1]).'.png').'"> '.htmlspecialchars($entry[0]).'<br>';
+				echo '<div class="onlinePlayer onlinePlayerHeight">';
+				echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry[0]).'.html').'">';
+				echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($entry[1]).'.png').'" alt="">';
+				echo '  <span class="block onlinename">'.htmlspecialchars($entry[0]).'</span></a>';
+				echo '</div>';
 			}
+			echo '</div>';
 		}
 		endBox();
 	}

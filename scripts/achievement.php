@@ -86,7 +86,7 @@ class Achievement {
 			. "FROM character_stats, reached_achievement "
 			. "WHERE character_stats.name=reached_achievement.charname "
 			. "AND reached_achievement.achievement_id = '".mysql_real_escape_string($achievementId)."' "
-			. "ORDER BY reached_achievement.timedate DESC LIMIT 10";
+			. "ORDER BY reached_achievement.timedate DESC LIMIT 14";
 		$result = mysql_query($query, getGameDB());
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
