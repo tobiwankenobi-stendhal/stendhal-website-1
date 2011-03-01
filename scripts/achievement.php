@@ -81,13 +81,22 @@ class Achievement {
 		}
 	}
 
+	public static function getAwardedTo($achievementId) {
+		$query = "SELECT character_stats.name, character_stats.outfit "
+			. "FROM character_stats, reached_achievement "
+			. "WHERE character_stats.name=reached_achievement.charname "
+			. "AND reached_achievement.achievement_id = '".mysql_real_escape_string($achievementId)."' "
+			. "ORDER BY reached_achievement.timedate DESC LIMIT 10";
+		$result = mysql_query($query, getGameDB());
+		$list= array();
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = array($row['name'], $row['outfit']);
+		}
+		return $list;
+	}
 
 	private static function _getAchievements($query) {
-		$db = getGameDB();
-		if ($_REQUEST['test'] && $_REQUEST['test'] == "testdb") {
-			$db = getTestDB();
-		}
-		$result = mysql_query($query, $db);
+		$result = mysql_query($query, getGameDB());
 		$list = array();
 		while($row = mysql_fetch_assoc($result)) {
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 

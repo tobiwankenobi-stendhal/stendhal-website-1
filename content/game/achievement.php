@@ -19,7 +19,11 @@ class AchievementPage extends Page {
 	}
 
 	public function writeHtmlHeader() {
-		echo '<title>Achievements'.STENDHAL_TITLE.'</title>';
+		if (count($this->achievements) == 1) {
+			echo '<title>Achievement '.$this->achievements->title.STENDHAL_TITLE.'</title>';
+		} else {
+			echo '<title>Achievements'.STENDHAL_TITLE.'</title>';
+		}
 	}
 
 	function writeContent() {
@@ -41,10 +45,18 @@ class AchievementPage extends Page {
 		echo '<table class="prettytable">';
 			echo '<tr>';
 			echo '<td><img src="/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png" title="'.htmlspecialchars($this->achievements->category).'"></td>';
-			echo '<td><abbr title="'.htmlspecialchars($this->achievements->description).'">'.htmlspecialchars($this->achievements->title).'</abbr></td>';
+			echo '<td>'.htmlspecialchars($this->achievements->title).'</td>';
 			echo '<td>'.htmlspecialchars($this->achievements->count).'</td>';
 			echo '</tr>';
+			echo '<tr><td colspan="3">'.htmlspecialchars($this->achievements->description).'</td></tr>';
 		echo '</table>';
+		endBox();
+
+		startBox("Recently awarded to");
+		$list = Achievement::getAwardedTo($this->achievements->id);
+		foreach ($list as $entry) {
+			echo '<img src="'.rewriteURL('/images/outfit/'.urlencode($entry[1]).'.png').'"> '.htmlspecialchars($entry[0]).'<br>';
+		}
 		endBox();
 	}
 
