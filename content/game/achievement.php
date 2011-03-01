@@ -42,20 +42,22 @@ class AchievementPage extends Page {
 
 	function achievementDetail() {
 		startBox("Achievement");
-		echo '<table class="prettytable">';
-			echo '<tr>';
-			echo '<td><img src="/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png" title="'.htmlspecialchars($this->achievements->category).'"></td>';
-			echo '<td>'.htmlspecialchars($this->achievements->title).'</td>';
-			echo '<td>'.htmlspecialchars($this->achievements->count).'</td>';
-			echo '</tr>';
-			echo '<tr><td colspan="3">'.htmlspecialchars($this->achievements->description).'</td></tr>';
-		echo '</table>';
+		echo '<div class="achievement">';
+		echo '<div class="name">'.htmlspecialchars($this->achievements->title).'</div>';
+		echo '<img class="achievement" src="/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png" alt="">';
+		echo '<div class="description">'.htmlspecialchars($this->achievements->description).'</div>';
+		echo '</div>';
+		echo 'Earned by '.htmlspecialchars($this->achievements->count). ' characters.';
 		endBox();
 
 		startBox("Recently awarded to");
 		$list = Achievement::getAwardedTo($this->achievements->id);
-		foreach ($list as $entry) {
-			echo '<img src="'.rewriteURL('/images/outfit/'.urlencode($entry[1]).'.png').'"> '.htmlspecialchars($entry[0]).'<br>';
+		if (count($list) == 0) {
+			echo 'No character has earned this achievement, yet. Be the first!';
+		} else {
+			foreach ($list as $entry) {
+				echo '<img src="'.rewriteURL('/images/outfit/'.urlencode($entry[1]).'.png').'"> '.htmlspecialchars($entry[0]).'<br>';
+			}
 		}
 		endBox();
 	}
