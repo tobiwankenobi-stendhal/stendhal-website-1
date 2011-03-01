@@ -74,8 +74,8 @@ class AchievementPage extends Page {
 		echo '<table class="prettytable">';
 		foreach ($this->achievements as $achievement) {
 			echo '<tr>';
-			echo '<td><img src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->category).'"></td>';
-			echo '<td><abbr title="'.htmlspecialchars($achievement->description).'">'.htmlspecialchars($achievement->title).'</abbr></td>';
+			echo '<td><a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'"><img style="border:none" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->category).'"></a></td>';
+			echo '<td><a style="color: #000" href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'" title="'.htmlspecialchars($achievement->description).'">'.htmlspecialchars($achievement->title).'</a></td>';
 			echo '<td>'.htmlspecialchars($achievement->count).'</td>';
 			echo '</tr>';
 		}

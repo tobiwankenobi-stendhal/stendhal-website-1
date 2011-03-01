@@ -274,7 +274,7 @@ function rewriteURL($url) {
 		if (preg_match('|^/achievement\.html$|', $url)) {
 			return preg_replace('|^/achievement\.html$|', $folder.'/?id=content/game/achievement', $url);
 		} else if (preg_match('|^/achievement/.*\.html$|', $url)) {
-			return preg_replace('|^/achievement/.*\.html$|', $folder.'/?id=content/game/achievement&name=$1&exact', $url);
+			return preg_replace('|^/achievement/(.*)\.html$|', $folder.'/?id=content/game/achievement&name=$1&exact', $url);
 		}
 
 	// chat
