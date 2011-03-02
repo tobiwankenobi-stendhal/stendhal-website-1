@@ -103,7 +103,7 @@ class Achievement {
 			. REMOVE_ADMINS_AND_POSTMAN
 			. " AND characters.charname = character_stats.name "
 			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
-			. "ORDER BY character_stats.name DESC LIMIT 100";
+			. "ORDER BY character_stats.name LIMIT 100";
 		$result = mysql_query($query, getGameDB()) or die($query.':'. mysql_error(getGameDB()));
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
@@ -122,7 +122,7 @@ class Achievement {
 			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
 			. "AND characters.charname = buddy.charname "
 			. "AND char2.charname = buddy.buddy AND char2.player_id != '".mysql_real_escape_string($accountId)."' "
-			. " ORDER BY character_stats.name DESC LIMIT 100";
+			. " ORDER BY character_stats.name LIMIT 100";
 		$result = mysql_query($query, getGameDB()) or die($query.':'. mysql_error(getGameDB()));
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
