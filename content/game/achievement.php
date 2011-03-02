@@ -63,7 +63,19 @@ class AchievementPage extends Page {
 		endBox();
 
 
-		startBox("Recently awarded to");
+		startBox('My Friends');
+		if ($_SESSION && $_SESSION['account']) {
+			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
+			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
+			$this->renderPlayers($list);
+			echo '</div>';
+		} else {
+			echo '<div style="padding: 2em"><a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.urlencode(rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html')).'">Login to see your characters...</a></div>';
+		}
+		endBox();
+
+
+		startBox("Most Recently");
 		$list = Achievement::getAwardedToRecently($this->achievements->id);
 		if (count($list) == 0) {
 			echo 'No character has earned this achievement, yet. Be the first!';

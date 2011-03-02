@@ -97,12 +97,12 @@ class Achievement {
 
 	public static function getAwardedToOwnCharacters($accountId, $achievementId) {
 		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
-				. "FROM character_stats, characters "
-				. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
-				. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
-				. "WHERE characters.charname = character_stats.name "
-				. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
-				. "ORDER BY character_stats.name DESC LIMIT 100";
+			. "FROM character_stats, characters "
+			. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
+			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
+			. "WHERE characters.charname = character_stats.name "
+			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
+			. "ORDER BY character_stats.name DESC LIMIT 100";
 		$result = mysql_query($query, getGameDB());
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
@@ -110,6 +110,24 @@ class Achievement {
 		}
 		return $list;
 	}
+
+	public static function getAwardedToMyFriends($accountId, $achievementId) {
+		$query = "SELECT DISTINCT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
+			. "FROM character_stats, buddy, characters "
+			. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
+			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
+			. "WHERE characters.charname = character_stats.name "
+			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
+			. "AND characters.charname = buddy.charname AND characters.charname != buddy.buddy "
+			. "ORDER BY character_stats.name DESC LIMIT 100";
+		$result = mysql_query($query, getGameDB()) or die(mysql_error(getGameDB()));
+		$list= array();
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = $row;
+		}
+		return $list;
+	}
+	
 	private static function _getAchievements($query) {
 		$result = mysql_query($query, getGameDB());
 		$list = array();
