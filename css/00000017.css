@@ -252,6 +252,12 @@ img.screenshot {
 	margin-top: 12px;
 	margin-bottom: 12px;
 }
+.achievementOpen{
+	filter:alpha(opacity=30);
+	-moz-opacity:0.3;
+	-khtml-opacity: 0.3;
+	opacity: 0.3;
+}
 
 
 /* server_status.css */

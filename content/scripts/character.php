@@ -236,14 +236,6 @@ endBox();
 
 	private function renderAchievements() {
 		?>
-	<style type="text/css">
-		.achievementOpen{
-			filter:alpha(opacity=30);
-			-moz-opacity:0.3;
-			-khtml-opacity: 0.3;
-			opacity: 0.3;
-		}
-	</style>
 	<div class="table">
 	<div class="title"><a name="achievements">Achievements</a></div>
 	<?php
