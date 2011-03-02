@@ -52,9 +52,9 @@ class AchievementPage extends Page {
 		echo "\r\n";
 
 
-		startBox('My Characters');
+		startBox('My Friends');
 		if ($_SESSION && $_SESSION['account']) {
-			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
+			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
 			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
 			$this->renderPlayers($list);
 			echo '</div>';
@@ -64,9 +64,10 @@ class AchievementPage extends Page {
 		endBox();
 		echo "\r\n";
 
-		startBox('My Friends');
+
+		startBox('My Characters');
 		if ($_SESSION && $_SESSION['account']) {
-			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
+			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
 			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
 			$this->renderPlayers($list);
 			echo '</div>';
@@ -107,12 +108,15 @@ class AchievementPage extends Page {
 	function renderPlayers($list) {
 		foreach ($list as $entry) {
 			$style = '';
-			if (!$entry['achievement_id']) {
+			if (!$entry['timedate']) {
 				$style = 'class="achievementOpen"';
+				$title = 'Not earned yet';
+			} else {
+				$title= 'Earned on '.htmlspecialchars($entry['timedate']);
 			}
 			echo '<div class="onlinePlayer onlinePlayerHeight">';
 			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
-			echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.surlencode($entry['outfit']).'.png').'" alt="">';
+			echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.surlencode($entry['outfit']).'.png').'" alt="" title="'.$title.'">';
 			echo '  <span class="block onlinename">'.htmlspecialchars($entry['name']).'</span></a>';
 			echo '</div>';
 		}

@@ -82,7 +82,7 @@ class Achievement {
 	}
 
 	public static function getAwardedToRecently($achievementId) {
-		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
+		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.timedate "
 			. "FROM character_stats, reached_achievement "
 			. "WHERE character_stats.name=reached_achievement.charname "
 			. "AND reached_achievement.achievement_id = '".mysql_real_escape_string($achievementId)."' "
@@ -96,7 +96,7 @@ class Achievement {
 	}
 
 	public static function getAwardedToOwnCharacters($accountId, $achievementId) {
-		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
+		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.timedate "
 			. "FROM character_stats, characters "
 			. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
 			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
@@ -113,7 +113,7 @@ class Achievement {
 	}
 
 	public static function getAwardedToMyFriends($accountId, $achievementId) {
-		$query = "SELECT DISTINCT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
+		$query = "SELECT DISTINCT character_stats.name, character_stats.outfit, reached_achievement.timedate "
 			. "FROM character_stats, characters, characters As char2, buddy "
 			. "LEFT JOIN reached_achievement ON (buddy.buddy=reached_achievement.charname "
 			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
