@@ -82,7 +82,7 @@ class Achievement {
 	}
 
 	public static function getAwardedToRecently($achievementId) {
-		$query = "SELECT character_stats.name, character_stats.outfit "
+		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
 			. "FROM character_stats, reached_achievement "
 			. "WHERE character_stats.name=reached_achievement.charname "
 			. "AND reached_achievement.achievement_id = '".mysql_real_escape_string($achievementId)."' "
@@ -90,7 +90,7 @@ class Achievement {
 		$result = mysql_query($query, getGameDB());
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
-			$list[] = array($row['name'], $row['outfit']);
+			$list[] = $row;
 		}
 		return $list;
 	}

@@ -55,17 +55,7 @@ class AchievementPage extends Page {
 		if ($_SESSION && $_SESSION['account']) {
 			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
 			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
-			foreach ($list as $entry) {
-				$style = '';
-				if (!$entry['achievement_id']) {
-					$style = 'class="achievementOpen"';
-				}
-				echo '<div class="onlinePlayer onlinePlayerHeight">';
-				echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
-				echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.surlencode($entry['outfit']).'.png').'" alt="">';
-				echo '  <span class="block onlinename">'.htmlspecialchars($entry['name']).'</span></a>';
-				echo '</div>';
-			}
+			$this->renderPlayers($list);
 			echo '</div>';
 		} else {
 			echo '<div style="padding: 2em"><a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.urlencode(rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html')).'">Login to see your characters...</a></div>';
@@ -78,15 +68,8 @@ class AchievementPage extends Page {
 		if (count($list) == 0) {
 			echo 'No character has earned this achievement, yet. Be the first!';
 		} else {
-
 			echo '<div style="height: 180px;">';
-			foreach ($list as $entry) {
-				echo '<div class="onlinePlayer onlinePlayerHeight">';
-				echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry[0]).'.html').'">';
-				echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($entry[1]).'.png').'" alt="">';
-				echo '  <span class="block onlinename">'.htmlspecialchars($entry[0]).'</span></a>';
-				echo '</div>';
-			}
+			$this->renderPlayers($list);
 			echo '</div>';
 		}
 		endBox();
@@ -104,6 +87,20 @@ class AchievementPage extends Page {
 		}
 		echo '</table>';
 		endBox();
+	}
+
+	function renderPlayers($list) {
+		foreach ($list as $entry) {
+			$style = '';
+			if (!$entry['achievement_id']) {
+				$style = 'class="achievementOpen"';
+			}
+			echo '<div class="onlinePlayer onlinePlayerHeight">';
+			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
+			echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.surlencode($entry['outfit']).'.png').'" alt="">';
+			echo '  <span class="block onlinename">'.htmlspecialchars($entry['name']).'</span></a>';
+			echo '</div>';
+		}
 	}
 }
 $page = new AchievementPage();
