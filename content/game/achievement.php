@@ -50,8 +50,31 @@ class AchievementPage extends Page {
 		echo 'Earned by '.htmlspecialchars($this->achievements->count). ' characters.';
 		endBox();
 
+
+		startBox('My Characters');
+		if ($_SESSION && $_SESSION['account']) {
+			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
+			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
+			foreach ($list as $entry) {
+				$style = '';
+				if (!$entry['achievement_id']) {
+					$style = 'class="achievementOpen"';
+				}
+				echo '<div class="onlinePlayer onlinePlayerHeight">';
+				echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
+				echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.surlencode($entry['outfit']).'.png').'" alt="">';
+				echo '  <span class="block onlinename">'.htmlspecialchars($entry['name']).'</span></a>';
+				echo '</div>';
+			}
+			echo '</div>';
+		} else {
+			echo '<div style="padding: 2em"><a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.urlencode(rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html')).'">Login to see your characters...</a></div>';
+		}
+		endBox();
+
+
 		startBox("Recently awarded to");
-		$list = Achievement::getAwardedTo($this->achievements->id);
+		$list = Achievement::getAwardedToRecently($this->achievements->id);
 		if (count($list) == 0) {
 			echo 'No character has earned this achievement, yet. Be the first!';
 		} else {

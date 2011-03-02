@@ -81,7 +81,7 @@ class Achievement {
 		}
 	}
 
-	public static function getAwardedTo($achievementId) {
+	public static function getAwardedToRecently($achievementId) {
 		$query = "SELECT character_stats.name, character_stats.outfit "
 			. "FROM character_stats, reached_achievement "
 			. "WHERE character_stats.name=reached_achievement.charname "
@@ -95,6 +95,21 @@ class Achievement {
 		return $list;
 	}
 
+	public static function getAwardedToOwnCharacters($accountId, $achievementId) {
+		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
+				. "FROM character_stats, characters "
+				. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
+				. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
+				. "WHERE characters.charname = character_stats.name "
+				. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
+				. "ORDER BY character_stats.name DESC LIMIT 100";
+		$result = mysql_query($query, getGameDB());
+		$list= array();
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = $row;
+		}
+		return $list;
+	}
 	private static function _getAchievements($query) {
 		$result = mysql_query($query, getGameDB());
 		$list = array();
