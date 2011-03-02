@@ -50,7 +50,6 @@ class AchievementPage extends Page {
 		echo 'Earned by '.htmlspecialchars($this->achievements->count). ' characters.';
 		endBox();
 
-
 		startBox('My Characters');
 		if ($_SESSION && $_SESSION['account']) {
 			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
@@ -63,6 +62,7 @@ class AchievementPage extends Page {
 		endBox();
 
 
+		echo '<!--';
 		startBox('My Friends');
 		if ($_SESSION && $_SESSION['account']) {
 			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
@@ -73,7 +73,7 @@ class AchievementPage extends Page {
 			echo '<div style="padding: 2em"><a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.urlencode(rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html')).'">Login to see your characters...</a></div>';
 		}
 		endBox();
-
+		echo '-->';
 
 		startBox("Most Recently");
 		$list = Achievement::getAwardedToRecently($this->achievements->id);
