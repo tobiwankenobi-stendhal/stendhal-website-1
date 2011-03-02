@@ -35,7 +35,9 @@ class KilledStatsPage extends Page {
 	}
 
 	function writeContent() {
-	
+$content=implode("",file(STENDHAL_SERVER_STATS_XML));
+$xmlStats = XML_unserialize($content);
+
 $monsters=getMonsters();
 $classes=Monster::getClasses();
 
@@ -43,10 +45,12 @@ $classes=Monster::getClasses();
 
 <div style="float: left; width: 50%"><?php
 startBox('Most killed (recently)');
-$result=getMostKilledMonster($monsters);
+$result=$this->getMostKilledMonsterXml($xmlStats, $monsters);
 if($result==null) {
 	$result=array($monsters[0],0);
 }
+
+
 
 list($m, $amount)=$result;
 echo '<div style="text-align: center;">';
@@ -81,11 +85,6 @@ endBox();
 
 <div style="float: left; width: 100%"><?php
 
-
-
-$content=implode("",file(STENDHAL_SERVER_STATS_XML));
-$xmlStats = XML_unserialize($content);
-
 startBox("Killed monsters on this server run");
 $monsters=getMonsters();
 
@@ -107,6 +106,19 @@ endBox();
 ?></div>
 <div style="clear: left;"></div>
 <?php
+	}
+	
+	function getMostKilledMonsterXml($xmlStats, $monsters) {
+		$cnt = 0;
+		$monster = null;
+		foreach($monsters as $m) {
+			$a=getVariable($xmlStats, "Killed ".$m->name);
+			if ($a > $cnt) {
+				$cnt = $a;
+				$monster = $m;
+			}
+		}
+		return array($monster, $cnt);
 	}
 }
 $page = new KilledStatsPage();
