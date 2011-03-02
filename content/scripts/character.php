@@ -150,7 +150,7 @@ foreach($choosen->equipment as $slot=>$content) {
 </div>
 
 <?php 
-	if(STENDHAL_ACHIEVEMENTS) {
+	if(STENDHAL_ACHIEVEMENTS && $choosen->adminlevel < 600) {
 		$this->renderAchievements();
 	}
 ?>
