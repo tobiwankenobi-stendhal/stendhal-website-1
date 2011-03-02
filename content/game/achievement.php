@@ -64,13 +64,9 @@ class AchievementPage extends Page {
 		endBox();
 		echo "\r\n";
 
-		$haveFriends = false;
 		startBox('My Friends');
 		if ($_SESSION && $_SESSION['account']) {
 			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
-			if (count($list) > 0) {
-				$haveFriends = true;
-			}
 			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
 			$this->renderPlayers($list);
 			echo '</div>';
@@ -80,19 +76,18 @@ class AchievementPage extends Page {
 		endBox();
 		echo "\r\n";
 
-		if (!$haveFriends) {
-			startBox("Most Recently");
-			$list = Achievement::getAwardedToRecently($this->achievements->id);
-			if (count($list) == 0) {
-				echo 'No character has earned this achievement, yet. Be the first!';
-			} else {
-				echo '<div style="height: 180px;">';
-				$this->renderPlayers($list);
-				echo '</div>';
-			}
-			endBox();
-			echo "\r\n";
+
+		startBox("Most Recently");
+		$list = Achievement::getAwardedToRecently($this->achievements->id);
+		if (count($list) == 0) {
+			echo 'No character has earned this achievement, yet. Be the first!';
+		} else {
+			echo '<div style="height: 180px;">';
+			$this->renderPlayers($list);
+			echo '</div>';
 		}
+		endBox();
+		echo "\r\n";
 	}
 
 	function achievementList() {
