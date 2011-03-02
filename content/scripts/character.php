@@ -261,7 +261,8 @@ endBox();
 			} else {
 				$class = "achievementOpen";
 			}
-			echo '<img class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'"> ';
+			echo '<a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
+			echo '<img style="border: none" class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png"></a>';
 		}
 		echo '</div>';
 		?>
