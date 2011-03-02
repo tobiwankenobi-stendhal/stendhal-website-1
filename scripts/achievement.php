@@ -100,10 +100,11 @@ class Achievement {
 			. "FROM character_stats, characters "
 			. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
 			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
-			. "WHERE characters.charname = character_stats.name "
+			. REMOVE_ADMINS_AND_POSTMAN
+			. " AND characters.charname = character_stats.name "
 			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
 			. "ORDER BY character_stats.name DESC LIMIT 100";
-		$result = mysql_query($query, getGameDB());
+		$result = mysql_query($query, getGameDB()) or die($query.':'. mysql_error(getGameDB()));
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
 			$list[] = $row;
@@ -113,14 +114,16 @@ class Achievement {
 
 	public static function getAwardedToMyFriends($accountId, $achievementId) {
 		$query = "SELECT DISTINCT character_stats.name, character_stats.outfit, reached_achievement.achievement_id "
-			. "FROM character_stats, buddy, characters "
-			. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
+			. "FROM character_stats, characters, characters As char2, buddy "
+			. "LEFT JOIN reached_achievement ON (buddy.buddy=reached_achievement.charname "
 			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
-			. "WHERE characters.charname = character_stats.name "
+			. REMOVE_ADMINS_AND_POSTMAN
+			. " AND buddy.buddy = character_stats.name "
 			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
-			. "AND characters.charname = buddy.charname AND characters.charname != buddy.buddy "
-			. "ORDER BY character_stats.name DESC LIMIT 100";
-		$result = mysql_query($query, getGameDB()) or die(mysql_error(getGameDB()));
+			. "AND characters.charname = buddy.charname "
+			. "AND char2.charname = buddy.buddy AND char2.player_id != '".mysql_real_escape_string($accountId)."' "
+			. " ORDER BY character_stats.name DESC LIMIT 100";
+		$result = mysql_query($query, getGameDB()) or die($query.':'. mysql_error(getGameDB()));
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
 			$list[] = $row;
