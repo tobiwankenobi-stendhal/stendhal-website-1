@@ -153,7 +153,7 @@ class News {
 		$res = '<a href="http://facebook.com/sharer.php?u=';
 		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
 		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
-		$res = '&t='.$res.urlencode($this->title);
+		$res = $res.'&t='.urlencode($this->title);
 		$res = $res.'" target="_blank" title="Facebook">';
 		$res = $res.'<img src="images/buttons/facebook_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
 		$res = $res.'</a>';
@@ -169,12 +169,12 @@ class News {
 		$res = '<a href="http://www.google.com/buzz/post?url=';
 		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
 		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
-		$res = '&h1='.$res.urlencode($this->title);
+		$res = $res.'&h1='.urlencode($this->title);
 		if (isset($this->oneLineDescription) && strlen($this->oneLineDescription) > 0) {
-			$res = '&message='.$res.urlencode($this->oneLineDescription);
+			$res = $res.'&message='.urlencode($this->oneLineDescription);
 		}
 		$res = $res.'" target="_blank" title="Google Buzz">';
-		$res = $res.'<img src="images/buttons/google_buzz_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
+		$res = $res.'<img src="images/buttons/google_buzz_button.png" width="24" height="24" border="0" hspace="0" alt="Google Buzz">';
 		$res = $res.'</a>';
 		return $res;
 	}
