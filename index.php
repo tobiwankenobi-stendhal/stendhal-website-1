@@ -214,7 +214,7 @@ if ($page->writeHttpHeader()) {
 
 		<?php 
 		startBox('Best Player');
-		$player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN);
+		$player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN.' and recent = "0"');
 		if($player!=NULL) {
 			$player->show();
 		} else {
@@ -291,7 +291,7 @@ if ($page->writeHttpHeader()) {
 	</div>
 
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2010 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
+		<span class="copyright">&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">&nbsp;</a></span>
 	</div>
 
