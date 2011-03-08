@@ -132,8 +132,8 @@ foreach($choosen->equipment as $slot=>$content) {
 	} else if (count($ranks) == 1 && $ranks['__']) {
 		echo htmlspecialchars($choosen->name). ' is <br>new in Stendhal.<br><br>Please check back <br>tomorrow because <br>ranks are only <br>calculated once a day.';
 	} else {
-		$names = array('Best', 'Strongest', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
-		$fametypes = array('B', 'X', 'W', 'A', 'D', 'T', 'F', 'M');
+		$names = array('Best', 'XP', 'Achievements', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
+		$fametypes = array('R', 'X', '@', 'W', 'A', 'D', 'T', 'F', 'M');
 		for ($i = 0; $i < count($names); $i++) {
 			echo '<div><span class="statslabel">'.$names[$i].'</span><span class="data">';
 			if (isset($ranks[$fametypes[$i]])) {
