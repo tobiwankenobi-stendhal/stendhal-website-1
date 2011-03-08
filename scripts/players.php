@@ -229,13 +229,13 @@ function _getPlayers($query) {
  * @param String $charname
  */
 function getCharacterRanks($charname) {
-	$query = "SELECT fametype, rank FROM halloffame_archive WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE() AND recent=1";
+	$query = "SELECT fametype, rank FROM halloffame_archive WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE() AND recent='1'";
 	$result = mysql_query($query, getGameDB());
 	// if the player has not played recently, we fetch the all times data
 	// this way it is not obvious that the account was abandoned
 	if (mysql_num_rows($result) == 0) {
 		mysql_free_result($result);
-		$query = "SELECT fametype, rank FROM halloffame_archive WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE() AND recent=0";
+		$query = "SELECT fametype, rank FROM halloffame_archive WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE() AND recent='0'";
 		$result = mysql_query($query, getGameDB());
 		$res['__'] = 'alltimes';
 	}
