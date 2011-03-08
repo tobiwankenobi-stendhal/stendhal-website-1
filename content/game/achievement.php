@@ -59,7 +59,7 @@ class AchievementPage extends Page {
 			$this->renderPlayers($list);
 			echo '</div>';
 		} else {
-			echo '<div style="padding: 2em"><a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.urlencode(rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html')).'">Login to see your characters...</a></div>';
+			echo '<div style="padding: 2em"><a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.urlencode(rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html')).'">Login to see your friends...</a></div>';
 		}
 		endBox();
 		echo "\r\n";
