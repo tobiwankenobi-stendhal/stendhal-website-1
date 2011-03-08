@@ -93,16 +93,16 @@ class HallOfFamePage extends Page {
 			$this->filter = urlencode($_REQUEST['filter']);
 		}
 		if ($this->filter=="alltimes") {
-			$this->filterWhere='';
+			$this->filterWhere=' AND recent="0"';
 		} else if ($this->filter=="active") {
-			$this->filterWhere = ' AND character_stats.lastseen>date_sub(CURRENT_TIMESTAMP, interval 1 month)';
+			$this->filterWhere = ' AND recent="1"';
 		} else if ($this->filter=="friends") {
 			if (!isset($_SESSION['account'])) {
 				$this->loginRequired = true;;
 				return;
 			}
 			$this->filterFrom = ", characters, buddy ";
-			$this->filterWhere = " AND character_stats.name=buddy.buddy AND buddy.charname=characters.charname "
+			$this->filterWhere = " AND recent='0' AND character_stats.name=buddy.buddy AND buddy.charname=characters.charname "
 				. " AND characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."'";
 		}
 		// TODO: 404 on invalid filter variable
