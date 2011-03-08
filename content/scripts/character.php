@@ -88,11 +88,11 @@ $account=$choosen->getAccountInfo();
 	?></span></div>
     <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('D')); ?></span></div>
     <div><span class="statslabel">Maze Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('M')); ?></span></div>
-    <?php $tradescore = $choosen->getHallOfFameScore('T');
+    <!--<?php $tradescore = $choosen->getHallOfFameScore('T');
     	  if ($tradescore > 0) {
     			echo '<div><span class="statslabel">Trading Score:</span><span class="data">'.htmlspecialchars($tradescore).'</span></div>';
     	  }
-    ?>
+    ?> -->
 </div>
 <div class="table" style = "float:left; width:115px; height:190px; margin-right: 12px;">
 <div class="title"><a name="equipment">Equipment</a></div>
