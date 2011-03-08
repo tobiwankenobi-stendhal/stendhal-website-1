@@ -65,7 +65,7 @@ class Player {
 		echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($this->outfit).'.png').'" alt="" width="48" height="64">';
 		echo '  <span class="block name">'.htmlspecialchars($this->name).'</span>';
 		echo ' </a>';
-		echo '  <div class="xp">'.$this->xp.' xp</div>';
+		echo '  <div class="level">Level '.$this->level.'</div>';
 		if ($this->sentence != '') {
 			$temp = $this->sentence;
 			if(strlen($temp)>=54) {
@@ -124,7 +124,7 @@ class Player {
   }
 
   function getHallOfFameScore($fametype) {
-   $result=mysql_query('select points from halloffame where charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
+   $result=mysql_query('select points from halloffame_archive where day = CURRENT_DATE() AND recent = "0" and charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
 
     while($row=mysql_fetch_assoc($result)) {
       $points=$row['points'];
@@ -141,7 +141,7 @@ class Player {
 
 /**
   * Returns a list of players online and offline that meet the given condition.
-  * Note: Parmaters must be sql escaped.
+  * Note: Parameters must be sql escaped.
   */
 function getPlayers($where='', $sortby='name', $cond='limit 2') {
 	return _getPlayers('select distinct character_stats.* from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
@@ -153,13 +153,17 @@ function getPlayer($name) {
 }
 
 function getBestPlayer($where='') {
-    $player=_getPlayers('select  *,xp/(age+1) as xp_age_rel from character_stats '.$where.' order by xp_age_rel desc limit 1', getGameDB());
+    $player=_getPlayers('select character_stats.* , points from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1', getGameDB());
     return $player[0];
 }
 
-function getDMHeroes($where='where', $cond='limit 2') {
-	return _getPlayers('select distinct character_stats.* from character_stats join halloffame on (charname=name) '.$where.' fametype="D" order by points desc '.$cond, getGameDB());
 
+/**
+  * Returns a list of players online and offline that meet the given condition from HOF
+  * Note: Parameters must be sql escaped.
+  */
+function getHOFPlayers($where='', $fametype = '', $cond='limit 2') {
+	return _getPlayers('select distinct character_stats.* from halloffame_archive join character_stats on (charname=name) '.$where.' and fametype = "'.$fametype.'" order by rank '.$cond, getGameDB());
 }
 
 /**
