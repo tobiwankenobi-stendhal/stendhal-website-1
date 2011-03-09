@@ -443,46 +443,46 @@ img.screenshot {
 }
 
 .head {
-         position:absolute;
- 	 top:0px;
- 	 left:40px;
+	position:absolute;
+	top:0px;
+	left:40px;
 }
-
 .lhand {
-         position:absolute;
- 	 top:50px;
- 	 left:80px;
+	position:absolute;
+	top:50px;
+	left:80px;
 }
-
 .rhand {
-         position:absolute;
- 	 top:50px;
- 	 left:0px;
+	position:absolute;
+	top:50px;
+	left:0px;
 }
-
+.finger {
+	position:absolute;
+	top:90px;
+	left:0px;
+}
 .armor {
-         position:absolute;
- 	 top:40px;
- 	 left:40px;
+	position:absolute;
+	top:40px;
+	left:40px;
 }
-
-.legs {
-         position:absolute;
- 	 top:80px;
- 	 left:40px;
-}
-
-.feet {
-         position:absolute;
- 	 top:120px;
- 	 left:40px;
-}
-
 .cloak {
-         position:absolute;
- 	 top:90px;
- 	 left:80px;
+	position:absolute;
+	top:90px;
+	left:80px;
 }
+.legs {
+	position:absolute;
+	top:80px;
+	left:40px;
+}
+.feet {
+	position:absolute;
+	top:120px;
+	left:40px;
+}
+
 .creature {
 	width: 48px;
 	height: 64px;

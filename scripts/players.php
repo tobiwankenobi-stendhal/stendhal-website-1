@@ -207,6 +207,7 @@ function _getPlayers($query) {
       $equipment['legs']=$row['legs'];
       $equipment['feet']=$row['feet'];
       $equipment['cloak']=$row['cloak'];
+      $equipment['finger']=$row['finger'];
 
       $list[]=new Player($row['name'],
                      $row['sentence'],

@@ -99,8 +99,8 @@ $account=$choosen->getAccountInfo();
 <div class ="equipment">
 <?php
 foreach($choosen->equipment as $slot=>$content) {
-	$old = array("head", "armor", "lhand", "rhand", "legs", "feet", "cloak");
-	$new = array("head", "armor", "left hand", "right hand", "legs", "feet", "cloak"); 
+	$old = array("head", "armor", "lhand", "rhand", "legs", "feet", "cloak", "finger");
+	$new = array("head", "armor", "left hand", "right hand", "legs", "feet", "cloak", "finger"); 
 
 	?>
 	<div class="equiprow <?php echo $slot;?>">
