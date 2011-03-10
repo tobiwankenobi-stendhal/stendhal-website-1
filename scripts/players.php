@@ -81,6 +81,29 @@ class Player {
 		echo '</div>';
 	}
 
+	static function showFromArray($player) {
+		echo '<div class="playerBox">';
+		echo '  <a href="'.rewriteURL('/character/'.surlencode($player['charname']).'.html').'">';
+		echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($player['outfit']).'.png').'" alt="" width="48" height="64">';
+		echo '  <span class="block name">'.htmlspecialchars($player['charname']).'</span>';
+		echo ' </a>';
+		echo '  <div>Level: '.$player['level'].'</div>';
+		echo '  <div>Score: '.$player['points'].'</div>';
+		if ($player['sentence'] != '') {
+			$temp = $player['sentence'];
+			if(strlen($temp)>=54) {
+				$temp = substr($player['sentence'], 0, strpos($player['sentence'], ' ', 55) - 1);
+			}
+			if ($temp != $player['sentence']) {
+				$temp = $temp.'...';
+			}
+			echo ' <div class="quote">'.htmlspecialchars($temp).'</div>';
+		} else {
+			echo ' <div style="clear:left"></div>';
+		}
+		echo '</div>';
+	}
+
   function getDeaths() {
     $result = mysql_query("
     select
@@ -153,8 +176,15 @@ function getPlayer($name) {
 }
 
 function getBestPlayer($where='') {
-    $player=_getPlayers('select character_stats.* , points from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1', getGameDB());
-    return $player[0];
+	$query = 'select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.sentence from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
+	$result = mysql_query($query, getGameDB());
+	$list=array();
+
+	while($row=mysql_fetch_assoc($result)) {
+		$list[] = $row;
+	}
+	mysql_free_result($result);
+	return $list[0];
 }
 
 

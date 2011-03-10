@@ -214,9 +214,9 @@ if ($page->writeHttpHeader()) {
 
 		<?php 
 		startBox('Best Player');
-		$player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN.' and recent = "0"');
+		$player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN." and recent = '1'");
 		if($player!=NULL) {
-			$player->show();
+			Player::showFromArray($player);
 		} else {
 			?>
 			<div class="small_notice">
