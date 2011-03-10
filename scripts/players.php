@@ -163,7 +163,15 @@ function getBestPlayer($where='') {
   * Note: Parameters must be sql escaped.
   */
 function getHOFPlayers($where='', $fametype = '', $cond='limit 2') {
-	return _getPlayers('select distinct character_stats.* from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "'.$fametype.'" order by rank '.$cond, getGameDB());
+	$query = 'select distinct halloffame_archive.charname, halloffame_archive.rank, halloffame_archive.points, character_stats.outfit from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '.$cond;
+	$result = mysql_query($query,getGameDB());
+	$list=array();
+
+	while($row=mysql_fetch_assoc($result)) {
+		$list[] = $row;
+	}
+	mysql_free_result($result);
+	return $list;
 }
 
 /**
