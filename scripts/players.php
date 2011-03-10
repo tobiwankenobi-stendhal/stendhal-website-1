@@ -177,13 +177,7 @@ function getPlayer($name) {
 
 function getBestPlayer($where='') {
 	$query = 'select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.sentence from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
-	$result = mysql_query($query, getGameDB());
-	$list=array();
-
-	while($row=mysql_fetch_assoc($result)) {
-		$list[] = $row;
-	}
-	mysql_free_result($result);
+	$list = queryWithCache($query, 60*60, getGameDB());
 	return $list[0];
 }
 

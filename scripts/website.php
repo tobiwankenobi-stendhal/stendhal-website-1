@@ -76,4 +76,27 @@ function createRandomString() {
 	}
 	return $res;
 }
+
+/**
+ * queries the database for an array result, using the cache
+ *
+ * @param unknown_type $query query to execute
+ * @param unknown_type $ttl cache time, use 0 to disable cache
+ */
+function queryWithCache($query, $ttl, $db) {
+	global $cache;
+	$list = $cache->fetchAsArray('stendhal_query_'.$query);
+	if (!isset($res)) {
+		$list=array();
+		$result = mysql_query($query, $db);
+		while($row=mysql_fetch_assoc($result)) {
+			$list[] = $row;
+		}
+		mysql_free_result($result);
+		if ($ttl && $ttl > 0) {
+			$cache->store('stendhal_query_'.$query, new ArrayObject($list), $ttl);
+		}
+	}
+	return $list;
+}
 ?>
