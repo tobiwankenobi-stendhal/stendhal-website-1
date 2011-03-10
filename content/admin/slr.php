@@ -89,7 +89,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
     <span class="date"><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr&amp;action=edit&amp;edit=<?php echo $item['id']; ?>&amp;columns=<?php echo $this->columns?>#editform"><?php echo $item['paper_bibkey']; ?></a></span>
     <span><?php echo $item['paper_title']; ?></span>
     <span><i><?php echo $item['reviewer']; ?></i></span>
-    <?php if ($item['paper_exclude'] && trim($item['paper_exclude']) != '') { echo '</del>';}?>
+    <?php if ($item['paper_exclude'] && trim($item['paper_exclude']) != '') { echo '</del>: '.htmlspecialchars($item['paper_exclude']);}?>
     </li>
     <?php
     }
