@@ -88,7 +88,6 @@ class Player {
 		echo '  <span class="block name">'.htmlspecialchars($player['charname']).'</span>';
 		echo ' </a>';
 		echo '  <div>Level: '.$player['level'].'</div>';
-		echo '  <div>Score: '.$player['points'].'</div>';
 		if ($player['sentence'] != '') {
 			$temp = $player['sentence'];
 			if(strlen($temp)>=54) {
