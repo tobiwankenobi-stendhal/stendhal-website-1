@@ -165,7 +165,7 @@ class HallOfFamePage extends Page {
 		<div class="best">
 			<a href="<?php echo rewriteURL('/character/'.surlencode($choosen['charname']).'.html'); ?>">
 				<span class="block statslabel">Name:</span><span class="block data"><?php echo htmlspecialchars($choosen['charname']); ?></span>
-				<span class="block statslabel">Age:</span><span class="block data"><?php echo printAge($choosen['age']); ?> hours</span>
+				<span class="block statslabel">Age:</span><span class="block data"><?php echo printAge(round($choosen['age']/60, 0)); ?> hours</span>
 				<span class="block statslabel">Level:</span><span class="block data"><?php echo $choosen['level']; ?></span>
 				<span class="block statslabel">XP:</span><span class="block data"><?php echo $choosen['xp']; ?></span>
 				<span class="block statslabel">Roleplay score:</span><span class="block data"><?php echo $choosen['points']; ?></span>
