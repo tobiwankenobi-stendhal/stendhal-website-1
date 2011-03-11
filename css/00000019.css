@@ -631,7 +631,8 @@ img.screenshot {
 }
 
 span.block {
-	display: block
+	display: block;
+	overflow-x: hidden;
 }
 
 .bubble {
