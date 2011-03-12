@@ -71,12 +71,9 @@ class EventsPage extends Page {
 					getPoisonEvents($this->filter),
 					getChangeZoneEvents($this->filter),
 					getOutfitEvents($this->filter),
-					getEquipEvents($this->filter));
-				if ($_REQUEST['test']) {
-					$events=array_merge($events, getAchievementEvents($this->filter));
-				} else {
-					$cache->store('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id, new ArrayObject($events), 60);
-				}
+					getEquipEvents($this->filter),
+					getAchievementEvents($this->filter));
+				$cache->store('stendhal_events_'.$this->filter.'_'.$_SESSION['account']->id, new ArrayObject($events), 60);
 			}
 		} else {
 			echo '<pre>';
