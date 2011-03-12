@@ -17,7 +17,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
-  * A class that represent a player, what it is and what it equips.
+  * A class that represents an NPC, with details on the name, stats, location and what it looks like.
   */
 class NPC {
 	public $name;
