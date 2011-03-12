@@ -79,7 +79,8 @@ class NPC {
 		$NO_ZONE = array(
 			'Azazel', 'Cherubiel', 'Gabriel', 'Ophaniel', 'Raphael', 'Uriel', 'Zophiel',
 			'Ben', 'Goran', 'Mary', 'Zak',
-			'Easter Bunny', 'Rose Leigh', 'Santa');
+			'Easter Bunny', 'Rose Leigh', 'Santa',
+			'Amber');
 
 		$result = mysql_query($query, getGameDB());
 		$list = array();
