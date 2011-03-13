@@ -320,19 +320,20 @@ function getEquipEvents($filter) {
 }
 
 class AchievementEvent extends Event  {
-  public $zone; 
-  
-  function __construct($source, $title, $description, $timedate) {
-  	parent::__construct($source, $timedate); 
-  	$this->title=$title; 	 
-  	$this->description=$description; 
-  }
-  
-  function getHtml($outfits) {
-  	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' reached achievement <abbr title="'.htmlspecialchars($this->description).'">'.
-  			htmlspecialchars($this->title).'</abbr> at '.date('H:i',strtoTime($this->timedate));
-  }
-  
+	public $zone; 
+
+	function __construct($source, $title, $description, $timedate) {
+		parent::__construct($source, $timedate);
+		$this->title=$title;
+		$this->description=$description; 
+	}
+
+	function getHtml($outfits) {
+		return '<br>'.$this->getCharacterHtml($outfits,$this->source).' reached achievement '
+			. '<a href="'.rewriteURL('/achievement/'.surlencode($this->title).'.html').'" title="'.htmlspecialchars($this->description).'">'.
+			htmlspecialchars($this->title).'</a> at '.date('H:i',strtoTime($this->timedate));
+	}
+
 }
 function getAchievementEvents($filter) {
     $result = mysql_query('SELECT charname as source, title, description, timedate       ' .
