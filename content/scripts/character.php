@@ -261,8 +261,10 @@ endBox();
 			} else {
 				$class = "achievementOpen";
 			}
-			echo '<a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
-			echo '<img style="margin:1px; border: none" class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png"></a>';
+			if($achievement->category != "SPECIAL" || $achievement->count > 0) {
+				echo '<a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
+				echo '<img style="margin:1px; border: none" class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png"></a>';
+			}
 		}
 		echo '</div>';
 		?>
