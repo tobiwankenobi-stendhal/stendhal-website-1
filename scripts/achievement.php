@@ -41,7 +41,7 @@ class Achievement {
 
 
 	/**
-	  * Returns a list of npcs that meet the given condition.
+	  * Returns a list of achievements that meet the given condition.
 	  * Note: Parmaters must be sql escaped.
 	  */
 	public static function getAchievementForCharacter($charname) {
@@ -58,7 +58,7 @@ class Achievement {
 	}
 
 	/**
-	  * Returns a list of npcs that meet the given condition.
+	  * Returns a list of achievements that meet the given condition.
 	  * Note: Parmaters must be sql escaped.
 	  */
 	public static function getAchievements($where='', $sortby='name', $cond='') {
@@ -83,10 +83,11 @@ class Achievement {
 
 	public static function getAwardedToRecently($achievementId) {
 		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.timedate "
-			. "FROM character_stats, reached_achievement "
-			. "WHERE character_stats.name=reached_achievement.charname "
+			. "FROM character_stats JOIN reached_achievement "
+			. "ON character_stats.name=reached_achievement.charname "
 			. "AND reached_achievement.achievement_id = '".mysql_real_escape_string($achievementId)."' "
-			. "ORDER BY reached_achievement.timedate DESC LIMIT 14";
+			. REMOVE_ADMINS_AND_POSTMAN
+			. " ORDER BY reached_achievement.timedate DESC LIMIT 14";
 		$result = mysql_query($query, getGameDB());
 		$list= array();
 		while($row = mysql_fetch_assoc($result)) {
