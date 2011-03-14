@@ -6,7 +6,7 @@ class AchievementPage extends Page {
 		if ($_REQUEST['name']) {
 			$this->achievements = Achievement::getAchievement(preg_replace('/_/', ' ', $_REQUEST['name']));
 		} else {
-			$this->achievements = Achievement::getAchievements();
+			$this->achievements = Achievement::getAchievements("where category != 'SPECIAL'");
 		}
 	}
 
