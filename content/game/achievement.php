@@ -110,7 +110,7 @@ class AchievementPage extends Page {
 	}
 
 	function categoryAchievementList($category) {
-		startBox(ucfirst($category)." Achievements");
+		startBox(ucfirst(htmlspecialchars($category))." Achievements");
 		$list = Achievement::getAwardedInCategory($category);
 		if (count($list) == 0) {
 			echo 'No character has earned one of these achievements, yet.';
@@ -126,7 +126,7 @@ class AchievementPage extends Page {
 		foreach ($list as $entry) {
 			$style = '';
 			if($entry['description'] && $entry['title']) {
-				$title = $entry['title'].': '.$entry['description'];
+				$title = htmlspecialchars($entry['title']).': '.htmlspecialchars($entry['description']);
 			} else if ($entry['timedate']) {
 				$title= 'Earned on '.htmlspecialchars($entry['timedate']);
 			} else {
