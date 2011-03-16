@@ -3,7 +3,9 @@ class AchievementPage extends Page {
 	private $achievements;
 
 	public function __construct() {
-		if ($_REQUEST['name']) {
+		if ($_REQUEST['name']=='special') {
+			// We don't need to do anything here
+		} else if ($_REQUEST['name']) {
 			$this->achievements = Achievement::getAchievement(preg_replace('/_/', ' ', $_REQUEST['name']));
 		} else {
 			$this->achievements = Achievement::getAchievements("where category != 'SPECIAL'");
@@ -27,7 +29,9 @@ class AchievementPage extends Page {
 	}
 
 	function writeContent() {
-		if ($_REQUEST['name']) {
+		if ($_REQUEST['name']=='special') {
+			$this->categoryAchievementList("special");
+		} else if ($_REQUEST['name']) {
 			if (count($this->achievements)==0) {
 				startBox('Achievement');
 				echo 'Achievement not found.';
@@ -105,14 +109,29 @@ class AchievementPage extends Page {
 		endBox();
 	}
 
+	function categoryAchievementList($category) {
+		startBox(ucfirst($category)." Achievements");
+		$list = Achievement::getAwardedInCategory($category);
+		if (count($list) == 0) {
+			echo 'No character has earned one of these achievements, yet.';
+		} else {
+			echo '<div style="height: 180px;">';
+			$this->renderPlayers($list);
+			echo '</div>';
+		}
+		endBox();
+	}
+	
 	function renderPlayers($list) {
 		foreach ($list as $entry) {
 			$style = '';
-			if (!$entry['timedate']) {
+			if($entry['description'] && $entry['title']) {
+				$title = $entry['title'].': '.$entry['description'];
+			} else if ($entry['timedate']) {
+				$title= 'Earned on '.htmlspecialchars($entry['timedate']);
+			} else {
 				$style = 'class="achievementOpen"';
 				$title = 'Not earned yet';
-			} else {
-				$title= 'Earned on '.htmlspecialchars($entry['timedate']);
 			}
 			echo '<div class="onlinePlayer onlinePlayerHeight">';
 			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
