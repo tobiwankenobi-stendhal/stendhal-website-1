@@ -30,7 +30,8 @@ class AchievementPage extends Page {
 
 	function writeContent() {
 		if ($_REQUEST['name']=='special') {
-			$this->categoryAchievementList("special");
+			$this->categoryAchievementList("special", "Special achievements are awarded for success in specific events. " .
+					                                  "As each one is different and cannot be earned by all players, they do not contribute to hall of fame scoring.");
 		} else if ($_REQUEST['name']) {
 			if (count($this->achievements)==0) {
 				startBox('Achievement');
@@ -109,9 +110,18 @@ class AchievementPage extends Page {
 		endBox();
 	}
 
-	function categoryAchievementList($category) {
-		startBox(ucfirst(htmlspecialchars($category))." Achievements");
+	function categoryAchievementList($category, $description) {
 		$list = Achievement::getAwardedInCategory($category);
+		startBox("Achievements");
+		echo '<div class="achievement">';
+		echo '<div class="name">'.ucfirst(htmlspecialchars($category)).'</div>';
+		echo '<img class="achievement" src="/images/achievements/'.htmlspecialchars($category).'.png" alt="">';
+		echo '<div class="description">'.htmlspecialchars($description).'</div>';
+		echo '</div>';
+		echo count($list).' '.ucfirst(htmlspecialchars($category)).' achievements earned.';
+		endBox();
+		echo "\r\n";
+		startBox("Awarded to");
 		if (count($list) == 0) {
 			echo 'No character has earned one of these achievements, yet.';
 		} else {
