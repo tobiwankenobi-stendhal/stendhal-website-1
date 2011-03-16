@@ -132,6 +132,23 @@ class Achievement {
 		return $list;
 	}
 	
+	
+	public static function getAwardedInCategory($category) {
+		$query = "SELECT character_stats.name, character_stats.outfit, achievement.title, achievement.description, reached_achievement.timedate "
+			. "FROM character_stats JOIN reached_achievement "
+			. "ON character_stats.name=reached_achievement.charname "
+			. "JOIN achievement ON achievement.id = reached_achievement.achievement_id "
+			. "AND achievement.category = '".mysql_real_escape_string($category)."' " 
+			. REMOVE_ADMINS_AND_POSTMAN
+			. " ORDER BY reached_achievement.timedate DESC;";
+		$result = mysql_query($query, getGameDB());
+		$list= array();
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = $row;
+		}
+		return $list;
+	}
+	
 	private static function _getAchievements($query) {
 		$result = mysql_query($query, getGameDB());
 		$list = array();
