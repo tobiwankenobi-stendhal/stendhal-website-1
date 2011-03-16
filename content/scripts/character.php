@@ -122,7 +122,7 @@ foreach($choosen->equipment as $slot=>$content) {
 	?>
 </div>
 </div>
-<div class="table" style ="float:left; height:190px; margin-right: 12px;">
+<div class="table" style ="float:left; height:190px;">
 <div class="title"><a name="rank">Rank</a></div>
 
 	<?php
