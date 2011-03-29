@@ -40,14 +40,10 @@ class CreateCharacterPage extends Page {
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<style type="text/css">
 				.outfitpanel {border: 1px solid black; width: 8.5em; height: 256px; padding: 0em; float: left; margin-right: 2em; margin-bottom: 2em}
-				.next {float: left; margin-top: 2em}
+				.prev, .next {float: left; margin-top: 2em}
 				.outfitpart {float: left; display: block; width:48px; height: 64px; background-position: 0 128px;}
 			</style>';
 		echo '<script src="/css/jquery-00000001.js" type="text/javascript"></script>';
-	}
-
-	public function getBodyTagAttributes() {
-		return 'onload="init()"';
 	}
 
 	function writeContent() {
@@ -106,48 +102,48 @@ class CreateCharacterPage extends Page {
 		startBox("Create Character");
 ?>
 
-<form name="createcharacter" action="<?php echo rewriteURL('/account/create-character.html');?>" method="POST" style="height:22em; padding: 1em"> <!-- onsubmit="return checkForm()"  -->
+<form id="createCharacterForm" name="createCharacterForm" action="<?php echo rewriteURL('/account/create-character.html');?>" method="POST" style="height:22em; padding: 1em"> <!-- onsubmit="return checkForm()"  -->
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <div class="outfitpanel">
 <div style="clear: both">
-<input class="next" type="button" onclick="down(0)" value="&lt;">
+<input class="prev" type="button" data-offset="0" value="&lt;">
 <span id="outfit0" class="outfitpart"></span>
-<input class="next" type="button" onclick="up(0)" value="&gt;">
+<input class="next" type="button" data-offset="0" value="&gt;">
 </div>
 
 <div style="clear: both">
-<input class="next" type="button" onclick="down(1)" value="&lt;">
+<input class="prev" type="button" data-offset="1" value="&lt;">
 <span id="outfit1" class="outfitpart"></span>
-<input class="next" type="button" onclick="up(1)" value="&gt;">
+<input class="next" type="button" data-offset="1" value="&gt;">
 </div>
 
 
 <div style="clear: both">
-<input class="next" type="button" onclick="down(2)" value="&lt;">
+<input class="prev" type="button" data-offset="2" value="&lt;">
 <span id="outfit2" class="outfitpart"></span>
-<input class="next" type="button" onclick="up(2)" value="&gt;">
+<input class="next" type="button" data-offset="2" value="&gt;">
 </div>
 
 
 <div style="clear: both">
-<input class="next" type="button" onclick="down(3)" value="&lt;">
+<input class="prev" type="button" data-offset="3" value="&lt;">
 <span id="outfit3" class="outfitpart"></span>
-<input class="next" type="button" onclick="up(3)" value="&gt;">
+<input class="next" type="button" data-offset="3" value="&gt;">
 </div>
 
 </div>
 
 <div style="float:left; width: 50%">
 <span id="canvas" style="border: 1px solid #AAA; display: block; width: 48px; height: 64px"></span>
-<input class="next" type="button" onclick="turn(-1)" value="l">
-<input class="next" type="button" onclick="turn(1)" value="r">
+<input class="turn" type="button" data-offset="-1" value="l">
+<input class="turn" type="button" data-offset="1" value="r">
 </div>
 
 
 <div style="float:left; width: 50%; padding-top: 2em">
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
-<label for="name" >Name: </label><input id="name" onchange="nameChanged(this)" onkeyup="nameChanged(this)" name="name" type="text" maxlength="20" 
+<label for="name" >Name: </label><input id="name" name="name" type="text" maxlength="20" 
 <?php 
 	if (isset($_REQUEST['name'])) {
 		echo 'value="'.htmlspecialchars($_REQUEST['name']).'"';
@@ -161,123 +157,14 @@ class CreateCharacterPage extends Page {
 ?>>
 <div id="warn" class="warn">&nbsp;</div>
 <input name="submit" style="margin-top: 2em" type="submit" value="Create Character">
+<input id="currentOutfit" name="currentOutfit" type="hidden" value = "<?php echo $this->outfitArray[0].','.$this->outfitArray[1].','.$this->outfitArray[2].','.$this->outfitArray[3];?>">
+<input id="sessionUsername" type="hidden" value="<?php echo htmlspecialchars($_SESSION['account']->username);?>">
+<input id="serverpath" name="serverpath" type="hidden" value="<?php echo STENDHAL_FOLDER;?>">
 </div>
 </form>
-
-<script type="text/javascript">
-faceOffset = 2;
-currentOutfit = [<?php
-echo $this->outfitArray[0].', '.$this->outfitArray[1].', '.$this->outfitArray[2].', '.$this->outfitArray[3];
-?>];
-maxOutfit = [44, 21, 15, 53];
-
-
-outfitNames = ["hair", "head", "player_base", "dress"];
-
-function down(i) {
-	currentOutfit[i]--;
-	if (currentOutfit[i] < 0) {
-		currentOutfit[i] = maxOutfit[i] - 1;
-	}
-	update(i);
-}
-
-function up(i) {
-	currentOutfit[i] = (currentOutfit[i] + 1) % maxOutfit[i];
-	update(i);
-}
-
-function formatNumber(i) {
-	if (i < 10) {
-		return "0" + i;
-	} else {
-		return ""+i;
-	}
-}
-
-function update(i) {
-	document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
-	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
-	document.getElementById("outfitcode").value = outfitCode;
-	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
-}
-
-function init() {
-	updateAll();
-	self.focus();
-	document.createcharacter.name.focus();
-}
-
-function updateAll() {
-	for (i = 0; i < 4; i++) {
-		document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + outfitNames[i] + "_" + currentOutfit[i] + ".png')";
-	}
-	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
-	document.getElementById("outfitcode").value = outfitCode;
-	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
-}
-
-function turn(i) {
-	faceOffset = (faceOffset + i) % 4;
-	if (faceOffset < 0) {
-		faceOffset = 3;
-	}
-	cssOffset = 4 - faceOffset;
-
-	for (i = 0; i < 4; i++) {
-		document.getElementById("outfit" + i).style.backgroundPosition = "0 " + (cssOffset * 64) + "px";
-	}
-	outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
-	document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + faceOffset + "&outfit=" + outfitCode + "')";
-}
-
-function validateMinLength(field) {
-	if (field.value.length >= 6) {
-		document.getElementById("warn").innerHTML = "&nbsp;";
-		minLengthOnceReached = true;
-		return true;
-	} else {
-		if (minLengthOnceReached) {
-			document.getElementById("warn").innerHTML = "Must be at least 6 letters.";
-		}
-	}
-	return false;
-}
-
-var lastRequestedName = "";
-var minLengthOnceReached = false;
-function nameChanged(field) {
-	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
-	if (lastRequestedName != field.value) {
-		lastRequestedName = field.value;
-		var res = validateMinLength(field);
-		if (res) {
-			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&ignoreAccount=<?php echo htmlspecialchars($_SESSION['account']->username);?>&param=" + escape(lastRequestedName), function(data) {
-				if (lastRequestedName == data.name) {
-					if (data.result) {
-						document.getElementById("warn").innerHTML = "&nbsp;";
-					} else {
-						document.getElementById("warn").innerHTML = "This name is not available.";
-					}
-				}
-			});
-		}
-	}
-}
-
-
-function checkForm() {
-	var name = document.getElementById("name");
-	if (name.value.length < 6) {
-		name.focus();
-		alert("Your character name needs to be at least 6 letters long.");
-		return false;
-	}
-	return true;
-}
-</script>
 <?php
 		endBox();
+		$this->includeJs();
 	}
 
 	

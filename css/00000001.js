@@ -179,7 +179,7 @@ function createCharacterUpdate(i) {
 function createCharacterInit() {
 	createCharacterUpdateAll();
 	self.focus();
-	document.createcharacter.name.focus();
+	document.getElementById("name").focus();
 }
 
 function createCharacterUpdateAll() {
@@ -220,14 +220,16 @@ function createCharacterValidateMinLength(field) {
 
 var createCharacterLastRequestedName = "";
 var createCharacterMinLengthOnceReached = false;
-function nameChanged(field) {
+function createCharacterNameChanged(field) {
 	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
 	if (createCharacterLastRequestedName != field.value) {
 		createCharacterLastRequestedName = field.value;
 		var res = createCharacterValidateMinLength(field);
 		if (res) {
-			// TODO: read path from location?
-			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&ignoreAccount=<?php echo htmlspecialchars($_SESSION['account']->username);?>&param=" + escape(createCharacterLastRequestedName), function(data) {
+			var serverpath = document.getElementById("serverpath").value;
+			var username = document.getElementById("sessionUsername").value;
+			
+			$.getJSON(serverpath + "/index.php?id=content/scripts/api&method=isNameAvailable&ignoreAccount=" + escape(username) + "&param=" + escape(createCharacterLastRequestedName), function(data) {
 				if (createCharacterLastRequestedName == data.name) {
 					if (data.result) {
 						document.getElementById("warn").innerHTML = "&nbsp;";
@@ -258,13 +260,9 @@ function createCharacterCheckForm() {
 
 
 $().ready(function() {
-	if (document.getElementById("currentOutfit")) {
-		currentOutfit = document.getElementById("currentOutfit").value.split(",");
-	}
 	$('#changePasswordForm').submit(function () {
 		return changePasswordCheckForm();
 	});
-
 
 	if (document.getElementById("createAccountForm")) {
 		$('#createAccountForm #name').change(function() {
@@ -288,4 +286,23 @@ $().ready(function() {
 		});
 	}
 
+	if (document.getElementById("createCharacterForm")) {
+		currentOutfit = document.getElementById("currentOutfit").value.split(",");
+		$('#createCharacterForm #name').change(function() {
+			return createCharacterNameChanged(this);
+		});
+		$('#createCharacterForm #name').keyup(function() {
+			return createCharacterNameChanged(this);
+		});
+		$('#createCharacterForm .turn').click(function() {
+			return createCharacterTurn(parseInt(this.getAttribute("data-offset")));
+		});
+		$('#createCharacterForm .prev').click(function() {
+			return createCharacterDown(parseInt(this.getAttribute("data-offset")));
+		});
+		$('#createCharacterForm .next').click(function() {
+			return createCharacterUp(parseInt(this.getAttribute("data-offset")));
+		});
+		createCharacterInit();
+	}
 });
