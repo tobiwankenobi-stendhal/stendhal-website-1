@@ -18,7 +18,7 @@ function changePasswordCheckForm() {
 		return false;
 	}
 
-	if (pw.value == sessionUsername.value) {
+	if (pw.value == document.getElementById("sessionUsername").value) {
 		pw.focus();
 		alert("Your password must not be your username.");
 		return false;
@@ -262,7 +262,7 @@ $().ready(function() {
 	if (document.getElementById("currentOutfit")) {
 		currentOutfit = document.getElementById("currentOutfit").value.split(",");
 	}
-	$('#changePasswordCheckForm').submit(function () {
-		return changePasswordCheckForm;
+	$('#changePasswordForm').submit(function () {
+		return changePasswordCheckForm();
 	})
 });
