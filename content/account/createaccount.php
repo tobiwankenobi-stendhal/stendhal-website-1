@@ -89,19 +89,19 @@ class CreateAccountPage extends Page {
 		startBox("Create Account");
 ?>
 
-<form name="createaccount" action="" method="post"> <!-- onsubmit="return checkForm()" -->
+<form id="createAccountForm" name="createAccountForm" action="" method="post"> <!-- onsubmit="return createAccountCheckForm()" -->
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <table>
 <tr>
 <td><label for="name">Name:<sup>*</sup> </label></td>
-<td><input id="name" name="name" value="<?php echo htmlspecialchars($_REQUEST['name']);?>" type="text" maxlength="20" onchange="nameChanged(this)" onkeyup="nameChanged(this)" onblur="blurName(this)"></td>
+<td><input id="name" name="name" value="<?php echo htmlspecialchars($_REQUEST['name']);?>" type="text" maxlength="20" ></td>
 <td><div id="namewarn" class="warn"></div></td>
 </tr>
 
 <tr>
 <td><label for="pw">Password:<sup>*</sup> </label></td>
-<td><input id="pw" name="pw" type="password" onchange="validateMinLengthOk(this)" onkeyup="validateMinLengthOk(this)" onblur="validateMinLengthFail(this)"></td>
+<td><input id="pw" name="pw" type="password"></td>
 <td><div id="pwwarn" class="warn"></div></td>
 </tr>
 
@@ -118,6 +118,7 @@ class CreateAccountPage extends Page {
 </tr>
 </table>
 
+<input id="serverpath" name="serverpath" type="hidden" value="<?php echo STENDHAL_FOLDER;?>">
 <input name="submit" style="margin-top: 2em" type="submit" value="Create Account">
 </form>
 <?php endBox(); ?>
@@ -132,95 +133,10 @@ hack an account or creation of many accounts to cause trouble).</font></p>
 Furthermore all events and actions that happen within the game-world 
 (like solving quests, attacking monsters) are logged. This information is 
 used to analyse bugs and in rare cases for abuse handling.</font></p>
-<?php endBox();?>
-<script type="text/javascript">
-function validateMinLength(field) {
-	if (field.value.length >= 6) {
-		document.getElementById(field.id + "warn").innerHTML = "";
-		minLengthOnceReached = true;
-		return true;
-	} else {
-		if (minLengthOnceReached) {
-			document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters.";
-		}
+<?php endBox();
+		$this->includeJs();
 	}
-	return false;
-}
-
-function validateMinLengthFail(field) {
-	if (field.value.length < 6) {
-		document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters.";
-	}
-}
-
-function validateMinLengthOk(field) {
-	if (field.value.length >= 6) {
-		document.getElementById(field.id + "warn").innerHTML = "";
-		return true;
-	}
-	return false;
-}
-
-var lastRequestedName = "";
-var minLengthOnceReached = false;
-function nameChanged(field) {
-	field.value = field.value.toLowerCase().replace(/[^a-z]/g,"");
-	if (lastRequestedName != field.value) {
-		lastRequestedName = field.value;
-		var res = validateMinLength(field);
-		if (res) {
-			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&param=" + escape(lastRequestedName), function(data) {
-				if (lastRequestedName == data.name) {
-					if (data.result) {
-						document.getElementById(field.id + "warn").innerHTML = "";
-					} else {
-						document.getElementById(field.id + "warn").innerHTML = "This name is not available.";
-					}
-				}
-			});
-		}
-	}
-}
-
-function blurName(field) {
-	validateMinLengthFail(field);
-	nameChanged(field);
-}
-
-function checkForm() {
-	var name = document.getElementById("name");
-	if (name.value.length < 6) {
-		name.focus();
-		alert("Your account name needs to be at least 6 letters long.");
-		return false;
-	}
-
-	var pw = document.getElementById("pw");
-	if (pw.value.length < 6) {
-		pw.focus();
-		alert("Your password needs to be at least 6 letters long.");
-		return false;
-	}
-
-	var pw = document.getElementById("pw");
-	if (name.value == pw.value) {
-		pw.focus();
-		alert("Your password must not be your username.");
-		return false;
-	}
-
-	var pr = document.getElementById("pr");
-	if (pw.value != pr.value) {
-		pw.focus();
-		alert("Your password and repetition do not match.");
-		return false;
-	}
-
-	return true;
-}
-</script>
-<?php
-	}
+	
 }
 
 $page = new CreateAccountPage();

@@ -80,8 +80,7 @@ function createAccountNameChanged(field) {
 		lastRequestedName = field.value;
 		var res = createAccountValidateMinLength(field);
 		if (res) {
-			// TODO: read path from location?
-			$.getJSON("<?php echo STENDHAL_FOLDER;?>/index.php?id=content/scripts/api&method=isNameAvailable&param=" + escape(lastRequestedName), function(data) {
+			$.getJSON(document.getElementById("serverpath").value + "/index.php?id=content/scripts/api&method=isNameAvailable&param=" + escape(lastRequestedName), function(data) {
 				if (lastRequestedName == data.name) {
 					if (data.result) {
 						document.getElementById(field.id + "warn").innerHTML = "";
@@ -264,5 +263,29 @@ $().ready(function() {
 	}
 	$('#changePasswordForm').submit(function () {
 		return changePasswordCheckForm();
-	})
+	});
+
+
+	if (document.getElementById("createAccountForm")) {
+		$('#createAccountForm #name').change(function() {
+			return createAccountNameChanged(this);
+		});
+		$('#createAccountForm #name').keyup(function() {
+			return createAccountNameChanged(this);
+		});
+		$('#createAccountForm #name').blur(function() {
+			return createAccountBlurName(this);
+		});
+
+		$('#createAccountForm #pw').change(function() {
+			return createAccountValidateMinLengthOk(this);
+		});
+		$('#createAccountForm #pw').keyup(function() {
+			return createAccountValidateMinLengthOk(this);
+		});
+		$('#createAccountForm #pw').blur(function() {
+			return createAccountValidateMinLengthFail(this);
+		});
+	}
+
 });
