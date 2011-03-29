@@ -123,7 +123,7 @@ class AccountMerge extends Page {
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>Account Merging'.STENDHAL_TITLE.'</title>';
 		echo '<script src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js" type="text/javascript"></script>';
-		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000002.js" type="text/javascript"></script>';
+		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000003.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {
@@ -208,12 +208,6 @@ class AccountMerge extends Page {
 		</table>
 		<input type="hidden" id="merge" name="merge" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 	</form>
-
-	<script type="text/javascript">
-		$().ready(function() {
-			openid.init('openid_identifier');
-		});
-	</script>
 
 <?php
 

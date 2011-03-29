@@ -106,7 +106,7 @@ class LoginPage extends Page {
 		echo '<title>Login'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<script src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js" type="text/javascript"></script>';
-		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000002.js" type="text/javascript"></script>';
+		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000003.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {
@@ -211,13 +211,6 @@ class LoginPage extends Page {
 		}
 		?>
 	</form>
-
-	<script type="text/javascript">
-		$().ready(function() {
-			openid.init('openid_identifier');
-		});
-	</script>
-
 <?php
 
 	if (isset($this->openid->error)) {
