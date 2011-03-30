@@ -244,7 +244,6 @@ foreach($this->items as $m) {
 	</div>
 	<?php }?>
 
-	</div>
       <div class="table">
         <div class="title">Dropped by</div>
           <div style="float: left; width: 100%;">
@@ -269,6 +268,7 @@ foreach($this->items as $m) {
           </div>
           <div style="clear: left;"></div>
         </div>
+	</div>
     <?php
     endBox();
 		$this->includeJs();
