@@ -22,6 +22,7 @@ class InspectPage extends Page {
 				$this->renderInspectResult($inspectData);
 			}
 		}
+		$this->includeJs();
 	}
 
 	private function writeInputForm() {
