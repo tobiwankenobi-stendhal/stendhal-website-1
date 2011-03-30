@@ -162,7 +162,7 @@ class InspectPage extends Page {
 
 			$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
 			$html = $this->getItemTableHtml($item);
-			echo ' <a href="' . $link . '"' . getOverlibCode($html) . '>';
+			echo ' <a href="' . $link . '" class="overliblink" data-popup="'.htmlspecialchars($html).'">';
 
 			$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
 			echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';

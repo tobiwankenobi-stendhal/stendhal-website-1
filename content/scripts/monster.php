@@ -178,7 +178,7 @@ foreach($this->monsters as $m) {
     <?php
   }
 }
-
+		$this->includeJs();
 	}
 }
 $page = new MonsterPage();

@@ -109,7 +109,7 @@ class Monster {
 
 		$popup .= '</div>';
 
-		echo '<a href="'.rewriteURL('/creature/'.surlencode($this->name).'.html').'"'.getOverlibCode($popup).'>';
+		echo '<a href="'.rewriteURL('/creature/'.surlencode($this->name).'.html').'" class="overliblink" data-popup="'.htmlspecialchars($popup).'">';
 		echo '<img class="creature" src="'.htmlspecialchars($this->showImage()). '" alt=""></a>';
 	}
 

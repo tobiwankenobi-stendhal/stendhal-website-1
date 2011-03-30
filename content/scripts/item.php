@@ -269,8 +269,9 @@ foreach($this->items as $m) {
           </div>
           <div style="clear: left;"></div>
         </div>
-    <?php      
-    endBox();      
+    <?php
+    endBox();
+		$this->includeJs();
   }
 }
 

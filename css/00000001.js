@@ -305,4 +305,13 @@ $().ready(function() {
 		});
 		createCharacterInit();
 	}
+
+	if (overlib) {
+		$('.overliblink').mouseover(function() {
+			return overlib(this.getAttribute("data-popup"), FGCOLOR, '#000', BGCOLOR, '#FFF', DECODE, FULLHTML);
+		});
+		$('.overliblink').mouseout(function() {
+			return nd();
+		});
+	}
 });

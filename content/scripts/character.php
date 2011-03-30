@@ -232,6 +232,7 @@ foreach($choosen->equipment as $slot=>$content) {
 <?php
 
 endBox();
+		$this->includeJs();
 	}
 
 	private function renderAchievements() {
