@@ -264,7 +264,7 @@ $().ready(function() {
 		return changePasswordCheckForm();
 	});
 
-	if (typeof(document.getElementById("createAccountForm") != "undefined") {
+	if (document.getElementById("createAccountForm") != null) {
 		$('#createAccountForm #name').change(function() {
 			return createAccountNameChanged(this);
 		});
@@ -286,7 +286,7 @@ $().ready(function() {
 		});
 	}
 
-	if (typeof(document.getElementById("createCharacterForm")) != "undefined") {
+	if (document.getElementById("createCharacterForm") != null) {
 		currentOutfit = document.getElementById("currentOutfit").value.split(",");
 		$('#createCharacterForm #name').change(function() {
 			return createCharacterNameChanged(this);
