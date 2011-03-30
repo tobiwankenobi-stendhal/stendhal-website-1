@@ -264,7 +264,7 @@ $().ready(function() {
 		return changePasswordCheckForm();
 	});
 
-	if (document.getElementById("createAccountForm")) {
+	if (typeof(document.getElementById("createAccountForm") != "undefined") {
 		$('#createAccountForm #name').change(function() {
 			return createAccountNameChanged(this);
 		});
@@ -286,7 +286,7 @@ $().ready(function() {
 		});
 	}
 
-	if (document.getElementById("createCharacterForm")) {
+	if (typeof(document.getElementById("createCharacterForm")) != "undefined") {
 		currentOutfit = document.getElementById("currentOutfit").value.split(",");
 		$('#createCharacterForm #name').change(function() {
 			return createCharacterNameChanged(this);
@@ -306,7 +306,7 @@ $().ready(function() {
 		createCharacterInit();
 	}
 
-	if (overlib) {
+	if (typeof(overlib) != "undefined") {
 		$('.overliblink').mouseover(function() {
 			return overlib(this.getAttribute("data-popup"), FGCOLOR, '#000', BGCOLOR, '#FFF', DECODE, FULLHTML);
 		});
