@@ -50,7 +50,8 @@ class Achievement {
 			. 'count(reached_achievement.charname) As cnt '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
-			. 'AND reached_achievement.charname = \''.mysql_real_escape_string($charname).'\''
+			. 'AND reached_achievement.charname = \''.mysql_real_escape_string($charname).'\' '
+			.' WHERE achievement.active = 1 '
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
@@ -68,6 +69,7 @@ class Achievement {
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
 			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name AND character_stats.admin <= 600 '.$where
+			.' AND achievement.active = 1 '
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
