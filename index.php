@@ -94,7 +94,7 @@ if ($page->writeHttpHeader()) {
 <!DOCTYPE html>
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000019.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000020.css">
 	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000010.css"><![endif]-->
 	<link rel="icon" type="image/png" href="<?php echo STENDHAL_FOLDER;?>/favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
