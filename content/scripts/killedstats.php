@@ -1,4 +1,3 @@
-
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
