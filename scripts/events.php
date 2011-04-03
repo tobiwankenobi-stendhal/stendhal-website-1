@@ -111,7 +111,7 @@ class KillEvent extends Event  {
 
 function getKillEvents($filter) {
     $result = mysql_query('SELECT source, param1 as victim, left(param2,1) as sourcetype, right(trim(param2),1) as victimtype,  timedate ' .
-    		'			 FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereBoth($filter) .' event=\'killed\' and source <> \'baby_dragon\' and timedate > subtime(now(), \'00:05:00\') limit 5', getGameDB());
+    		'			 FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereBoth($filter) .' event=\'killed\' and source <> \'baby_dragon\' and timedate > subtime(now(), \'00:05:00\') ORDER BY timedate DESC LIMIT 5', getGameDB());
     $killevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $killevents[]=new KillEvent($row['source'],$row['victim'],$row['sourcetype'],$row['victimtype'],$row['timedate']);
@@ -138,7 +138,7 @@ class OutfitEvent extends Event  {
  function getOutfitEvents($filter) {
  	// consider adding a distinct or group by so we don't get lots from same player
     $result = mysql_query('SELECT source,  timedate ' .
-    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereSource($filter) .' event=\'outfit\' and timedate > subtime(now(), \'01:00:00\') limit 2', getGameDB());
+    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereSource($filter) .' event=\'outfit\' and timedate > subtime(now(), \'01:00:00\') ORDER BY timedate DESC LIMIT 2', getGameDB());
     $outfitevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $outfitevents[]=new OutfitEvent($row['source'],$row['timedate']);
@@ -165,7 +165,7 @@ class QuestEvent extends Event  {
 }
  function getQuestEvents($filter) {
     $result = mysql_query('SELECT source, param1 as quest, timedate ' .
-    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereSource($filter) .' event=\'quest\' and param1 IN (\'daily\',\'deathmatch\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  limit 10', getGameDB());
+    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereSource($filter) .' event=\'quest\' and param1 IN (\'daily\',\'deathmatch\') and timedate > subtime(now(), \'01:00:00\') and left(param2,4)=\'done\'  ORDER BY timedate DESC LIMIT 10', getGameDB());
     $questevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $questevents[]=new QuestEvent($row['source'],$row['quest'],$row['timedate']);
@@ -192,7 +192,7 @@ class LevelEvent extends Event  {
  function getLevelEvents($filter) {
  
     $result = mysql_query('SELECT source, param1 as level,  timedate ' .
-    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereSource($filter) .' event=\'level\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
+    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereSource($filter) .' event=\'level\'  and timedate > subtime(now(), \'01:00:00\')  ORDER BY timedate DESC LIMIT 10', getGameDB());
     $levelevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $levelevents[]=new LevelEvent($row['source'],$row['level'],$row['timedate']);
@@ -220,7 +220,7 @@ class SignEvent extends Event  {
  function getSignEvents($filter) {
  
     $result = mysql_query('SELECT source, trim(param2) as text,  timedate ' .
-    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereSource($filter) .' event=\'sign\'  and timedate > subtime(now(), \'01:00:00\')  limit 10', getGameDB());
+    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereSource($filter) .' event=\'sign\'  and timedate > subtime(now(), \'01:00:00\')  ORDER BY timedate DESC LIMIT 10', getGameDB());
     $signevents=array();
     while($row=mysql_fetch_assoc($result)) {      
       $signevents[]=new SignEvent($row['source'],$row['text'],$row['timedate']);
@@ -253,7 +253,7 @@ class PoisonEvent extends Event  {
 
 function getPoisonEvents($filter) {
     $result = mysql_query('SELECT source, param1 as victim,  timedate ' .
-    				      'FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereParam1($filter) .' event=\'poison\' and timedate > subtime(now(), \'00:05:00\') limit 3', getGameDB());
+    				      'FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereParam1($filter) .' event=\'poison\' and timedate > subtime(now(), \'00:05:00\') ORDER BY timedate DESC LIMIT 3', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
       $events[]=new PoisonEvent($row['source'],$row['victim'],$row['timedate']);
@@ -280,7 +280,7 @@ class ChangeZoneEvent extends Event  {
 
 function getChangeZoneEvents($filter) {
     $result = mysql_query('SELECT source, substring(param1,locate(\'_\',param1)+1) as zone,  timedate ' .
-    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereSource($filter) .' event=\'change zone\' and timedate > subtime(now(), \'00:05:00\') limit 3', getGameDB());
+    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereSource($filter) .' event=\'change zone\' and timedate > subtime(now(), \'00:05:00\') ORDER BY timedate DESC LIMIT 3', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
       $events[]=new ChangeZoneEvent($row['source'],$row['zone'],$row['timedate']);
@@ -308,7 +308,7 @@ class EquipEvent extends Event  {
 }
 function getEquipEvents($filter) {
     $result = mysql_query('SELECT  source, param1 as item, substring_index(trim(param2),\' \',-1) as amount, timedate       ' .
-    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' WHERE '. Event::getFilterWhereSource($filter) .' event=\'equip\'  and timedate > subtime(now(), \'00:05:00\') and (left(param2,7)=\'content\' or left(param2,4)=\'null\') limit 5', getGameDB());
+    					  'FROM gameEvents'. Event::getFilterFrom($filter) .' USE INDEX (i_gameEvents_timedate) WHERE '. Event::getFilterWhereSource($filter) .' event=\'equip\'  and timedate > subtime(now(), \'00:05:00\') and (left(param2,7)=\'content\' or left(param2,4)=\'null\') ORDER BY timedate DESC LIMIT 5', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
       $events[]=new EquipEvent($row['source'],$row['item'],$row['amount'],$row['timedate']);
@@ -337,7 +337,7 @@ class AchievementEvent extends Event  {
 }
 function getAchievementEvents($filter) {
     $result = mysql_query('SELECT charname as source, title, description, timedate       ' .
-    					  'FROM reached_achievement JOIN achievement ON achievement.id = reached_achievement.achievement_id '. Event::getFilterFrom($filter) .' HAVING '. Event::getFilterWhereSource($filter) .' timedate > subtime(now(), \'06:00:00\') limit 10', getGameDB());
+    					  'FROM reached_achievement JOIN achievement ON achievement.id = reached_achievement.achievement_id '. Event::getFilterFrom($filter) .' HAVING '. Event::getFilterWhereSource($filter) .' timedate > subtime(now(), \'06:00:00\') ORDER BY timedate DESC LIMIT 10', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
       $events[]=new AchievementEvent($row['source'],$row['title'],$row['description'],$row['timedate']);
