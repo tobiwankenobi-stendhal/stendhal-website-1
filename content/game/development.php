@@ -27,5 +27,3 @@ If you plan to help with Stendhal development it is a very good idea to talk abo
 	}
 }
 $page = new DevelopmentPage();
-?>
-  
