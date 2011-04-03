@@ -131,6 +131,8 @@ Turn them off.
 ### Third party libraries
 
 jquery: http://jquery.com/   MIT or GPLv2
+jQuery Tooltip plugin: http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/   MIT or GPL
+jQuery Dimensions plugin: http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/   MIT or GPL
 lightopenid: http://code.google.com/p/lightopenid/   MIT
 openid-selector: http://code.google.com/p/openid-selector/   New BSD
 overlib: http://www.macridesweb.com/oltest/
