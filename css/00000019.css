@@ -701,6 +701,9 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 .openid_selected{border:4px solid #DDD;}
 #openid_identifier{padding-left: 32px; background: url("../images/openid.png") no-repeat left center transparent}
 
+#tooltip {position: absolute; z-index: 3000;}
+#tooltip h3, #tooltip div { margin: 0; }
+
 #footerSourceforge {
 	padding-left: 150px;
 	display:inline-block;

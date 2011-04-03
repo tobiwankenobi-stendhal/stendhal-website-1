@@ -23,7 +23,6 @@ class CharacterPage extends Page {
 			echo '<meta name="robots" content="noindex">'."\n";
 		}
 		echo '<title>Player '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
-		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
 	}
 
 	function writeContent() {

@@ -129,7 +129,6 @@ class ItemPage extends Page {
 		if (!$this->found) {
 			echo '<meta name="robots" content="noindex">'."\n";
 		}
-		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
 	}
 
 	function writeContent() {

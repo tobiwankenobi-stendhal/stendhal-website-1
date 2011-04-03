@@ -6,7 +6,6 @@ class InspectPage extends Page {
 	
 	public function writeHtmlHeader() {
 		echo '<title>Inspect'.STENDHAL_TITLE.'</title>';
-		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/overlib.js"></script>';
 	}
 
 	function writeContent() {
@@ -163,7 +162,7 @@ class InspectPage extends Page {
 
 			$link = rewriteURL('/item/'.surlencode($item['class']).'/'.surlencode($item['name']).'.html');
 			$html = $this->getItemTableHtml($item);
-			echo ' <a href="' . $link . '" class="overliblink" data-popup="'.htmlspecialchars($html).'">';
+			echo ' <a href="' . $link . '" class="overliblink" title="'.htmlspecialchars($item['name']).'" data-popup="'.htmlspecialchars($html).'">';
 
 			$imglink = rewriteURL('/images/item/'.surlencode($item['class']).'/'.surlencode($item['subclass'].'.png'));
 			echo '<img src="'.htmlspecialchars($imglink).'" alt="'.htmlspecialchars($item['name']).'"></a>';

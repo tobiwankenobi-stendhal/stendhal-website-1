@@ -59,6 +59,7 @@ class Page {
 
 	public function includeJs() {
 		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js"></script>';
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/jquery.tooltip-merged.min.js"></script>';
 		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/00000001.js"></script>';
 	}
 }

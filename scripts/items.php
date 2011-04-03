@@ -86,7 +86,7 @@ class Item {
 		}
 		$popup .= '</div>';
 		
-		echo '<a href="'.rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($this->name).'.html').'" class="overliblink" data-popup="'.htmlspecialchars($popup).'">';
+		echo '<a href="'.rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($this->name).'.html').'" class="overliblink" title="'.htmlspecialchars($this->name).'" data-popup="'.htmlspecialchars($popup).'">';
 		echo '<img src="'.htmlspecialchars($this->showImage()).'" alt=" "></a>';
 	}
 }

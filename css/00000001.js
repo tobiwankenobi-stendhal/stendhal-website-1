@@ -306,12 +306,12 @@ $().ready(function() {
 		createCharacterInit();
 	}
 
-	if (typeof(overlib) != "undefined") {
-		$('.overliblink').mouseover(function() {
-			return overlib(this.getAttribute("data-popup"), FGCOLOR, '#000', BGCOLOR, '#FFF', DECODE, FULLHTML);
-		});
-		$('.overliblink').mouseout(function() {
-			return nd();
-		});
-	}
+	$('.overliblink').tooltip({ 
+		bodyHandler: function() { 
+			return $(this).attr("data-popup");
+		},
+		showURL: false,
+		track: true,
+		delay: 0
+	});
 });
