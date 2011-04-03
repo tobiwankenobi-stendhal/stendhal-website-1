@@ -88,7 +88,7 @@ require_once("content/page.php");
 require_once($page_url.'.php');
 
 
-//header("X-Content-Security-Policy: allow 'self'; default-src 'self'; img-src 'self' data:", true);
+header("X-Content-Security-Policy: allow 'self'; default-src 'self'; img-src 'self' data:", true);
 if ($page->writeHttpHeader()) {
 ?>
 <!DOCTYPE html>
