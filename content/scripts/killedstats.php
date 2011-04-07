@@ -93,7 +93,7 @@ foreach($monsters as $m) {
   <?php echo '  <a class="nodeco" href="'.rewriteURL('/creature/'.surlencode($m->name).'.html').'">'?>
   <span class="block row">
     <img src="<?php echo $m->showImage(); ?>" alt="<?php echo $m->name; ?>"/>
-    <span class="block name"><?php echo $m->name; ?></span>
+    <span class="block name"><?php echo str_replace(' ', '&nbsp;', $m->name); ?></span>
     <span class="block amount"><?php echo $amount; ?>&nbsp;killed</span>
   </span>
   </a>
