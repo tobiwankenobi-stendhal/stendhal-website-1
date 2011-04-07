@@ -94,7 +94,7 @@ foreach($monsters as $m) {
   <span class="block row">
     <img src="<?php echo $m->showImage(); ?>" alt="<?php echo $m->name; ?>"/>
     <span class="block name"><?php echo $m->name; ?></span>
-    <span class="block amount"><?php echo $amount; ?> killed</span>
+    <span class="block amount"><?php echo $amount; ?>&nbsp;killed</span>
   </span>
   </a>
   <?php
