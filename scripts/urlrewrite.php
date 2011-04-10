@@ -107,7 +107,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 ######################### Other rewrite rules #########################
 
-                RewriteRule ^/javadoc/(.*)\.html$ /hudson/job/stendhal_HEAD/javadoc/$1 [L]
+                RewriteRule ^/javadoc/(.*)\.html$ /jenkins/job/stendhal_HEAD/javadoc/$1 [L]
 
 
                 ######################### Old style URL rewrite to new style #########################
@@ -199,7 +199,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
 
                 # other
-                RewruteRule ^/hudson/(.*)$ /jenkins/$1 [R=301]
+                RewriteRule ^/hudson/(.*)$ /jenkins/$1 [R=301]
         </IfModule>
 
 
