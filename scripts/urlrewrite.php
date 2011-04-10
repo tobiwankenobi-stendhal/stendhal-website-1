@@ -198,7 +198,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /world/server-stats.html? [R=301]
 
 
-
+                # other
+                RewruteRule ^/hudson/(.*)$ /jenkins/$1 [R=301]
         </IfModule>
 
 
