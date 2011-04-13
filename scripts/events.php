@@ -337,7 +337,7 @@ class AchievementEvent extends Event  {
 }
 function getAchievementEvents($filter) {
     $result = mysql_query('SELECT charname as source, title, description, timedate       ' .
-    					  'FROM reached_achievement JOIN achievement ON achievement.id = reached_achievement.achievement_id '. Event::getFilterFrom($filter) .' HAVING '. Event::getFilterWhereSource($filter) .' timedate > subtime(now(), \'06:00:00\') ORDER BY timedate DESC LIMIT 10', getGameDB());
+    					  'FROM reached_achievement JOIN achievement ON achievement.id = reached_achievement.achievement_id '. Event::getFilterFrom($filter) .' WHERE active = 1 HAVING '. Event::getFilterWhereSource($filter) .' timedate > subtime(now(), \'06:00:00\') ORDER BY timedate DESC LIMIT 10', getGameDB());
     $events=array();
     while($row=mysql_fetch_assoc($result)) {      
       $events[]=new AchievementEvent($row['source'],$row['title'],$row['description'],$row['timedate']);
