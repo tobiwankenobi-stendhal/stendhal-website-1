@@ -199,7 +199,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
 
                 # other
-                RewriteRule ^/hudson/(.*)$ /jenkins/$1 [R=301]
+                RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301]
         </IfModule>
 
 
