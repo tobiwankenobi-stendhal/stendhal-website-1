@@ -17,6 +17,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once 'configuration.php';
+
 function open_image ($file) {
 	if (strpos($file, '..') !== false) {
 		die("Access denied.");
@@ -41,17 +43,29 @@ function open_image ($file) {
 			$im = false;
 			break;
 	}
-
 	return $im;
 }
 
+function createImage($url) {
+	// Load image
+	$image = open_image($url);
+	if ($image === false) {
+		die ('Unable to open image');
+	}
+	return $image;
+}
 
-// Load image
-$image = open_image($_GET['img']);
-if ($image === false) { die ('Unable to open image'); }
+$url = $_GET['img'];
 
-// Display resized image
-header('Content-type: image/jpeg');
+$etag = STENDHAL_VERSION.'-'.sha1($url);
+$headers = getallheaders();
+$requestedEtag = $headers['If-None-Match'];
+header("Content-type: image/jpeg");
 header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
-imagejpeg($image);
-?>
+header('Etag: "'.$etag.'"');
+
+if (isset($requestedEtag) && ($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"')) {
+	header('HTTP/1.0 304 Not modified');
+} else {
+	imagejpeg(createImage($url));
+}

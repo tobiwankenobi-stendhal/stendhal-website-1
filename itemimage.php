@@ -17,6 +17,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once 'configuration.php';
 
 /**
  * There is a Quest that request the player to identify a fish.
@@ -54,27 +55,35 @@ function hideFishes($resource) {
   return $result;
 }
 
-$url = $_GET['url'];
+function createImage($url) {
+	if (strpos($url, '..') !== false) {
+		die("Access denied.");
+	}
 
-if (strpos($url, '..') !== false) {
-	die("Access denied.");
+	// We want to hide the fishes so we don't spoil the fisherman quest.
+	$url = hideFishes($url);
+
+	$result=imagecreate(32, 32);
+
+	$white=imagecolorallocate($result, 255, 255, 255);
+	imagefilledrectangle($result, 0, 0,32, 32, $white);
+
+	$baseIm=imagecreatefrompng($url);
+	imagecopy($result, $baseIm,0,0,0,0,32,32);
+	return $result;
 }
 
-/*
- * We want to hide the fishes so we don't spoil the fisherman quest.
- */
-$url = hideFishes($url);
+$url = $_GET['url'];
 
-$result=imagecreate(32,32);
-
-$white=imagecolorallocate($result,255,255,255);
-imagefilledrectangle($result, 0,0,32,32,$white);
-
-$baseIm=imagecreatefrompng($url);
-imagecopy($result,$baseIm,0,0,0,0,32,32);
-
+$etag = STENDHAL_VERSION.'-'.sha1($url);
+$headers = getallheaders();
+$requestedEtag = $headers['If-None-Match'];
 header("Content-type: image/png");
 header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
-imagepng($result);
+header('Etag: "'.$etag.'"');
 
-?>
+if (isset($requestedEtag) && ($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"')) {
+	header('HTTP/1.0 304 Not modified');
+} else {
+	imagepng(createImage($url));
+}

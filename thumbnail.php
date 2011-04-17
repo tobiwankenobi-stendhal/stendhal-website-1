@@ -17,6 +17,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once 'configuration.php';
+
 function open_image ($file) {
 	if (strpos($file, '..') !== false) {
 		die("Access denied.");
@@ -46,24 +48,37 @@ function open_image ($file) {
 }
 
 
-// Load image
-$image = open_image($_GET['img']);
-if ($image === false) { die ('Unable to open image'); }
+function createImage($url) {
+	// Load image
+	$image = open_image($url);
+	if ($image === false) {
+		die ('Unable to open image');
+	}
 
-// Get original width and height
-$width = imagesx($image);
-$height = imagesy($image);
+	// Get original width and height
+	$width = imagesx($image);
+	$height = imagesy($image);
 
-// New width and height
-$new_width = 158;
-$new_height = $height * ($new_width/$width);
+	// New width and height
+	$new_width = 158;
+	$new_height = $height * ($new_width/$width);
 
-// Resample
-$image_resized = imagecreatetruecolor($new_width, $new_height);
-imagecopyresampled($image_resized, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+	// Resample
+	$image_resized = imagecreatetruecolor($new_width, $new_height);
+	imagecopyresampled($image_resized, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+	return $image_resized;
+}
+$url = $_GET['img'];
 
-// Display resized image
-header('Content-type: image/jpeg');
+$etag = STENDHAL_VERSION.'-'.sha1($url);
+$headers = getallheaders();
+$requestedEtag = $headers['If-None-Match'];
+header("Content-type: image/jpeg");
 header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
-imagejpeg($image_resized);
-?>
+header('Etag: "'.$etag.'"');
+
+if (isset($requestedEtag) && ($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"')) {
+	header('HTTP/1.0 304 Not modified');
+} else {
+	imagejpeg(createImage($url));
+}
