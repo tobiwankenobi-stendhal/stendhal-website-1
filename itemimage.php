@@ -17,6 +17,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 /**
  * There is a Quest that request the player to identify a fish.
  * So to avoid revealing the quest the fish image is replaced 
