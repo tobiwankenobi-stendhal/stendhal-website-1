@@ -18,7 +18,6 @@
  */
 
 $url = $_GET['url'];
-
 if (strpos($url, '..') !== false) {
 	die("Access denied.");
 }
