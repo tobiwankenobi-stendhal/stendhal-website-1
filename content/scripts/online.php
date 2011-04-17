@@ -18,7 +18,7 @@ class OnlinePage extends Page {
 		foreach($players as $p) {
 			echo '<div class="onlinePlayer onlinePlayerHeight">';
 			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">';
-			echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
+			echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="" width="48" height="64">';
 			echo '  <span class="block onlinename">'.htmlspecialchars($p->name).'</span></a>';
 			echo '</div>';
 		}
