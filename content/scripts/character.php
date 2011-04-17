@@ -54,10 +54,10 @@ $account=$choosen->getAccountInfo();
 	<div><span class="statslabel">Level:</span><span class="data"><?php echo htmlspecialchars($choosen->level); ?></span></div>
 	<div class="married">
 		<?php if(!empty($choosen->married)) {
-			echo htmlspecialchars($choosen->name); ?> is married to <a href="<?php 
+			echo htmlspecialchars($choosen->name) . ' is married to <a href="';
 			echo rewriteURL('/character/'.htmlspecialchars($choosen->married).'.html');
-			?>"><?php echo  htmlspecialchars($choosen->married);
-		} ?></a> 
+			echo '">'.htmlspecialchars($choosen->married).'</a>';
+		} ?>
 	</div>
 	<?php if ($account["status"] == "active" && $account["charstatus"] == 'active' && $choosen->sentence != '') {
 		echo '<div class="sentence">' . htmlspecialchars($choosen->sentence). '</div>';
