@@ -31,7 +31,12 @@ class Event {
 		if ($type == 'P') {
 			$url = '<a class="small_image_link" href="'.rewriteURL('/character/'.surlencode($string).'.html').'"><img src="'.rewriteURL('/images/outfit/'.surlencode($outfits[$string]).'.png').'" alt="" width="36" height="48" title="'.htmlspecialchars($string).'"></a> ';
 		} else if ($type == 'C') {
-			$url = '<a class="small_image_link" href="'.rewriteURL('/creature/'.surlencode($string).'.html').'"><img src="'.getMonster($string)->showImage().'" alt=" " width="36" height="48" title="'.htmlspecialchars($string).'"></a> ';
+			$monster = getMonster($string);
+			if (isset($monster) && $monster != null) {
+				$url = '<a class="small_image_link" href="'.rewriteURL('/creature/'.surlencode($string).'.html').'"><img src="'.$monster->showImage().'" alt=" " width="36" height="48" title="'.htmlspecialchars($string).'"></a> ';
+			} else {
+				$url = htmlspecialchars($string);
+			}
 		} else {
 			$url = htmlspecialchars($string);
 		}
