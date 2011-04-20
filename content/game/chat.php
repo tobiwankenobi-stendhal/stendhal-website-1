@@ -57,7 +57,7 @@ for ($i = 0; $i < count($lines); $i++) {
 
 	$line = htmlspecialchars($line);
 	$line = preg_replace('/@/', '&lt;(a)&gt;', $line);
-	$line = preg_replace('!(http|https)://(stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net)(/[^ ]*)?!', '<a href="$1://$2$3">$1://$2$3</a>', $line);
+	$line = preg_replace('!(http|https)://(stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com)(/[^ ]*)?!', '<a href="$1://$2$3">$1://$2$3</a>', $line);
 
 	if ($line != '') {
 		echo '<span class="'.$class.'">'.$line.'</span><br>'."\n";
