@@ -42,7 +42,7 @@ $filename = $directory.$date . ".log";
 if (!file_exists($filename)) {
 	$filename = $directory.substr($date, 0, 4).'/'.$date.'.log';
 }
-$lines = explode("\n", file_get_contents($directory.$date . ".log"));
+$lines = explode("\n", file_get_contents($filename));
 for ($i = 0; $i < count($lines); $i++) {
 	$line = $lines[$i];
 	
