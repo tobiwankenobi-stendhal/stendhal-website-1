@@ -4,6 +4,7 @@ class ChatPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Chat'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
+		$this->includeJs();
 	}
 	
 	function writeContent() {
@@ -33,7 +34,7 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 	<p><a href="<?php echo rewriteURL("/chat/");?>">Index of logs</a></p>
 
 	<h2><?php echo(MAIN_CHANNEL); ?> IRC Log for <?php echo($date); ?></h2>
-	<p>Timestamps are in server time.</p>
+	<p>Timestamps are in server time. <span id="irclog-toggle-ircstatus-span" style="display:none"><input id="irclog-toggle-ircstatus" type="checkbox" value=""><label for="irclog-toggle-ircstatus">Show join/quit messages</label></span></p>
 
 <p>
 

@@ -314,4 +314,21 @@ $().ready(function() {
 		track: true,
 		delay: 0
 	});
+
+	$('#irclog-toggle-ircstatus-span').show();
+	$('.ircstatus').hide();
+	$('#irclog-toggle-ircstatus').click(function() {
+		if ($(this).attr('checked')) {
+			$('.ircstatus').show();
+		} else {
+			$('.ircstatus').hide();
+		}
+	});
+	$('#irclog-toggle-ircstatus').change(function() {
+		if ($(this).attr('checked')) {
+			$('.ircstatus').show();
+		} else {
+			$('.ircstatus').hide();
+		}
+	});
 });
