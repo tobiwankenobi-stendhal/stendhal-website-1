@@ -38,6 +38,10 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 <p>
 
 <?php
+$filename = $directory.$date . ".log";
+if (!file_exists($filename)) {
+	$filename = $directory.substr($date, 0, 4).'/'.$date.'.log';
+}
 $lines = explode("\n", file_get_contents($directory.$date . ".log"));
 for ($i = 0; $i < count($lines); $i++) {
 	$line = $lines[$i];
