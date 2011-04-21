@@ -68,6 +68,7 @@ for ($i = 0; $i < count($lines); $i++) {
 </p>
 <?php
 } else {
+	/*
 	$dir = opendir($directory);
 	if ($dir !== false) {
 		while (false !== ($file = readdir($dir))) {
@@ -78,19 +79,67 @@ for ($i = 0; $i < count($lines); $i++) {
 		closedir($dir);
 		rsort($filearray);
 	}
-?>
-<ul>
-<?php
 
+	echo '<ul>';
 	foreach ($filearray as $file) {
 		$file = substr($file, 0, 10);
-?>
-		<li><a href="<?php echo rewriteURL("/chat/".urlencode($file).'.html'); ?>"><?php echo($file); ?></a></li>
-<?php
+		echo '<li><a href="'.rewriteURL("/chat/".urlencode($file).'.html').'">'.$file.'</a></li>';
 	}
-?>
-</ul>
-<?php
+	echo '</ul>';
+	*/
+
+
+function renderYear($year, $startMonth, $startDay, $endMonth, $endDay) {
+	echo '<h2>'.htmlspecialchars($year).'</h2>';
+	echo '<table>';
+	for ($month = $endMonth; $month >= $startMonth; $month--) {
+		$time = mktime(0, 0, 0, $month, 1, $year);
+		echo '<tr><td>'.date('F', $time).'</td><td>';
+		$myMonth = $month;
+		if ($month < 10) {
+			$myMonth = '0'.$month;
+		}
+		$myStartDay = 1;
+		if ($month == $startMonth) {
+			$myStartDay = $startDay;
+		}
+		$myEndDay = date('t', $time);
+		if ($month == $endMonth) {
+			$myEndDay = $endDay;
+		}
+		for ($day = $myStartDay; $day <= $myEndDay; $day++) {
+			$myDay = $day;
+			if ($day < 10) {
+				$myDay = '0'.$day;
+			}
+			echo '&nbsp;<a href="'.rewriteURL('/chat/'.$year.'-'.$myMonth.'-'.$myDay.'.html').'">'.$myDay.'</a>&nbsp;';
+			if ($day == 15) {
+				echo '<br>';
+			}
+		}
+		echo '</td></tr>';
+	}
+	echo '</table>';
+}
+
+
+	$startYear = 2008;
+	$endYear = date('Y');
+	for ($year = $endYear; $year >= $startYear; $year--) {
+		$startMonth = 1;
+		$startDay = 1;
+		if ($year == $startYear) {
+			$startMonth = 9;
+			$startDay = 16;
+		}
+		$endMonth = 12;
+		$endDay = 31;
+		if ($year == $endYear) {
+			$endMonth = date('n');
+			$endDay = date('j');
+		}
+		renderYear($year, $startMonth, $startDay, $endMonth, $endDay);
+	}
 }
 
 ?>
