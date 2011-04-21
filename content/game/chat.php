@@ -43,6 +43,8 @@ if (!file_exists($filename)) {
 	$filename = $directory.substr($date, 0, 4).'/'.$date.'.log';
 }
 $lines = explode("\n", file_get_contents($filename));
+echo '<table style="table-layout:fixed; word-wrap:break-word; width:100%">';
+echo '<tr><th style="width: 3em"></th><th style="width: 5.5em"></th><th></th></tr>';
 for ($i = 0; $i < count($lines); $i++) {
 	$line = $lines[$i];
 	
@@ -50,48 +52,40 @@ for ($i = 0; $i < count($lines); $i++) {
 	$class = "irctext";
 	if (substr($line, 5, 5) == ' -!- ') {
 		$class = "ircstatus";
-	} else if (substr($line, 5, 16) == ' < postman-bot> ') {
-
-		if (substr($line, 21, 22) == 'Administrator SHOUTS: ') {
-			$class = "ircshout";
-		} else if (strpos($line, 'rented a sign saying') > 10) {
-			$class = "ircsign";
+	} else {
+		if (substr($line, 5, 16) == ' < postman-bot> ') {
+			if (substr($line, 21, 22) == 'Administrator SHOUTS: ') {
+				$class = "ircshout";
+			} else if (strpos($line, 'rented a sign saying') > 10) {
+				$class = "ircsign";
+			}
 		}
-	} 
-
+	}
+	preg_match('/(..:..) *(<.([^>]*)>|\*|-!-) (.*)/', $line, $matches);
+	$time = $matches[1];
+	$nick = $matches[2];
+	if ($matches[3] != '') {
+		$nick = $matches[3];
+	}
+	$line = $matches[4];
+	
 	$line = htmlspecialchars($line);
 	$line = preg_replace('/@/', '&lt;(a)&gt;', $line);
 	$line = preg_replace('!(http|https)://(stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com)(/[^ ]*)?!', '<a href="$1://$2$3">$1://$2$3</a>', $line);
 
 	if ($line != '') {
-		echo '<span class="'.$class.'">'.$line.'</span><br>'."\n";
+		echo '<tr class="'.$class.'"><td>'
+			.htmlspecialchars($time).'</td><td>'
+			.htmlspecialchars($nick).'</td><td>'
+			.$line.'</td></tr>'."\n";
 	}
 }
+echo '</table>';
 
 ?>
 </p>
 <?php
 } else {
-	/*
-	$dir = opendir($directory);
-	if ($dir !== false) {
-		while (false !== ($file = readdir($dir))) {
-			if (strpos($file, ".log") == 10) {
-				$filearray[] = $file;
-			}
-		}
-		closedir($dir);
-		rsort($filearray);
-	}
-
-	echo '<ul>';
-	foreach ($filearray as $file) {
-		$file = substr($file, 0, 10);
-		echo '<li><a href="'.rewriteURL("/chat/".urlencode($file).'.html').'">'.$file.'</a></li>';
-	}
-	echo '</ul>';
-	*/
-
 
 function renderYear($year, $startMonth, $startDay, $endMonth, $endDay) {
 	echo '<h2>'.htmlspecialchars($year).'</h2>';
