@@ -127,14 +127,14 @@ function renderYear($year, $startMonth, $startDay, $endMonth, $endDay) {
 }
 
 
-	$startYear = 2008;
+	$startYear = 2006;
 	$endYear = date('Y');
 	for ($year = $endYear; $year >= $startYear; $year--) {
 		$startMonth = 1;
 		$startDay = 1;
 		if ($year == $startYear) {
 			$startMonth = 9;
-			$startDay = 16;
+			$startDay = 1;
 		}
 		$endMonth = 12;
 		$endDay = 31;
