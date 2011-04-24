@@ -88,7 +88,7 @@ require_once("content/page.php");
 require_once($page_url.'.php');
 
 
-header("X-Content-Security-Policy: allow 'self'; default-src 'self'; img-src 'self' data: https://sflogo.sourceforge.net", true);
+// header("X-Content-Security-Policy: allow 'self'; default-src 'self'; img-src 'self' data: https://sflogo.sourceforge.net", true);
 if ($page->writeHttpHeader()) {
 ?>
 <!DOCTYPE html>
