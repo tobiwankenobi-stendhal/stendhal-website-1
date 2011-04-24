@@ -45,6 +45,7 @@ class MyCharactersPage extends Page {
 	}
 
 	function writeContent() {
+		global $adminLevel;
 		startBox("Character Selector");
 
 		$players = getCharactersForUsername($_SESSION['account']->username);
@@ -61,6 +62,9 @@ class MyCharactersPage extends Page {
 				echo '  <span class="block">Level: '.$p->level.'</span>';
 				echo '  <span class="block">Age: '.intval($p->age/60).' h</span>';
 				echo '  <span class="block"><a class = "characterLink" href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">Details</a></span>';
+				if ($adminLevel > 0) {
+					echo '  <span class="block"><a class = "characterLink" onclick=\'window.open("/client/stendhal.html#'.surlencode($p->name).'", "stendhalclient", "directories=0,height=600,location=0,menubar=0,scrollbars=n,status=n,toolbar=n,width=1024", false);return false;\' href="/client/stendhal.html#'.surlencode($p->name).'">Alpha</a></span>';
+				}
 				echo '</div>';
 			}
 			echo '</div>';
