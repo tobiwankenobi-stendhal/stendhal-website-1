@@ -69,8 +69,11 @@ $account=$choosen->getAccountInfo();
 
   <?php
   foreach($choosen->attributes as $key=>$value) {
-    $old = array("atk", "def", "hp", "karma");
-    $new = array("Attack Level", "Defense level", "Current health", "Karma");
+    if ($key == 'karma') {
+        continue;
+    }
+    $old = array("atk", "def", "hp");
+    $new = array("Attack Level", "Defense level", "Current health");
     $key = str_replace($old, $new, $key);
     ?>
     <div><span class="statslabel"><?php echo htmlspecialchars(ucwords($key)) ?>:</span>
@@ -92,6 +95,14 @@ $account=$choosen->getAccountInfo();
     			echo '<div><span class="statslabel">Trading Score:</span><span class="data">'.htmlspecialchars($tradescore).'</span></div>';
     	  }
     ?> -->
+    <div><span class="statslabel">Karma:</span>
+    <div style="position: relative; left: 85px; top:.5em; background-color:#000; width:100px; height:5px">
+    <div style="background-image: url('/data/gui/karma_scale.png'); width:<?php
+    $SCALING = 0.02;
+    $normalized = 0.5 + atan($SCALING * $choosen->attributes['karma']) / pi();
+    echo $normalized * 100;
+    ?>px; height: 5px; background-repeat:no-repeat;" class="data">&nbsp;</div></div></div>
+
 </div>
 <div class="table" style = "float:left; width:115px; height:190px; margin-right: 12px;">
 <div class="title"><a name="equipment">Equipment</a></div>
