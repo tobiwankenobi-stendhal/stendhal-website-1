@@ -653,14 +653,21 @@ span.block {
 	font-weight: bold;
 }
 
+div.stendhalAchievement,
 div.stendhalCreature,
 div.stendhalItem,
 div.stendhalNPC,
 div.stendhalPlayer {border: 1px solid black; padding: 0.5em; width: 15em; background-color: #FFF; text-align: left; font-size: 8pt}
+.stendhalAchievementIconNameBanner,
 .stendhalCreatureIconNameBanner,
 .stendhalItemIconNameBanner,
 .stendhalNPCIconNameBanner,
 .stendhalPlayerIconNameBanner {white-space: nowrap}
+
+a.stendhalAchievementLink,
+div.stendhalAchievement a {font-style: italic; color: #F80}
+a.stendhalAchievementLink:visited,
+div.stendhalAchievement a:visited {font-style: italic; color: #D80}
 
 a.stendhalCreatureLink,
 div.stendhalCreature a {font-style: italic; color: #A00}
