@@ -22,6 +22,9 @@ class CharacterPage extends Page {
 		} else {
 			echo '<meta name="robots" content="noindex">'."\n";
 		}
+		if (isset($_GET['test']) && $_GET['test'] == 'box') {
+			echo '<style type="text/css">div {border: 1px dotted red } span {border: 1px dotted green} td {border: 1px dotted blue} p {border: 1px dotted yellow}  p {border: 1px dotted black}</style>';
+		}
 		echo '<title>Player '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
 	}
 
@@ -260,7 +263,7 @@ endBox();
 				echo '<div>';
 				$lastCategory = $achievement->category;
 			}
-			if ($achievement->count > 0) {
+			if (isset($achievement->reachedOn)) {
 				$class = "achievementDone";
 			} else {
 				$class = "achievementOpen";
