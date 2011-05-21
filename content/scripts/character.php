@@ -249,13 +249,6 @@ endBox();
 		?>
 	<div class="table">
 	<div class="title"><a name="achievements">Achievements</a></div>
-	<?php
-		if($this->players[0]->lastseen < '2011-02-26 11:35') {
-	?>
-		<div class="bubble">This detail page previews achievements. Reached achievements will be updated on next login.</div>
-	<?php
-		}
-	?> 
 		<?php
 		$list = Achievement::getAchievementForCharacter($this->name);
 		$lastCategory = '';
