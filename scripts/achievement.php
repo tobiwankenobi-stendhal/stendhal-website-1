@@ -39,6 +39,40 @@ class Achievement {
 	}
 
 
+	function showImageWithPopup($class) {
+		if (($this->category=='SPECIAL') && ($class=='achievementOpen')) {
+			return;
+		}
+
+		$popup = '<div class="stendhalAchievement"><span class="stendhalAchievementIconNameBanner">';
+
+		$popup .= '<span class="stendhalAchievementIcon">';
+		$popup .= '<img src="/images/achievements/'.htmlspecialchars(strtolower($this->category)).'.png">';
+		$popup .= '</span>';
+
+		$targetName = $this->title;
+		if ($this->category == "SPECIAL") {
+			$targetName = strtolower($this->category);
+		}
+
+		$popup .= '<a href="'.rewriteURL('/achievement/'.surlencode($targetName).'.html').'">';
+		$popup .= $this->title;
+		$popup .= '</a>';
+		$popup .= '</span>';
+		
+		$popup .= '<br />';
+// TODO:		$popup .= 'Achieved on: ' . htmlspecialchars($this->timedate) . '<br />';
+// TODO:		$popup .= 'Achieved by: ' . htmlspecialchars($this->count) . '<br />';
+		
+		if (isset($this->description) && ($this->description != '')) {
+			$popup .= '<br />' . $this->description . '<br />';
+		}
+		$popup .= '</div>';
+
+		echo '<a href="'.rewriteURL('/achievement/'.surlencode($targetName).'.html').'" class="overliblink" title="'.htmlspecialchars($this->title).': '.htmlspecialchars($this->description).'" data-popup="'.htmlspecialchars($popup).'">';
+		echo '<img style="margin:1px; border: none" class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($this->category)).'.png" alt=""></a>';
+	}
+
 
 	/**
 	  * Returns a list of achievements that meet the given condition.

@@ -272,14 +272,7 @@ endBox();
 			} else {
 				$class = "achievementOpen";
 			}
-			if($achievement->category != "SPECIAL") {
-				echo '<a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
-				echo '<img style="margin:1px; border: none" class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png"></a>';
-			} else if ($achievement->count > 0) {
-				// it's a special category achievement - only draw it if it's achieved, and direct to a summary page for the category
-				echo '<a href="'.rewriteURL('/achievement/'.htmlspecialchars(strtolower($achievement->category)).'.html').'" title="'.htmlspecialchars($achievement->title).': '.htmlspecialchars($achievement->description).'">';
-				echo '<img style="margin:1px; border: none" class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png"></a>';
-			}
+			$achievement->showImageWithPopup($class);
 		}
 		echo '</div>';
 		?>
