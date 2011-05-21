@@ -27,8 +27,9 @@ class Achievement {
 	public $base_score;
 	public $description;
 	public $count;
+	public $reachedOn;
  
-	function __construct($id, $identifier, $title, $category, $base_score, $description, $count) {
+	function __construct($id, $identifier, $title, $category, $base_score, $description, $count, $reachedOn = null) {
 		$this->id = $id;
 		$this->identifier = $identifier;
 		$this->title = $title;
@@ -36,6 +37,7 @@ class Achievement {
 		$this->base_score = $base_score;
 		$this->description = $description;
 		$this->count = $count;
+		$this->reachedOn = $reachedOn;
 	}
 
 
@@ -61,7 +63,11 @@ class Achievement {
 		$popup .= '</span>';
 		
 		$popup .= '<br />';
-// TODO:		$popup .= 'Achieved on: ' . htmlspecialchars($this->timedate) . '<br />';
+		if (isset($this->reachedOn)) {
+			$popup .= 'Earned on: ' . htmlspecialchars($this->reachedOn) . '<br />';
+		} else {
+			$popup .= 'Not reached, yet. <br />';
+		}
 // TODO:		$popup .= 'Achieved by: ' . htmlspecialchars($this->count) . '<br />';
 		
 		if (isset($this->description) && ($this->description != '')) {
@@ -81,7 +87,7 @@ class Achievement {
 	public static function getAchievementForCharacter($charname) {
 		$query = 'SELECT achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description, '
-			. 'count(reached_achievement.charname) As cnt '
+			. 'count(reached_achievement.charname) As cnt, left(reached_achievement.timedate, 10) As reachedOn '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
 			. 'AND reached_achievement.charname = \''.mysql_real_escape_string($charname).'\' '
@@ -194,7 +200,7 @@ class Achievement {
 		$list = array();
 		while($row = mysql_fetch_assoc($result)) {
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
-				$row['category'], $row['base_score'], $row['description'], $row['cnt']);
+				$row['category'], $row['base_score'], $row['description'], $row['cnt'], $row['reachedOn']);
 		}
 		mysql_free_result($result);
 		return $list;
