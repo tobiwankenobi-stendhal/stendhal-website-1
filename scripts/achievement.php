@@ -64,11 +64,11 @@ class Achievement {
 		
 		$popup .= '<br />';
 		if (isset($this->reachedOn)) {
-			$popup .= 'Earned on: ' . htmlspecialchars($this->reachedOn) . '<br />';
+			$popup .= 'Earned on ' . htmlspecialchars($this->reachedOn) . '<br />';
 		} else {
 			$popup .= 'Not reached, yet. <br />';
 		}
-// TODO:		$popup .= 'Achieved by: ' . htmlspecialchars($this->count) . '<br />';
+		$popup .= 'Achieved by ' . htmlspecialchars($this->count) . ' players<br />';
 		
 		if (isset($this->description) && ($this->description != '')) {
 			$popup .= '<br />' . $this->description . '<br />';
@@ -87,14 +87,16 @@ class Achievement {
 	public static function getAchievementForCharacter($charname) {
 		$query = 'SELECT achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description, '
-			. 'count(reached_achievement.charname) As cnt, left(reached_achievement.timedate, 10) As reachedOn '
+			. 'count(*) As cnt, left(reached_achievement.timedate, 10) As reachedOn '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
 			. 'AND reached_achievement.charname = \''.mysql_real_escape_string($charname).'\' '
+			. 'LEFT JOIN reached_achievement As allReached ON allReached.achievement_id=achievement.id '
 			.' WHERE achievement.active = 1 '
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
+		echo $query;
 		return Achievement::_getAchievements($query);
 	}
 
