@@ -96,7 +96,6 @@ class Achievement {
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
-		echo $query;
 		return Achievement::_getAchievements($query);
 	}
 
