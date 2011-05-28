@@ -134,10 +134,29 @@ class News {
 	 * @return the html code for a fitting tweet button
 	 */
 	function renderTweetButton() {
+		//prepare status parts
+		$url = urlencode('http://').STENDHAL_SERVER_NAME.urlencode(rewriteURL('/news/-'.$this->id));
+		$tag = urlencode(' @stendhalgame');
+		//calculate length for parts
+		$urlLength = strlen($url);
+		$titleLength = strlen($this->title);
+		$tagLength = strlen($tag);
+		
+		$message = '';
+		if($urlLength < 141) {
+			$message = $message.$url;
+		}
+		
+		if(strlen($message) + $titleLength < 141) {
+			$message = $message.$title;
+		}
+		
+		if(strlen($message) + $tagLength < 141) {
+			$message = $message.$tag;
+		}
+		
 		$res = '<a href="http://twitter.com/home?status=';
-		$res = $res.urlencode('http://').STENDHAL_SERVER_NAME;
-		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
-		$res = $res.urlencode(' @stendhalgame');
+		$res = $res.$url.$message;
 		$res = $res.'" target="_blank" title="Twitter">';
 		$res = $res.'<img src="images/buttons/twitter_button.png" width="24" height="24" border="0" hspace="0" alt="Twitter">';
 		$res = $res.'</a>';
@@ -152,7 +171,7 @@ class News {
 	function renderFacebookButton() {
 		$res = '<a href="http://facebook.com/sharer.php?u=';
 		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
-		$res = $res.urlencode(rewriteURL('/news/'.$this->getNiceURL()));
+		$res = $res.urlencode(rewriteURL('/news/-'.$this->id));
 		$res = $res.'&t='.urlencode($this->title);
 		$res = $res.'" target="_blank" title="Facebook">';
 		$res = $res.'<img src="images/buttons/facebook_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
