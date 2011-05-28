@@ -91,8 +91,11 @@ class Achievement {
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
 			. 'AND reached_achievement.charname = \''.mysql_real_escape_string($charname).'\' '
-			. 'LEFT JOIN reached_achievement As allReached ON allReached.achievement_id=achievement.id '
-			.' WHERE achievement.active = 1 '
+			. 'LEFT JOIN reached_achievement As allReached ON allReached.achievement_id=achievement.id ';
+		if (!isset($_REQUEST['test']) || $_REQUEST['test'] != 'inactive') {
+			$query = $query .' WHERE achievement.active = 1 ';
+		}
+		$query = $query
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
@@ -109,8 +112,11 @@ class Achievement {
 			. 'count(character_stats.admin) As cnt '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
-			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name AND character_stats.admin <= 600 '.$where
-			.' AND achievement.active = 1 '
+			. 'LEFT JOIN character_stats ON reached_achievement.charname = character_stats.name AND character_stats.admin <= 600 '.$where;
+		if (!isset($_REQUEST['test']) || $_REQUEST['test'] != 'inactive') {
+			$query = $query .' AND achievement.active = 1 ';
+		}
+		$query = $query
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description '
 			. 'ORDER BY achievement.category, achievement.identifier';
