@@ -54,6 +54,9 @@ define('STENDHAL_GAME_DB','stendhal');
 define('STENDHAL_TEST_DB','stendhaltest');
 
 
+define('STENDHAL_FRAME', 'content/frame/default.php');
+
+
 /*
  * We remove postman of the list, just in case it appears.
  * We remove admins of the list ( >600 ).
