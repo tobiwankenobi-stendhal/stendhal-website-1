@@ -135,7 +135,7 @@ class News {
 	 */
 	function renderTweetButton() {
 		//prepare status parts
-		$url = urlencode('http://').STENDHAL_SERVER_NAME.urlencode('/news/-'.$this->id);
+		$url = urlencode('http://').STENDHAL_SERVER_NAME.urlencode('/-'.$this->id);
 		$tag = urlencode(' @stendhalgame');
 		//calculate length for parts
 		$urlLength = strlen($url);
@@ -171,7 +171,7 @@ class News {
 	function renderFacebookButton() {
 		$res = '<a href="http://facebook.com/sharer.php?u=';
 		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
-		$res = $res.urlencode('/news/-'.$this->id);
+		$res = $res.urlencode('/-'.$this->id);
 		$res = $res.'&t='.urlencode($this->title);
 		$res = $res.'" target="_blank" title="Facebook">';
 		$res = $res.'<img src="images/buttons/facebook_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
@@ -187,7 +187,7 @@ class News {
 	function renderBuzzButton() {
 		$res = '<a href="http://www.google.com/buzz/post?url=';
 		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
-		$res = $res.urlencode('/news/-'.$this->id);
+		$res = $res.urlencode('/-'.$this->id);
 		$res = $res.'&h1='.urlencode($this->title);
 		if (isset($this->oneLineDescription) && strlen($this->oneLineDescription) > 0) {
 			$res = $res.'&message='.urlencode($this->oneLineDescription);
