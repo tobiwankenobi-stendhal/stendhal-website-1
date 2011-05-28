@@ -90,6 +90,7 @@ require_once($page_url.'.php');
 
 // header("X-Content-Security-Policy: allow 'self'; default-src 'self'; img-src 'self' data: https://sflogo.sourceforge.net", true);
 if ($page->writeHttpHeader()) {
+header('Content-Type: text/html; charset=utf-8')
 ?>
 <!DOCTYPE html>
 <html>
