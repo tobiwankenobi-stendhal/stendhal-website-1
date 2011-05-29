@@ -25,10 +25,11 @@ function t($msgid) {
 		<ul id="associationmenu" class="menu">
 			<?php 
 			echo '<li><a id="menuAssociationAbout" href="'.rewriteURL('/item/').'">'.t('Faiumoni n. E.').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationNews" href="'.rewriteURL('/item/').'">'.t('News').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationStatue" href="'.rewriteURL('/item/').'">'.t('Statute').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationMembers" href="'.rewriteURL('/item/').'">'.t('Members').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationContacts" href="'.rewriteURL('/item/').'">'.t('Contact').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationDonations" href="'.rewriteURL('/item/').'">'.t('Donations').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationContact" href="'.rewriteURL('/item/').'">'.t('Contact').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationDonations" href="'.rewriteURL('/item/').'">'.t('Donate').'</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
@@ -66,7 +67,7 @@ function t($msgid) {
 			<?php
 			echo '<li><a id="menuShareFacebook" href="'.rewriteURL('/item/').'">'.t('Facebook').'</a></li>'."\n";
 			echo '<li><a id="menuShareTwitter" href="'.rewriteURL('/item/').'">'.t('Twitter').'</a></li>'."\n";
-			echo '<li><a id="menuEMail" href="'.rewriteURL('/item/').'">'.t('eMail').'</a></li>'."\n";
+			echo '<li><a id="menuShareEMail" href="'.rewriteURL('/item/').'">'.t('eMail').'</a></li>'."\n";
 			?>
 		</ul>
 		<?php
