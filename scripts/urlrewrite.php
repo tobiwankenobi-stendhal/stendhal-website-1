@@ -198,6 +198,10 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/.* /world/server-stats.html? [R=301]
 
 
+                # Association
+                RewriteRule ^/(..)/(.*)\.html$ /index.php?lang=$1&title=$2 [L]
+                
+
                 # other
                 RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301]
         </IfModule>
@@ -370,6 +374,12 @@ function rewriteURL($url) {
 			return preg_replace('|^/world/server-stats\.html$|', $folder.'/?id=content/scripts/serverstats', $url);
 		}
 
+	// association
+	} else if (preg_match('|^/../.*|', $url)) {
+		
+		if (preg_match('|^/(..)/(.*)\.html$|', $url)) {
+			return preg_replace('|^/(..)/(.*)\.html$|', $folder.'/index.php?lang=$1&title=$2', $url);
+		}
 
 	} else {
 		echo '">Error parsing link';
