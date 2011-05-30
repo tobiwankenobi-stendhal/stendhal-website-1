@@ -73,3 +73,21 @@ create table remind_password (
   
   primary key(username, confirmhash)
 );
+
+
+create table page (
+  id int auto_increment not null,
+  language CHAR(2),
+  title VARCHAR(255),
+  primary key(id)
+);
+
+create table page_version (
+  id int auto_increment not null,
+  page_id int not null,
+  account_id int not null,
+  content text,
+  commitcomment VARCHAR(255),
+  timedate timestamp default CURRENT_TIMESTAMP,
+  primary key(id)
+);
