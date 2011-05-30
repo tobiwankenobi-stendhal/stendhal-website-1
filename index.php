@@ -70,10 +70,14 @@ function decidePageToLoad($url) {
 	return $url;
 }
 
+require_once("content/frame/frame.php");
+require_once(STENDHAL_FRAME);
+
+
 /*
  * This code decides the page to load.
  */
-$page_url="content/main";
+$page_url = $frame->getDefaultPage();
 if(isset($_REQUEST["id"])) {
 	$page_url = decidePageToLoad($_REQUEST["id"]);
 
@@ -116,7 +120,7 @@ header('Content-Type: text/html; charset=utf-8')
 	?>
 	</head>
 <?php
-	include(STENDHAL_FRAME);
+	$frame->renderFrame();
 }
 // Close connection to databases.
 disconnect();

@@ -1,6 +1,30 @@
-<?php 
+<?php
+/*
+ Stendhal website - a website to manage and ease playing of Stendhal game
+ Copyright (C) 2008-2011  The Arianne Project
+ Copyright (C) 2011-2011  Faiumoni n. E.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 
 $lang = 'en';
+if ($_REQUEST['lang'] == 'de') {
+	$lang = 'de';
+}
+// TODO: guess German
+$lang = urlencode($lang);
 $dict = array();
 
 function t($msgid) {
@@ -11,9 +35,24 @@ function t($msgid) {
 	return $msgid;
 }
 
-?>
+class AssociationFrame extends PageFrame {
 
-<body <?php echo $page->getBodyTagAttributes()?>>
+	/**
+	 * gets the default page in case none is specified.
+	 *
+	 * @return name of default page
+	 */
+	function getDefaultPage() {
+		return 'content/association/main';
+	}
+
+	/**
+	 * renders the frame
+	 */
+	function renderFrame() {
+		global $page, $lang;
+?>
+<body>
 <div id="container">
 	<div id="header">
 		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo_association.png" alt=""></a>
@@ -24,12 +63,12 @@ function t($msgid) {
 		<?php startBox(t('Association')); ?>
 		<ul id="associationmenu" class="menu">
 			<?php 
-			echo '<li><a id="menuAssociationAbout" href="'.rewriteURL('/item/').'">'.t('Faiumoni n. E.').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationNews" href="'.rewriteURL('/item/').'">'.t('News').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationStatue" href="'.rewriteURL('/item/').'">'.t('Statute').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationMembers" href="'.rewriteURL('/item/').'">'.t('Members').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationContact" href="'.rewriteURL('/item/').'">'.t('Contact').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationDonations" href="'.rewriteURL('/item/').'">'.t('Donate').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationAbout" href="'.rewriteURL('/'.$lang.'/about.html').'">'.t('Faiumoni n. E.').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationNews" href="'.rewriteURL('/'.$lang.'/news.html').'">'.t('News').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationStatue" href="'.rewriteURL('/'.$lang.'/statue.html').'">'.t('Statute').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationMembers" href="'.rewriteURL('/'.$lang.'/members.html').'">'.t('Members').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationContact" href="'.rewriteURL('/'.$lang.'/contact.html').'">'.t('Contact').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationDonations" href="'.rewriteURL('/'.$lang.'/donate.html').'">'.t('Donate').'</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
@@ -37,11 +76,11 @@ function t($msgid) {
 		<?php startBox(t('Resources')); ?>
 		<ul id="resourcemenu" class="menu">
 			<?php
-			echo '<li><a id="menuResourceConcept" href="'.rewriteURL('/item/').'">'.t('Concept').'</a></li>'."\n";
-			echo '<li><a id="menuResourceProjects" href="'.rewriteURL('/item/').'">'.t('Projects').'</a></li>'."\n";
-			echo '<li><a id="menuResourceModules" href="'.rewriteURL('/item/').'">'.t('Modules/Material').'</a></li>'."\n";
-			echo '<li><a id="menuResourceChat" href="'.rewriteURL('/item/').'">'.t('Chat').'</a></li>'."\n";
-			echo '<li><a id="menuResourceEvents" href="'.rewriteURL('/item/').'">'.t('Events').'</a></li>'."\n";
+			echo '<li><a id="menuResourceConcept" href="'.rewriteURL('/'.$lang.'/concept.html').'">'.t('Concept').'</a></li>'."\n";
+			echo '<li><a id="menuResourceProjects" href="'.rewriteURL('/'.$lang.'/projects.html').'">'.t('Projects').'</a></li>'."\n";
+			echo '<li><a id="menuResourceModules" href="'.rewriteURL('/'.$lang.'/modules.html').'">'.t('Modules/Material').'</a></li>'."\n";
+			echo '<li><a id="menuResourceChat" href="'.rewriteURL('/'.$lang.'/chat.html').'">'.t('Chat').'</a></li>'."\n";
+			echo '<li><a id="menuResourceEvents" href="'.rewriteURL('/'.$lang.'/events.html').'">'.t('Events').'</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox() ?>
@@ -54,8 +93,8 @@ function t($msgid) {
 		?>
 		<ul id="languagemenu" class="menu">
 			<?php
-			echo '<li><a id="menuLangDe" href="'.rewriteURL('/item/').'">Deutsch</a></li>'."\n";
-			echo '<li><a id="menuLangEn" href="'.rewriteURL('/item/').'">English</a></li>'."\n";
+			echo '<li><a id="menuLangDe" href="'.rewriteURL('/de/'.urlencode($_REQUEST['title']).'.html').'">Deutsch</a></li>'."\n";
+			echo '<li><a id="menuLangEn" href="'.rewriteURL('/en/'.urlencode($_REQUEST['title']).'.html').'">English</a></li>'."\n";
 			?>
 		</ul>
 		<?php
@@ -65,9 +104,9 @@ function t($msgid) {
 		?>
 		<ul id="sharemenu" class="menu">
 			<?php
-			echo '<li><a id="menuShareFacebook" href="'.rewriteURL('/item/').'">'.t('Facebook').'</a></li>'."\n";
-			echo '<li><a id="menuShareTwitter" href="'.rewriteURL('/item/').'">'.t('Twitter').'</a></li>'."\n";
-			echo '<li><a id="menuShareEMail" href="'.rewriteURL('/item/').'">'.t('eMail').'</a></li>'."\n";
+			echo '<li><a id="menuShareFacebook" href="TODO">'.t('Facebook').'</a></li>'."\n";
+			echo '<li><a id="menuShareTwitter" href="TODO">'.t('Twitter').'</a></li>'."\n";
+			echo '<li><a id="menuShareEMail" href="'.rewriteURL('/'.$lang.'/email.html').'">'.t('eMail').'</a></li>'."\n";
 			?>
 		</ul>
 		<?php
@@ -78,7 +117,7 @@ function t($msgid) {
 	<div id="contentArea">
 		<?php
 			// The central area of the website.
-		//	$page->writeContent();
+			$page->writeContent();
 		?>
 	</div>
 
@@ -88,3 +127,8 @@ function t($msgid) {
 </div>
 </body>
 </html>
+
+<?php 
+	}
+}
+$frame = new AssociationFrame();
