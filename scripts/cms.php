@@ -42,6 +42,12 @@ class CMSPageVersion {
 class CMS {
 
 
+	/**
+	 * gets the most recent version of the specified page
+	 * 
+	 * @param string $lang language
+	 * @param string $title page title
+	 */
 	public static function readNewestVersion($lang, $title) {
 		$sql = "SELECT content, account_id, timedate"
 			." FROM page_version WHERE id = ("
@@ -59,4 +65,63 @@ class CMS {
 		return $res;
 	}
 
+
+	public static function save($lang, $title, $content) {
+		$pageId = CMS::getPageIdCreateIfNecessary($lang, $title);
+		$sql = "INSERT INTO page_version (page_id, content) VALUES"
+			." ('".mysql_real_escape_string($pageId). "',"
+			." '".mysql_real_escape_string($content). "')";
+		mysql_query($sql, getWebsiteDB());
+	}
+
+
+	/**
+	 * gets the id of specified page, creating the page if it does not exists
+	 * 
+	 * @param string $lang language
+	 * @param string $title page title
+	 * @return id of page
+	 */
+	public static function getPageIdCreateIfNecessary($lang, $title) {
+		$id = CMS::getPageId($lang, $title);
+		if (isset($id)) {
+			return $id;
+		}
+		CMS::createPage($lang, $title);
+		return CMS::getPageId($lang, $title);
+	}
+
+
+	/**
+	 * gets the id of specified page
+	 * 
+	 * @param string $lang language
+	 * @param string $title page title
+	 * @return id of page or <code>null</code>.
+	 */
+	public static function getPageId($lang, $title) {
+		$sql = "SELECT id FROM page"
+			." WHERE page.language = '".mysql_real_escape_string($lang). "'"
+			." AND page.title = '".mysql_real_escape_string($title). "'";
+		$result = mysql_query($sql, getWebsiteDB());
+		$row = mysql_fetch_assoc($result);
+		if (isset($row) && $row != null) {
+			$res = $row[id];
+		}
+		mysql_free_result($result);
+		return $res;
+	}
+
+	/**
+	 * creates a new page
+	 *
+	 * @param string $lang language
+	 * @param string $title page title
+	 */
+	public static function createPage($lang, $title) {
+		$sql = "INSERT INTO page (language, title) VALUES"
+			." ('".mysql_real_escape_string($lang). "',"
+			." '".mysql_real_escape_string($title). "')";
+		mysql_query($sql, getWebsiteDB());
+	}
 }

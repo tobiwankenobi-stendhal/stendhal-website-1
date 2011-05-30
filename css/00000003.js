@@ -331,4 +331,38 @@ $().ready(function() {
 			$('.ircstatus').hide();
 		}
 	});
+
+	if (typeof(CKEDITOR) != "undefined") {
+		CKEDITOR.replace('editor', {
+			toolbar: 'Full',
+			toolbar_Full : [
+			// See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar
+			{ name: 'document', items : [ 'Source','-','Save'] },
+			{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord' ] },
+			{ name: 'editing', items : [ 'Undo','Redo','-','Find','Replace'] },
+			{ name: 'insert', items : [ 'Link','Unlink','Anchor','-','Image','Table','HorizontalRule' ] },
+			{ name: 'tools', items : [ 'Maximize'] },
+			'/',
+			{ name: 'styles', items : [ 'Format' ] },
+			{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','TextColor','BGColor','-','RemoveFormat' ] },
+			{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
+			],
+			toolbarCanCollapse: false
+			// Customize styles instead of Formats: http://docs.cksource.com/CKEditor_3.x/Howto/Styles_List_Customization
+		});
+		CKEDITOR.on( 'instanceReady', function( ev ) {
+			ev.editor.dataProcessor.writer.selfClosingEnd = '>';
+		});
+		/* disabled because it ask on save, too.
+		function beforeUnload(e) {
+			if (CKEDITOR.instances.editor.checkDirty()) {
+				return e.returnValue = "You'll loose the changes made in the editor.";
+			}
+		}
+		if (window.addEventListener) {
+			window.addEventListener('beforeunload', beforeUnload, false);
+		} else {
+			window.attachEvent( 'onbeforeunload', beforeUnload );
+		}*/
+	}
 });
