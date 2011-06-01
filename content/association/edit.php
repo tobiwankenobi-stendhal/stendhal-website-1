@@ -50,7 +50,7 @@ class EditPage extends Page {
 				echo '<p class="error">'.t('Session information was lost. Please save again.').'</p>';
 				endBox();
 			} else {
-				CMS::save($lang, $_REQUEST['title'], $html);
+				CMS::save($lang, $_REQUEST['title'], $html, $_REQUEST['commitcomment']);
 			}
 		}
 
@@ -63,6 +63,7 @@ class EditPage extends Page {
 			echo htmlspecialchars($this->cmsPage->content);
 		}
 		echo '</textarea>';
+		echo '<input name="commitcomment" style="width:100%">';
 		echo '</form>';
 	}
 
