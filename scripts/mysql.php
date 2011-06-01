@@ -60,13 +60,30 @@ function getTestDB() {
 
 function connect() {
 	global $websitedb, $gamedb;
-	$websitedb = mysql_connect(STENDHAL_WEB_HOSTNAME, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD, true);
-	@mysql_select_db(STENDHAL_WEB_DB, $websitedb) or die( "Unable to select Website database");
-	mysql_query('set character set utf8;', $websitedb);
-
-	$gamedb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
-	@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( "Unable to select Game database");
+	$gamedb = @mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
+	@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( databaseConnectionErrorMessage('game database'));
 	mysql_query('set character set utf8;', $gamedb);
+
+	$websitedb = @mysql_connect(STENDHAL_WEB_HOSTNAME, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD, true);
+	@mysql_select_db(STENDHAL_WEB_DB, $websitedb) or die( databaseConnectionErrorMessage('website database') );
+	mysql_query('set character set utf8;', $websitedb);
+}
+
+function databaseConnectionErrorMessage($message) {
+	@header('HTTP 1/0 500 Maintenance')
+	?>
+	<html>
+		<head>
+			<title>Stendhal</title><meta name="robots" content="noindex">
+		</head>
+		<body>
+			<div style='border:5px solid red; font-size:200%; padding:1em; margin:2em'>
+				<p><b>We are currently doing <?php echo htmlspecialchars($message)?> maintenance.</b></p>
+				<p>We apologize for the inconvenience.</p>
+			</div>
+		</body>
+	</html>
+	<?php
 }
 
 function disconnect() {
