@@ -98,7 +98,7 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 		if (in_array($realm, explode(',', STENDHAL_TRUESTED_OPENID_CONSUMERS))) {
 			$attributes['namePerson/friendly'] = $account->username;
-			return STENDHAL_LOGIN_TARGET.'/a/'.surlencode($account->username). '.html';
+			return STENDHAL_LOGIN_TARGET.'/a/'.surlencode(strtolower($account->username));
 		}
 
 		$q = mysql_query("SELECT attribute FROM openid_allowedsites WHERE player_id = '".$account->id."' AND realm = '".mysql_real_escape_string($realm)."'");
@@ -121,7 +121,7 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 			mysql_query("INTO openid_allowedsites (player_id, realm, attribute) VALUES('".$account->id."', '".mysql_real_escape_string($realm)."', 'namePerson/friendly')");
 		}
 
-		return STENDHAL_LOGIN_TARGET.'/a/'.surlencode($account->username). '.html';
+		return STENDHAL_LOGIN_TARGET.'/a/'.surlencode(strtolower($account->username));
 	}
 
 	function assoc_handle() {
