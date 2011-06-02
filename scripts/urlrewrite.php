@@ -53,6 +53,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/account/myaccount.html$ /index.php?id=content/account/myaccount [L]
                 RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters [L]
                 RewriteRule ^/account/remind-mail.html$ /index.php?id=content/account/remind [L]
+                RewriteRule ^/a/(.*)$ /index.php?id=content/account/a&account=$1 [L]
 
                 # achievement
                 RewriteRule ^/achievement.html$ /index.php?id=content/game/achievement [L]
@@ -273,6 +274,9 @@ function rewriteURL($url) {
 		} else if (preg_match('|^/account/remind-mail.html$|', $url)) {
 			return preg_replace('|^/account/remind-mail.html$|', $folder.'/?id=content/account/remind', $url);
 		}
+	} else if (preg_match('|^/a/(.*)$|', $url)) {
+			return preg_replace('|^/a/(.*)$|', $folder.'/?id=content/account/a&account=$1', $url);
+		
 
 	// achievement
 	} else if (preg_match('|^/achievement.*|', $url)) {
