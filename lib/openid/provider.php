@@ -119,15 +119,16 @@ abstract class LightOpenIDProvider
         session_commit();
         session_id($handle);
         session_start();
-        if(empty($_SESSION['assoc'])) {
-            return null;
+        $assoc = null;
+        if(!empty($_SESSION['assoc'])) {
+            $assoc = $_SESSION['assoc'];
         }
-        return $_SESSION['assoc'];
         session_commit();
         if($oldSession) {
             session_id($oldSession);
             session_start();
         }
+        return $assoc;
     }
     
     /**
@@ -216,7 +217,6 @@ abstract class LightOpenIDProvider
 
         $location = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://'
                   . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        $location = preg_replace('/\?.*/','',$location);
         $this->serverLocation = $location;
         $location .= (strpos($location, '?') ? '&' : '?') . 'xrds';
         $this->xrdsLocation = $location;
