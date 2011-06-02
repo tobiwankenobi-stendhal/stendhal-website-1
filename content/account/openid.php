@@ -45,7 +45,19 @@ class OpenID {
 	 * creates the return url
 	 */
 	private function createReturnUrl() {
-		$res = $_SERVER['SCRIPT_URI'].'?id='.urlencode($_REQUEST['id']);
+		if (isset($_SERVER['SCRIPT_URI'])) {
+			$res = $_SERVER['SCRIPT_URI'];
+		} else {
+			// SCRIPT_URI seems to be set by mod_redirect only
+			if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
+				$res = 'https';
+			} else {
+				$res = 'http';
+			}
+			$res = $res.'://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+		}
+		
+		$res = $res.'?id='.urlencode($_REQUEST['id']);
 		if ($_REQUEST['url']) {
 			$res .= '&url='.urlencode($_REQUEST['url']);
 		}
