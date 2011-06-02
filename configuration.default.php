@@ -92,4 +92,7 @@ define('MAIN_CHANNEL','#channelname');
 define('IRC_BOT','ircbot');
 define('SUPPORT_LOG_DIRECTORY','/path-to-logs/');
 define('MAIN_LOG_DIRECTORY','/path-to-logs/');
+
+
+define('STENDHAL_TRUESTED_OPENID_CONSUMERS', 'http://127.0.0.1');
 ?>

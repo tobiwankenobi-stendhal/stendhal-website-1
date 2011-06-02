@@ -20,9 +20,9 @@ function getUserData($handle=null) {
 	if($handle) {
 		?>
 <form action="" method="post"><input type="hidden"
-	name="openid.assoc_handle" value="<?php echo $handle?>"> Login: <input
-	type="text" name="login"><br>
-Password: <input type="password" name="password"><br>
+	name="openid.assoc_handle" value="<?php echo $handle?>">
+	Login: <input type="text" name="login"><br>
+	Password: <input type="password" name="password"><br>
 <button>Submit</button>
 </form>
 		<?php
@@ -33,23 +33,31 @@ Password: <input type="password" name="password"><br>
 class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 	private $attrMap = array(
-		'namePerson/first'    => 'First name',
-		'namePerson/last'     => 'Last name',
+//		'namePerson/first'    => 'First name',
+//		'namePerson/last'     => 'Last name',
 		'namePerson/friendly' => 'Nickname (login)'
 		);
 
 		private $attrFieldMap = array(
-		'namePerson/first'    => 'firstName',
-		'namePerson/last'     => 'lastName',
+//		'namePerson/first'    => 'firstName',
+//		'namePerson/last'     => 'lastName',
 		'namePerson/friendly' => 'login'
 		);
 
 	function setup($identity, $realm, $assoc_handle, $attributes) {
-		$data = getUserData($assoc_handle);
+		if (!isset($_SESSION['account'])) {
+			die('Sorry, you need to login first. Login on demand is not implemented, yet.');
+		// TODO: display login form
+		}
+
+		die('Sorry, openid provider is currently only supported for trusted consumers');
+		$this->showConfirmForm($identity, $realm, $assoc_handle, $attributes);
+	}
+
+	function showConfirmForm($identity, $realm, $assoc_handle, $attributes) {
 		echo '<form action="" method="post">'
+		// TODO: csrf-token
 		. '<input type="hidden" name="openid.assoc_handle" value="' . $assoc_handle . '">'
-		. '<input type="hidden" name="login" value="' . htmlspecialchars($_POST['login']) .'">'
-		. '<input type="hidden" name="password">'
 		. "<b>".htmlspecialchars($realm)."</b> wishes to authenticate you.";
 		if($attributes['required'] || $attributes['optional']) {
 			echo " It also requests following information (required fields marked with *):". '<ul>';
@@ -87,13 +95,16 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 			return false;
 		}
 		$account = $_SESSION['account'];
+
+		if (in_array($realm, explode(',', STENDHAL_TRUESTED_OPENID_CONSUMERS))) {
+			$attributes['namePerson/friendly'] = $account->username;
+			return STENDHAL_LOGIN_TARGET.'/a/'.surlencode($account->username). '.html';
+		}
+
 		$q = mysql_query("SELECT attribute FROM openid_allowedsites WHERE player_id = '".$account->id."' AND realm = '".mysql_real_escape_string($realm)."'");
 		while($row=mysql_fetch_assoc($result)) {
 			if ($row['attributes'] == 'namePerson/friendly') {
 				$attributes['namePerson/friendly'] = $account->username;
-			}
-			if ($row['attributes'] == 'namePerson') {
-				$attributes['namePerson'] = $account->username;
 			}
 			// TODO: 'contact/email', but only if verified
 		}
@@ -108,10 +119,9 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 		// save, if user requested to remember
 		if(isset($_POST['always']) && count($attributes) == 0) {
 			mysql_query("INTO openid_allowedsites (player_id, realm, attribute) VALUES('".$account->id."', '".mysql_real_escape_string($realm)."', 'namePerson/friendly')");
-			mysql_query("INTO openid_allowedsites (player_id, realm, attribute) VALUES('".$account->id."', '".mysql_real_escape_string($realm)."', 'namePerson')");
 		}
 
-		return rewriteURL('/id/'.surlencode($account->username). '.html');
+		return STENDHAL_LOGIN_TARGET.'/a/'.surlencode($account->username). '.html';
 	}
 
 	function assoc_handle() {
@@ -121,7 +131,7 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 	function setAssoc($handle, $data) {
 		$data = serialize($data);
 		$cnt = mysql_query("UPDATE openid_associations SET data='".mysql_real_escape_string($data)."' WHERE handle='".mysql_real_escape_string($handle)."'");
-		if (cnt == 0) {
+		if ($cnt == 0) {
 			mysql_query("INSERT INTO openid_associations (handle, data) VALUES('".mysql_real_escape_string($handle)."', '".mysql_real_escape_string($data)."')");
 		}
 	}
@@ -140,5 +150,3 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 	}
 
 }
-$op = new MysqlProvider;
-$op->server();
