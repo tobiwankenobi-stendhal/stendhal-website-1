@@ -26,6 +26,11 @@ class StendhalFrame extends PageFrame {
 	 * @return name of default page
 	 */
 	function getDefaultPage() {
+		global $protocol;
+		// TODO: create new method in PageFrame to write http headers
+		if ($protocol == 'https') {
+			header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds=get');
+		}
 		return 'content/main';
 	}
 
