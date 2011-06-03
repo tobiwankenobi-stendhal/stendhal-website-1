@@ -23,12 +23,12 @@ class OpenID {
 	public $error;
 	public $isAuth = false;
 
-	public function doOpenidRedirectIfRequired() {
+	public function doOpenidRedirectIfRequired($requestedIdentifier) {
 		if (!isset($_GET['openid_mode'])) {
-			if (isset($_POST['openid_identifier'])) {
-				$isAuth = true;
+			if (isset($requestedIdentifier)) {
+				$this->isAuth = true;
 				$openid = new LightOpenID;
-				$openid->identity = $_POST['openid_identifier'];
+				$openid->identity = $requestedIdentifier;
 				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 				$openid->returnUrl = $this->createReturnUrl();
@@ -70,7 +70,7 @@ class OpenID {
 	 * @return AccountLink or <code>FALSE</code> if  the validation failed
 	 */
 	public function createAccountLink() {
-		$openid = new LightOpenID;
+		$openid = new LightOpenID();
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 		$openid->returnUrl = $this->createReturnUrl();
 		try {
@@ -87,6 +87,22 @@ class OpenID {
 		return $accountLink;
 	}
 
+	public function getStendhalAccountName() {
+		$openid = new LightOpenID();
+		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+		$openid->returnUrl = $this->createReturnUrl();
+		if (!$openid->validate()) {
+			$this-$openid->error = 'Open ID validation failed.';
+			return false;
+		}
+		echo 'XXXXXX'.$openid->identity;
+		$identifier = $openid->identity;
+		if (strpos($identifier, 'https://stendhalgame.org/a/') !== 0) {
+			$this-$openid->error = 'Only Stendhal Accounts accepted';
+			return false;
+		}
+		return substr($identifier, 28);
+	}
 
 	/**
 	 * handles a succesful openid authentication

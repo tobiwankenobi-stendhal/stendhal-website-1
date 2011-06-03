@@ -39,7 +39,7 @@ class AccountMerge extends Page {
 
 		// redirect to openid provider?
 		$this->openid = new OpenID();
-		$this->openid->doOpenidRedirectIfRequired();
+		$this->openid->doOpenidRedirectIfRequired($_POST['openid_identifier']);
 		if ($this->openid->isAuth && !$this->openid->error) {
 			return false;
 		}
