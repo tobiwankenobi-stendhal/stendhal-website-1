@@ -43,6 +43,9 @@ class AssociationFrame extends PageFrame {
 	 * @return name of default page
 	 */
 	function getDefaultPage() {
+		// TODO: remove this
+		header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
+		// TODO END
 		return 'content/association/main';
 	}
 

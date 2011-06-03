@@ -25,7 +25,7 @@ class MainPage extends Page {
 	}
 
 	public function writeHttpHeader() {
-		if ($this->cmsPage != null) {
+		if ($this->cmsPage == null) {
 			header('HTTP/1.1 404 Not Found');
 		}
 		return true;
