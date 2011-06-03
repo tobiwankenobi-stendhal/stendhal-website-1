@@ -40,7 +40,7 @@ class LoginPage extends Page {
 		$this->openid = new OpenID();
 		if (!isset($_GET['openid_mode'])) {
 			// redirect to openid provider?
-			$this->openid->doOpenidRedirectIfRequired(/*'https://stendhalgame.org'*/'http://localhost');
+			$this->openid->doOpenidRedirectIfRequired('https://stendhalgame.org');
 			if ($this->openid->isAuth && !$this->openid->error) {
 				return false;
 			}
@@ -66,19 +66,23 @@ class LoginPage extends Page {
 			return false;
 		}
 
-		var_dump($this->openid->getStendhalAccountName());
-		
-		die('finished');
-		
-		/*
-		$accountLink = $this->openid->createAccountLink();
-		if (!$accountLink) {
-			$this->openid->error = 'OpenID-Authentication failed.';
-			return false;
+		$username = $this->openid->getStendhalAccountName();
+		if (!$username) {
+			// TODO: niecer error message
+			die('Login failed in Openid transaction');
 		}
-		$this->openid->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
-		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
-		return true;*/
+		
+		$account = Account::readAccountByName($username);
+		if (!isset($account) || !($account instanceof Account)) {
+			// TODO: niecer error message
+			die('Login failed - Account unknown');
+		}
+
+		// Login
+		$_SESSION['account'] = $account;
+		$_SESSION['csrf'] = createRandomString();
+		$this->handleRedirectIfAlreadyLoggedIn();
+		return true;
 	}
 
 	function handleRedirectIfAlreadyLoggedIn() {

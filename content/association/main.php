@@ -44,6 +44,7 @@ class MainPage extends Page {
 	}
 
 	function writeContent() {
+		global $lang;
 		$title = $_REQUEST['title'];
 		if ($title == '') {
 			$title = 'Faiumoni';
@@ -53,10 +54,16 @@ class MainPage extends Page {
 			echo $this->cmsPage->content;
 			echo '<div class="versionInformation">Last edited on '
 				. htmlspecialchars($this->cmsPage->timedate)
-				.' by account '.htmlspecialchars($this->cmsPage->accountId)
-				.'</div>';
+				.' by account '.htmlspecialchars($this->cmsPage->accountId);
+			if ($_SESSION['account']) {
+				echo ' - <a href="/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">edit</a>';
+			}
+			echo '</div>';
 		} else {
-			echo 'Sorry, the requested page does not exit.';
+			echo '<p>Sorry, the requested page does not exit.</p>';
+			if ($_SESSION['account']) {
+				echo '<a href="/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">create it</a>';
+			}
 		}
 		endBox();
 	}

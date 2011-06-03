@@ -95,13 +95,12 @@ class OpenID {
 			$this-$openid->error = 'Open ID validation failed.';
 			return false;
 		}
-		echo 'XXXXXX'.$openid->identity;
 		$identifier = $openid->identity;
 		if (strpos($identifier, 'https://stendhalgame.org/a/') !== 0) {
 			$this-$openid->error = 'Only Stendhal Accounts accepted';
 			return false;
 		}
-		return substr($identifier, 28);
+		return substr($identifier, 27);
 	}
 
 	/**

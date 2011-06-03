@@ -24,6 +24,13 @@ class EditPage extends Page {
 		$this->cmsPage = CMS::readNewestVersion($lang, $_REQUEST['title']);
 	}
 
+	public function writeHttpHeader() {
+		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
+			header('HTTP/1.1 403 Forbidden');
+		}
+		return true;
+	}
+
 	public function writeHtmlHeader() {
 		echo '<title>Edit'.STENDHAL_TITLE.'</title>'."\n";
 		echo '<meta name="robots" content="noindex">'."\n";
@@ -37,7 +44,14 @@ class EditPage extends Page {
 		if ($title == '') {
 			$title = 'Faiumoni';
 		}
-
+		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
+			startBox(t('Editing').' '.htmlspecialchars(ucfirst($title)));
+			$currentPage = '/?id=content/association/edit&lang='.urlencode($lang).'&title='.urlencode($_REQUEST['title']);
+			echo '<p>'.t('You need to').' <a href="'.STENDHAL_LOGIN_TARGET.'/?id=content/association/login&amp;url='.urlencode($currentPage).'">'.t('login').'</a> '.t('in order to edit pages.').'</p>';
+			endBox();
+			return;
+		}
+		
 		startBox(t('Editing').' '.htmlspecialchars(ucfirst($title)));
 		echo '<p>'.t('Please skip Heading 1 and start with Heading 2.').'</p>';
 		echo '<p>'.t('Back to article').' <a href="'.rewriteURL('/'.$lang.'/'.urlencode($_REQUEST['title']).'.html').'">'.htmlspecialchars(ucfirst($title)).'</a></p>';
