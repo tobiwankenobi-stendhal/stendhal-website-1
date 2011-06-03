@@ -101,7 +101,7 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 			return STENDHAL_LOGIN_TARGET.'/a/'.surlencode(strtolower($account->username));
 		}
 
-		$q = mysql_query("SELECT attribute FROM openid_allowedsites WHERE player_id = '".$account->id."' AND realm = '".mysql_real_escape_string($realm)."'", getGameDB());
+		$result = mysql_query("SELECT attribute FROM openid_allowedsites WHERE player_id = '".$account->id."' AND realm = '".mysql_real_escape_string($realm)."'", getGameDB());
 		while($row=mysql_fetch_assoc($result)) {
 			if ($row['attributes'] == 'namePerson/friendly') {
 				$attributes['namePerson/friendly'] = $account->username;
@@ -130,9 +130,9 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 	function setAssoc($handle, $data) {
 		$data = serialize($data);
-		$cnt = mysql_query("UPDATE openid_associations SET data='".mysql_real_escape_string($data)."' WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
-		if ($cnt == 0) {
-			mysql_query("INSERT INTO openid_associations (handle, data) VALUES('".mysql_real_escape_string($handle)."', '".mysql_real_escape_string($data)."')");
+		mysql_query("UPDATE openid_associations SET data='".mysql_real_escape_string($data)."' WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
+		if (mysql_affected_rows(getGameDB()) == 0) {
+			mysql_query("INSERT INTO openid_associations (handle, data) VALUES('".mysql_real_escape_string($handle)."', '".mysql_real_escape_string($data)."')", getGameDB());
 		}
 	}
 
