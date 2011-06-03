@@ -217,6 +217,7 @@ abstract class LightOpenIDProvider
 
         $location = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://'
                   . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $location = preg_replace('/\?.*/','',$location);
         $this->serverLocation = $location;
         $location .= (strpos($location, '?') ? '&' : '?') . 'xrds';
         $this->xrdsLocation = $location;
