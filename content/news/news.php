@@ -76,10 +76,17 @@ class NewsPage extends Page {
 
 	public function writeHtmlHeader() {
 		if (isset($this->news)) {
+			$filteredDescription = filterAndTrim($this->news->oneLineDescription);
 			echo '<title>'.htmlspecialchars($this->news->title).STENDHAL_TITLE.'</title>';
+			echo '<meta name="description" content="'.$filteredDescription.'">';
 		} else {
 			echo '<title>News Not Found'.STENDHAL_TITLE.'</title>';
 		}
+	}
+	
+	private function filterAndTrim($description='') {
+		$description = preg_replace('<.*>', '', $description);
+		return $description;
 	}
 
 	function writeContent() {
