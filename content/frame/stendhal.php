@@ -38,7 +38,7 @@ class StendhalFrame extends PageFrame {
 	 * renders the frame
 	 */
 	function renderFrame() {
-		global $page, $protocol;
+		global $page, $protocol, $adminLevel;
 ?>
 <body <?php echo $page->getBodyTagAttributes()?>>
 <div id="container">
