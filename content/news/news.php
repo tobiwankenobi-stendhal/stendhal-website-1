@@ -24,14 +24,14 @@ class NewsPage extends Page {
 	public function __construct() {
 		$newsId = NewsPage::getNewsIdFromUrl();
 		if ($newsId <= 0) {
-			header('HTTP/1.0 404 No found', true, 404);
+			header('HTTP/1.0 404 Not found', true, 404);
 			return;
 		}
 
 		// read the news posting from the database
 		$newsList = getNews(" where news.id='".mysql_real_escape_string($newsId)."' AND news.active=1");
 		if (sizeof($newsList) == 0) {
-			header('HTTP/1.0 404 No found', true, 404);
+			header('HTTP/1.0 404 Not found', true, 404);
 		}
 
 		$this->news = $newsList[0];
@@ -76,16 +76,22 @@ class NewsPage extends Page {
 
 	public function writeHtmlHeader() {
 		if (isset($this->news)) {
-			$filteredDescription = filterAndTrim($this->news->oneLineDescription);
+			$filteredDescription = filterAndTrim($this->news->detailedDescription);
 			echo '<title>'.htmlspecialchars($this->news->title).STENDHAL_TITLE.'</title>';
 			echo '<meta name="description" content="'.$filteredDescription.'">';
+			echo '<meta name="title" content="'.$this->news->title.'">'."\r\n";
 		} else {
 			echo '<title>News Not Found'.STENDHAL_TITLE.'</title>';
 		}
 	}
 	
 	private function filterAndTrim($description='') {
-		$description = preg_replace('<.*>', '', $description);
+		$description = trim($description);
+		$pos = strpos($description, '<p>', 10);
+		if ($pos) {
+			$description = substr($description, 0, $pos);
+		}
+		$description = preg_replace('/(\r\n|\r|\n|")/s',' ', preg_replace('/<[^>]*>/', '', $description));
 		return $description;
 	}
 
