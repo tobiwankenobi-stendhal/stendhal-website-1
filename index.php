@@ -117,6 +117,7 @@ header('Content-Type: text/html; charset=utf-8')
 			<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER.'/'.$page_url; ?>.css">
 			<?php
 		}
+		$frame->writeHtmlHeader();
 		$page->writeHtmlHeader();
 		if (!defined("STENDHAL_WANT_ROBOTS") || !constant("STENDHAL_WANT_ROBOTS")) {
 			echo '<meta name="robots" content="noindex">'."\n";

@@ -43,6 +43,13 @@ class StendhalFrame extends PageFrame {
 	}
 
 	/**
+	 * this method can write additional html headers.
+	 */
+	function writeHtmlHeader() {
+		// do nothing
+	}
+
+	/**
 	 * renders the frame
 	 */
 	function renderFrame() {

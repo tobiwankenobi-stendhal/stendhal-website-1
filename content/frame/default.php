@@ -29,6 +29,23 @@ class DefaultFrame extends PageFrame {
 	}
 
 	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @param $page_url
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	function writeHttpHeader($page_url) {
+		return true;
+	}
+
+	/**
+	 * this method can write additional html headers.
+	 */
+	function writeHtmlHeader() {
+		// do nothing
+	}
+
+	/**
 	 * renders the frame
 	 */
 	function renderFrame() {

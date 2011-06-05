@@ -42,6 +42,11 @@ abstract class PageFrame {
 	abstract function writeHttpHeader($page_url);
 
 	/**
+	 * this method can write additional html headers.
+	 */
+	abstract function writeHtmlHeader();
+
+	/**
 	 * renders the frame
 	 */
 	abstract function renderFrame();
