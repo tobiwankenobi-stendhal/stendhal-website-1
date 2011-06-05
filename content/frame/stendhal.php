@@ -26,12 +26,20 @@ class StendhalFrame extends PageFrame {
 	 * @return name of default page
 	 */
 	function getDefaultPage() {
+		return 'content/main';
+	}
+
+	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	function writeHttpHeader($page_url) {
 		global $protocol;
-		// TODO: create new method in PageFrame to write http headers
 		if ($protocol == 'https') {
 			header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
 		}
-		return 'content/main';
+		return true;
 	}
 
 	/**

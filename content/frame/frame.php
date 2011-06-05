@@ -24,7 +24,8 @@
  * @author hendrik
  */
 abstract class PageFrame {
-	
+
+
 	/**
 	 * gets the default page in case none is specified.
 	 *
@@ -32,6 +33,13 @@ abstract class PageFrame {
 	 */
 	abstract function getDefaultPage();
 
+	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @param $page_url
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	abstract function writeHttpHeader($page_url);
 
 	/**
 	 * renders the frame

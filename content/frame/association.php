@@ -43,10 +43,21 @@ class AssociationFrame extends PageFrame {
 	 * @return name of default page
 	 */
 	function getDefaultPage() {
-		// TODO: remove this
-		header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
-		// TODO END
 		return 'content/association/main';
+	}
+
+	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	function writeHttpHeader($page_url) {
+		global $protocol;
+		if (strpos($page_url, 'content/association/') !==0) {
+			header('Location: '.$protocol.'://'.STENDHAL_SERVER_NAME);
+			return false;
+		}
+		return true;
 	}
 
 	/**

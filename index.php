@@ -73,7 +73,6 @@ function decidePageToLoad($url) {
 require_once("content/frame/frame.php");
 require_once(STENDHAL_FRAME);
 
-
 /*
  * This code decides the page to load.
  */
@@ -87,6 +86,11 @@ if(isset($_REQUEST["id"])) {
 		return;
 	}
 }
+
+if (!$frame->writeHttpHeader($page_url)) {
+	exit(0);
+}
+
 
 require_once("content/page.php");
 require_once($page_url.'.php');
