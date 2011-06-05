@@ -61,17 +61,53 @@ class AssociationFrame extends PageFrame {
 	}
 
 	/**
+	 * this method can write additional html headers.
+	 */
+	function writeHtmlHeader() {
+		?>
+<style type="text/css">
+body {
+	background-color:#FFF;
+	background-image:none;
+}
+#container {
+	background-image: url("../images/association/inner_background.jpg");
+	border: 1px solid black;
+}
+#leftArea {
+	margin: 0 5px 0 0;
+}
+#rightArea {
+	margin: -80px 0 0 5px;
+}
+.box {
+	background-image: url("../images/semi_transparent.png");
+	background-color: transparent;
+}
+#footerArea {
+	border-top: none
+}
+</style>
+		<?php
+	}
+
+	/**
 	 * renders the frame
 	 */
 	function renderFrame() {
 		global $page, $lang;
 ?>
 <body>
-<div id="container">
+<div id="contentArea">
+	<?php
+		// The central area of the website.
+		$page->writeContent();
+	?>
+</div>
+<div id="container" style="position:fixed; top: 5px; z-index: -100">
 	<div id="header">
 		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo_association.png" alt=""></a>
 	</div>
-	<div id="topMenu"></div>
 
 	<div id="leftArea">
 		<?php startBox(t('Association')); ?>
@@ -128,15 +164,8 @@ class AssociationFrame extends PageFrame {
 		?>
 	</div>
 
-	<div id="contentArea">
-		<?php
-			// The central area of the website.
-			$page->writeContent();
-		?>
-	</div>
-
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni n. E.</span>
+		<span>&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni n. E.</span>
 	</div>
 </div>
 </body>
