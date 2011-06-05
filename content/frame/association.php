@@ -70,9 +70,16 @@ body {
 	background-color:#FFF;
 	background-image:none;
 }
+#header {
+	padding: 20px 0 20px 10px;
+}
+#bodycontainer {
+	background-image: url("http://stendhalgame.org/wiki/images/6/6d/Karin_meetup_8.JPG");
+	background-repeat: no-repeat;
+}
 #container {
-	background-image: url("../images/association/inner_background.jpg");
-	border: 1px solid black;
+	background-image: none;
+	border: none;
 }
 #leftArea {
 	margin: 0 5px 0 0;
@@ -98,15 +105,16 @@ body {
 		global $page, $lang;
 ?>
 <body>
-<div id="contentArea">
+<div id="contentArea" style="position:relative; top: 34px; z-index: 1; width:590px">
 	<?php
 		// The central area of the website.
 		$page->writeContent();
 	?>
 </div>
-<div id="container" style="position:fixed; top: 5px; z-index: -100">
+<div id="bodycontainer" style="width:100%; height:100%; position:fixed; top:0px; z-index:0">
+<div id="container" style="position:fixed; top:0px; z-index:0">
 	<div id="header">
-		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo_association.png" alt=""></a>
+		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/association/logo.png" alt=""></a>
 	</div>
 
 	<div id="leftArea">
@@ -167,6 +175,7 @@ body {
 	<div id="footerArea">
 		<span>&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni n. E.</span>
 	</div>
+</div>
 </div>
 </body>
 </html>
