@@ -64,7 +64,7 @@ class EditPage extends Page {
 				echo '<p class="error">'.t('Session information was lost. Please save again.').'</p>';
 				endBox();
 			} else {
-				CMS::save($lang, $_REQUEST['title'], $html, $_REQUEST['commitcomment']);
+				CMS::save($lang, $_REQUEST['title'], $html, $_REQUEST['commitcomment'], $_SESSION['account']->id);
 			}
 		}
 

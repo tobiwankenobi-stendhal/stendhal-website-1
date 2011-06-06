@@ -66,12 +66,13 @@ class CMS {
 	}
 
 
-	public static function save($lang, $title, $content, $commitcomment) {
+	public static function save($lang, $title, $content, $commitcomment, $accountId) {
 		$pageId = CMS::getPageIdCreateIfNecessary($lang, $title);
-		$sql = "INSERT INTO page_version (page_id, content, commitcomment) VALUES"
+		$sql = "INSERT INTO page_version (page_id, content, commitcomment, account_id) VALUES"
 			." ('".mysql_real_escape_string($pageId). "',"
 			." '".mysql_real_escape_string($content). "',"
-			." '".mysql_real_escape_string($commitcomment). "')";
+			." '".mysql_real_escape_string($commitcomment). "', "
+			." '".mysql_real_escape_string($accountId). "')";
 		mysql_query($sql, getWebsiteDB());
 	}
 
