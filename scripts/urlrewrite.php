@@ -200,8 +200,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
 
                 # Association
+                RewriteRule ^/(..)/documents/(.*)$ /index.php?lang=$1&id=content/association/documents&file=$2 [L]
                 RewriteRule ^/(..)/(.*)\.html$ /index.php?lang=$1&title=$2 [L]
-                
 
                 # other
                 RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301]
@@ -380,8 +380,9 @@ function rewriteURL($url) {
 
 	// association
 	} else if (preg_match('|^/../.*|', $url)) {
-		
-		if (preg_match('|^/(..)/(.*)\.html$|', $url)) {
+		if (preg_match('|^/(..)/documents/(.*)$|', $url)) {
+			return preg_replace('|^/(..)/documents/(.*)$|', $folder.'/index.php?lang=$1&id=content/association/documents&file=$2', $url);
+		} else if (preg_match('|^/(..)/(.*)\.html$|', $url)) {
 			return preg_replace('|^/(..)/(.*)\.html$|', $folder.'/index.php?lang=$1&title=$2', $url);
 		}
 

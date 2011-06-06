@@ -90,6 +90,11 @@ body {
 .box {
 	background-image: url("../images/semi_transparent.png");
 	background-color: transparent;
+	border-radius: 15px;
+}
+.boxTitle {
+	border-radius: 15px;
+	padding-left: 1em;
 }
 #footerArea {
 	border-top: none
