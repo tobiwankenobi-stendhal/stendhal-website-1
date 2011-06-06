@@ -99,6 +99,11 @@ body {
 #footerArea {
 	border-top: none
 }
+
+.versionInformation {
+	font-size:60%;
+	text-align:right
+}
 </style>
 		<?php
 	}

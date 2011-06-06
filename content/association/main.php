@@ -36,11 +36,6 @@ class MainPage extends Page {
 		// TODO: echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" >'."\n";
 		// TODO: echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, Rollenspiel, juego, role, gioco, online, open, source, multiplayer, roleplaying, Arianne, foss, floss, Adventurespiel">';
 		// TODO: echo '<meta name="description" content="Stendhal is a fully fledged free open source multiplayer online adventures game (MORPG) developed using the Arianne game system.">';
-		?>
-		<style type="text/css">
-		.versionInformation {color:#AAA; font-size:60%; text-align:right}
-		</style>
-		<?php
 	}
 
 	function writeContent() {
