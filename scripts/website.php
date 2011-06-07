@@ -42,7 +42,6 @@ require_once('scripts/screenshots.php');
 require_once('scripts/statistics.php');
 require_once('scripts/urlrewrite.php');
 require_once('scripts/xml.php');
-require_once("scripts/meeting.php");
 
 
 function startBox($title) {
