@@ -74,7 +74,7 @@ body {
 	padding: 20px 0 20px 10px;
 }
 #bodycontainer {
-	background-image: url("http://stendhalgame.org/wiki/images/6/6d/Karin_meetup_8.JPG");
+	background-image: url("/images/association/inner_background.jpg");
 	background-repeat: no-repeat;
 }
 #container {
