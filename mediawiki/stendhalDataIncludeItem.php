@@ -71,7 +71,7 @@ function stendhalDataIncludeItemStats($item, $argv) {
 /**
  * includes data about Stendhal items
  */
-function stendhalDataIncludeItem($input, $argv, &$parser) {
+function stendhalDataIncludeItem($input, $argv, $parser) {
 	$parsedInput = stendhalDataIncludeParseInput($input);
 
 	$res = '';

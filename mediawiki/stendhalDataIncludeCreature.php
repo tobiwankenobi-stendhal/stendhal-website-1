@@ -70,7 +70,7 @@ function stendhalDataIncludeCreatureStats($creature, $argv) {
 /**
  * includes data about Stendhal creatures
  */
-function stendhalDataIncludeCreature($input, $argv, &$parser) {
+function stendhalDataIncludeCreature($input, $argv, $parser) {
 	$parsedInput = stendhalDataIncludeParseInput($input);
 
 	$res = '';

@@ -58,7 +58,7 @@ function stendhalDataIncludeNPCStats($NPC, $argv) {
 /**
  * includes data about Stendhal NPCs
  */
-function stendhalDataIncludeNPC($input, $argv, &$parser) {
+function stendhalDataIncludeNPC($input, $argv, $parser) {
 	$parsedInput = stendhalDataIncludeParseInput($input);
 
 	$parser->disableCache();

@@ -73,7 +73,7 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 /**
  * includes data about Stendhal players
  */
-function stendhalDataIncludePlayer($input, $argv, &$parser) {
+function stendhalDataIncludePlayer($input, $argv, $parser) {
 	$parsedInput = stendhalDataIncludeParseInput($input);
 
 	$parser->disableCache();
