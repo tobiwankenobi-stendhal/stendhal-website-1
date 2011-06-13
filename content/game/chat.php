@@ -63,22 +63,24 @@ for ($i = 0; $i < count($lines); $i++) {
 		}
 	}
 	preg_match('/(..:..) *(<.([^>]*)>|\*|-!-) (.*)/', $line, $matches);
-	$time = $matches[1];
-	$nick = $matches[2];
-	if ($matches[3] != '') {
-		$nick = $matches[3];
-	}
-	$line = $matches[4];
+	if (count($matches) >= 4) {
+		$time = $matches[1];
+		$nick = $matches[2];
+		if ($matches[3] != '') {
+			$nick = $matches[3];
+		}
+		$line = $matches[4];
 	
-	$line = htmlspecialchars($line);
-	$line = preg_replace('/@/', '&lt;(a)&gt;', $line);
-	$line = preg_replace('!(http|https)://(stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com)(/[^ ]*)?!', '<a href="$1://$2$3">$1://$2$3</a>', $line);
+		$line = htmlspecialchars($line);
+		$line = preg_replace('/@/', '&lt;(a)&gt;', $line);
+		$line = preg_replace('!(http|https)://(stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com)(/[^ ]*)?!', '<a href="$1://$2$3">$1://$2$3</a>', $line);
 
-	if ($line != '') {
-		echo '<tr class="'.$class.'"><td>'
-			.htmlspecialchars($time).'</td><td>'
-			.htmlspecialchars($nick).'</td><td>'
-			.$line.'</td></tr>'."\n";
+		if ($line != '') {
+			echo '<tr class="'.$class.'"><td>'
+				.htmlspecialchars($time).'</td><td>'
+				.htmlspecialchars($nick).'</td><td>'
+				.$line.'</td></tr>'."\n";
+		}
 	}
 }
 echo '</table>';
