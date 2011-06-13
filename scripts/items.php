@@ -53,8 +53,8 @@ class Item {
 		return $this->gfx;
 	}
 
-	function getClasses() {
-		return self::$classes;
+	static function getClasses() {
+		return Item::$classes;
 	}
 
 	function showImageWithPopup($title = null) {
@@ -118,14 +118,16 @@ function getItems() {
 	$itemsXMLConfigurationFile="data/conf/items.xml";
 	$itemsXMLConfigurationBase='data/conf/';
 
-	$itemfiles = XML_unserialize(implode('',file($itemsXMLConfigurationFile)));
+	$content = file($itemsXMLConfigurationFile);
+	$itemfiles = XML_unserialize(implode('',$content));
 	$itemfiles = $itemfiles['groups'][0]['group'];
 
 	$list = array();
 
 	foreach ($itemfiles as $file) {
 		if (isset($file['uri'])) {
-			$items =  XML_unserialize(implode('',file($itemsXMLConfigurationBase.$file['uri'])));
+			$content = file($itemsXMLConfigurationBase.$file['uri']);
+			$items =  XML_unserialize(implode('',$content));
 			$items = $items['items'][0]['item'];
 
 			for ($i=0;$i<sizeof($items)/2;$i++) {
