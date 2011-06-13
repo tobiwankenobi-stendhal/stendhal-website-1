@@ -70,12 +70,12 @@ class NPC {
 	  * Returns a list of npcs that meet the given condition.
 	  * Note: Parmaters must be sql escaped.
 	  */
-	function getNPCs($where='', $sortby='name', $cond='') {
-	    return NPC::_getNPCs('select * from npcs '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+	static function getNPCs($where='', $sortby='name', $cond='') {
+		return NPC::_getNPCs('select * from npcs '.$where.' order by '.$sortby.' '.$cond, getGameDB());
 	}
 
 
-	private function _getNPCs($query) {
+	static private function _getNPCs($query) {
 		$NO_ZONE = array(
 			'Azazel', 'Cherubiel', 'Gabriel', 'Ophaniel', 'Raphael', 'Uriel', 'Zophiel',
 			'Ben', 'Goran', 'Mary', 'Zak',

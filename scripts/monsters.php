@@ -113,8 +113,8 @@ class Monster {
 		echo '<img class="creature" src="'.htmlspecialchars($this->showImage()). '" alt=""></a>';
 	}
 
-	function getClasses() {
-		return self::$classes;
+	static function getClasses() {
+		return Monster::$classes;
 	}
 
 	function fillKillKilledData() {
