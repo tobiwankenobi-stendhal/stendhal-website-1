@@ -49,7 +49,7 @@ class NewsPage extends Page {
 		if (is_numeric($url)) {
 			return abs(intval($url));
 		}
-		
+
 		$pos = strrpos($url, '-');
 		$id = substr($url, $pos + 1);
 		$pos = strpos($id, '.');
@@ -76,7 +76,7 @@ class NewsPage extends Page {
 
 	public function writeHtmlHeader() {
 		if (isset($this->news)) {
-			$filteredDescription = filterAndTrim($this->news->detailedDescription);
+			$filteredDescription = $this->filterAndTrim($this->news->detailedDescription);
 			echo '<title>'.htmlspecialchars($this->news->title).STENDHAL_TITLE.'</title>';
 			echo '<meta name="description" content="'.$filteredDescription.'">';
 			echo '<meta name="title" content="'.$this->news->title.'">'."\r\n";
@@ -84,7 +84,7 @@ class NewsPage extends Page {
 			echo '<title>News Not Found'.STENDHAL_TITLE.'</title>';
 		}
 	}
-	
+
 	private function filterAndTrim($description='') {
 		$description = trim($description);
 		$pos = strpos($description, '<p>', 10);
@@ -96,24 +96,21 @@ class NewsPage extends Page {
 	}
 
 	function writeContent() {
-?>
-
-<div id="newsArea">
-	<?php
-	if (isset($this->news)) {
-		$this->news->show(true);
-	} else {
-		startBox('News');
-		echo 'Not Found';
-		endBox();
-	}
-	?>
-	<div>
-		<?php startBox('News Archive');
-		echo 'Read <a href="'.rewriteURL('/world/newsarchive.html').'">older news</a>.';
-		endBox();
 		?>
-	</div>
+
+<div id="newsArea"><?php
+if (isset($this->news)) {
+	$this->news->show(true);
+} else {
+	startBox('News');
+	echo 'Not Found';
+	endBox();
+}
+?>
+<div><?php startBox('News Archive');
+echo 'Read <a href="'.rewriteURL('/world/newsarchive.html').'">older news</a>.';
+endBox();
+?></div>
 </div>
 <?php
 	}
