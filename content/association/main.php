@@ -47,17 +47,17 @@ class MainPage extends Page {
 		startBox(htmlspecialchars(ucfirst($title)));
 		if ($this->cmsPage != null) {
 			echo $this->cmsPage->content;
-			echo '<div class="versionInformation">Last edited on '
+			echo '<div class="versionInformation">'.t('Last edited on').' '
 				. htmlspecialchars($this->cmsPage->timedate)
-				.' by account '.htmlspecialchars($this->cmsPage->accountId);
+				.' '.t('by account').' '.htmlspecialchars($this->cmsPage->accountId);
 			if ($_SESSION['account']) {
-				echo ' - <a href="/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">edit</a>';
+				echo ' - <a href="/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">'.t('edit').'</a>';
 			}
 			echo '</div>';
 		} else {
-			echo '<p>Sorry, the requested page does not exit.</p>';
+			echo '<p>'.t('Sorry, the requested page does not exist.').'</p>';
 			if ($_SESSION['account']) {
-				echo '<a href="/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">create it</a>';
+				echo '<a href="/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">'.t('create it').'</a>';
 			}
 		}
 		endBox();
