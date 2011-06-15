@@ -19,13 +19,16 @@
  */
 
 
+$dict = array();
 $lang = 'en';
 if ($_REQUEST['lang'] == 'de') {
 	$lang = 'de';
-}
+	require_once('content/association/de.php');
+	loadLanguage();
+}﻿;
+
 // TODO: guess German
 $lang = urlencode($lang);
-$dict = array();
 
 function t($msgid) {
 	global $dict;
