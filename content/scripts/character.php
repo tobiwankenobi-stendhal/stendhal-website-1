@@ -83,7 +83,7 @@ $account=$choosen->getAccountInfo();
     <span class="data"><?php echo htmlspecialchars(ucwords($value)) ?></span></div>
     <?php } ?>
 	<div><span class="statslabel">XP:</span><span class="data"><?php
-	if ($choosen->xp > 100000000) {
+	if ($this->players[0]->xp > 100000000) {
 		echo htmlspecialchars(intval(intval($choosen->xp) / 1000000)).'m';
 	} else if ($choosen->xp > 10000) {
 		echo htmlspecialchars(intval(intval($choosen->xp) / 1000)).'k';
@@ -143,11 +143,11 @@ foreach($choosen->equipment as $slot=>$content) {
 	$ranks = getCharacterRanks($choosen->name);
 	if ($choosen->adminlevel >= 600) {
 		echo 'Game masters <br>are not normal<br> players and<br> therefore <br>don\'t appear in <br>the hall of fame.';
-	} else if (count($ranks) == 1 && $ranks['__']) {
-		echo htmlspecialchars($choosen->name). ' is <br>new in Stendhal.<br><br>Please check back <br>tomorrow because <br>ranks are only <br>calculated once a day.';
+	} else if (($choosen->level <= 2) || (count($ranks) == 1 && $ranks['__'])) {
+		echo htmlspecialchars($choosen->name). ' is <br>new in Stendhal.<br><br>Please check back<br> one day after reaching <br>level 2 because <br>ranks are only <br>calculated once a day.';
 	} else {
-		$names = array('Best', 'XP', 'Achievements', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
-		$fametypes = array('R', 'X', '@', 'W', 'A', 'D', 'T', 'F', 'M');
+		$names = array('Best', 'XP', 'Richest', 'Eldest', 'Deathmatch', 'Attackers', 'Defenders', 'Maze Runner');
+		$fametypes = array('R', 'X', '@', 'W', 'D', 'T', 'F', 'M');
 		for ($i = 0; $i < count($names); $i++) {
 			echo '<div><span class="statslabel">'.$names[$i].'</span><span class="data">';
 			if (isset($ranks[$fametypes[$i]])) {
