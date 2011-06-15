@@ -93,11 +93,11 @@ $account=$choosen->getAccountInfo();
 	?></span></div>
     <div><span class="statslabel">DM Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('D')); ?></span></div>
     <div><span class="statslabel">Maze Score:</span><span class="data"><?php echo htmlspecialchars($choosen->getHallOfFameScore('M')); ?></span></div>
-    <!--<?php $tradescore = $choosen->getHallOfFameScore('T');
+    <?php /*$tradescore = $choosen->getHallOfFameScore('T');
     	  if ($tradescore > 0) {
     			echo '<div><span class="statslabel">Trading Score:</span><span class="data">'.htmlspecialchars($tradescore).'</span></div>';
-    	  }
-    ?> -->
+    	  }*/
+    ?>
 	<div><span style="font-weight:bolder; float:left">Karma:</span>
 		<div style="position: relative; left: 85px; top:.5em; background-color:#000; width:100px; height:5px">
 		<div style="background-image: url('/data/gui/karma_scale.png'); width:<?php

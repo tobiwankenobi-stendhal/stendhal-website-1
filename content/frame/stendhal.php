@@ -155,7 +155,7 @@ class StendhalFrame extends PageFrame {
 
 		<?php 
 		startBox('Best Player');
-		$player=getBestPlayer(REMOVE_ADMINS_AND_POSTMAN." and recent = '1'");
+		$player=getBestPlayer('recent', REMOVE_ADMINS_AND_POSTMAN);
 		if($player!=NULL) {
 			Player::showFromArray($player);
 		} else {

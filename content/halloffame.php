@@ -67,17 +67,20 @@ class HallOfFamePage extends Page {
 			$this->filter = urlencode($_REQUEST['filter']);
 		}
 		if ($this->filter=="alltimes") {
-			$this->filterWhere=' AND recent="0"';
+			$this->filterWhere='';
+			$this->tableSuffix = 'alltimes';
 		} else if ($this->filter=="active") {
-			$this->filterWhere = ' AND recent="1"';
+			$this->filterWhere = '';
+			$this->tableSuffix = 'recent';
 		} else if ($this->filter=="friends") {
 			if (!isset($_SESSION['account'])) {
 				$this->loginRequired = true;;
 				return;
 			}
 			$this->filterFrom = ", characters, buddy ";
-			$this->filterWhere = " AND recent='0' AND character_stats.name=buddy.buddy AND buddy.charname=characters.charname "
+			$this->filterWhere = " AND character_stats.name=buddy.buddy AND buddy.charname=characters.charname "
 				. " AND characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."'";
+			$this->tableSuffix = 'alltimes';
 		}
 		// TODO: 404 on invalid filter variable
 		return;
@@ -151,15 +154,15 @@ class HallOfFamePage extends Page {
 		?>
 		<div class="bubble">XP, Achievements and Age</div>
 		<?php
-		$players= getHOFPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.' AND character_stats.level>=10 '.$this->filterWhere, 'R');
+		$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.' AND character_stats.level>=10 '.$this->filterWhere, 'R');
 		$this->renderListOfPlayers($players, " xp");
 		endBox();
 	}
 
 
 	function renderOverview() {
-		startBox("Best player"); 
-		$choosen = getBestPlayer($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere);
+		startBox("Best player");
+		$choosen = getBestPlayer($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere);
 		?>
 		<div class="bubble">The best player is decided based on the relation between XP, age, and achievement score. The best players are those who spend time earning XP and achievements.</div>    
 		<div class="best">
@@ -183,7 +186,7 @@ class HallOfFamePage extends Page {
 			<?php startBox("Best players"); ?>
 			<div class="bubble">XP, Achievements per Age</div>
 			<?php
-			$players = getHOFPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'R', 'limit '.TOTAL_HOF_PLAYERS);
+			$players = getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'R', 'limit '.TOTAL_HOF_PLAYERS);
 			$this->renderListOfPlayers($players, " points");
 			##echo '<a href="'.rewriteURL('/world/hall-of-fame-strongest.html').'">More</a>';
 			endBox();
@@ -194,7 +197,7 @@ class HallOfFamePage extends Page {
 			<?php startBox("Richest players"); ?>
 			<div class="bubble">Amount of money</div>
 			<?php
-			$players= getHOFPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'W', 'limit '.TOTAL_HOF_PLAYERS);
+			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'W', 'limit '.TOTAL_HOF_PLAYERS);
 			$this->renderListOfPlayers($players, ' coins');
 			endBox();
 			?>
@@ -204,7 +207,7 @@ class HallOfFamePage extends Page {
 			<?php startBox("Eldest players"); ?>
 			<div class="bubble">Age in hours</div>
 			<?php
-			$players= getHOFPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere,'A', 'limit '.TOTAL_HOF_PLAYERS);
+			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere,'A', 'limit '.TOTAL_HOF_PLAYERS);
 			$this->renderListOfPlayers($players, ' hours');
 			endBox();
 			?>
@@ -214,7 +217,7 @@ class HallOfFamePage extends Page {
 			<?php startBox("Deathmatch heroes"); ?>
 			<div class="bubble">Deathmatch score</div>
 			<?php
-			$players=getHOFPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'D', 'limit '.TOTAL_HOF_PLAYERS);
+			$players=getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'D', 'limit '.TOTAL_HOF_PLAYERS);
 			$this->renderListOfPlayers($players, ' points');
 			endBox();
 			?>
@@ -224,7 +227,7 @@ class HallOfFamePage extends Page {
 			<?php startBox("Best attackers"); ?>
 			<div class="bubble">Based on atk*(1+0.03*level)</div>
 			<?php
-			$players= getHOFPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'T', 'limit '.TOTAL_HOF_PLAYERS);
+			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'T', 'limit '.TOTAL_HOF_PLAYERS);
 			$this->renderListOfPlayers($players, " total atk");
 			endBox();
 			?>
@@ -234,7 +237,7 @@ class HallOfFamePage extends Page {
 			<?php startBox("Best defenders"); ?>
 			<div class="bubble">Based on def*(1+0.03*level)</div>
 			<?php
-			$players= getHOFPlayers($this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'F', 'limit '.TOTAL_HOF_PLAYERS);
+			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'F', 'limit '.TOTAL_HOF_PLAYERS);
 			$this->renderListOfPlayers($players, " total def");
 			endBox();
 			?>

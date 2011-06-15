@@ -146,7 +146,8 @@ class Player {
   }
 
   function getHallOfFameScore($fametype) {
-   $result=mysql_query('select points from halloffame_archive where day = CURRENT_DATE() AND recent = "0" and charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
+   $tableSuffix = 'alltimes';
+   $result=mysql_query('select points from halloffame_archive_'.$tableSuffix.' where day = CURRENT_DATE() and charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
 
     while($row=mysql_fetch_assoc($result)) {
       $points=$row['points'];
@@ -174,8 +175,8 @@ function getPlayer($name) {
     return $player[0];
 }
 
-function getBestPlayer($where='') {
-	$query = 'select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.sentence from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
+function getBestPlayer($tableSuffix, $where='') {
+	$query = 'select halloffame_archive_'.$tableSuffix.'.points, halloffame_archive_'.$tableSuffix.'.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.sentence from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
 	$list = queryWithCache($query, 60*60, getGameDB());
 	return $list[0];
 }
@@ -185,8 +186,8 @@ function getBestPlayer($where='') {
   * Returns a list of players online and offline that meet the given condition from HOF
   * Note: Parameters must be sql escaped.
   */
-function getHOFPlayers($where='', $fametype = '', $cond='limit 2') {
-	$query = 'select distinct halloffame_archive.charname, halloffame_archive.rank, halloffame_archive.points, character_stats.outfit from halloffame_archive join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '.$cond;
+function getHOFPlayers($tableSuffix, $where='', $fametype = '', $cond='limit 2') {
+	$query = 'select distinct halloffame_archive_'.$tableSuffix.'.charname, halloffame_archive_'.$tableSuffix.'.rank, halloffame_archive_'.$tableSuffix.'.points, character_stats.outfit from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '.$cond;
 	$result = mysql_query($query,getGameDB());
 	$list=array();
 
@@ -265,13 +266,13 @@ function _getPlayers($query) {
  * @param String $charname
  */
 function getCharacterRanks($charname) {
-	$query = "SELECT fametype, rank FROM halloffame_archive WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE() AND recent='1'";
+	$query = "SELECT fametype, rank FROM halloffame_archive_recent WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE()";
 	$result = mysql_query($query, getGameDB());
 	// if the player has not played recently, we fetch the all times data
 	// this way it is not obvious that the account was abandoned
 	if (mysql_num_rows($result) == 0) {
 		mysql_free_result($result);
-		$query = "SELECT fametype, rank FROM halloffame_archive WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE() AND recent='0'";
+		$query = "SELECT fametype, rank FROM halloffame_archive_alltimes WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE()";
 		$result = mysql_query($query, getGameDB());
 		$res['__'] = 'alltimes';
 	}
