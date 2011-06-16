@@ -16,7 +16,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class EditPage extends Page {
+class HistoryPage extends Page {
 	private $history;
 	public function __construct() {
 		global $lang;
@@ -46,7 +46,7 @@ class EditPage extends Page {
 		}
 		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
 			startBox(t('History'));
-			$currentPage = '/?id=content/association/history&amp;lang='.urlencode($lang).'&amp;title='.urlencode($title);
+			$currentPage = '/?id=content/association/history&lang='.urlencode($lang).'&title='.urlencode($title);
 			echo '<p>'.t('You need to').' <a href="'.STENDHAL_LOGIN_TARGET.'/?id=content/association/login&amp;url='.urlencode($currentPage).'">'.t('login').'</a> '.t('in order to view the history.').'</p>';
 			endBox();
 			return;
@@ -62,22 +62,14 @@ class EditPage extends Page {
 		startBox(t('History').' '.htmlspecialchars(ucfirst($title)));
 		echo '<ul class="changehistory">';
 		foreach ($this->history as $entry) {
-			echo '<li><a href="">'.htmlspecialchars($entry->lang).'/'.htmlspecialchars($entry->title)
-				.'</a>: '.htmlspecialchars($entry->username).' '.htmlspecialchars($entry->timedate).'<br>'
+			echo '<li>(<a href="/?id=content/association/diff&amp;lang='.urlencode($lang).'&amp;to='.urlencode($entry->id)
+			.'">diff</a>) <b>'.htmlspecialchars($entry->lang).'/'.htmlspecialchars($entry->title)
+				.'</b>: '.htmlspecialchars($entry->username).' '.htmlspecialchars($entry->timedate).'<br>'
 				.'<i>'.htmlspecialchars($entry->commitcomment).'</i></li>';
 		}
 		echo '</ul>';
 		endBox();
 	}
-
-	function filterHtml($html) {
-		require_once 'lib/htmlpurifier/library/HTMLPurifier.path.php';
-		require_once 'HTMLPurifier.includes.php';
-		$config = HTMLPurifier_Config::createDefault();
-		$config->set('HTML.Doctype', 'HTML 4.01 Transitional');
-		$purifier = new HTMLPurifier($config);
-		return $purifier->purify($html);
-	}
 }
-$page = new EditPage();
+$page = new HistoryPage();
 ?>
