@@ -149,7 +149,7 @@ body {
 			echo '<li><a id="menuResourceProjects" href="'.rewriteURL('/'.$lang.'/projects.html').'">'.t('Projects').'</a></li>'."\n";
 			echo '<li><a id="menuResourceModules" href="'.rewriteURL('/'.$lang.'/modules.html').'">'.t('Modules/Material').'</a></li>'."\n";
 			echo '<li><a id="menuResourceChat" href="'.rewriteURL('/'.$lang.'/chat.html').'">'.t('Chat').'</a></li>'."\n";
-			echo '<li><a id="menuResourceEvents" href="'.rewriteURL('/'.$lang.'/events.html').'">'.t('Events').'</a></li>'."\n";
+			echo '<li><a id="menuResourceEvents" href="'.rewriteURL('/'.$lang.'/meetings.html').'">'.t('Meetings').'</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox() ?>

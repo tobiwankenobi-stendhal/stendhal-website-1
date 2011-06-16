@@ -28,11 +28,11 @@ function loadLanguage() {
 	$dict['Contact'] = 'Kontakt';
 	$dict['Donate'] = 'Spenden';
 	$dict['Resources'] = 'Inhalt';
-	$dict['Concept'] = 'Konzept';
+	$dict['Concept'] = 'Bildungskonzept';
 	$dict['Projects'] = 'Projekte';
 	$dict['Modules/Material'] = 'Module/Material';
 	$dict['Chat'] = 'Besprechen';
-	$dict['Events'] = 'Ereignisse';
+	$dict['Meetings'] = 'Treffen';
 	$dict['Language'] = 'Sprache';
 	$dict['Share'] = 'Empfehlen';
 	$dict['Facebook'] = 'Facebook';
