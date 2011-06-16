@@ -52,9 +52,20 @@ class EditPage extends Page {
 			return;
 		}
 		
+		echo '<form method="POST">';
 		startBox(t('Editing').' '.htmlspecialchars(ucfirst($title)));
 		echo '<p>'.t('Please skip Heading 1 and start with Heading 2.').'</p>';
 		echo '<p>'.t('Back to article').' <a href="'.rewriteURL('/'.$lang.'/'.urlencode($_REQUEST['title']).'.html').'">'.htmlspecialchars(ucfirst($title)).'</a></p>';
+		$displaytitle = '';
+		if (isset($_POST['displaytitle'])) {
+			$displaytitle = $_POST['displaytitle'];
+		} else if ($this->cmsPage != null) {
+			$displaytitle = $this->cmsPage->displaytitle;
+		} else {
+			$displaytitle = $_REQUEST['title'];
+		}
+		echo '<label for="displaytitle">'.t('Display title').': </label><input name="displaytitle" value="'.htmlspecialchars($displaytitle).'" style="width:99%"><br>';
+		echo '<label for="commitcomment">'.t('Commit comment').': </label><input name="commitcomment" style="width:99%">';
 		endBox();
 
 		if (isset($_POST['editor'])) {
@@ -64,11 +75,11 @@ class EditPage extends Page {
 				echo '<p class="error">'.t('Session information was lost. Please save again.').'</p>';
 				endBox();
 			} else {
-				CMS::save($lang, $_REQUEST['title'], $html, $_REQUEST['commitcomment'], $_SESSION['account']->id);
+				CMS::save($lang, $_REQUEST['title'], $html, $_REQUEST['commitcomment'], $_REQUEST['displaytitle'], $_SESSION['account']->id);
 			}
 		}
 
-		echo '<form method="POST">';
+
 		echo '<input name="csrf" type="hidden" value="'.htmlspecialchars($_SESSION['csrf']).'">';
 		echo '<textarea id="editor" name="editor" style="width:100%; height:30em">';
 		if ($_POST['editor']) {
@@ -77,7 +88,6 @@ class EditPage extends Page {
 			echo htmlspecialchars($this->cmsPage->content);
 		}
 		echo '</textarea>';
-		echo '<input name="commitcomment" style="width:100%">';
 		echo '</form>';
 	}
 

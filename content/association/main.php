@@ -40,11 +40,7 @@ class MainPage extends Page {
 
 	function writeContent() {
 		global $lang;
-		$title = $_REQUEST['title'];
-		if ($title == '') {
-			$title = 'Faiumoni';
-		}
-		startBox(htmlspecialchars(ucfirst($title)));
+		startBox(htmlspecialchars($this->cmsPage->displaytitle));
 		if ($this->cmsPage != null) {
 			echo $this->cmsPage->content;
 			echo '<div class="versionInformation">'.t('Last edited on').' '

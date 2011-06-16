@@ -88,6 +88,21 @@ create table page_version (
   account_id int not null,
   content text,
   commitcomment VARCHAR(255),
+  displaytitle VARCHAR(255),
   timedate timestamp default CURRENT_TIMESTAMP,
+  primary key(id)
+);
+
+
+create table members (
+  id int auto_increment not null,
+  realname varchar(255),
+  street varchar(255),
+  city varchar(255),
+  country varchar(255),
+  email varchar(255),
+  visiblename varchar(15),
+  visibleemail varchar(15),
+  player_id int not null,
   primary key(id)
 );

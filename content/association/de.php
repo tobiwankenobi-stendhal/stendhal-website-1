@@ -36,4 +36,7 @@ function loadLanguage() {
 	$dict['These are the internal documents of the association.'] = 'Dies sind die internen Unterlagen des Vereins.';
 	$dict['Last edited on'] = 'Zuletzt geändert am';
 	$dict['by account'] = 'durch Benutzer';
+	$dict['Display title'] = 'Anzeigetitel';
+	$dict['Commit comment'] = 'Änderungskommentar';
+	
 }

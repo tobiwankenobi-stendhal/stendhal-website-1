@@ -24,11 +24,13 @@ class CMSPageVersion {
 	public $title;
 	public $lang;
 	public $commitcomment;
+	public $displaytitle;
 	public $accountId;
 	public $timedate;
 
-	public function __construct($content, $accountId, $timedate) {
+	public function __construct($content, $displaytitle, $accountId, $timedate) {
 		$this->content = $content;
+		$this->displaytitle = $displaytitle;
 		$this->accountId = $accountId;
 		$this->timedate = $timedate;
 	}
@@ -49,7 +51,7 @@ class CMS {
 	 * @param string $title page title
 	 */
 	public static function readNewestVersion($lang, $title) {
-		$sql = "SELECT content, account_id, timedate"
+		$sql = "SELECT content, displaytitle, account_id, timedate"
 			." FROM page_version WHERE id = ("
 			." SELECT max(page_version.id) FROM page, page_version"
 			." WHERE page.language = '".mysql_real_escape_string($lang). "'"
@@ -59,19 +61,20 @@ class CMS {
 		$row = mysql_fetch_assoc($result);
 		$res = null;
 		if (isset($row) && $row != null) {
-			$res = new CMSPageVersion($row['content'], $row['account_id'], $row['timedate']);
+			$res = new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
 		}
 		mysql_free_result($result);
 		return $res;
 	}
 
 
-	public static function save($lang, $title, $content, $commitcomment, $accountId) {
+	public static function save($lang, $title, $content, $commitcomment, $displaytitle, $accountId) {
 		$pageId = CMS::getPageIdCreateIfNecessary($lang, $title);
-		$sql = "INSERT INTO page_version (page_id, content, commitcomment, account_id) VALUES"
+		$sql = "INSERT INTO page_version (page_id, content, commitcomment, displaytitle, account_id) VALUES"
 			." ('".mysql_real_escape_string($pageId). "',"
 			." '".mysql_real_escape_string($content). "',"
 			." '".mysql_real_escape_string($commitcomment). "', "
+			." '".mysql_real_escape_string($displaytitle). "', "
 			." '".mysql_real_escape_string($accountId). "')";
 		mysql_query($sql, getWebsiteDB());
 	}
