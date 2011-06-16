@@ -9,7 +9,7 @@ function loadLanguage() {
 	$dict['Members'] = 'Mitglieder';
 	$dict['Contact'] = 'Kontakt';
 	$dict['Donate'] = 'Spenden';
-	$dict['Resources'] = 'Betriebsmittel';
+	$dict['Resources'] = 'Inhalt';
 	$dict['Concept'] = 'Konzept';
 	$dict['Projects'] = 'Projekte';
 	$dict['Modules/Material'] = 'Module/Material';
