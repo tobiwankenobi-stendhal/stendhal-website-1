@@ -1,8 +1,6 @@
 <?php
 /*
- Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2011  The Arianne Project
- Copyright (C) 2011-2011  Faiumoni n. E.
+ Copyright (C) 2011 Faiumoni
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
