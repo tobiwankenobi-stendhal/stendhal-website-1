@@ -105,6 +105,10 @@ body {
 	font-size:60%;
 	text-align:right
 }
+
+.changehistory li {
+	margin-bottom: 0.5em;
+}
 </style>
 		<?php
 	}

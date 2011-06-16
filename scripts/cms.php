@@ -24,13 +24,19 @@ class CMSPageVersion {
 	public $commitcomment;
 	public $displaytitle;
 	public $accountId;
+	public $username;
 	public $timedate;
 
-	public function __construct($content, $displaytitle, $accountId, $timedate) {
+	public function __construct($content, $displaytitle, $accountId, $timedate, $id=-1, $title='', $lang='', $commitcomment='', $username='') {
 		$this->content = $content;
 		$this->displaytitle = $displaytitle;
 		$this->accountId = $accountId;
 		$this->timedate = $timedate;
+		$this->id = $id;
+		$this->title = $title;
+		$this->lang = $lang;
+		$this->commitcomment = $commitcomment;
+		$this->username = $username;
 	}
 }
 
@@ -65,6 +71,36 @@ class CMS {
 		return $res;
 	}
 
+	
+
+
+	/**
+	 * reads the history
+	 * 
+	 * @param string $lang language
+	 * @param string $title page title
+	 */
+	public static function readHistory($lang, $title) {
+		$sql = "SELECT page_version.id, content, displaytitle, account_id, page_version.timedate, title, language, commitcomment, username"
+			." FROM page_version, page, stendhal.account"
+			." WHERE page_version.page_id = page.id"
+			." AND page_version.account_id = stendhal.account.id";
+		if (isset($title) && $title != '') {
+			$sql = $sql 
+				." AND page.language = '".mysql_real_escape_string($lang). "'"
+				." AND page.title = '".mysql_real_escape_string($title). "'";
+		}
+		$sql = $sql . ' ORDER BY page_version.id DESC';
+		$result = mysql_query($sql, getWebsiteDB()) or die(mysql_error(getWebsiteDB()));
+		$res = array();
+		while (($row = mysql_fetch_assoc($result)) != null) {
+			$res[] = new CMSPageVersion($row['content'], $row['displaytitle'], 
+					$row['account_id'], $row['timedate'], $row['id'], $row['title'],
+					$row['language'], $row['commitcomment'], $row['username']);
+		}
+		mysql_free_result($result);
+		return $res;
+	}
 
 	public static function save($lang, $title, $content, $commitcomment, $displaytitle, $accountId) {
 		$pageId = CMS::getPageIdCreateIfNecessary($lang, $title);
