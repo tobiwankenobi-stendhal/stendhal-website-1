@@ -45,7 +45,7 @@ class EditPage extends Page {
 		}
 		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
 			startBox(t('Editing').' '.htmlspecialchars(ucfirst($title)));
-			$currentPage = '/?id=content/association/edit&lang='.urlencode($lang).'&title='.urlencode($_REQUEST['title']);
+			$currentPage = '/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']);
 			echo '<p>'.t('You need to').' <a href="'.STENDHAL_LOGIN_TARGET.'/?id=content/association/login&amp;url='.urlencode($currentPage).'">'.t('login').'</a> '.t('in order to edit pages.').'</p>';
 			endBox();
 			return;
