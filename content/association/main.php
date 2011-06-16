@@ -18,9 +18,18 @@
 
 class MainPage extends Page {
 	private $cmsPage;
+	private $title;
+	
 	public function __construct() {
 		global $lang;
 		$this->cmsPage = CMS::readNewestVersion($lang, $_REQUEST['title']);
+		$this->title = $_REQUEST['title'];
+		if ($this->title == '') {
+			$this->title = 'Faiumoni';
+		}
+		if ($this->cmsPage != null) {
+			$this->title = $this->cmsPage->displaytitle;
+		}
 	}
 
 	public function writeHttpHeader() {
@@ -31,7 +40,7 @@ class MainPage extends Page {
 	}
 
 	public function writeHtmlHeader() {
-		echo '<title>'.substr(STENDHAL_TITLE, strpos(STENDHAL_TITLE, ' ', 2) + 1).'</title>'."\n";
+		echo '<title>'.htmlspecialchars($this->title).STENDHAL_TITLE.'</title>'."\n";
 		// TODO: echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" >'."\n";
 		// TODO: echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, Rollenspiel, juego, role, gioco, online, open, source, multiplayer, roleplaying, Arianne, foss, floss, Adventurespiel">';
 		// TODO: echo '<meta name="description" content="Stendhal is a fully fledged free open source multiplayer online adventures game (MORPG) developed using the Arianne game system.">';
@@ -39,14 +48,7 @@ class MainPage extends Page {
 
 	function writeContent() {
 		global $lang;
-		$title = $_REQUEST['title'];
-		if ($title == '') {
-			$title = 'Faiumoni';
-		}
-		if ($this->cmsPage != null) {
-			$title = $this->cmsPage->displaytitle;
-		}
-		startBox(htmlspecialchars(ucfirst($title)));
+		startBox(htmlspecialchars(ucfirst($this->title)));
 		if ($this->cmsPage != null) {
 			echo $this->cmsPage->content;
 			echo '<div class="versionInformation">'.t('Last edited on').' '
