@@ -56,5 +56,5 @@ function loadLanguage() {
 	$dict['by account'] = 'durch Benutzer';
 	$dict['Display title'] = 'Anzeigetitel';
 	$dict['Commit comment'] = 'Änderungskommentar';
-	
+	$dict['Recent changes'] = 'Letzte Änderungen';
 }

@@ -133,20 +133,26 @@ body {
 	</div>
 
 	<div id="leftArea">
-		<?php startBox(t('Association')); ?>
-		<ul id="associationmenu" class="menu">
-			<?php 
+	<?php 
+		if (isset($_SESSION) && isset($_SESSION['account'])) {
+			startBox(t('Account'));
+			echo '<ul id="accountmenu" class="menu">';
+				echo '<li><a id="menuAcccountRecentChanges" href="/?lang='.$lang.'&amp;id=content/association/history">'.t('Recent changes').'</a></li>'."\n";
+			echo '</ul>';
+			endBox();
+		}
+		startBox(t('Association'));
+		echo '<ul id="associationmenu" class="menu">';
 			echo '<li><a id="menuAssociationAbout" href="'.rewriteURL('/'.$lang.'/about.html').'">'.t('Faiumoni n. E.').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationNews" href="'.rewriteURL('/'.$lang.'/news.html').'">'.t('News').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationStatue" href="'.rewriteURL('/'.$lang.'/statute.html').'">'.t('Statute').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationMembers" href="'.rewriteURL('/'.$lang.'/members.html').'">'.t('Members').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationContact" href="'.rewriteURL('/'.$lang.'/contact.html').'">'.t('Contact').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationDonations" href="'.rewriteURL('/'.$lang.'/donate.html').'">'.t('Donate').'</a></li>'."\n";
-			?>
-		</ul>
-		<?php endBox(); ?>
+		echo '</ul>';
+		endBox();
 
-		<?php startBox(t('Resources')); ?>
+		startBox(t('Resources')); ?>
 		<ul id="resourcemenu" class="menu">
 			<?php
 			echo '<li><a id="menuResourceConcept" href="'.rewriteURL('/'.$lang.'/concept.html').'">'.t('Concept').'</a></li>'."\n";
