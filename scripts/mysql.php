@@ -94,3 +94,13 @@ function disconnect() {
 		mysql_close($wikidb);
 	}
 }
+
+
+function queryFirstCell($query, $connection) {
+	$result = mysql_query($query, $connection);
+	$res = mysql_fetch_row($result);
+	mysql_free_result($result);
+	if (isset($res)) {
+		return $res[0];
+	}
+}
