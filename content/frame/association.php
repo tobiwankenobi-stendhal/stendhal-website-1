@@ -89,7 +89,7 @@ body {
 	margin: -80px 0 0 5px;
 }
 .box {
-	background-image: url("../images/semi_transparent.png");
+	background-image: url("/images/semi_transparent.png");
 	background-color: transparent;
 	border-radius: 15px;
 }
