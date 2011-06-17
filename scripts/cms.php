@@ -71,7 +71,24 @@ class CMS {
 		return $res;
 	}
 
-	
+	/**
+	 * gets the specified version of a page
+	 * 
+	 * @param int $id page_version.id
+	 * @param string $title page title
+	 */
+	public static function readPageVersion($id) {
+		$sql = "SELECT content, displaytitle, account_id, timedate"
+			." FROM page_version WHERE id = ".intval($id);
+		$result = mysql_query($sql, getWebsiteDB());
+		$row = mysql_fetch_assoc($result);
+		$res = null;
+		if (isset($row) && $row != null) {
+			$res = new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
+		}
+		mysql_free_result($result);
+		return $res;
+	}
 
 
 	/**
@@ -91,7 +108,7 @@ class CMS {
 				." AND page.title = '".mysql_real_escape_string($title). "'";
 		}
 		$sql = $sql . ' ORDER BY page_version.id DESC';
-		$result = mysql_query($sql, getWebsiteDB()) or die(mysql_error(getWebsiteDB()));
+		$result = mysql_query($sql, getWebsiteDB());
 		$res = array();
 		while (($row = mysql_fetch_assoc($result)) != null) {
 			$res[] = new CMSPageVersion($row['content'], $row['displaytitle'], 
@@ -100,6 +117,19 @@ class CMS {
 		}
 		mysql_free_result($result);
 		return $res;
+	}
+
+	public static function getPreviousVersion($to) {
+		$sql = "SELECT v2.id FROM page_version As v1, page_version As v2 WHERE v1.page_id=v2.page_id "
+			." AND v2.timedate<v1.timedate AND v1.id=".intval($to)." ORDER BY v2.id DESC LIMIT 1";
+		$res = intval(queryFirstCell($sql, getWebsiteDB()));
+		return intval(queryFirstCell($sql, getWebsiteDB()));
+	}
+
+	public static function getLatestVersion($from) {
+		$sql = "SELECT v2.id FROM page_version As v1, page_version As v2 WHERE v1.page_id=v2.page_id AND v1.id="
+			.intval($from)." ORDER BY v2.id DESC LIMIT 1";
+		return intval(queryFirstCell($sql, getWebsiteDB()));
 	}
 
 	public static function save($lang, $title, $content, $commitcomment, $displaytitle, $accountId) {
