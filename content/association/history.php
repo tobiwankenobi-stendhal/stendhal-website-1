@@ -46,7 +46,7 @@ class HistoryPage extends Page {
 		}
 		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
 			startBox(t('History'));
-			$currentPage = '/?id=content/association/history&lang='.urlencode($lang).'&title='.urlencode($title);
+			$currentPage = '/?id=content/association/history&lang='.surlencode($lang).'&title='.urlencode($title);
 			echo '<p>'.t('You need to').' <a href="'.STENDHAL_LOGIN_TARGET.'/?id=content/association/login&amp;url='.urlencode($currentPage).'">'.t('login').'</a> '.t('in order to view the history.').'</p>';
 			endBox();
 			return;

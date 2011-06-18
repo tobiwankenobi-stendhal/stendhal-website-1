@@ -54,7 +54,7 @@ class EditPage extends Page {
 		echo '<form method="POST">';
 		startBox(t('Editing').' '.htmlspecialchars(ucfirst($title)));
 		echo '<p>'.t('Please skip Heading 1 and start with Heading 2.').'</p>';
-		echo '<p>'.t('Back to article').' <a href="'.rewriteURL('/'.$lang.'/'.urlencode($_REQUEST['title']).'.html').'">'.htmlspecialchars(ucfirst($title)).'</a></p>';
+		echo '<p>'.t('Back to article').' <a href="'.rewriteURL('/'.$lang.'/'.surlencode($_REQUEST['title']).'.html').'">'.htmlspecialchars(ucfirst($title)).'</a></p>';
 		$displaytitle = '';
 		if (isset($_POST['displaytitle'])) {
 			$displaytitle = $_POST['displaytitle'];

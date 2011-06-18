@@ -392,6 +392,6 @@ function rewriteURL($url) {
 }
 
 function surlencode($url) {
-	return urlencode(preg_replace('/[ +]/', '_', $url));
+	return str_replace('%2F', '/', urlencode(preg_replace('/[ +]/', '_', $url)));
 }
 ?>

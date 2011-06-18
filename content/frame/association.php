@@ -169,8 +169,8 @@ body {
 		?>
 		<ul id="languagemenu" class="menu">
 			<?php
-			echo '<li><a id="menuLangDe" href="'.rewriteURL('/de/'.urlencode($_REQUEST['title']).'.html').'">Deutsch</a></li>'."\n";
-			echo '<li><a id="menuLangEn" href="'.rewriteURL('/en/'.urlencode($_REQUEST['title']).'.html').'">English</a></li>'."\n";
+			echo '<li><a id="menuLangDe" href="'.rewriteURL('/de/'.surlencode($_REQUEST['title']).'.html').'">Deutsch</a></li>'."\n";
+			echo '<li><a id="menuLangEn" href="'.rewriteURL('/en/'.surlencode($_REQUEST['title']).'.html').'">English</a></li>'."\n";
 			?>
 		</ul>
 		<?php
