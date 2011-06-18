@@ -95,6 +95,7 @@ class EditPage extends Page {
 		require_once 'HTMLPurifier.includes.php';
 		$config = HTMLPurifier_Config::createDefault();
 		$config->set('HTML.Doctype', 'HTML 4.01 Transitional');
+		$config->set('Attr.EnableID', true);
 		$purifier = new HTMLPurifier($config);
 		return $purifier->purify($html);
 	}
