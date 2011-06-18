@@ -54,7 +54,10 @@ class AssociationFrame extends PageFrame {
 	 */
 	function writeHttpHeader($page_url) {
 		global $protocol;
-		header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
+		if (strpos($page_url, 'content/association/') !==0) {
+			header('Location: '.$protocol.'://'.STENDHAL_SERVER_NAME);
+			return false;
+		}
 		return true;
 	}
 
@@ -176,17 +179,15 @@ body {
 		<?php
 			endBox();
 
+			/* TODO: implement me
 			startBox(t('Share'));
-		?>
-		<ul id="sharemenu" class="menu">
-			<?php
+			echo '<ul id="sharemenu" class="menu">';
 			echo '<li><a id="menuShareFacebook" href="TODO">'.t('Facebook').'</a></li>'."\n";
 			echo '<li><a id="menuShareTwitter" href="TODO">'.t('Twitter').'</a></li>'."\n";
 			echo '<li><a id="menuShareEMail" href="'.rewriteURL('/'.$lang.'/email.html').'">'.t('eMail').'</a></li>'."\n";
-			?>
-		</ul>
-		<?php
+			echo '</ul>';
 			endBox();
+			*/
 		?>
 	</div>
 
