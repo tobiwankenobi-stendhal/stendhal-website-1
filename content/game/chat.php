@@ -26,6 +26,7 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 <?php endBox(); ?>
 <?php
 	startBox(MAIN_CHANNEL . ' IRC log');
+	echo '<a name="log" id="log"></a>';
 	$directory = MAIN_LOG_DIRECTORY;
 
 	$date = $_GET['date'];
