@@ -46,8 +46,8 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 	function setup($identity, $realm, $assoc_handle, $attributes) {
 		if (!isset($_SESSION['account'])) {
-			die('Sorry, you need to login first. Login on demand is not implemented, yet.');
-		// TODO: display login form
+			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url=/?'.urlencode($_SERVER['QUERY_STRING']));
+			exit();
 		}
 
 		die('Sorry, openid provider is currently only supported for trusted consumers');
