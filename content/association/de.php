@@ -26,6 +26,7 @@ function loadLanguage() {
 	$dict['Statute'] = 'Satzung';
 	$dict['Members'] = 'Mitglieder';
 	$dict['Contact'] = 'Kontakt';
+	$dict['Legal contact'] = 'Impressum';
 	$dict['Donate'] = 'Spenden';
 	$dict['Resources'] = 'Inhalt';
 	$dict['Concept'] = 'Bildungskonzept';

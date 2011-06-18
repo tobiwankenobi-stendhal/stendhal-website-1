@@ -54,10 +54,7 @@ class AssociationFrame extends PageFrame {
 	 */
 	function writeHttpHeader($page_url) {
 		global $protocol;
-		if (strpos($page_url, 'content/association/') !==0) {
-			header('Location: '.$protocol.'://'.STENDHAL_SERVER_NAME);
-			return false;
-		}
+		header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
 		return true;
 	}
 
@@ -147,7 +144,7 @@ body {
 			echo '<li><a id="menuAssociationNews" href="'.rewriteURL('/'.$lang.'/news.html').'">'.t('News').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationStatue" href="'.rewriteURL('/'.$lang.'/statute.html').'">'.t('Statute').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationMembers" href="'.rewriteURL('/'.$lang.'/members.html').'">'.t('Members').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationContact" href="'.rewriteURL('/'.$lang.'/contact.html').'">'.t('Contact').'</a></li>'."\n";
+			echo '<li><a id="menuAssociationContact" href="'.rewriteURL('/'.$lang.'/legal-contact.html').'">'.t('Legal contact').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationDonations" href="'.rewriteURL('/'.$lang.'/donate.html').'">'.t('Donate').'</a></li>'."\n";
 		echo '</ul>';
 		endBox();
