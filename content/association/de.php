@@ -32,7 +32,7 @@ function loadLanguage() {
 	$dict['Projects'] = 'Projekte';
 	$dict['Modules/Material'] = 'Module/Material';
 	$dict['Chat'] = 'Besprechen';
-	$dict['Meetings'] = 'Treffen';
+	$dict['Meetings'] = 'Veranstaltungen';
 	$dict['Language'] = 'Sprache';
 	$dict['Share'] = 'Empfehlen';
 	$dict['Facebook'] = 'Facebook';
