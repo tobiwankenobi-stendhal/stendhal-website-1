@@ -134,13 +134,6 @@ body {
 
 	<div id="leftArea">
 	<?php 
-		if (isset($_SESSION) && isset($_SESSION['account'])) {
-			startBox(t('Account'));
-			echo '<ul id="accountmenu" class="menu">';
-				echo '<li><a id="menuAcccountRecentChanges" href="/?lang='.$lang.'&amp;id=content/association/history">'.t('Recent changes').'</a></li>'."\n";
-			echo '</ul>';
-			endBox();
-		}
 		startBox(t('Association'));
 		echo '<ul id="associationmenu" class="menu">';
 			echo '<li><a id="menuAssociationAbout" href="'.rewriteURL('/'.$lang.'/about.html').'">'.t('Faiumoni n. E.').'</a></li>'."\n";
@@ -168,7 +161,7 @@ body {
 
 	<div id="rightArea">
 		<?php
-			startBox(t('Language'));
+		startBox(t('Language'));
 		?>
 		<ul id="languagemenu" class="menu">
 			<?php
@@ -177,8 +170,16 @@ body {
 			?>
 		</ul>
 		<?php
-			endBox();
+		endBox();
 
+		if (isset($_SESSION) && isset($_SESSION['account'])) {
+			startBox(t('Account'));
+			echo '<ul id="accountmenu" class="menu">';
+				echo '<li><a id="menuAcccountRecentChanges" href="/?lang='.$lang.'&amp;id=content/association/history">'.t('Recent changes').'</a></li>'."\n";
+			echo '</ul>';
+			endBox();
+		}
+			
 			/* TODO: implement me
 			startBox(t('Share'));
 			echo '<ul id="sharemenu" class="menu">';
