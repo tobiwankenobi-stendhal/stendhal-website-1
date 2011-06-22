@@ -59,4 +59,5 @@ function loadLanguage() {
 	$dict['Commit comment'] = 'Änderungskommentar';
 	$dict['Recent changes'] = 'Letzte Änderungen';
 	$dict['You are missing the required permission for this action.'] = 'Fehlende Berechtigung.';
+	$dict['Documents'] = 'Unterlagen';
 }
