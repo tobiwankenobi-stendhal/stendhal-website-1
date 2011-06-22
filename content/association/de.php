@@ -21,7 +21,7 @@ function loadLanguage() {
 	global $dict;
 
 	$dict['Association'] = 'Verein';
-	$dict['Faiumoni n. E.'] = 'Faiumoni n. E.';
+	$dict['Faiumoni e. V.'] = 'Faiumoni e. V.';
 	$dict['News'] = 'Neuigkeiten';
 	$dict['Statute'] = 'Satzung';
 	$dict['Members'] = 'Mitglieder';
