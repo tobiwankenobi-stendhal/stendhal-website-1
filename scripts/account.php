@@ -637,6 +637,21 @@ class Account {
 		mysql_free_result($result);
 		return $res;
 	}
+
+	/**
+	 * reads the permissions for an account
+	 *
+	 * @param string $accountId accountId
+	 */
+	public static function readPermissions($accountId) {
+		$sql = "SELECT * FROM permission WHERE account_id=".intval($accountId, 10);
+		$result = mysql_query($sql, getWebsiteDB());
+		$list=array();
+
+		$row = mysql_fetch_assoc($result);
+		mysql_free_result($result);
+		return $row;
+	}
 }
 
 /**

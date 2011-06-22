@@ -106,3 +106,14 @@ create table members (
   player_id int not null,
   primary key(id)
 );
+
+create table permission (
+  id int auto_increment not null,
+  account_id int not null,
+  edit_page CHAR(1) DEFAULT '1',
+  view_history CHAR(1) DEFAULT '1',
+  view_documents CHAR(1) DEFAULT '1',
+  management CHAR(1) DEFAULT '0',
+  primary key(id)
+);
+

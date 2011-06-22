@@ -24,7 +24,8 @@ class EditPage extends Page {
 	}
 
 	public function writeHttpHeader() {
-		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+			|| ($_SESSION['accountPermissions']['edit_page'] != '1')) {
 			header('HTTP/1.1 403 Forbidden');
 		}
 		return true;
@@ -47,6 +48,13 @@ class EditPage extends Page {
 			startBox(t('Editing').' '.htmlspecialchars(ucfirst($title)));
 			$currentPage = '/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.urlencode($_REQUEST['title']);
 			echo '<p>'.t('You need to').' <a href="'.STENDHAL_LOGIN_TARGET.'/?id=content/association/login&amp;url='.urlencode($currentPage).'">'.t('login').'</a> '.t('in order to edit pages.').'</p>';
+			endBox();
+			return;
+		}
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		|| ($_SESSION['accountPermissions']['edit_page'] != '1')) {
+			startBox(t('Edit'));
+			echo '<p>'.t('You are missing the required permission for this action.').'</p>';
 			endBox();
 			return;
 		}

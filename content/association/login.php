@@ -70,15 +70,22 @@ class LoginPage extends Page {
 			// TODO: niecer error message
 			die('Login failed in Openid transaction');
 		}
-		
+
 		$account = Account::readAccountByName($username);
 		if (!isset($account) || !($account instanceof Account)) {
 			// TODO: niecer error message
 			die('Login failed - Account unknown');
 		}
 
+		$permissions = Account::readPermissions($account->id);
+		if (!$permissions) {
+			// TODO: niecer error message
+			die('This account is unknown. Please see the member section on how to become a member.');
+		}
+
 		// Login
 		$_SESSION['account'] = $account;
+		$_SESSION['accountPermissions'] = $permissions;
 		$_SESSION['csrf'] = createRandomString();
 		$this->handleRedirectIfAlreadyLoggedIn();
 		return true;

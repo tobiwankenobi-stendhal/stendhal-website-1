@@ -19,7 +19,8 @@
 class DiffPage extends Page {
 
 	public function writeHttpHeader() {
-		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+			|| ($_SESSION['accountPermissions']['view_history'] != '1')) {
 			header('HTTP/1.1 403 Forbidden');
 		}
 		return true;
@@ -50,6 +51,13 @@ ins {
 			startBox(t('Diff'));
 			$currentPage = '/?id=content/association/diff&lang='.urlencode($lang).'&from='.urlencode($_REQUEST['from']).'&to='.urlencode($_REQUEST['to']);
 			echo '<p>'.t('You need to').' <a href="'.STENDHAL_LOGIN_TARGET.'/?id=content/association/login&amp;url='.urlencode($currentPage).'">'.t('login').'</a> '.t('in order to view the history.').'</p>';
+			endBox();
+			return;
+		}
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+			|| ($_SESSION['accountPermissions']['view_history'] != '1')) {
+			startBox(t('Diff'));
+			echo '<p>'.t('You are missing the required permission for this action.').'</p>';
 			endBox();
 			return;
 		}
