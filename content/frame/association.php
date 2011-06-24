@@ -75,7 +75,9 @@ body {
 	padding: 20px 0 20px 10px;
 }
 #bodycontainer {
-	background-image: url("/images/association/inner_background.jpg");
+	background-color: #ccd9dc;
+	<!-- optional image for background -->
+	background-image: url("/images/association/eye_background.jpg");
 	background-repeat: no-repeat;
 }
 #container {
@@ -91,11 +93,17 @@ body {
 .box {
 	background-image: url("/images/semi_transparent.png");
 	background-color: transparent;
+	<!-- use this colour if we go for the eye background and just remove the transparency stuff, won't be needed.-->
+	<!--background-color: #e4eced;-->
 	border-radius: 15px;
+	border: none;
 }
 .boxTitle {
 	border-radius: 15px;
 	padding-left: 1em;
+	background-image:none;
+	background-color:#86979b;
+	border: outset 2px grey;
 }
 #footerArea {
 	border-top: none
