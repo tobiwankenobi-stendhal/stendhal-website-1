@@ -76,7 +76,6 @@ body {
 }
 #bodycontainer {
 	background-color: #ccd9dc;
-	/* optional image for background */
 	background-image: url("/images/association/eye_background.jpg");
 	background-repeat: no-repeat;
 }
@@ -93,13 +92,13 @@ body {
 .box {
 	background-image: url("/images/semi_transparent.png");
 	background-color: transparent;
-	<!-- use this colour if we go for the eye background and just remove the transparency stuff, won't be needed.-->
-	<!--background-color: #e4eced;-->
 	border-radius: 15px;
-	border: none;
+	-moz-border-radius: 15px;
+	border: 0px;
 }
 .boxTitle {
 	border-radius: 15px;
+	-moz-border-radius: 15px;
 	padding-left: 1em;
 	background-image:none;
 	background-color:#86979b;
