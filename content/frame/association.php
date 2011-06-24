@@ -65,7 +65,8 @@ class AssociationFrame extends PageFrame {
 	 * this method can write additional html headers.
 	 */
 	function writeHtmlHeader() {
-		?>
+		echo '<link rel="icon" type="image/x-icon" href="'.STENDHAL_FOLDER.'/images/association/favicon.ico">';
+	?>
 <style type="text/css">
 body {
 	background-color:#FFF;

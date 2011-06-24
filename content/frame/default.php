@@ -41,7 +41,7 @@ class DefaultFrame extends PageFrame {
 	 * this method can write additional html headers.
 	 */
 	function writeHtmlHeader() {
-		// do nothing
+		echo '<link rel="icon" type="image/x-icon" href="'.STENDHAL_FOLDER.'/favicon.ico">';
 	}
 
 	/**
