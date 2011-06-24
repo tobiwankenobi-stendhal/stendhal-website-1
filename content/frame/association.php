@@ -76,7 +76,7 @@ body {
 }
 #bodycontainer {
 	background-color: #ccd9dc;
-	<!-- optional image for background -->
+	/* optional image for background */
 	background-image: url("/images/association/eye_background.jpg");
 	background-repeat: no-repeat;
 }
