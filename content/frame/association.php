@@ -73,7 +73,7 @@ body {
 	background-image:none;
 }
 #header {
-	padding: 20px 0 20px 10px;
+	padding: 10px 0 0 8px;
 }
 #bodycontainer {
 	background-color: #ccd9dc;
@@ -83,12 +83,15 @@ body {
 #container {
 	background-image: none;
 	border: none;
+	height: 100%;
 }
 #leftArea {
 	margin: 0 5px 0 0;
+	height: 100%;
+	overflow: auto;
 }
 #rightArea {
-	margin: -134px 0 0 5px;
+	margin: 0 0 0 5px;
 }
 .box {
 	background-image: url("/images/semi_transparent.png");
@@ -106,7 +109,9 @@ body {
 	border: outset 2px grey;
 }
 #footerArea {
-	border-top: none
+	border-top: none;
+	text-align:left;
+	padding-left: 1em;
 }
 
 .versionInformation {
@@ -128,19 +133,22 @@ body {
 		global $page, $lang;
 ?>
 <body>
-<div id="contentArea" style="position:relative; top: 34px; z-index: 1; width:590px">
+<div id="contentArea" style="position:relative; top: 10px; z-index: 1; width:590px">
 	<?php
 		// The central area of the website.
 		$page->writeContent();
 	?>
+	<div id="footerArea">
+		<span>&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni e. V.</span>
+	</div>
 </div>
 <div id="bodycontainer" style="width:100%; height:100%; position:fixed; top:0px; z-index:0">
 <div id="container" style="position:fixed; top:0px; z-index:0">
-	<div id="header">
-		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/association/logo.png" alt=""></a>
-	</div>
 
 	<div id="leftArea">
+		<div id="header">
+		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/association/logo.png" alt=""></a>
+		</div>
 	<?php 
 		startBox(t('Association'));
 		echo '<ul id="associationmenu" class="menu">';
@@ -199,10 +207,6 @@ body {
 			endBox();
 			*/
 		?>
-	</div>
-
-	<div id="footerArea">
-		<span>&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni e. V.</span>
 	</div>
 </div>
 </div>
