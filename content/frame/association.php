@@ -88,7 +88,7 @@ body {
 	margin: 0 5px 0 0;
 }
 #rightArea {
-	margin: -80px 0 0 5px;
+	margin: -134px 0 0 5px;
 }
 .box {
 	background-image: url("/images/semi_transparent.png");
