@@ -21,9 +21,8 @@ class MainPage extends Page {
 	private $title;
 	
 	public function __construct() {
-		global $lang;
-		$this->cmsPage = CMS::readNewestVersion($lang, $_REQUEST['title']);
-		$this->title = $_REQUEST['title'];
+		global $lang, $internalTitle;
+		$this->cmsPage = CMS::readNewestVersion($lang, $internalTitle);
 		if ($this->title == '') {
 			$this->title = 'Faiumoni';
 		}
@@ -36,11 +35,19 @@ class MainPage extends Page {
 		if ($this->cmsPage == null) {
 			header('HTTP/1.1 404 Not Found');
 		}
+		if ((strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'de') !== 0) && ($_REQUEST['title'] == 'start') && ($lang == 'en')) {
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST']);
+			return false;
+		}
 		return true;
 	}
 
 	public function writeHtmlHeader() {
+		global $lang;
 		echo '<title>'.htmlspecialchars($this->title).STENDHAL_TITLE.'</title>'."\n";
+		if (($_REQUEST['title'] == 'start') && ($lang == 'en')) {
+			echo '<meta name="robots" content="noindex">'."\n";
+		}
 		// TODO: echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" >'."\n";
 		// TODO: echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, Rollenspiel, juego, role, gioco, online, open, source, multiplayer, roleplaying, Arianne, foss, floss, Adventurespiel">';
 		// TODO: echo '<meta name="description" content="Stendhal is a fully fledged free open source multiplayer online adventures game (MORPG) developed using the Arianne game system.">';

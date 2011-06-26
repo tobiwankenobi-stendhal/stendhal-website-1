@@ -17,10 +17,10 @@
  */
 
 class EditPage extends Page {
-	private $cmsPage;
+	private $cmsPage, $internalTitle;
 	public function __construct() {
 		global $lang;
-		$this->cmsPage = CMS::readNewestVersion($lang, $_REQUEST['title']);
+		$this->cmsPage = CMS::readNewestVersion($lang, $internalTitle);
 	}
 
 	public function writeHttpHeader() {

@@ -18,14 +18,22 @@
 
 
 $dict = array();
-$lang = 'en';
-if ($_REQUEST['lang'] == 'de') {
-	$lang = 'de';
+if ($_REQUEST['lang'] == 'en' || $_REQUEST['lang'] == 'de') {
+	$lang = $_REQUEST['lang'];
+}
+if (!isset($lang)) {
+	if (strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'de') === 0) {
+		header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].rewriteURL('/de/start.html'));
+		exit();
+	} else {
+		$lang = 'en';
+	}
+}
+if ($lang == 'de') {
 	require_once('content/association/de.php');
 	loadLanguage();
 }﻿;
 
-// TODO: guess German
 $lang = urlencode($lang);
 
 function t($msgid) {
@@ -133,7 +141,11 @@ body {
 	 * renders the frame
 	 */
 	function renderFrame() {
-		global $page, $lang;
+		global $page, $lang, $internalTitle;
+		$internalTitle = $_REQUEST['title'];
+		if (!isset($internalTitle) || $internalTitle == '') {
+			$internalTitle = 'start';
+		}
 ?>
 <body>
 <div id="contentArea" style="position:relative; top: 10px; z-index: 1; width:590px">
@@ -150,7 +162,14 @@ body {
 
 	<div id="leftArea">
 		<div id="header">
-		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/association/logo.png" alt=""></a>
+		<?php 
+			$websiteRoot = STENDHAL_FOLDER.rewriteURL('/'.$lang.'/start.html');
+			if ((strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'de') !== 0) && ($lang == 'en')) {
+				$websiteRoot = STENDHAL_FOLDER.'/';
+			}
+			echo '<a href="'.$websiteRoot.'">';
+			echo '<img style="border: 0;" src="'.STENDHAL_FOLDER.'/images/association/logo.png" alt=""></a>';
+		?>
 		</div>
 	<?php 
 		startBox(t('Association'));
@@ -184,8 +203,8 @@ body {
 		?>
 		<ul id="languagemenu" class="menu">
 			<?php
-			echo '<li><a id="menuLangDe" href="'.rewriteURL('/de/'.surlencode($_REQUEST['title']).'.html').'">Deutsch</a></li>'."\n";
-			echo '<li><a id="menuLangEn" href="'.rewriteURL('/en/'.surlencode($_REQUEST['title']).'.html').'">English</a></li>'."\n";
+			echo '<li><a id="menuLangDe" href="'.rewriteURL('/de/'.surlencode($internalTitle).'.html').'">Deutsch</a></li>'."\n";
+			echo '<li><a id="menuLangEn" href="'.rewriteURL('/en/'.surlencode($internalTitle).'.html').'">English</a></li>'."\n";
 			?>
 		</ul>
 		<?php
@@ -197,7 +216,7 @@ body {
 				echo '<li><a id="menuAcccountRecentChanges" href="/?lang='.$lang.'&amp;id=content/association/history">'.t('Recent changes').'</a></li>'."\n";
 				echo '<li><a id="menuAcccountDocuments" href="/?lang='.$lang.'&amp;id=content/association/documents">'.t('Documents').'</a></li>'."\n";
 				if ($_REQUEST['id'] == '') {
-					echo '<li><a id="menuAcccountEdit" href="/?id=content/association/edit&amp;lang='.surlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">'.t('Edit').'</a></li>'."\n";
+					echo '<li><a id="menuAcccountEdit" href="/?id=content/association/edit&amp;lang='.surlencode($lang).'&amp;title='.urlencode($internalTitle).'">'.t('Edit').'</a></li>'."\n";
 				}
 			echo '</ul>';
 			endBox();
