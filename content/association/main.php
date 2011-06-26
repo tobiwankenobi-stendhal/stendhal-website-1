@@ -32,6 +32,7 @@ class MainPage extends Page {
 	}
 
 	public function writeHttpHeader() {
+		global $protocol, $lang;
 		if ($this->cmsPage == null) {
 			header('HTTP/1.1 404 Not Found');
 		}
