@@ -157,8 +157,8 @@ body {
 		<span>&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni e. V.</span>
 	</div>
 </div>
-<div id="bodycontainer" style="width:100%; height:100%; position:fixed; top:0px; z-index:0">
-<div id="container" style="position:fixed; top:0px; z-index:0">
+<div id="bodycontainer" style="width:100%; height:100%; position:fixed; top:0px; left:0; z-index:0">
+<div id="container" style="position:fixed; top:0px; left:0; z-index:0">
 
 	<div id="leftArea">
 		<div id="header">
