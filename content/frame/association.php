@@ -122,6 +122,9 @@ body {
 .changehistory li {
 	margin-bottom: 0.5em;
 }
+#contentArea tr {
+	vertical-align: top;
+}
 </style>
 		<?php
 	}
