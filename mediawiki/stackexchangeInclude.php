@@ -27,8 +27,8 @@ if (defined('MEDIAWIKI')) {
 			return true;
 		}
 
-		function parserFunction($parser, $stat, $uuid) {
-			if ($class == "user") {
+		function parserFunction($parser, $type, $uuid) {
+			if ($type == "user") {
 				$opts = array(
 					'http' => array(
 						'method' => 'GET',
