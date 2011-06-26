@@ -17,9 +17,9 @@
  */
 
 class EditPage extends Page {
-	private $cmsPage, $internalTitle;
+	private $cmsPage;
 	public function __construct() {
-		global $lang;
+		global $lang, $internalTitle;
 		$this->cmsPage = CMS::readNewestVersion($lang, $internalTitle);
 	}
 

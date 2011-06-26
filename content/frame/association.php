@@ -33,6 +33,10 @@ if ($lang == 'de') {
 	require_once('content/association/de.php');
 	loadLanguage();
 }﻿;
+$internalTitle = $_REQUEST['title'];
+if (!isset($internalTitle) || $internalTitle == '') {
+	$internalTitle = 'start';
+}
 
 $lang = urlencode($lang);
 
@@ -142,10 +146,6 @@ body {
 	 */
 	function renderFrame() {
 		global $page, $lang, $internalTitle;
-		$internalTitle = $_REQUEST['title'];
-		if (!isset($internalTitle) || $internalTitle == '') {
-			$internalTitle = 'start';
-		}
 ?>
 <body>
 <div id="contentArea" style="position:relative; top: 10px; z-index: 1; width:590px">
