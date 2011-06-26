@@ -21,7 +21,7 @@ $dict = array();
 if ($_REQUEST['lang'] == 'en' || $_REQUEST['lang'] == 'de') {
 	$lang = $_REQUEST['lang'];
 }
-if (!isset($lang)) {
+if (!isset($lang) && !isset($_REQUEST['id'])) {
 	if (strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'de') === 0) {
 		header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].rewriteURL('/de/start.html'));
 		exit();
