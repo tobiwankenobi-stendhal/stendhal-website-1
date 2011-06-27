@@ -60,4 +60,5 @@ function loadLanguage() {
 	$dict['Recent changes'] = 'Letzte Änderungen';
 	$dict['You are missing the required permission for this action.'] = 'Fehlende Berechtigung.';
 	$dict['Documents'] = 'Unterlagen';
+	$dict['Page history'] = 'Seiten-Versionen';
 }
