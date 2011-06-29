@@ -31,7 +31,7 @@ function loadLanguage() {
 	$dict['Resources'] = 'Inhalt';
 	$dict['Concept'] = 'Bildungskonzept';
 	$dict['Projects'] = 'Projekte';
-	$dict['Material'] = 'Lehrmaterial';
+	$dict['Material'] = 'Studienmaterial';
 	$dict['Chat'] = 'Besprechen';
 	$dict['Meetings'] = 'Veranstaltungen';
 	$dict['Language'] = 'Sprache';
