@@ -156,6 +156,16 @@ body {
 	#contentArea {
 		margin: 0;
 	}
+	a:after, a:link:after  { 
+		color: #000000;
+		background-color:transparent; 
+		content: " [" attr(href) "] ";
+	}
+	a:visited:after {
+		color:#000000; 
+		background-color:transparent;
+		content: " [Link " attr(href) "] ";
+	}
 }
 </style>
 		<?php
