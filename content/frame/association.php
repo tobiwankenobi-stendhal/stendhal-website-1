@@ -83,6 +83,7 @@ class AssociationFrame extends PageFrame {
 body {
 	background-color:#FFF;
 	background-image:none;
+	text-align: left;
 }
 #header {
 	padding: 10px 0 0 8px;
