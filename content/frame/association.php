@@ -174,7 +174,7 @@ body {
 		$page->writeContent();
 	?>
 	<div id="footerArea">
-		<span>&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni e. V.</span>
+		<span>&copy; 2011 Faiumoni e. V.</span>
 	</div>
 </div>
 <div id="bodycontainer">
