@@ -91,6 +91,12 @@ body {
 	background-color: #ccd9dc;
 	background-image: url("/images/association/eye_background.jpg");
 	background-repeat: no-repeat;
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0px;
+	left:0;
+	z-index:0
 }
 #container {
 	background-image: none;
@@ -134,8 +140,22 @@ body {
 .changehistory li {
 	margin-bottom: 0.5em;
 }
+#contentArea {
+	position:relative;
+	top: 10px;
+	z-index: 1;
+	width:590px
+}
 #contentArea tr {
 	vertical-align: top;
+}
+@media print {
+	#bodycontainer {
+		display: none;
+	}
+	#contentArea {
+		margin: 0;
+	}
 }
 </style>
 		<?php
@@ -148,7 +168,7 @@ body {
 		global $page, $lang, $internalTitle;
 ?>
 <body>
-<div id="contentArea" style="position:relative; top: 10px; z-index: 1; width:590px">
+<div id="contentArea">
 	<?php
 		// The central area of the website.
 		$page->writeContent();
@@ -157,7 +177,7 @@ body {
 		<span>&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a>, 2011 Faiumoni e. V.</span>
 	</div>
 </div>
-<div id="bodycontainer" style="width:100%; height:100%; position:fixed; top:0px; left:0; z-index:0">
+<div id="bodycontainer">
 <div id="container" style="position:fixed; top:0px; left:0; z-index:0">
 
 	<div id="leftArea">
