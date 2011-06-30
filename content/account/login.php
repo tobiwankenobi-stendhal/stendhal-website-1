@@ -156,7 +156,23 @@ class LoginPage extends Page {
 		<?php
 		if ($this->error) {
 			echo "<p class=\"error\">".htmlspecialchars($this->error)."</p>";
-		}?>
+		}
+
+		if (isset($_REQUEST['url'])) {
+			$url = $_REQUEST['url'];
+			$urlParamsArray = explode('&', str_replace('?', '&', urldecode($url)));
+			$urlParams = array();
+			foreach ($urlParamsArray as $urlParam) {
+				$item = explode('=', $urlParam);
+				$urlParams[$item[0]] = $item[1];
+			}
+			if (isset($urlParams['openid.realm'])) {
+				echo '<div class"openidnotice">You are logging in to an external service:';
+				echo '<div class="openidtargetnotice" style="font-size:2em; font-weight: bold">'.STENDHAL_SERVER_NAME.' → '.htmlspecialchars($urlParams['openid.realm']).'</div>';
+				echo '<br>';
+			}
+		}
+		?>
 
 		<form action="" method="post">
 			<table>
