@@ -166,9 +166,10 @@ class LoginPage extends Page {
 				$item = explode('=', $urlParam);
 				$urlParams[$item[0]] = $item[1];
 			}
+			$targetRealm = preg_replace('|^[^:]*://|', '', $urlParams['openid.realm']);
 			if (isset($urlParams['openid.realm'])) {
 				echo '<div class"openidnotice">You are logging in to an external service:';
-				echo '<div class="openidtargetnotice" style="font-size:2em; font-weight: bold">'.STENDHAL_SERVER_NAME.' → '.htmlspecialchars($urlParams['openid.realm']).'</div>';
+				echo '<div class="openidtargetnotice" style="font-size:2em; font-weight: bold">'.STENDHAL_SERVER_NAME.' → '.htmlspecialchars($targetRealm).'</div>';
 				echo '<br>';
 			}
 		}
