@@ -204,6 +204,9 @@ class Achievement {
 			$db = getTestDB();
 		}
 		$result = mysql_query($query, $db);
+		if (isset($result)) {
+			echo '<!-- '.htmlspecialchars(mysql_errno($db)).'-->';
+		}
 		$list = array();
 		while($row = mysql_fetch_assoc($result)) {
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
