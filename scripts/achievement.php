@@ -205,7 +205,7 @@ class Achievement {
 		}
 		$result = mysql_query($query, $db);
 		if (isset($result)) {
-			echo '<!-- '.htmlspecialchars(mysql_errno($db)).'-->';
+			echo '<!-- '.htmlspecialchars(mysql_error($db)).'-->';
 		}
 		$list = array();
 		while($row = mysql_fetch_assoc($result)) {
