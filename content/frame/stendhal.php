@@ -109,7 +109,7 @@ class StendhalFrame extends PageFrame {
 
 	<div id="rightArea">
 		<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));?>"><span class="block" id="playArea"></span></a>
-		<a href="http://arianne.sourceforge.net/download/stendhal-FULL.zip"><span class="block" id="downloadArea"></span></a>
+		<a href="http://arianne.sourceforge.net/download/stendhal.zip"><span class="block" id="downloadArea"></span></a>
 		<?php
 			startBox('My Account');
 		?>
