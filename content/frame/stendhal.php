@@ -35,10 +35,6 @@ class StendhalFrame extends PageFrame {
 	 * @return true, to continue the rendering, false to not render the normal content
 	 */
 	function writeHttpHeader($page_url) {
-		global $protocol;
-		if ($protocol == 'https') {
-			header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
-		}
 		return true;
 	}
 

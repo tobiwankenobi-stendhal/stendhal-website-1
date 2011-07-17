@@ -19,6 +19,19 @@
 
 class MainPage extends Page {
 
+	/**
+	 * this method can write additional http headers, for example for cache control.
+	 *
+	 * @return true, to continue the rendering, false to not render the normal content
+	 */
+	function writeHttpHeader($page_url) {
+		global $protocol;
+		if ($protocol == 'https') {
+			header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
+		}
+		return true;
+	}
+
 	public function writeHtmlHeader() {
 		echo '<title>'.substr(STENDHAL_TITLE, strpos(STENDHAL_TITLE, ' ', 2) + 1).'</title>'."\n";
 		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" >'."\n";

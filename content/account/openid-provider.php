@@ -25,8 +25,10 @@ class OpenIDProviderPage extends Page {
 	public function writeHttpHeader() {
 		$provider = new MySQLBasedOpenidProvider();
 		$provider->serverLocation = STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider';
-		$provider->xrdsLocation = STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds';
-		$provider->select_id=true;
+		$provider->xrdsLocation = STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds&select=false';
+		if (!isset($_REQUEST['select'])) {
+			$provider->select_id=true;
+		}
 		$provider->server();
 		return false;
 	}
