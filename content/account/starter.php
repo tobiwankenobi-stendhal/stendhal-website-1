@@ -103,7 +103,7 @@ So what are you waiting for?! A whole new world awaits...</description>
 	</security>
 	<resources>
 		<j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+" max-heap-size="200m" />
-		<jar href="http://arianne.sourceforge.net/jws/stendhal-starter-0.95.jar" download="eager" main="true" />
+		<jar href="http://arianne.sourceforge.net/jws/stendhal-starter-0.95.1.jar" download="eager" main="true" />
 	</resources>
 	<application-desc>
 		<argument>-h</argument><argument>'.STENDHAL_SERVER_NAME.'</argument>
