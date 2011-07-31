@@ -4,13 +4,9 @@
 <title>Stendhal Map</title>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-var mapTypes = {};
-
-// set up the map types
-mapTypes['outside'] = {
+var mapType = {
 	getTileUrl: function(coord, zoom) {
 		return getHorizontallyRepeatingTileUrl(coord, zoom, function(coord, zoom) {
-			var bound = Math.pow(2, zoom);
 			return "http://arianne.sourceforge.net/stendhal/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
 		});
 	},
@@ -22,16 +18,15 @@ mapTypes['outside'] = {
 	credit: 'Stendhal',
 	projection: {
 		fromLatLngToPoint: function(latLng) {
-			console.log.info(latLng.lng(), latLng.lat());
+			console.info(latLng.lng(), latLng.lat());
 			return new Point(latLng.lng() - 500000, latLng.lat() - 500000);
 		},
 		fromPointToLatLng: function(point) {
-			console.log.info(point.y, point.x);
+			console.info(point.y, point.x);
 			return new LatLng(point.y, point.x);
 		}
 	}
 };
-
 
 // Normalizes the tile URL so that tiles repeat across the x axis (horizontally) like the
 // standard Google map tiles.
@@ -56,7 +51,6 @@ function getHorizontallyRepeatingTileUrl(coord, zoom, urlfunc) {
 }
 
 var map;
-var mapTypeIds = [];
 
 // Setup a copyright/credit line, emulating the standard Google style
 var creditNode = document.createElement('div');
@@ -73,18 +67,10 @@ function setCredit(credit) {
 
 function initialize() {
 
-	// push all mapType keys in to a mapTypeId array to set in the mapTypeControlOptions
-	for (var key in mapTypes) {
-		mapTypeIds.push(key);
-	}
-
 	var mapOptions = {
 		zoom: 0,
 		center: new google.maps.LatLng(0, 0),
-		mapTypeControlOptions: {
-			mapTypeIds: mapTypeIds,
-			style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-		}
+		mapTypeControl: false
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
@@ -92,14 +78,12 @@ function initialize() {
 	map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(creditNode);
 
 	// add the new map types to map.mapTypes
-	for (key in mapTypes) {
-		map.mapTypes.set(key, new google.maps.ImageMapType(mapTypes[key]));
-	}
+	map.mapTypes.set("outside", new google.maps.ImageMapType(mapType));
 
 
 	// handle maptypeid_changed event to set the credit line
 	google.maps.event.addListener(map, 'maptypeid_changed', function() {
-		setCredit(mapTypes[map.getMapTypeId()].credit);
+		setCredit(mapType.credit);
 	});
 
 	// start with the moon map type
