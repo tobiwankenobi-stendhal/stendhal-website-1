@@ -56,6 +56,22 @@ mapType.projection = new EuclideanProjection();
 
 var map;
 
+function worldToLatLng(x, y) {
+	var xw0 = 499616;
+	var yw0 = 499744;
+	var xwz = 501280;
+	var ywz = 500896;
+
+	var xl0 = 4.5625;
+	var yl0 = 4.59375;
+	var xlz = 242.28125;
+	var ylz = 169.09375;
+
+	var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
+	var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
+	return mapType.projection.fromPointToLatLng({x:lx, y:ly});
+}
+
 function initialize() {
 
 	var mapOptions = {
@@ -78,12 +94,17 @@ function initialize() {
 
 	// start with the moon map type
 	map.setMapTypeId('outside');
-
-	var myLatlng = new google.maps.LatLng(50, 50);
+	var myLatlng = worldToLatLng(500016, 500034);
 	var marker = new google.maps.Marker({
 		position: myLatlng, 
 		map: map, 
-		title:"Hello World!"
+		title:"Semos Village Guard House"
+	});
+	var myLatlng = worldToLatLng(500949, 500153);
+	var marker = new google.maps.Marker({
+		position: myLatlng, 
+		map: map, 
+		title:"Ados Church"
 	});
 
 	google.maps.event.addListener(map, 'click', function(event) {
