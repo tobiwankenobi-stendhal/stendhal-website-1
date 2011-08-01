@@ -62,8 +62,8 @@ function worldToLatLng(x, y) {
 	var xwz = 501280;
 	var ywz = 500896;
 
-	var xl0 = 4.5625;
-	var yl0 = 4.59375;
+	var xl0 = 4.7;
+	var yl0 = 4.7;
 	var xlz = 242.28125;
 	var ylz = 169.09375;
 
