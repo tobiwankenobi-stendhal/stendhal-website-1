@@ -1,7 +1,9 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>Stendhal Map</title>
+<?php
+class AtlasPage extends Page {
+
+	public function writeHtmlHeader() {
+		echo '<title>Atlas'.STENDHAL_TITLE.'</title>';
+		?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 
@@ -76,7 +78,7 @@ function initialize() {
 
 	var mapOptions = {
 		zoom: 0,
-		center: new google.maps.LatLng(0, 0),
+		center: new google.maps.LatLng(30, 0),
 		mapTypeControl: false
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
@@ -94,17 +96,14 @@ function initialize() {
 
 	// start with the moon map type
 	map.setMapTypeId('outside');
-	var myLatlng = worldToLatLng(500016, 500034);
-	var marker = new google.maps.Marker({
-		position: myLatlng, 
-		map: map, 
-		title:"Semos Village Guard House"
+	new google.maps.Marker({
+		position: worldToLatLng(500016, 500034), 
+		map: map, title:"Semos Village Guard House"
 	});
-	var myLatlng = worldToLatLng(500949, 500153);
-	var marker = new google.maps.Marker({
-		position: myLatlng, 
-		map: map, 
-		title:"Ados Church"
+	new google.maps.Marker({
+		position: worldToLatLng(500949, 500153), 
+		map: map, title:"Ados Church",
+//		icon: "/images/buttons/npcs_button.png"
 	});
 
 	google.maps.event.addListener(map, 'click', function(event) {
@@ -112,8 +111,15 @@ function initialize() {
 	});
 }
 </script>
-</head>
-<body onload="initialize()">
-	<div id="map_canvas" style="width: 640px; height: 480px;">map div</div>
-</body>
-</html>
+<?php 
+	}
+
+	function getBodyTagAttributes() {
+		return ' onload="initialize()"';
+	}
+	
+	function writeContent() {
+		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div>';
+	}
+}
+$page = new AtlasPage();
