@@ -108,7 +108,7 @@ function initialize() {
 	});
 
 	google.maps.event.addListener(map, 'click', function(event) {
-		alert("Point.X.Y: " + event.latLng);
+		alert("Point.latlng: " + event.latLng + "\r\n Point.xy: " + mapType.projection.fromLatLngToPoint(event.latLng, false));
 	});
 }
 </script>
