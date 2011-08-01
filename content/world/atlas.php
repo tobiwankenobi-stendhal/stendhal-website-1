@@ -4,7 +4,39 @@
 <title>Stendhal Map</title>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-var mapType = {
+
+function EuclideanProjection() {
+	var EUCLIDEAN_RANGE = 256;
+	this.pixelOrigin_ = new google.maps.Point(EUCLIDEAN_RANGE / 2, EUCLIDEAN_RANGE / 2);
+	this.pixelsPerLonDegree_ = EUCLIDEAN_RANGE / 360;
+	this.pixelsPerLonRadian_ = EUCLIDEAN_RANGE / (2 * Math.PI);
+	this.scaleLat = 2;      // Height - multiplication scale factor
+	this.scaleLng = 1;      // Width - multiplication scale factor
+	this.offsetLat = 0;     // Height - direct offset +/-
+	this.offsetLng = 0;     // Width - direct offset +/-
+};
+
+EuclideanProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
+	console.info("fromLatLngToPoint");
+	var point = opt_point || new google.maps.Point(0, 0);
+	var origin = this.pixelOrigin_;
+	point.x = (origin.x + (latLng.lng() + this.offsetLng ) * this.scaleLng * this.pixelsPerLonDegree_);
+	// NOTE(appleton): Truncating to 0.9999 effectively limits latitude to
+	// 89.189.  This is about a third of a tile past the edge of the world tile.
+	point.y = (origin.y + (-1 * latLng.lat() + this.offsetLat ) * this.scaleLat * this.pixelsPerLonDegree_);
+	return point;
+};
+
+EuclideanProjection.prototype.fromPointToLatLng = function(point) {
+	console.info("fromPointToLatLng");
+	var me = this;
+	var origin = me.pixelOrigin_;
+	var lng = (((point.x - origin.x) / me.pixelsPerLonDegree_) / this.scaleLng) - this.offsetLng;
+	var lat = ((-1 *( point.y - origin.y) / me.pixelsPerLonDegree_) / this.scaleLat) - this.offsetLat;
+	return new google.maps.LatLng(lat , lng, true);
+};
+
+var mapType = new google.maps.ImageMapType({
 	getTileUrl: function(coord, zoom) {
 		return getHorizontallyRepeatingTileUrl(coord, zoom, function(coord, zoom) {
 			return "http://arianne.sourceforge.net/stendhal/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
@@ -15,18 +47,10 @@ var mapType = {
 	maxZoom: 5,
 	minZoom: 1,
 	name: 'Outside',
-	credit: 'Stendhal',
-	projection: {
-		fromLatLngToPoint: function(latLng) {
-			console.info(latLng.lng(), latLng.lat());
-			return new Point(latLng.lng() - 500000, latLng.lat() - 500000);
-		},
-		fromPointToLatLng: function(point) {
-			console.info(point.y, point.x);
-			return new LatLng(point.y, point.x);
-		}
-	}
-};
+	credit: 'Stendhal'
+});
+mapType.projection = new EuclideanProjection(); 
+
 
 // Normalizes the tile URL so that tiles repeat across the x axis (horizontally) like the
 // standard Google map tiles.
@@ -52,18 +76,6 @@ function getHorizontallyRepeatingTileUrl(coord, zoom, urlfunc) {
 
 var map;
 
-// Setup a copyright/credit line, emulating the standard Google style
-var creditNode = document.createElement('div');
-creditNode.id = 'credit-control';
-creditNode.style.fontSize = '11px';
-creditNode.style.fontFamily = 'Arial, sans-serif';
-creditNode.style.margin = '0 2px 2px 0';
-creditNode.style.whitespace = 'nowrap';
-creditNode.index = 0;
-
-function setCredit(credit) {
-	creditNode.innerHTML = credit + ' -';
-}
 
 function initialize() {
 
@@ -75,15 +87,14 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
 	// push the credit/copyright custom control
-	map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(creditNode);
 
 	// add the new map types to map.mapTypes
-	map.mapTypes.set("outside", new google.maps.ImageMapType(mapType));
+	map.mapTypes.set("outside", mapType);
 
 
 	// handle maptypeid_changed event to set the credit line
 	google.maps.event.addListener(map, 'maptypeid_changed', function() {
-		setCredit(mapType.credit);
+		//
 	});
 
 	// start with the moon map type
@@ -94,6 +105,10 @@ function initialize() {
 		position: myLatlng, 
 		map: map, 
 		title:"Hello World!"
+	});
+
+	google.maps.event.addListener(map, 'click', function(event) {
+		alert("Point.X.Y: " + event.latLng);
 	});
 }
 </script>
