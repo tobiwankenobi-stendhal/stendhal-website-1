@@ -30,11 +30,13 @@ class NPC {
 	public $base_hp;
 	public $zone;
 	public $pos;
+	public $x;
+	public $y;
 	public $description;
 	public $job;
 	public $altimage;
  
-	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $pos, $description, $job, $altimage) {
+	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $pos, $x, $y, $description, $job, $altimage) {
 		$this->name=$name;
 		$this->title=$title;
 		$this->class=$class;
@@ -52,6 +54,8 @@ class NPC {
 		$this->base_hp=$base_hp;
 		$this->zone=$zone;
 		$this->pos=$pos;
+		$this->x=$x;
+		$this->y=$y;
 		$this->description=$description;
 		$this->job=$job;
 	}
@@ -101,6 +105,8 @@ class NPC {
 				$row['base_hp'],
 				$zone,
 				$pos,
+				$row['x'],
+				$row['y'],
 				$row['description'],
 				$row['job'],
 				$row['image']);
