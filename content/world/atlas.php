@@ -3,12 +3,20 @@ class AtlasPage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<title>Atlas'.STENDHAL_TITLE.'</title>';
+	}
+
+	function getBodyTagAttributes() {
+		return ' onload="initialize()"';
+	}
+	
+	function writeContent() {
+		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div>';
 		?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 
 function EuclideanProjection() {
-	var EUCLIDEAN_RANGE = 256;
+	var EUCLIDEAN_RANGE = 2*256; // move markers outside the map area far out of the way
 	this.pixelOrigin_ = new google.maps.Point(EUCLIDEAN_RANGE / 2, EUCLIDEAN_RANGE / 2);
 	this.pixelsPerLonDegree_ = EUCLIDEAN_RANGE / 360;
 	this.pixelsPerLonRadian_ = EUCLIDEAN_RANGE / (2 * Math.PI);
@@ -34,6 +42,23 @@ EuclideanProjection.prototype.fromPointToLatLng = function(point) {
 	return new google.maps.LatLng(lat , lng, true);
 };
 
+
+function worldToLatLng(x, y) {
+	var xw0 = 499616;
+	var yw0 = 499744;
+	var xwz = 501280;
+	var ywz = 500896;
+
+	var xl0 = 4.7;
+	var yl0 = 4.7;
+	var xlz = 242.28125;
+	var ylz = 169.09375;
+
+	var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
+	var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
+	return mapType.projection.fromPointToLatLng({x:lx, y:ly});
+}
+
 var mapType = new google.maps.ImageMapType({
 	getTileUrl: function(coord, zoom) {
 		var y = coord.y;
@@ -58,27 +83,12 @@ mapType.projection = new EuclideanProjection();
 
 var map;
 
-function worldToLatLng(x, y) {
-	var xw0 = 499616;
-	var yw0 = 499744;
-	var xwz = 501280;
-	var ywz = 500896;
-
-	var xl0 = 4.7;
-	var yl0 = 4.7;
-	var xlz = 242.28125;
-	var ylz = 169.09375;
-
-	var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
-	var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
-	return mapType.projection.fromPointToLatLng({x:lx, y:ly});
-}
 
 function initialize() {
 
 	var mapOptions = {
 		zoom: 0,
-		center: new google.maps.LatLng(30, 0),
+		center: worldToLatLng(500448, 500320),
 		mapTypeControl: false
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
@@ -106,20 +116,29 @@ function initialize() {
 //		icon: "/images/buttons/npcs_button.png"
 	});
 
+	<?php 
+	if (isset($_REQUEST['npcs'])) {
+		$npcs=NPC::getNPCs();
+		$zones=Zone::getZones();
+		foreach($npcs as $npc) {
+			$zone = $zones[$npc->zone];
+			if (isset($zone) && isset($zone->x) && $zone->z == 0) {
+				$x = $zone->x + $npc->x;
+				$y = $zone->y + $npc->y;
+				echo 'new google.maps.Marker({position: worldToLatLng('.$x.','.$y.'), '
+					.'map: map, title:"'.$npc->name.'", icon: "/images/buttons/npcs_button.png"});'."\r\n";
+			}
+		}
+	}
+	?>
+/*
 	google.maps.event.addListener(map, 'click', function(event) {
 		alert("Point.latlng: " + event.latLng + "\r\n Point.xy: " + mapType.projection.fromLatLngToPoint(event.latLng, false));
 	});
+	*/
 }
 </script>
 <?php 
-	}
-
-	function getBodyTagAttributes() {
-		return ' onload="initialize()"';
-	}
-	
-	function writeContent() {
-		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div>';
 	}
 }
 $page = new AtlasPage();
