@@ -41,7 +41,7 @@ class Zone {
 	public static function getZones() {
 		global $cache;
 		if(sizeof(Zone::$zones) == 0) {
-//			Zone::$zones = $cache->fetchAsArray('stendhal_zones');
+			Zone::$zones = $cache->fetchAsArray('stendhal_zones');
 		}
 		if((Zone::$zones !== false) && (sizeof(Zone::$zones) != 0)) {
 			return Zone::$zones;
@@ -51,14 +51,16 @@ class Zone {
 		$configurationBase='data/conf/';
 		
 		$content = file($configurationFile);
-		$files = XML_unserialize(implode('',$content));
+		$temp = implode('',$content);
+		$files = XML_unserialize($temp);
 		$files = $files['groups'][0]['group'];
 
 		$list = array();
 		foreach ($files as $file) {
 			if (isset($file['uri'])) {
 				$content = file($configurationBase.$file['uri']);
-				$zones =  XML_unserialize(implode('',$content));
+				$temp = implode('', $content);
+				$zones =  XML_unserialize($temp);
 				$zones = $zones['zones'][0]['zone'];
 				for ($i=0; $i < sizeof($zones) / 2; $i++) {
 					$name = $zones[$i.' attr']['name'];
