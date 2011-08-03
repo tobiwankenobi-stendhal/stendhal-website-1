@@ -40,13 +40,16 @@ class Zone {
 
 	public static function getZones() {
 		global $cache;
+		$zoneXmlMap = array();
+		$zoneAttrMap = array();
 		if(sizeof(Zone::$zones) == 0) {
-			Zone::$zones = $cache->fetchAsArray('stendhal_zones');
+//			Zone::$zones = $cache->fetchAsArray('stendhal_zones');
 		}
 		if((Zone::$zones !== false) && (sizeof(Zone::$zones) != 0)) {
 			return Zone::$zones;
 		}
 
+		// read xml files from disk
 		$configurationFile="data/conf/zones.xml";
 		$configurationBase='data/conf/';
 		
@@ -55,7 +58,7 @@ class Zone {
 		$files = XML_unserialize($temp);
 		$files = $files['groups'][0]['group'];
 
-		$list = array();
+		// create a map of xml fragements
 		foreach ($files as $file) {
 			if (isset($file['uri'])) {
 				$content = file($configurationBase.$file['uri']);
@@ -64,20 +67,71 @@ class Zone {
 				$zones = $zones['zones'][0]['zone'];
 				for ($i=0; $i < sizeof($zones) / 2; $i++) {
 					$name = $zones[$i.' attr']['name'];
-					$x = $zones[$i.' attr']['x'];;
-					$y = $zones[$i.' attr']['y'];
-					$z = $zones[$i.' attr']['level'];
-					$file = $zones[$i.' attr']['file'];
-					$int = !isset($z);
-					$list[$name] = new Zone($name, $x, $y, $z, $int, $file);
+					$zoneXmlMap[$name] = $zones[$i];
+					$zoneAttrMap[$name] = $zones[$i.' attr'];
 				}
 			}
 		}
-		
+
+		// create zone objects
+		$list = array();
+		foreach ($zoneXmlMap as $name => $xml) {
+			$x = $zoneAttrMap[$name]['x'];
+			$y = $zoneAttrMap[$name]['y'];
+			$z = $zoneAttrMap[$name]['level'];
+			$file = $zoneAttrMap[$name]['file'];
+			$int = !isset($z);
+
+			// try to resolve internal zones to their place in the world
+			if ($int) {
+				$destination = Zone::getFirstPortalDestination($xml);
+				if (!isset($destination)) {
+					continue;
+				}
+				$destZone = $zoneXmlMap[$destination['zone']];
+				if (!isset($destZone)) {
+					continue;
+				}
+				$tempX = $zoneAttrMap[$destination['zone']]['x'];
+				$tempY = $zoneAttrMap[$destination['zone']]['y'];
+				if (isset($tempX)) {
+					$portal = Zone::getNamedPortalInZone($destZone, $destination['ref']);
+					if (isset($portal)) {
+						$x = $tempX + $portal['x'];
+						$y = $tempY + $portal['y'];
+						$z = $zoneAttrMap[$destination['zone']]['level'];
+					}
+				}
+			}
+			$list[$name] = new Zone($name, $x, $y, $z, $int, $file);
+		}
+
 		// TODO: interatively resolve int-zones based on the target coordinates of the first portal
 
 		Zone::$zones = $list;
 		$cache->store('stendhal_zones', new ArrayObject($list));
 		return $list;
+	}
+
+	private static function getFirstPortalDestination($xml) {
+		$portal = $xml['portal'];
+		if (isset($portal)) {
+			if (is_array($portal[0]) && is_array($portal[0]['destination']) && is_array($portal[0]['destination']['0 attr'])) {
+				return $portal[0]['destination']['0 attr'];
+			}
+		}
+		return null;
+	}
+
+	private static function getNamedPortalInZone($zone, $name) {
+		$portals = $zone['portal'];
+		if (isset($portals)) {
+			for ($i=0; $i < sizeof($portals) / 2; $i++) {
+				if ($portals[$i.' attr']['ref'] == $name) {
+					return $portals[$i.' attr'];
+				}
+			}
+		}
+		return null;
 	}
 }
