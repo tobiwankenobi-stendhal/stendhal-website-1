@@ -43,7 +43,7 @@ class Zone {
 		$zoneXmlMap = array();
 		$zoneAttrMap = array();
 		if(sizeof(Zone::$zones) == 0) {
-//			Zone::$zones = $cache->fetchAsArray('stendhal_zones');
+			Zone::$zones = $cache->fetchAsArray('stendhal_zones');
 		}
 		if((Zone::$zones !== false) && (sizeof(Zone::$zones) != 0)) {
 			return Zone::$zones;
@@ -105,8 +105,6 @@ class Zone {
 			}
 			$list[$name] = new Zone($name, $x, $y, $z, $int, $file);
 		}
-
-		// TODO: interatively resolve int-zones based on the target coordinates of the first portal
 
 		Zone::$zones = $list;
 		$cache->store('stendhal_zones', new ArrayObject($list));
