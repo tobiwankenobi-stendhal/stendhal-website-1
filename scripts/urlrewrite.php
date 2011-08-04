@@ -95,7 +95,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/rss/news.rss$ /index.php?id=content/news/rss [L]
 
                 # world
-                RewriteRule ^/world/atlas\.html$ /index.php?id=content/game/atlas [L]
+                RewriteRule ^/world/atlas\.html$ /index.php?id=content/world/atlas [L,QSA]
                 RewriteRule ^/world/events\.html$ /world/events/all.html [R=301]
                 RewriteRule ^/world/events/(.*)\.html$ /index.php?id=content/scripts/events&filter=$1 [L]
                 RewriteRule ^/world/hall-of-fame\.html$ /world/hall-of-fame/active_overview.html [R=301]
@@ -357,7 +357,7 @@ function rewriteURL($url) {
 	} else if (preg_match('|^/world.*|', $url)) {
 		
 		if (preg_match('|^/world/atlas\.html$|', $url)) {
-			return preg_replace('|^/world/atlas\.html$|', $folder.'/?id=content/game/atlas', $url);
+			return preg_replace('|^/world/atlas\.html$|', $folder.'/?id=content/world/atlas', $url);
 		} else if (preg_match('|^/world/events\.html$|', $url)) {
 			return preg_replace('|^/world/events\.html$|', $folder.'/?id=content/scripts/events', $url);
 		} else if (preg_match('|^/world/events/(.*)\.html$|', $url)) {
