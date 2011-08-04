@@ -24,7 +24,7 @@ class MainPage extends Page {
 	 *
 	 * @return true, to continue the rendering, false to not render the normal content
 	 */
-	function writeHttpHeader($page_url) {
+	function writeHttpHeader() {
 		global $protocol;
 		if ($protocol == 'https') {
 			header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds');
