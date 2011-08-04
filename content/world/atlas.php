@@ -134,10 +134,6 @@ function initialize() {
 		position: worldToLatLng(500016, 500034), 
 		map: map, title:"Semos Village Guard House"
 	});
-	new google.maps.Marker({
-		position: worldToLatLng(500949, 500153), 
-		map: map, title:"Ados Church",
-	});
 
 	<?php
 	if (isset($meX)) {
