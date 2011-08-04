@@ -11,6 +11,23 @@ class AtlasPage extends Page {
 	
 	function writeContent() {
 		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div>';
+		$zoom = 1;
+		$focusX = 500448;
+		$focusY = 500320;
+
+		// focus on position of current player and display a marker
+		if (isset($_REQUEST['me'])) {
+			$coordinates = explode('.', $_REQUEST['me']);
+			$zones = Zone::getZones();
+			$zone = $zones[$coordinates[0]];
+			if (isset($zone) && isset($zone->x)) {
+				$meX = $zone->x + intval($coordinates[1]);
+				$meY = $zone->y + intval($coordinates[2]);
+				$zoom = 5;
+				$focusX = $meX;
+				$focusY = $meY;
+			}
+		}
 		?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
@@ -87,10 +104,10 @@ var map;
 function initialize() {
 
 	var mapOptions = {
-		noClear: true,
 		backgroundColor: "#5f9860",
-		center: worldToLatLng(500448, 500320),
-		zoom: 0,
+		center: worldToLatLng(<?php echo $focusX.', '.$focusY?>),
+		noClear: true,
+		zoom: <?php echo $zoom;?>,
 		mapTypeControl: false
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
@@ -115,10 +132,16 @@ function initialize() {
 	new google.maps.Marker({
 		position: worldToLatLng(500949, 500153), 
 		map: map, title:"Ados Church",
-//		icon: "/images/buttons/npcs_button.png"
 	});
 
-	<?php 
+	<?php
+	if (isset($meX)) {
+		echo 'new google.maps.Marker({
+			position: worldToLatLng('.$meX.', '.$meY.'), 
+			map: map, title:"Me",
+			icon: "/images/buttons/postman_button.png"
+			});';
+	}
 	if (isset($_REQUEST['npcs'])) {
 		$npcs=NPC::getNPCs();
 		$zones=Zone::getZones();
