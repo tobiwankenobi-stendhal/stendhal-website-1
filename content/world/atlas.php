@@ -10,7 +10,11 @@ class AtlasPage extends Page {
 	}
 	
 	function writeContent() {
-		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div>';
+		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
+		startBox('Extended information');
+		echo '</p>There are in detail information about the <a href="http://stendhalgame.org/wiki/Semos">various regions</a> and <a href="http://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';
+		endBox();
+
 		$zoom = 1;
 		$focusX = 500448;
 		$focusY = 500320;
@@ -29,6 +33,7 @@ class AtlasPage extends Page {
 			}
 		}
 		?>
+
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 
