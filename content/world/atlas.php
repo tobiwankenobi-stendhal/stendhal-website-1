@@ -87,8 +87,10 @@ var map;
 function initialize() {
 
 	var mapOptions = {
-		zoom: 0,
+		noClear: true,
+		backgroundColor: "#5f9860",
 		center: worldToLatLng(500448, 500320),
+		zoom: 0,
 		mapTypeControl: false
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
