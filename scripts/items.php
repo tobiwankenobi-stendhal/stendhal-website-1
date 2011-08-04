@@ -119,7 +119,8 @@ function getItems() {
 	$itemsXMLConfigurationBase='data/conf/';
 
 	$content = file($itemsXMLConfigurationFile);
-	$itemfiles = XML_unserialize(implode('',$content));
+	$temp = implode('',$content);
+	$itemfiles = XML_unserialize();
 	$itemfiles = $itemfiles['groups'][0]['group'];
 
 	$list = array();
@@ -127,7 +128,8 @@ function getItems() {
 	foreach ($itemfiles as $file) {
 		if (isset($file['uri'])) {
 			$content = file($itemsXMLConfigurationBase.$file['uri']);
-			$items =  XML_unserialize(implode('',$content));
+			$temp = implode('',$content);
+			$items =  XML_unserialize($temp);
 			$items = $items['items'][0]['item'];
 
 			for ($i=0;$i<sizeof($items)/2;$i++) {
