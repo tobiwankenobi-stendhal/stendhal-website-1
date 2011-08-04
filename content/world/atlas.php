@@ -13,6 +13,7 @@ class AtlasPage extends Page {
 		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
 		startBox('Extended information');
 		echo '</p>There are in detail information about the <a href="http://stendhalgame.org/wiki/Semos">various regions</a> and <a href="http://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';
+		echo '</p>Here is a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a> and a map with <a href="http://stendhalgame.org/wiki/images/9/9e/WorldWithMarkedDungeons091122.png">dungeon entrances</a>.</p>';
 		endBox();
 
 		$zoom = 1;
