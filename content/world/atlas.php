@@ -16,7 +16,7 @@ class AtlasPage extends Page {
 <script type="text/javascript">
 
 function EuclideanProjection() {
-	var EUCLIDEAN_RANGE = 2*256; // move markers outside the map area far out of the way
+	var EUCLIDEAN_RANGE = 4*256; // move markers outside the map area far out of the way
 	this.pixelOrigin_ = new google.maps.Point(EUCLIDEAN_RANGE / 2, EUCLIDEAN_RANGE / 2);
 	this.pixelsPerLonDegree_ = EUCLIDEAN_RANGE / 360;
 	this.pixelsPerLonRadian_ = EUCLIDEAN_RANGE / (2 * Math.PI);
@@ -123,8 +123,13 @@ function initialize() {
 		foreach($npcs as $npc) {
 			$zone = $zones[$npc->zone];
 			if (isset($zone) && isset($zone->x) && $zone->z == 0) {
-				$x = $zone->x + $npc->x;
-				$y = $zone->y + $npc->y;
+				if ($zone->int) {
+					$x = $zone->x;
+					$y = $zone->y;
+				} else {
+					$x = $zone->x + $npc->x;
+					$y = $zone->y + $npc->y;
+				}
 				echo 'new google.maps.Marker({position: worldToLatLng('.$x.','.$y.'), '
 					.'map: map, title:"'.$npc->name.'", icon: "/images/buttons/npcs_button.png"});'."\r\n";
 			}
