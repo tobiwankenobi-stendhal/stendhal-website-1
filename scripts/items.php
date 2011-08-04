@@ -120,7 +120,7 @@ function getItems() {
 
 	$content = file($itemsXMLConfigurationFile);
 	$temp = implode('',$content);
-	$itemfiles = XML_unserialize();
+	$itemfiles = XML_unserialize($temp);
 	$itemfiles = $itemfiles['groups'][0]['group'];
 
 	$list = array();

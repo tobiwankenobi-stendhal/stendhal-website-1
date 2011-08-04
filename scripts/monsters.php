@@ -258,7 +258,8 @@ function getMonsters() {
 	$monstersXMLConfigurationBase='data/conf/';
 
 	$content = file($monstersXMLConfigurationFile);
-	$monsterfiles = XML_unserialize(implode('', $content));
+	$temp = implode('', $content);
+	$monsterfiles = XML_unserialize($temp);
 	$monsterfiles = $monsterfiles['groups'][0]['group'];
 
 	$list=array();
@@ -266,7 +267,8 @@ function getMonsters() {
 	foreach($monsterfiles as $file) {
 		if(isset($file['uri'])) {
 			$content = file($monstersXMLConfigurationBase.$file['uri']);
-			$creatures =  XML_unserialize(implode('',$content));
+			$temp = implode('',$content);
+			$creatures =  XML_unserialize($temp);
 			$creatures=$creatures['creatures'][0]['creature'];
 
 			if (sizeof($creatures) < 2) {
