@@ -162,7 +162,15 @@ function initialize() {
 			}
 		}
 	}
+	echo "\r\nvar pois = ".json_encode(PointofInterest::getPOIs()).";\r\n";
+	if (isset($_REQUEST['pois'])) {
 	?>
+	for (var key in pois) {
+		var poi = pois[key];
+		var t = new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
+			map: map, title: poi.name/*, icon: "/images/mapmarker/" + poi.type + ".png"*/});
+	}
+	<?php }?>
 /*
 	google.maps.event.addListener(map, 'click', function(event) {
 		alert("Point.latlng: " + event.latLng + "\r\n Point.xy: " + mapType.projection.fromLatLngToPoint(event.latLng, false));
