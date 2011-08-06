@@ -81,29 +81,36 @@ class APCCacheImpl implements Cache {
 	}
 }
 
-class NoCacheImpl implements Cache {
+class NonPersistentCacheImpl implements Cache {
+	private $cache = array();
+
 	function store($key, $value, $ttl = 0) {
-		return false;
+		$this->cache[$key] = $value;
+		return true;
 	}
 
 	function fetch($key, &$success = false) {
-		$success = false;
-		return null;
+		$success = true;
+		return $this->cache[$key];
 	}
 
 	function fetchAsArray($key, &$success = false) {
-		return $this->fetch($key, $success);
+		$temp = $this->fetch($key, &$success);
+		if (isset($temp) && $temp !== false) {
+			return $temp->getArrayCopy();
+		}
+		return null;
 	}
 
 	function clearCacheIfOutdate() {
-		// do nothing
+		// do nothing as the cache is not persistent
 	}
 }
 
 if (function_exists('apc_store')) {
 	$cache = new APCCacheImpl();
 } else {
-	$cache = new NoCacheImpl();
+	$cache = new NonPersistentCacheImpl();
 }
 $cache->clearCacheIfOutdate();
 ?>
