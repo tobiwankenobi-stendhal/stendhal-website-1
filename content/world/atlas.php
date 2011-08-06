@@ -16,9 +16,9 @@ class AtlasPage extends Page {
 		echo '</p>Here is a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a> and a map with <a href="http://stendhalgame.org/wiki/images/9/9e/WorldWithMarkedDungeons091122.png">dungeon entrances</a>.</p>';
 		endBox();
 
-		$zoom = 1;
-		$focusX = 500448;
-		$focusY = 500320;
+		$zoom = 2;
+		$focusX = 500200;
+		$focusY = 500100;
 
 		// focus on position of current player and display a marker
 		if (isset($_REQUEST['me'])) {
