@@ -17,10 +17,22 @@ class AtlasPage extends Page {
 		$focusX = 500200;
 		$focusY = 500100;
 
+		$zones = Zone::getZones();
+
+		// if there is exactly one poi, focus on that
+		if (isset($_REQUEST['poi']) && strpos($_REQUEST['poi'], '.') === false) {
+			$pois = PointofInterest::getPOIs();
+			$poi = $pois[$_REQUEST['poi']];
+			if (isset($poi)) {
+				$zoom = 5;
+				$focusX = $poi->gx;
+				$focusY = $poi->gy;
+			}
+		}
+
 		// focus on position of current player and display a marker
 		if (isset($_REQUEST['me'])) {
 			$coordinates = explode('.', $_REQUEST['me']);
-			$zones = Zone::getZones();
 			$zone = $zones[$coordinates[0]];
 			if (isset($zone) && isset($zone->x)) {
 				$meX = $zone->x + intval($coordinates[1]);
@@ -32,6 +44,29 @@ class AtlasPage extends Page {
 				}
 				$focusX = $meX;
 				$focusY = $meY;
+			}
+		}
+
+		// if there is a focus parameter, use it
+		if (isset($_REQUEST['focus'])) {
+			$zoom = 5;
+			$coordinates = explode('.', $_REQUEST['focus']);
+			if (count($coordinates) === 1) {
+				$pois = PointofInterest::getPOIs();
+				$poi = $pois[$coordinates[0]];
+				if (isset($poi)) {
+					$focusX = $poi->gx;
+					$focusY = $poi->gy;
+				}
+			} else if (count($coordinates) === 2) {
+				$focusX = $coordinates[0];
+				$focusY = $coordinates[0];
+			} else if (count($coordinates) === 3) {
+				$zone = $zones[$coordinates[0]];
+				if (isset($zone) && isset($zone->x)) {
+					$focusX = $zone->x + intval($coordinates[1]);
+					$focusY = $zone->y + intval($coordinates[2]);
+				}
 			}
 		}
 		?>
