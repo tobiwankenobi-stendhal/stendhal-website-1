@@ -3,12 +3,13 @@ class AtlasPage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<title>Atlas'.STENDHAL_TITLE.'</title>';
+		$this->includeJs();
 	}
 
 	function getBodyTagAttributes() {
 		return ' onload="initialize()"';
 	}
-	
+
 	function writeContent() {
 		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
 		startBox('Extended information');
@@ -106,6 +107,18 @@ mapType.projection = new EuclideanProjection();
 
 var map;
 
+// http://www.netlobo.com/url_query_string_javascript.html
+function gup(name) {
+	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/,"\\\]");
+	var regexS = "[\\?&]"+name+"=([^&#]*)";
+	var regex = new RegExp( regexS );
+	var results = regex.exec( window.location.href );
+	if (results == null) {
+		return "";
+	} else {
+		return results[1];
+	}
+}
 
 function initialize() {
 
@@ -134,18 +147,20 @@ function initialize() {
 		echo 'new google.maps.Marker({
 			position: worldToLatLng('.$meX.', '.$meY.'), 
 			map: map, title:"Me",
-			icon: "/images/buttons/postman_button.png"
+			icon: "/images/mapmarker/me.png"
 			});';
 	}
 	echo "\r\nvar pois = ".json_encode(PointofInterest::getPOIs()).";\r\n";
-	if (isset($_REQUEST['pois'])) {
 	?>
+	wanted = decodeURI(gup("poi")).toLowerCase().split(",");
 	for (var key in pois) {
 		var poi = pois[key];
-		var t = new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
-			map: map, title: poi.name/*, icon: "/images/mapmarker/" + poi.type + ".png"*/});
+		if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
+			|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
+			new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
+				map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
+		}
 	}
-	<?php }?>
 /*
 	google.maps.event.addListener(map, 'click', function(event) {
 		alert("Point.latlng: " + event.latLng + "\r\n Point.xy: " + mapType.projection.fromLatLngToPoint(event.latLng, false));
