@@ -25,7 +25,11 @@ class AtlasPage extends Page {
 			if (isset($zone) && isset($zone->x)) {
 				$meX = $zone->x + intval($coordinates[1]);
 				$meY = $zone->y + intval($coordinates[2]);
-				$zoom = 5;
+				if ($zone->z === 0) {
+					$zoom = 5;
+				} else {
+					$zoom = 4;
+				}
 				$focusX = $meX;
 				$focusY = $meY;
 			}
