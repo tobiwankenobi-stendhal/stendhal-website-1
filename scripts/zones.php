@@ -31,9 +31,9 @@ class Zone {
 
 	function __construct($name, $x, $y, $z, $int, $file) {
 		$this->name = name;
-		$this->x = $x;
-		$this->y = $y;
-		$this->z = $z;
+		$this->x = intval($x);
+		$this->y = intval($y);
+		$this->z = intval($z);
 		$this->int = $int;
 		$this->file = $file;
 	}
@@ -52,7 +52,8 @@ class Zone {
 		return Zone::$zones;
 	}
 
-	private static function loadZoneXmlData() {
+	static function loadZoneXmlData() {
+		global $cache;
 
 		// read list of xml files from disk
 		$configurationFile="data/conf/zones.xml";
@@ -85,9 +86,11 @@ class Zone {
 		$zoneList = array();
 		$poiList = array();
 		foreach ($zoneXmlMap as $name => $xml) {
-			$x = $zoneAttrMap[$name]['x'];
-			$y = $zoneAttrMap[$name]['y'];
-			$z = $zoneAttrMap[$name]['level'];
+
+			// create zone object
+			$zoneX = $zoneAttrMap[$name]['x'];
+			$zoneY = $zoneAttrMap[$name]['y'];
+			$zoneZ = $zoneAttrMap[$name]['level'];
 			$file = $zoneAttrMap[$name]['file'];
 			$int = !isset($z);
 
@@ -106,13 +109,17 @@ class Zone {
 				if (isset($tempX)) {
 					$portal = Zone::getNamedPortalInZone($destZone, $destination['ref']);
 					if (isset($portal)) {
-						$x = $tempX + $portal['x'];
-						$y = $tempY + $portal['y'];
-						$z = $zoneAttrMap[$destination['zone']]['level'];
+						$zoneX = $tempX + $portal['x'];
+						$zoneY = $tempY + $portal['y'];
+						$zoneZ = $zoneAttrMap[$destination['zone']]['level'];
 					}
 				}
 			}
-			$zoneList[$name] = new Zone($name, $x, $y, $z, $int, $file);
+			$zoneList[$name] = new Zone($name, $zoneX, $zoneY, $zoneZ, $int, $file);
+			$pois = Zone::createPOIsFromZone($zoneList[$name], $xml);
+			if (isset($pois)) {
+				$poiList = array_merge($poiList, $pois);
+			}
 		}
 		$cache->store('stendhal_pois', new ArrayObject($poiList));
 		$cache->store('stendhal_zones', new ArrayObject($zoneList));
@@ -139,6 +146,25 @@ class Zone {
 		}
 		return null;
 	}
+
+	private static function createPOIsFromZone($zone, $xml) {
+		$pois = $xml['point-of-interest'];
+		if (!isset($pois)) {
+			return null;
+		}
+		$res = array();
+		for ($i=0; $i < sizeof($pois) / 2; $i++) {
+			$attr = $pois[$i.' attr'];
+			$children = $pois[$i];
+			
+			$res[$children['name'][0]] = new PointofInterest($zone->name, 
+				$attr['x'], $attr['y'], 
+				$zone->x + intval($attr['x']), $zone->y + intval($attr['y']),
+				$children['name'][0], $children['type'][0],
+				$children['description'][0], $children['url'][0]);
+		}
+		return $res;
+	}
 }
 
 /**
@@ -159,10 +185,10 @@ class PointofInterest {
 
 	function __construct($zoneName, $x, $y, $gx, $gy, $name, $type, $description, $url) {
 		$this->zoneName = $zoneName;
-		$this->x = $x;
-		$this->y = $y;
-		$this->gx = $gx;
-		$this->gy = $gy;
+		$this->x = intval($x);
+		$this->y = intval($y);
+		$this->gx = intval($gx);
+		$this->gy = intval($gy);
 		$this->name = $name;
 		$this->type = $type;
 		$this->description = $description;
