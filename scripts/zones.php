@@ -40,8 +40,6 @@ class Zone {
 
 	public static function getZones() {
 		global $cache;
-		$zoneXmlMap = array();
-		$zoneAttrMap = array();
 		if(sizeof(Zone::$zones) == 0) {
 			Zone::$zones = $cache->fetchAsArray('stendhal_zones');
 		}
@@ -49,7 +47,13 @@ class Zone {
 			return Zone::$zones;
 		}
 
-		// read xml files from disk
+		loadZoneXmlData();
+		return Zone::$zones;
+	}
+
+	private static function loadZoneXmlData() {
+
+		// read list of xml files from disk
 		$configurationFile="data/conf/zones.xml";
 		$configurationBase='data/conf/';
 		
@@ -58,6 +62,9 @@ class Zone {
 		$files = XML_unserialize($temp);
 		$files = $files['groups'][0]['group'];
 
+		$zoneXmlMap = array();
+		$zoneAttrMap = array();
+		
 		// create a map of xml fragements
 		foreach ($files as $file) {
 			if (isset($file['uri'])) {
@@ -108,7 +115,6 @@ class Zone {
 
 		Zone::$zones = $list;
 		$cache->store('stendhal_zones', new ArrayObject($list));
-		return $list;
 	}
 
 	private static function getFirstPortalDestination($xml) {
