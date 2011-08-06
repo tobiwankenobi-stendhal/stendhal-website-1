@@ -30,7 +30,7 @@ class Zone {
 	public $file;
 
 	function __construct($name, $x, $y, $z, $int, $file) {
-		$this->name = name;
+		$this->name = $name;
 		$this->x = intval($x);
 		$this->y = intval($y);
 		$this->z = intval($z);
