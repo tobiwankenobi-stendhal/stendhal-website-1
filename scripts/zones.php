@@ -47,7 +47,8 @@ class Zone {
 			return Zone::$zones;
 		}
 
-		loadZoneXmlData();
+		Zone::loadZoneXmlData();
+		Zone::$zones = $cache->fetchAsArray('stendhal_zones');
 		return Zone::$zones;
 	}
 
@@ -81,7 +82,8 @@ class Zone {
 		}
 
 		// create zone objects
-		$list = array();
+		$zoneList = array();
+		$poiList = array();
 		foreach ($zoneXmlMap as $name => $xml) {
 			$x = $zoneAttrMap[$name]['x'];
 			$y = $zoneAttrMap[$name]['y'];
@@ -110,11 +112,10 @@ class Zone {
 					}
 				}
 			}
-			$list[$name] = new Zone($name, $x, $y, $z, $int, $file);
+			$zoneList[$name] = new Zone($name, $x, $y, $z, $int, $file);
 		}
-
-		Zone::$zones = $list;
-		$cache->store('stendhal_zones', new ArrayObject($list));
+		$cache->store('stendhal_pois', new ArrayObject($poiList));
+		$cache->store('stendhal_zones', new ArrayObject($zoneList));
 	}
 
 	private static function getFirstPortalDestination($xml) {
@@ -137,5 +138,48 @@ class Zone {
 			}
 		}
 		return null;
+	}
+}
+
+/**
+ * a point of interest on the map
+ */
+class PointofInterest {
+	private static $pois;
+
+	public $zoneName;
+	public $x;
+	public $y;
+	public $gx;
+	public $gy;
+	public $name;
+	public $type;
+	public $description;
+	public $url;
+
+	function __construct($zoneName, $x, $y, $gx, $gy, $name, $type, $description, $url) {
+		$this->zoneName = $zoneName;
+		$this->x = $x;
+		$this->y = $y;
+		$this->gx = $gx;
+		$this->gy = $gy;
+		$this->name = $name;
+		$this->type = $type;
+		$this->description = $description;
+		$this->url = $url;
+	}
+
+	public static function getPOIs() {
+		global $cache;
+		if(sizeof(PointofInterest::$pois) == 0) {
+			PointofInterest::$pois = $cache->fetchAsArray('stendhal_pois');
+		}
+		if((PointofInterest::$pois !== false) && (sizeof(PointofInterest::$pois) != 0)) {
+			return PointofInterest::$pois;
+		}
+		
+		Zone::loadZoneXmlData();
+		PointofInterest::$pois = $cache->fetchAsArray('stendhal_pois');
+		return PointofInterest::$pois;
 	}
 }
