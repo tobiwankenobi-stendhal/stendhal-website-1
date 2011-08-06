@@ -6,10 +6,6 @@ class AtlasPage extends Page {
 		$this->includeJs();
 	}
 
-	function getBodyTagAttributes() {
-		return ' onload="initialize()"';
-	}
-
 	function writeContent() {
 		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
 		startBox('Extended information');
@@ -120,8 +116,7 @@ function gup(name) {
 	}
 }
 
-function initialize() {
-
+$().ready(function() {
 	var mapOptions = {
 		backgroundColor: "#5f9860",
 		center: worldToLatLng(<?php echo $focusX.', '.$focusY?>),
@@ -161,12 +156,7 @@ function initialize() {
 				map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
 		}
 	}
-/*
-	google.maps.event.addListener(map, 'click', function(event) {
-		alert("Point.latlng: " + event.latLng + "\r\n Point.xy: " + mapType.projection.fromLatLngToPoint(event.latLng, false));
-	});
-	*/
-}
+});
 </script>
 <?php 
 	}
