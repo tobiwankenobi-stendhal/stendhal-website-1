@@ -128,14 +128,7 @@ function initialize() {
 	google.maps.event.addListener(map, 'maptypeid_changed', function() {
 		//
 	});
-
-	// start with the moon map type
 	map.setMapTypeId('outside');
-	new google.maps.Marker({
-		position: worldToLatLng(500016, 500034), 
-		map: map, title:"Semos Village Guard House"
-	});
-
 	<?php
 	if (isset($meX)) {
 		echo 'new google.maps.Marker({
@@ -143,24 +136,6 @@ function initialize() {
 			map: map, title:"Me",
 			icon: "/images/buttons/postman_button.png"
 			});';
-	}
-	if (isset($_REQUEST['npcs'])) {
-		$npcs=NPC::getNPCs();
-		$zones=Zone::getZones();
-		foreach($npcs as $npc) {
-			$zone = $zones[$npc->zone];
-			if (isset($zone) && isset($zone->x) && $zone->z == 0) {
-				if ($zone->int) {
-					$x = $zone->x;
-					$y = $zone->y;
-				} else {
-					$x = $zone->x + $npc->x;
-					$y = $zone->y + $npc->y;
-				}
-				echo 'new google.maps.Marker({position: worldToLatLng('.$x.','.$y.'), '
-					.'map: map, title:"'.$npc->name.'", icon: "/images/buttons/npcs_button.png"});'."\r\n";
-			}
-		}
 	}
 	echo "\r\nvar pois = ".json_encode(PointofInterest::getPOIs()).";\r\n";
 	if (isset($_REQUEST['pois'])) {

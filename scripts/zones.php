@@ -92,7 +92,7 @@ class Zone {
 			$zoneY = $zoneAttrMap[$name]['y'];
 			$zoneZ = $zoneAttrMap[$name]['level'];
 			$file = $zoneAttrMap[$name]['file'];
-			$int = !isset($z);
+			$int = !isset($zoneZ);
 
 			// try to resolve internal zones to their place in the world
 			if ($int) {
@@ -121,6 +121,7 @@ class Zone {
 				$poiList = array_merge($poiList, $pois);
 			}
 		}
+		$poiList = array_merge($poiList, Zone::loadNPCsAsPOIs($zoneList));
 		$cache->store('stendhal_pois', new ArrayObject($poiList));
 		$cache->store('stendhal_zones', new ArrayObject($zoneList));
 	}
@@ -149,19 +150,41 @@ class Zone {
 
 	private static function createPOIsFromZone($zone, $xml) {
 		$pois = $xml['point-of-interest'];
-		if (!isset($pois)) {
+		if (!isset($pois) || !is_array($pois)) {
 			return null;
 		}
 		$res = array();
 		for ($i=0; $i < sizeof($pois) / 2; $i++) {
 			$attr = $pois[$i.' attr'];
 			$children = $pois[$i];
-			
 			$res[$children['name'][0]] = new PointofInterest($zone->name, 
 				$attr['x'], $attr['y'], 
 				$zone->x + intval($attr['x']), $zone->y + intval($attr['y']),
 				$children['name'][0], $children['type'][0],
 				$children['description'][0], $children['url'][0]);
+		}
+		return $res;
+	}
+
+	private static function loadNPCsAsPOIs($zones) {
+		$npcs=NPC::getNPCs();
+		$res = array();
+		foreach($npcs as $npc) {
+			$zone = $zones[$npc->zone];
+			if (isset($zone) && isset($zone->x) && $zone->z == 0) {
+				if ($zone->int) {
+					$x = 0;
+					$y = 0;
+				} else {
+					$x = $npc->x;
+					$y = $npc->y;
+				}
+				$res[$npc->name] = new PointofInterest($zone->name,
+					$x, $y,
+					$zone->x + intval($x), $zone->y + intval($y),
+					$npc->name, "npc",
+					"", "");
+			}
 		}
 		return $res;
 	}
