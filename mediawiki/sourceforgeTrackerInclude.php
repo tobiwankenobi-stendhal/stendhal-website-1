@@ -37,7 +37,8 @@ function sourceforgeTrackerIncludeSetup() {
 function sourceforgeTrackerInclude($input, $argv, $parser) {
 	$parser->disableCache();
 
-	$url = 'http://sourceforge.net/search/index.php?group_id=1111&type_of_search=artifact&q=&artifact_id=3389093+3388444+3388024&limit=100';
+	$ids = urlencode($input);
+	$url = 'http://sourceforge.net/search/index.php?group_id=1111&type_of_search=artifact&q=&artifact_id='.$ids.'&limit=100';
 
 	// get search result
 	$data = file_get_contents($url);
@@ -51,7 +52,7 @@ function sourceforgeTrackerInclude($input, $argv, $parser) {
 	$data = substr($data, 0, $pos);
 
 	// fix links
-	$data = preg_replace('|<a href="|', '<a href="https://sourceforge.net', $data);
+	$data = preg_replace('|<a href="|', '<a href="http://sourceforge.net', $data);
 
 	// add heading
 	$prefix = '<table class="prettytable sortable"><tr><th>Prio</th><th>ID</th><th>Tracker</th><th>Summary</th><th>Assignee</th><th>Submitter</th><th>Status</th><th>Opened</th></tr>';
