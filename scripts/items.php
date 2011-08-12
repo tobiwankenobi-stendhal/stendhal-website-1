@@ -76,9 +76,7 @@ class Item {
 		$popup .= '<br />';
 		$popup .= 'Class: ' . htmlspecialchars(ucfirst($this->class)) . '<br />';
 		foreach($this->attributes as $label=>$data) {
-			if ($label != "quantity") {
-				$popup .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
-			}
+			$popup .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
 		}
 
 		if (isset($this->description) && ($this->description != '')) {
@@ -156,7 +154,9 @@ function getItems() {
 				$attributes=array();
 				if (is_array($items[$i]['attributes'][0])) {
 					foreach($items[$i]['attributes'][0] as $attr=>$val) {
-						$attributes[$attr]=$val['0 attr']['value'];
+						if (($attr != 'max_quantity') && ($attr != 'quantity') && ($attr != 'undroppableondeath')) {
+							$attributes[$attr]=$val['0 attr']['value'];
+						}
 					}
 				}
 				if (isset($items[$i]['damage']['0 attr']['type'])) {
