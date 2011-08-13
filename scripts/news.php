@@ -353,7 +353,7 @@ function getNewsTypes() {
 		$list[]=new NewsType(
 			$row['id'],
 			$row['title'],
-			$row['image']
+			$row['image_url']
 		);
 	}
 

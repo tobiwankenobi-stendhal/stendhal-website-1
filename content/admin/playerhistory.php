@@ -5,7 +5,9 @@ class AdminPlayerHistoryPage extends Page {
 	if(getAdminLevel()<100) {
 		die("Ooops!");
 	}
-	$name=$_REQUEST["name"];
+	if (isset($_REQUEST["name"])) {
+		$name=$_REQUEST["name"];
+	}
 	startBox('Search Player');
 ?>
 	<form method="get" action="" accept-charset="iso-8859-1">

@@ -3,9 +3,9 @@ class AchievementPage extends Page {
 	private $achievements;
 
 	public function __construct() {
-		if ($_REQUEST['name']=='special') {
+		if (isset($_REQUEST['name']) && ($_REQUEST['name']=='special')) {
 			// We don't need to do anything here
-		} else if ($_REQUEST['name']) {
+		} else if (isset($_REQUEST['name'])) {
 			$this->achievements = Achievement::getAchievement(preg_replace('/_/', ' ', $_REQUEST['name']));
 		} else {
 			$this->achievements = Achievement::getAchievements("where category != 'SPECIAL'");
@@ -13,7 +13,7 @@ class AchievementPage extends Page {
 	}
 
 	public function writeHttpHeader() {
-		if ($_REQUEST['name'] && $_REQUEST['name'] != 'special' && count($this->achievements)==0) {
+		if ($isset($_REQUEST['name']) && $_REQUEST['name'] != 'special' && count($this->achievements)==0) {
 			header('HTTP/1.0 404 Not Found');
 			return true;
 		}
@@ -29,10 +29,10 @@ class AchievementPage extends Page {
 	}
 
 	function writeContent() {
-		if ($_REQUEST['name']=='special') {
+		if (isset($_REQUEST['name']) && ($_REQUEST['name']=='special')) {
 			$this->categoryAchievementList("special", "Special achievements are awarded for success in specific events. " .
 					                                  "As each one is different and cannot be earned by all players, they do not contribute to hall of fame scoring.");
-		} else if ($_REQUEST['name']) {
+		} else if (isset($_REQUEST['name'])) {
 			if (count($this->achievements)==0) {
 				startBox('Achievement');
 				echo 'Achievement not found.';

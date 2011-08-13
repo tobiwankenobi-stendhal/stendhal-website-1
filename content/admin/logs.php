@@ -4,13 +4,13 @@ class AdminLogsPage extends Page {
 	function writeContent() {
 
 	if(getAdminLevel()<100) {
- 		die("Ooops!");
+		die("Ooops!");
 	}
- 	startBox(SUPPORT_CHANNEL . ' IRC log');
-    $directory = SUPPORT_LOG_DIRECTORY;
+	startBox(SUPPORT_CHANNEL . ' IRC log');
+	$directory = SUPPORT_LOG_DIRECTORY;
 
-    $date = $_GET['date'];
-    if (isset($date) && preg_match("/^\d\d\d\d-\d\d-\d\d$/", $date)) {
+	if (isset($_GET['date']) && preg_match("/^\d\d\d\d-\d\d-\d\d$/", $_GET['date'])) {
+	$date = $_GET['date'];
 ?>
     <p>
      <a href="./?id=content/admin/logs">Index of logs</a>

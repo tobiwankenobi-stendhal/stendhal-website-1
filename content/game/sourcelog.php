@@ -3,10 +3,10 @@
 class SourceLogPage extends Page {
 
 	public function writeHtmlHeader() {
-		$month = $_GET['month'];
-		if (!isset($month)) {
+		if (!isset($_GET['month'])) {
 			echo '<title>Source Code Changes'.STENDHAL_TITLE.'</title>';
 		} else {
+			$month = $_GET['month'];
 			if (preg_match("/^\d\d\d\d-\d\d$/", $month)) {
 				echo '<title>Source Code Changes in '.$month.STENDHAL_TITLE.'</title>';
 			} else {
@@ -26,8 +26,8 @@ startBox("CVS"); ?>
 <?php
 	$directory = CVS_LOG_DIRECTORY;
 
+	if (isset($month) && preg_match("/^\d\d\d\d-\d\d$/", $_GET['month'])) {
 	$month = $_GET['month'];
-	if (isset($month) && preg_match("/^\d\d\d\d-\d\d$/", $month)) {
 ?>
 	<p>
 		<a href="<?php echo rewriteURL('/development/sourcelog.html')?>">Index of logs</a>

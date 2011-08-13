@@ -29,8 +29,8 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 	echo '<a name="log" id="log"></a>';
 	$directory = MAIN_LOG_DIRECTORY;
 
+	if (isset($_GET['date']) && preg_match("/^\d\d\d\d-\d\d-\d\d$/", $_GET['date'])) {
 	$date = $_GET['date'];
-	if (isset($date) && preg_match("/^\d\d\d\d-\d\d-\d\d$/", $date)) {
 ?>
 	<p><a href="<?php echo rewriteURL("/chat/");?>">Index of logs</a></p>
 

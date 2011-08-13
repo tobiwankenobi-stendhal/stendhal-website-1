@@ -11,9 +11,8 @@ class InspectPage extends Page {
 	function writeContent() {
 		$this->writeInputForm();
 
-		$data = $_POST['data'];
-
-		if (isset($data)) {
+		if (isset($_POST['data'])) {
+			$data = $_POST['data'];
 			echo '<a name="result"></a>';
 			$parsedData = $this->parse($data);
 			$this->writeNavigationBox($parsedData);
@@ -29,7 +28,7 @@ class InspectPage extends Page {
 		?>
 		<form action="#result" method="POST">
 			<label for="data">Paste result of /script DeepInspect.class:</label>
-			<textarea name="data" id="data" cols="75" rows="20"><?php echo htmlspecialchars($_POST['data'])?></textarea>
+			<textarea name="data" id="data" cols="75" rows="20"><?php if (isset($_POST['data']) {echo htmlspecialchars($_POST['data'])}?></textarea>
 			<input type="submit">
 		</form>
 		<?php
