@@ -108,10 +108,10 @@ function worldToLatLng(x, y) {
 	var xwz = 501280;
 	var ywz = 500896;
 
-	var xl0 = 4.7;
-	var yl0 = 4.7;
-	var xlz = 242.28125;
-	var ylz = 169.09375;
+	var xl0 = 0;
+	var yl0 = 0;
+	var xlz = 208.15;
+	var ylz = 144.2;
 
 	var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
 	var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
@@ -129,11 +129,12 @@ var mapType = new google.maps.ImageMapType({
 		if (x < 0 || x >= tileRange) {
 			return null;
 		}
+		return "http://localhost/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
 		return "http://arianne.sourceforge.net/stendhal/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
 	},
 	tileSize: new google.maps.Size(256, 256),
 	isPng: true,
-	maxZoom: 5,
+	maxZoom: 6,
 	minZoom: 1,
 	name: 'Outside',
 	credit: 'Stendhal'
