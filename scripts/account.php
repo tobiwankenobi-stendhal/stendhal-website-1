@@ -18,12 +18,6 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once('scripts/configuration.php');
-require_once('scripts/mysql.php');
-
-
-
-
 
 /**
  * Checks whether or not the given email is in the
