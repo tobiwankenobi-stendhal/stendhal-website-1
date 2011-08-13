@@ -23,6 +23,9 @@
  * This file is the PHP code that generate each of the website sections. 
  */
 
+require_once('configuration.php');
+require_once('configuration.default.php');
+
 require_once('scripts/account.php');
 require_once('scripts/achievement.php');
 require_once('scripts/cache.php');
