@@ -72,11 +72,15 @@ class APCCacheImpl implements Cache {
 
 	function clearCacheIfOutdate() {
 		$version = $this->fetch('stendhal_version');
-		if ($version != STENDHAL_VERSION) {
-			foreach($this->keysToPurge as $key) {
-				apc_delete($key);
+		if (!defined(STENDHAL_VERSION)) {
+			error_log('STENDHAL_VERSION undefined: '.$_SERVER['SCRIPT_URI']);
+		} else {
+			if ($version != STENDHAL_VERSION) {
+				foreach($this->keysToPurge as $key) {
+					apc_delete($key);
+				}
+				$this->store('stendhal_version', STENDHAL_VERSION);
 			}
-			$this->store('stendhal_version', STENDHAL_VERSION);
 		}
 	}
 }
