@@ -22,23 +22,23 @@
 #
 # Please change to match your system configuration.
 #
-define('STENDHAL_VERSION','0.79');
+@define('STENDHAL_VERSION','0.79');
 
-define('STENDHAL_TITLE', ' &ndash; Stendhal MMORPG');
+@define('STENDHAL_TITLE', ' &ndash; Stendhal MMORPG');
 #
 # Location of the statistics file of Stendhal server.
 #
-define('STENDHAL_SERVER_STATS_XML','server_stats.xml');
+@define('STENDHAL_SERVER_STATS_XML','server_stats.xml');
 
-define('STENDHAL_SERVER_NAME', 'stendhalgame.org');
+@define('STENDHAL_SERVER_NAME', 'stendhalgame.org');
 
 #
 # Website database to store news, events and other useful stuff.
 #
-define('STENDHAL_WEB_HOSTNAME','127.0.0.1');
-define('STENDHAL_WEB_USERNAME','username');
-define('STENDHAL_WEB_PASSWORD','password');
-define('STENDHAL_WEB_DB','stendhal_website');
+@define('STENDHAL_WEB_HOSTNAME','127.0.0.1');
+@define('STENDHAL_WEB_USERNAME','username');
+@define('STENDHAL_WEB_PASSWORD','password');
+@define('STENDHAL_WEB_DB','stendhal_website');
 
 #
 # This user should only be able to read the tables but the account table that should be read/write
@@ -47,52 +47,52 @@ define('STENDHAL_WEB_DB','stendhal_website');
 #  grant select on stendhal.* to FOO@localhost identified by 'BAR';
 #  grant select,insert,update,delete on stendhal.account to FOO@localhost identified by 'BAR';
 #
-define('STENDHAL_GAME_HOSTNAME','127.0.0.1');
-define('STENDHAL_GAME_USERNAME','username');
-define('STENDHAL_GAME_PASSWORD','password');
-define('STENDHAL_GAME_DB','stendhal');
-define('STENDHAL_TEST_DB','stendhaltest');
+@define('STENDHAL_GAME_HOSTNAME','127.0.0.1');
+@define('STENDHAL_GAME_USERNAME','username');
+@define('STENDHAL_GAME_PASSWORD','password');
+@define('STENDHAL_GAME_DB','stendhal');
+@define('STENDHAL_TEST_DB','stendhaltest');
 
 
-define('STENDHAL_FRAME', 'content/frame/default.php');
+@define('STENDHAL_FRAME', 'content/frame/default.php');
 
 
 /*
  * We remove postman of the list, just in case it appears.
  * We remove admins of the list ( >600 ).
  */
-define('REMOVE_ADMINS_AND_POSTMAN','where name!="postman" and admin<=600');
+@define('REMOVE_ADMINS_AND_POSTMAN','where name!="postman" and admin<=600');
 
 
-define('STENDHAL_LOGIN_TARGET','https://stendhalgame.org');
+@define('STENDHAL_LOGIN_TARGET','https://stendhalgame.org');
 
 
 #
 # DEVEL switch
 #
-define('STENDHAL_SECURE_SESSION', false);
+@define('STENDHAL_SECURE_SESSION', false);
 
 # Counter
-define('STENDHAL_WEB_COUNTER', true);
+@define('STENDHAL_WEB_COUNTER', true);
 
 # Show achievements on character page
-define('STENDHAL_ACHIEVEMENTS', true);
+@define('STENDHAL_ACHIEVEMENTS', true);
 
 # URL-Rewriting. 
 # Please see scripts/urlrewrite.php for the mod_rewrite rules required in your apache configuration file.
-define('STENDHAL_MODE_REWRITE', false);
-define('STENDHAL_FOLDER', '');
+@define('STENDHAL_MODE_REWRITE', false);
+@define('STENDHAL_FOLDER', '');
 
 
 ## for displaying support logs
-define('SUPPORT_SERVER','irc.freenode.net');
-define('SUPPORT_CHANNEL','#channelname');
-define('MAIN_SERVER','irc.freenode.net');
-define('MAIN_CHANNEL','#channelname');
-define('IRC_BOT','ircbot');
-define('SUPPORT_LOG_DIRECTORY','/path-to-logs/');
-define('MAIN_LOG_DIRECTORY','/path-to-logs/');
+@define('SUPPORT_SERVER','irc.freenode.net');
+@define('SUPPORT_CHANNEL','#channelname');
+@define('MAIN_SERVER','irc.freenode.net');
+@define('MAIN_CHANNEL','#channelname');
+@define('IRC_BOT','ircbot');
+@define('SUPPORT_LOG_DIRECTORY','/path-to-logs/');
+@define('MAIN_LOG_DIRECTORY','/path-to-logs/');
 
 
-define('STENDHAL_TRUESTED_OPENID_CONSUMERS', 'http://127.0.0.1');
+@define('STENDHAL_TRUESTED_OPENID_CONSUMERS', 'http://127.0.0.1');
 ?>
