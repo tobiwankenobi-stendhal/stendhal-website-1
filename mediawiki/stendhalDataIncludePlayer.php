@@ -14,7 +14,7 @@ require_once($IP.'/../scripts/urlrewrite.php');
  * reads the icon of a Stendhal players
  */
 function stendhalDataIncludePlayerIconOnly($player) {
-	$res .= '<span class="stendhalPlayerIcon"><a href="'.rewriteURL('/character/'.surlencode($player->name).'.html').'">';
+	$res = '<span class="stendhalPlayerIcon"><a href="'.rewriteURL('/character/'.surlencode($player->name).'.html').'">';
 	$res .= '<img src="'.rewriteURL('/images/outfit/'.surlencode($player->outfit).'.png').'" />';
 	$res .= '</a></span>';
 	return $res;
@@ -28,7 +28,7 @@ function getAge($minutes) {
  * reads stats and optionally the icon and the description of Stendhal players
  */
 function stendhalDataIncludePlayerStats($player, $argv) {
-	$res .= '<div class="stendhalPlayer"><span class="stendhalPlayerIconNameBanner">';
+	$res = '<div class="stendhalPlayer"><span class="stendhalPlayerIconNameBanner">';
 
 	if (!isset($argv['info'])) {
 		$res .= stendhalDataIncludePlayerIconOnly($player);

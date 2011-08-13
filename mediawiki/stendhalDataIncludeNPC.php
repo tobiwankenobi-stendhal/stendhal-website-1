@@ -13,7 +13,7 @@ require_once($IP.'/../scripts/urlrewrite.php');
  * reads the icon of a Stendhal NPCs
  */
 function stendhalDataIncludeNPCIconOnly($NPC) {
-	$res .= '<span class="stendhalNPCIcon"><a href="'.rewriteURL('/npc/'.surlencode($NPC->name).'.html').'">';
+	$res = '<span class="stendhalNPCIcon"><a href="'.rewriteURL('/npc/'.surlencode($NPC->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($NPC->imagefile) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -23,7 +23,7 @@ function stendhalDataIncludeNPCIconOnly($NPC) {
  * reads stats and optionally the icon and the description of Stendhal NPCs
  */
 function stendhalDataIncludeNPCStats($NPC, $argv) {
-	$res .= '<div class="stendhalNPC"><span class="stendhalNPCIconNameBanner">';
+	$res = '<div class="stendhalNPC"><span class="stendhalNPCIconNameBanner">';
 
 	if (!isset($argv['info'])) {
 		$res .= stendhalDataIncludeNPCIconOnly($NPC);

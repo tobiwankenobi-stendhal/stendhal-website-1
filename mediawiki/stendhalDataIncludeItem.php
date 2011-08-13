@@ -29,7 +29,7 @@ function getItemByName($name) {
  * reads the icon of a Stendhal items
  */
 function stendhalDataIncludeItemIconOnly($item) {
-	$res .= '<span class="stendhalItemIcon"><a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($item->name).'.html').'">';
+	$res = '<span class="stendhalItemIcon"><a href="'.rewriteURL('/item/'.surlencode($item->class).'/'.surlencode($item->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($item->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -39,7 +39,7 @@ function stendhalDataIncludeItemIconOnly($item) {
  * reads stats and optionally the icon and the description of Stendhal items
  */
 function stendhalDataIncludeItemStats($item, $argv) {
-	$res .= '<div class="stendhalItem"><span class="stendhalItemIconNameBanner">';
+	$res = '<div class="stendhalItem"><span class="stendhalItemIconNameBanner">';
 
 	if (!isset($argv['info'])) {
 		$res .= stendhalDataIncludeItemIconOnly($item);

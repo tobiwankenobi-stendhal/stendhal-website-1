@@ -13,7 +13,7 @@ require_once($IP.'/../scripts/urlrewrite.php');
  * reads the icon of a Stendhal Achievements
  */
 function stendhalDataIncludeAchievementIconOnly($Achievement) {
-	$res .= '<span class="stendhalAchievementIcon"><a href="'.rewriteURL('/Achievement/'.surlencode($Achievement->name).'.html').'">';
+	$res = '<span class="stendhalAchievementIcon"><a href="'.rewriteURL('/Achievement/'.surlencode($Achievement->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($Achievement->imagefile) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -23,7 +23,7 @@ function stendhalDataIncludeAchievementIconOnly($Achievement) {
  * reads stats and optionally the icon and the description of Stendhal Achievements
  */
 function stendhalDataIncludeAchievementStats($Achievement, $argv) {
-	$res .= '<div class="stendhalAchievement"><span class="stendhalAchievementIconNameBanner">';
+	$res = '<div class="stendhalAchievement"><span class="stendhalAchievementIconNameBanner">';
 
 	if (!isset($argv['info'])) {
 		$res .= stendhalDataIncludeAchievementIconOnly($Achievement);

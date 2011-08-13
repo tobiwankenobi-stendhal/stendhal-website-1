@@ -29,7 +29,7 @@ function getCreatureByName($name) {
  * reads the icon of a Stendhal creatures
  */
 function stendhalDataIncludeCreatureIconOnly($creature) {
-	$res .= '<span class="stendhalCreatureIcon"><a href="'.rewriteURL('/creature/'.surlencode($creature->name).'.html').'">';
+	$res = '<span class="stendhalCreatureIcon"><a href="'.rewriteURL('/creature/'.surlencode($creature->name).'.html').'">';
 	$res .= '<img src="' . htmlspecialchars($creature->gfx) . '" />';
 	$res .= '</a></span>';
 	return $res;
@@ -39,7 +39,7 @@ function stendhalDataIncludeCreatureIconOnly($creature) {
  * reads stats and optionally the icon and the description of Stendhal creatures
  */
 function stendhalDataIncludeCreatureStats($creature, $argv) {
-	$res .= '<div class="stendhalCreature"><span class="stendhalCreatureIconNameBanner">';
+	$res = '<div class="stendhalCreature"><span class="stendhalCreatureIconNameBanner">';
 
 	if (!isset($argv['info'])) {
 		$res .= stendhalDataIncludeCreatureIconOnly($creature);
