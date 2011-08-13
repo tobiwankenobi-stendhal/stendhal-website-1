@@ -129,8 +129,8 @@ var mapType = new google.maps.ImageMapType({
 		if (x < 0 || x >= tileRange) {
 			return null;
 		}
-		return "http://localhost/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
-		return "http://arianne.sourceforge.net/stendhal/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
+//		return "http://localhost/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
+		return "http://arianne.sourceforge.net/stendhal/map/1/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
 	},
 	tileSize: new google.maps.Size(256, 256),
 	isPng: true,
