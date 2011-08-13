@@ -18,7 +18,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once('scripts/mysql.php');
+require_once('scripts/configuration.php');
+require_once('scripts/mysql.php');
 
 
 

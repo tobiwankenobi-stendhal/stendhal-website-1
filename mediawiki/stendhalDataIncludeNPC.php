@@ -3,6 +3,7 @@ if (!defined('MEDIAWIKI')) {
 	die("<b>Stendhal Data Include</b> is a MediaWiki extension not intended to be used on its own.");
 }
 
+require_once($IP.'/../configuration.php');
 require_once($IP.'/../scripts/mysql.php');
 require_once($IP.'/../scripts/npcs.php');
 require_once($IP.'/../scripts/urlrewrite.php');

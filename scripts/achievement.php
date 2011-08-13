@@ -209,8 +209,13 @@ class Achievement {
 		}
 		$list = array();
 		while($row = mysql_fetch_assoc($result)) {
+			if (isset($row['reachedOn'])) {
+				$reachedOn = $row['reachedOn'];
+			} else {
+				$reachedOn = null;
+			}
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
-				$row['category'], $row['base_score'], $row['description'], $row['cnt'], $row['reachedOn']);
+				$row['category'], $row['base_score'], $row['description'], $row['cnt'], $reachedOn);
 		}
 		mysql_free_result($result);
 		return $list;

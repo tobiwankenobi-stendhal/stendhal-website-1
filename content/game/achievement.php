@@ -58,7 +58,7 @@ class AchievementPage extends Page {
 
 
 		startBox('My Friends');
-		if ($_SESSION && $_SESSION['account']) {
+		if (isset($_SESSION) && $_SESSION['account']) {
 			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
 			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
 			$this->renderPlayers($list);
@@ -71,7 +71,7 @@ class AchievementPage extends Page {
 
 
 		startBox('My Characters');
-		if ($_SESSION && $_SESSION['account']) {
+		if (isset($_SESSION) && $_SESSION['account']) {
 			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
 			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
 			$this->renderPlayers($list);
@@ -135,9 +135,9 @@ class AchievementPage extends Page {
 	function renderPlayers($list) {
 		foreach ($list as $entry) {
 			$style = '';
-			if($entry['description'] && $entry['title']) {
+			if (isset($entry['description']) && isset($entry['title'])) {
 				$title = htmlspecialchars($entry['title']).': '.htmlspecialchars($entry['description']);
-			} else if ($entry['timedate']) {
+			} else if (isset($entry['timedate'])) {
 				$title= 'Earned on '.htmlspecialchars($entry['timedate']);
 			} else {
 				$style = 'class="achievementOpen"';
