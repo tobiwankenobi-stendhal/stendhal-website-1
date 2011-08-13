@@ -53,12 +53,14 @@ if (strpos($url, '..') !== false) {
 
 $etag = STENDHAL_VERSION.'-'.sha1($url);
 $headers = getallheaders();
-$requestedEtag = $headers['If-None-Match'];
+if (isset($headers['If-None-Match'])) {
+	$requestedEtag = $headers['If-None-Match'];
+}
 header("Content-type: image/png");
 header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
 header('Etag: "'.$etag.'"');
 
-if (isset($requestedEtag) && ($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"')) {
+if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
 	header('HTTP/1.0 304 Not modified');
 } else {
 	imagepng(createImage($url));
