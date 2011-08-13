@@ -4,6 +4,7 @@ if (!defined('MEDIAWIKI')) {
 }
 
 require_once($IP.'/../scripts/xml.php');
+require_once($IP.'/../configuration.php');
 require_once($IP.'/../scripts/cache.php');
 require_once($IP.'/extensions/stendhalDataIncludeItem.php');
 require_once($IP.'/extensions/stendhalDataIncludeCreature.php');
