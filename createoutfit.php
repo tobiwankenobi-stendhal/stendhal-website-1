@@ -91,8 +91,9 @@ function createImage($outfit, $offset) {
 }
 
 $outfit = $_GET['outfit'];
-$offset = $_GET['offset'];
-if (!isset($offset)) {
+if (isset($_GET['offset'])) {
+	$offset = $_GET['offset'];
+} else {
 	$offset = 2;
 }
 

@@ -85,7 +85,7 @@ class News {
 
 		// image for type of news
 		if (isset($this->typeImage) && strlen($this->typeImage) > 0) {
-			echo '<div class="newsIcon" style="float: right; padding-left: 2em"><img src="'.$folder.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt="" width="36px" height="36px"></div>';
+			echo '<div class="newsIcon" style="float: right; padding-left: 2em"><img src="'.STENDHAL_FOLDER.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt="" width="36px" height="36px"></div>';
 		}
 
 		// render one line description
@@ -108,7 +108,7 @@ class News {
 		}
 		
 		// add a tweet button
-		if ($_REQUEST['test']) {
+		if (isset($_REQUEST['test'])) {
 			echo '<div id="social_buttons" class="newsContent newsDetail">'.$this->renderTweetButton().$this->renderFacebookButton().$this->renderBuzzButton().'</div>';
 		}
 		
