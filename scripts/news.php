@@ -219,13 +219,15 @@ function getNews($where='', $sortby='created desc', $cond='limit 5') {
 	$list=array();
 	
 	while($row=mysql_fetch_assoc($result)) {
-		$resultimages = mysql_query('select * from news_images where news_id="'.$row['id'].'" order by created desc', getWebsiteDB());
+		/* unused
+		/$resultimages = mysql_query('select * from news_images where news_id="'.$row['news_id'].'" order by created desc', getWebsiteDB());
 		$images=array();
 
 		while($rowimages=mysql_fetch_assoc($resultimages)) {      
 			$images[]=$rowimages['url'];
 		}
 		mysql_free_result($resultimages);
+		*/
 
 		$list[]=new News(
 			$row['news_id'],

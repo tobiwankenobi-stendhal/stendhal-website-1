@@ -145,21 +145,20 @@ class Player {
     return $account;
   }
 
-  function getHallOfFameScore($fametype) {
-   $tableSuffix = 'alltimes';
-   $result=mysql_query('select points from halloffame_archive_'.$tableSuffix.' where day = CURRENT_DATE() and charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
+	function getHallOfFameScore($fametype) {
+		$tableSuffix = 'alltimes';
+		$result = mysql_query('select points from halloffame_archive_'.$tableSuffix.' where day = CURRENT_DATE() and charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
 
-    while($row=mysql_fetch_assoc($result)) {
-      $points=$row['points'];
-    }
+		while($row = mysql_fetch_assoc($result)) {
+			$points = $row['points'];
+		}
 
-    mysql_free_result($result);
-    if(sizeof($points)==0){
-	$points=0;
+		mysql_free_result($result);
+		if (!isset($points)) {
+			$points=0;
+		}
+		return $points;
 	}
-    return $points;
-
-  }
 }
 
 /**
