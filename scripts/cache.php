@@ -52,7 +52,10 @@ interface Cache {
 }
 
 class APCCacheImpl implements Cache {
-	private $keysToPurge = array('stendhal_creatures', 'stendhal_items', 'stendhal_npcs');
+	private $keysToPurge = array('stendhal_creatures', 'stendhal_items', 'stendhal_npcs',
+								'stendhal_item_classes', 'stendhal_creature_classes',
+								'stendhal_pois', 'stendhal_zones');
+	//TODO: stendhal_events_..., $stendhal_query_...
 
 	function store($key, $value, $ttl = 0) {
 		return apc_store($key, $value, $ttl);
@@ -70,18 +73,28 @@ class APCCacheImpl implements Cache {
 		return null;
 	}
 
-	function clearCacheIfOutdate() {
+	function isCacheInvalid() {
 		$version = $this->fetch('stendhal_version');
 		if (!defined('STENDHAL_VERSION')) {
 			error_log('STENDHAL_VERSION undefined: '.$_SERVER['SCRIPT_URI']);
 		} else {
 			if ($version != STENDHAL_VERSION) {
-				foreach($this->keysToPurge as $key) {
-					apc_delete($key);
-				}
-				$this->store('stendhal_version', STENDHAL_VERSION);
+				return true;
 			}
 		}
+	}
+
+	function clearCacheIfOutdate() {
+		if ($this->isCacheInvalid()) {
+			$this->invalidateCache();
+		}
+	}
+
+	function invalidateCache() {
+		foreach($this->keysToPurge as $key) {
+			apc_delete($key);
+		}
+		$this->store('stendhal_version', STENDHAL_VERSION);
 	}
 }
 
