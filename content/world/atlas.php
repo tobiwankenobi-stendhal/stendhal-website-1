@@ -178,10 +178,15 @@ $().ready(function() {
 	map.setMapTypeId('outside');
 	<?php
 	if (isset($meX)) {
-		echo 'new google.maps.Marker({
+		echo 'var me = new google.maps.Marker({
 			position: worldToLatLng('.$meX.', '.$meY.'), 
 			map: map, title:"Me",
 			icon: "/images/mapmarker/me.png"
+			});';
+		echo 'addClickEventToMarker(me, {
+				name: "Me",
+				description: "I am here",
+				url: "/account/mycharacters.html"
 			});';
 	}
 	echo "\r\nvar pois = ".json_encode(PointofInterest::getPOIs()).";\r\n";
