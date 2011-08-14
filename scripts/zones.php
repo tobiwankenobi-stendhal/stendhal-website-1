@@ -183,7 +183,7 @@ class Zone {
 					$x, $y,
 					$zone->x + intval($x), $zone->y + intval($y),
 					$npc->name, "npc",
-					"", "");
+					$npc->description, rewriteURL('/npc/'.surlencode($npc->name).'.html'));
 			}
 		}
 		return $res;
