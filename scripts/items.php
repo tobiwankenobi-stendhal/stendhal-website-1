@@ -145,7 +145,7 @@ function getItems() {
 				$susceptibilities=array();
 				if (isset($items[$i]['susceptibility'])) {
 					foreach($items[$i]['susceptibility'] as $susceptibility) {
-						if ($susceptibility['type'] != "") {
+						if (isset($susceptibility['type'])) {
 							$susceptibilities[$susceptibility['type']]=round(100 / $susceptibility['value']);
 						}
 					}

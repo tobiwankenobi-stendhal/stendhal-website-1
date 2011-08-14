@@ -309,7 +309,7 @@ function getMonsters() {
 				$susceptibilities=array();
 				if (isset($creatures[$i]['abilities'][0]['susceptibility'])) {
 					foreach($creatures[$i]['abilities'][0]['susceptibility'] as $susceptibility) {
-						if ($susceptibility['type'] != "") {
+						if (isset($susceptibility['type'])) {
 							$susceptibilities[$susceptibility['type']]=round(100 / $susceptibility['value']);
 						}
 					}
