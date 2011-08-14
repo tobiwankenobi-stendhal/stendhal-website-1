@@ -202,14 +202,14 @@ $().ready(function() {
 
 function addClickEventToMarker(marker, poi) {
 	google.maps.event.addListener(marker, 'click', function(x, y, z) {
-		infowindow.setContent(poi.description);
+		infowindow.setContent("<b><a target=\"_blank\" href=\""
+				 + poi.url + "\">" 
+				 + poi.name.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+				 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p>");
 		infowindow.open(map, marker);
 	});
 }
 </script>
-
-
-
 <?php
 	}
 }
