@@ -71,7 +71,9 @@ class AtlasPage extends Page {
 		}
 		?>
 
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script
+	type="text/javascript"
+	src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 
 function EuclideanProjection() {
@@ -171,11 +173,8 @@ $().ready(function() {
 	// add the new map types to map.mapTypes
 	map.mapTypes.set("outside", mapType);
 
+	infowindow = new google.maps.InfoWindow({});
 
-	// handle maptypeid_changed event to set the credit line
-	google.maps.event.addListener(map, 'maptypeid_changed', function() {
-		//
-	});
 	map.setMapTypeId('outside');
 	<?php
 	if (isset($meX)) {
@@ -192,13 +191,26 @@ $().ready(function() {
 		var poi = pois[key];
 		if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
 			|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
-			new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
+
+			var marker = new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
 				map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
+
+			addClickEventToMarker(marker, poi);
 		}
 	}
 });
+
+function addClickEventToMarker(marker, poi) {
+	google.maps.event.addListener(marker, 'click', function(x, y, z) {
+		infowindow.setContent(poi.description);
+		infowindow.open(map, marker);
+	});
+}
 </script>
-<?php 
+
+
+
+<?php
 	}
 }
 $page = new AtlasPage();
