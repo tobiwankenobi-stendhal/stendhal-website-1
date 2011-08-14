@@ -22,8 +22,8 @@ class AtlasPage extends Page {
 		// if there is exactly one poi, focus on that
 		if (isset($_REQUEST['poi']) && strpos($_REQUEST['poi'], '.') === false) {
 			$pois = PointofInterest::getPOIs();
-			$poi = $pois[$_REQUEST['poi']];
-			if (isset($poi)) {
+			if (isset($pois[$_REQUEST['poi']])) {
+				$poi = $pois[$_REQUEST['poi']];
 				$zoom = 5;
 				$focusX = $poi->gx;
 				$focusY = $poi->gy;
