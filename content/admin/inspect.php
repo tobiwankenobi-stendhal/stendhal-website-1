@@ -28,7 +28,10 @@ class InspectPage extends Page {
 		?>
 		<form action="#result" method="POST">
 			<label for="data">Paste result of /script DeepInspect.class:</label>
-			<textarea name="data" id="data" cols="75" rows="20"><?php if (isset($_POST['data']) {echo htmlspecialchars($_POST['data'])}?></textarea>
+			<textarea name="data" id="data" cols="75" rows="20">
+				<?php if (isset($_POST['data'])) {
+					echo htmlspecialchars($_POST['data']);
+				}?></textarea>
 			<input type="submit">
 		</form>
 		<?php
