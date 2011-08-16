@@ -49,6 +49,11 @@ interface Cache {
 	 * clears the cache after an update
 	 */
 	function clearCacheIfOutdate();
+
+	/**
+	 * clears the cache
+	 */
+	function clear();
 }
 
 class APCCacheImpl implements Cache {
@@ -86,11 +91,11 @@ class APCCacheImpl implements Cache {
 
 	function clearCacheIfOutdate() {
 		if ($this->isCacheInvalid()) {
-			$this->invalidateCache();
+			$this->clear();
 		}
 	}
 
-	function invalidateCache() {
+	function clear() {
 		foreach($this->keysToPurge as $key) {
 			apc_delete($key);
 		}
@@ -120,6 +125,10 @@ class NonPersistentCacheImpl implements Cache {
 	}
 
 	function clearCacheIfOutdate() {
+		// do nothing as the cache is not persistent
+	}
+
+	function clear() {
 		// do nothing as the cache is not persistent
 	}
 }

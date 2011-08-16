@@ -7,6 +7,18 @@ class CacheInfoPage extends Page {
 			die("Ooops!");
 		}
 
+		if (isset($_REQUEST['clear'])) {
+			global $cache;
+			$cache->clear();
+			startBox('Cache');
+			echo 'Cache was cleared.';
+			endBox();
+		} else {
+			$this->dumpDetails();
+		}
+	}
+
+	function dumpDetails() {
 		startBox('User');
 		echo '<pre>';
 		var_dump(apc_cache_info('user'));
