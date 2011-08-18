@@ -217,7 +217,10 @@ body {
 		startBox(t('Resources')); ?>
 		<ul id="resourcemenu" class="menu">
 			<?php
-			echo '<li><a id="menuResourceConcept" href="'.rewriteURL('/'.$lang.'/concept.html').'">'.t('Concept').'</a></li>'."\n";
+			// TODO: show concept to everyone as soon as it is finished
+			if (isset($_SESSION) && isset($_SESSION['account'])) {
+				echo '<li><a id="menuResourceConcept" href="'.rewriteURL('/'.$lang.'/concept.html').'">'.t('Concept').'</a></li>'."\n";
+			}
 			echo '<li><a id="menuResourceProjects" href="'.rewriteURL('/'.$lang.'/projects/2011.html').'">'.t('Projects').'</a></li>'."\n";
 			echo '<li><a id="menuResourceMaterial" href="'.rewriteURL('/'.$lang.'/material.html').'">'.t('Material').'</a></li>'."\n";
 			echo '<li><a id="menuResourceChat" href="'.rewriteURL('/'.$lang.'/chat.html').'">'.t('Chat').'</a></li>'."\n";
