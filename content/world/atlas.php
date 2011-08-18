@@ -164,7 +164,8 @@ $().ready(function() {
 		center: worldToLatLng(<?php echo $focusX.', '.$focusY?>),
 		noClear: true,
 		zoom: <?php echo $zoom;?>,
-		mapTypeControl: false
+		mapTypeControl: false,
+		streetViewControl: false
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
