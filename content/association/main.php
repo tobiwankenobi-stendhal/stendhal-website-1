@@ -58,7 +58,27 @@ class MainPage extends Page {
 		global $lang;
 		startBox(htmlspecialchars(ucfirst($this->title)));
 		if ($this->cmsPage != null) {
-			echo $this->cmsPage->content;
+
+			// Hack for paypal button which does not survive phppurifier
+			$buttonId = array();
+			$buttonId['de'] = '923QB6YHDJNBQ';
+			$buttonId['en'] = 'Q6XS4FATCTR2S';
+
+			$alternativeDonate = '<h3>Alternativ</h3>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="float:right; margin-left:1em">
+<p style="margin:0 0 0.5em 1.5em">PayPal</p>
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="'.$buttonId[$lang].'">
+<input type="image" src="/images/association/paypal_'.$lang.'_button.gif" border="0" name="submit" alt="PayPal.">
+</form>
+<a href="http://flattr.com/thing/333510/Faiumoni-e-V-"><img alt="Flattr" src="/images/association/flattrbutton.png" width="50" height="60"></a>
+</div>';
+
+			$text = $this->cmsPage->content;
+			$text = preg_replace('/\[ALTERNATIVE_DONATE\]/', $alternativeDonate, $text);
+			echo $text;
+
+
 			echo '<div class="versionInformation">'.t('Last edited on').' '
 				. htmlspecialchars($this->cmsPage->timedate)
 				.' '.t('by account').' '.htmlspecialchars($this->cmsPage->accountId);
