@@ -71,8 +71,7 @@ class MainPage extends Page {
 <input type="hidden" name="hosted_button_id" value="'.$buttonId[$lang].'">
 <input type="image" src="/images/association/paypal_'.$lang.'_button.gif" border="0" name="submit" alt="PayPal.">
 </form>
-<a href="http://flattr.com/thing/333510/Faiumoni-e-V-"><img alt="Flattr" src="/images/association/flattrbutton.png" width="50" height="60"></a>
-</div>';
+<a href="http://flattr.com/thing/333510/Faiumoni-e-V-"><img alt="Flattr" src="/images/association/flattrbutton.png" width="50" height="60"></a>';
 
 			$text = $this->cmsPage->content;
 			$text = preg_replace('/\[ALTERNATIVE_DONATE\]/', $alternativeDonate, $text);
