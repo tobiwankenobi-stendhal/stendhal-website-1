@@ -35,6 +35,7 @@ class AtlasPage extends Page {
 			$coordinates = explode('.', $_REQUEST['me']);
 			$zone = $zones[$coordinates[0]];
 			if (isset($zone) && isset($zone->x)) {
+				$meZone = $coordinates[0];
 				$meX = $zone->x + intval($coordinates[1]);
 				$meY = $zone->y + intval($coordinates[2]);
 				if ($zone->z === 0) {
@@ -186,7 +187,8 @@ $().ready(function() {
 			});';
 		echo 'addClickEventToMarker(me, {
 				name: "Me",
-				description: "I am here",
+				description: "I am here at '.htmlspecialchars($meZone)
+				.' ('.htmlspecialchars($coordinates[1]).', '.htmlspecialchars($coordinates[2]).').",
 				url: "/account/mycharacters.html"
 			});';
 	}
