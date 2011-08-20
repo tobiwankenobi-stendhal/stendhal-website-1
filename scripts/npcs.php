@@ -84,7 +84,7 @@ class NPC {
 			'Azazel', 'Cherubiel', 'Gabriel', 'Ophaniel', 'Raphael', 'Uriel', 'Zophiel',
 			'Ben', 'Goran', 'Mary', 'Zak',
 			'Easter Bunny', 'Rose Leigh', 'Santa',
-			'Amber');
+			'Amber', 'Skye');
 
 		$result = mysql_query($query, getGameDB());
 		$list = array();
