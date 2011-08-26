@@ -186,7 +186,7 @@ class Zone {
 				$res[$npc->name] = new PointofInterest($zone->name,
 					$x, $y,
 					$zone->x + intval($x), $zone->y + intval($y),
-					$npc->name, "npc",
+					$npc->name, $npc->name, "npc",
 					$npc->description, rewriteURL('/npc/'.surlencode($npc->name).'.html'));
 			}
 		}
