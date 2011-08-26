@@ -71,16 +71,8 @@ class MainPage extends Page {
 <input type="hidden" name="hosted_button_id" value="'.$buttonId[$lang].'">
 <input type="image" src="/images/association/paypal_'.$lang.'_button.gif" border="0" name="submit" alt="PayPal.">
 </form>
-<a href="http://flattr.com/thing/333510/Faiumoni-e-V-"><img alt="Flattr" src="/images/association/flattrbutton.png" width="50" height="60"></a>';
+'; // <a href="http://flattr.com/thing/333510/Faiumoni-e-V-"><img alt="Flattr" src="/images/association/flattrbutton.png" width="50" height="60"></a>';
 
-if ($lang == 'de') {
-			$alternativeDonate = '<h3>Alternativ</h3>
-<p>Unser Vorstand Hendrik Brummermann versucht ein PayPal-Konto für den Verein zu eröffnen. PayPal möchte verständlicherweise Dokumente über den Verein haben (Satzung, Steuerbefreiung, etc.). Allerdings ist die Hochladefunktion von PayPal defekt.';
-
-} else {
-			$alternativeDonate = '<h3>Alternativ</h3>
-<p>Hendrik Brummermann is trying to open a PayPal account for the association. PayPal wants to have copies of the association documents such as the statute and the documents from the tax office saying that we are altruistic for obvious reasons. The upload form on the PayPal website, however, is defect.';
-}
 
 			$text = $this->cmsPage->content;
 			$text = preg_replace('/\[ALTERNATIVE_DONATE\]/', $alternativeDonate, $text);
