@@ -32,8 +32,8 @@ if (!isset($lang) && !isset($_REQUEST['id'])) {
 if ($lang == 'de') {
 	require_once('content/association/de.php');
 	loadLanguage();
-};
-﻿
+}
+
 $internalTitle = $_REQUEST['title'];
 if (!isset($internalTitle) || $internalTitle == '') {
 	$internalTitle = 'start';
