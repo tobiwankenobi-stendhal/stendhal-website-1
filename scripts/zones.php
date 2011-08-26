@@ -157,10 +157,14 @@ class Zone {
 		for ($i=0; $i < sizeof($pois) / 2; $i++) {
 			$attr = $pois[$i.' attr'];
 			$children = $pois[$i];
+			$title = $children['name'][0];
+			if (isset($children['title'])) {
+				$title = $children['title'][0];
+			}
 			$res[$children['name'][0]] = new PointofInterest($zone->name, 
 				$attr['x'], $attr['y'], 
 				$zone->x + intval($attr['x']), $zone->y + intval($attr['y']),
-				$children['name'][0], $children['type'][0],
+				$children['name'][0], $title, $children['type'][0],
 				$children['description'][0], $children['url'][0]);
 		}
 		return $res;
@@ -202,17 +206,19 @@ class PointofInterest {
 	public $gx;
 	public $gy;
 	public $name;
+	public $title;
 	public $type;
 	public $description;
 	public $url;
 
-	function __construct($zoneName, $x, $y, $gx, $gy, $name, $type, $description, $url) {
+	function __construct($zoneName, $x, $y, $gx, $gy, $name, $title, $type, $description, $url) {
 		$this->zoneName = $zoneName;
 		$this->x = intval($x);
 		$this->y = intval($y);
 		$this->gx = intval($gx);
 		$this->gy = intval($gy);
 		$this->name = $name;
+		$this->title = $title;
 		$this->type = $type;
 		$this->description = $description;
 		$this->url = $url;
