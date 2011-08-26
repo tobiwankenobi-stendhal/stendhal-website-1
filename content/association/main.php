@@ -82,13 +82,13 @@ class MainPage extends Page {
 			echo '<div class="versionInformation">'.t('Last edited on').' '
 				. htmlspecialchars($this->cmsPage->timedate)
 				.' '.t('by account').' '.htmlspecialchars($this->cmsPage->accountId);
-			if ($_SESSION['account']) {
+			if (isset($_SESSION) && isset($_SESSION['account'])) {
 				echo ' - <a href="/?id=content/association/edit&amp;lang='.surlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">'.t('edit').'</a>';
 			}
 			echo '</div>';
 		} else {
 			echo '<p>'.t('Sorry, the requested page does not exist.').'</p>';
-			if ($_SESSION['account']) {
+			if (isset($_SESSION) && isset($_SESSION['account'])) {
 				echo '<a href="/?id=content/association/edit&amp;lang='.urlencode($lang).'&amp;title='.surlencode($_REQUEST['title']).'">'.t('create it').'</a>';
 			}
 		}
