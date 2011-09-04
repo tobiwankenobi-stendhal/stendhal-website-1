@@ -43,18 +43,19 @@ class CreateAccountPage extends Page {
 			return true;
 		}
 
+		$user = strtolower($_POST['name']);
 		require_once('scripts/pharauroa/pharauroa.php');
 		$clientFramework = new PharauroaClientFramework(STENDHAL_MARAUROA_SERVER, STENDHAL_MARAUROA_PORT, STENDHAL_MARAUROA_CREDENTIALS);
 		$template = new PharauroaRPObject();
 		$template->put('outfit', $_REQUEST['outfitcode']);
 
-		$this->result = $clientFramework->createAccount($_POST['name'], $_POST['pw'], $_POST['email']);
+		$this->result = $clientFramework->createAccount($user, $_POST['pw'], $_POST['email']);
 
 		if ($this->result->wasSuccessful()) {
 			// on success: login and redirect to character creation
 			header('HTTP/1.0 301 Moved permanently.');
 			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/create-character.html')));
-			$_SESSION['account'] = Account::readAccountByName($_POST['name']);
+			$_SESSION['account'] = Account::readAccountByName($user);
 			PlayerLoginEntry::logUserLogin($_POST['name'], $_SERVER['REMOTE_ADDR'], null, true);
 			$_SESSION['marauroa_authenticated_username'] = $_SESSION['account']->username;
 			$_SESSION['csrf'] = createRandomString();

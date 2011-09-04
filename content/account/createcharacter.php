@@ -66,12 +66,13 @@ class CreateCharacterPage extends Page {
 			return true;
 		}
 
+		$user = strtolower($_POST['name']);
 		require_once('scripts/pharauroa/pharauroa.php');
 		$clientFramework = new PharauroaClientFramework(STENDHAL_MARAUROA_SERVER, STENDHAL_MARAUROA_PORT, STENDHAL_MARAUROA_CREDENTIALS);
 		$template = new PharauroaRPObject();
 		$template->put('outfit', $_REQUEST['outfitcode']);
 
-		$this->result = $clientFramework->createCharacter($_SESSION['account']->username, $_REQUEST['name'], $template);
+		$this->result = $clientFramework->createCharacter($_SESSION['account']->username, $user, $template);
 
 		if ($this->result->wasSuccessful()) {
 			// redirect to my characters page
