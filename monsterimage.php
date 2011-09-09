@@ -57,7 +57,7 @@ if (isset($headers['If-None-Match'])) {
 	$requestedEtag = $headers['If-None-Match'];
 }
 header("Content-type: image/png");
-header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
+header("Cache-Control: max-age=3888000, public"); // 45 * 24 * 60 * 60
 header('Etag: "'.$etag.'"');
 
 if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
