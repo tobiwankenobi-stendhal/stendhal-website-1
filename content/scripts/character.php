@@ -41,7 +41,6 @@ if(sizeof($this->players)==0) {
 	return;
 }
 $choosen=$this->players[0];
-var_dump($choosen);
 $account=$choosen->getAccountInfo();
 ?>
 
