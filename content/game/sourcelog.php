@@ -30,7 +30,7 @@ startBox("CVS"); ?>
 <?php
 	$directory = CVS_LOG_DIRECTORY;
 
-	if (isset($month) && preg_match("/^\d\d\d\d-\d\d$/", $_GET['month'])) {
+	if (isset($_GET['month']) && preg_match("/^\d\d\d\d-\d\d$/", $_GET['month'])) {
 	$month = $_GET['month'];
 ?>
 	<p>
