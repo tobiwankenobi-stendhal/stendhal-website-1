@@ -28,7 +28,7 @@ class Player {
   public $level;
   /* An outfit representing the player look in game. */
   public $outfit;
-  /* The age of the player */
+  /* The colors of the outfit. */
   public $age;
   /* XP of the player. It is a special attribute. */
   public $xp;
@@ -44,12 +44,15 @@ class Player {
   /* When was this player last seen */
   public $lastseen;
 
-  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $money, $adminlevel, $attributes, $equipment, $lastseen) {
+  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $outfitColors, $money, $adminlevel, $attributes, $equipment, $lastseen) {
     $this->name=$name;
     $this->sentence=$sentence;
     $this->age=$age;
     $this->level=$level;
     $this->outfit=$outfit;
+    if (isset($outfitColors) && strlen($outfitColors) > 0) {
+        $this->outfit=$outfit.'_'.$outfitColors;
+    }
     $this->xp=$xp;
     $this->married=$married;
     $this->attributes=$attributes;
@@ -177,7 +180,11 @@ function getPlayer($name) {
 function getBestPlayer($tableSuffix, $where='') {
 	$query = 'select halloffame_archive_'.$tableSuffix.'.points, halloffame_archive_'.$tableSuffix.'.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.sentence from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
 	$list = queryWithCache($query, 60*60, getGameDB());
-	return $list[0];
+	if (count($list) > 0) {
+		return $list[0];
+	} else {
+		return false;
+	}
 }
 
 
@@ -247,6 +254,7 @@ function _getPlayers($query) {
                      $row['xp'],
                      $row['married'],
                      $row['outfit'],
+                     $row['outfit_colors'],
                      $row['money'],
                      $row['admin'],
                      $attributes,

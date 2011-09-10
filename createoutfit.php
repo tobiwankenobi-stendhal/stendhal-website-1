@@ -47,42 +47,55 @@ function addToImage($index, &$baseIm, $path, $offset) {
  * An outfit is made is a mandatory base image and optional
  * head, hair and dress images.
  */
-function createImage($outfit, $offset) {
+function createImage($completeOutfit, $offset) {
 	global $OUTFITS_BASE;
+
+	$outfit = $completeOutfit[0];
+	if (count($completeOutfit) > 1) {
+		$detailColor = hexdec($completeOutfit[1]);
+		$hairColor = hexdec($completeOutfit[2]);
+		$dressColor = hexdec($completeOutfit[4]);
+	}
 
 	// Create base image
 	$result=imagecreatetruecolor(48, 64);
 	$white=imagecolorallocate($result, 255, 255,0);
 	imagefill($result, 0, 0, $white);
-	
+
 	$transColor=imagecolorat($result, 0, 0);
 	imagecolortransparent($result, $transColor);
-	
+
 	// Load base character.
 	$baseIndex=($outfit % 100);
 	$outfit=$outfit/100;
-	
+
 	$baseIm=imagecreatefrompng($OUTFITS_BASE.'/player_base_'.$baseIndex.'.png');
 	$transColor=imagecolorat($baseIm, 0, 0);
 	imagecolortransparent($baseIm, $transColor);
 	imagecopymerge($result, $baseIm, 0, 0, 0, $offset * 64, 48, 64, 100);
 	imagedestroy($baseIm);
-	
+
 	// Load dress image and apply.
 	$dressIndex=($outfit % 100);
 	$outfit=$outfit/100;
+	if (isset($dressColor)) {
+		// TODO: apply color to dress
+	}
 	conditionalAddToImage($dressIndex, $result, $OUTFITS_BASE.'/dress_', $offset);
-	
+
 	// Load head image and display
 	$headIndex=($outfit % 100);
 	$outfit=$outfit/100;
 	addToImage($headIndex, $result, $OUTFITS_BASE.'/head_', $offset);
-	
+
 	// Load hair image and display.
 	$hairIndex=($outfit % 100);
 	$outfit=$outfit/100;
+	if (isset($hairColor)) {
+		// TODO: apply color to hair
+	}
 	conditionalAddToImage($hairIndex, $result, $OUTFITS_BASE.'/hair_', $offset);
-	
+
 	// Finally load details 
 	$detailIndex=($outfit % 100);
 	$outfit=$outfit/100;
@@ -90,14 +103,14 @@ function createImage($outfit, $offset) {
 	return $result;
 }
 
-$outfit = $_GET['outfit'];
+$completeOutfit = $_GET['outfit'];
 if (isset($_GET['offset'])) {
 	$offset = $_GET['offset'];
 } else {
 	$offset = 2;
 }
 
-$etag = STENDHAL_VERSION.'-'.intval($outfit, 10).'-'.intval($offset, 10);
+$etag = STENDHAL_VERSION.'-'.urlencode($completeOutfit).'-'.intval($offset, 10);
 $headers = getallheaders();
 if (isset($headers['If-None-Match'])) {
 	$requestedEtag = $headers['If-None-Match'];
@@ -110,6 +123,5 @@ header('Etag: "'.$etag.'"');
 if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
 	header('HTTP/1.0 304 Not modified');
 } else {
-	imagepng(createImage($outfit, $offset));
+	imagepng(createImage(explode('_', $completeOutfit), $offset));
 }
-?>

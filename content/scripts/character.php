@@ -9,7 +9,7 @@ class CharacterPage extends Page {
 
 	public function __construct() {
 		$this->name=$_REQUEST["name"];
-		$this->players=getPlayers('where name="'.addslashes($this->name).'"', 'name');
+		$this->players=getPlayers("where name='".mysql_real_escape_string($this->name)."'", 'name');
 	}
 
 	public function writeHtmlHeader() {
@@ -41,6 +41,7 @@ if(sizeof($this->players)==0) {
 	return;
 }
 $choosen=$this->players[0];
+var_dump($choosen);
 $account=$choosen->getAccountInfo();
 ?>
 
