@@ -37,9 +37,11 @@
 		</target>
 
 		<target name="phpcs">
+	<!--
 			<exec dir="${basedir}" executable="phpcs" output="${basedir}/build/logs/checkstyle.xml" failonerror="false">
-				<arg line="--report=checkstyle --tab-width=4 content mediawiki *.php scripts tests" />
+				<arg line="- -report=checkstyle - -tab-width=4 content mediawiki *.php scripts tests" />
 			</exec>
+	-->
 		</target>
 
 	<target name="phpunit">
