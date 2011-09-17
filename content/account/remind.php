@@ -2,6 +2,8 @@
 
 require_once('scripts/account.php');
 
+die ('Not implemented, yet');
+
 class RemindPage extends Page {
 
 	public function writeHtmlHeader() {

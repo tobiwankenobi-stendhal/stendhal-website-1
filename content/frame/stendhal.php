@@ -120,8 +120,6 @@ class StendhalFrame extends PageFrame {
 				<li><a id="menuAccountLogout" href="<?php echo(rewriteURL('/account/logout.html')); ?>">Logout</a></li>
 			<?php } else { ?>
 				<li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/login.html')); ?>">Login</a></li>
-				<?php // TODO: Reenable when sending of emails is possible on the server. ?>
-				<!-- <li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.'/?id=login/remind'); ?>">Forgot your password?</a></li> -->
 			<?php } ?>
 		</ul>
 		<?php
