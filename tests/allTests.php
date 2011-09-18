@@ -6,6 +6,7 @@ require_once 'tests/lib/openid/lightopenidTest.php';
 require_once 'tests/mediawiki/rdfa-breadcrumbsTest.php';
 require_once 'tests/scripts/pharauroa/common/net/deserializerTest.php';
 require_once 'tests/scripts/accountTest.php';
+require_once 'tests/scripts/netstatsTest.php';
 
 
 class AllTests {
@@ -18,6 +19,7 @@ class AllTests {
 		$suite->addTestSuite('RDFaBreadcrumbsTest');
 		$suite->addTestSuite('AccountTest');
 		$suite->addTestSuite('AccountLinkTest');
+		$suite->addTestSuite('NetstatsTest');
 		
 		return $suite;
 	}

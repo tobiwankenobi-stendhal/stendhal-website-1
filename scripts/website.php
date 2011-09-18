@@ -37,6 +37,7 @@ require_once('scripts/inspect.php');
 require_once('scripts/items.php');
 require_once('scripts/itemlog.php');
 require_once('scripts/monsters.php');
+require_once('scripts/netstats.php');
 require_once('scripts/news.php');
 require_once('scripts/npcs.php');
 require_once('scripts/playerhistory.php');

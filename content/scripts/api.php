@@ -23,6 +23,8 @@ class APIPage extends Page {
 		header("Content-Type: text/javascript", true);
 		if ($_REQUEST['method'] == 'isNameAvailable') {
 			$this->isNameAvailable($_REQUEST['param'], $_REQUEST['ignoreAccount']);
+		} else if ($_REQUEST['method'] == 'traceroute') {
+			$this->traceroute($_REQUEST['fast']);
 		} else {
 			$this->unknown($_REQUEST['param']);
 		}
@@ -41,6 +43,18 @@ class APIPage extends Page {
 		$res['result'] = Account::isNameAvailable($name, $ignoreAccount);
 		echo json_encode($res);
 	}
+
+	public function traceroute($fast) {
+		$ip = $_SERVER['REMOTE_ADDR'];
+		if (!preg_match('/^[0-9a-fA-F.:]+$/', $ip)) {
+			echo 'throw new Exception("Invalid IP")';
+			return;
+		}
+		//$ip = '46.4.113.142';
+		$netstats = new Netstats();
+		return $netstats->traceroute($ip, $fast, 3);
+	}
+
 
 	/**
 	 * returns an error response because the method is not known
