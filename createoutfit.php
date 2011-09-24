@@ -21,86 +21,158 @@ $OUTFITS_BASE="data/sprites/outfit";
 
 require_once 'configuration.php';
 
-/**
- * Adds the image pointed by index to base image if the index != 0
+// Imagick takes 'mixed' for colors, but ints didn't work. This seems to.
+function color_name($color) {
+	// Drop alpha
+	$name = dechex($color & 0xffffff);
+	while (strlen($name) < 6) {
+		$name = '0' . $name;
+	}
+	return '#' . $name;
+}
+
+/*
+ * Color an image roughly like Stendhal Blend.TrueColor does.
+ * 
+ * params:
+ * Imagick image
+ * int color
  */
-function conditionalAddToImage($index, &$baseIm, $path, $offset)
-{
-	if ($index != 0) {
-		addToImage($index, $baseIm, $path, $offset);
+function color_image($image, $color) {
+	// color layer
+	$overlay = new Imagick();	
+	$overlay->newImage($image->getImageWidth(),
+		$image->getImageHeight(), color_name($color), 'png');
+
+	// Color mask of the outfit part. Would not be needed if
+	// colorize blend didn't handle alpha in an incompatible way.
+	$clone = $image->clone();
+	$clone->compositeImage($overlay, imagick::COMPOSITE_SRCIN, 0, 0);
+	// this is otherwise the usual hue blend, except that it
+	// overwrites alpha, sigh
+	$image->compositeImage($clone, imagick::COMPOSITE_HUE, 0, 0);
+
+	// Imagick saturation filter is broken for low saturations. 
+	// Calculate adjustment.
+	$r = (($color >> 16) & 0xff) / 255.0;
+	$g = (($color >> 8) & 0xff) / 255.0;
+	$b = ($color & 0xff) / 255.0;
+	$max_color = max($r, $g, $b);
+	$min_color = min($r, $g, $b);
+	$lightness = ($max_color + $min_color) / 2;
+	$diff = $max_color - $min_color;
+	if ($diff < 0.001) {
+		$saturation = 0;
+	} else {
+		if ($lightness < 0.5) {
+			$saturation = $diff / ($max_color + $min_color);
+		} else {
+			$saturation = $diff / (2 - $max_color - $min_color);
+		}
+	}
+	// Adjust saturation at low values to compensate for the broken
+	// behaviour
+	$adj = 1;
+	$adj_sat = 100 * ((1 + $adj) * $saturation - $adj * $saturation * $saturation);
+	// Adjusting brightness does not work exactly as TrueColor does it.
+	// TrueColor does a parabolic bend in the lightness curve; Imagick does
+	// some other nonlinear adjustment. Hopefully this is close enough.
+	$adj_bright = 75 + 50 * $lightness;
+	$image->modulateImage($adj_bright, $adj_sat, 100); // LSH
+}
+
+/*
+ * Load a part of an outfit
+ */
+function load_part($part_name, $index, $offset) {
+	global $OUTFITS_BASE;
+	$location = $OUTFITS_BASE . $part_name . $index . '.png';
+	// A workaround for imagick crashing when the file does not
+	// exist.
+	if (file_exists($location)) {
+		$image = new Imagick($location);
+		$image->cropImage(48, 64, 0, $offset * 64);
+		return $image;
+	}
+	return 0;
+}
+
+/*
+ * Paint a colored image over outfit
+ */
+function composite_with_color($outfit, $overlay, $color) {
+	if ($overlay) {
+		if ($color) {
+			color_image($overlay, $color);
+		}
+		$outfit->compositeImage($overlay, imagick::COMPOSITE_OVER, 0, 0);
 	}
 }
 
-/**
- * Add an image to the base image.
+/*
+ * Create an outfit image.
  */
-function addToImage($index, &$baseIm, $path, $offset) {
-	$tmpIm = imagecreatefrompng($path.$index.'.png');
-	$transColor = imagecolorat($tmpIm, 0, 0);
-	imagecolortransparent($tmpIm, $transColor);
-	imagecopymerge($baseIm,$tmpIm, 0, 0, 0, $offset * 64, 48, 64, 100);
-	imagedestroy($tmpIm);
-}
-
-/**
- * Generates a character outfit based on the outfit number.
- * An outfit is made is a mandatory base image and optional
- * head, hair and dress images.
- */
-function createImage($completeOutfit, $offset) {
-	global $OUTFITS_BASE;
-
-	$outfit = $completeOutfit[0];
+function create_outfit($completeOutfit, $offset) {
+	// outfit code
+	$code = $completeOutfit[0];
+	// The client won't let select pure black, so 0 works for no color.
+	$detailColor = 0;
+	$hairColor = 0;
+	$dressColor = 0;
 	if (count($completeOutfit) > 1) {
 		$detailColor = hexdec($completeOutfit[1]);
 		$hairColor = hexdec($completeOutfit[2]);
 		$dressColor = hexdec($completeOutfit[4]);
 	}
 
-	// Create base image
-	$result=imagecreatetruecolor(48, 64);
-	$white=imagecolorallocate($result, 255, 255,0);
-	imagefill($result, 0, 0, $white);
-
-	$transColor=imagecolorat($result, 0, 0);
-	imagecolortransparent($result, $transColor);
-
-	// Load base character.
-	$baseIndex=($outfit % 100);
-	$outfit=$outfit/100;
-
-	$baseIm=imagecreatefrompng($OUTFITS_BASE.'/player_base_'.$baseIndex.'.png');
-	$transColor=imagecolorat($baseIm, 0, 0);
-	imagecolortransparent($baseIm, $transColor);
-	imagecopymerge($result, $baseIm, 0, 0, 0, $offset * 64, 48, 64, 100);
-	imagedestroy($baseIm);
-
-	// Load dress image and apply.
-	$dressIndex=($outfit % 100);
-	$outfit=$outfit/100;
-	if (isset($dressColor)) {
-		// TODO: apply color to dress
+	// body:
+	$index = $code % 100;
+	$outfit = load_part('/player_base_', $index, $offset);
+	if (!$outfit) {
+		// ensure we have something to draw on
+		$outfit = new Imagick();
+		$outfit->newImage(48, 64, 'transparent', 'png');
 	}
-	conditionalAddToImage($dressIndex, $result, $OUTFITS_BASE.'/dress_', $offset);
 
-	// Load head image and display
-	$headIndex=($outfit % 100);
-	$outfit=$outfit/100;
-	addToImage($headIndex, $result, $OUTFITS_BASE.'/head_', $offset);
-
-	// Load hair image and display.
-	$hairIndex=($outfit % 100);
-	$outfit=$outfit/100;
-	if (isset($hairColor)) {
-		// TODO: apply color to hair
+	// dress
+	$code /= 100;		
+	$index = $code % 100;
+	if ($index) {
+		$tmp = load_part('/dress_', $index, $offset);
+	} else {
+		$tmp = 0;
 	}
-	conditionalAddToImage($hairIndex, $result, $OUTFITS_BASE.'/hair_', $offset);
+	composite_with_color($outfit, $tmp, $dressColor);
 
-	// Finally load details 
-	$detailIndex=($outfit % 100);
-	$outfit=$outfit/100;
-	conditionalAddToImage($detailIndex, $result, $OUTFITS_BASE.'/detail_', $offset);
-	return $result;
+	// head
+	$code /= 100;		
+	$index = $code % 100;
+	$tmp = load_part('/head_', $index, $offset);
+	if ($tmp) {
+		$outfit->compositeImage($tmp, imagick::COMPOSITE_OVER, 0, 0);
+	}
+
+	// hair
+	$code /= 100;		
+	$index = $code % 100;
+	if ($index) {
+		$tmp = load_part('/hair_', $index, $offset);
+	} else {
+		$tmp = 0;
+	}
+	composite_with_color($outfit, $tmp, $hairColor);
+
+	// detail
+	$code /= 100;		
+	$index = $code % 100;
+	if ($index) {
+		$tmp = load_part('/detail_', $index);
+	} else {
+		$tmp = 0;
+	}
+	composite_with_color($outfit, $tmp, $detailColor);
+
+	return $outfit;
 }
 
 $completeOutfit = $_GET['outfit'];
@@ -123,5 +195,6 @@ header('Etag: "'.$etag.'"');
 if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
 	header('HTTP/1.0 304 Not modified');
 } else {
-	imagepng(createImage(explode('_', $completeOutfit), $offset));
+	//echo create_outfit(explode('_', $completeOutfit), $offset);
+	echo create_outfit(explode('_', $completeOutfit), $offset);
 }
