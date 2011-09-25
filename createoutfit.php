@@ -1,6 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
+ Copyright (C) 2008-2011 Stendhal
  Copyright (C) 2008  Miguel Angel Blanch Lardin
 
  This program is free software: you can redistribute it and/or modify
@@ -187,14 +188,56 @@ function create_outfit($completeOutfit, $offset) {
 	return $outfit;
 }
 
+/**
+ * tries to load an outfit from the file cache, creates and stores it otherwise
+ *
+ *
+ * @param string $completeOutfit the outfit string, needs to be validated before
+ * @param int $offset direction, needs to be validated before
+ */
+function loadOrCreate($completeOutfit, $offset) {
+	$cacheIdentifier = '/tmp/outfits/'.$completeOutfit.'-'.$offset.'.png';
+
+	if (file_exists($cacheIdentifier)) {
+		readfile($cacheIdentifier);
+		return;
+	}
+
+	$data = create_outfit(explode('_', $completeOutfit), $offset);
+
+	if (!file_exists('/tmp/outfits')) {
+		mkdir('/tmp/outfits', 0755);
+	}
+	$fp = fopen($cacheIdentifier, 'xb');
+	fwrite($fp, $data);
+	fclose($fp);
+	echo $data;
+}
+
+
+/**
+ * validates the input parameter "outfit"
+ *
+ * @param $outfit
+ * @return boolean
+ */
+function validateInput($outfit) {
+	return preg_match('/^[a-f0-9_]+$/', $outfit);
+}
+
 $completeOutfit = $_GET['outfit'];
 if (isset($_GET['offset'])) {
-	$offset = $_GET['offset'];
+	$offset = intval($_GET['offset'], 10);
 } else {
 	$offset = 2;
 }
 
-$etag = STENDHAL_VERSION.'-'.urlencode($completeOutfit).'-'.intval($offset, 10);
+if (!validateInput($completeOutfit)) {
+	header('HTTP/1.0 404 Not found');
+	exit('Invalid outfit.');
+}
+
+$etag = STENDHAL_VERSION.'-'.urlencode($completeOutfit).'-'.$offset;
 $headers = getallheaders();
 if (isset($headers['If-None-Match'])) {
 	$requestedEtag = $headers['If-None-Match'];
@@ -207,6 +250,5 @@ header('Etag: "'.$etag.'"');
 if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
 	header('HTTP/1.0 304 Not modified');
 } else {
-	//echo create_outfit(explode('_', $completeOutfit), $offset);
-	echo create_outfit(explode('_', $completeOutfit), $offset);
+	loadOrCreate($completeOutfit, $offset);
 }
