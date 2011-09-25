@@ -39,18 +39,31 @@ function color_name($color) {
  * int color
  */
 function color_image($image, $color) {
-	// color layer
+	// Ensure the target image does not have 0 saturation. First grayscale
+	// it, and then recolour it with known saturation.
+	$image->modulateImage(100, 0, 100); // grayscale
 	$overlay = new Imagick();	
 	$overlay->newImage($image->getImageWidth(),
-		$image->getImageHeight(), color_name($color), 'png');
+		$image->getImageHeight(), 'red', 'png');
+	$clone = $image->clone();
+	// keep alpha
+	$clone->compositeImage($overlay, imagick::COMPOSITE_SRCIN, 0, 0);
+	$image->compositeImage($clone, imagick::COMPOSITE_OVERLAY, 0, 0);
+	$clone->destroy();
 
+	// color layer
+	$overlay->newImage($image->getImageWidth(),
+		$image->getImageHeight(), color_name($color), 'png');
 	// Color mask of the outfit part. Would not be needed if
 	// colorize blend didn't handle alpha in an incompatible way.
 	$clone = $image->clone();
 	$clone->compositeImage($overlay, imagick::COMPOSITE_SRCIN, 0, 0);
+	$overlay->destroy();
+
 	// this is otherwise the usual hue blend, except that it
 	// overwrites alpha, sigh
 	$image->compositeImage($clone, imagick::COMPOSITE_HUE, 0, 0);
+	$clone->destroy();
 
 	// Imagick saturation filter is broken for low saturations. 
 	// Calculate adjustment.
@@ -70,14 +83,13 @@ function color_image($image, $color) {
 			$saturation = $diff / (2 - $max_color - $min_color);
 		}
 	}
-	// Adjust saturation at low values to compensate for the broken
-	// behaviour
-	$adj = 1;
-	$adj_sat = 100 * ((1 + $adj) * $saturation - $adj * $saturation * $saturation);
+	// Red colored image (like the adjusted base image) has saturation 1;
+	// adjust it according to the saturation of our painting color.
+	$adj_sat = 100 * $saturation;
 	// Adjusting brightness does not work exactly as TrueColor does it.
 	// TrueColor does a parabolic bend in the lightness curve; Imagick does
 	// some other nonlinear adjustment. Hopefully this is close enough.
-	$adj_bright = 75 + 50 * $lightness;
+	$adj_bright = 50 + 100 * $lightness;
 	$image->modulateImage($adj_bright, $adj_sat, 100); // LSH
 }
 
