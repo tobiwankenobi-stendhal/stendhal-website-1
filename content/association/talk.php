@@ -53,7 +53,7 @@ class TalkPage extends Page {
 		echo '<frame src="/?id=content/association/talk&amp;frame=nav&amp;path='.urlencode($this->path).'" name="nav">';
 		echo '<frame src="/?id=content/association/talk&amp;frame=rightframe&amp;path='.urlencode($this->path).'&amp;no=0" name="rightframe">';
 		echo '<noframes><body>';
-		echo '<a href="/talk-files/<?php echo $this->path?>/text0.html">Text version of talk</a>';
+		echo '<a href="/talk-files/'.$this->path.'/text0.html">Text version of talk</a>';
 		echo '</body></noframes>';
 		echo '</frameset></html>';
 	}
@@ -140,7 +140,7 @@ class TalkPage extends Page {
 			echo '<a href="/?id=content/association/talk&amp;frame=rightframe&amp;no='.(intval($_REQUEST['no'], 10) + 1).'&amp;path='.urlencode($this->path).'" target="rightframe"><img src="/images/impress/right.png" border=0 alt="Next"></a>';
 			echo '<a href="/?id=content/association/talk&amp;frame=rightframe&amp;no='.$last.'&amp;path='.urlencode($this->path).'" target="rightframe"><img src="/images/impress/last.png" border=0 alt="End"></a>';
 		}
-		echo '<a href="text0.html" target="_top"><img src="/images/impress/text.png" border=0 alt="Text"></a>';
+		echo '<a href="/talk-files/'.$this->path.'/text'.intval($_REQUEST['no'], 10).'.html" target="_top"><img src="/images/impress/text.png" border=0 alt="Text"></a>';
 		echo '</div>';
 	}
 
