@@ -61,4 +61,8 @@ function loadLanguage() {
 	$dict['You are missing the required permission for this action.'] = 'Fehlende Berechtigung.';
 	$dict['Documents'] = 'Unterlagen';
 	$dict['Page history'] = 'Seiten-Versionen';
+	$dict['Balance'] = 'Kontostand';
+	$dict['in order to view the balance.'] = 'um den Kontostand anzusehen.';
+	$dict['Automatic query of balance'] = 'Automatische Kontostandsabfragen';
+	$dict['The invoices and journal are available in the manually updated document section.'] = 'Die Rechnungen und das Kassenbuchen befinden sich im manuell gepflegten Dokumenten-Bereich';
 }
