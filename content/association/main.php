@@ -78,13 +78,23 @@ class MainPage extends Page {
 			$text = preg_replace('/\[ALTERNATIVE_DONATE\]/', $alternativeDonate, $text);
 			echo $text;
 
-
+			// write version information footer
 			echo '<div class="versionInformation">'.t('Last edited on').' '
 				. htmlspecialchars($this->cmsPage->timedate)
 				.' '.t('by account').' '.htmlspecialchars($this->cmsPage->accountId);
+
 			if (isset($_SESSION) && isset($_SESSION['account'])) {
 				echo ' - <a href="/?id=content/association/edit&amp;lang='.surlencode($lang).'&amp;title='.urlencode($_REQUEST['title']).'">'.t('edit').'</a>';
 			}
+
+			$username = t('Guest');
+			if (isset($_SESSION) && isset($_SESSION['account'])) {
+				$username = $_SESSION['account']->username;
+			}
+			echo ' <abbr style="underline:none; border-bottom:0" title="'.t('Server time').': '
+				.date('Y-m-d g:i').' ** Client: '.htmlspecialchars($_SERVER['REMOTE_ADDR']).' ** '
+				.t('User').': '.htmlspecialchars($username).'">&Pi;</abbr>&nbsp;&nbsp;';
+
 			echo '</div>';
 		} else {
 			echo '<p>'.t('Sorry, the requested page does not exist.').'</p>';
