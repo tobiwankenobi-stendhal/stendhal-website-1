@@ -145,7 +145,11 @@ class AchievementPage extends Page {
 			}
 			echo '<div class="onlinePlayer onlinePlayerHeight">';
 			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
-			echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.surlencode($entry['outfit']).'.png').'" alt="" title="'.$title.'">';
+			$outfit = $entry['outfit'];
+			if (isset($entry['outfit_colors']) && strlen($entry['outfit_colors']) > 0) {
+				$outfit = $outfit.'_'.$entry['outfit_colors'];
+			}			
+			echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.$outfit.'.png').'" alt="" title="'.$title.'">';
 			echo '  <span class="block onlinename">'.htmlspecialchars($entry['name']).'</span></a>';
 			echo '</div>';
 		}
