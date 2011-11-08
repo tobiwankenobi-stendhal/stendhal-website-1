@@ -146,7 +146,7 @@ class Achievement {
 	}
 
 	public static function getAwardedToOwnCharacters($accountId, $achievementId) {
-		$query = "SELECT character_stats.name, character_stats.outfit, reached_achievement.timedate "
+		$query = "SELECT character_stats.name, character_stats.outfit, character_stats.outfit_colors, reached_achievement.timedate "
 			. "FROM character_stats, characters "
 			. "LEFT JOIN reached_achievement ON (characters.charname=reached_achievement.charname "
 			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
