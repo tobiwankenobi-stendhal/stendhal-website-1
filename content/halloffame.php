@@ -135,7 +135,13 @@ class HallOfFamePage extends Page {
 			<div class="row">
 				<div class="position"><?php echo $entry['rank']; ?></div>
 				<a href="<?php echo rewriteURL('/character/'.surlencode($entry['charname']).'.html'); ?>">
-					<img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($entry['outfit']).'.png')?>" alt="" />
+					<?php
+					$outfit = $entry['outfit'];
+					if (isset($entry['outfit_colors']) && strlen($entry['outfit_colors']) > 0) {
+						$outfit = $outfit.'_'.$entry['outfit_colors'];
+					}
+					?>
+					<img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($outfit.'.png')?>" alt="" />
 					<span class="block label"><?php echo htmlspecialchars($entry['charname']); ?></span>
 					<span class="block data"><?php echo $entry['points'].$postfix; ?></span>
 				</a>

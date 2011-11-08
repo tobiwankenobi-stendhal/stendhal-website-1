@@ -178,7 +178,7 @@ function getPlayer($name) {
 }
 
 function getBestPlayer($tableSuffix, $where='') {
-	$query = 'select halloffame_archive_'.$tableSuffix.'.points, halloffame_archive_'.$tableSuffix.'.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.sentence from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
+	$query = 'select halloffame_archive_'.$tableSuffix.'.points, halloffame_archive_'.$tableSuffix.'.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.sentence from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
 	$list = queryWithCache($query, 60*60, getGameDB());
 	if (count($list) > 0) {
 		return $list[0];
@@ -193,7 +193,7 @@ function getBestPlayer($tableSuffix, $where='') {
   * Note: Parameters must be sql escaped.
   */
 function getHOFPlayers($tableSuffix, $where='', $fametype = '', $cond='limit 2') {
-	$query = 'select distinct halloffame_archive_'.$tableSuffix.'.charname, halloffame_archive_'.$tableSuffix.'.rank, halloffame_archive_'.$tableSuffix.'.points, character_stats.outfit from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '.$cond;
+	$query = 'select distinct halloffame_archive_'.$tableSuffix.'.charname, halloffame_archive_'.$tableSuffix.'.rank, halloffame_archive_'.$tableSuffix.'.points, character_stats.outfit, character_stats.outfit_colors  from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '.$cond;
 	$result = mysql_query($query,getGameDB());
 	$list=array();
 
