@@ -141,7 +141,7 @@ class HallOfFamePage extends Page {
 						$outfit = $outfit.'_'.$entry['outfit_colors'];
 					}
 					?>
-					<img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($outfit.'.png')?>" alt="" />
+					<img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.$outfit.'.png')?>" alt="" />
 					<span class="block label"><?php echo htmlspecialchars($entry['charname']); ?></span>
 					<span class="block data"><?php echo $entry['points'].$postfix; ?></span>
 				</a>
