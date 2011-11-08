@@ -354,13 +354,17 @@ function getAchievementEvents($filter) {
 }
 
 function getOutfitsForPlayers($players) {
-	$result = mysql_query('SELECT distinct name, outfit FROM character_stats where name IN ("'.implode('","',$players).'")',getGameDB());
-    $outfits=array();
-    while($row=mysql_fetch_assoc($result)) {      
-      $outfits[$row['name']]=$row['outfit'];
-    }
-    
-    mysql_free_result($result);
-    return $outfits;
+	$result = mysql_query('SELECT distinct name, outfit, outfit_colors FROM character_stats where name IN ("'.implode('","',$players).'")',getGameDB());
+	$outfits=array();
+	while($row = mysql_fetch_assoc($result)) {
+		$outfit = $row['outfit'];
+		if (isset($row['outfit_colors']) && strlen($row['outfit_colors']) > 0) {
+			$outfit = $outfit.'_'.$row['outfit_colors'];
+		}
+		$outfits[$row['name']] = $outfit;
+	}
+
+	mysql_free_result($result);
+	return $outfits;
 }
 ?>
