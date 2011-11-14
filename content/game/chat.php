@@ -12,10 +12,6 @@ startBox("Chat to other users and developers"); ?>
 You can get an IRC client and connect to:
 
 <p><b>irc.freenode.net</b> (see <a href="http://freenode.net">http://freenode.net</a> for more information) then</p>
-<ul>
-<li><b>#arianne</b> which is for technical discussion, ideas, bugs, getting help and planning.</li>
-<li><b>#arianne-chat</b> which is for off topic friendly chat</li>
-</ul>
 
 <p>Alternatively, you can simply use freenode's webchat service, below. Feel free to change the nick to for example, your player name.</p>
 <ul> 
