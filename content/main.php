@@ -72,7 +72,7 @@ class MainPage extends Page {
 
 <div id="oneLineDescription">
 	<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'))?>" style="border:0">
-	<img src="/images/playit.gif" alt="play stendhal" width="106px" height="45px"></a>
+	<img style="border:0" src="/images/playit.gif" alt="play stendhal" width="106px" height="45px"></a>
 	<span>Stendhal is a fully fledged free open source multiplayer online 
 	adventures game (MORPG) developed using the Arianne game system.</span>
 </div>
