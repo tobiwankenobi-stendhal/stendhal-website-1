@@ -69,9 +69,9 @@ PING 83.83.205.120 (83.83.205.120) 56(84) bytes of data.
 
 			// magic depending on the hop number
 			if ($line->no % 2 == 0) {
-				$style = ' style="background-color:#AFF"';
+				$style = ' class="even"';
 			} else {
-				$style = ' style="background-color:#FFF"';
+				$style = ' class="odd"';
 			}
 			$html .= '<tr'.$style.'>';
 

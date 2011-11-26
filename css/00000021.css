@@ -238,6 +238,12 @@ img.screenshot {
 	background-color:#00A;
 	width: 0;
 }
+.odd {
+	background-color:#FFF;
+}
+.even {
+	background-color:#AFF;
+}
 
 /* -------------------------------------------------------------------------*/
 /* achievement.css */
