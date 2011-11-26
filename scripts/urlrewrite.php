@@ -386,7 +386,7 @@ function rewriteURL($url) {
 	} else if (preg_match('|^/stats/.*|', $url)) {
 		if (preg_match('|^/stats/net\.html$|', $url)) {
 			return preg_replace('|^/stats/net\.html$|', $folder.'/?id=content/scripts/netstats', $url);
-		if (preg_match('|^/stats/net\.html?ip=(.*)$|', $url)) {
+		} else if (preg_match('|^/stats/net\.html?ip=(.*)$|', $url)) {
 			return preg_replace('|^/stats/net\.html$|', $folder.'/?id=content/scripts/netstats&ip=$1', $url);
 		}
 
