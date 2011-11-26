@@ -24,7 +24,11 @@ class APIPage extends Page {
 		if ($_REQUEST['method'] == 'isNameAvailable') {
 			$this->isNameAvailable($_REQUEST['param'], $_REQUEST['ignoreAccount']);
 		} else if ($_REQUEST['method'] == 'traceroute') {
-			$this->traceroute($_REQUEST['fast']);
+			$ip = false;
+			if (isset($_REQUEST['ip'])) {
+				$ip = $_REQUEST['ip'];
+			}
+			$this->traceroute($_REQUEST['fast'], $ip);
 		} else if ($_REQUEST['method'] == 'rankhistory') {
 			$this->rankhistory($_REQUEST['param']);
 		} else {
@@ -46,13 +50,17 @@ class APIPage extends Page {
 		echo json_encode($res);
 	}
 
-	public function traceroute($fast) {
-		$ip = $_SERVER['REMOTE_ADDR'];
+	public function traceroute($fast, $ip) {
+		// allow only admins to specify an ip-address
+		if (!$ip || getAdminLevel() < 100) {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+
+		// validate ip
 		if (!preg_match('/^[0-9a-fA-F.:]+$/', $ip)) {
 			echo 'throw new Exception("Invalid IP")';
 			return;
 		}
-		//$ip = '46.4.113.142';
 		$netstats = new Netstats();
 		echo $netstats->traceroute($ip, $fast, 3);
 	}
