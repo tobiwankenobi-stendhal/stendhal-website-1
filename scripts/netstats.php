@@ -54,8 +54,19 @@ PING 83.83.205.120 (83.83.205.120) 56(84) bytes of data.
 			}
 			$res = array_merge($res, $this->parseLine($line, $count));
 		}
-
+		$res = $this->removeTrailingTimeouts($res);
 		return $this->tracerouteToHtml($res, $count);
+	}
+
+	public function removeTrailingTimeouts($lines) {
+		$temp = 0;
+		for ($i = count($lines); $i > 0; $i--) {
+			if ($lines[$i]->ip != '') {
+				$temp = $i + 1;
+				break;
+			}
+		}
+		return array_slice($lines, 0, $temp + 1);
 	}
 
 	public function tracerouteToHtml($traceroute, $count) {
