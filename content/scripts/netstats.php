@@ -8,12 +8,16 @@ class NetstatsPage extends Page {
 
 	function writeContent() {
 		startBox('Trace route');
-		echo '<div id="traceresult1">Tracing route, please wait...</div>';
+		echo '<div id="traceresult1">Tracing route, please wait...';
+		echo '<table class="progressTable"><tr><td id="progress1" class="progress">&nbsp;</td><td class="pendingprogress">&nbsp;</td></tr></table>';
+		echo' </div>';
 		endBox();
 
 		echo '<div id="tracebox2" style="display:none">';
 		startBox('Details');
-		echo '<div id="traceresult2">Gathering details about every hop on the route, please wait...</div>';
+		echo '<div id="traceresult2">Gathering details about every hop on the route, please wait...';
+		echo '<table class="progressTable"><tr><td id="progress2" class="progress">&nbsp;</td><td class="pendingprogress">&nbsp;</td></tr></table>';
+		echo' </div>';
 		endBox();
 		echo' </div>';
 
@@ -24,11 +28,16 @@ class NetstatsPage extends Page {
 		?>
 <script type="text/javascript">
 $().ready(function() {
+	var progressIdx = 1;
+	var progress = 1;
+
 	$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=1<?php echo $ip ?>",
 		dataType: 'html',
 		success: function(data) {
 		$('#traceresult1').html(data);
 		$('#tracebox2').css('display', 'block');
+		progressIdx = 2;
+		progress = 1;
 
 		$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=0&i="+ new Date().getTime()+"<?php echo $ip ?>",
 			dataType: 'html',
@@ -36,6 +45,13 @@ $().ready(function() {
 			$('#traceresult2').html(data);
 		}});
 	}});
+
+	setInterval(function() {
+		if (progress < 90) {
+			$("#progress" + progressIdx).css("width", progress + "%");
+			progress = progress + 0.2;
+		}
+	}, 100);
 });
 </script>
 		<?php

@@ -227,6 +227,17 @@ img.screenshot {
 	background: #DDD;
 }
 
+.progressTable {
+	border: collapse;
+	width: 100%;
+}
+.progress, .pendingprogress {
+	border: 1px solid #000;
+}
+.progress {
+	background-color:#00A;
+	width: 0;
+}
 
 /* -------------------------------------------------------------------------*/
 /* achievement.css */
@@ -651,6 +662,11 @@ span.block {
 .error {
 	color: red;
 	font-weight: bold;
+}
+
+a.textlink, a.textlink:visited {
+	color: #000;
+/*	text-decoration: none;*/
 }
 
 div.stendhalAchievement,
