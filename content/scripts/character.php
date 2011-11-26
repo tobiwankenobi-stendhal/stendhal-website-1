@@ -247,7 +247,7 @@ foreach($choosen->equipment as $slot=>$content) {
 
 endBox();
 		$this->includeJs();
-		$this->chart();
+		// $this->chart();
 	}
 
 	private function renderAchievements() {
