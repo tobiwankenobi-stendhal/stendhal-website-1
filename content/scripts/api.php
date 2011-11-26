@@ -25,6 +25,8 @@ class APIPage extends Page {
 			$this->isNameAvailable($_REQUEST['param'], $_REQUEST['ignoreAccount']);
 		} else if ($_REQUEST['method'] == 'traceroute') {
 			$this->traceroute($_REQUEST['fast']);
+		} else if ($_REQUEST['method'] == 'rankhistory') {
+			$this->rankhistory($_REQUEST['param']);
 		} else {
 			$this->unknown($_REQUEST['param']);
 		}
@@ -52,9 +54,13 @@ class APIPage extends Page {
 		}
 		//$ip = '46.4.113.142';
 		$netstats = new Netstats();
-		return $netstats->traceroute($ip, $fast, 3);
+		echo $netstats->traceroute($ip, $fast, 3);
 	}
 
+	public function rankhistory($name) {
+		$res = getHallOfFameHistory($name);
+		echo json_encode($res);
+	}
 
 	/**
 	 * returns an error response because the method is not known
@@ -62,7 +68,7 @@ class APIPage extends Page {
 	 * @param $param ignored
 	 */
 	public function unknown($param) {
-		header('HTTP/1.1', true, 400); // TODO
+		header('HTTP/1.1', true, 400);
 		echo 'throw new Exception("Unknown method")';
 	}
 }
