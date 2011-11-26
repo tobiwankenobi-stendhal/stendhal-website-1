@@ -292,4 +292,33 @@ function getCharacterRanks($charname) {
 	return $res;
 }
 
-?>
+
+/**
+ * gets the hall of fame history for this character
+ *
+ * @param string $charname
+ */
+function getHallOfFameHistory($charname) {
+	$query = "SELECT day, fametype, rank FROM halloffame_archive_recent WHERE charname='".mysql_real_escape_string($charname)."' ORDER BY day";
+	$result = mysql_query($query, getGameDB());
+
+	$res = array();
+	$res['D'] = array();
+	$res['M'] = array();
+	$res['P'] = array();
+	$res['A'] = array();
+	$res['T'] = array();
+	$res['F'] = array();
+	$res['W'] = array();
+	$res['X'] = array();
+	$res['B'] = array();
+	$res['R'] = array();
+	$res['@'] = array();
+
+	while($row = mysql_fetch_assoc($result)) {
+		$res[$row['fametype']][] = intval($row['rank'], 10);
+	}
+
+	mysql_free_result($result);
+	return $res;
+}
