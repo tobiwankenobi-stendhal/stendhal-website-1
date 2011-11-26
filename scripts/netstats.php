@@ -103,7 +103,10 @@ PING 83.83.205.120 (83.83.205.120) 56(84) bytes of data.
 			if (isset($line->as) && strlen($line->as) > 2) {
 				$temp = $line->as;
 				$temp = substr($temp, 1, strlen($temp) - 2);
-				$html .= '[<a target="_blank" href="http://bgp.he.net/'.urlencode($temp).'">'.htmlspecialchars($temp).'</a>]';
+				$ases = explode('/', $temp);
+				foreach ($ases As $as) {
+					$html .= '[<a target="_blank" href="http://bgp.he.net/'.urlencode($as).'">'.htmlspecialchars($as).'</a>] ';
+				}
 			} else {
 				$html .= '&nbsp;';
 			}
