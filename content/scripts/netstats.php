@@ -30,6 +30,7 @@ class NetstatsPage extends Page {
 $().ready(function() {
 	var progressIdx = 1;
 	var progress = 1;
+	var progressInterval = 0.2;
 
 	$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=1<?php echo $ip ?>",
 		dataType: 'html',
@@ -38,6 +39,7 @@ $().ready(function() {
 		$('#tracebox2').css('display', 'block');
 		progressIdx = 2;
 		progress = 1;
+		progressInterval = 0.2;
 
 		$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=0&i="+ new Date().getTime()+"<?php echo $ip ?>",
 			dataType: 'html',
@@ -47,9 +49,12 @@ $().ready(function() {
 	}});
 
 	setInterval(function() {
-		if (progress < 90) {
+		if (progress == 50 || progress == 75) {
+			progressInterval = progressInterval / 2;
+		}
+		if (progress < 95) {
 			$("#progress" + progressIdx).css("width", progress + "%");
-			progress = progress + 0.2;
+			progress = progress + progressInterval;
 		}
 	}, 100);
 });
