@@ -106,6 +106,10 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/world/online\.html$ /index.php?id=content/scripts/online [L]
                 RewriteRule ^/world/server-stats\.html$ /index.php?id=content/scripts/serverstats [L]
 
+				# stats
+                RewriteRule ^/stats/net\.html$ /index.php?id=content/scripts/netstats [L]
+                RewriteRule ^/stats/net\.html?ip=(.*)$ /index.php?id=content/scripts/netstats&ip=$1 [L]
+
                 ######################### Other rewrite rules #########################
 
                 RewriteRule ^/javadoc/(.*)\.html$ /jenkins/job/stendhal_HEAD/javadoc/$1 [L]
@@ -376,6 +380,14 @@ function rewriteURL($url) {
 			return preg_replace('|^/world/online\.html$|', $folder.'/?id=content/scripts/online', $url);
 		} else if (preg_match('|^/world/server-stats\.html$|', $url)) {
 			return preg_replace('|^/world/server-stats\.html$|', $folder.'/?id=content/scripts/serverstats', $url);
+		}
+		
+	// stts
+	} else if (preg_match('|^/stats/.*|', $url)) {
+		if (preg_match('|^/stats/net\.html$|', $url)) {
+			return preg_replace('|^/stats/net\.html$|', $folder.'/?id=content/scripts/netstats', $url);
+		if (preg_match('|^/stats/net\.html?ip=(.*)$|', $url)) {
+			return preg_replace('|^/stats/net\.html$|', $folder.'/?id=content/scripts/netstats&ip=$1', $url);
 		}
 
 	// association
