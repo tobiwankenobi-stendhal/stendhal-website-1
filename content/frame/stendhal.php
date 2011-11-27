@@ -64,13 +64,12 @@ class StendhalFrame extends PageFrame {
 		startBox('Screenshot');
 		// Return the latest screenshot added to the webpage.
 		$screen=getLatestScreenshot();
-		?>
-		<a href="<?php echo rewriteURL('/images/image/'.htmlspecialchars($screen->url)); ?>">
-			<?php $screen->showThumbnail(); ?>
-		</a>
-		<?php endBox() ?>
+		echo '<a href="'.rewriteURL('/images/screenshot/').'" target="_blank" onclick="window.open(\''.rewriteURL('/images/screenshot/').'\', \'screenshot\', \'status=0,toolbar=0,location=0,menubar=0,directories=0,height=470,width=640,scrollbars=1\'); return false;">';
+		$screen->showThumbnail();
+		echo '</a>';
+		endBox();
 
-		<?php startBox('Movie'); ?>
+		startBox('Movie'); ?>
 			<a href="<?php echo $protocol;?>://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?php echo STENDHAL_FOLDER;?>/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
 		<?php endBox() ?>
 
