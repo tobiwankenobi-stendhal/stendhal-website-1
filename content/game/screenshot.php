@@ -13,7 +13,7 @@ class ScreenshotPage extends Page {
 		if (isset($_REQUEST['file'])) {
 			$temp = $_REQUEST['file'];
 			for ($i = 0; $i < count($this->screenshots); $i++) {
-				if ($row['filename'] == $temp) {
+				if ($this->screenshots[$i]['filename'] == $temp) {
 					$this->idx = $i;
 					break;
 				}
@@ -27,7 +27,9 @@ class ScreenshotPage extends Page {
 		echo '<!DOCTYPE html><html><head>';
 		echo '<title>Screenshot '.$this->filename.STENDHAL_TITLE.'</title>';
 		echo '</head><body>';
+		echo '<a href="'.rewriteURL('/game/screenshot/'.urlencode($this->screenshots[($this->idx + 1) % count($this->screenshots)]['filename'])).'">';
 		echo '<img src="'.$this->getImageUrl($this->filename).'" alt="'.htmlspecialchars($this->title).'">';
+		echo '</a>';
 		echo '<p>'.htmlspecialchars($this->title).'</p>';
 		echo '</body></html>';
 		return false;
