@@ -43,7 +43,6 @@ class CreateCharacterPage extends Page {
 				.prev, .next {float: left; margin-top: 2em}
 				.outfitpart {float: left; display: block; width:48px; height: 64px; background-position: 0 128px;}
 			</style>';
-		echo '<script src="/css/jquery-00000001.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {

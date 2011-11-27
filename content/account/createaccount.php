@@ -68,7 +68,6 @@ class CreateAccountPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Create Account'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
-		echo '<script src="/css/jquery-00000001.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {
