@@ -117,6 +117,7 @@ class DefaultFrame extends PageFrame {
 		?>
 	</div>
 </div>
+<?php $this->includeJs();?>
 </body>
 </html>
 <?php

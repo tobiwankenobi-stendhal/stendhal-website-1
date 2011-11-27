@@ -49,4 +49,13 @@ abstract class PageFrame {
 	 * renders the frame
 	 */
 	abstract function renderFrame();
+
+	/**
+	 * includes java script libraries
+	 */
+	public function includeJs() {
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js"></script>';
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/jquery.tooltip-merged.min.js"></script>';
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/00000003.js"></script>';
+	}
 }

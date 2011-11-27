@@ -272,6 +272,7 @@ body {
 	</div>
 </div>
 </div>
+<?php $this->includeJs();?>
 </body>
 </html>
 

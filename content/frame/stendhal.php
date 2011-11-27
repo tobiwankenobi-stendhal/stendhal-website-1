@@ -64,7 +64,7 @@ class StendhalFrame extends PageFrame {
 		startBox('Screenshot');
 		// Return the latest screenshot added to the webpage.
 		$screen=getLatestScreenshot();
-		echo '<a href="'.rewriteURL('/images/screenshot/').'" target="_blank" onclick="window.open(\''.rewriteURL('/images/screenshot/').'\', \'screenshot\', \'status=0,toolbar=0,location=0,menubar=0,directories=0,height=470,width=640,scrollbars=1\'); return false;">';
+		echo '<a id="screenshotLink" href="'.rewriteURL('/images/screenshot/').'" target="_blank">';
 		$screen->showThumbnail();
 		echo '</a>';
 		endBox();
@@ -212,7 +212,8 @@ class StendhalFrame extends PageFrame {
 			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/sourcelog.html').'">Changes</a></li>'."\n";
 			echo '<li><a id="menuContribDownload" href="'.$protocol.'://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
 			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
-			?>
+			?>	function 
+			
 		</ul>
 		<?php endBox(); ?>
 	</div>
@@ -236,6 +237,7 @@ class StendhalFrame extends PageFrame {
 		?>
 	</div>
 </div>
+<?php $this->includeJs();?>
 </body>
 </html>
 
