@@ -6,7 +6,7 @@ function acfUserCreateForm($template) {
 }
 
 function acfAbortNewAccount($user, $message) {
-	if ($_SESSION['acf_wiki_timestamp'] + 3 > time()) {
+	if (!isset($_SESSION) || !isset($_SESSION['acf_wiki_timestamp']) || $_SESSION['acf_wiki_timestamp'] + 3 > time()) {
 		$message = 'Automatic SPAM filter triggered, please try again later.';
 		return false;
 	}
