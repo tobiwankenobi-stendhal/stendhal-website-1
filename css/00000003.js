@@ -260,6 +260,14 @@ function createCharacterCheckForm() {
 
 
 $().ready(function() {
+	$('#screenshotLink').click(function(event) {
+		var left = Math.max(0, (screen.width-800)/2);
+		var top = Math.max(0, (screen.height-500)/2);
+		window.open("/images/screenshot/", "screenshot", "left="+left+",top="+top+",status=0,toolbar=0,location=0,menubar=0,directories=0,height=500,width=800,scrollbars=1")
+		event.preventDefault();
+		return false;
+	});
+
 	$('#changePasswordForm').submit(function () {
 		return changePasswordCheckForm();
 	});
