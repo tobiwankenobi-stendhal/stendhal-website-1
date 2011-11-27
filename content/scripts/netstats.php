@@ -25,41 +25,7 @@ class NetstatsPage extends Page {
 		if (isset($_REQUEST['ip'])) {
 			$ip = '&ip='.urlencode($_REQUEST['ip']);
 		}
-		?>
-<script type="text/javascript">
-$().ready(function() {
-	var progressIdx = 1;
-	var progress = 1;
-	var progressInterval = 0.2;
-
-	$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=1<?php echo $ip ?>",
-		dataType: 'html',
-		success: function(data) {
-		$('#traceresult1').html(data);
-		$('#tracebox2').css('display', 'block');
-		progressIdx = 2;
-		progress = 1;
-		progressInterval = 0.2;
-
-		$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=0&i="+ new Date().getTime()+"<?php echo $ip ?>",
-			dataType: 'html',
-			success: function(data) {
-			$('#traceresult2').html(data);
-		}});
-	}});
-
-	setInterval(function() {
-		if (progress == 50 || progress == 75) {
-			progressInterval = progressInterval / 2;
-		}
-		if (progress < 95) {
-			$("#progress" + progressIdx).css("width", progress + "%");
-			progress = progress + progressInterval;
-		}
-	}, 100);
-});
-</script>
-		<?php
+		echo '<span id="traceip" style="display: none">'.htmlspecialchars($ip).'</span>';
 	}
 }
 $page = new NetstatsPage();

@@ -253,6 +253,83 @@ function createCharacterCheckForm() {
 	return true;
 }
 
+//----------------------------------------------------------------------------
+//                                     netstat
+//----------------------------------------------------------------------------
+
+function initTracepath() {
+	if (document.getElementById("traceip") == null) {
+		return;
+	}
+	
+	var progressIdx = 1;
+	var progress = 1;
+	var progressInterval = 0.2;
+
+	$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=1&ip=" + escape($('traceip').text()),
+		dataType: 'html',
+		success: function(data) {
+		$('#traceresult1').html(data);
+		$('#tracebox2').css('display', 'block');
+		progressIdx = 2;
+		progress = 1;
+		progressInterval = 0.2;
+	
+		$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=0&i="+ new Date().getTime()+"&ip=" + escape($('traceip').text()),
+			dataType: 'html',
+			success: function(data) {
+			$('#traceresult2').html(data);
+		}});
+	}});
+
+	setInterval(function() {
+		if (progress == 50 || progress == 75) {
+			progressInterval = progressInterval / 2;
+		}
+		if (progress < 95) {
+			$("#progress" + progressIdx).css("width", progress + "%");
+			progress = progress + progressInterval;
+		}
+	}, 100);
+}
+
+
+function initEditor() {
+	if (typeof(CKEDITOR) != "undefined") {
+		CKEDITOR.replace('editor', {
+			toolbar: 'Full',
+			toolbar_Full : [
+			// See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar
+			{ name: 'document', items : [ 'Source','-','Save'] },
+			{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord' ] },
+			{ name: 'editing', items : [ 'Undo','Redo','-','Find','Replace'] },
+			{ name: 'insert', items : [ 'Link','Unlink','Anchor','-','Image','Table','HorizontalRule' ] },
+			{ name: 'tools', items : [ 'Maximize'] },
+			'/',
+			{ name: 'styles', items : [ 'Format' ] },
+			{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','TextColor','BGColor','-','RemoveFormat' ] },
+			{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
+			],
+			toolbarCanCollapse: false
+			// Customize styles instead of Formats: http://docs.cksource.com/CKEditor_3.x/Howto/Styles_List_Customization
+		});
+		CKEDITOR.on( 'instanceReady', function( ev ) {
+			ev.editor.dataProcessor.writer.selfClosingEnd = '>';
+		});
+		/* disabled because it ask on save, too.
+		function beforeUnload(e) {
+			if (CKEDITOR.instances.editor.checkDirty()) {
+				return e.returnValue = "You'll loose the changes made in the editor.";
+			}
+		}
+		if (window.addEventListener) {
+			window.addEventListener('beforeunload', beforeUnload, false);
+		} else {
+			window.attachEvent( 'onbeforeunload', beforeUnload );
+		}*/
+	}
+
+}
 
 //----------------------------------------------------------------------------
 //                                       init
@@ -339,38 +416,7 @@ $().ready(function() {
 			$('.ircstatus').hide();
 		}
 	});
-
-	if (typeof(CKEDITOR) != "undefined") {
-		CKEDITOR.replace('editor', {
-			toolbar: 'Full',
-			toolbar_Full : [
-			// See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar
-			{ name: 'document', items : [ 'Source','-','Save'] },
-			{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord' ] },
-			{ name: 'editing', items : [ 'Undo','Redo','-','Find','Replace'] },
-			{ name: 'insert', items : [ 'Link','Unlink','Anchor','-','Image','Table','HorizontalRule' ] },
-			{ name: 'tools', items : [ 'Maximize'] },
-			'/',
-			{ name: 'styles', items : [ 'Format' ] },
-			{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','TextColor','BGColor','-','RemoveFormat' ] },
-			{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
-			],
-			toolbarCanCollapse: false
-			// Customize styles instead of Formats: http://docs.cksource.com/CKEditor_3.x/Howto/Styles_List_Customization
-		});
-		CKEDITOR.on( 'instanceReady', function( ev ) {
-			ev.editor.dataProcessor.writer.selfClosingEnd = '>';
-		});
-		/* disabled because it ask on save, too.
-		function beforeUnload(e) {
-			if (CKEDITOR.instances.editor.checkDirty()) {
-				return e.returnValue = "You'll loose the changes made in the editor.";
-			}
-		}
-		if (window.addEventListener) {
-			window.addEventListener('beforeunload', beforeUnload, false);
-		} else {
-			window.attachEvent( 'onbeforeunload', beforeUnload );
-		}*/
-	}
+	
+	initTracepath();
+	initEditor();
 });
