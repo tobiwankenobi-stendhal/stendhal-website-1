@@ -1,13 +1,26 @@
 <?php 
 
 class ScreenshotPage extends Page {
+	private $screenshots;
+	private $idx;
 	private $filename;
 	private $title;
 
 	function __construct() {
-// SELECT page_title As filename, cl_sortkey_prefix As subtitle FROM categorylinks, page WHERE cl_to='Stendhal_Slideshow' AND cl_type='file' AND page_id=cl_from ORDER BY page_touched DESC, page_id DESC;
-		$this->filename = 'Athor_pool.jpeg';
-		$this->title = 'A A A';
+		$sql = "SELECT page_title As filename, cl_sortkey_prefix As subtitle FROM categorylinks, page WHERE cl_to='Stendhal_Slideshow' AND cl_type='file' AND page_id=cl_from ORDER BY page_touched DESC, page_id DESC";
+		$this->screenshots = fetchToArray($sql, getWikiDB());
+		$this->idx = 0;
+		if (isset($_REQUEST['file'])) {
+			$temp = $_REQUEST['file'];
+			for ($i = 0; $i < count($this->screenshots); $i++) {
+				if ($row['filename'] == $temp) {
+					$this->idx = $i;
+					break;
+				}
+			}
+		}
+		$this->filename = $this->screenshots[$this->idx]['filename'];
+		$this->title = $this->screenshots[$this->idx]['subtitle'];
 	}
 
 	public function writeHttpHeader() {
