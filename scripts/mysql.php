@@ -106,3 +106,15 @@ function queryFirstCell($query, $connection) {
 		return $res[0];
 	}
 }
+
+function fetchToArray($query, $connection) {
+	$result = mysql_query($query, $connection);
+	$res = array();
+	
+	while($row = mysql_fetch_assoc($result)) {
+		$res[] = $row;
+	}
+	
+	mysql_free_result($result);
+	return $res;
+}
