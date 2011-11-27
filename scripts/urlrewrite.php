@@ -36,6 +36,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png [L]
                 RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png [L]
                 RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1 [L]
+                RewriteRule ^/images/screenshot/(.*)$ /index.php?id=content/games/screenshot&file=$1 [L]
                 RewriteRule ^/images/thumbnail/(.*)$ /thumbnail.php?img=$1 [L]
 
                 # account
@@ -241,6 +242,8 @@ function rewriteURL($url) {
 			return preg_replace('|^/images/npc/(.*)\.png$|', $folder.'/monsterimage.php?url=data/sprites/npc/$1.png', $url);
 		} else if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
 			return preg_replace('|^/images/outfit/(.*)\.png$|', $folder.'/createoutfit.php?outfit=$1', $url);
+		} else if (preg_match('|^/images/screenshot/(.*)$|', $url)) {
+			return preg_replace('|^/images/screenshot/(.*)$|', $folder.'/?id=content/games/screenshot.php?file=$1', $url);
 		} else if (preg_match('|^/images/thumbnail/(.*)$|', $url)) {
 			return preg_replace('|^/images/thumbnail/(.*)$|', $folder.'/thumbnail.php?img=$1', $url);
 		} else if (preg_match('|^/images/image/(.*)$|', $url)) {
@@ -382,7 +385,7 @@ function rewriteURL($url) {
 			return preg_replace('|^/world/server-stats\.html$|', $folder.'/?id=content/scripts/serverstats', $url);
 		}
 		
-	// stts
+	// stats
 	} else if (preg_match('|^/stats/.*|', $url)) {
 		if (preg_match('|^/stats/net\.html$|', $url)) {
 			return preg_replace('|^/stats/net\.html$|', $folder.'/?id=content/scripts/netstats', $url);

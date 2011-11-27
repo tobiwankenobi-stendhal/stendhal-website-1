@@ -27,7 +27,7 @@ class ScreenshotPage extends Page {
 		echo '<!DOCTYPE html><html><head>';
 		echo '<title>Screenshot '.$this->filename.STENDHAL_TITLE.'</title>';
 		echo '</head><body>';
-		echo '<a href="'.rewriteURL('/game/screenshot/'.urlencode($this->screenshots[($this->idx + 1) % count($this->screenshots)]['filename'])).'">';
+		echo '<a href="'.rewriteURL('/images/screenshot/'.urlencode($this->screenshots[($this->idx + 1) % count($this->screenshots)]['filename'])).'">';
 		echo '<img src="'.$this->getImageUrl($this->filename).'" alt="'.htmlspecialchars($this->title).'">';
 		echo '</a>';
 		echo '<p>'.htmlspecialchars($this->title).'</p>';
