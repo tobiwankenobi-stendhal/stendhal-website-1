@@ -26,6 +26,8 @@ class ScreenshotPage extends Page {
 	public function writeHttpHeader() {
 		echo '<!DOCTYPE html><html><head>';
 		echo '<title>Screenshot '.$this->filename.STENDHAL_TITLE.'</title>';
+		echo '<meta name="robots" content="noindex">';
+		echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
 		echo '</head><body>';
 		echo '<a href="'.rewriteURL('/images/screenshot/'.urlencode($this->screenshots[($this->idx + 1) % count($this->screenshots)]['filename'])).'">';
 		echo '<img src="'.$this->getImageUrl($this->filename).'" alt="'.htmlspecialchars($this->title).'">';
