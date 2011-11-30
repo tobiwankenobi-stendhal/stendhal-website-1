@@ -109,7 +109,7 @@ class News {
 		
 		// add a tweet button
 		if (isset($_REQUEST['test'])) {
-			echo '<div id="social_buttons" class="newsContent newsDetail">'.$this->renderTweetButton().$this->renderFacebookButton().$this->renderBuzzButton().'</div>';
+			echo '<div id="social_buttons" class="newsContent newsDetail">'.$this->renderTweetButton().$this->renderFacebookButton().'</div>';
 		}
 		
 		endBox();
@@ -148,15 +148,15 @@ class News {
 		}
 		
 		if(strlen($message) + $titleLength < 141) {
-			$message = $message.$title;
+			$message = $message.' '.$title;
 		}
 		
 		if(strlen($message) + $tagLength < 141) {
-			$message = $message.$tag;
+			$message = $message.' '.$tag;
 		}
 		
 		$res = '<a href="http://twitter.com/home?status=';
-		$res = $res.$url.$message;
+		$res = $res.$message;
 		$res = $res.'" target="_blank" title="Twitter">';
 		$res = $res.'<img src="images/buttons/twitter_button.png" width="24" height="24" border="0" hspace="0" alt="Twitter">';
 		$res = $res.'</a>';
@@ -175,25 +175,6 @@ class News {
 		$res = $res.'&t='.urlencode($this->title);
 		$res = $res.'" target="_blank" title="Facebook">';
 		$res = $res.'<img src="images/buttons/facebook_button.png" width="24" height="24" border="0" hspace="0" alt="Facebook">';
-		$res = $res.'</a>';
-		return $res;
-	}
-	
-/**
-	 * Creates a button for sharing this news on google buzz
-	 * 
-	 * @return the html code for a fitting share button
-	 */
-	function renderBuzzButton() {
-		$res = '<a href="http://www.google.com/buzz/post?url=';
-		$res = $res.urlencode('http://'.STENDHAL_SERVER_NAME);
-		$res = $res.urlencode('/-'.$this->id);
-		$res = $res.'&h1='.urlencode($this->title);
-		if (isset($this->oneLineDescription) && strlen($this->oneLineDescription) > 0) {
-			$res = $res.'&message='.urlencode($this->oneLineDescription);
-		}
-		$res = $res.'" target="_blank" title="Google Buzz">';
-		$res = $res.'<img src="images/buttons/google_buzz_button.png" width="24" height="24" border="0" hspace="0" alt="Google Buzz">';
 		$res = $res.'</a>';
 		return $res;
 	}
