@@ -236,7 +236,10 @@ class StendhalFrame extends PageFrame {
 		?>
 	</div>
 </div>
-<?php $this->includeJs();?>
+<?php
+$this->includeJs();
+$page->writeAfterJS();
+?>
 </body>
 </html>
 

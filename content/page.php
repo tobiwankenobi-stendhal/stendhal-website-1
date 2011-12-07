@@ -60,6 +60,9 @@ class Page {
 	public function includeJs() {
 		// deprecated
 	}
+
+	public function writeAfterJS() {
+	}
 }
 $page = new Page();
 ?>

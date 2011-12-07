@@ -12,7 +12,9 @@ class AtlasPage extends Page {
 		echo '</p>There are in detail information about the <a href="http://stendhalgame.org/wiki/Semos">various regions</a> and <a href="http://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';
 		echo '</p>Here is a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a> and a map with <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a>.</p>';
 		endBox();
-
+	}
+	
+	function writeAfterJS() {
 		$zoom = 2;
 		$focusX = 500200;
 		$focusY = 500100;
