@@ -199,9 +199,7 @@ function initializeAtlas() {
 				url: "/account/mycharacters.html"
 			});
 	}
-	<?php
-	echo "\r\nvar pois = ".json_encode(PointofInterest::getPOIs()).";\r\n";
-	?>
+	var pois = $.parseJSON($("#data-pois").attr("data-pois"));
 	wanted = decodeURI(gup("poi")).toLowerCase().split(",");
 	for (var key in pois) {
 		var poi = pois[key];
