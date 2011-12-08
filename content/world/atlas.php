@@ -116,7 +116,6 @@ EuclideanProjection.prototype.fromPointToLatLng = function(point) {
 	return new google.maps.LatLng(lat , lng, true);
 };
 
-
 function worldToLatLng(x, y) {
 	var xw0 = 499616;
 	var yw0 = 499744;
@@ -133,30 +132,6 @@ function worldToLatLng(x, y) {
 	return mapType.projection.fromPointToLatLng({x:lx, y:ly});
 }
 
-var mapType = new google.maps.ImageMapType({
-	getTileUrl: function(coord, zoom) {
-		var y = coord.y;
-		var x = coord.x;
-		var tileRange = 1 << zoom;
-		if (y < 0 || y >= tileRange) {
-			return null;
-		}
-		if (x < 0 || x >= tileRange) {
-			return null;
-		}
-//		return "http://localhost/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
-		return "http://arianne.sourceforge.net/stendhal/map/2/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
-	},
-	tileSize: new google.maps.Size(256, 256),
-	isPng: true,
-	maxZoom: 6,
-	minZoom: 1,
-	name: 'Outside',
-	credit: 'Stendhal'
-});
-mapType.projection = new EuclideanProjection(); 
-
-var map;
 
 // http://www.netlobo.com/url_query_string_javascript.html
 function gup(name) {
@@ -172,6 +147,31 @@ function gup(name) {
 }
 
 function initializeAtlas() {
+
+	mapType = new google.maps.ImageMapType({
+		getTileUrl: function(coord, zoom) {
+			var y = coord.y;
+			var x = coord.x;
+			var tileRange = 1 << zoom;
+			if (y < 0 || y >= tileRange) {
+				return null;
+			}
+			if (x < 0 || x >= tileRange) {
+				return null;
+			}
+//			return "http://localhost/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
+			return "http://arianne.sourceforge.net/stendhal/map/2/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
+		},
+		tileSize: new google.maps.Size(256, 256),
+		isPng: true,
+		maxZoom: 6,
+		minZoom: 1,
+		name: 'Outside',
+		credit: 'Stendhal'
+	});
+	mapType.projection = new EuclideanProjection(); 
+
+
 	var mapOptions = {
 		backgroundColor: "#5f9860",
 		center: worldToLatLng(parseInt($("#data-center").attr("data-x")), parseInt($("#data-center").attr("data-y"))),
@@ -180,7 +180,7 @@ function initializeAtlas() {
 		mapTypeControl: false,
 		streetViewControl: false
 	};
-	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 	map.mapTypes.set("outside", mapType);
 
 	infowindow = new google.maps.InfoWindow({});
