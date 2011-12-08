@@ -9,8 +9,8 @@ class AtlasPage extends Page {
 	function writeContent() {
 		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
 		startBox('Extended information');
-		echo '</p>There are in detail information about the <a href="http://stendhalgame.org/wiki/Semos">various regions</a> and <a href="http://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';
-		echo '</p>Here is a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a> and a map with <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a>.</p>';
+		echo '<p>There are in detail information about the <a href="http://stendhalgame.org/wiki/Semos">various regions</a> and <a href="http://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';
+		echo '<p>Here is a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a> and a map with <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a>.</p>';
 		endBox();
 	}
 	
@@ -72,6 +72,16 @@ class AtlasPage extends Page {
 				}
 			}
 		}
+
+		echo "\n".'<div class="data">';
+		echo '<span id="data-center" data-x="'.htmlspecialchars($focusX).'" data-y="'.htmlspecialchars($focusY).'" data-zoom="'.htmlspecialchars($zoom).'"></span>';
+		if (isset($meX)) {
+			echo '<span id="data-me" data-x="'.htmlspecialchars($meX).'" data-y="'.htmlspecialchars($meY).'" ';
+			echo 'data-zone="'.htmlspecialchars($meZone).'" ';
+			echo 'data-local-x="'.htmlspecialchars($coordinates[1]).'" data-local-y="'.htmlspecialchars($coordinates[2]).'"></span>';
+		}
+		echo '<span id="data-pois" data-pois="'.htmlspecialchars(json_encode(PointofInterest::getPOIs())).'"></span>';
+		echo '</div>';
 		?>
 
 <script
@@ -161,7 +171,7 @@ function gup(name) {
 	}
 }
 
-$().ready(function() {
+function initializeAtlas() {
 	var mapOptions = {
 		backgroundColor: "#5f9860",
 		center: worldToLatLng(<?php echo $focusX.', '.$focusY?>),
@@ -171,10 +181,6 @@ $().ready(function() {
 		streetViewControl: false
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-	// push the credit/copyright custom control
-
-	// add the new map types to map.mapTypes
 	map.mapTypes.set("outside", mapType);
 
 	infowindow = new google.maps.InfoWindow({});
@@ -208,7 +214,7 @@ $().ready(function() {
 			addClickEventToMarker(marker, poi);
 		}
 	}
-});
+}
 
 function addClickEventToMarker(marker, poi) {
 	google.maps.event.addListener(marker, 'click', function(x, y, z) {
@@ -219,6 +225,11 @@ function addClickEventToMarker(marker, poi) {
 		infowindow.open(map, marker);
 	});
 }
+
+
+$().ready(function() {
+	initializeAtlas();
+});
 </script>
 <?php
 	}
