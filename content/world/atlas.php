@@ -174,9 +174,9 @@ function gup(name) {
 function initializeAtlas() {
 	var mapOptions = {
 		backgroundColor: "#5f9860",
-		center: worldToLatLng(<?php echo $focusX.', '.$focusY?>),
+		center: worldToLatLng(parseInt($("#data-center").attr("data-x")), parseInt($("#data-center").attr("data-y"))),
 		noClear: true,
-		zoom: <?php echo $zoom;?>,
+		zoom: parseInt($("#data-center").attr("data-zoom")),
 		mapTypeControl: false,
 		streetViewControl: false
 	};
