@@ -186,20 +186,20 @@ function initializeAtlas() {
 	infowindow = new google.maps.InfoWindow({});
 
 	map.setMapTypeId('outside');
-	<?php
-	if (isset($meX)) {
-		echo 'var me = new google.maps.Marker({
-			position: worldToLatLng('.$meX.', '.$meY.'), 
+	if ($("#data-me").length > 0) {
+		var me = new google.maps.Marker({
+			position: worldToLatLng(parseInt($("#data-me").attr("data-x")), parseInt($("#data-me").attr("data-y"))),
 			map: map, title:"Me",
 			icon: "/images/mapmarker/me.png"
-			});';
-		echo 'addClickEventToMarker(me, {
+			});
+		addClickEventToMarker(me, {
 				name: "Me",
-				description: "I am here at '.htmlspecialchars($meZone)
-				.' ('.htmlspecialchars($coordinates[1]).', '.htmlspecialchars($coordinates[2]).').",
+				description: "I am here at " + $("#data-me").attr("data-zone")
+					+ " (" + $("#data-me").attr("data-local-x") + ", " + $("#data-me").attr("data-local-y") + ")",
 				url: "/account/mycharacters.html"
-			});';
+			});
 	}
+	<?php
 	echo "\r\nvar pois = ".json_encode(PointofInterest::getPOIs()).";\r\n";
 	?>
 	wanted = decodeURI(gup("poi")).toLowerCase().split(",");
