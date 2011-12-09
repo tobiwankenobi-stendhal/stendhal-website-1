@@ -136,18 +136,21 @@ var openid = {
 			}
 		}
 
+		$('.openidlink').click(function(event) { 
+			openid.signin($(this).attr("data-openid"));
+			event.preventDefault();
+		});
 		$('#openid_form').submit(this.submitx);
-
 	},
 
 	getBoxHTML: function(provider, box_size) {
 
 		var box_id = provider["name"].toLowerCase();
 		return '<a title="log in with ' + provider["name"]
-				+ '" href="javascript:openid.signin(\'' + box_id + '\');"'
+				+ '" href="#" data-openid="' + box_id + '"'
 				+ ' style="background: #fff url(' + this.img_path
 				+ '); background-position: ' + provider["x"] + 'px '
-				+ provider["y"] + 'px"' + ' class="' + box_id + ' openid_'
+				+ provider["y"] + 'px"' + ' class="openidlink ' + box_id + ' openid_'
 				+ box_size + '_btn"></a>';
 	},
 
