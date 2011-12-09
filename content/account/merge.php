@@ -122,8 +122,6 @@ class AccountMerge extends Page {
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>Account Merging'.STENDHAL_TITLE.'</title>';
-		echo '<script src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js" type="text/javascript"></script>';
-		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000003.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {
@@ -211,12 +209,16 @@ class AccountMerge extends Page {
 
 <?php
 
-	if (isset($this->openid->error)) {
-		echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
-	}
+		if (isset($this->openid->error)) {
+			echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
+		}
 
 		endBox();
-		}
+	}
+
+	function writeAfterJS() {
+		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000004.js" type="text/javascript"></script>';
+	}
 }
 $page = new AccountMerge();
 ?>

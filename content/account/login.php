@@ -105,8 +105,6 @@ class LoginPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Login'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
-		echo '<script src="'.STENDHAL_FOLDER.'/css/jquery-00000001.js" type="text/javascript"></script>';
-		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000003.js" type="text/javascript"></script>';
 	}
 
 	function writeContent() {
@@ -235,6 +233,10 @@ class LoginPage extends Page {
 	}
 
 		endBox();
+	}
+
+	function writeAfterJS() {
+		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000004.js" type="text/javascript"></script>';
 	}
 }
 $page = new LoginPage();
