@@ -1,6 +1,11 @@
 <?php
 class AtlasPage extends Page {
 
+	public function writeHttpHeader() {
+		header("X-Content-Security-Policy: default-src *; options eval-script; report-uri ".STENDHAL_LOGIN_TARGET."/?id=content/scripts/cspreport", true);
+		return true;
+	}
+
 	public function writeHtmlHeader() {
 		echo '<title>Atlas'.STENDHAL_TITLE.'</title>';
 		$this->includeJs();
