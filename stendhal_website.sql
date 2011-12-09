@@ -117,3 +117,13 @@ create table permission (
   primary key(id)
 );
 
+
+create table content_security_policy_report (
+  id int auto_increment not null,
+  address varchar(255),
+  useragent varchar(255),
+  content text,
+  timedate timestamp default CURRENT_TIMESTAMP,
+  primary key(id)
+);
+
