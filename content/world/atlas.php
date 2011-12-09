@@ -2,7 +2,7 @@
 class AtlasPage extends Page {
 
 	public function writeHttpHeader() {
-		header("X-Content-Security-Policy: default-src *; options eval-script; report-uri ".STENDHAL_LOGIN_TARGET."/?id=content/scripts/cspreport", true);
+		header("X-Content-Security-Policy: default-src *; options eval-script; report-uri /?id=content/scripts/cspreport", true);
 		return true;
 	}
 

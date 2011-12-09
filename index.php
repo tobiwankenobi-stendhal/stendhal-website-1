@@ -36,7 +36,7 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
  */
 connect();
 
-header("X-Content-Security-Policy: default-src 'self'; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net ;report-uri ".STENDHAL_LOGIN_TARGET."/?id=content/scripts/cspreport");
+header("X-Content-Security-Policy: default-src 'self'; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net ; report-uri /?id=content/scripts/cspreport");
 
 /**
  * Scan the name module to load and reset it to safe default if something strange appears.
