@@ -67,7 +67,7 @@ class AssociationFrame extends PageFrame {
 	 */
 	function writeHttpHeader($page_url) {
 		global $protocol;
-		if (strpos($page_url, 'content/association/') !==0) {
+		if ((strpos($page_url, 'content/association/') !== 0) && (strpos($page_url, 'content/scripts/cspreport') !== 0)) {
 			header('Location: '.$protocol.'://'.STENDHAL_SERVER_NAME);
 			return false;
 		}
