@@ -36,6 +36,7 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
  */
 connect();
 
+header('X-Frame-Options: sameorigin');
 header("X-Content-Security-Policy: default-src 'self'; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net ; report-uri /?id=content/scripts/cspreport");
 
 /**
