@@ -86,7 +86,7 @@ class AtlasPage extends Page {
 		echo '<span id="data-pois" data-pois="'.htmlspecialchars(json_encode(PointofInterest::getPOIs())).'"></span>';
 		echo '</div>';
 
-		echo '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>';
+		echo '<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>';
 	}
 }
 $page = new AtlasPage();
