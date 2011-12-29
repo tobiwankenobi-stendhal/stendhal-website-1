@@ -27,24 +27,24 @@ class Event {
 		$this->timedate=$timedate;
 	}
 
-	function getURL($outfits,$string,$type) {
+	function getURL($outfits, $name, $type) {
 		if ($type == 'P') {
-			$url = '<a class="small_image_link" href="'.rewriteURL('/character/'.surlencode($string).'.html').'"><img src="'.rewriteURL('/images/outfit/'.surlencode($outfits[$string]).'.png').'" alt="" width="36" height="48" title="'.htmlspecialchars($string).'"></a> ';
+			$url = '<a class="small_image_link" href="'.rewriteURL('/character/'.surlencode($name).'.html').'"><img src="'.rewriteURL('/images/outfit/'.surlencode($outfits[$name]).'.png').'" alt="'.htmlspecialchars($name).'" width="36" height="48" title="'.htmlspecialchars($name).'"></a> ';
 		} else if ($type == 'C') {
-			$monster = getMonster($string);
+			$monster = getMonster($name);
 			if (isset($monster) && $monster != null) {
-				$url = '<a class="small_image_link" href="'.rewriteURL('/creature/'.surlencode($string).'.html').'"><img src="'.$monster->showImage().'" alt=" " width="36" height="48" title="'.htmlspecialchars($string).'"></a> ';
+				$url = '<a class="small_image_link" href="'.rewriteURL('/creature/'.surlencode($name).'.html').'"><img src="'.$monster->showImage().'" alt="'.htmlspecialchars($name).'" width="36" height="48" title="'.htmlspecialchars($name).'"></a> ';
 			} else {
-				$url = htmlspecialchars($string);
+				$url = htmlspecialchars($name);
 			}
 		} else {
-			$url = htmlspecialchars($string);
+			$url = htmlspecialchars($name);
 		}
 		return $url;
 	} 
 
-	function getCharacterHtml($outfits,$character) {
-		return $this->getURL($outfits,$character,'P');
+	function getCharacterHtml($outfits, $character) {
+		return $this->getURL($outfits, $character, 'P');
 	}
 
 	public function getHtml($outfits) {
@@ -307,7 +307,7 @@ class EquipEvent extends Event  {
   
   function getHtml($outfits) {
   	return '<br>'.$this->getCharacterHtml($outfits,$this->source).' picked up ' .
-  			'<a class="menu" href="'.rewriteURL('/item/'.surlencode(getItem($this->item)->class).'/'.surlencode($this->item).'.html').'"><img src="'.htmlspecialchars(getItem($this->item)->showImage()).'" alt=" " title="'.htmlspecialchars($this->amount).' '.htmlspecialchars($this->item).'"></a> at '.date('H:i',strtoTime($this->timedate));
+  			'<a class="menu" href="'.rewriteURL('/item/'.surlencode(getItem($this->item)->class).'/'.surlencode($this->item).'.html').'"><img src="'.htmlspecialchars(getItem($this->item)->showImage()).'" alt="'.htmlspecialchars($this->item).'" title="'.htmlspecialchars($this->amount).' '.htmlspecialchars($this->item).'"></a> at '.date('H:i',strtoTime($this->timedate));
   }
   
 }
@@ -335,7 +335,7 @@ class AchievementEvent extends Event  {
 
 	function getHtml($outfits) {
 		return '<br>'.$this->getCharacterHtml($outfits,$this->source).' reached achievement '
-			. '<a href="'.rewriteURL('/achievement/'.surlencode($this->title).'.html').'" title="'.htmlspecialchars($this->description).'">'.
+			. '<a href="'.rewriteURL('/achievement/'.surlencode($this->title).'.html').'" alt="'.htmlspecialchars($this->title).'" title="'.htmlspecialchars($this->description).'">'.
 			htmlspecialchars($this->title).'</a> at '.date('H:i',strtoTime($this->timedate));
 	}
 
