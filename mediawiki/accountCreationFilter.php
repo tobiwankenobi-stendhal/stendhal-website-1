@@ -30,4 +30,4 @@ function acfPreventTalkPageWithoutMainPage($editpage) {
 
 $wgHooks['UserCreateForm'][] = 'acfUserCreateForm';
 $wgHooks['AbortNewAccount'][] = 'acfAbortNewAccount';
-$wgHooks['AbortNewAccount'][] = 'acfPreventTalkPageWithoutMainPage';
+$wgHooks['EditPage::attemptSave'][] = 'acfPreventTalkPageWithoutMainPage';
