@@ -22,7 +22,11 @@ class APIPage extends Page {
 	public function writeHttpHeader() {
 		header("Content-Type: text/javascript", true);
 		if ($_REQUEST['method'] == 'isNameAvailable') {
-			$this->isNameAvailable($_REQUEST['param'], $_REQUEST['ignoreAccount']);
+			$ignoreAccount = false;
+			if (isset($_REQUEST['ignoreAccount'])) {
+				$ignoreAccount = $_REQUEST['ignoreAccount'];
+			}
+			$this->isNameAvailable($_REQUEST['param'], $ignoreAccount);
 		} else if ($_REQUEST['method'] == 'traceroute') {
 			$ip = false;
 			if (isset($_REQUEST['ip'])) {
