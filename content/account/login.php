@@ -39,9 +39,11 @@ class LoginPage extends Page {
 
 		// redirect to openid provider?
 		$this->openid = new OpenID();
-		$this->openid->doOpenidRedirectIfRequired($_POST['openid_identifier']);
-		if ($this->openid->isAuth && !$this->openid->error) {
-			return false;
+		if (isset($_POST['openid_identifier'])) {
+			$this->openid->doOpenidRedirectIfRequired($_POST['openid_identifier']);
+			if ($this->openid->isAuth && !$this->openid->error) {
+				return false;
+			}
 		}
 
 		if ($this->verifyLoginByPassword()) {
@@ -124,8 +126,9 @@ class LoginPage extends Page {
 	}
 
 	function getUrl() {
-		$url = $_REQUEST['url'];
-		if (!isset($url)) {
+		if (isset($_REQUEST['url'])) {
+			$url = $_REQUEST['url'];
+		} else {
 			$url = rewriteURL('/account/mycharacters.html');
 			$players = getCharactersForUsername($_SESSION['account']->username);
 			if(sizeof($players)==0) {
@@ -164,8 +167,8 @@ class LoginPage extends Page {
 				$item = explode('=', $urlParam);
 				$urlParams[$item[0]] = $item[1];
 			}
-			$targetRealm = preg_replace('|^[^:]*://|', '', $urlParams['openid.realm']);
 			if (isset($urlParams['openid.realm'])) {
+				$targetRealm = preg_replace('|^[^:]*://|', '', $urlParams['openid.realm']);
 				echo '<div class"openidnotice">You are logging in to an external service:';
 				echo '<div class="openidtargetnotice" style="font-size:2em; font-weight: bold">'.STENDHAL_SERVER_NAME.' → '.htmlspecialchars($targetRealm).'</div>';
 				echo '<br>';

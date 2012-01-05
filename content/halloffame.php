@@ -167,26 +167,28 @@ class HallOfFamePage extends Page {
 
 
 	function renderOverview() {
-		startBox("Best player");
 		$choosen = getBestPlayer($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere);
-		?>
-		<div class="bubble">The best player is decided based on the relation between XP, age, and achievement score. The best players are those who spend time earning XP and achievements.</div>    
-		<div class="best">
+		if ($choosen !== false) {
+			startBox("Best player");
+			?>
+			<div class="bubble">The best player is decided based on the relation between XP, age, and achievement score. The best players are those who spend time earning XP and achievements.</div>    
+			<div class="best">
+				<a href="<?php echo rewriteURL('/character/'.surlencode($choosen['charname']).'.html'); ?>">
+					<span class="block statslabel">Name:</span><span class="block data"><?php echo htmlspecialchars($choosen['charname']); ?></span>
+					<span class="block statslabel">Age:</span><span class="block data"><?php echo printAge(round($choosen['age']/60, 0)); ?> hours</span>
+					<span class="block statslabel">Level:</span><span class="block data"><?php echo $choosen['level']; ?></span>
+					<span class="block statslabel">XP:</span><span class="block data"><?php echo $choosen['xp']; ?></span>
+					<span class="block statslabel">Roleplay score:</span><span class="block data"><?php echo $choosen['points']; ?></span>
+				</a>
+			</div>
 			<a href="<?php echo rewriteURL('/character/'.surlencode($choosen['charname']).'.html'); ?>">
-				<span class="block statslabel">Name:</span><span class="block data"><?php echo htmlspecialchars($choosen['charname']); ?></span>
-				<span class="block statslabel">Age:</span><span class="block data"><?php echo printAge(round($choosen['age']/60, 0)); ?> hours</span>
-				<span class="block statslabel">Level:</span><span class="block data"><?php echo $choosen['level']; ?></span>
-				<span class="block statslabel">XP:</span><span class="block data"><?php echo $choosen['xp']; ?></span>
-				<span class="block statslabel">Roleplay score:</span><span class="block data"><?php echo $choosen['points']; ?></span>
+			<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen['outfit']).'.png')?>" alt="">
 			</a>
-		</div>
-		<a href="<?php echo rewriteURL('/character/'.surlencode($choosen['charname']).'.html'); ?>">
-		<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen['outfit']).'.png')?>" alt="">
-		</a>
-		<?php if ($choosen->sentence != '') {
-			echo '<div class="sentence">'.htmlspecialchars($choosen['sentence']).'</div>';
+			<?php if ($choosen->sentence != '') {
+				echo '<div class="sentence">'.htmlspecialchars($choosen['sentence']).'</div>';
+			}
+			endBox();
 		}?>
-		<?php endBox(); ?>
 
 		<div style="float: left; width: 34%">
 			<?php startBox("Best players"); ?>
