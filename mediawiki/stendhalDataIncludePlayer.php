@@ -47,7 +47,9 @@ function stendhalDataIncludePlayerStats($player, $argv) {
 		$res .= 'Level: ' . htmlspecialchars($player->level) . '<br />';
 		$res .= 'XP: ' . htmlspecialchars($player->xp) . '<br />';
 		foreach($player->attributes as $label=>$data) {
-			$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
+			if ($label != 'karma') {
+				$res .= htmlspecialchars(ucfirst($label)) . ': ' . htmlspecialchars($data) . '<br />';
+			}
 		}
 		if ($player->adminlevel > 0) {
 			if ($player->adminlevel >= 800) {
