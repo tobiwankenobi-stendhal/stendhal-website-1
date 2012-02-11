@@ -590,10 +590,10 @@ class Account {
 			while (strlen($temp) < 6) {
 				$temp = $temp . $org;
 			}
+			return substr($temp, 0, 20);
 		} else {
-			unset($temp);
+			return null;
 		}
-		return $temp;
 	}
 
 	/**
@@ -647,6 +647,30 @@ class Account {
 		mysql_free_result($result);
 		return $row;
 	}
+
+	/**
+	 * creates the return url
+	 */
+	public static function createReturnUrl() {
+		if (isset($_SERVER['SCRIPT_URI'])) {
+			$res = $_SERVER['SCRIPT_URI'];
+		} else {
+			// SCRIPT_URI seems to be set by mod_redirect only
+			if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
+				$res = 'https';
+			} else {
+				$res = 'http';
+			}
+			$res = $res.'://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+		}
+		
+		$res = $res.'?id='.urlencode($_REQUEST['id']);
+		if (isset($_REQUEST['url'])) {
+			$res .= '&url='.urlencode($_REQUEST['url']);
+		}
+		return $res;
+	}
+	
 }
 
 /**
@@ -713,6 +737,11 @@ class AccountLink {
 			$pos = strpos($this->email, '@');
 			if ($pos !== false) {
 				$res[] = Account::convertToValidUsername(substr($this->email, 0, $pos));
+			}
+		}
+		if ($this->type == 'facebook') {
+			for ($i = 97; $i <= 122; $i++) {
+				$res[] = Account::convertToValidUsername(substr($this->nickname, 0, 19).chr($i));
 			}
 		}
 		if (strpos($this->username, 'http') === 0) {
