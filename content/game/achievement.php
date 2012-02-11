@@ -23,6 +23,15 @@ class AchievementPage extends Page {
 	public function writeHtmlHeader() {
 		if (count($this->achievements) == 1) {
 			echo '<title>Achievement '.$this->achievements->title.STENDHAL_TITLE.'</title>';
+			
+			echo '<meta property="og:type" content="game.achievement">';
+			echo '<meta property="og:url" content="https://stendhalgame.org/'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'">';
+			echo '<meta property="og:title" content="'.$this->achievements->title.'">';
+			echo '<meta property="og:description" content="'.htmlspecialchars($this->achievements->description).'">';
+			echo '<meta property="og:image" content="https://stendhalgame.org/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png">';
+			echo '<meta property="game:points" content="10">';
+			echo '<meta property="fb:app_id" content="'.FACEBOOK_APP_ID.'">';
+				
 		} else {
 			echo '<title>Achievements'.STENDHAL_TITLE.'</title>';
 		}
