@@ -19,10 +19,12 @@
 
 require_once('scripts/account.php');
 require_once('content/account/openid.php');
+require_once('content/account/fb.php');
 
 class LoginPage extends Page {
 	private $error;
 	private $openid;
+	private $facebook;
 
 	public function writeHttpHeader() {
 		if ($this->handleRedirectIfAlreadyLoggedIn()) {
@@ -39,9 +41,17 @@ class LoginPage extends Page {
 
 		// redirect to openid provider?
 		$this->openid = new OpenID();
-		if (isset($_POST['openid_identifier'])) {
+		if (isset($_POST['openid_identifier']) && ($_POST['openid_identifier'] != '')) {
 			$this->openid->doOpenidRedirectIfRequired($_POST['openid_identifier']);
 			if ($this->openid->isAuth && !$this->openid->error) {
+				return false;
+			}
+		}
+		// redirect to the oauth provider
+		$this->fb = new Facebook();
+		if (isset($_REQUEST['oauth_version']) && ($_REQUEST['oauth_version'] != '')) {
+			$this->fb->doRedirect();
+			if ($this->fb->isAuth) {
 				return false;
 			}
 		}
@@ -51,6 +61,10 @@ class LoginPage extends Page {
 		}
 
 		if ($this->verifyLoginByOpenid()) {
+			return false;
+		}
+
+		if ($this->verifyFacebook()) {
 			return false;
 		}
 
@@ -99,11 +113,25 @@ class LoginPage extends Page {
 			$this->openid->error = 'OpenID-Authentication failed.';
 			return false;
 		}
-		$this->openid->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
+		$this->fb->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
 		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
 		return true;
 	}
 
+	public function verifyFacebook() {
+		if (!isset($_REQUEST['code'])) {
+			return false;
+		}
+		$accountLink = $this->fb->createAccountLink();
+		if (!$accountLink) {
+			$this->openid->error = 'Facebook-Authentication failed.';
+			return false;
+		}
+		$this->fb->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
+		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
+		return true;
+	}
+	
 	public function writeHtmlHeader() {
 		echo '<title>Login'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
@@ -239,7 +267,11 @@ class LoginPage extends Page {
 	}
 
 	function writeAfterJS() {
-		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000004.js" type="text/javascript"></script>';
+		if (isset($_REQUEST['test'])) {
+			echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000005.js" type="text/javascript"></script>';
+		} else {
+			echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000004.js" type="text/javascript"></script>';
+		}
 	}
 }
 $page = new LoginPage();

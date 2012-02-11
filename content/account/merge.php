@@ -19,6 +19,7 @@
 
 require_once('scripts/account.php');
 require_once('content/account/openid.php');
+require_once('content/account/fb.php');
 
 class AccountMerge extends Page {
 	private $error;
@@ -39,9 +40,20 @@ class AccountMerge extends Page {
 
 		// redirect to openid provider?
 		$this->openid = new OpenID();
-		$this->openid->doOpenidRedirectIfRequired($_POST['openid_identifier']);
-		if ($this->openid->isAuth && !$this->openid->error) {
-			return false;
+		if (isset($_REQUEST['openid_identifier']) && ($_REQUEST['openid_identifier'] != '')) {
+			$this->openid->doOpenidRedirectIfRequired($_POST['openid_identifier']);
+			if ($this->openid->isAuth && !$this->openid->error) {
+				return false;
+			}
+		}
+
+		// redirect to the oauth provider
+		$this->fb = new Facebook();
+		if (isset($_REQUEST['oauth_version']) && ($_REQUEST['oauth_version'] != '')) {
+			$this->fb->doRedirectWithCSRFToken($_SESSION['csrf']);
+			if ($this->fb->isAuth) {
+				return false;
+			}
 		}
 
 		if ($this->processMerge()) {
@@ -53,8 +65,15 @@ class AccountMerge extends Page {
 
 
 	function processMerge() {
-
-		if ($_POST['pass']) {
+		if (isset($_POST['pass']) || isset($_GET['openid_mode']) || isset($_REQUEST['code'])) {
+			// make sure that we are (still) logged in
+			if (!isset($_SESSION['account'])) {
+				header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url='.rewriteURL('/account/merge.html'));
+				return false;
+			}
+		}
+				
+		if (isset($_POST['pass'])) {
 			if (! isset($_POST['submerge'])) {
 				return false;
 			}
@@ -112,6 +131,17 @@ class AccountMerge extends Page {
 			}
 
 			$this->openid->merge($accountLink);
+			return true;
+
+		} else if (isset($_REQUEST['code'])) {
+		
+			$accountLink = $this->fb->createAccountLink();
+			if (!$accountLink) {
+				$this->fb = 'Facebook login failed.';
+				return false;
+			}
+
+			$this->fb->merge($accountLink);
 			return true;
 		}
 		
@@ -217,7 +247,11 @@ class AccountMerge extends Page {
 	}
 
 	function writeAfterJS() {
-		echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000004.js" type="text/javascript"></script>';
+			if (isset($_REQUEST['test'])) {
+			echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000005.js" type="text/javascript"></script>';
+		} else {
+			echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000004.js" type="text/javascript"></script>';
+		}
 	}
 }
 $page = new AccountMerge();
