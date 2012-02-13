@@ -88,7 +88,7 @@ class MyCharactersPage extends Page {
 			If the application is unknown, please download and install <a target="_blank" href="http://java.com">Java</a>.</p>
 
 			<p>If you have trouble to join the game, please ask in the <a target="_top" href="/chat/">#arianne</a> chat or create a 
-			<a href="https://sourceforge.net/tracker/?group_id=1111&amp;atid=201111">support ticket</a>.</p>
+			<a target="_blank" href="https://sourceforge.net/tracker/?group_id=1111&amp;atid=201111">support ticket</a>.</p>
 			<?php
 			endBox();
 		}
