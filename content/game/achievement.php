@@ -69,7 +69,7 @@ class AchievementPage extends Page {
 		startBox('My Friends');
 		if (isset($_SESSION) && $_SESSION['account']) {
 			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
-			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
+			echo '<div style="height: '.(ceil(count($list) / 7) * 90) .'px">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		} else {
@@ -82,7 +82,7 @@ class AchievementPage extends Page {
 		startBox('My Characters');
 		if (isset($_SESSION) && $_SESSION['account']) {
 			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
-			echo '<div style="height: '.((floor(count($list) / 7) + 1) * 90) .'px">';
+			echo '<div style="height: '.(ceil(count($list) / 7) * 90) .'px">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		} else {

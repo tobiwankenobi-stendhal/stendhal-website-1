@@ -45,15 +45,19 @@ class MyCharactersPage extends Page {
 	}
 
 	function writeContent() {
+		$this->writeCharacterList(7);
+	}
+
+	function writeCharacterList($charsPerRow) {
 		global $adminLevel;
 		startBox("Character Selector");
 
 		$players = getCharactersForUsername($_SESSION['account']->username);
 		if(sizeof($players)==0) {
-			echo '<div>Please <a href="'.rewriteURL('/account/create-character.html').'">create a new character</a>.</div>';
+			echo '<div>Please <a target="_top" href="'.rewriteURL('/account/create-character.html').'">create a new character</a>.</div>';
 		} else {
 			echo '<div>Click on a character below to play or <a href="'.rewriteURL('/account/create-character.html').'">create a new character</a>.</div>';
-			echo '<div style="height: '.((floor(count($players) / 7) + 1) * 140) .'px">';
+			echo '<div style="height: '.(ceil(count($players) / $charsPerRow) * 140) .'px">';
 			foreach($players as $p) {
 				echo '<div class="onlinePlayer characterHeight">';
 				echo '  <a class = "onlineLink" href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';
@@ -61,7 +65,7 @@ class MyCharactersPage extends Page {
 				echo '  <span class="block">'.htmlspecialchars($p->name).'</span></a>';
 				echo '  <span class="block">Level: '.$p->level.'</span>';
 				echo '  <span class="block">Age: '.intval($p->age/60).' h</span>';
-				echo '  <span class="block"><a class = "characterLink" href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">Details</a></span>';
+				echo '  <span class="block"><a class = "characterLink" target="_top" href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">Details</a></span>';
 				if ($adminLevel > 0) {
 					echo '  <span class="block"><a class = "characterLink" onclick=\'window.open("/client/stendhal.html#'.surlencode($p->name).'", "_blank", "directories=0,height=750,location=0,left=1,top=1,menubar=0,scrollbars=n,status=n,toolbar=n,width=1000", false);return false;\' href="/client/stendhal.html#'.surlencode($p->name).'">Alpha</a></span>';
 				}
@@ -81,9 +85,9 @@ class MyCharactersPage extends Page {
 			startBox("Trouble Shooting");
 			?>
 			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
-			If the application is unknown, please download and install <a href="http://java.com">Java</a>.</p>
+			If the application is unknown, please download and install <a target="_blank" href="http://java.com">Java</a>.</p>
 
-			<p>If you have trouble to join the game, please ask in the <a href="/chat/">#arianne</a> chat or create a 
+			<p>If you have trouble to join the game, please ask in the <a target="_top" href="/chat/">#arianne</a> chat or create a 
 			<a href="https://sourceforge.net/tracker/?group_id=1111&amp;atid=201111">support ticket</a>.</p>
 			<?php
 			endBox();
