@@ -24,7 +24,7 @@ require_once('content/account/fb.php');
 class LoginPage extends Page {
 	private $error;
 	private $openid;
-	private $facebook;
+	private $fb;
 
 	public function writeHttpHeader() {
 		if ($this->handleRedirectIfAlreadyLoggedIn()) {
@@ -113,7 +113,7 @@ class LoginPage extends Page {
 			$this->openid->error = 'OpenID-Authentication failed.';
 			return false;
 		}
-		$this->fb->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
+		Account::loginOrCreateByAccountLink($accountLink);
 		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
 		return true;
 	}
@@ -127,7 +127,7 @@ class LoginPage extends Page {
 			$this->openid->error = 'Facebook-Authentication failed.';
 			return false;
 		}
-		$this->fb->succesfulOpenidAuthWhileNotLoggedIn($accountLink);
+		Account::loginOrCreateByAccountLink($accountLink);
 		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
 		return true;
 	}
