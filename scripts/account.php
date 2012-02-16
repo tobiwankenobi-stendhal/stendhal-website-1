@@ -668,6 +668,12 @@ class Account {
 		if (isset($_REQUEST['url'])) {
 			$res .= '&url='.urlencode($_REQUEST['url']);
 		}
+		if (isset($_REQUEST['social'])) {
+			$res .= '&social='.urlencode($_REQUEST['social']);
+		}
+		if (isset($_REQUEST['tab'])) {
+			$res .= '&tab='.urlencode($_REQUEST['tab']);
+		}
 		return $res;
 	}
 
