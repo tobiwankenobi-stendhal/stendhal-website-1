@@ -90,7 +90,7 @@ class Facebook {
 
 	public function getCanvasAuthUrl() {
 		return 'https://www.facebook.com/dialog/oauth?client_id='
-			.STENDHAL_APP_ID.'&redirect_uri=https://stendhalgame.org/%3Fid%3Dcontent/account/gadget%26social%3Dfb';
+			.FACEBOOK_APP_ID.'&redirect_uri=https://stendhalgame.org/%3Fid%3Dcontent/account/gadget%26social%3Dfb';
 	}
 
 // BEGIN FACEBOOK PHP SDK http://www.apache.org/licenses/LICENSE-2.0

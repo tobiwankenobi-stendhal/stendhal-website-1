@@ -109,7 +109,11 @@ span.block {
 		if (!isset($_SESSION['account'])) {
 
 			// is this a request with authentication information?
-			$accountLink = $this->api->createAccountLinkForSignedRequest();
+			if (isset($_REQUEST['signed_request'])) {
+				$accountLink = $this->api->createAccountLinkForSignedRequest();
+			} else if (isset($_REQUEST['code'])) {
+				$accountLink = $this->api->createAccountLink();
+			}
 			if (isset($accountLink)) {
 				Account::loginOrCreateByAccountLink($accountLink);
 			}
