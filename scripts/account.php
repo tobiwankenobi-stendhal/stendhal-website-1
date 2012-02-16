@@ -574,7 +574,10 @@ class Account {
 		} else if ($this->status == "merged") {
 			$res = "Your account has been merged into another account. Please login with that account or contact support.";
 		}
-		return $res;
+		if (isset($res)) {
+			return $res;
+		}
+		return null;
 	}
 
 	/**

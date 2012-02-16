@@ -77,7 +77,7 @@ function createRandomString() {
 	$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	$res = '';
 	for ($i = 0; $i < 20; $i++) {
-		$res .= $characters[mt_rand(0, strlen($characters))];
+		$res .= $characters[mt_rand(0, strlen($characters) - 1)];
 	}
 	return $res;
 }
@@ -104,4 +104,3 @@ function queryWithCache($query, $ttl, $db) {
 	}
 	return $list;
 }
-?>

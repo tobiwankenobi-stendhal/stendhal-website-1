@@ -149,6 +149,9 @@ class Zone {
 	}
 
 	private static function createPOIsFromZone($zone, $xml) {
+		if (!isset($xml['point-of-interest'])) {
+			return null;
+		}
 		$pois = $xml['point-of-interest'];
 		if (!isset($pois) || !is_array($pois)) {
 			return null;

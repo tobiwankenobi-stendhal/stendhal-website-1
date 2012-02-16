@@ -34,7 +34,7 @@ class AccountMerge extends Page {
 			}
 		}
 
-		if ($_POST['merge']) {
+		if (isset($_POST['merge'])) {
 			$_SESSION['merge'] = $_POST['merge'];
 		}
 
