@@ -28,6 +28,9 @@ class Facebook {
 		$response = file_get_contents($tokenUrl);
 		$params = null;
 		parse_str($response, $params);
+		if (!isset($params) || !isset($params['access_token'])) {
+			return null;
+		}
 		return $this->createAccountLinkFromAccessToken($params['access_token']);
 	}
 
