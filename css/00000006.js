@@ -564,10 +564,9 @@ $().ready(function() {
 		initializeAtlas();
 	}
 
+	if (document.getElementById("gadget-redirect") != null) {
+		window.top.location.href = $("#gadget-redirect").attr("href");
+	}
 	initTracepath();
 	initEditor();
 });
-
-
-
-
