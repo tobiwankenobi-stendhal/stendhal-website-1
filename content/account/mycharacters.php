@@ -45,18 +45,18 @@ class MyCharactersPage extends Page {
 	}
 
 	function writeContent() {
-		$this->writeCharacterList(7);
+		$this->writeCharacterList(7, rewriteURL('/account/create-character.html'));
 	}
 
-	function writeCharacterList($charsPerRow) {
+	function writeCharacterList($charsPerRow, $createURL) {
 		global $adminLevel;
 		startBox("Character Selector");
 
 		$players = getCharactersForUsername($_SESSION['account']->username);
 		if(sizeof($players)==0) {
-			echo '<div>Please <a target="_top" href="'.rewriteURL('/account/create-character.html').'">create a new character</a>.</div>';
+			echo '<div>Please <a target="_top" href="'.$createURL.'">create a new character</a>.</div>';
 		} else {
-			echo '<div>Click on a character below to play or <a href="'.rewriteURL('/account/create-character.html').'">create a new character</a>.</div>';
+			echo '<div>Click on a character below to play or <a href="'.$createURL.'">create a new character</a>.</div>';
 			echo '<div style="height: '.(ceil(count($players) / $charsPerRow) * 140) .'px">';
 			foreach($players as $p) {
 				echo '<div class="onlinePlayer characterHeight">';
