@@ -31,7 +31,14 @@ class CreateCharacterPage extends Page {
 			return true;
 		}
 
-		return $this->process();
+		$res = $this->process();
+		if ($res) {
+			// redirect to my characters page
+			header('HTTP/1.0 301 Moved permanently.');
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/mycharacters.html')));
+			return false;
+		}
+		return true;
 	}
 
 
@@ -51,18 +58,18 @@ class CreateCharacterPage extends Page {
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/create-character.html">login</a> to create a character.</p>';
 			endBox();
 		} else {
-			$this->show();
+			$this->show(rewriteURL('/account/create-character.html'));
 		}
 	}
-	
+
 	function process() {
 		global $protocol;
-		if (! isset($_POST['name'])) {
-			return true;
+		if (! isset($_POST['name']) || !isset($_REQUEST['outfitcode'])) {
+			return false;
 		}
 
 		if ($_POST['csrf'] != $_SESSION['csrf']) {
-			return true;
+			return false;
 		}
 
 		$user = strtolower($_POST['name']);
@@ -74,17 +81,14 @@ class CreateCharacterPage extends Page {
 		$this->result = $clientFramework->createCharacter($_SESSION['account']->username, $user, $template);
 
 		if ($this->result->wasSuccessful()) {
-			// redirect to my characters page
-			header('HTTP/1.0 301 Moved permanently.');
-			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", rewriteURL('/account/mycharacters.html')));
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 	
 
-	function show() {
+	function show($createURL) {
 		$this->initOutfitArray();
 
 		if (isset($_POST['name']) && ($_POST['csrf'] != $_SESSION['csrf'])) {
@@ -102,7 +106,7 @@ class CreateCharacterPage extends Page {
 		startBox("Create Character");
 ?>
 
-<form id="createCharacterForm" name="createCharacterForm" action="<?php echo rewriteURL('/account/create-character.html');?>" method="POST" style="height:22em; padding: 1em"> <!-- onsubmit="return checkForm()"  -->
+<form id="createCharacterForm" name="createCharacterForm" action="<?php echo $createURL;?>" method="POST" style="height:22em; padding: 1em"> <!-- onsubmit="return checkForm()"  -->
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
 <div class="outfitpanel">
