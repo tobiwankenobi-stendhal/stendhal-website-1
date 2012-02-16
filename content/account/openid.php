@@ -49,7 +49,7 @@ class OpenID {
 	public function createAccountLink() {
 		$openid = new LightOpenID();
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-		$openid->returnUrl = $this->createReturnUrl();
+		$openid->returnUrl = Account::createReturnUrl();
 		try {
 			if (!$openid->validate()) {
 				$this-$openid->error = 'Open ID validation failed.';

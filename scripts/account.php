@@ -670,7 +670,25 @@ class Account {
 		}
 		return $res;
 	}
-	
+
+	/**
+	 * logs the user in using the providing account link, automatically
+	 * creates the account, if it does not exist, yet.
+	 *
+	 * @param AccountLink $accountLink
+	 */
+	public static function loginOrCreateByAccountLink($accountLink) {
+		unset($_SESSION['account']);
+		$account = Account::tryLogin($accountLink->type, $accountLink->username, null);
+		
+		if (!$account || is_string($account)) {
+			$account = $accountLink->createAccount();
+		}
+		$_SESSION['account'] = $account;
+		$_SESSION['csrf'] = createRandomString();
+		$_SESSION['marauroa_authenticated_username'] = $account->username;
+		fixSessionPermission();
+	}
 }
 
 /**
