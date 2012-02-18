@@ -236,6 +236,13 @@ class StendhalFrame extends PageFrame {
 		?>
 	</div>
 </div>
+
+<div id="popup">
+<a id="popupClose">X</a>
+<div id="popupContent"></div>
+</div>
+<div id="backgroundPopup"></div>
+
 <?php
 $this->includeJs();
 $page->writeAfterJS();

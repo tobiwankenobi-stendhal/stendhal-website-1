@@ -643,7 +643,8 @@ img.screenshot {
 	border:2px solid #CCC;  
 	z-index:2;  
 	padding:12px;  
-	font-size:13px;  
+	font-size:13px;
+	text-align: left;  
 }
 #popupClose{  
 	font-size:14px;  
@@ -658,6 +659,9 @@ img.screenshot {
 
 .socialmedia{
 	cursor: default;
+	background-image: url('/images/social.png');
+	width: 32px;
+	height: 32px;
 }
 
 .spaceafter{

@@ -97,14 +97,6 @@ class MainPage extends Page {
 	?>
 </div>
 
-
-<div id="popup">
-	<a id="popupClose">X</a>
-	<div id="popupContent"></div>
-</div>
-<div id="backgroundPopup"></div>
-
-
 <?php
 	}
 }

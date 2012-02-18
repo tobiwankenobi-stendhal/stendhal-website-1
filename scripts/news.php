@@ -85,7 +85,15 @@ class News {
 
 		// image for type of news
 		if (isset($this->typeImage) && strlen($this->typeImage) > 0) {
-			echo '<div class="newsIcon" style="float: right; padding-left: 2em"><img src="'.STENDHAL_FOLDER.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt="" width="36px" height="36px"></div>';
+			echo '<div class="newsIcon" style="float: right; padding-left: 2em; width: 40px">';
+			echo '<img src="'.STENDHAL_FOLDER.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt="" width="36px" height="36px">';
+
+			if (isset($_REQUEST['test'])) {
+				echo '<div class="socialmedia" data-id="'.htmlspecialchars($this->id)
+					.'" data-title="'.htmlspecialchars($this->title).'"></div>';
+			}
+
+			echo '</div>';
 		}
 
 		// render one line description
@@ -105,12 +113,6 @@ class News {
 		// in detail view, include the details
 		if ($detail) {
 			echo '<div class="newsContent newsDetail">'.$this->detailedDescription.'</div>';
-		}
-		
-		// add a tweet button
-		if (isset($_REQUEST['test'])) {
-			echo '<div class="socialmedia" data-id="'.htmlspecialchars($this->id)
-				.'" data-title="'.htmlspecialchars($this->title).'">SOCIAL</div>';
 		}
 		
 		endBox();
