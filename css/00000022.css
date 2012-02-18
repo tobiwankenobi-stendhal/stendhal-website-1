@@ -620,6 +620,45 @@ img.screenshot {
 	background-image:url(/images/palegrass.jpg);
 }
 
+/* popup */
+
+#backgroundPopup{  
+	display:none;  
+	position:fixed;  
+	_position:absolute; /* hack for internet explorer 6*/  
+	height:100%;  
+	width:100%;  
+	top:0;  
+	left:0;  
+	background:#000;  
+	z-index:1;  
+}  
+#popup{  
+	display:none;  
+	position:fixed;  
+	_position:absolute; /* hack for internet explorer 6*/  
+	height:384px;  
+	width:408px;  
+	background:#FFF;  
+	border:2px solid #CCC;  
+	z-index:2;  
+	padding:12px;  
+	font-size:13px;  
+}
+#popupClose{  
+	font-size:14px;  
+	line-height:14px;  
+	right:6px;  
+	top:4px;  
+	position:absolute;  
+	font-weight:700;  
+	display:block;
+	cursor: default; 
+}  
+
+.socialmedia{
+	cursor: default;
+}
 
 /* news */
 .newsDate {

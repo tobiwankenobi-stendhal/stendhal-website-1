@@ -473,6 +473,87 @@ function addClickEventToMarker(map, marker, poi) {
 }
 
 
+//----------------------------------------------------------------------------
+//                                    social popups
+//----------------------------------------------------------------------------
+
+
+// http://yensdesign.com/2008/09/how-to-create-a-stunning-and-smooth-popup-using-jquery/
+
+var popupStatus = 0;  
+
+function loadPopup(){  
+	if (popupStatus == 0) {
+		$("#backgroundPopup").css({"opacity": "0.7"});  
+		$("#backgroundPopup").fadeIn("slow");  
+		$("#popup").fadeIn("slow");  
+		popupStatus = 1;  
+	}  
+}  
+
+function disablePopup(){  
+	if (popupStatus == 1) {  
+		$("#backgroundPopup").fadeOut("slow");  
+		$("#popup").fadeOut("slow");  
+		popupStatus = 0;  
+	}  
+}  
+
+function centerPopup() {  
+	var windowWidth = document.documentElement.clientWidth;  
+	var windowHeight = document.documentElement.clientHeight;  
+	var popupHeight = $("#popup").height();  
+	var popupWidth = $("#popup").width();  
+	$("#popup").css({  
+		"position": "absolute",  
+		"top": windowHeight/2-popupHeight/2,  
+		"left": windowWidth/2-popupWidth/2  
+	});  
+	$("#backgroundPopup").css({  
+		"height": windowHeight  
+	});  
+}  
+
+
+function initSocialMediaPopup() {
+	$(".socialmedia").click(function(){
+		popupHandler();
+		centerPopup();  
+		loadPopup();  
+	});  
+	$("#popupClose").click(function(){  
+		disablePopup();  
+	});  
+	$("#backgroundPopup").click(function(){  
+		disablePopup();  
+	});  
+	$(document).keypress(function(e){  
+		if(e.keyCode==27 && popupStatus==1){  
+			disablePopup();  
+		}  
+	});  
+}
+
+function popupHandler() {
+	$('#popupContent').html('');
+	$('#popupContent').append('<iframe src="https://www.facebook.com/plugins/like.php?'+FBsocialLink+'&amp;send=false&amp;layout=button_count&amp;width=125&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:125px; height:21px;" allowTransparency="true"></iframe>');
+	$('#popupContent').append('<div class="g-plusone" data-size="medium" '+socialLink+'></div>');
+	$('#popupContent').append('<a href="https://twitter.com/share" class="twitter-share-button" ' + socialLink + '>Tweet</a>');
+
+	var socialLink = "http://stendhalgame.org";
+	//Google Code
+	(function() {
+	    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	    po.src = 'https://apis.google.com/js/plusone.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	})();
+	// Twitter Code
+	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	
+    var FBsocialLink = 'href='+socialLink;
+    var socialLink = 'data-href="'+socialLink+'"';
+
+}
 
 //----------------------------------------------------------------------------
 //                                       init
@@ -569,4 +650,5 @@ $().ready(function() {
 	}
 	initTracepath();
 	initEditor();
+	initSocialMediaPopup();
 });
