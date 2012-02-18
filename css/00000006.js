@@ -535,7 +535,10 @@ function initSocialMediaPopup() {
 }
 
 function popupHandler() {
-	$('#popupContent').html('');
+    var FBsocialLink = 'href='+socialLink;
+    var socialLink = 'data-href="'+socialLink+'"';
+
+    $('#popupContent').html('');
 	$('#popupContent').append('<iframe src="https://www.facebook.com/plugins/like.php?'+FBsocialLink+'&amp;send=false&amp;layout=button_count&amp;width=125&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:125px; height:21px;" allowTransparency="true"></iframe>');
 	$('#popupContent').append('<div class="g-plusone" data-size="medium" '+socialLink+'></div>');
 	$('#popupContent').append('<a href="https://twitter.com/share" class="twitter-share-button" ' + socialLink + '>Tweet</a>');
@@ -549,9 +552,6 @@ function popupHandler() {
 	})();
 	// Twitter Code
 	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-	
-    var FBsocialLink = 'href='+socialLink;
-    var socialLink = 'data-href="'+socialLink+'"';
 
 }
 
