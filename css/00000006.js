@@ -537,6 +537,7 @@ function popupHandler(e) {
 	$('#popupContent').append('<div class="spaceafter"><div class="g-plusone" data-size="medium" data-href="'+socialLink+'"></div></div>');
 	$('#popupContent').append('<div class="spaceafter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="' + socialLink + '" data-text="' + message + '" data-hashtags="stendhalgame">Tweet</a></div>');
 	$('#popupContent').append('<div class="spaceafter"><a href="https://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>');
+	$('#popupContent').append('<div><a href="https://stendhalgame.org/wiki/Two_clicks_for_more_privacy" target="_blank">Two clicks for more privacy.</a></div>');
 	$('#popupContent').append('<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>');
 	$('#popupContent').append('<script type="text/javascript" src="https://platform.twitter.com/widgets.js" id="twitter-wjs" ></script>');
 }
