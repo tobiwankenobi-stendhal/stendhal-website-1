@@ -76,10 +76,18 @@ class NewsPage extends Page {
 
 	public function writeHtmlHeader() {
 		if (isset($this->news)) {
-			$filteredDescription = $this->filterAndTrim($this->news->detailedDescription);
+			$filteredDescription = $this->filterAndTrim($this->news->extendedDescription);
 			echo '<title>'.htmlspecialchars($this->news->title).STENDHAL_TITLE.'</title>';
-			echo '<meta name="description" content="'.$filteredDescription.'">';
-			echo '<meta name="title" content="'.$this->news->title.'">'."\r\n";
+			echo '<meta name="description" content="'.htmlspecialchars($filteredDescription).'">';
+			echo '<meta name="title" content="'.htmlspecialchars($this->news->title).'">';
+			echo '<meta name="og:titel" content="'.htmlspecialchars($this->news->title).'">';
+			// Images must be at least 50 pixels by 50 pixels.
+			// echo '<meta name="og:image" content="'.htmlspecialchars($this->news->typeImage).'">';
+			echo '<meta name="og:image" content="/images/thumbnail/screenshots/client87.png">';
+			echo '<meta name="og:site_name" content="Stendhal Game">';
+			echo '<meta name="og:type" content="game">';
+			echo '<meta name="fb:admins" content="500472240">';
+			echo '<meta name="fb:app_id" content="354745201216560">';
 		} else {
 			echo '<title>News Not Found'.STENDHAL_TITLE.'</title>';
 		}
