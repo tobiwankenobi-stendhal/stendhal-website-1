@@ -482,44 +482,39 @@ function addClickEventToMarker(map, marker, poi) {
 
 var popupStatus = 0;  
 
-function loadPopup(){  
+function loadPopup(e){
 	if (popupStatus == 0) {
+		var popupHeight = $("#popup").height();  
+		var popupWidth = $("#popup").width();  
+		$("#popup").css({
+			"position": "absolute",
+			"top": e.offset().top - popupHeight / 2,  
+			"left": e.offset().left - popupWidth / 2  
+		});
+		console.log(e.offset(), e.position(), popupHeight);
+		$("#backgroundPopup").css({  
+			"height": document.documentElement.clientHeight
+		});
+
 		$("#backgroundPopup").css({"opacity": "0.7"});  
-		$("#backgroundPopup").fadeIn("slow");  
-		$("#popup").fadeIn("slow");  
-		popupStatus = 1;  
-	}  
-}  
+		$("#backgroundPopup").fadeIn("slow");
+		$("#popup").fadeIn("slow");
+		popupStatus = 1;
+	}
+}
 
 function disablePopup(){  
 	if (popupStatus == 1) {  
 		$("#backgroundPopup").fadeOut("slow");  
-		$("#popup").fadeOut("slow");  
-		popupStatus = 0;  
-	}  
-}  
-
-function centerPopup() {  
-	var windowWidth = document.documentElement.clientWidth;  
-	var windowHeight = document.documentElement.clientHeight;  
-	var popupHeight = $("#popup").height();  
-	var popupWidth = $("#popup").width();  
-	$("#popup").css({  
-		"position": "absolute",  
-		"top": windowHeight/2-popupHeight/2,  
-		"left": windowWidth/2-popupWidth/2  
-	});  
-	$("#backgroundPopup").css({  
-		"height": windowHeight  
-	});  
-}  
-
+		$("#popup").fadeOut("slow");
+		popupStatus = 0;
+	}
+}
 
 function initSocialMediaPopup() {
 	$(".socialmedia").click(function(){
-		popupHandler();
-		centerPopup();  
-		loadPopup();  
+		popupHandler($(this));
+		loadPopup($(this));
 	});  
 	$("#popupClose").click(function(){  
 		disablePopup();  
@@ -534,25 +529,23 @@ function initSocialMediaPopup() {
 	});  
 }
 
-function popupHandler() {
+function popupHandler(e) {
+	var socialLink = "http://stendhalgame.org/-" + e.attr("data-id");
+	var message = e.attr("data-title");
     var FBsocialLink = 'href='+socialLink;
     var socialLink = 'data-href="'+socialLink+'"';
 
     $('#popupContent').html('');
-	$('#popupContent').append('<iframe src="https://www.facebook.com/plugins/like.php?'+FBsocialLink+'&amp;send=false&amp;layout=button_count&amp;width=125&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:125px; height:21px;" allowTransparency="true"></iframe>');
-	$('#popupContent').append('<div class="g-plusone" data-size="medium" '+socialLink+'></div>');
-	$('#popupContent').append('<a href="https://twitter.com/share" class="twitter-share-button" ' + socialLink + '>Tweet</a>');
-
-	var socialLink = "http://stendhalgame.org";
+	$('#popupContent').append('<div class="spaceafter"><iframe src="https://www.facebook.com/plugins/like.php?'+FBsocialLink+'&amp;send=false&amp;layout=button_count&amp;width=125&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:125px; height:21px;" allowTransparency="true"></iframe></div>');
+	$('#popupContent').append('<div class="spaceafter"><div class="g-plusone" data-size="medium" '+socialLink+'></div></div>');
+	$('#popupContent').append('<div class="spaceafter"><a href="https://twitter.com/share" class="twitter-share-button" ' + socialLink + '>Tweet</a></div>');
+	$('#popupContent').append('<div class="spaceafter"><a href="http://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>');
+	
 	//Google Code
-	(function() {
-	    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-	    po.src = 'https://apis.google.com/js/plusone.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-	})();
-	// Twitter Code
-	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	$('#popupContent').append('<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>');
 
+	// Twitter Code
+	$('#popupContent').append('<script type="text/javascript" src="https://platform.twitter.com/widgets.js" id="twitter-wjs" ></script>');
 }
 
 //----------------------------------------------------------------------------
