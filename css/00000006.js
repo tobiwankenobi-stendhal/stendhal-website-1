@@ -491,7 +491,6 @@ function loadPopup(e){
 			"top": e.offset().top - popupHeight / 2,  
 			"left": e.offset().left - popupWidth / 2  
 		});
-		console.log(e.offset(), e.position(), popupHeight);
 		$("#backgroundPopup").css({  
 			"height": document.documentElement.clientHeight
 		});
@@ -537,7 +536,7 @@ function popupHandler(e) {
 	$('#popupContent').append('<div class="spaceafter"><iframe src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=button_count&amp;width=125&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:125px; height:21px;" allowTransparency="true"></iframe></div>');
 	$('#popupContent').append('<div class="spaceafter"><div class="g-plusone" data-size="medium" data-href="'+socialLink+'"></div></div>');
 	$('#popupContent').append('<div class="spaceafter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="' + socialLink + '" data-text="' + message + '" data-hashtags="stendhalgame">Tweet</a></div>');
-	$('#popupContent').append('<div class="spaceafter"><a href="http://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>');
+	$('#popupContent').append('<div class="spaceafter"><a href="https://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>');
 	$('#popupContent').append('<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>');
 	$('#popupContent').append('<script type="text/javascript" src="https://platform.twitter.com/widgets.js" id="twitter-wjs" ></script>');
 }

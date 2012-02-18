@@ -36,9 +36,6 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
  */
 connect();
 
-header('X-Frame-Options: sameorigin');
-header("X-Content-Security-Policy: default-src 'self'; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net ; report-uri /?id=content/scripts/cspreport");
-
 /**
  * Scan the name module to load and reset it to safe default if something strange appears.
  *
@@ -99,7 +96,9 @@ require_once("content/page.php");
 require_once($page_url.'.php');
 
 
-// header("X-Content-Security-Policy: allow 'self'; default-src 'self'; img-src 'self' data: https://sflogo.sourceforge.net", true);
+header('X-Frame-Options: sameorigin');
+header("X-Content-Security-Policy: default-src 'self' https://api.flattr.com http://platform.twitter.com https://platform.twitter.com https://apis.google.com https://www.facebook.com http://ssl.gstatic.com https://ssl.gstatic.com https://plusone.google.com ; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net https://api.flattr.com http://ssl.gstatic.com ; report-uri /?id=content/scripts/cspreport");
+
 if ($page->writeHttpHeader()) {
 header('Content-Type: text/html; charset=utf-8')
 ?>
