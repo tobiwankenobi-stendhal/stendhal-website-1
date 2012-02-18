@@ -658,7 +658,7 @@ img.screenshot {
 }  
 
 .socialmedia{
-	cursor: default;
+	cursor: pointer;
 	background-image: url('/images/social.png');
 	width: 32px;
 	height: 32px;
