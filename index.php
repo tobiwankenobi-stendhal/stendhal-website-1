@@ -97,7 +97,7 @@ require_once($page_url.'.php');
 
 
 header('X-Frame-Options: sameorigin');
-header("X-Content-Security-Policy: default-src 'self' https://api.flattr.com http://platform.twitter.com https://platform.twitter.com https://apis.google.com https://www.facebook.com http://ssl.gstatic.com https://ssl.gstatic.com https://plusone.google.com ; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net https://api.flattr.com http://ssl.gstatic.com https://ssl.gstatic.com ; report-uri /?id=content/scripts/cspreport");
+header("X-Content-Security-Policy: default-src 'self' https://api.flattr.com http://platform.twitter.com https://platform.twitter.com https://apis.google.com http://ssl.gstatic.com https://ssl.gstatic.com https://plusone.google.com https://www.facebook.com https://connect.facebook.net ; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net https://api.flattr.com http://ssl.gstatic.com https://ssl.gstatic.com ; report-uri /?id=content/scripts/cspreport");
 
 if ($page->writeHttpHeader()) {
 header('Content-Type: text/html; charset=utf-8')
@@ -105,7 +105,7 @@ header('Content-Type: text/html; charset=utf-8')
 <!DOCTYPE html>
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000022.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000023.css">
 	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000010.css"><![endif]-->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php

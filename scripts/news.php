@@ -83,16 +83,12 @@ class News {
 		
 		startBox($heading);
 
-		// image for type of news
+		// image for type of news and social network buttons
 		if (isset($this->typeImage) && strlen($this->typeImage) > 0) {
 			echo '<div class="newsIcon" style="float: right; padding-left: 2em; width: 40px">';
 			echo '<img src="'.STENDHAL_FOLDER.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt="" width="36px" height="36px">';
-
-			if (isset($_REQUEST['test'])) {
-				echo '<div class="socialmedia" data-id="'.htmlspecialchars($this->id)
-					.'" data-title="'.htmlspecialchars($this->title).'"></div>';
-			}
-
+			echo '<div class="socialmedia" data-id="'.htmlspecialchars($this->id)
+				.'" data-title="'.htmlspecialchars($this->title).'"></div>';
 			echo '</div>';
 		}
 

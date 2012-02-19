@@ -225,7 +225,7 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
+		<span class="copyright">&copy; 1999-2012 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">&nbsp;</a></span>
 	</div>
 
@@ -238,7 +238,7 @@ class StendhalFrame extends PageFrame {
 </div>
 
 <div id="popup">
-<a id="popupClose">X</a>
+<a id="popupClose">x</a>
 <div id="popupContent"></div>
 </div>
 <div id="backgroundPopup"></div>
