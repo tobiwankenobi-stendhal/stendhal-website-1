@@ -532,14 +532,19 @@ function popupHandler(e) {
 	var socialLink = "http://stendhalgame.org/-" + e.attr("data-id");
 	var message = e.attr("data-title");
 
-    $('#popupContent').html('');
-	$('#popupContent').append('<div class="spaceafter"><iframe src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=button_count&amp;width=125&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:125px; height:21px;" allowTransparency="true"></iframe></div>');
-	$('#popupContent').append('<div class="spaceafter"><div class="g-plusone" data-size="medium" data-href="'+socialLink+'"></div></div>');
-	$('#popupContent').append('<div class="spaceafter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="' + socialLink + '" data-text="' + message + '" data-hashtags="stendhalgame">Tweet</a></div>');
-	$('#popupContent').append('<div class="spaceafter"><a href="https://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>');
-	$('#popupContent').append('<div><a href="https://stendhalgame.org/wiki/Two_clicks_for_more_privacy" target="_blank">Two clicks for more privacy.</a></div>');
-	$('#popupContent').append('<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>');
-	$('#popupContent').append('<script type="text/javascript" src="https://platform.twitter.com/widgets.js" id="twitter-wjs" ></script>');
+    var html = ''
+    	+ '<div class="socialbutton"><iframe src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=button_count&amp;width=125&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:125px; height:21px;" allowTransparency="true">Loading Facebook</iframe></div>'
+//    	+ '<div id="fb-root"></div><div class="spaceafter"><div class="fb-like" data-href="'+socialLink+'" data-send="false" data-width="450" data-show-faces="false"></div></div>'
+		+ '<div class="socialbutton"><div class="g-plusone" data-size="medium" data-href="'+socialLink+'">Loading Google+</div></div>'
+		+ '<div class="socialbutton"><a href="https://twitter.com/share" class="twitter-share-button" data-url="' + socialLink + '" data-text="' + message + '" data-hashtags="stendhalgame">Loading Twitter</a></div>'
+		+ '<div class="socialbutton"><a href="https://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>'
+		+ '<div><a href="https://stendhalgame.org/wiki/Two_clicks_for_more_privacy" target="_blank">Two clicks for more privacy.</a></div>'
+		+ '<script async type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>'
+		+ '<script async type="text/javascript" src="https://platform.twitter.com/widgets.js" id="twitter-wjs"></script>';
+//    	+ '<script async type="text/javascript" src="https://connect.facebook.net/en_US/all.js#xfbml=1" id="facebook-jssdk"></script>'
+    $('#popupContent').html(html);
+
+    
 }
 
 //----------------------------------------------------------------------------

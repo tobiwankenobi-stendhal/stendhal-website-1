@@ -664,8 +664,9 @@ img.screenshot {
 	height: 32px;
 }
 
-.spaceafter{
+.socialbutton{
 	margin-bottom:.5em;
+	height: 24px;
 }
 
 /* news */
