@@ -669,6 +669,13 @@ img.screenshot {
 	height: 24px;
 }
 
+
+iframe#facebook {
+	background-image: url(/images/spinner.gif); 
+	background-repeat: no-repeat; 
+	background-position: center center;
+}
+
 /* news */
 .newsDate {
 	padding: 0;

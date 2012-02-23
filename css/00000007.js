@@ -525,7 +525,7 @@ function initSocialMediaPopup() {
 		if(e.keyCode==27 && popupStatus==1){  
 			disablePopup();  
 		}  
-	});  
+	});
 }
 
 function popupHandler(e) {
@@ -533,7 +533,7 @@ function popupHandler(e) {
 	var message = e.attr("data-title");
 
     var html = ''
-    	+ '<div class="socialbutton"><iframe src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=standard&amp;width=400&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=24" scrolling="no" frameborder="0" style="border:none; overflow:visible; width:400px; height:35px;" allowTransparency="true">Loading Facebook</iframe></div>'
+    	+ '<div class="socialbutton"><iframe id="facebook" src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=standard&amp;width=400&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=24" scrolling="no" frameborder="0" style="border:none; overflow:visible; width:400px; height:35px;" allowTransparency="true">Loading Facebook</iframe></div>'
 //    	+ '<div id="fb-root"></div><div class="spaceafter"><div class="fb-like" data-href="'+socialLink+'" data-send="false" data-width="450" data-show-faces="false"></div></div>'
 		+ '<div class="socialbutton"><div class="g-plusone" data-size="medium" data-href="'+socialLink+'">Loading Google+</div></div>'
 		+ '<div class="socialbutton"><a href="https://twitter.com/share" class="twitter-share-button" data-url="' + socialLink + '" data-text="' + message + '" data-hashtags="stendhalgame">Loading Twitter</a></div>'
@@ -544,7 +544,9 @@ function popupHandler(e) {
 //    	+ '<script async type="text/javascript" src="https://connect.facebook.net/en_US/all.js#xfbml=1" id="facebook-jssdk"></script>'
     $('#popupContent').html(html);
 
-    
+	$("iframe").load(function(){
+		$(this).css("background-image", "none");
+	});
 }
 
 //----------------------------------------------------------------------------
