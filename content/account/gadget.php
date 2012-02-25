@@ -40,6 +40,7 @@ class GadgetPage extends Page {
 		// COM   Computer Information         Information about the computer system that the individual is using to access the network -- such as the IP number, domain name, browser type or operating system.
 		// ...i  opt - in (account creation in our case)
 		header('P3P: CP="CUR ADM OUR ONLi UNIi COM"');
+		header_remove('X-Frame-Options');
 		$this->writePageStart();
 		$this->writeContent();
 		$this->writePageEnd();
