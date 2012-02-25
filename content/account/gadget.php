@@ -29,6 +29,17 @@ class GadgetPage extends Page {
 	}
 
 	public function writeHttpHeader() {
+		// Privacy Policy for cookies and cookie-linked data according to http://www.w3.org/TR/P3P/
+		// CUR   Completion and Support of Activity For Which Data Was Provided    Information may be used by the service provider to complete the activity for which it was provided, whether a one-time activity such as returning the results from a Web search, forwarding an email message, or placing an order; or a recurring activity such as providing a subscription service, or allowing access to an online address book or electronic wallet.
+		// ADM   Web Site and System Administration                                Information may be used for the technical support of the Web site and its computer system. This would include processing computer account information, information used in the course of securing and maintaining the site, and verification of Web site activity by the site or its agents.
+		//
+		// OUR   Ourselves and/or entities acting as our agents or entities for whom we are acting as an agent      An agent in this instance is defined as a third party that processes data only on behalf of the service provider for the completion of the stated purposes. (e.g., the service provider and its printing bureau which prints address labels and does nothing further with the information.)
+		//
+		// ONL   Online Contact Information   Information that allows an individual to be contacted or located on the Internet -- such as email. Often, this information is independent of the specific computer used to access the network. (See the category "Computer Information")
+		// UNI   unique Identifiers           Non-financial identifiers, excluding government-issued identifiers, issued for purposes of consistently identifying or recognizing the individual. These include identifiers issued by a Web site or service. 
+		// COM   Computer Information         Information about the computer system that the individual is using to access the network -- such as the IP number, domain name, browser type or operating system.
+		// ...i  opt - in (account creation in our case)
+		header('P3P: CP="CUR ADM OUR ONLi UNIi COM"');
 		$this->writePageStart();
 		$this->writeContent();
 		$this->writePageEnd();
