@@ -16,8 +16,8 @@ function getCreatureByName($name) {
 	$name = strtolower($name);
 	$creatures = getMonsters();
 
-	foreach($creatures as $creature) {
-		if($creature->name==$name) {
+	foreach ($creatures as $creature) {
+		if (strtolower($creature->name) == $name) {
 			return $creature;
 		}
 	}
