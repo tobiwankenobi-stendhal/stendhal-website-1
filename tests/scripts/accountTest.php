@@ -30,6 +30,6 @@ class AccountLinkTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('nicknick,mailmail,blabla,httpblaexamplecom,http://bla.example.com/', implode(',', $accountLink->proposeUsernames()));
 
 		$accountLink = new AccountLink(-1, -1, 'openid', 'http://login.example.com/bla', '', null, null);
-		$this->assertEquals(',blabla,httploginexamplecombla,http://login.example.com/bla', implode(',', $accountLink->proposeUsernames()));
+		$this->assertEquals(',blabla,httploginexamplecomb,http://login.example.com/bla', implode(',', $accountLink->proposeUsernames()));
 	}
 }
