@@ -458,17 +458,26 @@ function initializeAtlas() {
 				map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
 
 			addClickEventToMarker(map, marker, poi);
+			
+			if ($("#data-center").attr("data-open")) {
+				openInfoForPOI(map, marker, poi);
+			}
+
 		}
 	}
 }
 
+function openInfoForPOI(map, marker, poi) {
+	infowindow.setContent("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
+			 + poi.url + "\">" 
+			 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+			 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p></div>");
+	infowindow.open(map, marker);
+}
+
 function addClickEventToMarker(map, marker, poi) {
 	google.maps.event.addListener(marker, 'click', function(x, y, z) {
-		infowindow.setContent("<b><a target=\"_blank\" href=\""
-				 + poi.url + "\">" 
-				 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-				 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p>");
-		infowindow.open(map, marker);
+		openInfoForPOI(map, marker, poi);
 	});
 }
 

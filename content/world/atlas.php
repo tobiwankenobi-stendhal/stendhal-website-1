@@ -25,6 +25,7 @@ class AtlasPage extends Page {
 		$zones = Zone::getZones();
 
 		// if there is exactly one poi, focus on that
+		$poiOpen = false;
 		if (isset($_REQUEST['poi']) && strpos($_REQUEST['poi'], '.') === false) {
 			$pois = PointofInterest::getPOIs();
 			if (isset($pois[$_REQUEST['poi']])) {
@@ -32,6 +33,7 @@ class AtlasPage extends Page {
 				$zoom = 5;
 				$focusX = $poi->gx;
 				$focusY = $poi->gy;
+				$poiOpen = true;
 			}
 		}
 
@@ -76,8 +78,12 @@ class AtlasPage extends Page {
 			}
 		}
 
+		if (isset($_REQUEST['zoom'])) {
+			$zoom = intval($_REQUEST['zoom']);
+		}
+
 		echo "\n".'<div class="data">';
-		echo '<span id="data-center" data-x="'.htmlspecialchars($focusX).'" data-y="'.htmlspecialchars($focusY).'" data-zoom="'.htmlspecialchars($zoom).'"></span>';
+		echo '<span id="data-center" data-x="'.htmlspecialchars($focusX).'" data-y="'.htmlspecialchars($focusY).'" data-zoom="'.htmlspecialchars($zoom).'" data-open="'.$poiOpen.'"></span>';
 		if (isset($meX)) {
 			echo '<span id="data-me" data-x="'.htmlspecialchars($meX).'" data-y="'.htmlspecialchars($meY).'" ';
 			echo 'data-zone="'.htmlspecialchars($meZone).'" ';
