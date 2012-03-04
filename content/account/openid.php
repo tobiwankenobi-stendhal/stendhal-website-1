@@ -27,7 +27,8 @@ class OpenID {
 		if (!isset($_GET['openid_mode'])) {
 			if (isset($requestedIdentifier)) {
 				$this->isAuth = true;
-				$openid = new LightOpenID;
+				$openid = new LightOpenID($_SERVER['HTTP_HOST']);
+				// $openid->oauth[] = 'https://www.googleapis.com/auth/plus.me';
 				$openid->identity = $requestedIdentifier;
 				$openid->required = array('contact/email', 'namePerson/friendly');
 				$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
@@ -47,7 +48,7 @@ class OpenID {
 	 * @return AccountLink or <code>FALSE</code> if  the validation failed
 	 */
 	public function createAccountLink() {
-		$openid = new LightOpenID();
+		$openid = new LightOpenID($_SERVER['HTTP_HOST']);
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 		$openid->returnUrl = Account::createReturnUrl();
 		try {
@@ -61,6 +62,7 @@ class OpenID {
 		$attributes = $openid->getAttributes();
 		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
 			$attributes['namePerson/friendly'], $attributes['contact/email'], $secret);
+		// echo 'token:' . $openid->getOAuthRequestToken();
 		return $accountLink;
 	}
 
