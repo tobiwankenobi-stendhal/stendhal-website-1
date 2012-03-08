@@ -91,9 +91,14 @@ class DocumentPage extends Page {
 
 		echo '<p><b>'.t('These are the internal documents of the association.').'</b></p>';
 		echo '<ul>';
+		$temp = $this->relativeFilename;
+
+		// if the relative path is not epmty and does not start with a "/", add a "/" at the beginning.
+		if ((strlen($temp) > 0) && strpos($temp, '/') !== 0) {
+			$temp = '/' . $temp;
+		}
 		foreach ($files as $file) {
-			// TODO: Link with correct folder prefix
-			echo '<li><a href="'.rewriteURL('/'.$lang.'/documents'.htmlspecialchars($this->relativeFilename.'/'.$file)).'">'.htmlspecialchars($file).'</a></li>';
+			echo '<li><a href="'.rewriteURL('/'.$lang.'/documents'.htmlspecialchars($temp.'/'.$file)).'">'.htmlspecialchars($file).'</a></li>';
 		}
 		echo '</ul>';
 	}
