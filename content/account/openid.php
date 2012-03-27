@@ -69,7 +69,7 @@ class OpenID {
 	public function getStendhalAccountName() {
 		$openid = new LightOpenID();
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-		$openid->returnUrl = $this->createReturnUrl();
+		$openid->returnUrl = Account::createReturnUrl();
 		if (!$openid->validate()) {
 			$this-$openid->error = 'Open ID validation failed.';
 			return false;
