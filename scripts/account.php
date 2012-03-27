@@ -19,19 +19,6 @@
  */
 
 
-/**
- * Checks whether or not the given email is in the
- * database.
- */
-function existsUser($email){
-	$conn=getGameDB();
-
-	/* Verify that user email is in database */
-	$q = "select * from account where email = '".mysql_real_escape_string($email)."'";
-	$result = mysql_query($q,$conn);
-
-	return $result and mysql_numrows($result)==1;
-}
 
 /**
  * checkLogin - Checks if the user has already previously
@@ -39,7 +26,7 @@ function existsUser($email){
  * established. Returns true if the user has logged in.
  */
 function checkLogin(){
-	return (isset($_SESSION['account']));
+	return isset($_SESSION) && isset($_SESSION['account']);
 }
 
 
@@ -54,13 +41,6 @@ function getAdminLevel() {
 	$result = mysql_query($sql, getGameDB());
 	while($row=mysql_fetch_assoc($result)) {
 		return (int)$row['adminlevel'];
-	}
-}
-
-function getUser($email) {
-	$result = mysql_query('select username from account where email="'.mysql_real_escape_string($email).'"', getGameDB());
-	while($row=mysql_fetch_assoc($result)) {
-		return $row['username'];
 	}
 }
 
