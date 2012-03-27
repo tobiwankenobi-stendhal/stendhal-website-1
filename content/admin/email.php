@@ -18,11 +18,11 @@ class AdminEMailPage extends Page {
 		?>
 <form method="POST">
 <table>
-<tr><td><label for"subject">Subject:</label></td><td><input name="subject"></td></tr>
-<tr><td><label for"to">To:</label></td><td><input name="to"></td></tr>
+<tr><td><label for="subject">Subject:</label></td><td><input name="subject" value="<?php echo htmlspecialchars($_REQUEST['subject']); ?>"></td></tr>
+<tr><td><label for="to">To:</label></td><td><input name="to" value="<?php echo htmlspecialchars($_REQUEST['to']); ?>"></td></tr>
 <!-- <tr><td><label for"cc">Cc:</label></td><td><input name="cc"></td></tr>  -->
 </table>
-<textarea name="body" cols="70" rows="20"></textarea>
+<textarea name="body" cols="70" rows="20"><?php echo htmlspecialchars($_REQUEST['body']); ?></textarea>
 <input type="submit">
 </form>
 		<?php
