@@ -192,7 +192,6 @@
 
 	function createCharacterInit() {
 		createCharacterUpdateAll();
-		self.focus();
 		document.getElementById("name").focus();
 	}
 
