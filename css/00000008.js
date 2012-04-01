@@ -304,16 +304,16 @@
 			CKEDITOR.replace('editor', {
 				toolbar: 'Full',
 				toolbar_Full : [
-				// See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar
-				{ name: 'document', items : [ 'Source','-','Save'] },
-				{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord' ] },
-				{ name: 'editing', items : [ 'Undo','Redo','-','Find','Replace'] },
-				{ name: 'insert', items : [ 'Link','Unlink','Anchor','-','Image','Table','HorizontalRule' ] },
-				{ name: 'tools', items : [ 'Maximize'] },
-				'/',
-				{ name: 'styles', items : [ 'Format' ] },
-				{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','TextColor','BGColor','-','RemoveFormat' ] },
-				{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
+					// See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar
+					{ name: 'document', items : [ 'Source','-','Save'] },
+					{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord' ] },
+					{ name: 'editing', items : [ 'Undo','Redo','-','Find','Replace'] },
+					{ name: 'insert', items : [ 'Link','Unlink','Anchor','-','Image','Table','HorizontalRule' ] },
+					{ name: 'tools', items : [ 'Maximize'] },
+					'/',
+					{ name: 'styles', items : [ 'Format' ] },
+					{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','TextColor','BGColor','-','RemoveFormat' ] },
+					{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] }
 				],
 				toolbarCanCollapse: false
 				// Customize styles instead of Formats: http://docs.cksource.com/CKEditor_3.x/Howto/Styles_List_Customization
@@ -340,7 +340,7 @@
 	//                                 Atlas
 	//----------------------------------------------------------------------------
 
-
+	var mapType, infowindow;
 	function EuclideanProjection() {
 		var EUCLIDEAN_RANGE = 4*256; // move markers outside the map area far out of the way
 		this.pixelOrigin = new google.maps.Point(EUCLIDEAN_RANGE / 2, EUCLIDEAN_RANGE / 2);
@@ -411,7 +411,6 @@
 				if (x < 0 || x >= tileRange) {
 					return null;
 				}
-	//			return "http://localhost/map/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
 				return "http://arianne.sourceforge.net/stendhal/map/2/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
 			},
 			tileSize: new google.maps.Size(256, 256),
@@ -453,7 +452,7 @@
 				});
 		}
 		var pois = $.parseJSON($("#data-pois").attr("data-pois"));
-		wanted = decodeURI(gup("poi")).toLowerCase().split(",");
+		var wanted = decodeURI(gup("poi")).toLowerCase().split(",");
 		for (var key in pois) {
 			var poi = pois[key];
 			if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
