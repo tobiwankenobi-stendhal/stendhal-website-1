@@ -7,9 +7,9 @@
 	function formatNumber(i) {
 		if (i < 10) {
 			return "0" + i;
-		} else {
-			return ""+i;
 		}
+
+		return i.toString();
 	}
 
 
@@ -66,10 +66,10 @@
 			document.getElementById(field.id + "warn").innerHTML = "";
 			minLengthOnceReached = true;
 			return true;
-		} else {
-			if (minLengthOnceReached) {
-				document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters.";
-			}
+		}
+
+		if (minLengthOnceReached) {
+			document.getElementById(field.id + "warn").innerHTML = "Must be at least 6 letters.";
 		}
 		return false;
 	}
@@ -216,10 +216,10 @@
 			document.getElementById("warn").innerHTML = "&nbsp;";
 			createCharacterMinLengthOnceReached = true;
 			return true;
-		} else {
-			if (createCharacterMinLengthOnceReached) {
-				document.getElementById("warn").innerHTML = "Must be at least 6 letters.";
-			}
+		}
+		
+		if (createCharacterMinLengthOnceReached) {
+			document.getElementById("warn").innerHTML = "Must be at least 6 letters.";
 		}
 		return false;
 	}
@@ -357,7 +357,7 @@
 		point.x = (origin.x + (latLng.lng() + this.offsetLng ) * this.scaleLng * this.pixelsPerLonDegree);
 		point.y = (origin.y + (-1 * latLng.lat() + this.offsetLat ) * this.scaleLat * this.pixelsPerLonDegree);
 		return point;
-	}
+	};
 
 	EuclideanProjection.prototype.fromPointToLatLng = function(point) {
 		var me = this;
@@ -365,7 +365,7 @@
 		var lng = (((point.x - origin.x) / me.pixelsPerLonDegree) / this.scaleLng) - this.offsetLng;
 		var lat = ((-1 *( point.y - origin.y) / me.pixelsPerLonDegree) / this.scaleLat) - this.offsetLat;
 		return new google.maps.LatLng(lat , lng, true);
-	}
+	};
 
 	function worldToLatLng(x, y) {
 		var xw0 = 499616;
