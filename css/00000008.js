@@ -1,3 +1,4 @@
+/*global $, CKEDITOR, google*/
 /*jslint devel: true, browser: true, eqeq: true, windows: true, vars: true, white: true, plusplus: true, regexp: true, maxerr: 500, indent: 4 */
 
 (function() {
@@ -658,4 +659,4 @@
 		initEditor();
 		initSocialMediaPopup();
 	});
-})();
+}());
