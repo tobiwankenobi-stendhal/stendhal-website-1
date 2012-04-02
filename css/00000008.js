@@ -393,9 +393,22 @@
 		var results = regex.exec( window.location.href );
 		if (results == null) {
 			return "";
-		} else {
-			return results[1];
 		}
+		return results[1];
+	}
+
+	function openInfoForPOI(map, marker, poi) {
+		infowindow.setContent("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
+				 + poi.url + "\">" 
+				 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+				 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p></div>");
+		infowindow.open(map, marker);
+	}
+
+	function addClickEventToMarker(map, marker, poi) {
+		google.maps.event.addListener(marker, 'click', function(x, y, z) {
+			openInfoForPOI(map, marker, poi);
+		});
 	}
 
 	function initializeAtlas() {
@@ -471,19 +484,6 @@
 		}
 	}
 
-	function openInfoForPOI(map, marker, poi) {
-		infowindow.setContent("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
-				 + poi.url + "\">" 
-				 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-				 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p></div>");
-		infowindow.open(map, marker);
-	}
-
-	function addClickEventToMarker(map, marker, poi) {
-		google.maps.event.addListener(marker, 'click', function(x, y, z) {
-			openInfoForPOI(map, marker, poi);
-		});
-	}
 
 
 	//----------------------------------------------------------------------------
@@ -571,7 +571,7 @@
 		$('#screenshotLink').click(function(event) {
 			var left = Math.max(0, (screen.width-800)/2);
 			var top = Math.max(0, (screen.height-550)/2);
-			window.open("/images/screenshot/", "screenshot", "left="+left+",top="+top+",status=0,toolbar=0,location=0,menubar=0,directories=0,height=550,width=800,scrollbars=1")
+			window.open("/images/screenshot/", "screenshot", "left="+left+",top="+top+",status=0,toolbar=0,location=0,menubar=0,directories=0,height=550,width=800,scrollbars=1");
 			event.preventDefault();
 			return false;
 		});
