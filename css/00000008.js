@@ -1,7 +1,7 @@
 /*global $, CKEDITOR, google*/
-/*jslint devel: true, browser: true, eqeq: true, windows: true, vars: true, white: true, plusplus: true, regexp: true, maxerr: 500, indent: 4 */
+/*jslint devel: true, browser: true, eqeq: true, vars: true, white: true, plusplus: true, regexp: true, maxerr: 500, indent: 4 */
 
-(function() {
+(function () {
 	"use strict";
 
 
@@ -9,7 +9,6 @@
 		if (i < 10) {
 			return "0" + i;
 		}
-
 		return i.toString();
 	}
 
@@ -95,7 +94,7 @@
 			lastRequestedName = field.value;
 			var res = createAccountValidateMinLength(field);
 			if (res) {
-				$.getJSON(document.getElementById("serverpath").value + "/index.php?id=content/scripts/api&method=isNameAvailable&param=" + encodeURI(lastRequestedName), function(data) {
+				$.getJSON(document.getElementById("serverpath").value + "/index.php?id=content/scripts/api&method=isNameAvailable&param=" + encodeURI(lastRequestedName), function (data) {
 					if (lastRequestedName == data.name) {
 						if (data.result) {
 							document.getElementById(field.id + "warn").innerHTML = "";
@@ -234,7 +233,7 @@
 				var serverpath = document.getElementById("serverpath").value;
 				var username = document.getElementById("sessionUsername").value;
 
-				$.getJSON(serverpath + "/index.php?id=content/scripts/api&method=isNameAvailable&ignoreAccount=" + encodeURI(username) + "&param=" + encodeURI(createCharacterLastRequestedName), function(data) {
+				$.getJSON(serverpath + "/index.php?id=content/scripts/api&method=isNameAvailable&ignoreAccount=" + encodeURI(username) + "&param=" + encodeURI(createCharacterLastRequestedName), function (data) {
 					if (createCharacterLastRequestedName == data.name) {
 						if (data.result) {
 							document.getElementById("warn").innerHTML = "&nbsp;";
@@ -273,7 +272,7 @@
 
 		$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=1&ip=" + encodeURI($('traceip').text()),
 			dataType: 'html',
-			success: function(data) {
+			success: function (data) {
 			$('#traceresult1').html(data);
 			$('#tracebox2').css('display', 'block');
 			progressIdx = 2;
@@ -282,12 +281,12 @@
 
 			$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=0&i="+ new Date().getTime()+"&ip=" + encodeURI($('traceip').text()),
 				dataType: 'html',
-				success: function(data) {
+				success: function (data) {
 				$('#traceresult2').html(data);
 			}});
 		}});
 
-		setInterval(function() {
+		setInterval(function () {
 			if (progress == 50 || progress == 75) {
 				progressInterval = progressInterval / 2;
 			}
@@ -318,7 +317,7 @@
 				toolbarCanCollapse: false
 				// Customize styles instead of Formats: http://docs.cksource.com/CKEditor_3.x/Howto/Styles_List_Customization
 			});
-			CKEDITOR.on( 'instanceReady', function( ev ) {
+			CKEDITOR.on( 'instanceReady', function ( ev ) {
 				ev.editor.dataProcessor.writer.selfClosingEnd = '>';
 			});
 			/* disabled because it ask on save, too.
@@ -352,7 +351,7 @@
 		this.offsetLng = 0;     // Width - direct offset +/-
 	}
 
-	EuclideanProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
+	EuclideanProjection.prototype.fromLatLngToPoint = function (latLng, opt_point) {
 		var point = opt_point || new google.maps.Point(0, 0);
 		var origin = this.pixelOrigin;
 		point.x = (origin.x + (latLng.lng() + this.offsetLng ) * this.scaleLng * this.pixelsPerLonDegree);
@@ -360,7 +359,7 @@
 		return point;
 	};
 
-	EuclideanProjection.prototype.fromPointToLatLng = function(point) {
+	EuclideanProjection.prototype.fromPointToLatLng = function (point) {
 		var me = this;
 		var origin = me.pixelOrigin;
 		var lng = (((point.x - origin.x) / me.pixelsPerLonDegree) / this.scaleLng) - this.offsetLng;
@@ -406,7 +405,7 @@
 	}
 
 	function addClickEventToMarker(map, marker, poi) {
-		google.maps.event.addListener(marker, 'click', function(x, y, z) {
+		google.maps.event.addListener(marker, 'click', function (x, y, z) {
 			openInfoForPOI(map, marker, poi);
 		});
 	}
@@ -414,7 +413,7 @@
 	function initializeAtlas() {
 
 		mapType = new google.maps.ImageMapType({
-			getTileUrl: function(coord, zoom) {
+			getTileUrl: function (coord, zoom) {
 				var y = coord.y;
 				var x = coord.x;
 				var tileRange = 1 << zoom;
@@ -438,9 +437,9 @@
 
 		var mapOptions = {
 			backgroundColor: "#5f9860",
-			center: worldToLatLng(parseInt($("#data-center").attr("data-x")), parseInt($("#data-center").attr("data-y"))),
+			center: worldToLatLng(parseInt($("#data-center").attr("data-x"), 10), parseInt($("#data-center").attr("data-y"), 10)),
 			noClear: true,
-			zoom: parseInt($("#data-center").attr("data-zoom")),
+			zoom: parseInt($("#data-center").attr("data-zoom"), 10),
 			mapTypeControl: false,
 			streetViewControl: false
 		};
@@ -452,7 +451,7 @@
 		map.setMapTypeId('outside');
 		if ($("#data-me").length > 0) {
 			var me = new google.maps.Marker({
-				position: worldToLatLng(parseInt($("#data-me").attr("data-x")), parseInt($("#data-me").attr("data-y"))),
+				position: worldToLatLng(parseInt($("#data-me").attr("data-x"), 10), parseInt($("#data-me").attr("data-y"), 10)),
 				map: map, title:"Me",
 				icon: "/images/mapmarker/me.png"
 				});
@@ -466,20 +465,22 @@
 		}
 		var pois = $.parseJSON($("#data-pois").attr("data-pois"));
 		var wanted = decodeURI(gup("poi")).toLowerCase().split(",");
-		for (var key in pois) {
-			var poi = pois[key];
-			if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
-				|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
+		var key;
+		for (key in pois) {
+			if (pois.hasOwnProperty(key)) {
+				var poi = pois[key];
+				if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
+					|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
 
-				var marker = new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
-					map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
+					var marker = new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
+						map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
+	
+					addClickEventToMarker(map, marker, poi);
 
-				addClickEventToMarker(map, marker, poi);
-
-				if ($("#data-center").attr("data-open")) {
-					openInfoForPOI(map, marker, poi);
+					if ($("#data-center").attr("data-open")) {
+						openInfoForPOI(map, marker, poi);
+					}
 				}
-
 			}
 		}
 	}
@@ -495,7 +496,7 @@
 
 	var popupStatus = 0;  
 
-	function loadPopup(e){
+	function loadPopup(e) {
 		if (popupStatus == 0) {
 			var popupHeight = $("#popup").height();  
 			var popupWidth = $("#popup").width();  
@@ -515,7 +516,7 @@
 		}
 	}
 
-	function disablePopup(){  
+	function disablePopup() {  
 		if (popupStatus == 1) {  
 			$("#backgroundPopup").fadeOut("slow");  
 			$("#popup").fadeOut("slow");
@@ -523,42 +524,39 @@
 		}
 	}
 
-	function initSocialMediaPopup() {
-		$(".socialmedia").click(function(){
-			popupHandler($(this));
-			loadPopup($(this));
-		});  
-		$("#popupClose").click(function(){  
-			disablePopup();  
-		});  
-		$("#backgroundPopup").click(function(){  
-			disablePopup();  
-		});  
-		$(document).keypress(function(e){  
-			if(e.keyCode==27 && popupStatus==1){  
-				disablePopup();  
-			}  
-		});
-	}
-
 	function popupHandler(e) {
 		var socialLink = "http://stendhalgame.org/-" + e.attr("data-id");
 		var message = e.attr("data-title");
 
-	    var html = ''
-	    	+ '<div class="socialbutton"><iframe id="facebook" src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=standard&amp;width=400&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=24" scrolling="no" frameborder="0" style="border:none; overflow:visible; width:400px; height:35px;" allowTransparency="true">Loading Facebook</iframe></div>'
-	//    	+ '<div id="fb-root"></div><div class="spaceafter"><div class="fb-like" data-href="'+socialLink+'" data-send="false" data-width="450" data-show-faces="false"></div></div>'
+		var html = '<div class="socialbutton"><iframe id="facebook" src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=standard&amp;width=400&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=24" scrolling="no" frameborder="0" style="border:none; overflow:visible; width:400px; height:35px;" allowTransparency="true">Loading Facebook</iframe></div>'
 			+ '<div class="socialbutton"><div class="g-plusone" data-size="medium" data-href="'+socialLink+'">Loading Google+</div></div>'
 			+ '<div class="socialbutton"><a href="https://twitter.com/share" class="twitter-share-button" data-url="' + socialLink + '" data-text="' + message + '" data-via="stendhalgame">Loading Twitter</a></div>'
 			+ '<div class="socialbutton"><a href="https://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>'
 			+ '<div><a href="https://stendhalgame.org/wiki/Two_clicks_for_more_privacy" target="_blank">Two clicks for more privacy.</a></div>'
 			+ '<script async type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>'
 			+ '<script async type="text/javascript" src="https://platform.twitter.com/widgets.js" id="twitter-wjs"></script>';
-	//    	+ '<script async type="text/javascript" src="https://connect.facebook.net/en_US/all.js#xfbml=1" id="facebook-jssdk"></script>'
 	    $('#popupContent').html(html);
 
-		$("iframe").load(function(){
+		$("iframe").load(function () {
 			$(this).css("background-image", "none");
+		});
+	}
+
+	function initSocialMediaPopup() {
+		$(".socialmedia").click(function () {
+			popupHandler($(this));
+			loadPopup($(this));
+		});  
+		$("#popupClose").click(function () {
+			disablePopup();
+		});  
+		$("#backgroundPopup").click(function () {  
+			disablePopup();
+		});  
+		$(document).keypress(function (e) {  
+			if(e.keyCode==27 && popupStatus==1) {  
+				disablePopup();  
+			}  
 		});
 	}
 
@@ -567,8 +565,8 @@
 	//----------------------------------------------------------------------------
 
 
-	$().ready(function() {
-		$('#screenshotLink').click(function(event) {
+	$().ready(function () {
+		$('#screenshotLink').click(function (event) {
 			var left = Math.max(0, (screen.width-800)/2);
 			var top = Math.max(0, (screen.height-550)/2);
 			window.open("/images/screenshot/", "screenshot", "left="+left+",top="+top+",status=0,toolbar=0,location=0,menubar=0,directories=0,height=550,width=800,scrollbars=1");
@@ -581,49 +579,49 @@
 		});
 
 		if (document.getElementById("createAccountForm") != null) {
-			$('#createAccountForm #name').change(function() {
+			$('#createAccountForm #name').change(function () {
 				return createAccountNameChanged(this);
 			});
-			$('#createAccountForm #name').keyup(function() {
+			$('#createAccountForm #name').keyup(function () {
 				return createAccountNameChanged(this);
 			});
-			$('#createAccountForm #name').blur(function() {
+			$('#createAccountForm #name').blur(function () {
 				return createAccountBlurName(this);
 			});
 	
-			$('#createAccountForm #pw').change(function() {
+			$('#createAccountForm #pw').change(function () {
 				return createAccountValidateMinLengthOk(this);
 			});
-			$('#createAccountForm #pw').keyup(function() {
+			$('#createAccountForm #pw').keyup(function () {
 				return createAccountValidateMinLengthOk(this);
 			});
-			$('#createAccountForm #pw').blur(function() {
+			$('#createAccountForm #pw').blur(function () {
 				return createAccountValidateMinLengthFail(this);
 			});
 		}
 
 		if (document.getElementById("createCharacterForm") != null) {
 			currentOutfit = document.getElementById("currentOutfit").value.split(",");
-			$('#createCharacterForm #name').change(function() {
+			$('#createCharacterForm #name').change(function () {
 				return createCharacterNameChanged(this);
 			});
-			$('#createCharacterForm #name').keyup(function() {
+			$('#createCharacterForm #name').keyup(function () {
 				return createCharacterNameChanged(this);
 			});
-			$('#createCharacterForm .turn').click(function() {
-				return createCharacterTurn(parseInt(this.getAttribute("data-offset")));
+			$('#createCharacterForm .turn').click(function () {
+				return createCharacterTurn(parseInt(this.getAttribute("data-offset"), 10));
 			});
-			$('#createCharacterForm .prev').click(function() {
-				return createCharacterDown(parseInt(this.getAttribute("data-offset")));
+			$('#createCharacterForm .prev').click(function () {
+				return createCharacterDown(parseInt(this.getAttribute("data-offset"), 10));
 			});
-			$('#createCharacterForm .next').click(function() {
-				return createCharacterUp(parseInt(this.getAttribute("data-offset")));
+			$('#createCharacterForm .next').click(function () {
+				return createCharacterUp(parseInt(this.getAttribute("data-offset"), 10));
 			});
 			createCharacterInit();
 		}
 
 		$('.overliblink').tooltip({ 
-			bodyHandler: function() { 
+			bodyHandler: function () { 
 				return $(this).attr("data-popup");
 			},
 			showURL: false,
@@ -633,14 +631,14 @@
 
 		$('#irclog-toggle-ircstatus-span').show();
 		$('.ircstatus').hide();
-		$('#irclog-toggle-ircstatus').click(function() {
+		$('#irclog-toggle-ircstatus').click(function () {
 			if ($(this).attr('checked')) {
 				$('.ircstatus').show();
 			} else {
 				$('.ircstatus').hide();
 			}
 		});
-		$('#irclog-toggle-ircstatus').change(function() {
+		$('#irclog-toggle-ircstatus').change(function () {
 			if ($(this).attr('checked')) {
 				$('.ircstatus').show();
 			} else {
