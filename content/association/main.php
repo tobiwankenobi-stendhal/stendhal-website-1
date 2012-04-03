@@ -91,7 +91,7 @@ class MainPage extends Page {
 			if (isset($_SESSION) && isset($_SESSION['account'])) {
 				$username = $_SESSION['account']->username;
 			}
-			echo ' <a style="underline:none; color:#000" href="https://faiumoni.de/?id=content/association/login">&Pi;</abbr>&nbsp;&nbsp;';
+			echo ' <a style="text-decoration:none; color:#000" href="https://faiumoni.de/?id=content/association/login">&Pi;</a>&nbsp;&nbsp;';
 
 			echo '</div>';
 		} else {
