@@ -57,14 +57,14 @@ class DefaultFrame extends PageFrame {
 
 	<div id="leftArea">
 
-		<?php startBox('Game System'); ?>
-		<ul id="gamemenu" class="menu">
-			<?php 
+		<?php 
+		startBox('Game System');
+			echo '<ul id="gamemenu" class="menu">'; 
 			echo '<li><a id="menuAtlas" href="'.$protocol.'://stendhalgame.org/wiki/StendhalAtlas">Atlas</a></li>'."\n";
 			echo '</ul>';
-		endBox(); ?>
+		endBox();
 
-		<?php startBox('Help'); ?>
+		startBox('Help'); ?>
 		<ul id="helpmenu" class="menu">
 			<li><a id="menuHelpManual" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
 		</ul>
