@@ -209,7 +209,7 @@ body {
 			echo '<li><a id="menuAssociationAbout" href="'.rewriteURL('/'.$lang.'/about.html').'">'.t('Faiumoni e. V.').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationNews" href="'.rewriteURL('/'.$lang.'/news.html').'">'.t('News').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationStatue" href="'.rewriteURL('/'.$lang.'/statute.html').'">'.t('Statute').'</a></li>'."\n";
-			echo '<li><a id="menuAssociationMembers" href="'.rewriteURL('/'.$lang.'/members.html').'">'.t('Members').'</a></li>'."\n";
+			// echo '<li><a id="menuAssociationMembers" href="'.rewriteURL('/'.$lang.'/members.html').'">'.t('Members').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationContact" href="'.rewriteURL('/'.$lang.'/legal-contact.html').'">'.t('Legal contact').'</a></li>'."\n";
 			echo '<li><a id="menuAssociationDonations" href="'.rewriteURL('/'.$lang.'/donate.html').'">'.t('Donate').'</a></li>'."\n";
 		echo '</ul>';
