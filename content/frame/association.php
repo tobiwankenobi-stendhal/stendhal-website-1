@@ -186,7 +186,7 @@ body {
 		$page->writeContent();
 	?>
 	<div id="footerArea">
-		<span>&copy; 2011 Faiumoni e. V.</span>
+		<span>&copy; 2011-2012 Faiumoni e. V.</span>
 	</div>
 </div>
 <div id="bodycontainer">
@@ -258,16 +258,6 @@ body {
 			echo '</ul>';
 			endBox();
 		}
-			
-			/* TODO: implement me
-			startBox(t('Share'));
-			echo '<ul id="sharemenu" class="menu">';
-			echo '<li><a id="menuShareFacebook" href="TODO">'.t('Facebook').'</a></li>'."\n";
-			echo '<li><a id="menuShareTwitter" href="TODO">'.t('Twitter').'</a></li>'."\n";
-			echo '<li><a id="menuShareEMail" href="'.rewriteURL('/'.$lang.'/email.html').'">'.t('eMail').'</a></li>'."\n";
-			echo '</ul>';
-			endBox();
-			*/
 		?>
 	</div>
 </div>
