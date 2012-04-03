@@ -91,9 +91,7 @@ class MainPage extends Page {
 			if (isset($_SESSION) && isset($_SESSION['account'])) {
 				$username = $_SESSION['account']->username;
 			}
-			echo ' <abbr style="underline:none; border-bottom:0" title="'.t('Server time').': '
-				.date('Y-m-d g:i').' ** Client: '.htmlspecialchars($_SERVER['REMOTE_ADDR']).' ** '
-				.t('User').': '.htmlspecialchars($username).'">&Pi;</abbr>&nbsp;&nbsp;';
+			echo ' <a style="underline:none; color:#000" href="https://faiumoni.de/?id=content/association/login">&Pi;</abbr>&nbsp;&nbsp;';
 
 			echo '</div>';
 		} else {
