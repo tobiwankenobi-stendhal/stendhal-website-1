@@ -26,6 +26,7 @@ class CreateCharacterPage extends Page {
 	 * @return true, to continue the rendering, false to not render the normal content
 	 */
 	public function writeHttpHeader() {
+		global $protocol;
 		if (!isset($_SESSION['account'])) {
 			// Show link to login box
 			return true;
