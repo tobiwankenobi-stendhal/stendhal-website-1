@@ -208,7 +208,7 @@ class PlayerLoginEntry {
 		}
 
 		$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
-			" values (".$userid.", '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($oldpass)."', 'website', ".($result ? '1' : '0').")";
+			" values (".$userid.", '".mysql_real_escape_string(trim($ip))."', '".mysql_real_escape_string($oldpass)."', 'website', ".($result ? '1' : '0').")";
 		$result = mysql_query($q, getGameDB());
 		return $result !== false;
 	}
@@ -228,7 +228,7 @@ class PlayerLoginEntry {
 		if ($accountLink) {
 			$q = $q .', account_link_id';
 		}
-		$q = $q . ") values (".$userid.", '".mysql_real_escape_string($ip)." ',".($success ? '1' : '0').", 'website'";
+		$q = $q . ") values (".$userid.", '".mysql_real_escape_string(trim($ip))." ',".($success ? '1' : '0').", 'website'";
 		if ($accountLink) {
 			$q = $q . ", '".mysql_real_escape_string($accountLink)."'";
 		}
