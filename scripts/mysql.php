@@ -118,3 +118,26 @@ function fetchToArray($query, $connection) {
 	mysql_free_result($result);
 	return $res;
 }
+
+/**
+ * creates an id list from a query
+ *
+ * @param unknown_type $query
+ * @param unknown_type $connection
+ */
+function fetchToIdList($query, $connection) {
+	$result = mysql_query($query, $connection);
+	$res = '';
+	$first = true;
+	
+	while($row = mysql_fetch_row($result)) {
+		if ($first) {
+			$first = false;
+		} else {
+			$res .= ', ';
+		}
+		$res .= intval($row[0]);
+	}
+	mysql_free_result($result);
+	return $res;
+}
