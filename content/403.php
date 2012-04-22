@@ -18,7 +18,7 @@ div.content {padding: 0.5em 1em 0.5em 1em}
 <ul>
 <li>a huge number of requests originating from your region of the Internet</li>
 <li>your region of the Internet might have been temporary suspended or banned from accessing this service</li>
-<li>a server side missconfiguration</li>
+<li>a server side misconfiguration</li>
 </ul>
 <p>If this error does not go away in a couple of minutes, please contact <?php echo STENDHAL_GM_ADDRESS ?> via email.</p>
 </div>
