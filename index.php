@@ -36,6 +36,10 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
  */
 connect();
 
+if (function_exists('stendhal_website_init')) {
+	stendhal_website_init();
+}
+
 /**
  * Scan the name module to load and reset it to safe default if something strange appears.
  *
