@@ -35,8 +35,8 @@ class MainPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>'.substr(STENDHAL_TITLE, strpos(STENDHAL_TITLE, ' ', 2) + 1).'</title>'."\n";
 		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" >'."\n";
-		echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, Rollenspiel, juego, role, gioco, online, open, source, multiplayer, roleplaying, Arianne, foss, floss, Adventurespiel">';
-		echo '<meta name="description" content="Stendhal is a fully fledged free open source multiplayer online adventures game (MORPG) developed using the Arianne game system.">';
+		echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, Rollenspiel, juego, role, gioco, online, open, source, multiplayer, roleplaying, Arianne, foss, floss, Adventurespiel, morpg, rpg">';
+		echo '<meta name="description" content="Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...">';
 		?>
 <style type="text/css">
 #oneLineDescription {
@@ -73,8 +73,7 @@ class MainPage extends Page {
 <div id="oneLineDescription">
 	<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'))?>" style="border:0">
 	<img style="border:0" src="/images/playit.gif" alt="play stendhal" width="106px" height="45px"></a>
-	<span>Stendhal is a fully fledged free open source multiplayer online 
-	adventures game (MORPG) developed using the Arianne game system.</span>
+	<span>Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...</span>
 </div>
 <div id="newsArea">
 	<?php
