@@ -57,6 +57,32 @@ body {
 	padding: 20px 0 20px 20px;
 }
 
+#oneLineDescription {
+	background-image: url("../images/onelinedesc.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	color: Black;
+	text-align: left;
+	font-size: 14px;
+	font-weight: bold;
+	width: 546px;
+	height: 84px;
+	padding: 0;
+	margin: 0 0 0 15px;
+}
+
+#oneLineDescription img {
+	margin: 14px 0 0 10px;
+	float: left;
+	border: 0
+}
+
+#oneLineDescription span {
+	position: relative;
+	top: 15px;
+	padding: 0px 8px 0 0;
+}
+
 
 /* Top horizontal menu */
 #topMenu {

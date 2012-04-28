@@ -37,6 +37,7 @@ class MainPage extends Page {
 		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" >'."\n";
 		echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, Rollenspiel, juego, role, gioco, online, open, source, multiplayer, roleplaying, Arianne, foss, floss, Adventurespiel, morpg, rpg">';
 		echo '<meta name="description" content="Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...">';
+// TODO: remove style definition here
 		?>
 <style type="text/css">
 #oneLineDescription {
@@ -60,7 +61,7 @@ class MainPage extends Page {
 
 #oneLineDescription span {
 	position: relative;
-	top: 10px;
+	top: 15px;
 	padding: 0px 8px 0 0;
 }
 </style>
