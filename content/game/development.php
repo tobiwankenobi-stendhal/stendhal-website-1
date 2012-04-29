@@ -32,18 +32,18 @@ There are loads of tutorials on our wiki including how to set up the Eclipse dev
 If you plan to help with Stendhal development it is a very good idea to talk about it with the developers and contributors at the <a href="<?php echo rewriteURL('/development/chat.html');?>">irc channel #arianne on freenode.</a>.  
 <?php endBox(); ?>
 <?php startBox("Video"); ?>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/x4OpqCWAYaU" frameborder="0" allowfullscreen></iframe>
-<br>0:01 Introduction
-<br>1:32 Source code download
-<br>2:11 Development portal from stendhalgame.org/development
-<br>2:49 Stendhal Quest Contribution
-<br>5:07 Graphics, Sound, Items, Maps, Creatures
-<br>5:28 Chatting to developers in IRC
-<br>7:20 Java Code navigation and design
-<br>7:47 Bugs and features tracker
-<br>9:50 Patch contribution
-<br>10:00 Eclipse as an IDE
-<br>10:20 Conclusion
+<iframe width="560" height="315" src="https://www.youtube.com/embed/x4OpqCWAYaU" name="videoframe" frameborder="0" allowfullscreen></iframe>
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=92" target="videoframe">0:01</a> Introduction
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=92" target="videoframe">1:32</a> Source code download
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=131" target="videoframe">2:11</a> Development portal from stendhalgame.org/development
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=169" target="videoframe">2:49</a> Stendhal Quest Contribution
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=307" target="videoframe">5:07</a> Graphics, Sound, Items, Maps, Creatures
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=328" target="videoframe">5:28</a> Chatting to developers in IRC
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=440" target="videoframe">7:20</a> Java Code navigation and design
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=467" target="videoframe">7:47</a> Bugs and features tracker
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=590" target="videoframe">9:50</a> Patch contribution
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=600" target="videoframe">10:00</a> Eclipse as an IDE
+<br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=620" target="videoframe">10:20</a> Conclusion
 <?php endBox();
 	}
 }
