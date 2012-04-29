@@ -23,7 +23,7 @@ There are loads of tutorials on our wiki including how to set up the Eclipse dev
 	<li><a href="/jenkins/"><img src="/images/buttons/c_code_button.png" alt="">Jenkins</a> - continuous integration and testing</li>
 	<li><a href="/wiki/StendhalRPProposal"><img src="/images/buttons/rpsystem_button.png" alt="">RP System</a> - proposed new system which is in planning stages</li>
 	<li><a href="/wiki/StendhalRefactoringGraphics"><img src="/images/buttons/c_gfx_button.png" alt="">Graphics</a> - artists, this one is for you</li>
-	<li><a href="/wiki/StendhalOpenTasks#SFX"><img src="/images/buttons/c_snd_button.png" alt="">Sounds &amp; Music</a> </li>
+	<li><a href="/wiki/Stendhal_Sound"><img src="/images/buttons/c_snd_button.png" alt="">Sounds &amp; Music</a> </li>
 	<li><a href="/wiki/Stendhal_Quest_Contribution"><img src="/images/buttons/quests_button.png" alt="">Quests</a> - planned or ideas</li>
 	<li><a href="/wiki/HowToAddItemsStendhal"><img src="/images/buttons/items_button.png" alt="">Items</a></li>
 	<li><a href="/wiki/StendhalRefactoringAtlas"><img src="/images/buttons/atlas_button.png" alt="">Maps</a> - for map areas which need improvement</li>
