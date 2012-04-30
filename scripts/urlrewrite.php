@@ -77,7 +77,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/development/sourcelog\.html$ /index.php?id=content/game/sourcelog [L]
                 RewriteRule ^/development/sourcelog/(.*)\.html$ /index.php?id=content/game/sourcelog&month=$1 [L]
                 RewriteRule ^/development/download\.html$ /index.php?id=content/game/download [L]
-                RewriteRule ^/development/?$ /index.php?id=content/game/development [L]
+                RewriteRule ^/development/?$ /development.html [R=301]
+                RewriteRule ^/development.html$ /index.php?id=content/game/development [L]
 
                 # items
                 RewriteRule ^/item/?$ /index.php?id=content/game/items [L]
