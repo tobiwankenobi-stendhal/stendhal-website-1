@@ -66,6 +66,7 @@
 
 @define('STENDHAL_LOGIN_TARGET','https://stendhalgame.org');
 
+@define('STENDHAL_NO_BEST_PLAYER', 'No players registered.');
 
 #
 # DEVEL switch

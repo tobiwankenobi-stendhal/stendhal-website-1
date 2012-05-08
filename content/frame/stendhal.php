@@ -154,11 +154,7 @@ class StendhalFrame extends PageFrame {
 		if($player!=NULL) {
 			Player::showFromArray($player);
 		} else {
-			?>
-			<div class="small_notice">
-				
-			</div>
-			<?php
+			echo '<div class="small_notice">'.STENDHAL_NO_BEST_PLAYER.'</div>';
 		}
 		endBox(); ?>
 
