@@ -67,7 +67,7 @@ class OnlinePage extends Page {
 		echo '<table class="prettytable">';
 		echo '<tr><th>&nbsp;</th><th>Accounts</th><th>Characters</th></tr>';
 		echo '<tr><td>Week</td><td>'.htmlspecialchars($stats['accounts_7']).'</td><td>'.htmlspecialchars($stats['characters_7']).'</td></tr>';
-		echo '<tr><td>Month</td><td>'.htmlspecialchars($stats['accounts_30']).'</td><td>'.htmlspecialchars($stats['characters_7']).'</td></tr>';
+		echo '<tr><td>Month</td><td>'.htmlspecialchars($stats['accounts_30']).'</td><td>'.htmlspecialchars($stats['characters_30']).'</td></tr>';
 		echo '</table>';
 		endBox();
 	}
