@@ -4,8 +4,7 @@ class OnlinePage extends Page {
 	private $isOnline = true;
 
 	public function __construct() {
-		$stats = getServerStats();
-		$this->isOnline = $stats->isOnline();
+		$this->isOnline = ServerStatistics::checkServerIsOnline();
 	}
 
 	public function writeHtmlHeader() {
@@ -24,6 +23,7 @@ class OnlinePage extends Page {
 		} else {
 			$this->writeOfflineHint();
 		}
+		$this->writeRecent();
 	}
 
 	/**
@@ -42,7 +42,7 @@ class OnlinePage extends Page {
 	 * writes the list of online players.
 	 */
 	function writeOnlinePlayers() {
-		$players=getOnlinePlayers();
+		$players = getOnlinePlayers();
 		startBox('Online Players');
 		
 		if(sizeof($players)==0) {
@@ -57,6 +57,17 @@ class OnlinePage extends Page {
 			echo '</div>';
 		}
 		echo '</div>';
+		endBox();
+	}
+
+	function writeRecent() {
+		startBox('Recently online');
+		echo '<p>This table shows the number of accounts and characters which have been online recently.</p>';
+		echo '<table class="prettytable">';
+		echo '<tr><th>&nbsp;</th><th>Accounts</th><th>Characters</th></tr>';
+		echo '<tr><td>Week</td><td>'.htmlspecialchars($stats['accounts_7']).'</td><td>'.htmlspecialchars($stats['characters_7']).'</td></tr>';
+		echo '<tr><td>Month</td><td>'.htmlspecialchars($stats['accounts_30']).'</td><td>'.htmlspecialchars($stats['characters_7']).'</td></tr>';
+		echo '</table>';
 		endBox();
 	}
 }

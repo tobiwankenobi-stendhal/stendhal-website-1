@@ -172,32 +172,6 @@ class StendhalFrame extends PageFrame {
 		</form>
 		<?php endBox(); ?>
 
-
-<?php 
-/*
-          startBox('Server stats');
-          // Load server stats about online players, bytes send/recv and other from database.
-          $stats=getServerStats();
-          if(!isset($stats) || !$stats->isOnline()) {
-            ?>
-            <div class="status"><a href="/?id=content/offline">Server is offline</a></div>
-            <?php
-          } else {
-            echo '<a href="'.rewriteURL('/world/online.html').'">';
-            ?>
-            <div class="stats"><?php echo getAmountOfPlayersOnline(); ?></div> players online.
-            </a>
-            <div class="small_notice">
-              <?php
-              echo '<a href="'.rewriteURL('/world/server-stats.html').'">[Detailed stats]</a><br>'."\n";
-              echo '<a href="'.rewriteURL('/world/kill-stats.html').'">[Killed stats]</a>'."\n";
-              ?>
-            </div>
-          <?php
-          }
-          endBox(); 
-*/        ?>
-
 		<?php startBox('Contribute'); ?>
 		<ul id="contribmenu" class="menu">
 			<?php

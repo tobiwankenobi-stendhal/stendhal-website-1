@@ -74,12 +74,6 @@ class DefaultFrame extends PageFrame {
 
 	<div id="rightArea">
 
-		<?php startBox('Players'); ?>
-		<ul class="menu">
-			<li style="white-space: nowrap"><a id="menuPlayerOnline" href="<?php echo rewriteURL('/world/online.html');?>"><b style="color: #00A; font-size:16px;"><?php echo getAmountOfPlayersOnline(); ?></b>&nbsp;Players&nbsp;Online</a></li>
-		</ul>
-		<?php endBox(); ?>
-
 
 		<?php startBox('Contribute'); ?>
 		<ul id="contribmenu" class="menu">
