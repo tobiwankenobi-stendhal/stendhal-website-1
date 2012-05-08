@@ -1,6 +1,6 @@
 <?php
 /*
- Stendhal website - a website to manage and ease playing of Stendhal game
+Stendhal website - a website to manage and ease playing of Stendhal game
 Copyright (C) 2008-2012  Faiumoni e. V.
 
 This program is free software: you can redistribute it and/or modify
@@ -23,5 +23,18 @@ class ServerStatistics {
 		$sql = 'SELECT TIME_TO_SEC(TIMEDIFF(now(), timedate)) As diff FROM statistics ORDER BY id DESC LIMIT 1';
 		$result = queryFirstCell($sql, getGameDB());
 		return $result<300;
+	}
+
+	public static function readOnlineStatS() {
+		$res = array();
+		$sql = 'SELECT name, val FROM statistics_archive WHERE day = CURRENT_DATE()';
+		$result = mysql_query($sql, getGameDB());
+
+		while ($row = mysql_fetch_assoc($result)) {
+			$res[$row['name']] = $row['val'];
+		}
+
+		mysql_free_result($result);
+		return $res;
 	}
 }

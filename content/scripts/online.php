@@ -61,6 +61,7 @@ class OnlinePage extends Page {
 	}
 
 	function writeRecent() {
+		$stats = ServerStatistics::readOnlineStats();
 		startBox('Recently online');
 		echo '<p>This table shows the number of accounts and characters which have been online recently.</p>';
 		echo '<table class="prettytable">';
