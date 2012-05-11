@@ -150,6 +150,9 @@ function create_outfit($completeOutfit, $offset) {
 	// dress
 	$code /= 100;		
 	$index = $code % 100;
+	if ($index == 0) {
+		$index = 91;
+	}
 	if ($index) {
 		$tmp = load_part('/dress_', $index, $offset);
 	} else {
