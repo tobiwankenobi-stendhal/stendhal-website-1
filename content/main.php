@@ -37,35 +37,6 @@ class MainPage extends Page {
 		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="'.rewriteURL('/rss/news.rss').'" >'."\n";
 		echo '<meta name="keywords" content="Stendhal, game, gra, Spiel, Rollenspiel, juego, role, gioco, online, open, source, multiplayer, roleplaying, Arianne, foss, floss, Adventurespiel, morpg, rpg">';
 		echo '<meta name="description" content="Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...">';
-// TODO: remove style definition here
-		?>
-<style type="text/css">
-#oneLineDescription {
-	background-image: url("../images/onelinedesc.png");
-	background-position: center;
-	background-repeat: no-repeat;
-	color: Black;
-	text-align: left;
-	font-size: 14px;
-	font-weight: bold;
-	width: 546px;
-	height: 84px;
-	padding: 0;
-	margin: 0 0 0 15px;
-}
-
-#oneLineDescription img {
-	margin: 14px 0 0 10px;
-	float: left;
-}
-
-#oneLineDescription span {
-	position: relative;
-	top: 15px;
-	padding: 0px 8px 0 0;
-}
-</style>
-		<?php
 	}
 
 	function writeContent() {
