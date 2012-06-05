@@ -46,14 +46,18 @@ class TalkPage extends Page {
 	 * renders the outer frameset
 	 */
 	private function renderFrameset() {
+		$no = 0;
+		if (isset($_REQUEST['no'])) {
+			$no = intval($_REQUEST['no'], 10);
+		}
 		echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
 		echo '<html><head><meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">';
 		echo '<title>Talk</title></head>';
 		echo '<frameset cols="*,656">';
 		echo '<frame src="/?id=content/association/talk&amp;frame=nav&amp;path='.urlencode($this->path).'" name="nav">';
-		echo '<frame src="/?id=content/association/talk&amp;frame=rightframe&amp;path='.urlencode($this->path).'&amp;no=0" name="rightframe">';
+		echo '<frame src="/?id=content/association/talk&amp;frame=rightframe&amp;path='.urlencode($this->path).'&amp;no='.$no.'" name="rightframe">';
 		echo '<noframes><body>';
-		echo '<a href="/talk-files/'.$this->path.'/text0.html">Text version of talk</a>';
+		echo '<a href="/talk-files/'.$this->path.'/text'.$no.'.html">Text version of talk</a>';
 		echo '</body></noframes>';
 		echo '</frameset></html>';
 	}
