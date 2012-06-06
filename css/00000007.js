@@ -558,6 +558,10 @@ function popupHandler(e) {
 	});
 }
 
+function initSourceforgeLogo() {
+	$("#footerSourceforge").css("background", "url(https://sflogo.sourceforge.net/sflogo.php?group_id=1111&type=15) center left no-repeat");
+}
+
 //----------------------------------------------------------------------------
 //                                       init
 //----------------------------------------------------------------------------
@@ -654,4 +658,5 @@ $().ready(function() {
 	initTracepath();
 	initEditor();
 	initSocialMediaPopup();
+	initSourceforgeLogo();
 });
