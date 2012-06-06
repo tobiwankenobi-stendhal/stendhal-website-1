@@ -56,10 +56,6 @@ abstract class PageFrame {
 	public function includeJs() {
 		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/jquery-00000002.js"></script>';
 		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/jquery.tooltip-merged.min.js"></script>';
-		if (isset($_REQUEST['test'])) {
-			echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/00000008.js"></script>';
-		} else {
-			echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/00000007.js"></script>';
-		}
+		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/00000008.js"></script>';
 	}
 }
