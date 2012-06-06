@@ -75,7 +75,7 @@ class News {
 		// link the title unless we are in detail view
 		$heading = '<div class="newsDate">'.$this->date.'</div><div class="newsTitle">';
 		if (!$detail) {
-			$heading .= '<a style="newsTitle" href="'.rewriteURL('/news/'.$this->getNiceURL()).'">'.$this->title.'</a>';
+			$heading .= '<a href="'.rewriteURL('/news/'.$this->getNiceURL()).'">'.$this->title.'</a>';
 		} else {
 			$heading .= $this->title;
 		}
@@ -85,8 +85,8 @@ class News {
 
 		// image for type of news and social network buttons
 		if (isset($this->typeImage) && strlen($this->typeImage) > 0) {
-			echo '<div class="newsIcon" style="float: right; padding-left: 2em; width: 40px">';
-			echo '<img src="'.STENDHAL_FOLDER.htmlspecialchars($this->typeImage).'" title="'.htmlspecialchars($this->typeTitle).'" alt="" width="36px" height="36px">';
+			echo '<div class="newsIcons">';
+			echo '<div class="newsIcon newsIcon'.$this->typeId.'"></div>';
 			echo '<div class="socialmedia" data-id="'.htmlspecialchars($this->id)
 				.'" data-title="'.htmlspecialchars($this->title).'"></div>';
 			echo '</div>';

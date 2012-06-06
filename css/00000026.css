@@ -727,6 +727,22 @@ iframe#facebook {
 	padding: 4px 4px 6px 4px;
 }
 
+.newsIcons {
+	float: right; padding-left: 2em; width: 40px
+}
+
+.newsIcon {
+	background-image: url(/images/events/events.png);
+	width: 36px; height: 36px;
+}
+
+.newsIcon2 {background-position:-36px 0px;}
+.newsIcon3 {background-position:-72px 0px;}
+.newsIcon4 {background-position:-108px 0px;}
+.newsIcon5 {background-position:-144px 0px;}
+.newsIcon6 {background-position:-180px 0px;}
+.newsIcon7 {background-position:-216px 0px;}
+
 span.block {
 	display: block;
 	overflow-x: hidden;
