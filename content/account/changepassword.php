@@ -50,10 +50,10 @@ function changePassword() {
 	
 	/* Verify that user is in database */
 	$md5newpass = strtoupper(md5($_POST['newpass']));
-	$q = "update account set password='".mysql_real_escape_string($md5newpass)."' where username = '".mysql_real_escape_string($username)."'";
+	$q = "update account set password='".mysql_real_escape_string(Account::sha512crypt($md5newpass))."' where username = '".mysql_real_escape_string($username)."'";
 	$result = mysql_query($q,getGameDB());
 	
-	if(mysql_affected_rows()!=1) {
+	if (mysql_affected_rows()!=1) {
 		die('Problem updating database');
 	}
 

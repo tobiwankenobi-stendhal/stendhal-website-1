@@ -499,23 +499,32 @@ class Account {
 	 * @param string password
 	 */
 	private function checkPassword($password) {
+
+		if (strpos($this->password, '$') === 0) {
+			$cryptpass = crypt(STENDHAL_PASSWORD_PEPPER . strtoupper(md5($password)), $this->password);
+			if ($cryptpass == $this->password) {
+				return true;
+			}
+
+			// pre-Marauroa 2.0 passwords
+			$cryptpass = crypt(STENDHAL_PASSWORD_PEPPER . strtoupper(md5(md5($password, true))), $this->password);
+			if ($cryptpass == $this->$password) {
+				return true;
+			}
+			return false;
+		}
+
 		$md5pass = strtoupper(md5($password));
 		if ($md5pass == $this->password) {
-			$result = true;
-		} else {
-			$result = false;
+			return true;
 		}
 		
-		if (!$result) {
-			// We need to check the pre-Marauroa 2.0 passwords
-			$md5pass = strtoupper(md5(md5($password, true)));
-			if ($md5pass == $this->password) {
-				$result = true;
-			} else {
-				$result = false;
-			}
+		// We need to check the pre-Marauroa 2.0 passwords
+		$md5pass = strtoupper(md5(md5($password, true)));
+		if ($md5pass == $this->password) {
+			return true;
 		}
-		return $result;
+		return false;
 	}
 
 	private function readAccountBan() {
@@ -580,6 +589,24 @@ class Account {
 	}
 
 	/**
+	 * Creates a sha512crypt hash of the password hash, unless it is disabled in configuration
+	 * 
+	 * @param string $passwordHash password hash
+	 * @return sha512crypt hash
+	 */
+	public static function sha512crypt($passwordHash) {
+		if (STENDAL_PASSWORD_HASH == 'md5') {
+			return $passwordHahs;
+		}
+		$alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+		$salt = '$6$';
+		for($i = 0; $i < 16; $i++) {
+			$salt .= $alphabet[rand(0, 63)];
+		}
+		return crypt(STENDHAL_PASSWORD_PEPPER . $passwordHash, $salt);
+	}
+
+	/**
 	 * inserst a record in the account table.
 	 */
 	public function insert() {
@@ -589,7 +616,7 @@ class Account {
 			."', '".mysql_real_escape_string($this->status)."'";
 		if ($this->password) {
 			$sql .= ", password";
-			$sql2 .= ", '".mysql_real_escape_string($this->password)."'";
+			$sql2 .= ", '".mysql_real_escape_string(Account::sha512crypt($this->password))."'";
 		}
 		$sql = $sql.$sql2.');';
 		if (!mysql_query($sql, getGameDB())) {

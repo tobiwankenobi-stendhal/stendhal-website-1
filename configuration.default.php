@@ -94,6 +94,8 @@
 @define('SUPPORT_LOG_DIRECTORY','/path-to-logs/');
 @define('MAIN_LOG_DIRECTORY','/path-to-logs/');
 
+@define('STENDHAL_PASSWORD_HASH', 'sha512crypt');
+@define('STENDHAL_PASSWORD_PEPPER', '');
 
 @define('STENDHAL_TRUESTED_OPENID_CONSUMERS', 'http://127.0.0.1');
 ?>
