@@ -595,8 +595,8 @@ class Account {
 	 * @return sha512crypt hash
 	 */
 	public static function sha512crypt($passwordHash) {
-		if (STENDAL_PASSWORD_HASH == 'md5') {
-			return $passwordHahs;
+		if (STENDHAL_PASSWORD_HASH == 'md5') {
+			return $passwordHash;
 		}
 		$alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 		$salt = '$6$';
