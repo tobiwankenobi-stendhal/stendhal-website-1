@@ -80,6 +80,10 @@ class StarterPage extends Page {
 	}
 	
 	private function streamWebstart() {
+		$version = '0.95.1';
+		if (isset($_REQUEST['test'])) {
+			$version = '1.01';
+		}
 		header('Content-Type: application/x-java-jnlp-file', true);
 		echo '<?xml version="1.0" encoding="utf-8"?>
 <jnlp spec="1.0+" codebase="http://stendhalgame.org">
@@ -103,7 +107,7 @@ So what are you waiting for?! A whole new world awaits...</description>
 	</security>
 	<resources>
 		<j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+" max-heap-size="200m" />
-		<jar href="http://arianne.sourceforge.net/jws/stendhal-starter-0.95.1.jar" download="eager" main="true" />
+		<jar href="http://arianne.sourceforge.net/jws/stendhal-starter-'.$version.'.jar" download="eager" main="true" />
 	</resources>
 	<application-desc>
 		<argument>-h</argument><argument>'.STENDHAL_SERVER_NAME.'</argument>
