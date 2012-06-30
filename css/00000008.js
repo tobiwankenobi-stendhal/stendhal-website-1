@@ -522,7 +522,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
  *
  * Copyright (c) 2006 - 2008 Jörn Zaefferer
  *
- * $Id: 00000008.js,v 1.12 2012/06/30 15:32:59 nhnb Exp $
+ * $Id: 00000008.js,v 1.13 2012/06/30 15:36:25 nhnb Exp $
  * 
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -1095,7 +1095,7 @@ complete();if(settings(this).fixPNG)helper.parent.unfixPNG();}})(jQuery);
 	}
 
 	function initSourceforgeLogo() {
-		if (window.location.protocol.indexOf("https")) {
+		if (window.location.protocol.indexOf("https") > -1) {
 			window.setTimeout(function() {
 				$("#footerSourceforge").css("background", "url(https://sflogo.sourceforge.net/sflogo.php?group_id=1111&type=15) center left no-repeat");
 			}, 1000);
