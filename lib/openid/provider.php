@@ -460,14 +460,16 @@ abstract class LightOpenIDProvider
         }
         
         foreach(array('required', 'optional') as $type) {
-            foreach(explode(',',$this->data['openid_sreg_' . $type]) as $attr) {
-                if(empty($sreg_to_ax[$attr])) {
-                    # Undefined attribute in SREG request.
-                    # Shouldn't happen, but we check anyway.
-                    continue;
-                }
+        	if (isset($this->data['openid_sreg_' . $type])) {
+                foreach(explode(',',$this->data['openid_sreg_' . $type]) as $attr) {
+                    if(empty($sreg_to_ax[$attr])) {
+                        # Undefined attribute in SREG request.
+                        # Shouldn't happen, but we check anyway.
+                        continue;
+                    }
                 
-                $attributes[$type][] = $sreg_to_ax[$attr];
+                    $attributes[$type][] = $sreg_to_ax[$attr];
+                }
             }
         }
         

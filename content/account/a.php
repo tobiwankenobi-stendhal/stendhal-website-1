@@ -18,12 +18,13 @@
  */
 
 class APage extends Page {
+
 	/**
 	 * this method can write additional http headers, for example for cache control.
 	 *
 	 * @return true, to continue the rendering, false to not render the normal content
 	 */
-	function writeHttpHeader($page_url) {
+	function writeHttpHeader() {
 		global $protocol;
 		if ($protocol == 'https') {
 			header('X-XRDS-Location: '.STENDHAL_LOGIN_TARGET.'/?id=content/account/openid-provider&xrds&select=false');
@@ -44,4 +45,3 @@ class APage extends Page {
 
 }
 $page = new APage();
-?>
