@@ -101,7 +101,7 @@ require_once($page_url.'.php');
 
 
 header('X-Frame-Options: sameorigin');
-header("X-Content-Security-Policy: default-src 'self' https://api.flattr.com http://platform.twitter.com https://platform.twitter.com https://apis.google.com http://ssl.gstatic.com https://ssl.gstatic.com https://plusone.google.com https://www.facebook.com https://connect.facebook.net https://www.youtube.com ; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net https://api.flattr.com http://ssl.gstatic.com https://ssl.gstatic.com ; report-uri /?id=content/scripts/cspreport");
+header("X-Content-Security-Policy: default-src 'self' https://api.flattr.com http://platform.twitter.com https://platform.twitter.com https://apis.google.com http://ssl.gstatic.com https://ssl.gstatic.com https://plusone.google.com https://www.facebook.com https://connect.facebook.net https://www.youtube.com ; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net http://sflogo.sourceforge.net https://api.flattr.com http://ssl.gstatic.com https://ssl.gstatic.com ; report-uri /?id=content/scripts/cspreport");
 
 if ($page->writeHttpHeader()) {
 header('Content-Type: text/html; charset=utf-8')
