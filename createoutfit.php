@@ -140,6 +140,7 @@ function create_outfit($completeOutfit, $offset) {
 
 	// body:
 	$index = $code % 100;
+	$bodyIndex = $index;
 	$outfit = load_part('/player_base_', $index, $offset);
 	if (!$outfit) {
 		// ensure we have something to draw on
@@ -150,7 +151,7 @@ function create_outfit($completeOutfit, $offset) {
 	// dress
 	$code /= 100;		
 	$index = $code % 100;
-	if ($index == 0) {
+	if (($index == 0) && ($bodyIndex < 50)) {
 		$index = 91;
 	}
 	if ($index) {
