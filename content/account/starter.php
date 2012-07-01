@@ -80,7 +80,7 @@ class StarterPage extends Page {
 	}
 	
 	private function streamWebstart() {
-		$version = '0.95.1';
+		$version = '1.01';
 		if (isset($_REQUEST['test'])) {
 			$version = '1.01';
 		}
@@ -121,4 +121,3 @@ So what are you waiting for?! A whole new world awaits...</description>
 }
 
 $page = new StarterPage();
-?>
