@@ -183,7 +183,7 @@ function create_outfit($completeOutfit, $offset) {
 	$code /= 100;		
 	$index = $code % 100;
 	if ($index) {
-		$tmp = load_part('/detail_', $index);
+		$tmp = load_part('/detail_', $index, $offset);
 	} else {
 		$tmp = 0;
 	}
