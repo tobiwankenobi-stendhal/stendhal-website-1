@@ -522,7 +522,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
  *
  * Copyright (c) 2006 - 2008 Jörn Zaefferer
  *
- * $Id: 00000008.js,v 1.14 2012/06/30 15:41:12 nhnb Exp $
+ * $Id: 00000008.js,v 1.15 2012/07/15 20:44:12 nhnb Exp $
  * 
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -1065,7 +1065,6 @@ complete();if(settings(this).fixPNG)helper.parent.unfixPNG();}})(jQuery);
 		var html = '<div class="socialbutton"><iframe id="facebook" src="https://www.facebook.com/plugins/like.php?href='+socialLink+'&amp;send=false&amp;layout=standard&amp;width=400&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=24" scrolling="no" frameborder="0" style="border:none; overflow:visible; width:400px; height:35px;" allowTransparency="true">Loading Facebook</iframe></div>'
 			+ '<div class="socialbutton"><div class="g-plusone" data-size="medium" data-href="'+socialLink+'">Loading Google+</div></div>'
 			+ '<div class="socialbutton"><a href="https://twitter.com/share" class="twitter-share-button" data-url="' + socialLink + '" data-text="' + message + '" data-via="stendhalgame">Loading Twitter</a></div>'
-			+ '<div class="socialbutton"><a href="https://flattr.com/thing/333510/Faiumoni-e-V-" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></div>'
 			+ '<div><a href="https://stendhalgame.org/wiki/Two_clicks_for_more_privacy" target="_blank">Two clicks for more privacy.</a></div>'
 			+ '<script async type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>'
 			+ '<script async type="text/javascript" src="https://platform.twitter.com/widgets.js" id="twitter-wjs"></script>';
