@@ -61,7 +61,8 @@ $etag = STENDHAL_VERSION.'-'.sha1($url);
 $headers = getallheaders();
 $requestedEtag = $headers['If-None-Match'];
 header("Content-type: image/jpeg");
-header("Cache-Control: max-age=3888000"); // 45 * 24 * 60 * 60
+header("Cache-Control: max-age=3888000, public"); // 45 * 24 * 60 * 60
+header('Pragma: cache');
 header('Etag: "'.$etag.'"');
 
 if (isset($requestedEtag) && ($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"')) {
