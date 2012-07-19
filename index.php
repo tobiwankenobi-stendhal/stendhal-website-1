@@ -23,12 +23,19 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 	$protocol = 'https';
 	ini_set('session.cookie_secure', 1);
 	session_start();
+	
+	if ((!isset($_SESSION)) || (!isset($_SESSION['account']))) {
+		header('cache-control: public', true);
+		header('Pragma: cache');
+	}
+
 } else {
 	if (!STENDHAL_SECURE_SESSION) {
 		session_start();
 	}
 	$protocol = 'http';
 }
+
 
 
 /*
