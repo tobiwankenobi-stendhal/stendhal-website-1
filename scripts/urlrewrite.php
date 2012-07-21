@@ -31,82 +31,82 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteEngine on
 
                 # images
-                RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png [L]
-                RewriteRule ^/images/image/(.*)$ /image.php?img=$1 [L]
-                RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png [L]
-                RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png [L]
-                RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1 [L]
-                RewriteRule ^/images/screenshot/(.*)$ /index.php?id=content/games/screenshot&file=$1 [L]
-                RewriteRule ^/images/thumbnail/(.*)$ /thumbnail.php?img=$1 [L]
+                RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png&rewritten=true [L]
+                RewriteRule ^/images/image/(.*)$ /image.php?img=$1&rewritten=true [L]
+                RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png&rewritten=true [L]
+                RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png&rewritten=true [L]
+                RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1&rewritten=true [L]
+                RewriteRule ^/images/screenshot/(.*)$ /index.php?id=content/games/screenshot&file=$1&rewritten=true [L]
+                RewriteRule ^/images/thumbnail/(.*)$ /thumbnail.php?img=$1&rewritten=true [L]
 
                 # account
-                RewriteRule ^/account/approve-password.html$ /index.php?id=content/account/approve [L]
-                RewriteRule ^/account/change-email.html$ /index.php?id=content/account/email [L]
-                RewriteRule ^/account/change-password.html$ /index.php?id=content/account/changepassword [L]
-                RewriteRule ^/account/create-account.html$ /index.php?id=content/account/createaccount [L]
-                RewriteRule ^/account/create-character.html$ /index.php?id=content/account/createcharacter [L]
-                RewriteRule ^/account/history.html$ /index.php?id=content/account/loginhistory [L]
-                RewriteRule ^/account/login.html$ /index.php?id=content/account/login [L]
-                RewriteRule ^/account/logout.html$ /index.php?id=content/account/logout [L]
-                RewriteRule ^/account/merge.html$ /index.php?id=content/account/merge [L]
+                RewriteRule ^/account/approve-password.html$ /index.php?id=content/account/approve&rewritten=true [L]
+                RewriteRule ^/account/change-email.html$ /index.php?id=content/account/email&rewritten=true [L]
+                RewriteRule ^/account/change-password.html$ /index.php?id=content/account/changepassword&rewritten=true [L]
+                RewriteRule ^/account/create-account.html$ /index.php?id=content/account/createaccount&rewritten=true [L]
+                RewriteRule ^/account/create-character.html$ /index.php?id=content/account/createcharacter&rewritten=true [L]
+                RewriteRule ^/account/history.html$ /index.php?id=content/account/loginhistory&rewritten=true [L]
+                RewriteRule ^/account/login.html$ /index.php?id=content/account/login&rewritten=true [L]
+                RewriteRule ^/account/logout.html$ /index.php?id=content/account/logout&rewritten=true [L]
+                RewriteRule ^/account/merge.html$ /index.php?id=content/account/merge&rewritten=true [L]
                 RewriteRule ^/account/messages.html$ /account/messages/to-me.html [R=301]
-                RewriteRule ^/account/messages/(.*)\.html$ /index.php?id=content/account/messages&filter=$1 [L]
-                RewriteRule ^/account/myaccount.html$ /index.php?id=content/account/myaccount [L]
-                RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters [L]
-                RewriteRule ^/account/remind-mail.html$ /index.php?id=content/account/remind [L]
-                RewriteRule ^/a/(.*)$ /index.php?id=content/account/a&account=$1 [L]
+                RewriteRule ^/account/messages/(.*)\.html$ /index.php?id=content/account/messages&filter=$1&rewritten=true [L]
+                RewriteRule ^/account/myaccount.html$ /index.php?id=content/account/myaccount&rewritten=true [L]
+                RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters&rewritten=true [L]
+                RewriteRule ^/account/remind-mail.html$ /index.php?id=content/account/remind&rewritten=true [L]
+                RewriteRule ^/a/(.*)$ /index.php?id=content/account/a&account=$1&rewritten=true [L]
 
                 # achievement
-                RewriteRule ^/achievement.html$ /index.php?id=content/game/achievement [L]
-                RewriteRule ^/achievement/(.*)\.html$ /index.php?id=content/game/achievement&name=$1&exact [L]
+                RewriteRule ^/achievement.html$ /index.php?id=content/game/achievement&rewritten=true [L]
+                RewriteRule ^/achievement/(.*)\.html$ /index.php?id=content/game/achievement&name=$1&exact&rewritten=true [L]
 
                 # characters
-                RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact [L]
+                RewriteRule ^/character/(.*)\.html$ /index.php?id=content/scripts/character&name=$1&exact&rewritten=true [L]
 
                 # chat
-                RewriteRule ^/chat/?$ /index.php?id=content/game/chat [L]
-                RewriteRule ^/chat/(.*)\.html$ /index.php?id=content/game/chat&date=$1 [L]
+                RewriteRule ^/chat/?$ /index.php?id=content/game/chat&rewritten=true [L]
+                RewriteRule ^/chat/(.*)\.html$ /index.php?id=content/game/chat&date=$1&rewritten=true [L]
 
                 # creatures
-                RewriteRule ^/creature/?$ /index.php?id=content/game/creatures [L]
-                RewriteRule ^/creature/(.*)\.html$ /index.php?id=content/scripts/monster&name=$1&exact [L]
+                RewriteRule ^/creature/?$ /index.php?id=content/game/creatures&rewritten=true [L]
+                RewriteRule ^/creature/(.*)\.html$ /index.php?id=content/scripts/monster&name=$1&exact&rewritten=true [L]
 
                 # development
-                RewriteRule ^/development/bug\.html$ /index.php?id=content/game/bug [L]
+                RewriteRule ^/development/bug\.html$ /index.php?id=content/game/bug&rewritten=true [L]
                 RewriteRule ^/development/chat\.html$ /chat/ [R=301]
-                RewriteRule ^/development/sourcelog\.html$ /index.php?id=content/game/sourcelog [L]
-                RewriteRule ^/development/sourcelog/(.*)\.html$ /index.php?id=content/game/sourcelog&month=$1 [L]
-                RewriteRule ^/development/download\.html$ /index.php?id=content/game/download [L]
+                RewriteRule ^/development/sourcelog\.html$ /index.php?id=content/game/sourcelog&rewritten=true [L]
+                RewriteRule ^/development/sourcelog/(.*)\.html$ /index.php?id=content/game/sourcelog&month=$1&rewritten=true [L]
+                RewriteRule ^/development/download\.html$ /index.php?id=content/game/download&rewritten=true [L]
                 RewriteRule ^/development/?$ /development.html [R=301]
-                RewriteRule ^/development.html$ /index.php?id=content/game/development [L]
+                RewriteRule ^/development.html$ /index.php?id=content/game/development&rewritten=true [L]
 
                 # items
-                RewriteRule ^/item/?$ /index.php?id=content/game/items [L]
-                RewriteRule ^/item/([^/]*)/(.*)\.html$ /index.php?id=content/scripts/item&class=$1&name=$2&exact [L]
-                RewriteRule ^/item/([^/]*)\.html$ /index.php?id=content/game/items&class=$1 [L]
+                RewriteRule ^/item/?$ /index.php?id=content/game/items&rewritten=true [L]
+                RewriteRule ^/item/([^/]*)/(.*)\.html$ /index.php?id=content/scripts/item&class=$1&name=$2&exact&rewritten=true [L]
+                RewriteRule ^/item/([^/]*)\.html$ /index.php?id=content/game/items&class=$1&rewritten=true [L]
 
                 # news
-                RewriteRule ^/news/(.*)$ /index.php?id=content/news/newss&news=$1 [L]
-                RewriteRule ^/(-.*)$ /index.php?id=content/news/newss&news=$1 [L]
+                RewriteRule ^/news/(.*)$ /index.php?id=content/news/newss&news=$1&rewritten=true [L]
+                RewriteRule ^/(-.*)$ /index.php?id=content/news/newss&news=$1&rewritten=true [L]
 
                 # npcs
-                RewriteRule ^/npc/?$ /index.php?id=content/game/npcs [L]
-                RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact [L]
+                RewriteRule ^/npc/?$ /index.php?id=content/game/npcs&rewritten=true [L]
+                RewriteRule ^/npc/(.*)\.html$ /index.php?id=content/scripts/npc&name=$1&exact&rewritten=true [L]
 
                 # rss
-                RewriteRule ^/rss/news.rss$ /index.php?id=content/news/rss [L]
+                RewriteRule ^/rss/news.rss$ /index.php?id=content/news/rss&rewritten=true [L]
 
                 # world
-                RewriteRule ^/world/atlas\.html$ /index.php?id=content/world/atlas [L,QSA]
+                RewriteRule ^/world/atlas\.html$ /index.php?id=content/world/atlas&rewritten=true [L,QSA]
                 RewriteRule ^/world/events\.html$ /world/events/all.html [R=301]
-                RewriteRule ^/world/events/(.*)\.html$ /index.php?id=content/scripts/events&filter=$1 [L]
+                RewriteRule ^/world/events/(.*)\.html$ /index.php?id=content/scripts/events&filter=$1&rewritten=true [L]
                 RewriteRule ^/world/hall-of-fame\.html$ /world/hall-of-fame/active_overview.html [R=301]
-                RewriteRule ^/world/hall-of-fame/(.*)_(.*)\.html$ /index.php?id=content/halloffame&filter=$1&detail=$2 [L]
-                RewriteRule ^/world/map\.html$ /index.php?id=content/world/map [L]
-                RewriteRule ^/world/newsarchive\.html$ /index.php?id=content/newsarchive [L]
-                RewriteRule ^/world/kill-stats\.html$ /index.php?id=content/scripts/killedstats [L]
-                RewriteRule ^/world/online\.html$ /index.php?id=content/scripts/online [L]
-                RewriteRule ^/world/server-stats\.html$ /index.php?id=content/scripts/serverstats [L]
+                RewriteRule ^/world/hall-of-fame/(.*)_(.*)\.html$ /index.php?id=content/halloffame&filter=$1&detail=$2&rewritten=true [L]
+                RewriteRule ^/world/map\.html$ /index.php?id=content/world/map&rewritten=true [L]
+                RewriteRule ^/world/newsarchive\.html$ /index.php?id=content/newsarchive&rewritten=true [L]
+                RewriteRule ^/world/kill-stats\.html$ /index.php?id=content/scripts/killedstats&rewritten=true [L]
+                RewriteRule ^/world/online\.html$ /index.php?id=content/scripts/online&rewritten=true [L]
+                RewriteRule ^/world/server-stats\.html$ /index.php?id=content/scripts/serverstats&rewritten=true [L]
 
 				# stats
                 RewriteRule ^/stats/net\.html$ /index.php?id=content/scripts/netstats [L]
@@ -118,6 +118,9 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
 
                 ######################### Old style URL rewrite to new style #########################
+
+                RewriteCond %{QUERY_STRING} rewritten=true
+                RewriteRule .* - [L]
 
                 # images
                 RewriteCond %{QUERY_STRING} url=data/sprites/monsters/(.*)\.png
@@ -212,6 +215,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # other
                 RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301]
         </IfModule>
+
 
 
 
