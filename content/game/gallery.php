@@ -37,7 +37,7 @@ class GalleryPage extends Page {
 		$image = $images[$index];
 
 		$hash = md5($image['image']);
-		echo '<img src="http://stendhalgame.org/wiki/images/'
+		echo '<img src="https://stendhalgame.org/wiki/images/'
 			.htmlspecialchars(substr($hash, 0, 1).'/'.substr($hash, 0, 2).'/'.$image['image'])
 			.'">';
 		echo '<div>'.htmlspecialchars($image['description']).'</div>';

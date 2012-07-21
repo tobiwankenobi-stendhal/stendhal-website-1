@@ -50,17 +50,17 @@ class RssPage extends Page {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 	<title>Stendhal News</title>
-	<link>http://stendhalgame.org</link>
+	<link>https://stendhalgame.org</link>
 	<description>News feed of the free Stendhal online roleplaying game.</description>
 	<language>en</language>
 	<copyright>Arianne Project</copyright>
 	<pubDate><?php echo date("D, d M Y H:i:s O");?></pubDate>
 	<image>
-		<url>http://stendhalgame.org/images/favicon.png</url>
+		<url>https://stendhalgame.org/images/favicon.png</url>
 		<title>Stendhal News</title>
-		<link>http://stendhalgame.org</link>
+		<link>https://stendhalgame.org</link>
 	</image>
-	<atom:link href="http://stendhalgame.org/rss/news.rss" rel="self" type="application/rss+xml" />
+	<atom:link href="https://stendhalgame.org/rss/news.rss" rel="self" type="application/rss+xml" />
 <?php
 	}
 
@@ -80,11 +80,11 @@ class RssPage extends Page {
 			echo $this->renderText($entry->extendedDescription);
 			echo $this->renderText($entry->detailedDescription);
 		?></description>
-		<link><?php echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL());?></link>
+		<link><?php echo 'https://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL());?></link>
 		<author>newsfeed@stendhalgame.org (Arianne Project)</author>
 		<pubDate><?php echo date("D, d M Y H:i:s O", strtotime($entry->date));?></pubDate>
 		<category><?php echo $entry->typeTitle;?></category>
-		<guid><?php  echo 'http://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL()).'#id-'.$entry->id.'.'.$entry->updateCount;?></guid>
+		<guid><?php  echo 'https://stendhalgame.org'.rewriteURL('/news/'.$entry->getNiceURL()).'#id-'.$entry->id.'.'.$entry->updateCount;?></guid>
 	</item>
 <?php
 	}
@@ -98,4 +98,3 @@ class RssPage extends Page {
 }
 
 $page = new RssPage();
-?>

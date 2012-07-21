@@ -14,8 +14,8 @@ Stendhal features a new, rich and expanding world in which you can explore towns
 
 So what are you waiting for?! A whole new world awaits...</description>
     <description kind="short">A multiplayer online adventures game</description>
-    <icon href="http://stendhalgame.org/data/gui/StendhalIcon.png"/>
-    <icon kind="splash" href="http://stendhalgame.org/data/gui/StendhalSplash.jpg"/>
+    <icon href="https://stendhalgame.org/data/gui/StendhalIcon.png"/>
+    <icon kind="splash" href="https://stendhalgame.org/data/gui/StendhalSplash.jpg"/>
     <offline-allowed/>
   </information>
   <security>

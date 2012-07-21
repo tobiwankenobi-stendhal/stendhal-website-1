@@ -15,7 +15,7 @@ class DownloadPage extends Page {
 		<p>If you are interested in the last stable release, you can download it at
 		<a href="http://sourceforge.net/projects/arianne/files/">http://sourceforge.net/projects/arianne/files/</a>.</p>
 
-		<p>Please help us test the things mentioned on <a href="http://stendhalgame.org/wiki/Stendhal_Testing">Stendhal Testing</a>.</p>
+		<p>Please help us test the things mentioned on <a href="https://stendhalgame.org/wiki/Stendhal_Testing">Stendhal Testing</a>.</p>
 
 		<div style="margin-left: 3em">
 		<?php
