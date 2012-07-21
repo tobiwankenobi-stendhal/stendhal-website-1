@@ -115,6 +115,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 ######################### Other rewrite rules #########################
 
                 RewriteRule ^/javadoc/(.*)\.html$ /jenkins/job/stendhal_HEAD/javadoc/$1 [L]
+				RewriteRule ^/plus.*$ https://plus.google.com/102082597200903016761/about [L]
 
 
                 ######################### Old style URL rewrite to new style #########################
