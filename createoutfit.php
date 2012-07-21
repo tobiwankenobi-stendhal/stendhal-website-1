@@ -242,9 +242,8 @@ if (!validateInput($completeOutfit)) {
 }
 
 $etag = STENDHAL_VERSION.'-'.urlencode($completeOutfit).'-'.$offset;
-$headers = getallheaders();
-if (isset($headers['If-None-Match'])) {
-	$requestedEtag = $headers['If-None-Match'];
+if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+	$requestedEtag = $_SERVER['HTTP_IF_NONE_MATCH'];
 }
 
 header("Content-type: image/png");
