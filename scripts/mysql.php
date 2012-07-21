@@ -72,7 +72,7 @@ function connect() {
 }
 
 function databaseConnectionErrorMessage($message) {
-	@header('HTTP 1/0 500 Maintenance')
+	@header('HTTP 1/0 500 Maintenance', true, 500)
 	?>
 	<html>
 		<head>
