@@ -522,7 +522,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
  *
  * Copyright (c) 2006 - 2008 Jörn Zaefferer
  *
- * $Id: 00000008.js,v 1.15 2012/07/15 20:44:12 nhnb Exp $
+ * $Id: 00000008.js,v 1.16 2012/07/21 20:06:07 nhnb Exp $
  * 
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -945,6 +945,7 @@ complete();if(settings(this).fixPNG)helper.parent.unfixPNG();}})(jQuery);
 	}
 
 	function initializeAtlas() {
+		var tileUrlBase = $("#map_canvas").attr("data-tile-url-base");
 
 		mapType = new google.maps.ImageMapType({
 			getTileUrl: function (coord, zoom) {
@@ -957,7 +958,7 @@ complete();if(settings(this).fixPNG)helper.parent.unfixPNG();}})(jQuery);
 				if (x < 0 || x >= tileRange) {
 					return null;
 				}
-				return "http://arianne.sourceforge.net/stendhal/map/2/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
+				return tileUrlBase + "/2/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
 			},
 			tileSize: new google.maps.Size(256, 256),
 			isPng: true,

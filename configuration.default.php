@@ -84,6 +84,7 @@
 @define('STENDHAL_MODE_REWRITE', false);
 @define('STENDHAL_FOLDER', '');
 
+@define(STENDHAL_MAP_TILE_URL_BASE, 'http://arianne.sourceforge.net/stendhal');
 
 ## for displaying support logs
 @define('SUPPORT_SERVER','irc.freenode.net');

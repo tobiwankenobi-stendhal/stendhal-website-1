@@ -12,7 +12,7 @@ class AtlasPage extends Page {
 	}
 
 	function writeContent() {
-		echo '<div id="map_canvas" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
+		echo '<div id="map_canvas" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
 		startBox('Extended information');
 		echo '<p>There are in detail information about the <a href="https://stendhalgame.org/wiki/Semos">various regions</a> and <a href="https://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';
 		echo '<p>Here is a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a> and a map with <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a>.</p>';
