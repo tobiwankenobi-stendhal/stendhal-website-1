@@ -93,7 +93,7 @@ class MessagesPage extends Page {
 	}
 
 	function deleteMessagesIfRequested() {
-		if (!$_POST['csrf']) {
+		if (!isset($_POST['csrf'])) {
 			return;
 		}
 		if (($_POST['csrf'] != $_SESSION['csrf'])) {

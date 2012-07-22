@@ -25,7 +25,7 @@ class AchievementPage extends Page {
 			echo '<title>Achievement '.$this->achievements->title.STENDHAL_TITLE.'</title>';
 			
 			echo '<meta property="og:type" content="game.achievement">';
-			echo '<meta property="og:url" content="https://stendhalgame.org/'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'">';
+			echo '<meta property="og:url" content="https://stendhalgame.org/'.rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html').'">';
 			echo '<meta property="og:title" content="'.$this->achievements->title.'">';
 			echo '<meta property="og:description" content="'.htmlspecialchars($this->achievements->description).'">';
 			echo '<meta property="og:image" content="https://stendhalgame.org/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png">';
