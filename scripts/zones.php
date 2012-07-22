@@ -88,6 +88,9 @@ class Zone {
 		foreach ($zoneXmlMap as $name => $xml) {
 
 			// create zone object
+			if (!isset($zoneAttrMap[$name])) {
+				continue;
+			}
 			$zoneX = $zoneAttrMap[$name]['x'];
 			$zoneY = $zoneAttrMap[$name]['y'];
 			$zoneZ = $zoneAttrMap[$name]['level'];
