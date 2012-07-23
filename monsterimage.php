@@ -21,6 +21,7 @@ require_once 'configuration.php';
 
 function createImage($url) {
 	$size = getimagesize($url);
+	$loc = 0;
 	$w = $size[0];
 	$h = $size[1];
 
