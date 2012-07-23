@@ -47,8 +47,7 @@ class Zone {
 			return Zone::$zones;
 		}
 
-		Zone::loadZoneXmlData();
-		Zone::$zones = $cache->fetchAsArray('stendhal_zones');
+		Zone::$zones = Zone::loadZoneXmlData();
 		return Zone::$zones;
 	}
 
@@ -127,6 +126,7 @@ class Zone {
 		$poiList = array_merge($poiList, Zone::loadNPCsAsPOIs($zoneList));
 		$cache->store('stendhal_pois', new ArrayObject($poiList));
 		$cache->store('stendhal_zones', new ArrayObject($zoneList));
+		return $zoneList;
 	}
 
 	private static function getFirstPortalDestination($xml) {
