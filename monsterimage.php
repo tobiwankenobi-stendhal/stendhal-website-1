@@ -48,7 +48,8 @@ function createImage($url) {
 
 
 $url = $_GET['url'];
-if (strpos($url, '..') !== false) {
+if ((strpos($url, '..') !== false) || (strpos($url, 'data/sprites/') !== 0) || (strpos($url, '.') < strlen($url) - 4)) {
+	header('HTTP/1.1 404 Not Found', true, 404);
 	die("Access denied.");
 }
 

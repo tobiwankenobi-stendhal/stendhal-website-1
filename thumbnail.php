@@ -20,10 +20,6 @@
 require_once 'configuration.php';
 
 function open_image ($file) {
-	if (strpos($file, '..') !== false) {
-		die("Access denied.");
-	}
-
 	// Get extension
 	$extension = strrchr($file, '.');
 	$extension = strtolower($extension);
@@ -69,6 +65,10 @@ function createImage($url) {
 	return $image_resized;
 }
 $url = $_GET['img'];
+if ((strpos($url, '..') !== false) || (strpos($url, 'screenshots/') !== 0) || (strpos($url, '.') < strlen($url) - 4)) {
+	header('HTTP/1.1 404 Not Found', true, 404);
+	die("Access denied.");
+}
 
 $etag = STENDHAL_VERSION.'-'.sha1($url);
 if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {

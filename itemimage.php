@@ -56,9 +56,6 @@ function hideFishes($resource) {
 }
 
 function createImage($url) {
-	if (strpos($url, '..') !== false) {
-		die("Access denied.");
-	}
 
 	// We want to hide the fishes so we don't spoil the fisherman quest.
 	$url = hideFishes($url);
@@ -74,6 +71,10 @@ function createImage($url) {
 }
 
 $url = $_GET['url'];
+if ((strpos($url, '..') !== false) || (strpos($url, 'data/sprites/') !== 0) || (strpos($url, '.') < strlen($url) - 4)) {
+	header('HTTP/1.1 404 Not Found', true, 404);
+	die("Access denied.");
+}
 
 $etag = STENDHAL_VERSION.'-'.sha1($url);
 if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
