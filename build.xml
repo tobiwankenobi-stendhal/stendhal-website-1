@@ -45,7 +45,7 @@
 		</target>
 
 	<target name="phpunit">
-		<exec dir="${basedir}" executable="phpunit" failonerror="true">
+		<exec dir="${basedir}" executable="phpunit" failonerror="false">
 			<arg line="--log-junit build/logs/junit.xml
 					--coverage-clover build/logs/clover.xml
 					--coverage-html build/coverage
