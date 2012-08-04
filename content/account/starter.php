@@ -86,7 +86,7 @@ class StarterPage extends Page {
 		}
 		header('Content-Type: application/x-java-jnlp-file', true);
 		echo '<?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0+" codebase="https://stendhalgame.org">
+<jnlp spec="1.0+" codebase="http://stendhalgame.org">
 	<information>
 		<title>Stendhal</title>
 		<vendor>The Arianne Project</vendor>
@@ -99,8 +99,8 @@ Stendhal features a new, rich and expanding world in which you can explore towns
 
 So what are you waiting for?! A whole new world awaits...</description>
 		<description kind="short">A multiplayer online adventures game</description>
-		<icon href="https://stendhalgame.org/data/gui/StendhalIcon.png"/>
-		<icon kind="splash" href="https://stendhalgame.org/data/gui/StendhalSplash.jpg"/>
+		<icon href="http://stendhalgame.org/data/gui/StendhalIcon.png"/>
+		<icon kind="splash" href="http://stendhalgame.org/data/gui/StendhalSplash.jpg"/>
 	</information>
 	<security>
 		<all-permissions/>
