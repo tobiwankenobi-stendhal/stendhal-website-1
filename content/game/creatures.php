@@ -32,8 +32,8 @@ $classes=Monster::getClasses();
 
 startBox('Creatures');
 ?>
-<form method="get" action="/">
-  <input type="hidden" name="id" value="content/scripts/monster" id="currentContentSearch">
+<form method="get" action="/" id="currentContentSearch">
+  <input type="hidden" name="id" value="content/scripts/monster">
   <input type="text" name="name" maxlength="60">
   <input type="submit" name="sublogin" value="Search">
 </form>
