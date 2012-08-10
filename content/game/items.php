@@ -35,7 +35,7 @@ $classes=Item::getClasses();
 if(!isset($_GET['class'])) {
   startBox('Items classes');
   ?>
-  <form method="get" action="/">
+  <form method="get" action="/" id="currentContentSearch">
     <input type="hidden" name="id" value="content/scripts/item">
     <input type="hidden" name="class" value="all">
     <input type="text" name="name" maxlength="60">
