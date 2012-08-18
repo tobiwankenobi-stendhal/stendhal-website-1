@@ -48,7 +48,7 @@ class RemindPage extends Page {
 		$signature=strtoupper(md5(rand()));
 	
 		// Good, store it...
-		$query='insert into remind_password values("'.$username.'","'.$signature.'",null)';
+		$query='insert into remind_password values("'.mysql_real_escape_string($username).'","'.$signature.'",null)';
 		if(!mysql_query($query, getWebsiteDB())) {
 			echo '<span class="error">There has been a problem while sending your password.</span>';
 			die();
