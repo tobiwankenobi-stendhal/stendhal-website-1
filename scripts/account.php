@@ -365,6 +365,7 @@ class Account {
 	public $username;
 	public $password;
 	public $email;
+	public $emailTrusted;
 	public $timedate;
 	public $status;
 	public $banMessage;
@@ -372,11 +373,12 @@ class Account {
 	public $links;
 	public $usedAccountLink;
 
-	public function __construct($id, $username, $password, $email, $timedate, $status) {
+	public function __construct($id, $username, $password, $email, $emailTrusted, $timedate, $status) {
 		$this->id = $id;
 		$this->username = $username;
 		$this->password = $password;
 		$this->email = $email;
+		$this->emailTrusted = $emailTrusted;
 		$this->timedate = $timedate;
 		$this->status = $status;
 	}
@@ -444,14 +446,20 @@ class Account {
 	 * @param string $username username
 	 */
 	public static function readAccountByName($username) {
-		$sql = "SELECT id, username, password, email, timedate, status "
-		. " FROM account WHERE username='".mysql_real_escape_string($username)."'";
+		if (STENDHAL_NEW_MAIL) {
+			$sql = "SELECT account.id, username, password, email.email, account.timedate, account.status "
+				. " FROM account LEFT JOIN email ON email.player_id=account.id "
+				. " WHERE username='".mysql_real_escape_string($username)."'";
+		} else {
+			$sql = "SELECT id, username, password, email, timedate, status "
+			. " FROM account WHERE username='".mysql_real_escape_string($username)."'";
+		}
 		$result = mysql_query($sql, getGameDB());
 		$list=array();
 
 		$row = mysql_fetch_assoc($result);
 		if ($row) {
-			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], $row['timedate'], $row['status']);
+			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 		}
 
 		mysql_free_result($result);
@@ -466,13 +474,24 @@ class Account {
 	 * @param string $password an optional secret
 	 */
 	public static function readAccountByLink($type, $username, $password) {
-		$sql = "SELECT account.id As id, account.username As username, "
-		. " account.password As password, account.email As email, "
-		. " account.timedate As timedate, account.status As status, "
-		. " accountLink.id As usedAccountLink"
-		. " FROM account, accountLink WHERE account.id = accountLink.player_id "
-		. " AND accountLink.type='".mysql_real_escape_string($type)."'"
-		. " AND accountLink.username='".mysql_real_escape_string($username)."'";
+		if (STENDHAL_NEW_MAIL) {
+			$sql = "SELECT account.id As id, account.username As username, "
+			. " account.password As password, email.email As email, "
+			. " account.timedate As timedate, account.status As status, "
+			. " accountLink.id As usedAccountLink"
+			. " FROM accountLink INNER JOIN account ON (account.id = accountLink.player_id) "  
+			. " LEFT JOIN email ON (account.id = email.player_id) "
+			. " WHERE accountLink.type='".mysql_real_escape_string($type)."'"
+			. " AND accountLink.username='".mysql_real_escape_string($username)."'";
+		} else {
+			$sql = "SELECT account.id As id, account.username As username, "
+			. " account.password As password, account.email As email, "
+			. " account.timedate As timedate, account.status As status, "
+			. " accountLink.id As usedAccountLink"
+			. " FROM account, accountLink WHERE account.id = accountLink.player_id "
+			. " AND accountLink.type='".mysql_real_escape_string($type)."'"
+			. " AND accountLink.username='".mysql_real_escape_string($username)."'";
+		}
 		if (isset($password)) {
 			$sql = $sql . " AND accountLink.secret='".mysql_real_escape_string($password)."'";
 		} else {
@@ -480,11 +499,12 @@ class Account {
 		}
 
 		$result = mysql_query($sql, getGameDB());
-		$list=array();
+		$list = array();
 
+		$res = null;
 		$row = mysql_fetch_assoc($result);
 		if ($row) {
-			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], $row['timedate'], $row['status']);
+			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 			$res->usedAccountLink = $row['usedAccountLink'];
 		}
 
@@ -610,10 +630,16 @@ class Account {
 	 * inserst a record in the account table.
 	 */
 	public function insert() {
-		$sql = "INSERT INTO account(username, email, status";
-		$sql2 = ") VALUES ('".mysql_real_escape_string($this->username)
+		if (STENDHAL_NEW_MAIL) {
+			$sql = "INSERT INTO account(username, status";
+			$sql2 = ") VALUES ('".mysql_real_escape_string($this->username)
+				."', '".mysql_real_escape_string($this->status)."'";
+		} else {
+			$sql = "INSERT INTO account(username, email, status";
+			$sql2 = ") VALUES ('".mysql_real_escape_string($this->username)
 			."', '".mysql_real_escape_string($this->email)
 			."', '".mysql_real_escape_string($this->status)."'";
+		}
 		if ($this->password) {
 			$sql .= ", password";
 			$sql2 .= ", '".mysql_real_escape_string(Account::sha512crypt($this->password))."'";
@@ -623,7 +649,34 @@ class Account {
 			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
 		}
 		$this->id = mysql_insert_id(getGameDB());
+		if (STENDHAL_NEW_MAIL) {
+			$this->insertEMail($this->email, $this->emailTrusted);
+		}	
 	}
+
+	
+	/**
+	 * changes the email-address
+	 *
+	 * @param email new email-address
+	 */
+	public function insertEMail($email, $trusted) {
+		if ($trusted) {
+			$sql = "insert into email(player_id, email, address, confirmed) values ('".mysql_real_escape_string($this->id)
+			."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($_SERVER['REMOTE_ADDR'])."', NOW())";
+			mysql_query($sql, getGameDB());
+		} else {
+			$token = createRandomString();
+			$sql = "insert into email(player_id, email, token) values ('".mysql_real_escape_string($this->id)
+				."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($token)."')";
+	
+			if (mysql_query($sql, getGameDB())) {
+				require_once('scripts/cmd/mail.php');
+				sendRegistrationMail($this->id, $this->username, $token, $email);
+			}
+		}
+	}
+
 
 	/**
 	 * checks if a name is available for account/character creation
@@ -839,8 +892,10 @@ class AccountLink {
 			}
 		}
 
+		// trust google email addresses
+		$trusted = (strpos($this->username, 'https://www.google.com/') === 0) && (strpos($this->email, '@') !== false);
 		// insert
-		$account = new Account(-1, $username, null, $this->email, date("Y-m-d").' '.date("H:i:s"), 'active');
+		$account = new Account(-1, $username, null, $this->email, $trusted, date("Y-m-d").' '.date("H:i:s"), 'active');
 		$account->insert();
 		$this->playerId = $account->id;
 		$this->insert();

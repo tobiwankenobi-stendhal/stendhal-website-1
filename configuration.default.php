@@ -99,4 +99,7 @@
 @define('STENDHAL_PASSWORD_PEPPER', '');
 
 @define('STENDHAL_TRUESTED_OPENID_CONSUMERS', 'http://127.0.0.1');
-?>
+
+@define('STENDHAL_NOREPLY_EMAIL', 'Inofficial Stendhal Server <>');
+@define('STENDHAL_NOREPLY_ADDRESS', '<>');
+@define('STENDHAL_NEW_MAIL', false);
