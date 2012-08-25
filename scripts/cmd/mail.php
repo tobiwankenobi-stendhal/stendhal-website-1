@@ -35,5 +35,5 @@ function sendRegistrationMail($playerId, $username, $token, $email) {
 	$body .= "\r\n";
 	$body .= "Best regards from the Stendhal team\r\n";
 	$body .= "\r\n";
-	mail($email, $subject, $body, "From: ".STENDHAL_NOREPLY_EMAIL, '-f '.STENDHAL_NOREPLY_EMAIL);
+	mail($email, $subject, $body, "From: ".STENDHAL_NOREPLY_EMAIL, '-f '.STENDHAL_NOREPLY_ADDRESS);
 }
