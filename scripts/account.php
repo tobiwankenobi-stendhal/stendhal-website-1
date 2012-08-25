@@ -758,7 +758,27 @@ class Account {
 		$_SESSION['marauroa_authenticated_username'] = $account->username;
 		fixSessionPermission();
 	}
+
+	/**
+	 * verifies an email
+	 * @param string $token
+	 * @return boolean
+	 */
+	function verifyEMail($token) {
+		$sql = "SELECT count(*) FROM email WHERE token='".mysql_real_escape_string($token)."'";
+		$temp = queryFirstCell($sql, getGameDB());
+		if ($temp == '0') {
+			return false;
+		}
+
+		$sql = "UPDATE email SET address='".mysql_real_escape_string($_SERVER['REMOTE_ADDR']) 
+			. "', confirmed=NOW() WHERE token='".mysql_real_escape_string($token)
+			. "' AND (confirmed IS NULL OR confirmed='0000-00-00 00:00:00')";
+		mysql_query($sql, getGameDB());
+		return true;
+	}
 }
+
 
 /**
  * Account Link

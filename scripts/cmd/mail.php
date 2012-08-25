@@ -26,7 +26,7 @@ function sendRegistrationMail($playerId, $username, $token, $email) {
 	$body = "Hello ".$username."!\r\n";
 	$body .= "\r\n";
 	$body .= "Please confirm your email-address by clicking on this link:\r\n";
-	$body .= STENDHAL_LOGIN_TARGET."/account/verify?token=".$token."\r\n";
+	$body .= STENDHAL_LOGIN_TARGET."/account/verify/".urlencode($token)."\r\n";
 	$body .= "\r\n";
 	$body .= "\r\n";
 	$body .= "If you did not create a Stendhal account, please ignore this email.\r\n";
