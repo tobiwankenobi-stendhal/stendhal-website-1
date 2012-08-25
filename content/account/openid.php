@@ -61,7 +61,7 @@ class OpenID {
 		}
 		$attributes = $openid->getAttributes();
 		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
-			$attributes['namePerson/friendly'], $attributes['contact/email'], $secret);
+			$attributes['namePerson/friendly'], $attributes['contact/email'], null);
 		// echo 'token:' . $openid->getOAuthRequestToken();
 		return $accountLink;
 	}
