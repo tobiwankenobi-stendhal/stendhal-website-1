@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class EMailPage extends Page {
 	private $error;
 	private $success = false;
+	private $data;
 
 	public function writeHtmlHeader() {
 		echo '<title>Change email'.STENDHAL_TITLE.'</title>';
@@ -39,6 +40,7 @@ class EMailPage extends Page {
 			endBox();
 		} else {
 			$this->process();
+			$this->data = Account::getEmailHistory($_SESSION['account']->id);
 			$this->showForm();
 			$this->showHistory();
 		}
@@ -68,10 +70,10 @@ class EMailPage extends Page {
 		if (isset($this->error)) {
 			echo '<p class="error">'.htmlspecialchars($this->error).'</p>';
 		} else {
-			if ($this->success) {
+			if ($this->success && (count($this->data) > 0) && (!$this->isConfirmed($this->data[0]))) {
 				echo '<p>Your email address was saved and a confirmation mail will be sent to you.</p>';
-			} else {
-				// TODO: if unconfirmed, tell user
+			} else if ((count($this->data) > 0) && (!$this->isConfirmed($this->data[0]))) {
+				echo '<p class="warn">Your email address is unconfirmed. Please check your spam folder. Click on save to send a new confirmation request.</p>';
 			}
 		}
 		?>
@@ -85,7 +87,40 @@ class EMailPage extends Page {
 	}
 
 	function showHistory() {
-		// TODO show history
+		if (count($this->data) == 0) {
+			return;
+		}
+
+		startBox("History");
+		echo '<table class="prettytable">';
+		echo '<tr><th>email</th><th>saved</th><th>confirmed</th><th>by</th></tr>';
+		foreach ($this->data as $row) {
+			echo '<tr><td>' . htmlspecialchars($row['email'])
+				.'</td><td>'. htmlspecialchars($row['timedate'])
+				.'</td><td>';
+			if ($this->isAutoConfirmed($row)) {
+				echo 'auto';
+			} else if ($this->isConfirmed($row)) {
+				echo htmlspecialchars($row['confirmed']);
+			} else {
+				echo '<span class="warn">unconfirmed</span>';
+			}
+			echo '</td><td>'.htmlspecialchars($row['address']).'</td></tr>';
+		}
+		echo '</table>';
+		endBox();
 	}
+
+	function isConfirmed($row) {
+		return isset($row['confirmed']) 
+			&& ($row['confirmed'] != '') 
+			&& (strpos($row['confirmed'], '0000') === false);
+	}
+	
+	function isAutoConfirmed($row) {
+		return (!isset($row['token']) || ($row['token'] == '')) 
+			&& $this->isConfirmed($row);
+	}
+	
 }
 $page = new EMailPage();

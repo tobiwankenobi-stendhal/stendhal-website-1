@@ -654,6 +654,24 @@ class Account {
 		}	
 	}
 
+	/**
+	 * gets the email history
+	 */
+	public static function getEmailHistory($playerId) {
+		$sql = "SELECT email, token, address, timedate, confirmed "
+		. " FROM email WHERE player_id=" . intval($playerId)
+		. " ORDER BY id DESC";
+	
+		$result = mysql_query($sql, getGameDB());
+		$list = array();
+	
+		while($row = mysql_fetch_assoc($result)) {
+			$list[] = $row;
+		}
+	
+		mysql_free_result($result);
+		return $list;
+	}
 	
 	/**
 	 * changes the email-address
@@ -666,14 +684,26 @@ class Account {
 			."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($_SERVER['REMOTE_ADDR'])."', NOW())";
 			mysql_query($sql, getGameDB());
 		} else {
-			$token = createRandomString();
-			$sql = "insert into email(player_id, email, token) values ('".mysql_real_escape_string($this->id)
-				."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($token)."')";
-	
-			if (mysql_query($sql, getGameDB())) {
-				require_once('scripts/cmd/mail.php');
-				sendRegistrationMail($this->id, $this->username, $token, $email);
+			$data = Account::getEmailHistory($this->id);
+			if (count($data) > 0) {
+				$row = $data[0];
+				if ($row['email'] == $email) {
+					if (isset($row['confirmed']) && ($row['confirmed'] != '')&& (strpos($row['confirmed'], '0000') === false)) {
+						return;
+					} else {
+						$token = $row['token'];
+					}
+				}
 			}
+
+			if (!isset($token)) {
+				$token = createRandomString();
+				$sql = "insert into email(player_id, email, token) values ('".mysql_real_escape_string($this->id)
+					."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($token)."')";
+				mysql_query($sql, getGameDB());
+			}
+			require_once('scripts/cmd/mail.php');
+			sendRegistrationMail($this->id, $this->username, $token, $email);
 		}
 	}
 
