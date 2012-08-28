@@ -26,12 +26,13 @@ function sendRegistrationMail($playerId, $username, $token, $email) {
 	$body = "Hello ".$username."!\r\n";
 	$body .= "\r\n";
 	$body .= "Please confirm your email-address by clicking on this link:\r\n";
-	$body .= STENDHAL_LOGIN_TARGET."/account/confirm/".urlencode($token)."\r\n";
+	$body .= STENDHAL_LOGIN_TARGET."/account/verify/".urlencode($token)."\r\n";
 	$body .= "\r\n";
 	$body .= "\r\n";
-	$body .= "If you did not create a Stendhal account, please ignore this email.\r\n";
 	$body .= "Your email address will be used for account recovery, if you forget \r\n";
 	$body .= "your password or if there are indications for an account hack.\r\n";
+	$body .= "\r\n";
+	$body .= "If you did not create a Stendhal account, please ignore this email.\r\n";
 	$body .= "\r\n";
 	$body .= "Best regards from the Stendhal team\r\n";
 	$body .= "\r\n";
