@@ -116,8 +116,8 @@ header('Content-Type: text/html; charset=utf-8')
 <!DOCTYPE html>
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000027.css">
-	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000012.css"><![endif]-->
+	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER; ?>/css/00000028.css">
+	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER;?>/css/ie000013.css"><![endif]-->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
 		/*
