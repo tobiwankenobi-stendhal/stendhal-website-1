@@ -797,7 +797,7 @@ class Account {
 	function verifyEMail($token) {
 		$sql = "SELECT count(*) FROM email WHERE token='".mysql_real_escape_string($token)."'";
 		$temp = queryFirstCell($sql, getGameDB());
-		if ($temp == '0') {
+		if ($temp == 0) {
 			return false;
 		}
 
