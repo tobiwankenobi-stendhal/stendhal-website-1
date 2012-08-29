@@ -765,6 +765,11 @@ span.block {
 	font-weight: bold;
 }
 
+.okay {
+	color: #0A0;
+	font-weight: bold
+}
+
 a.textlink, a.textlink:visited {
 	color: #000;
 /*	text-decoration: none;*/
