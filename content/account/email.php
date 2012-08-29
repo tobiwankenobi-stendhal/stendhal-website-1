@@ -97,18 +97,34 @@ class EMailPage extends Page {
 		startBox("History");
 		echo '<table class="prettytable">';
 		echo '<tr><th>email</th><th>saved</th><th>confirmed</th><th>by</th></tr>';
+
+		$first = true;
+		$alreadyConfirmed = false;
 		foreach ($this->data as $row) {
-			echo '<tr><td>' . htmlspecialchars($row['email'])
+			$confirmed = $this->isConfirmed($row);
+			$temp = '';
+			if ($confirmed && !$alreadyConfirmed) {
+				$temp = ' class="okay"';
+			}
+			echo '<tr><td'.$temp.'>' . htmlspecialchars($row['email'])
 				.'</td><td>'. htmlspecialchars($row['timedate'])
 				.'</td><td>';
 			if ($this->isAutoConfirmed($row)) {
 				echo 'auto';
-			} else if ($this->isConfirmed($row)) {
+			} else if ($confirmed) {
 				echo htmlspecialchars($row['confirmed']);
 			} else {
-				echo '<span class="warn">unconfirmed</span>';
+				if ($first) {
+					echo '<span class="warn">unconfirmed</span>';
+				} else {
+					echo 'unconfirmed';
+				}
 			}
 			echo '</td><td>'.htmlspecialchars($row['address']).'</td></tr>';
+			$first = false;
+			if ($confirmed) {
+				$alreadyConfirmed = true;
+			}
 		}
 		echo '</table>';
 		endBox();

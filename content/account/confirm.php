@@ -17,7 +17,8 @@ class VerifyPage extends Page {
 		} else {
 			$res = Account::verifyEMail($_REQUEST['token']);
 			if ($res) {
-				echo '<p>Your email address was confirmed successfully.</p>';
+				echo '<p class="okay">Your email address was confirmed successfully.</p>';
+				echo '<p><a href="'.rewriteURL('/account/mycharacters.html').'">Play...</a>';
 			} else {
 				echo '<p class="error">Error: The token is invalid.</p>';
 			}
