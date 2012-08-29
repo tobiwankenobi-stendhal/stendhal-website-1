@@ -72,7 +72,11 @@ class EMailPage extends Page {
 			if ($this->success && (count($this->data) > 0) && (!$this->isConfirmed($this->data[0]))) {
 				echo '<p>Your email address was saved and a confirmation mail will be sent to you.</p>';
 			} else if ((count($this->data) > 0) && (!$this->isConfirmed($this->data[0]))) {
-				echo '<p class="warn">Your email address is unconfirmed. Please check your spam folder. Click on save to send a new confirmation request.</p>';
+				echo '<p class="warn">Your email address is unconfirmed. ';
+				if (isset($this->data[0]['token'])) {
+					echo 'Please check your spam folder. ';
+				}
+				echo 'Click on save to send a new confirmation request.</p>';
 			}
 		}
 		?>
