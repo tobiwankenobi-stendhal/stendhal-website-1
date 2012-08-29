@@ -102,4 +102,3 @@
 
 @define('STENDHAL_NOREPLY_EMAIL', 'Inofficial Stendhal Server <>');
 @define('STENDHAL_NOREPLY_ADDRESS', '<>');
-@define('STENDHAL_NEW_MAIL', false);

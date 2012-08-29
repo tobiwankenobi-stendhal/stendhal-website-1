@@ -446,14 +446,9 @@ class Account {
 	 * @param string $username username
 	 */
 	public static function readAccountByName($username) {
-		if (STENDHAL_NEW_MAIL) {
-			$sql = "SELECT account.id, username, password, email.email, account.timedate, account.status "
-				. " FROM account LEFT JOIN email ON email.player_id=account.id "
-				. " WHERE username='".mysql_real_escape_string($username)."'";
-		} else {
-			$sql = "SELECT id, username, password, email, timedate, status "
-			. " FROM account WHERE username='".mysql_real_escape_string($username)."'";
-		}
+		$sql = "SELECT account.id, username, password, email.email, account.timedate, account.status "
+			. " FROM account LEFT JOIN email ON email.player_id=account.id "
+			. " WHERE username='".mysql_real_escape_string($username)."'";
 		$result = mysql_query($sql, getGameDB());
 		$list=array();
 
@@ -474,8 +469,7 @@ class Account {
 	 * @param string $password an optional secret
 	 */
 	public static function readAccountByLink($type, $username, $password) {
-		if (STENDHAL_NEW_MAIL) {
-			$sql = "SELECT account.id As id, account.username As username, "
+		$sql = "SELECT account.id As id, account.username As username, "
 			. " account.password As password, email.email As email, "
 			. " account.timedate As timedate, account.status As status, "
 			. " accountLink.id As usedAccountLink"
@@ -483,15 +477,6 @@ class Account {
 			. " LEFT JOIN email ON (account.id = email.player_id) "
 			. " WHERE accountLink.type='".mysql_real_escape_string($type)."'"
 			. " AND accountLink.username='".mysql_real_escape_string($username)."'";
-		} else {
-			$sql = "SELECT account.id As id, account.username As username, "
-			. " account.password As password, account.email As email, "
-			. " account.timedate As timedate, account.status As status, "
-			. " accountLink.id As usedAccountLink"
-			. " FROM account, accountLink WHERE account.id = accountLink.player_id "
-			. " AND accountLink.type='".mysql_real_escape_string($type)."'"
-			. " AND accountLink.username='".mysql_real_escape_string($username)."'";
-		}
 		if (isset($password)) {
 			$sql = $sql . " AND accountLink.secret='".mysql_real_escape_string($password)."'";
 		} else {
@@ -630,16 +615,9 @@ class Account {
 	 * inserst a record in the account table.
 	 */
 	public function insert() {
-		if (STENDHAL_NEW_MAIL) {
-			$sql = "INSERT INTO account(username, status";
-			$sql2 = ") VALUES ('".mysql_real_escape_string($this->username)
-				."', '".mysql_real_escape_string($this->status)."'";
-		} else {
-			$sql = "INSERT INTO account(username, email, status";
-			$sql2 = ") VALUES ('".mysql_real_escape_string($this->username)
-			."', '".mysql_real_escape_string($this->email)
+		$sql = "INSERT INTO account(username, status";
+		$sql2 = ") VALUES ('".mysql_real_escape_string($this->username)
 			."', '".mysql_real_escape_string($this->status)."'";
-		}
 		if ($this->password) {
 			$sql .= ", password";
 			$sql2 .= ", '".mysql_real_escape_string(Account::sha512crypt($this->password))."'";
@@ -649,9 +627,7 @@ class Account {
 			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
 		}
 		$this->id = mysql_insert_id(getGameDB());
-		if (STENDHAL_NEW_MAIL) {
-			$this->insertEMail($this->email, $this->emailTrusted);
-		}	
+		$this->insertEMail($this->email, $this->emailTrusted);
 	}
 
 	/**
