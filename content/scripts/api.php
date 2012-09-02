@@ -35,6 +35,8 @@ class APIPage extends Page {
 			$this->traceroute($_REQUEST['fast'], $ip);
 		} else if ($_REQUEST['method'] == 'rankhistory') {
 			$this->rankhistory($_REQUEST['param']);
+		} else if ($_REQUEST['method'] == 'login') {
+			$this->login($_POST['username'], $_POST['password']);
 		} else {
 			$this->unknown($_REQUEST['param']);
 		}
@@ -74,6 +76,17 @@ class APIPage extends Page {
 		echo json_encode($res);
 	}
 
+	public function login($username, $password) {
+		if (!isset($username)) {
+			return 'FAILED';
+		}
+		$result = Account::tryLogin("password", $username, $password);
+		if (! ($result instanceof Account)) {
+			return $result;
+		}
+		return 'OK';
+	}
+
 	/**
 	 * returns an error response because the method is not known
 	 *
@@ -85,4 +98,3 @@ class APIPage extends Page {
 	}
 }
 $page = new APIPage();
-?>
