@@ -63,7 +63,7 @@ function sendChangeMail($username, $oldMail, $newMail) {
 
 
 function sendMergeMail($oldUsername, $newUsername, $oldMail) {
-	$subject = "Stendhal account ".$username." merged";
+	$subject = "Stendhal account ".$oldUsername." merged";
 	$body = "Hello ".$oldUsername."!\r\n";
 	$body .= "\r\n";
 	$body .= "This email confirms, that your Stendhal account ";
