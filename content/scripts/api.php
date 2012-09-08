@@ -84,6 +84,13 @@ class APIPage extends Page {
 		if (! ($result instanceof Account)) {
 			echo htmlspecialchars($result);
 		}
+
+		session_start();
+		$_SESSION['account'] = $result;
+		$_SESSION['marauroa_authenticated_username'] = $result->username;
+		$_SESSION['csrf'] = createRandomString();
+
+		fixSessionPermission();
 		echo 'OK';
 	}
 
