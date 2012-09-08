@@ -78,13 +78,13 @@ class APIPage extends Page {
 
 	public function login($username, $password) {
 		if (!isset($username)) {
-			return 'FAILED';
+			echo 'FAILED';
 		}
 		$result = Account::tryLogin("password", $username, $password);
 		if (! ($result instanceof Account)) {
-			return $result;
+			echo htmlspecialchars($result);
 		}
-		return 'OK';
+		echo 'OK';
 	}
 
 	/**
