@@ -87,7 +87,7 @@ class Achievement {
 	public static function getAchievementForCharacter($charname) {
 		$query = 'SELECT achievement.id, achievement.identifier, achievement.title, '
 			. 'achievement.category, achievement.base_score, achievement.description, '
-			. 'count(count(reached_achievement.achievement_id)) As cnt, left(reached_achievement.timedate, 10) As reachedOn '
+			. 'count(reached_achievement.achievement_id) As cnt, left(reached_achievement.timedate, 10) As reachedOn '
 			. 'FROM achievement '
 			. 'LEFT JOIN reached_achievement ON achievement.id = reached_achievement.achievement_id '
 			. 'AND reached_achievement.charname = \''.mysql_real_escape_string($charname).'\' '
