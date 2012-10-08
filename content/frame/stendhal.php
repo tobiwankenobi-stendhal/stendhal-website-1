@@ -220,7 +220,8 @@ class StendhalFrame extends PageFrame {
 if (STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES) {
 	echo '<img id="mousefloatingimageontopofboxes" src="'
 		. urldecode(STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES)
-		. '" data-offset="'.STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES_OFFSET.'">';
+		. '" data-offset="'.STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES_OFFSET
+		. '" data-sound="'.STENDHAL_MOUSE_FLOATING_IMAGE_SOUND.'">';
 }
 $this->includeJs();
 $page->writeAfterJS();

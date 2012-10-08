@@ -522,7 +522,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
  *
  * Copyright (c) 2006 - 2008 Jörn Zaefferer
  *
- * $Id: 00000009.js,v 1.2 2012/09/22 08:18:12 nhnb Exp $
+ * $Id: 00000009.js,v 1.3 2012/10/08 21:37:23 nhnb Exp $
  * 
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -1202,5 +1202,19 @@ complete();if(settings(this).fixPNG)helper.parent.unfixPNG();}})(jQuery);
 	$(".box").mouseenter(function() {
 		$("#mousefloatingimageontopofboxes").css({position: 'absolute'})
 			.animate({left: $(this).offset().left + $(this).width() * 2 / 3, top: $(this).offset().top - $("#mousefloatingimageontopofboxes").attr("data-offset")});
+	});
+
+	var audio = null;
+	$("#mousefloatingimageontopofboxes").mouseenter(function() {
+		if (audio === null) {
+			audio = new Audio($("#mousefloatingimageontopofboxes").attr("data-sound"))
+		}
+		audio.play();
+	});
+	$("#mousefloatingimageontopofboxes").mouseleave(function() {
+		if (audio !== null) {
+			audio.pause();
+			audio.currentTime = 0;
+		}
 	});
 }());
