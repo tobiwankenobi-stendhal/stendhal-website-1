@@ -217,7 +217,8 @@ class StendhalFrame extends PageFrame {
 <div id="backgroundPopup"></div>
 
 <?php
-if (STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES) {
+
+if (defined('STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES')) {
 	echo '<img id="mousefloatingimageontopofboxes" src="'
 		. urldecode(STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES)
 		. '" data-offset="'.STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES_OFFSET
