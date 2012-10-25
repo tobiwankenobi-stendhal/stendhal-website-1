@@ -10,11 +10,13 @@ class SpecialSpammerHelper extends SpecialPage {
         		$wgOut->addWikiText('==Special Page to deal with notorious spammers==');
         		$wgOut->addWikiText('<p>The following table shows accounts that have more than one deleted contribution:</p>');
         		$dbr = wfGetDB( DB_SLAVE );
-        		$tables = array('user');
-        		$vars = array('user_name');
-        		$conds = 'ipb_user IS NULL';
-        		$options = '';
-        		$join_conds = array();
+        		$tables = array('user', 'archive', 'ipblocks');
+        		$vars = array('user_name', 'COUNT(ar_title) archived', 'user_editcount edits');
+        		$conds = array('ipb_user IS NULL', "ar_timestamp > '20120101000000'");
+        		$options = array('GROUP BY' => 'user_name', 'HAVING' => 'archived > 1 AND NOT edits > archived',
+        						'ORDER BY' => 'user_name');
+        		$join_conds = array('archive' => array('JOIN', 'user_id = ar_user'), 
+        						'ipblocks' => array('LEFT JOIN', 'user_id = ipb_user'));
         		$limit = 50;
         		$res = $dbr->select($tables, $vars, $conds, __METHOD__, $options, $join_conds);
         		foreach ($res as $row) {
@@ -24,11 +26,3 @@ class SpecialSpammerHelper extends SpecialPage {
         		}
         }
 }
-// Idea for a SELECT, which identifies users eligible for a block.
-// SELECT u.user_name, COUNT(ar.ar_title) archived, u.user_editcount edits
-// FROM user u
-// JOIN archive ar ON u.user_id = ar.ar_user
-// LEFT OUTER JOIN ipblocks bl ON u.user_id = bl.ipb_user
-// WHERE bl.ipb_user IS NULL
-// GROUP BY u.user_name HAVING archived > 1 AND NOT edits > archived
-// ORDER BY u.user_name;
