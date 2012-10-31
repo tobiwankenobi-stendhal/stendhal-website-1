@@ -142,7 +142,7 @@ foreach($choosen->equipment as $slot=>$content) {
 	<?php
 	$ranks = getCharacterRanks($choosen->name);
 	if ($choosen->adminlevel >= 600) {
-		if ($name == 'postman') {
+		if ($choosen->name == 'postman') {
 			echo 'Oh, I do not <br> compete in fighting. <br> I am on duty to<br> deliver messages.';
 		} else {
 			echo 'Game masters <br>are not normal <br> players and <br> therefore <br>don\'t appear in <br>the hall of fame.';
