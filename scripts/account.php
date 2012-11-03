@@ -439,6 +439,27 @@ class Account {
 		// TODO: implement me
 		return true;
 	}
+	
+	/**
+	 * reads an account object based on the account id.
+	 *
+	 * @param string $username username
+	 */
+	public static function readAccountById($id) {
+		$sql = "SELECT account.id, username, password, email.email, account.timedate, account.status "
+		. " FROM account LEFT JOIN email ON email.player_id=account.id "
+		. " WHERE id=".((int) $id);
+		$result = mysql_query($sql, getGameDB());
+		$list=array();
+	
+		$row = mysql_fetch_assoc($result);
+		if ($row) {
+			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
+		}
+	
+		mysql_free_result($result);
+		return $res;
+	}
 
 	/**
 	 * reads an account object based on the username.
@@ -683,7 +704,6 @@ class Account {
 		}
 	}
 
-
 	/**
 	 * checks if a name is available for account/character creation
 	 *
@@ -782,6 +802,47 @@ class Account {
 			. "' AND (confirmed IS NULL OR confirmed='0000-00-00 00:00:00')";
 		mysql_query($sql, getGameDB());
 		return true;
+	}
+
+
+	public static final $SELFBAN_RESULT_OK = 0; 
+	public static final $SELFBAN_RESULT_NOT_CONFIGURED = 1; 
+	public static final $SELFBAN_INVALID_TOKEN = 2; 
+	public static final $SELFBAN_ACCOUNT_ALREADY_BANNED = 3; 
+	public static final $SELFBAN_ACCOUNT_NOT_ACTIVE = 4;
+
+	/**
+	 * self bans an account
+	 * @param int $accountid
+	 * @param string $timestamp
+	 * @param string $signature
+	 * @return enum value
+	 */
+	public function selfban($accountid, $timestamp, $signature) {
+		if (!defined('STENDHAL_SECRET')) {
+			return Account::SELFBAN_RESULT_NOT_CONFIGURED;
+		}
+
+		$s = hash_hmac("sha512", $accountid.'/'.$timestamp, STENDHAL_SECRET);
+		if ($signature != $s) {
+			return Account::SELFBAN_INVALID_TOKEN;
+		}
+
+		$account = Account::readAccountById($id);
+		$account->readAccountBan();
+
+		if (isset($account->banMessage) || $account->status == 'banned') {
+			return Account::SELFBAN_ACCOUNT_ALREADY_BANNED;
+		}
+
+		if ($account->status != 'active') {
+			return Account::SELFBAN_ACCOUNT_NOT_ACTIVE;
+		}
+
+		//TODO
+		
+		
+		return Account::SELFBAN_RESULT_OK;
 	}
 }
 
