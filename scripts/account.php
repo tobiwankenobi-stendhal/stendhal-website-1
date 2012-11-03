@@ -119,9 +119,12 @@ function mergeAccount($oldUsername, $newUsername) {
 	$newAccountId = getUserID($newUsername);
 	mysql_query("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
 	$result = mysql_query("SELECT charname FROM characters WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
+	$chars = array();
 	while($row = mysql_fetch_assoc($result)) {
+		$chars[] = $row['charname'];
 		PlayerLoginEntry::logAccountMerge($row['charname'], $oldAccountId, $oldUsername, $newUsername);
 	}
+	sendUdpMessage('stendhal', $oldUsername . ' was merged into ' . $newUsername. ' (' . implode(', ', $chars) . ')');
 	mysql_free_result($result);
 	mysql_query("UPDATE characters SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
 	mysql_query("UPDATE accountLink SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
@@ -805,11 +808,11 @@ class Account {
 	}
 
 
-	public static final $SELFBAN_RESULT_OK = 0; 
-	public static final $SELFBAN_RESULT_NOT_CONFIGURED = 1; 
-	public static final $SELFBAN_INVALID_TOKEN = 2; 
-	public static final $SELFBAN_ACCOUNT_ALREADY_BANNED = 3; 
-	public static final $SELFBAN_ACCOUNT_NOT_ACTIVE = 4;
+	public static $SELFBAN_RESULT_OK = 0; 
+	public static $SELFBAN_RESULT_NOT_CONFIGURED = 1; 
+	public static $SELFBAN_INVALID_TOKEN = 2; 
+	public static $SELFBAN_ACCOUNT_ALREADY_BANNED = 3; 
+	public static $SELFBAN_ACCOUNT_NOT_ACTIVE = 4;
 
 	/**
 	 * self bans an account
@@ -1026,4 +1029,17 @@ function fixSessionPermission() {
 	if (preg_match('/^[a-zA-Z0-9]+$/', $id)) {
 		chmod(session_save_path().'/sess_'.$id, 0640);
 	}
+}
+
+/**
+ * sends a udp message
+ *
+ * @param string $prefix  a prefix to tell message sources apart
+ * @param string $message message
+ */
+function sendUdpMessage($prefix, $message) {
+	$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+	$msg = $prefix.'/'.$message;
+	socket_sendto($socket, $msg, strlen($msg), 0, '127.0.0.1', 7839);
+	socket_close($sock);
 }
