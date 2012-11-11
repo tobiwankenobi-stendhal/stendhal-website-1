@@ -23,7 +23,7 @@ class SpecialSpammerHelper extends SpecialPage {
         		$wgOut->addWikiText('');
         		foreach ($res as $row) {
         			$toolLinks = $this->buildUserRow($row, $wgUser);
-        			$wgOut->addHTML($row->user_name.' '.$toolLinks);
+        			$wgOut->addHTML('<p>'.$row->user_name.' '.$toolLinks.'</p>');
         		}
         		$wgOut->addWikiText('');
         }
