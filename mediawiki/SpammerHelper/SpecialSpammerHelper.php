@@ -22,17 +22,17 @@ class SpecialSpammerHelper extends SpecialPage {
         		$res = $dbr->select($tables, $vars, $conds, __METHOD__, $options, $join_conds);
         		$wgOut->addWikiText('');
         		foreach ($res as $row) {
-        			$display = $this->buildUserRow($row, $wgUser);
-        			$wgOut->addWikiText($display);
+        			$toolLinks = $this->buildUserRow($row, $wgUser);
+        			$wgOut->addHTML($row->user_name.' '.$toolLinks);
         		}
         		$wgOut->addWikiText('');
         }
         
         private function buildUserRow( $row, $wgUser ) {
         	$skin = $wgUser->getSkin();
+        	$result = '';
         	$rc_user_text = $row->user_name;
         	$rc_user = $row->user_id;
-        	$result = $rc_user_text.' ';
         	$result .= $skin->userToolLinks( $rc_user, $rc_user_text );
         	return $result;
         }
