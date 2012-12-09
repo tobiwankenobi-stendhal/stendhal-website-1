@@ -45,6 +45,11 @@ class MyCharactersPage extends Page {
 	}
 
 	function writeContent() {
+		if (defined('STENDHAL_MYCHARACTERS_INFOBOX')) {
+			startBox('Announcement');
+			echo STENDHAL_MYCHARACTERS_INFOBOX;
+			endBox();
+		}
 		$this->writeCharacterList(7, rewriteURL('/account/create-character.html'));
 	}
 
