@@ -60,16 +60,19 @@ class XMLSerializer {
 
 	function XMLSerializer(){
  		$this->parser = xml_parser_create();
-		xml_parser_set_option(&$this->parser, XML_OPTION_CASE_FOLDING, false);
-		xml_set_object(&$this->parser, &$this);
-		xml_set_element_handler(&$this->parser, 'open','close');
-		xml_set_character_data_handler(&$this->parser, 'data');
+		xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
+		xml_set_object($this->parser, $this);
+		xml_set_element_handler($this->parser, 'open','close');
+		xml_set_character_data_handler($this->parser, 'data');
 	}
-	function destruct(){ xml_parser_free(&$this->parser); }
+	function destruct(){ 
+		xml_parser_free($this->parser);
+	}
+
 	function parse(&$data){
 		$this->document = array();
 		$this->stack    = array();
-		$this->parent   = &$this->document;
+		$this->parent   = $this->document;
 		return xml_parse($this->parser, $data, true) ? $this->document : NULL;
 	}
 	function open(&$parser, $tag, $attributes){
@@ -80,12 +83,13 @@ class XMLSerializer {
         
         if($attributes) $this->parent[$tag]["$key attr"] = $attributes;
         $this->parent[$tag][$key]=array();
-		$this->parent  = &$this->parent[$tag][$key];
-		$this->stack[] = &$this->parent;
+		$this->parent  = $this->parent[$tag][$key];
+		$this->stack[] = $this->parent;
 	}
 	function data(&$parser, $data){
-		if($this->last_opened_tag != NULL) #you don't need to store whitespace in between tags
+		if($this->last_opened_tag != NULL) {#you don't need to store whitespace in between tags
 			$this->data .= $data;
+		}
 	}
 	function close(&$parser, $tag){
 		if($this->last_opened_tag == $tag){
@@ -93,7 +97,7 @@ class XMLSerializer {
 			$this->last_opened_tag = NULL;
 		}
 		array_pop($this->stack);
-		if($this->stack) $this->parent = &$this->stack[count($this->stack)-1];
+		if($this->stack) $this->parent = $this->stack[count($this->stack)-1];
 	}
 }
 function count_numeric_items(&$array){
