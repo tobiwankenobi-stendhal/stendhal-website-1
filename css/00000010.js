@@ -522,7 +522,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
  *
  * Copyright (c) 2006 - 2008 Jörn Zaefferer
  *
- * $Id: 00000010.js,v 1.1 2012/10/22 18:48:01 nhnb Exp $
+ * $Id: 00000010.js,v 1.2 2012/12/09 22:47:56 nhnb Exp $
  * 
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -1208,6 +1208,10 @@ complete();if(settings(this).fixPNG)helper.parent.unfixPNG();}})(jQuery);
 	$("#mousefloatingimageontopofboxes").mouseenter(function() {
 		if (audio === null) {
 			audio = new Audio($("#mousefloatingimageontopofboxes").attr("data-sound"))
+			audio.addEventListener('ended', function() {
+				this.currentTime = 0;
+				this.play();
+			}, false);
 		}
 		audio.play();
 	});
