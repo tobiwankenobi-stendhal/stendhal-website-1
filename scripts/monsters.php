@@ -250,8 +250,9 @@ function getMonsters() {
 		Monster::$monsters = $cache->fetchAsArray('stendhal_creatures');
 		Monster::$classes = $cache->fetchAsArray('stendhal_creatures_classes');
 	}
+	
 	if ((Monster::$monsters !== false) && (sizeof(Monster::$monsters) != 0)) {
-		return Monster::$monsters;
+ 		return Monster::$monsters;
 	}
 
 	$monstersXMLConfigurationFile="data/conf/creatures.xml";
@@ -268,14 +269,21 @@ function getMonsters() {
 		if(isset($file['uri'])) {
 			$content = file($monstersXMLConfigurationBase.$file['uri']);
 			$temp = implode('',$content);
-			$creatures =  XML_unserialize($temp);
-			$creatures=$creatures['creatures'][0]['creature'];
-
+			$root =  XML_unserialize($temp);
+			$creatures=$root['creatures'][0]['creature'];
+				
 			if (sizeof($creatures) < 2) {
 				continue;
 			}
 
 			for($i=0;$i<sizeof($creatures)/2;$i++) {
+
+				if ($creatures[$i.' attr']['condition']) {
+					if ($creatures[$i.' attr']['condition'][0] != '!') {
+						continue;
+					}
+				}
+				
 				/*
 				 * We omit hidden creatures.
 				 */
@@ -333,5 +341,3 @@ function getMonsters() {
 	$cache->store('stendhal_creatures_classes', new ArrayObject(Monster::$classes));
 	return $list;
 }
-
-?>
