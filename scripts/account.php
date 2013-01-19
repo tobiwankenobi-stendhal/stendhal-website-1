@@ -1041,5 +1041,5 @@ function sendUdpMessage($prefix, $message) {
 	$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 	$msg = $prefix.'/'.$message;
 	socket_sendto($socket, $msg, strlen($msg), 0, '127.0.0.1', 7839);
-	socket_close($sock);
+	socket_close($socket);
 }
