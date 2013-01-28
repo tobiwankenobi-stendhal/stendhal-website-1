@@ -108,7 +108,18 @@ require_once($page_url.'.php');
 
 
 header('X-Frame-Options: sameorigin');
-header("X-Content-Security-Policy: default-src 'self' https://api.flattr.com http://platform.twitter.com https://platform.twitter.com https://apis.google.com http://ssl.gstatic.com https://ssl.gstatic.com https://plusone.google.com https://www.facebook.com https://connect.facebook.net https://www.youtube.com ; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net http://sflogo.sourceforge.net https://api.flattr.com http://ssl.gstatic.com https://ssl.gstatic.com ; report-uri /?id=content/scripts/cspreport");
+//header("X-Content-Security-Policy: default-src 'self' https://api.flattr.com http://platform.twitter.com https://platform.twitter.com https://apis.google.com http://ssl.gstatic.com https://ssl.gstatic.com https://plusone.google.com https://www.facebook.com https://connect.facebook.net https://www.youtube.com ; img-src 'self' data: stendhalgame.org arianne.sf.net arianne.sourceforge.net https://sflogo.sourceforge.net http://sflogo.sourceforge.net https://api.flattr.com http://ssl.gstatic.com https://ssl.gstatic.com ; report-uri /?id=content/scripts/cspreport");
+
+$csp = "default-src 'self'; "
+	. "img-src http://ssl.gstatic.com https://ssl.gstatic.com https://csi.gstatic.com http://arianne.sf.net http://arianne.sourceforge.net https://sflogo.sourceforge.net http://sflogo.sourceforge.net data: 'self'; "
+	. "script-src https://apis.google.com https://platform.twitter.com 'self'; "
+	. "frame-src https://www.facebook.com https://plusone.google.com http://platform.twitter.com https://platform.twitter.com 'self'; "
+	. "style-src 'self' 'unsafe-inline' ; "
+	. "report-uri /?id=content/scripts/cspreport";
+
+header("X-Content-Security-Policy: ". $csp);
+header("Content-Security-Policy: ". $csp);
+header("X-WebKit-CSP: ". $csp);
 
 if ($page->writeHttpHeader()) {
 header('Content-Type: text/html; charset=utf-8')
