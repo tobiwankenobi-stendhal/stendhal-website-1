@@ -106,6 +106,16 @@ class Zone {
 				if (!isset($destZone)) {
 					continue;
 				}
+				
+				if (!isset($zoneAttrMap[$destination['zone']]['x'])) {
+					echo '<pre>XXX';
+					var_dump($destination);
+					echo "\n________\n";
+					var_dump($zoneAttrMap[$destination['zone']]);
+					echo "\n";
+					echo '</pre>';
+				}
+				
 				$tempX = $zoneAttrMap[$destination['zone']]['x'];
 				$tempY = $zoneAttrMap[$destination['zone']]['y'];
 				if (isset($tempX)) {
@@ -180,6 +190,9 @@ class Zone {
 		$npcs=NPC::getNPCs();
 		$res = array();
 		foreach($npcs as $npc) {
+			if (!isset($zones[$npc->zone])) {
+				continue;
+			}
 			$zone = $zones[$npc->zone];
 			if (isset($zone) && isset($zone->x) && $zone->z == 0) {
 				if ($zone->int) {
