@@ -112,8 +112,13 @@ class NonPersistentCacheImpl implements Cache {
 	}
 
 	function fetch($key, &$success = false) {
-		$success = true;
-		return $this->cache[$key];
+		if (isset($this->cache[$key])) {
+			$success = true;
+			return $this->cache[$key];
+		} else {
+			$success = false;
+			return null;
+		}
 	}
 
 	function fetchAsArray($key, &$success = false) {
