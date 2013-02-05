@@ -268,17 +268,19 @@ function getMonsters() {
 	foreach($monsterfiles as $file) {
 		if(isset($file['uri'])) {
 			$content = file($monstersXMLConfigurationBase.$file['uri']);
-			$temp = implode('',$content);
+			$temp = implode('', $content);
 			$root =  XML_unserialize($temp);
+			if (!isset($root['creatures'][0]['creature'])) {
+				continue;
+			}
 			$creatures=$root['creatures'][0]['creature'];
-				
 			if (sizeof($creatures) < 2) {
 				continue;
 			}
 
 			for($i=0;$i<sizeof($creatures)/2;$i++) {
 
-				if ($creatures[$i.' attr']['condition']) {
+				if (isset($creatures[$i.' attr']['condition'])) {
 					if ($creatures[$i.' attr']['condition'][0] != '!') {
 						continue;
 					}
