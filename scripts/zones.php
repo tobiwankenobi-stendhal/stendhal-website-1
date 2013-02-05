@@ -90,11 +90,16 @@ class Zone {
 			if (!isset($zoneAttrMap[$name])) {
 				continue;
 			}
-			$zoneX = $zoneAttrMap[$name]['x'];
-			$zoneY = $zoneAttrMap[$name]['y'];
-			$zoneZ = $zoneAttrMap[$name]['level'];
+
+			$int = false;
+			if (isset($zoneAttrMap[$name]['level'])) {
+				$zoneX = $zoneAttrMap[$name]['x'];
+				$zoneY = $zoneAttrMap[$name]['y'];
+				$zoneZ = $zoneAttrMap[$name]['level'];
+			} else {
+				$int = true;
+			}
 			$file = $zoneAttrMap[$name]['file'];
-			$int = !isset($zoneZ);
 
 			// try to resolve internal zones to their place in the world
 			if ($int) {
@@ -107,24 +112,16 @@ class Zone {
 					continue;
 				}
 				
-				if (!isset($zoneAttrMap[$destination['zone']]['x'])) {
-					echo '<pre>XXX';
-					var_dump($destination);
-					echo "\n________\n";
-					var_dump($zoneAttrMap[$destination['zone']]);
-					echo "\n";
-					echo '</pre>';
+				if (!isset($destZone['x'])) {
+					continue;
 				}
-				
-				$tempX = $zoneAttrMap[$destination['zone']]['x'];
-				$tempY = $zoneAttrMap[$destination['zone']]['y'];
-				if (isset($tempX)) {
-					$portal = Zone::getNamedPortalInZone($destZone, $destination['ref']);
-					if (isset($portal)) {
-						$zoneX = $tempX + $portal['x'];
-						$zoneY = $tempY + $portal['y'];
-						$zoneZ = $zoneAttrMap[$destination['zone']]['level'];
-					}
+				$tempX = $destZone['x'];
+				$tempY = $destZone['y'];
+				$portal = Zone::getNamedPortalInZone($destZone, $destination['ref']);
+				if (isset($portal)) {
+					$zoneX = $tempX + $portal['x'];
+					$zoneY = $tempY + $portal['y'];
+					$zoneZ = $zoneAttrMap[$destination['zone']]['level'];
 				}
 			}
 			$zoneList[$name] = new Zone($name, $zoneX, $zoneY, $zoneZ, $int, $file);
@@ -140,9 +137,9 @@ class Zone {
 	}
 
 	private static function getFirstPortalDestination($xml) {
-		$portal = $xml['portal'];
-		if (isset($portal)) {
-			if (is_array($portal[0]) && is_array($portal[0]['destination']) && is_array($portal[0]['destination']['0 attr'])) {
+		if (isset($xml['portal'])) {
+			$portal = $xml['portal'];
+			if (is_array($portal[0]) && isset($portal[0]['destination']) && is_array($portal[0]['destination']) && is_array($portal[0]['destination']['0 attr'])) {
 				return $portal[0]['destination']['0 attr'];
 			}
 		}
