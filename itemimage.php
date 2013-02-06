@@ -55,7 +55,7 @@ function hideFishes($resource) {
   return $result;
 }
 
-function createImage($url) {
+function createImageData($url) {
 
 	// We want to hide the fishes so we don't spoil the fisherman quest.
 	$url = hideFishes($url);
@@ -88,5 +88,5 @@ header('Etag: "'.$etag.'"');
 if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
 	header('HTTP/1.0 304 Not modified');
 } else {
-	imagepng(createImage($url));
+	imagepng(createImageData($url));
 }
