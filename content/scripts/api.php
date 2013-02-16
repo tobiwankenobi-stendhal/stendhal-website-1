@@ -37,6 +37,12 @@ class APIPage extends Page {
 			$this->rankhistory($_REQUEST['param']);
 		} else if ($_REQUEST['method'] == 'login') {
 			$this->login($_POST['username'], $_POST['password']);
+		} else if ($_REQUEST['method'] == 'data') {
+			$categories = '';
+			if (isset($_REQUEST['categories'])) {
+				$categories = $_REQUEST['categories'];
+			}
+			$this->getData($categories);
 		} else {
 			$this->unknown($_REQUEST['param']);
 		}
@@ -102,6 +108,23 @@ class APIPage extends Page {
 	public function unknown($param) {
 		header('HTTP/1.1', true, 400);
 		echo 'throw new Exception("Unknown method")';
+	}
+
+	/**
+	 * returns a json object with data about the game world
+	 *
+	 * @param string $categories
+	 */
+	public function getData($categories) {
+		$c = explode(',', $categories);
+		$res = array();
+		if (in_array('creatures', $c)) {
+			$res['creatures'] = getMonsters();
+		}
+			if (in_array('items', $c)) {
+			$res['items'] = getItems();
+		}
+		echo json_encode($res);
 	}
 }
 $page = new APIPage();
