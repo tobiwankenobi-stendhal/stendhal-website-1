@@ -121,8 +121,17 @@ class APIPage extends Page {
 		if (in_array('creatures', $c)) {
 			$res['creatures'] = getMonsters();
 		}
-			if (in_array('items', $c)) {
+		if (in_array('items', $c)) {
 			$res['items'] = getItems();
+		}
+			if (in_array('npcs', $c)) {
+			$res['npcs'] = NPC::getNPCS();
+		}
+			if (in_array('pois', $c)) {
+			$res['pois'] = PointofInterest::getPOIs();
+		}
+		if (in_array('zones', $c)) {
+			$res['zones'] = Zone::getZones();
 		}
 		echo json_encode($res);
 	}
