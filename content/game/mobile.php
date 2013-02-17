@@ -17,11 +17,9 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once('scripts/tilesetmapping.php');
 class MobilePage extends Page {
 	private static $items;
 	private static $classes;
-	private static $itemindexes;
 
 	public function writeHttpHeader() {
 		$this->write();
@@ -32,7 +30,6 @@ class MobilePage extends Page {
 	private function write() {
 		MobilePage::$items = getItems();
 		MobilePage::$classes = Item::getClasses();
-		MobilePage::$itemindexes = getItemTilesetIndexMapping();
 		$this->writeHeader();
 		$this->writeMobileContent();
 		$this->writeFooter();
@@ -43,6 +40,7 @@ class MobilePage extends Page {
 		<html><head><title>Stendhal</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/css/jquery.mobile-1.2.0.min.css" />
+		<link rel="stylesheet" href="/css/tileset.css" />
 		<script src="/css/jquery-1.8.2.min.js"></script>
 		<script src="/css/jquery.mobile-1.2.0.min.js"></script>
 		</head>
@@ -67,18 +65,15 @@ class MobilePage extends Page {
 		foreach (MobilePage::$classes as $class => $temp) {
 			echo '<li><a href="#page-itemclass-'.htmlspecialchars($class).'">';
 
-			$offset = 0;
+			$icon = false;
 			foreach(MobilePage::$items as $item) {
 				if($item->class==$class) {
-					$sprite = substr($item->gfx, 13);
-					if (isset(MobilePage::$itemindexes[$sprite])) {
-						$offset = MobilePage::$itemindexes[$sprite] * 32;
-						// no break, because we want the last and most powerful item icon
-					}
+					$icon = $item->gfx;
+					// no break, because we want the last and most powerful item icon
 				}
 			}
-			if ($offset > 0) {
-				echo '<div style="float: left; margin-right: 1em; width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></div>';
+			if ($icon) {
+				echo '<span class="tileset-itemicon itemicon-'.str_replace('/', '-', substr($icon, 13, -4)).'"></span>';
 			}
 				
 			echo htmlspecialchars(ucfirst($class)).'</a></li>';
@@ -106,13 +101,7 @@ class MobilePage extends Page {
 		foreach(MobilePage::$items as $item) {
 			if($item->class==$class) {
 				echo '<div data-role="collapsible" data-collapsed="true">
-					<h3>';
-				
-				$sprite = substr($item->gfx, 13);
-				if (isset(MobilePage::$itemindexes[$sprite])) {
-					$offset = MobilePage::$itemindexes[$sprite] * 32;
-					echo '<span style="display:inline-block; margin-right: 1em; width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></span>';
-				}
+					<h3><span class="tileset-itemicon itemicon-'.str_replace('/', '-', substr($item->gfx, 13, -4)).'"></span>';
 				
 				echo htmlspecialchars(ucfirst($item->name)).'</h3>';
  				$this->writeItemDetails($item);
