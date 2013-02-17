@@ -1,35 +1,5 @@
 <?php
 
-/**
- * Define the separator for decimals and for thousands to be used.
- * TODO: Remove the "MY_" prefix. It is just here to (hopefully)
- * make sure that there is no name conflict of any existing define.
- */
-
-define('MY_DECIMAL_SEPARATOR', '.');
-define('MY_THOUSANDS_SEPARATOR', ',');
-
-
-/*
-
-// This block is just a test for the function formatNumber().
-// TODO: Move this somewhere else.
-
-function check_formatNumber($value, $expected)
-{
-  if (($actual = formatNumber($value)) !== $expected) {
-    echo 'formatNumber() failed for "' . $value . '" - "' . $actual . '" vs "' . $expected . '"' . "\n";
-  }
-}
-
-check_formatNumber(1, '1');
-check_formatNumber(1.000, '1');
-check_formatNumber(1000, '1' . MY_THOUSANDS_SEPARATOR . '000');
-check_formatNumber(1000.00, '1' . MY_THOUSANDS_SEPARATOR . '000');
-check_formatNumber(100.0012, '100' . MY_DECIMAL_SEPARATOR . '0012');
-exit;
-
-*/
 
 function renderAmount($amount) {
   $amount=str_replace("[","",$amount);

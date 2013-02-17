@@ -117,12 +117,15 @@ function queryWithCache($query, $ttl, $db) {
  */
 
 function formatNumber($value, $digits = 6) {
-	$sNumber = number_format($value, $digits, MY_DECIMAL_SEPARATOR, MY_THOUSANDS_SEPARATOR);
+	$decimalSeparator =  '.';
+	$thousandsSeparator = ',';
+	
+	$sNumber = number_format($value, $digits, $decimalSeparator, $thousandsSeparator);
 
 	// $sNumber could possibly contain trailing zeros, e.g. '10,000.000000'.
 	// Remove the trailing zero, and the decimal point, but no any more zeros.
 
-	list($sBefore, $sAfter) = explode(MY_DECIMAL_SEPARATOR, $sNumber);
+	list($sBefore, $sAfter) = explode($decimalSeparator, $sNumber);
 
 	if (($sAfter = rtrim($sAfter, '0')) === '') {
 
@@ -131,5 +134,5 @@ function formatNumber($value, $digits = 6) {
 		return $sBefore;
 	}
 
-	return $sBefore . MY_DECIMAL_SEPARATOR . $sAfter;
+	return $sBefore . $decimalSeparator . $sAfter;
 }
