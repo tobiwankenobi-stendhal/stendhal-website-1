@@ -65,7 +65,23 @@ class MobilePage extends Page {
 		<ul data-role="listview" data-inset="true" data-filter="false">
 		<?php 
 		foreach (MobilePage::$classes as $class => $temp) {
-			echo '<li><a href="#page-itemclass-'.htmlspecialchars($class).'">'.htmlspecialchars(ucfirst($class)).'</a></li>';
+			echo '<li><a href="#page-itemclass-'.htmlspecialchars($class).'">';
+
+			$offset = 0;
+			foreach(MobilePage::$items as $item) {
+				if($item->class==$class) {
+					$sprite = substr($item->gfx, 13);
+					if (isset(MobilePage::$itemindexes[$sprite])) {
+						$offset = MobilePage::$itemindexes[$sprite] * 32;
+						// no break, because we want the last and most powerful item icon
+					}
+				}
+			}
+			if ($offset > 0) {
+				echo '<div style="float: left; margin-right: 1em; width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></div>';
+			}
+				
+			echo htmlspecialchars(ucfirst($class)).'</a></li>';
 		}
 		?>
 		</ul></div>
@@ -83,7 +99,7 @@ class MobilePage extends Page {
 			</div>';
 		
 		echo '<div data-role="content">
-			<h3>'.htmlspecialchars(ucfirst($class)).'</h3>
+			<h2>'.htmlspecialchars(ucfirst($class)).'</h2>
 			<div data-role="collapsible-set">';
 		
 
