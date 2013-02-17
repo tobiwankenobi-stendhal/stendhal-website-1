@@ -106,7 +106,15 @@ class MobilePage extends Page {
 		foreach(MobilePage::$items as $item) {
 			if($item->class==$class) {
 				echo '<div data-role="collapsible" data-collapsed="true">
-					<h3>'.htmlspecialchars(ucfirst($item->name)).'</h3>';
+					<h3>';
+				
+				$sprite = substr($item->gfx, 13);
+				if (isset(MobilePage::$itemindexes[$sprite])) {
+					$offset = MobilePage::$itemindexes[$sprite] * 32;
+					echo '<span style="display:inline-block; margin-right: 1em; width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></span>';
+				}
+				
+				echo htmlspecialchars(ucfirst($item->name)).'</h3>';
  				$this->writeItemDetails($item);
  				echo '</div>';
 			}
@@ -121,12 +129,6 @@ class MobilePage extends Page {
 	}
 
 	private function writeItemDetails($item) {
-		$sprite = substr($item->gfx, 13);
-		if (isset(MobilePage::$itemindexes[$sprite])) {
-			$offset = MobilePage::$itemindexes[$sprite] * 32;
-			echo '<div style="width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></div>';
-		}
-
 		echo '<div>';
 		if ($item->description == '') {
 			echo 'No description. Please write one.';
