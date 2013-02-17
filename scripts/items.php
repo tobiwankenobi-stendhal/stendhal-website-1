@@ -154,7 +154,7 @@ function getItems() {
 				$attributes=array();
 				if (is_array($items[$i]['attributes'][0])) {
 					foreach($items[$i]['attributes'][0] as $attr=>$val) {
-						if (($attr != 'max_quantity') && ($attr != 'quantity') && ($attr != 'undroppableondeath')) {
+						if (($attr != 'max_quantity') && ($attr != 'quantity') && ($attr != 'undroppableondeath') && ($attr != 'slot_name')) {
 							$attributes[$attr]=$val['0 attr']['value'];
 						}
 					}
