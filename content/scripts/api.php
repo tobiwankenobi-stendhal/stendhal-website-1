@@ -85,6 +85,7 @@ class APIPage extends Page {
 	public function login($username, $password) {
 		if (!isset($username)) {
 			echo 'FAILED';
+			return;
 		}
 		$result = Account::tryLogin("password", $username, $password);
 		if (! ($result instanceof Account)) {
