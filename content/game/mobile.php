@@ -121,13 +121,15 @@ class MobilePage extends Page {
 		echo '</div>';
 
 
-		echo '<h4>Attributes</h4>';
-		echo '<table>';
-		foreach ($item->attributes as $label=>$data) {
-			echo '<tr><td scope="row">'.htmlspecialchars(ucfirst($label)).':</td>';
-			echo '<td>'.htmlspecialchars($data).'</td></tr>';
+		if (count($item->attributes) > 0) {
+			echo '<h4>Attributes</h4>';
+			echo '<table>';
+			foreach ($item->attributes as $label=>$data) {
+				echo '<tr><td scope="row">'.htmlspecialchars(ucfirst($label)).':</td>';
+				echo '<td>'.htmlspecialchars($data).'</td></tr>';
+			}
+			echo '</table>';
 		}
-		echo '</table>';
 
 		if (count($item->susceptibilities) > 0) {
 			echo '<h4>Resistances</h4>';
@@ -139,19 +141,33 @@ class MobilePage extends Page {
 			echo '</table>';
 		}
 
-		echo '<h4>Dropped by</h4>';
-		echo '<table>';
-		$monsters=getMonsters();
+
+
+		$found = false;
+		$monsters = getMonsters();
 		foreach ($monsters as $monster) {
-				foreach ($monster->drops as $drop) {
+			foreach ($monster->drops as $drop) {
 				if ($drop['name']==$item->name) {
-					echo '<tr><td>'.htmlspecialchars(ucfirst($monster->name)).'</td>';
-					echo '<td>'.htmlspecialchars($drop['quantity']).'</td>';
-					echo '<td>'.formatNumber($drop['probability']).'%</td></tr>';
+					$found = true;
+					break;
 				}
 			}
 		}
-		echo '</table>';
+
+		if ($found) {
+			echo '<h4>Dropped by</h4>';
+			echo '<table>';
+			foreach ($monsters as $monster) {
+					foreach ($monster->drops as $drop) {
+					if ($drop['name']==$item->name) {
+						echo '<tr><td>'.htmlspecialchars(ucfirst($monster->name)).'</td>';
+						echo '<td>'.htmlspecialchars($drop['quantity']).'</td>';
+						echo '<td>'.formatNumber($drop['probability']).'%</td></tr>';
+					}
+				}
+			}
+			echo '</table>';
+		}
 	}
 	
 	function writeContent() {
