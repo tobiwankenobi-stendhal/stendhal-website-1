@@ -115,8 +115,11 @@ class MobilePage extends Page {
 	}
 
 	private function writeItemDetails($item) {
-		$offset = MobilePage::$itemindexes[substr($item->gfx, 13)] * 32;
-		echo '<div style="width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></div>';
+		$sprite = substr($item->gfx, 13);
+		if (isset(MobilePage::$itemindexes[$sprite])) {
+			$offset = MobilePage::$itemindexes[$sprite] * 32;
+			echo '<div style="width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></div>';
+		}
 
 		echo '<div>';
 		if ($item->description == '') {
