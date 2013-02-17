@@ -10,38 +10,6 @@ define('MY_DECIMAL_SEPARATOR', '.');
 define('MY_THOUSANDS_SEPARATOR', ',');
 
 
-/**
- * Format the number using (hard-coded) English locale with
- * the given number of digits. Terminating zeros and a possibly
- * terminating decimal point are removed as well.
- * TODO: Put this function to a global include and use it for all numbers.
- *
- * @param value float | integer
- * @param digits integer
- *
- * @return string
- */
-
-function formatNumber($value, $digits = 6)
-{
-  $sNumber = number_format($value, $digits, MY_DECIMAL_SEPARATOR, MY_THOUSANDS_SEPARATOR);
-
-  // $sNumber could possibly contain trailing zeros, e.g. '10,000.000000'.
-  // Remove the trailing zero, and the decimal point, but no any more zeros.
-
-  list($sBefore, $sAfter) = explode(MY_DECIMAL_SEPARATOR, $sNumber);
-
-  if (($sAfter = rtrim($sAfter, '0')) === '') {
-
-    // We have no fraction.
-
-    return $sBefore;
-  }
-
-  return $sBefore . MY_DECIMAL_SEPARATOR . $sAfter;
-}
-
-
 /*
 
 // This block is just a test for the function formatNumber().
