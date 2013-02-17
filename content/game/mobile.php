@@ -72,31 +72,40 @@ class MobilePage extends Page {
 		</div><!-- /content -->
 		
 		<div data-role="footer">
-		<h4>Page Footer</h4>
-				</div><!-- /footer -->
-				</div><!-- /page -->
+		<h4>Proof of concept</h4>
+		</div><!-- /footer -->
+		</div><!-- /page -->
 		<?php
 	}
 
 	private function writeItemClassPage($class) {
 		echo '<div data-role="page" id="page-itemclass-'.htmlspecialchars($class).'">';
-		?>
-			
-			<div data-role="header">
-			<h1>Stendhal Items</h1>
+		echo '<div data-role="header">
+			<h1>'.htmlspecialchars(ucfirst($class)).' - Stendhal Items</h1>
 			<a href="#page-itemclasses">Back</a>
-			</div><!-- /header -->
-			
-			<div data-role="content">
-			<p>Page content goes here. <a href="#page-itemclass-ammunition"></a></p>
-			</div><!-- /content -->
+			</div><!-- /header -->';
+		
+		echo '<div data-role="content">
+			<h3>'.htmlspecialchars(ucfirst($class)).'</h3>
+			<div data-role="collapsible-set">';
+		
+
+		foreach(MobilePage::$items as $item) {
+			if($item->class==$class) {
+				echo '<div data-role="collapsible" data-collapsed="true">
+					<h3>'.htmlspecialchars(ucfirst($item->name)).'</h3>
+					<p>I\'m the collapsible set content for section 1.</p>
+					</div>';
+			}
+		}
+		
+		echo '</div></div><!-- /content -->
 			
 			<div data-role="footer">
-			<h4>Page Footer</h4>
-					</div><!-- /footer -->
-					</div><!-- /page -->
-			<?php
-		}
+			<h4>Proof of concept</h4>
+			</div><!-- /footer -->
+			</div><!-- /page -->';
+	}
 
 	private function writeFooter() {
 		echo '</body></html>';
@@ -105,65 +114,6 @@ class MobilePage extends Page {
 	function writeContent() {
 	}
 	
-	function old() {
-
-if(!isset($_GET['class'])) {
-  startBox('Items classes');
-  ?>
-  <form method="get" action="/" id="currentContentSearch">
-    <input type="hidden" name="id" value="content/scripts/item">
-    <input type="hidden" name="class" value="all">
-    <input type="text" name="name" maxlength="60">
-    <input type="submit" name="sublogin" value="Search">
-  </form>
-  <div style="margin-bottom: 10px;">
-    <?php echo sizeof($items); ?> items so far.
-  </div>
-  <?php
-  foreach($classes as $class=>$zero) {
-    foreach($items as $item) {
-   	  if($item->class==$class) {
-   	    $choosen=$item;
-   	  }
-    }
-	?>
-    <div class="f3cols">
-      <?php 
-        echo '<a href="'.rewriteURL('/item/'.surlencode($class).'.html').'">';
-        echo '<img src="'.$choosen->gfx.'" alt=""><br>';
-        echo ucfirst($class). '</a>';?>
-    </div>
-    <?php
-  }  
-  ?>
-  <div style="clear: left;"></div>
-  <?php
-  endBox();
-  return;
-}
-
-?>
-<?php
-//foreach($classes as $class=>$zero) {
-$class=$_GET['class'];
-startBox(ucfirst($class).' Items');
-  foreach($items as $item) {
-	if($item->class==$class) {
-	  ?>
-  	  <div class="item">
-        <?php echo '<a class="item" href="'.rewriteURL('/item/'.surlencode($class).'/'. surlencode($item->name) . '.html').'">'; ?>
- 	      <img class="item_image" src="<?php echo $item->gfx; ?>" alt="">
-	      <span class="block item_name"><?php echo $item->name; ?></span>
-	    </a>
-	  </div>
-	  <?php
-	}
-  }
-  ?>
-  <div style="clear: left;"></div>
-  <?php 
-  endBox();
-	}
 }
 $page = new MobilePage();
 ?>
