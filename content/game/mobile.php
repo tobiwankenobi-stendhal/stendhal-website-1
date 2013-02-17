@@ -20,6 +20,7 @@
 class MobilePage extends Page {
 	private static $items;
 	private static $classes;
+	private static $creatures;
 
 	public function writeHttpHeader() {
 		$this->write();
@@ -30,6 +31,8 @@ class MobilePage extends Page {
 	private function write() {
 		MobilePage::$items = getItems();
 		MobilePage::$classes = Item::getClasses();
+		MobilePage::$creatures = getMonsters();
+		
 		$this->writeHeader();
 		$this->writeMobileContent();
 		$this->writeFooter();
@@ -48,16 +51,37 @@ class MobilePage extends Page {
 	}
 
 	private function writeMobileContent() {
+		$this->writeStartPage();
+		$this->writeCreaturePage();
 		$this->writeItemClassesPage();
 		foreach (MobilePage::$classes as $class => $temp) {
 			$this->writeItemClassPage($class);
 		}
 	}
 
+	private function writeStartPage() {
+		?>
+		<div data-role="page" id="page-start">
+		<div data-role="header"><h1>Stendhal</h1></div>
+
+		<div data-role="content">
+		<ul data-role="listview" data-inset="true" data-filter="false">
+		<li><a href="#page-itemclasses">Items</a></li>
+		<li><a href="#page-creatures">Creatures (Experimental)</a></li>
+		</ul></div>
+
+		<div data-role="footer"><h4>Proof of concept</h4></div>
+		</div>
+		<?php
+	}
+		
+
 	private function writeItemClassesPage() {
 		?>
 		<div data-role="page" id="page-itemclasses">
-		<div data-role="header"><h1>Stendhal Items</h1></div>
+		<div data-role="header"><h1>Stendhal Items</h1>
+		<a data-rel="back" href="#page-start">Back</a>
+		</div>
 
 		<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="false">
@@ -86,11 +110,106 @@ class MobilePage extends Page {
 		<?php
 	}
 
+	private function writeCreaturePage() {
+		echo '<div data-role="page" id="page-creatures">';
+		echo '<div data-role="header">
+		<h1>Stendhal Creatures</h1>
+		<a data-rel="back" href="#page-start">Back</a>
+		</div>';
+	
+		echo '<div data-role="content">
+		<div data-role="collapsible-set">';
+		
+	
+		foreach(MobilePage::$creatures as $creature) {
+			if($item->class==$class) {
+				echo '<div data-role="collapsible" data-collapsed="true">
+				<h3><span class="tileset-creatureicon creatureicon-'.str_replace('/', '-', substr($creature->gfx, 17, -4)).'"></span>';
+	
+				echo htmlspecialchars(ucfirst($creature->name)).'</h3>';
+				$this->writeCreatureDetails($creature);
+				echo '</div>';
+			}
+		}
+	
+		echo '</div></div>
+		<div data-role="footer"><h4>Proof of concept</h4></div></div>';
+	}
+
+	private function writeCreatureDetails($creature) {
+		echo '<div>';
+		if ($creature->description == '') {
+			echo '<em>No description. Please write one.</em>';
+		} else {
+			echo htmlspecialchars($creature->description);
+		}
+		echo '</div>';
+	
+	
+		if (count($creature->attributes) > 0) {
+			echo '<h4>Attributes</h4>';
+			echo '<table>';
+			foreach ($creature->attributes as $label=>$data) {
+				echo '<tr><td scope="row">'.htmlspecialchars(ucfirst($label)).':</td>';
+				echo '<td>'.htmlspecialchars($data).'</td></tr>';
+			}
+			echo '</table>';
+		}
+
+		if (count($creature->susceptibilities) > 0) {
+			echo '<h4>Resistances</h4>';
+			echo '<table>';
+			foreach ($creature->susceptibilities as $label=>$data) {
+				echo '<tr><td scope="row">'.htmlspecialchars(ucfirst($label)).':</td>';
+				echo '<td>'.htmlspecialchars($data).'%</td></tr>';
+			}
+			echo '</table>';
+		}
+
+		if (count($creature->drops)) {
+			echo '<h4>Drops</h4>';
+			echo '<table>';
+			foreach ($creature->drops as $drop) {
+				echo '<tr><td>'.htmlspecialchars(ucfirst($drop['name'])).'</td>';
+				echo '<td>'.htmlspecialchars($drop['quantity']).'</td>';
+				echo '<td>'.formatNumber($drop['probability']).'%</td></tr>';
+			}
+			echo '</table>';
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	private function writeItemClassPage($class) {
 		echo '<div data-role="page" id="page-itemclass-'.htmlspecialchars($class).'">';
 		echo '<div data-role="header">
 			<h1>'.htmlspecialchars(ucfirst($class)).' - Stendhal Items</h1>
-			<a href="#page-itemclasses">Back</a>
+			<a data-rel="back" href="#page-itemclasses">Back</a>
 			</div>';
 		
 		echo '<div data-role="content">
@@ -113,14 +232,10 @@ class MobilePage extends Page {
 			<div data-role="footer"><h4>Proof of concept</h4></div></div>';
 	}
 
-	private function writeFooter() {
-		echo '</body></html>';
-	}
-
 	private function writeItemDetails($item) {
 		echo '<div>';
 		if ($item->description == '') {
-			echo 'No description. Please write one.';
+			echo '<em>No description. Please write one.</em>';
 		} else {
 			echo htmlspecialchars($item->description);
 		}
@@ -150,8 +265,7 @@ class MobilePage extends Page {
 
 
 		$found = false;
-		$monsters = getMonsters();
-		foreach ($monsters as $monster) {
+		foreach (MobilePage::$creatures as $monster) {
 			foreach ($monster->drops as $drop) {
 				if ($drop['name']==$item->name) {
 					$found = true;
@@ -163,7 +277,7 @@ class MobilePage extends Page {
 		if ($found) {
 			echo '<h4>Dropped by</h4>';
 			echo '<table>';
-			foreach ($monsters as $monster) {
+			foreach (MobilePage::$creatures as $monster) {
 					foreach ($monster->drops as $drop) {
 					if ($drop['name']==$item->name) {
 						echo '<tr><td>'.htmlspecialchars(ucfirst($monster->name)).'</td>';
@@ -175,7 +289,11 @@ class MobilePage extends Page {
 			echo '</table>';
 		}
 	}
-	
+
+	private function writeFooter() {
+		echo '</body></html>';
+	}
+
 	function writeContent() {
 		// do nothing
 	}
