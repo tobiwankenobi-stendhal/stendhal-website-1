@@ -93,9 +93,9 @@ class MobilePage extends Page {
 		foreach(MobilePage::$items as $item) {
 			if($item->class==$class) {
 				echo '<div data-role="collapsible" data-collapsed="true">
-					<h3>'.htmlspecialchars(ucfirst($item->name)).'</h3>
-					<p>I\'m the collapsible set content for section 1.</p>
-					</div>';
+					<h3>'.htmlspecialchars(ucfirst($item->name)).'</h3>';
+ 				$this->writeItemDetails($item);
+ 				echo '</div>';
 			}
 		}
 		
@@ -111,7 +111,51 @@ class MobilePage extends Page {
 		echo '</body></html>';
 	}
 
+	private function writeItemDetails($item) {
+		echo '<div>';
+		if ($item->description == '') {
+			echo 'No description. Please write one.';
+		} else {
+			echo htmlspecialchars($item->description);
+		}
+		echo '</div>';
+
+
+		echo '<h4>Attributes</h4>';
+		echo '<table>';
+		foreach ($item->attributes as $label=>$data) {
+			echo '<tr><td scope="row">'.htmlspecialchars(ucfirst($label)).':</td>';
+			echo '<td>'.htmlspecialchars($data).'</td></tr>';
+		}
+		echo '</table>';
+
+		if (count($item->susceptibilities) > 0) {
+			echo '<h4>Resistances</h4>';
+			echo '<table>';
+			foreach ($item->susceptibilities as $label=>$data) {
+				echo '<tr><td scope="row">'.htmlspecialchars(ucfirst($label)).':</td>';
+				echo '<td>'.htmlspecialchars($data).'%</td></tr>';
+			}
+			echo '</table>';
+		}
+
+		echo '<h4>Dropped by</h4>';
+		echo '<table>';
+		$monsters=getMonsters();
+		foreach ($monsters as $monster) {
+				foreach ($monster->drops as $drop) {
+				if ($drop['name']==$item->name) {
+					echo '<tr><td>'.htmlspecialchars(ucfirst($monster->name)).'</td>';
+					echo '<td>'.htmlspecialchars($drop['quantity']).'</td>';
+					echo '<td>'.formatNumber($drop['probability']).'%</td></tr>';
+				}
+			}
+		}
+		echo '</table>';
+	}
+	
 	function writeContent() {
+		// do nothing
 	}
 	
 }
