@@ -17,9 +17,11 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once('scripts/tilesetmapping.php');
 class MobilePage extends Page {
 	private static $items;
 	private static $classes;
+	private static $itemindexes;
 
 	public function writeHttpHeader() {
 		$this->write();
@@ -30,6 +32,7 @@ class MobilePage extends Page {
 	private function write() {
 		MobilePage::$items = getItems();
 		MobilePage::$classes = Item::getClasses();
+		MobilePage::$itemindexes = getItemTilesetIndexMapping();
 		$this->writeHeader();
 		$this->writeMobileContent();
 		$this->writeFooter();
@@ -112,6 +115,9 @@ class MobilePage extends Page {
 	}
 
 	private function writeItemDetails($item) {
+		$offset = MobilePage::$itemindexes[substr($item->gfx, 13)] * 32;
+		echo '<div style="width:32px; height:32px; background-image:url(\'/images/buttons/item-tileset.png\'); background-position: -'.$offset.'px 0px"></div>';
+
 		echo '<div>';
 		if ($item->description == '') {
 			echo 'No description. Please write one.';
