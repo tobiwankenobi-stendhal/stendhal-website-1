@@ -59,11 +59,8 @@ class MobilePage extends Page {
 	private function writeItemClassesPage() {
 		?>
 		<div data-role="page" id="page-itemclasses">
-		
-		<div data-role="header">
-		<h1>Stendhal Items</h1>
-		</div><!-- /header -->
-		
+		<div data-role="header"><h1>Stendhal Items</h1></div>
+
 		<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="false">
 		<?php 
@@ -71,13 +68,10 @@ class MobilePage extends Page {
 			echo '<li><a href="#page-itemclass-'.htmlspecialchars($class).'">'.htmlspecialchars(ucfirst($class)).'</a></li>';
 		}
 		?>
-		</ul>
-		</div><!-- /content -->
-		
-		<div data-role="footer">
-		<h4>Proof of concept</h4>
-		</div><!-- /footer -->
-		</div><!-- /page -->
+		</ul></div>
+
+		<div data-role="footer"><h4>Proof of concept</h4></div>
+		</div>
 		<?php
 	}
 
@@ -86,7 +80,7 @@ class MobilePage extends Page {
 		echo '<div data-role="header">
 			<h1>'.htmlspecialchars(ucfirst($class)).' - Stendhal Items</h1>
 			<a href="#page-itemclasses">Back</a>
-			</div><!-- /header -->';
+			</div>';
 		
 		echo '<div data-role="content">
 			<h3>'.htmlspecialchars(ucfirst($class)).'</h3>
@@ -102,12 +96,8 @@ class MobilePage extends Page {
 			}
 		}
 		
-		echo '</div></div><!-- /content -->
-			
-			<div data-role="footer">
-			<h4>Proof of concept</h4>
-			</div><!-- /footer -->
-			</div><!-- /page -->';
+		echo '</div></div>
+			<div data-role="footer"><h4>Proof of concept</h4></div></div>';
 	}
 
 	private function writeFooter() {
