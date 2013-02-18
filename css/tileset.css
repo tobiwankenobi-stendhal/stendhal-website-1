@@ -1,5 +1,6 @@
 .tileset-itemicon{display:inline-block; margin-right: 1em; width:32px; height:32px; background-image:url('/images/buttons/item-tileset.png')}
 .tileset-creatureicon{display:inline-block; margin-right: 1em; width:48px; height:64px; background-image:url('/images/buttons/creature-tileset.png')}
+.tileset-preload{width:0px; height:0px}
 .itemicon-ammunition-fumble_arrow{background-position: -0px 0px}
 .itemicon-ammunition-golden_arrow{background-position: -32px 0px}
 .itemicon-ammunition-golden_bolt{background-position: -64px 0px}
