@@ -52,7 +52,11 @@ class MobilePage extends Page {
 
 	private function writeMobileContent() {
 		$this->writeStartPage();
-		$this->writeCreaturePage();
+// 		$this->writeAllCreaturePage();
+		$this->writeCreatureListPage();
+		foreach (MobilePage::$creatures as $creature) {
+			$this->writeCreaturePage($creature);
+		}
 		$this->writeItemClassesPage();
 		foreach (MobilePage::$classes as $class => $temp) {
 			$this->writeItemClassPage($class);
@@ -70,49 +74,11 @@ class MobilePage extends Page {
 		<li><a href="#page-creatures">Creatures</a></li>
 		</ul>
 		<span class="tileset-itemicon tileset-preload"></span><span class="tileset-creatureicon tileset-preload"></span>
-		</div>
-
-		<div data-role="footer"><h4>Proof of concept</h4></div>
-		</div>
-		<?php
-	}
-		
-
-	private function writeItemClassesPage() {
-		?>
-		<div data-role="page" id="page-itemclasses">
-		<div data-role="header"><h1>Stendhal Items</h1>
-		<a data-rel="back" href="#page-start">Back</a>
-		</div>
-
-		<div data-role="content">
-		<ul data-role="listview" data-inset="true" data-filter="false">
-		<?php 
-		foreach (MobilePage::$classes as $class => $temp) {
-			echo '<li><a href="#page-itemclass-'.htmlspecialchars($class).'">';
-
-			$icon = false;
-			foreach(MobilePage::$items as $item) {
-				if($item->class==$class) {
-					$icon = $item->gfx;
-					// no break, because we want the last and most powerful item icon
-				}
-			}
-			if ($icon) {
-				echo '<span class="tileset-itemicon itemicon-'.str_replace('/', '-', substr($icon, 13, -4)).'"></span>';
-			}
-				
-			echo htmlspecialchars(ucfirst($class)).'</a></li>';
-		}
-		?>
-		</ul></div>
-
-		<div data-role="footer"><h4>Proof of concept</h4></div>
-		</div>
+		</div></div>
 		<?php
 	}
 
-	private function writeCreaturePage() {
+	private function writeAllCreaturePage() {
 		echo '<div data-role="page" id="page-creatures">';
 		echo '<div data-role="header">
 		<h1>Stendhal Creatures</h1>
@@ -134,9 +100,44 @@ class MobilePage extends Page {
 			}
 		}
 	
-		echo '</div></div>
-		<div data-role="footer"><h4>Proof of concept</h4></div></div>';
+		echo '</div></div></div>';
 	}
+
+	private function writeCreatureListPage() {
+		echo '<div data-role="page" id="page-creatures">';
+		echo '<div data-role="header">
+		<h1>Stendhal Creatures</h1>
+		<a data-rel="back" href="#page-start">Back</a>
+		</div>';
+	
+		echo '<div data-role="content">
+		<ul data-role="listview" data-inset="true" data-filter="true">';
+		
+	
+		foreach(MobilePage::$creatures as $creature) {
+			echo '<li class="Xtileset-creatureicon creatureicon-'.str_replace('/', '-', substr($creature->gfx, 17, -4)).'">'
+			.'<a href="#page-creature-'.htmlspecialchars($creature->name).'">'
+			.htmlspecialchars(ucfirst($creature->name)).'</a></li>';
+		}
+	
+		echo '</ul></div></div>';
+	}
+
+	private function writeCreaturePage($creature) {
+		echo '<div data-role="page" id="page-creature-'.htmlspecialchars($creature->name).'">';
+		echo '<div data-role="header">
+		<h1>'.htmlspecialchars(ucfirst($creature->name)).' - Stendhal Creatures</h1>
+		<a data-rel="back" href="#page-start">Back</a>
+		</div>';
+	
+		echo '<div data-role="content">
+			<h3><span class="tileset-creatureicon creatureicon-'.str_replace('/', '-', substr($creature->gfx, 17, -4)).'"></span>';
+		echo htmlspecialchars(ucfirst($creature->name)).'</h3>';
+		$this->writeCreatureDetails($creature);
+
+		echo '</div></div>';
+	}
+	
 
 	private function writeCreatureDetails($creature) {
 		echo '<div>';
@@ -182,30 +183,37 @@ class MobilePage extends Page {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private function writeItemClassesPage() {
+		?>
+		<div data-role="page" id="page-itemclasses">
+		<div data-role="header"><h1>Stendhal Items</h1>
+		<a data-rel="back" href="#page-start">Back</a>
+		</div>
+
+		<div data-role="content">
+		<ul data-role="listview" data-inset="true" data-filter="false">
+		<?php 
+		foreach (MobilePage::$classes as $class => $temp) {
+			echo '<li><a href="#page-itemclass-'.htmlspecialchars($class).'">';
+
+			$icon = false;
+			foreach(MobilePage::$items as $item) {
+				if($item->class==$class) {
+					$icon = $item->gfx;
+					// no break, because we want the last and most powerful item icon
+				}
+			}
+			if ($icon) {
+				echo '<span class="tileset-itemicon itemicon-'.str_replace('/', '-', substr($icon, 13, -4)).'"></span>';
+			}
+				
+			echo htmlspecialchars(ucfirst($class)).'</a></li>';
+		}
+		?>
+		</ul></div>
+		</div>
+		<?php
+	}
 
 	private function writeItemClassPage($class) {
 		echo '<div data-role="page" id="page-itemclass-'.htmlspecialchars($class).'">';
@@ -230,8 +238,7 @@ class MobilePage extends Page {
 			}
 		}
 		
-		echo '</div></div>
-			<div data-role="footer"><h4>Proof of concept</h4></div></div>';
+		echo '</div></div></div>';
 	}
 
 	private function writeItemDetails($item) {
