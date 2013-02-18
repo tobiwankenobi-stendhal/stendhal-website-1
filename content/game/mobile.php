@@ -67,8 +67,10 @@ class MobilePage extends Page {
 		<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="false">
 		<li><a href="#page-itemclasses">Items</a></li>
-		<li><a href="#page-creatures">Creatures (Experimental)</a></li>
-		</ul></div>
+		<li><a href="#page-creatures">Creatures</a></li>
+		</ul>
+		<span class="tileset-itemicon tileset-preload"></span><span class="tileset-creatureicon tileset-preload"></span>
+		</div>
 
 		<div data-role="footer"><h4>Proof of concept</h4></div>
 		</div>
@@ -118,7 +120,7 @@ class MobilePage extends Page {
 		</div>';
 	
 		echo '<div data-role="content">
-		<div data-role="collapsible-set">';
+		<div data-role="collapsible-set" data-filter="true">';
 		
 	
 		foreach(MobilePage::$creatures as $creature) {
