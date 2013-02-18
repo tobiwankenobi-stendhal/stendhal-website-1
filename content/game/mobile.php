@@ -23,6 +23,7 @@ class MobilePage extends Page {
 	private static $creatures;
 
 	public function writeHttpHeader() {
+		header('Content-Type: text/html; charset="utf-8"');
 		$this->write();
 		return false;
 	}
