@@ -698,6 +698,10 @@ iframe#facebook {
 	background-image: url(/images/spinner.gif); 
 	background-repeat: no-repeat; 
 	background-position: center center;
+	border:none;
+	overflow:visible; 
+	width:400px; 
+	height:35px;
 }
 
 /* news */
