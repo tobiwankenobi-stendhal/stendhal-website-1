@@ -39,6 +39,8 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/images/screenshot/(.*)$ /index.php?id=content/games/screenshot&file=$1&rewritten=true [L]
                 RewriteRule ^/images/thumbnail/(.*)$ /thumbnail.php?img=$1&rewritten=true [L]
 
+                RewriteRule ^/css/(.*)-[0-9]+(.[^0-9]*)$ /css/$1$2 [L]
+
                 # account
                 RewriteRule ^/account/approve-password.html$ /index.php?id=content/account/approve&rewritten=true [L]
                 RewriteRule ^/account/change-email.html$ /index.php?id=content/account/email&rewritten=true [L]
