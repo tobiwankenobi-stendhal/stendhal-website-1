@@ -103,5 +103,7 @@
 @define('STENDHAL_NOREPLY_EMAIL', 'Inofficial Stendhal Server <>');
 @define('STENDHAL_NOREPLY_ADDRESS', '<>');
 
+@define('STENDHAL_CACHE_BUSTER', '00000001');
+
 // @define('STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES', '/images/game/pumpkin_halloween.png');
 // @define('STENDHAL_MOUSE_FLOATING_IMAGE_ON_TOP_OF_BOXES_OFFSET', '25');
