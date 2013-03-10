@@ -5,7 +5,7 @@
 /*
     Stendhal website - a website to manage and ease playing of Stendhal game
     Copyright (C) 2008  Miguel Angel Blanch Lardin
-    Copyright (C) 2008-2010  The Arianne Project
+    Copyright (C) 2008-2013  The Arianne Project
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -820,6 +820,18 @@ span.stendhalAdminHigh {color: #770}
 span.stendhalAdminMiddle {color: #AA0}
 span.stendhalAdminLow {color: #CC0}
 
+
+/* chat */
+.irctext {color: #000; vertical-align:top}
+.ircstatus {color: #AAA; vertical-align:top}
+.ircshout {color: #FA0; vertical-align:top}
+.ircsign {color: #A0A; vertical-align:top}
+.ircnewchar {color: #AA0; vertical-align:top}
+.ircsupport {color: #F00; vertical-align:top}
+.ircsupportanswer {color: #A00; vertical-align:top}
+
+
+
 #openid_choice{margin-top:10px; display:none;}
 #openid_input_area{padding-top:10px; margin-bottom:30px; margin-left:35px}
 #openid_username{margin-right:5px;}
@@ -843,6 +855,39 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 	line-height:40px;
 	opacity: 0.3;
 }
+
+
+
+/* menu in content area on development and my account */
+
+#dmenu {
+        list-style-type: none;
+        font-size: 13px;
+}
+
+#dmenu li {
+		width: 500px;
+		height: 25px;
+		margin: 3px 0 0 0;
+        padding: 0px 0px 3px 0px;
+        border-bottom: 1px solid black;
+}
+
+#dmenu a {
+        text-decoration: none;
+        color: blue;
+}
+
+#dmenu a:hover {
+        text-decoration: underline;
+        color: blue;
+}
+
+#dmenu img {
+        border: 0;
+        margin: 0 6px -6px -3px;
+}
+
 
 
 /* menu */
