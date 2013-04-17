@@ -185,7 +185,7 @@ class StendhalFrame extends PageFrame {
 			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/sourcelog.html').'">Changes</a></li>'."\n";
 			echo '<li><a id="menuContribDownload" href="'.$protocol.'://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
 			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
-			echo '<li><a id="menuContribRequests" href="'.$protocol.'://sourceforge.net/tracker/?func=detail&aid=3610336&group_id=1111&atid=351111'>Feature Requests</a></li>'."\n";
+			echo '<li><a id="menuContribRequests" href="'.$protocol.'://sourceforge.net/tracker/?func=detail&aid=3610336&group_id=1111&atid=351111">Feature Requests</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
