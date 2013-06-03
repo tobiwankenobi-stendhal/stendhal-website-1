@@ -2,7 +2,10 @@
 class AtlasPage extends Page {
 
 	public function writeHttpHeader() {
-		header("X-Content-Security-Policy: default-src https://* http://* data: 'unsafe-inline' 'unsafe-eval' https://sflogo.sourceforge.net http://sflogo.sourceforge.net ; options eval-script inline-script; report-uri /?id=content/scripts/cspreport", true);
+		$csp = "default-src https://* http://* data: 'unsafe-inline' 'unsafe-eval' https://sflogo.sourceforge.net http://sflogo.sourceforge.net ; options eval-script inline-script; report-uri /?id=content/scripts/cspreport";
+		header("X-Content-Security-Policy: ". $csp);
+		header("Content-Security-Policy: ". $csp);
+		header("X-WebKit-CSP: ". $csp);
 		return true;
 	}
 
