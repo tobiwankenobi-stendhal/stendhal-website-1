@@ -94,8 +94,8 @@ class StendhalFrame extends PageFrame {
 			<li><a id="menuHelpBeginner" href="<?php echo $protocol;?>://stendhalgame.org/wiki/BeginnersGuide">Beginner's Guide</a></li>
 			<li><a id="menuHelpAsk" href="<?php echo $protocol;?>://stendhalgame.org/wiki/AskForHelp">Ask For Help</a></li>
 			<li><a id="menuHelpChat" href="<?php echo rewriteURL('/chat/');?>">Chat</a></li>
-			<li><a id="menuHelpSupport" href="<?php echo $protocol;?>://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=201111">Support Ticket</a></li>
-			<li><a id="menuHelpForum" href="<?php echo $protocol;?>://sourceforge.net/forum/forum.php?forum_id=3190">Forum</a></li>
+			<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a></li>
+			<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a></li>
 			<li><a id="menuHelpRules" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalRuleSystem">Rules</a></li>
 		</ul>
 		<?php endBox() ?>
@@ -179,13 +179,13 @@ class StendhalFrame extends PageFrame {
 			echo '<li><a id="menuContribChat" href="'.rewriteURL('/chat/').'">Chat</a></li>'."\n";
 			echo '<li><a id="menuContribWiki" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
 			echo '<li><a id="menuContribBugs" href="'.rewriteURL('/development/bug.html').'">Report Bug</a></li>'."\n";
+			echo '<li><a id="menuContribRequests" href="https://sourceforge.net/p/arianne/feature-requests/new/">Suggest Feature</a></li>'."\n";
+			echo '<li><a id="menuContribHelp" href="https://sourceforge.net/p/arianne/patches/new/">Submit Patch</a></li>'."\n";
 			echo '<li><a id="menuContribQuests" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a></li>'."\n";
-			echo '<li><a id="menuContribHelp" href="'.$protocol.'://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111">Submit Patch</a></li>'."\n";
 			echo '<li><a id="menuContribTesting" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Testing">Testing</a></li>'."\n";
 			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/sourcelog.html').'">Changes</a></li>'."\n";
 			echo '<li><a id="menuContribDownload" href="'.$protocol.'://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
 			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
-			echo '<li><a id="menuContribRequests" href="'.$protocol.'://sourceforge.net/tracker/?group_id=1111&atid=351111">Feature Requests</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
@@ -199,7 +199,7 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2012 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
+		<span class="copyright">&copy; 1999-2013 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">&nbsp;</a></span>
 	</div>
 

@@ -211,7 +211,7 @@ class PlayerLoginEntry {
 		}
 
 		$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
-			" values (".$userid.", '".mysql_real_escape_string(trim($ip))."', '".mysql_real_escape_string($oldpass)."', 'website', ".($result ? '1' : '0').")";
+			" values (".$userid.", '".mysql_real_escape_string(trim($ip))."', '".mysql_real_escape_string($oldpass)."', 'website', ".intval($result).")";
 		$result = mysql_query($q, getGameDB());
 		return $result !== false;
 	}
@@ -231,7 +231,7 @@ class PlayerLoginEntry {
 		if ($accountLink) {
 			$q = $q .', account_link_id';
 		}
-		$q = $q . ") values (".$userid.", '".mysql_real_escape_string(trim($ip))." ',".($success ? '1' : '0').", 'website'";
+		$q = $q . ") values (".$userid.", '".mysql_real_escape_string(trim($ip))." ',".intval($success).", 'website'";
 		if ($accountLink) {
 			$q = $q . ", '".mysql_real_escape_string($accountLink)."'";
 		}
@@ -390,34 +390,41 @@ class Account {
 		if (!Account::checkIpBan()) {
 			return "Your IP Address has been banned.";
 		}
-
+		
 		// ask database
 		if ($type == 'password' || $type == 'passwordchange') {
-			// TODO: check account block because of too many wrong logins
-			$account = Account::readAccountByName($username);
-			if (isset($account)) {
-				$success = $account->checkPassword($password);
+			$banMessage = Account::checkBlocked($username, $_SERVER['REMOTE_ADDR']);
+			if ($banMessage != null) {
+				$success = 4;
 			} else {
-				$success = false;
+				$account = Account::readAccountByName($username);
+				if (isset($account)) {
+					$success = $account->checkPassword($password);
+					if ($success == 0) {
+						$banMessage = "Invalid username or password";
+					}
+				} else {
+					$success = 0;
+					$banMessage = "Invalid username or password";
+				}
 			}
 		} else {
 			$account = Account::readAccountByLink($type, $username, $password);
 			if (isset($account)) {
-				$success = true;
+				$success = 1;
 			}
 		}
 
-		if ($account instanceof Account) {
+		if ($success == 1) {
 			$account->readAccountBan();
 			$banMessage = $account->getAccountStatusMessage();
-			if (isset($banMessage)) {
-				$success = false;
-			}
+			$success = $account->getAccountStatusCode();
+
 			$username = $account->username;
 			$passhash = $account->password;
 			$usedAccountLink = $account->usedAccountLink;
 		}
-
+		
 		// Log loginEvent or passwordChange
 		if ($type != 'passwordchange') {
 			PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $usedAccountLink, $success);
@@ -425,11 +432,6 @@ class Account {
 			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $passhash, $success);
 		}
 
-		
-		// if the account does not exist or the password was wrong
-		if (!($account instanceof Account) || (!$success && !isset($banMessage))) {
-			return "Invalid username or password";
-		}
 		
 		// if the account is banned
 		if (isset($banMessage)) {
@@ -532,29 +534,52 @@ class Account {
 		if (strpos($this->password, '$') === 0) {
 			$cryptpass = crypt(STENDHAL_PASSWORD_PEPPER . strtoupper(md5($password)), $this->password);
 			if ($cryptpass == $this->password) {
-				return true;
+				return 1;
 			}
 
 			// pre-Marauroa 2.0 passwords
 			$cryptpass = crypt(STENDHAL_PASSWORD_PEPPER . strtoupper(md5(md5($password, true))), $this->password);
 			if ($cryptpass == $this->$password) {
-				return true;
+				return 1;
 			}
-			return false;
+			return 0;
 		}
 
 		$md5pass = strtoupper(md5($password));
 		if ($md5pass == $this->password) {
-			return true;
+			return 1;
 		}
 		
 		// We need to check the pre-Marauroa 2.0 passwords
 		$md5pass = strtoupper(md5(md5($password, true)));
 		if ($md5pass == $this->password) {
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
 	}
+	
+	public static function checkBlocked($username, $ip) {
+		$sql = "SELECT count(*) as amount FROM loginEvent"
+			. " WHERE address='" . mysql_real_escape_string($ip) . "'"
+			. " AND result != 1 and timedate > date_sub(CURRENT_TIMESTAMP(), INTERVAL 10 MINUTE)";
+		
+		$count = queryFirstCell($sql, getGameDB());
+		if ($count > 3) {
+			return "There have been too many failed login attempts from your network. Please wait a couple of minutes or contact support.";
+		}
+
+		$sql = "SELECT count(*) as amount FROM loginEvent, account"
+			. " WHERE loginEvent.player_id=account.id"
+			. " AND username='" . mysql_real_escape_string($username) . "'"
+			. " AND loginEvent.result != 1 and loginEvent.timedate > date_sub(CURRENT_TIMESTAMP(), INTERVAL 10 MINUTE)";
+		
+		$count = queryFirstCell($sql, getGameDB());
+		if ($count > 10) {
+			return "There have been too many failed login attempts for your account. Please wait a couple of minutes or contact support.";
+		}
+						
+		return null;
+	} 
 
 	private function readAccountBan() {
 		$sql = "SELECT reason, expire FROM accountban "
@@ -598,6 +623,24 @@ class Account {
 		return null;
 	}
 
+	/**
+	 * get a status telling the player why the account is not active
+	 *
+	 * @return message or <code>null</code> if the account is active
+	 */
+	public function getAccountStatusCode() {
+		if (isset($this->banMessage)) {
+			$res = 2;
+		} else if ($this->status == "banned") {
+			$res = 2;
+		} else if ($this->status == "inactive") {
+			$res = 3;
+		} else if ($this->status == "merged") {
+			$res = 5;
+		}
+		return 1;
+	}
+	
 	/**
 	 * tries to convert a proposed username into a valid one
 	 *
