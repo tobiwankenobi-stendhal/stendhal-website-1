@@ -95,8 +95,8 @@ foreach($this->items as $m) {
       <img class="item" src="<?php echo $m->gfx; ?>" alt="">
       <div class="description">
         <?php 
-          if($m->description=="") {
-            echo 'No description. Would you like to <a href="http://sourceforge.net/tracker/?func=add&amp;group_id=1111&amp;atid=301111">write one</a>?';
+          if(trim($m->description)=="") {
+            echo 'No description. Would you like to <a href="https://sourceforge.net/p/arianne/patches/new/?summary=Item%20Description%20'.urlencode($m->name).'&description=%3C%3CPlease%20enter%20description%20here%3E%3E#top_nav">write one</a>?';
           } else {
             echo $m->description;
           }
