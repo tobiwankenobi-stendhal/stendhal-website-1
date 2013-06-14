@@ -40,7 +40,7 @@ class AdminEMailPage extends Page {
 
 <p>2. Tell support this message:<br> 
 
-/support Hi, Please ask a server admin to merged my account devilalice into this account. The Code is [...RANDOM_TOKEN...].</p> 
+/support Hi, Please ask a server admin to merged my account [...ACCOUNT_NAME...] into this account. The Code is [...RANDOM_TOKEN...].</p> 
 
 <p>3. Wait. A server admin will be asked by someone from support to merge the accounts. When that is done, you will be able to play your old characters by logging into your new account.</p> 
 
