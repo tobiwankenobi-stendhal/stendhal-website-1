@@ -128,7 +128,7 @@ endBox();
 		$pos = strpos($line, 'arianne_rpg: ');
 		$line = substr($line, $pos + 13);
 		$pos = strpos($line, ' ');
-		$user = '<span class="sourceuser">' . substr($line, 0, $pos) . '</span>';
+		$user = '<span class="sourceuser">' . htmlspecialchars(substr($line, 0, $pos)) . '</span>';
 
 		$line = substr($line, $pos + 1);
 		$pos = strpos($line, ' ');
@@ -138,7 +138,7 @@ endBox();
 			if (strtoupper($branch) != $branch) {
 				$class = 'sourcedevbranch';
 			}
-			$branch = '<span class="'.$class.'">&nbsp;' . $branch . '&nbsp;</span>';
+			$branch = '<span class="'.$class.'">&nbsp;' . htmlspecialchars($branch) . '&nbsp;</span>';
 			$pos = $pos + 2;
 		} else {
 			$branch = '';
@@ -147,20 +147,24 @@ endBox();
 		$line = substr($line, $pos + 1);
 		$pos = strpos($line, '/');
 		$module = substr($line, 0, $pos);
+		if (substr($module, -4) == ' exp') {
+			$pos = strpos($line, '/', $pos + 1);
+			$module = substr($line, 0, $pos);
+		}
 		$rev = '';
 		$posRev = strpos($module, ' ');
 		if ($posRev !== FALSE) {
 			$rev = substr($line, 1, $posRev - 1);
 			$module = substr($line, $posRev + 1, $pos - $posRev - 1);
-			$rev = '<a class="sourcerev" href="http://arianne.git.sourceforge.net/git/gitweb.cgi?p=arianne/'.$module.'.git;a=commitdiff;h='.$rev.'">'.$rev.'</a>';
+			$rev = '<a class="sourcerev" href="https://sourceforge.net/p/arianne/'.htmlspecialchars($module).'/ci/'.htmlspecialchars($rev).'">'.htmlspecialchars($rev).'</a>';
 		}
-		$module = '<span class="sourcemodule">' . $module . '</span>';
+		$module = '<span class="sourcemodule">' . htmlspecialchars($module) . '</span>';
 
 		$line = substr($line, $pos + 1);
 		$pos = strpos($line, ':');
-		$files = '<span class="sourcefiles">' . substr($line, 0, $pos) . '</span>';
+		$files = '<span class="sourcefiles">' . htmlspecialchars(substr($line, 0, $pos)) . '</span>';
 
-		$commit = '<span class="sourcecommit">' . substr($line, $pos + 1);
+		$commit = '<span class="sourcecommit">' . htmlspecialchars(substr($line, $pos + 1));
 
 		$res = $time .' '. $user .' '. $branch .' '. $rev .' '. $module .' '. $files .':<br>'. $commit;
 		return $res;
