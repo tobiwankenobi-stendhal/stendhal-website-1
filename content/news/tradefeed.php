@@ -33,22 +33,42 @@ class TradeFeedPage extends Page {
 		$this->writeFooter();
 	}
 
+	private function formatedDate($date) {
+		$datetime = new DateTime($date);
+		$datetime->setTimezone(new DateTimeZone('GMT'));
+		echo $datetime->format('Y-m-d\TH:i:s\Z');
+	}
+
 	private function writeHeader() {
 		?>
 	 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom"> 
      <title>Harold's Offers</title> 
      <subtitle>Stendhal Trades</subtitle>
      <link href="https://stendhalgame.org/trade" rel="self"/> 
-     <updated><?php echo date3339(); ?></updated>
+     <updated><?php echo $this->formatedDate(date()); // TODO: Use date of last entry?></updated>
      <author> 
           <name>Harold</name>
           <email>harold@stendhalgame.org</email>
      </author>
-     <id>
-     tag:stendhalgame.org,2013:https://stendhalgame.org/trade
-     </id> 
+     <id>tag:stendhalgame.org,2013:https://stendhalgame.org/trade</id> 
      <?php
+     echo $datetime->format('Y-m-d\TH:i:s');
+	}
+
+	private function writeEntry() {
+		echo '<entry>';
+		echo '<id>'.rewriteURL('https://stendhalgame.org/trade/'.$id).'</id>';
+		echo '<title>'.$title.'</title>';
+		echo '<updated>'.$this->formatedDate($date).'</updated>';
+		echo '<published>'.$this->formatedDate($date).'</published>';
+		echo '<link>'.rewriteURL('https://stendhalgame.org/trade/'.$id.'.html').' rel="alternate"></link>';
+		echo '<content>'.'</content>';
+		echo "</entry>\r\n";
+	}
+
+	private function writeFooter() {
+		echo '</feed>';
 	}
 }
 
-$page = new RssPage();
+$page = new TradeFeedPage();
