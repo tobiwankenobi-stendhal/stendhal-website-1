@@ -29,6 +29,8 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 		header('Pragma: cache');
 	}
 
+	header('Strict-Transport-Security: max-age=604800; includeSubDomains');
+	
 } else {
 	if (!STENDHAL_SECURE_SESSION) {
 		session_start();
