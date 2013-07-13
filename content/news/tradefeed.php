@@ -25,12 +25,22 @@ class TradeFeedPage extends Page {
 	}
 
 	public function writeFeed() {
-		$this->writeHeader();
+		global $cache;
+		$feed = $cache->fetch('stendhal-tradefeed');
+		if (!isset($feed)) {
+			$feed = $this->generateFeed();
+			$cache->store('stendhal-tradefeed', $feed, 5*60);
+		}
+		echo $feed;
+	}
+
+	public function generateFeed() {
+		$this->generateHeader();
 		$news = getNews(' where news.active=1 ', 'created desc', 'limit 20');
 		foreach($news as $entry) {
-			$this->writeEntry($entry);
+			$this->generateEntry($entry);
 		}
-		$this->writeFooter();
+		$this->generateFooter();
 	}
 
 	private function formatedDate($date) {
@@ -39,34 +49,35 @@ class TradeFeedPage extends Page {
 		echo $datetime->format('Y-m-d\TH:i:s\Z');
 	}
 
-	private function writeHeader() {
-		?>
-	 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom"> 
-     <title>Harold's Offers</title> 
-     <subtitle>Stendhal Trades</subtitle>
-     <link href="https://stendhalgame.org/trade" rel="self"/> 
-     <updated><?php echo $this->formatedDate(date()); // TODO: Use date of last entry?></updated>
-     <author> 
-          <name>Harold</name>
-          <email>harold@stendhalgame.org</email>
-     </author>
-     <id>tag:stendhalgame.org,2013:https://stendhalgame.org/trade</id> 
-     <?php
-     echo $datetime->format('Y-m-d\TH:i:s');
+	private function generateHeader() {
+		$res = '';
+		$res .= '<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">';
+		$res .= '<title>Harold\'s Offers</title>';
+		$res .= '<subtitle>Stendhal Trades</subtitle>';
+		$res .= '<link href="https://stendhalgame.org/trade" rel="self"/> ';
+		$res .= '<updated>'.$this->formatedDate(date()).'</updated>';  // TODO: Use date of last entry
+		$res .= '<author>';
+		$res .= '<name>Harold</name>';
+		$res .= '<email>harold@stendhalgame.org</email>';
+		$res .= '</author>';
+		$res .= '<id>tag:stendhalgame.org,2013:https://stendhalgame.org/trade</id>';
+		return $res;
 	}
 
-	private function writeEntry() {
-		echo '<entry>';
-		echo '<id>'.rewriteURL('https://stendhalgame.org/trade/'.$id).'</id>';
-		echo '<title>'.$title.'</title>';
-		echo '<updated>'.$this->formatedDate($date).'</updated>';
-		echo '<published>'.$this->formatedDate($date).'</published>';
-		echo '<link>'.rewriteURL('https://stendhalgame.org/trade/'.$id.'.html').' rel="alternate"></link>';
-		echo '<content>'.'</content>';
-		echo "</entry>\r\n";
+	private function generateEntry() {
+		$res = '';
+		$res .= '<entry>';
+		$res .= '<id>'.rewriteURL('https://stendhalgame.org/trade/'.$id).'</id>';
+		$res .= '<title>'.$title.'</title>';
+		$res .= '<updated>'.$this->formatedDate($date).'</updated>';
+		$res .= '<published>'.$this->formatedDate($date).'</published>';
+		$res .= '<link>'.rewriteURL('https://stendhalgame.org/trade/'.$id.'.html').' rel="alternate"></link>';
+		$res .= '<content>'.'</content>';
+		$res .= "</entry>\r\n";
+		return $res;
 	}
 
-	private function writeFooter() {
+	private function generateFooter() {
 		echo '</feed>';
 	}
 }
