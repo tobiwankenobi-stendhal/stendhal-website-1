@@ -340,4 +340,84 @@ function getNewsTypes() {
 	mysql_free_result($result);
 	return $list;
 }
-?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * A class representing a trade offers.
+ */
+class TradeOffer {
+
+	public $id;
+
+	/** name of item */
+	public $itemname;
+
+	/** quantity offered */
+	public $quantity;
+
+	/** price */
+	public $price;
+
+	/** stats of the item */
+	public $stats;
+
+	/** time of  the offer */
+	public $timedate;
+
+	function __construct($id, $itemname, $quantity, $price, $stats, $timedate) {
+		$this->id=$id;
+		$this->itemname=$itemname;
+		$this->quantity=$quantity;
+		$this->price=$price;
+		$this->stats=$stats;
+		$this->timedate = $timedate;
+	}
+
+
+	/**
+ 	 * Returns a list of trade offers. Note: All parameters need to be SQL escaped.
+ 	 */
+	public static function getTradeOffers() {
+
+		$sql = 'SELECT id, itemname, quantity, price, stats '
+			. ' FROM trade WHERE timedate > subtime(now(), \'48:00:00\')';
+
+		$result = mysql_query($sql, getGameDB());
+		$list = array();
+
+		while($row = mysql_fetch_assoc($result)) {
+			$images = array();
+	
+			$list[] = new TradeOffer(
+					$row['id'],
+					$row['itemname'],
+					$row['quantity'],
+					$row['price'],
+					$row['stats'],
+					$row['timedate']
+			);
+		}
+
+		mysql_free_result($result);
+
+		return $list;
+	}
+}
