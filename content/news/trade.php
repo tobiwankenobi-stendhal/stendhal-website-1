@@ -80,10 +80,10 @@ class TradePage extends Page {
 	private function generateEntry($entry) {
 		$res = '<p>';
 		$res .= '<a href="'.rewriteURL('https://stendhalgame.org/trade/'.htmlspecialchars($entry->id).'.html').'">';
-		$res .= $this->formatedDate($entry->timedate) . '</a> ';
+		$res .= $this->formatedDate($entry->timedate) . '</a>: ';
 		$res .= 'New offer for ' . htmlspecialchars($entry->quantity) . ' ';
-		$res .= '<a class="menu" href="'.rewriteURL('/item/'.surlencode(getItem($entry->itemname)->class).'/'.surlencode($entry->itemname).'.html').'"><img src="'.htmlspecialchars(getItem($entry->itemname)->showImage()).'" alt="'.htmlspecialchars($entry->itemname).'" title="'.htmlspecialchars($entry->itemname).'"></a>';
-		$res .= 'at ' . htmlspecialchars($entry->price) . '. ' . htmlspecialchars($entry->stats);
+		$res .= getItem($entry->itemname)->generateImageWithPopup();
+		$res .= 'at ' . htmlspecialchars($entry->price);
 		$res .= "</p>\r\n";
 		return $res;
 	}
