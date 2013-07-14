@@ -17,6 +17,35 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class TradePage extends Page {
+	
+	private $singleEntry;
+
+	public function writeHttpHeader() {
+		if (isset($_REQUEST['tradeid'])) {
+			$entries = TradeOffer::getTradeOffer($_REQUEST['tradeid']);
+			if (count($entries) > 0) {
+				$this->singleEntry = $entries[0];
+			} else {
+				header('HTTP/1.1 404 Not Found');
+			}
+		}
+		return true;
+	}
+	
+	public function writeHtmlHeader() {
+		if (isset($this->singleEntry)) {
+			$description = 'Offer ' . htmlspecialchars($this->singleEntry->id)
+				 . ': ' . htmlspecialchars($this->singleEntry->quantity)
+				 . ' ' . htmlspecialchars($this->singleEntry->itemname)
+				 . 'at ' . htmlspecialchars($entry->price);
+			echo '<title>'.htmlspecialchars($description).STENDHAL_TITLE.'</title>';
+			echo '<meta name="description" content="'.htmlspecialchars($description).'">';
+		} else {
+			echo '<title>Trade offers'.STENDHAL_TITLE.'</title>';
+		}
+		echo '<meta name="robots" content="noindex">'."\n";
+		return true;
+	}
 
 	public function writeContent() {
 		startBox('New trade offers');
@@ -39,9 +68,8 @@ class TradePage extends Page {
 	}
 
 	public function writeEntry($tradeId) {
-		$entries = TradeOffer::getTradeOffer($tradeId);
-		if (count($entries) > 0) {
-			echo $this->generateEntry($entries[0]);
+		if (isset($this->singleEntry)) {
+			echo $this->generateEntry($this->singleEntry);
 		} else {
 			echo '<p class="error">No such trade offer.</p>';
 		}
@@ -84,7 +112,7 @@ class TradePage extends Page {
 		$res .= 'New offer for ' . htmlspecialchars($entry->quantity) . ' ';
 		$res .= getItem($entry->itemname)->generateImageWithPopup();
 		$res .= 'at ' . htmlspecialchars($entry->price);
-		$res .= "</p>\r\n";
+		$res .= ".</p>\r\n";
 		return $res;
 	}
 
