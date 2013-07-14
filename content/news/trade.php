@@ -81,8 +81,9 @@ class TradePage extends Page {
 		$res = '<p>';
 		$res .= '<a href="'.rewriteURL('https://stendhalgame.org/trade/'.htmlspecialchars($entry->id).'.html').'">';
 		$res .= $this->formatedDate($entry->timedate) . '</a> ';
-		$res .= 'New offer for ' . htmlspecialchars($entry->quantity) . ' ' . htmlspecialchars($entry->itemname);
-		$res .= ' at ' . htmlspecialchars($entry->price) . '. ' . htmlspecialchars($entry->stats);
+		$res .= 'New offer for ' . htmlspecialchars($entry->quantity) . ' ';
+		$res .= '<a class="menu" href="'.rewriteURL('/item/'.surlencode(getItem($entry->itemname)->class).'/'.surlencode($entry->itemname).'.html').'"><img src="'.htmlspecialchars(getItem($entry->itemname)->showImage()).'" alt="'.htmlspecialchars($entry->itemname).'" title="'.htmlspecialchars($entry->itemname).'"></a>';
+		$res .= 'at ' . htmlspecialchars($entry->price) . '. ' . htmlspecialchars($entry->stats);
 		$res .= "</p>\r\n";
 		return $res;
 	}
