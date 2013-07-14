@@ -43,6 +43,7 @@ class TradePage extends Page {
 		} else {
 			echo '<title>Trade offers'.STENDHAL_TITLE.'</title>';
 		}
+		echo '<link rel="alternate" type="application/atom+xml" title="Stendhal Trade Offers" href="/trade.atom">'."\n";
 		echo '<meta name="robots" content="noindex">'."\n";
 		return true;
 	}
@@ -51,6 +52,7 @@ class TradePage extends Page {
 		startBox('New trade offers');
 		if (isset($_REQUEST['tradeid'])) {
 			$this->writeEntry($_REQUEST['tradeid']);
+			echo '<p>See <a href="/trade/">all recent trade offers</a>.</p>';
 		} else {
 			$this->writeRecent();
 		}
@@ -98,7 +100,9 @@ class TradePage extends Page {
 		$res = '';
 		$res .= '<img class="newsIcons" src="/images/outfit/5013401.png">';
 		$res .= '<p>I am Harold and I have my little ship in Semos Tavern. On this page, I announce new trade offers. Please note that I won\'t take offers down once the items are sold.</p>';
-		$res .= '<p>I suggest that you use a feed reader to access this page. For reference, the current server time is '.date('G:i') . '</p>';
+		
+		$res .= '<a class="newsIcons" href="/trade.atom"><img src="/images/buttons/feed-icon-28x28.png"></a>';
+		$res .= '<p>I suggest that you use a feed reader to access this page. For reference, the current server time is '.date('G:i') . '.</p>';
 		if (sizeof($entries)==0) {
 			$res .= '<p>There are no new trade offers.</p>';
 		}
