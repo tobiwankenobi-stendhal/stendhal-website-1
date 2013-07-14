@@ -41,7 +41,7 @@ class TradeFeedPage extends Page {
 
 	public function generateFeed() {
 		$entries = TradeOffer::getTradeOffers();
-		$res = $this->generateHeader();
+		$res = $this->generateHeader($entries);
 		foreach($entries as $entry) {
 			$res .= $this->generateEntry($entry);
 		}
@@ -52,10 +52,11 @@ class TradeFeedPage extends Page {
 	private function formatedDate($date) {
 		$datetime = new DateTime($date);
 		$datetime->setTimezone(new DateTimeZone('GMT'));
+		return $datetime->format('Y-m-d\TH:i:s\Z');
 	}
 
 	private function generateHeader($entries) {
-		$date = date();
+		$date = date(DATE_ATOM);
 		if (count($entries) > 0) {
 			$date = $entries[0]->timedate;
 		}
@@ -78,12 +79,14 @@ class TradeFeedPage extends Page {
 	private function generateEntry($entry) {
 		$message = 'New offer for ' . htmlspecialchars($entry->quantity) . ' ' . htmlspecialchars($entry->itemname)
 			 . ' at ' . htmlspecialchars($entry->price) . '. ' . htmlspecialchars($entry->stats);
+		$category = getItem($entry->itemname)->class;
 		$res = '';
 		$res .= '<entry>';
 		$res .= '<id>'.rewriteURL('https://stendhalgame.org/trade/'.$entry->id).'</id>';
 		$res .= '<title>'.$message.'</title>';
-		$res .= '<updated>'.$this->formatedDate($entry->date).'</updated>';
-		$res .= '<published>'.$this->formatedDate($entry->date).'</published>';
+		$res .= '<updated>'.$this->formatedDate($entry->timedate).'</updated>';
+		$res .= '<published>'.$this->formatedDate($entry->timedate).'</published>';
+		$res .= '<category term="'.htmlspecialchars($category) .'" />';
 		$res .= '<link href="'.rewriteURL('https://stendhalgame.org/trade/'.$entry->id.'.html').'" rel="alternate"></link>';
 		$res .= '<content>'.$message.'</content>';
 		$res .= "</entry>\r\n";
