@@ -397,8 +397,9 @@ class TradeOffer {
  	 */
 	public static function getTradeOffers() {
 
-		$sql = 'SELECT id, itemname, quantity, price, stats '
-			. ' FROM trade WHERE timedate > subtime(now(), \'48:00:00\')';
+		$sql = 'SELECT id, itemname, quantity, price, stats, timedate'
+			. ' FROM trade WHERE timedate > subtime(now(), \'48:00:00\')'
+			. ' ORDER BY timedate DESC LIMIT 1000';
 
 		$result = mysql_query($sql, getGameDB());
 		$list = array();
