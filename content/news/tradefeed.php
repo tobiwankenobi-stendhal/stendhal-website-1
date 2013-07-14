@@ -18,8 +18,13 @@
  */
 class TradeFeedPage extends Page {
 
+	/**
+	 * write the http header and prevents the stendhal webpage frame from rendering
+	 *
+	 * @return boolean false
+	 */
 	public function writeHttpHeader() {
-		header('Content-Type: application/atom+xml', true); // TODO
+		header('Content-Type: application/atom+xml', true);
 		$this->writeFeed();
 		return false;
 	}
@@ -35,50 +40,58 @@ class TradeFeedPage extends Page {
 	}
 
 	public function generateFeed() {
-		$this->generateHeader();
-		$news = getNews(' where news.active=1 ', 'created desc', 'limit 20');
-		foreach($news as $entry) {
-			$this->generateEntry($entry);
+		$entries = TradeOffer::getTradeOffers();
+		$res = $this->generateHeader();
+		foreach($entries as $entry) {
+			$res .= $this->generateEntry($entry);
 		}
-		$this->generateFooter();
+		$res .= $this->generateFooter();
+		return $res;
 	}
 
 	private function formatedDate($date) {
 		$datetime = new DateTime($date);
 		$datetime->setTimezone(new DateTimeZone('GMT'));
-		echo $datetime->format('Y-m-d\TH:i:s\Z');
 	}
 
-	private function generateHeader() {
+	private function generateHeader($entries) {
+		$date = date();
+		if (count($entries) > 0) {
+			$date = $entries[0]->timedate;
+		}
 		$res = '';
 		$res .= '<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">';
 		$res .= '<title>Harold\'s Offers</title>';
 		$res .= '<subtitle>Stendhal Trades</subtitle>';
 		$res .= '<link href="https://stendhalgame.org/trade" rel="self"/> ';
-		$res .= '<updated>'.$this->formatedDate(date()).'</updated>';  // TODO: Use date of last entry
+		$res .= '<updated>'.$this->formatedDate($date).'</updated>';
+		$res .= '<logo>/images/events/harold_logo.png</logo>';
+		$res .= '<icon>/images/events/harold_icon.png</icon>';
 		$res .= '<author>';
 		$res .= '<name>Harold</name>';
 		$res .= '<email>harold@stendhalgame.org</email>';
 		$res .= '</author>';
-		$res .= '<id>tag:stendhalgame.org,2013:https://stendhalgame.org/trade</id>';
+		$res .= '<id>tag:stendhalgame.org,2013:https://stendhalgame.org/trade</id>'."\r\n";
 		return $res;
 	}
 
-	private function generateEntry() {
+	private function generateEntry($entry) {
+		$message = 'New offer for ' . htmlspecialchars($entry->quantity) . ' ' . htmlspecialchars($entry->itemname)
+			 . ' at ' . htmlspecialchars($entry->price) . '. ' . htmlspecialchars($entry->stats);
 		$res = '';
 		$res .= '<entry>';
-		$res .= '<id>'.rewriteURL('https://stendhalgame.org/trade/'.$id).'</id>';
-		$res .= '<title>'.$title.'</title>';
-		$res .= '<updated>'.$this->formatedDate($date).'</updated>';
-		$res .= '<published>'.$this->formatedDate($date).'</published>';
-		$res .= '<link>'.rewriteURL('https://stendhalgame.org/trade/'.$id.'.html').' rel="alternate"></link>';
-		$res .= '<content>'.'</content>';
+		$res .= '<id>'.rewriteURL('https://stendhalgame.org/trade/'.$entry->id).'</id>';
+		$res .= '<title>'.$message.'</title>';
+		$res .= '<updated>'.$this->formatedDate($entry->date).'</updated>';
+		$res .= '<published>'.$this->formatedDate($entry->date).'</published>';
+		$res .= '<link href="'.rewriteURL('https://stendhalgame.org/trade/'.$entry->id.'.html').'" rel="alternate"></link>';
+		$res .= '<content>'.$message.'</content>';
 		$res .= "</entry>\r\n";
 		return $res;
 	}
 
 	private function generateFooter() {
-		echo '</feed>';
+		return '</feed>';
 	}
 }
 
