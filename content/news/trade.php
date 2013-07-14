@@ -19,9 +19,9 @@
 class TradePage extends Page {
 
 	public function writeContent() {
-		startBox('Harold\'s offers');
+		startBox('New trade offers');
 		if (isset($_REQUEST['tradeid'])) {
-			echo $this->generateEntry(TradeOffer::getTradeOffer(isset($_REQUEST['tradeid'])));
+			$this->writeEntry($_REQUEST['tradeid']);
 		} else {
 			$this->writeRecent();
 		}
@@ -38,6 +38,15 @@ class TradePage extends Page {
 		echo $feed;
 	}
 
+	public function writeEntry($tradeId) {
+		$entries = TradeOffer::getTradeOffer($tradeId);
+		if (count($entries) > 0) {
+			echo $this->generateEntry($entries[0]);
+		} else {
+			echo '<p class="error">No such trade offer.</p>';
+		}
+	}
+
 	public function generateFeed() {
 		$entries = TradeOffer::getTradeOffers();
 		$res = $this->generateHeader($entries);
@@ -50,8 +59,7 @@ class TradePage extends Page {
 
 	private function formatedDate($date) {
 		$datetime = new DateTime($date);
-		$datetime->setTimezone(new DateTimeZone('GMT'));
-		return $datetime->format('Y-m-d\TH:i:s\Z');
+		return $datetime->format('Y-m-d H:i');
 	}
 
 	private function generateHeader($entries) {
@@ -60,35 +68,22 @@ class TradePage extends Page {
 			$date = $entries[0]->timedate;
 		}
 		$res = '';
-		$res .= '<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">';
-		$res .= '<title>Harold\'s Offers</title>';
-		$res .= '<subtitle>Stendhal Trades</subtitle>';
-		$res .= '<link href="https://stendhalgame.org/trade" rel="self"/> ';
-		$res .= '<updated>'.$this->formatedDate($date).'</updated>';
-		$res .= '<logo>/images/events/harold_logo.png</logo>';
-		$res .= '<icon>/images/events/harold_icon.png</icon>';
-		$res .= '<author>';
-		$res .= '<name>Harold</name>';
-		$res .= '<email>harold@stendhalgame.org</email>';
-		$res .= '</author>';
-		$res .= '<id>tag:stendhalgame.org,2013:https://stendhalgame.org/trade</id>'."\r\n";
+		$res .= '<img class="newsIcons" src="/images/outfit/5013401.png">';
+		$res .= '<p>I am Harold and I have my little ship in Semos Tavern. On this page, I announce new trade offers. Please note that I won\'t take offers down once the items are sold.</p>';
+		$res .= '<p>I suggest that you use a feed reader to access this page. For reference, the current server time is '.date('G:i') . '</p>';
+		if (sizeof($entries)==0) {
+			$res .= '<p>There are no new trade offers.</p>';
+		}
 		return $res;
 	}
 
 	private function generateEntry($entry) {
-		$message = 'New offer for ' . htmlspecialchars($entry->quantity) . ' ' . htmlspecialchars($entry->itemname)
-			 . ' at ' . htmlspecialchars($entry->price) . '. ' . htmlspecialchars($entry->stats);
-		$category = getItem($entry->itemname)->class;
-		$res = '';
-		$res .= '<entry>';
-		$res .= '<id>'.rewriteURL('https://stendhalgame.org/trade/'.$entry->id).'</id>';
-		$res .= '<title>'.$message.'</title>';
-		$res .= '<updated>'.$this->formatedDate($entry->timedate).'</updated>';
-		$res .= '<published>'.$this->formatedDate($entry->timedate).'</published>';
-		$res .= '<category term="'.htmlspecialchars($category) .'" />';
-		$res .= '<link href="'.rewriteURL('https://stendhalgame.org/trade/'.$entry->id.'.html').'" rel="alternate"></link>';
-		$res .= '<content>'.$message.'</content>';
-		$res .= "</entry>\r\n";
+		$res = '<p>';
+		$res .= '<a href="'.rewriteURL('https://stendhalgame.org/trade/'.htmlspecialchars($entry->id).'.html').'">';
+		$res .= $this->formatedDate($entry->timedate) . '</a> ';
+		$res .= 'New offer for ' . htmlspecialchars($entry->quantity) . ' ' . htmlspecialchars($entry->itemname);
+		$res .= ' at ' . htmlspecialchars($entry->price) . '. ' . htmlspecialchars($entry->stats);
+		$res .= "</p>\r\n";
 		return $res;
 	}
 
