@@ -391,16 +391,32 @@ class TradeOffer {
 		$this->timedate = $timedate;
 	}
 
+	/**
+	 * Returns a list of trade offers.
+	 */
+	public static function getTradeOffers() {
+		$sql = 'SELECT id, itemname, quantity, price, stats, timedate'
+				. ' FROM trade WHERE timedate > subtime(now(), \'48:00:00\')'
+						. ' ORDER BY timedate DESC LIMIT 1000';
+		return TradeOffer::readOffers($sql);
+	}
 
 	/**
- 	 * Returns a list of trade offers. Note: All parameters need to be SQL escaped.
- 	 */
-	public static function getTradeOffers() {
-
+	 * Returns a specific trade offer
+	 *
+	 * @param int tradeId
+	 */
+	public static function getTradeOffer($tradeId) {
 		$sql = 'SELECT id, itemname, quantity, price, stats, timedate'
-			. ' FROM trade WHERE timedate > subtime(now(), \'48:00:00\')'
-			. ' ORDER BY timedate DESC LIMIT 1000';
+				. ' FROM trade WHERE id='.intval($tradeId). ';';
+		return TradeOffer::readOffers($sql);
+	}
 
+	/**
+ 	 * Returns a list of trade offers for an SQL statement
+ 	 */
+	private static function readOffers($sql) {
+	
 		$result = mysql_query($sql, getGameDB());
 		$list = array();
 
@@ -418,7 +434,6 @@ class TradeOffer {
 		}
 
 		mysql_free_result($result);
-
 		return $list;
 	}
 }
