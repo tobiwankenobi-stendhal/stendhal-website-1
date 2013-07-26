@@ -32,7 +32,7 @@ class TradeFeedPage extends Page {
 	public function writeFeed() {
 		global $cache;
 		$feed = $cache->fetch('stendhal-tradefeed');
-		if (!isset($feed)) {
+		if (!isset($feed) || $feed == '') {
 			$feed = $this->generateFeed();
 			$cache->store('stendhal-tradefeed', $feed, 5*60);
 		}

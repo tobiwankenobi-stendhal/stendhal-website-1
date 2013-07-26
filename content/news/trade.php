@@ -62,7 +62,7 @@ class TradePage extends Page {
 	public function writeRecent() {
 		global $cache;
 		$feed = $cache->fetch('stendhal-trade');
-		if (!isset($feed)) {
+		if (!isset($feed) || $feed == '') {
 			$feed = $this->generateFeed();
 			$cache->store('stendhal-trade', $feed, 5*60);
 		}
