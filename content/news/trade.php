@@ -37,7 +37,7 @@ class TradePage extends Page {
 			$description = 'Offer ' . htmlspecialchars($this->singleEntry->id)
 				 . ': ' . htmlspecialchars($this->singleEntry->quantity)
 				 . ' ' . htmlspecialchars($this->singleEntry->itemname)
-				 . 'at ' . htmlspecialchars($entry->price);
+				 . 'at ' . htmlspecialchars($this->singleEntry->price);
 			echo '<title>'.htmlspecialchars($description).STENDHAL_TITLE.'</title>';
 			echo '<meta name="description" content="'.htmlspecialchars($description).'">';
 		} else {
