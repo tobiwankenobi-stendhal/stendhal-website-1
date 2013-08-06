@@ -396,8 +396,8 @@ class TradeOffer {
 	 */
 	public static function getTradeOffers() {
 		$sql = 'SELECT id, itemname, quantity, price, stats, timedate'
-				. ' FROM trade WHERE timedate > subtime(now(), \'48:00:00\')'
-						. ' ORDER BY timedate DESC LIMIT 1000';
+				. ' FROM trade WHERE timedate > subtime(now(), \'72:00:00\')'
+						. ' ORDER BY timedate DESC LIMIT 100';
 		return TradeOffer::readOffers($sql);
 	}
 
