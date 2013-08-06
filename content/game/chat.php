@@ -15,8 +15,8 @@ You can get an IRC client and connect to:
 
 <p>Alternatively, you can simply use freenode's webchat service, below. Feel free to change the nick to for example, your player name.</p>
 <ul> 
-<li><a href="http://webchat.freenode.net/?channels=arianne">#arianne</a> (for ideas, contributions and support)</li>
-<li><a href="http://webchat.freenode.net/?channels=arianne-chat">#arianne-chat</a> (for off topic chat not related to Arianne/Stendhal)</li>
+<li><a href="https://webchat.freenode.net/?channels=arianne">#arianne</a> (for ideas, contributions and support)</li>
+<li><a href="https://webchat.freenode.net/?channels=arianne-chat">#arianne-chat</a> (for off topic chat not related to Arianne/Stendhal)</li>
 </ul>
 If you are new to IRC it is well worth reading this <a href="http://www.irchelp.org/irchelp/new2irc.html">short guide</a> before you join. In particular the section on talking, and entering commands, and the section 'Some advice' may be helpful.
 <?php endBox(); ?>
