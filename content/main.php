@@ -61,7 +61,7 @@ class MainPage extends Page {
 	<ul class="menu">
 		<li style="width: 100%"><a id="menuNewsArchive" href="<?php echo rewriteURL('/world/newsarchive.html');?>">Older news</a></li>
 		<li style="width: 100%"><a id="menuNewsRss" href="<?php echo rewriteURL('/rss/news.rss');?>">RSS-Feed for this page</a></li>
-		<li style="width: 100%"><a id="menuNewsTrade" href="http://twitter.com/stendhaltrade">Harold's Trading Announcements</a></li>
+		<li style="width: 100%"><a id="menuNewsTrade" href="/trade/">Harold's Trading Announcements</a></li>
 	</ul>
 	<?php
 	endBox();
