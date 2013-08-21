@@ -152,10 +152,16 @@
 */
 
 	function initializeLeafletAtlas() {
-		var map = L.map('map_leaflet').setView([2, 2], 2);
+		var map = L.map('map_leaflet', {
+			center: [1, 1],
+			zoom: 3,
+			// set maxBounds to prevent draging into a copy of the world
+		});
+		
 		L.tileLayer('https://stendhalgame.org/map/2/{z}-{x}-{y}.png', {
-		    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-		    maxZoom: 18
+			attribution: '',
+			minZoom: 2,
+			maxZoom: 6
 		}).addTo(map);
 	}
 
