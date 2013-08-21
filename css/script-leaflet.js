@@ -158,10 +158,13 @@
 			// set maxBounds to prevent draging into a copy of the world
 		});
 		
+		map.crs = L.CRS.Simple;
+		map.setView([80, -100], 3)
 		L.tileLayer('https://stendhalgame.org/map/2/{z}-{x}-{y}.png', {
 			attribution: '',
 			minZoom: 2,
-			maxZoom: 6
+			maxZoom: 6,
+			noWrap: true
 		}).addTo(map);
 	}
 
