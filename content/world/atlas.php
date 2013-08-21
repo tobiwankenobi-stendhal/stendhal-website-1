@@ -15,7 +15,11 @@ class AtlasPage extends Page {
 	}
 
 	function writeContent() {
-		echo '<div id="map_canvas" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
+		$id = 'map_canvas';
+		if ($_REQUEST['test'] == 'leaflet') {
+			$id = 'map_leaflet';
+		}
+		echo '<div id="'.$id.'" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
 		startBox('Extended information');
 		echo '<p>You can use your mouse or the map controls to zoom and pan.</p>';
 		echo '<p>There is lots more information about each of the <a href="https://stendhalgame.org/wiki/Semos">regions</a> and <a href="https://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';
@@ -97,6 +101,15 @@ class AtlasPage extends Page {
 		echo '</div>';
 
 		echo '<script type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?sensor=false"></script>';
+	}
+	
+	public function writeAfterJS() {
+		if ($_REQUEST['test'] == 'leaflet') {
+			echo '<link rel="stylesheet" href="/css/leaflet.css">';
+			echo '<!--[if lte IE 8]><link rel="stylesheet" href="/css/leaflet.ie.css" /><![endif]-->';
+			echo '<script type="text/javascript" src="/css/leaflet.js"></script>';
+			echo '<script type="text/javascript" src="/css/script-leaflet.js"></script>';
+		}
 	}
 }
 $page = new AtlasPage();
