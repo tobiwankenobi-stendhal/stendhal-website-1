@@ -47,58 +47,9 @@
 		return mapType.projection.fromPointToLatLng({x:lx, y:ly});
 	}
 
-
-	// http://www.netlobo.com/url_query_string_javascript.html
-	function gup(name) {
-		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/,"\\\]");
-		var regexS = "[\\?&]"+name+"=([^&#]*)";
-		var regex = new RegExp( regexS );
-		var results = regex.exec( window.location.href );
-		if (results == null) {
-			return "";
-		}
-		return results[1];
-	}
-
-	function openInfoForPOI(map, marker, poi) {
-		infowindow.setContent("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
-				 + poi.url + "\">" 
-				 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-				 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p></div>");
-		infowindow.open(map, marker);
-	}
-
-	function addClickEventToMarker(map, marker, poi) {
-		google.maps.event.addListener(marker, 'click', function (x, y, z) {
-			openInfoForPOI(map, marker, poi);
-		});
-	}
-
 	function initializeAtlas() {
 		var tileUrlBase = $("#map_canvas").attr("data-tile-url-base");
-
-		mapType = new google.maps.ImageMapType({
-			getTileUrl: function (coord, zoom) {
-				var y = coord.y;
-				var x = coord.x;
-				var tileRange = 1 << zoom;
-				if (y < 0 || y >= tileRange) {
-					return null;
-				}
-				if (x < 0 || x >= tileRange) {
-					return null;
-				}
-				return tileUrlBase + "/2/" + zoom + "-" + coord.x + "-" + coord.y + ".png";
-			},
-			tileSize: new google.maps.Size(256, 256),
-			isPng: true,
-			maxZoom: 6,
-			minZoom: 1,
-			name: 'Outside',
-			credit: 'Stendhal'
-		});
 		mapType.projection = new EuclideanProjection(); 
-
 
 		var mapOptions = {
 			backgroundColor: "#5f9860",
@@ -108,12 +59,7 @@
 			mapTypeControl: false,
 			streetViewControl: false
 		};
-		var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-		map.mapTypes.set("outside", mapType);
 
-		infowindow = new google.maps.InfoWindow({});
-
-		map.setMapTypeId('outside');
 		if ($("#data-me").length > 0) {
 			var me = new google.maps.Marker({
 				position: worldToLatLng(parseInt($("#data-me").attr("data-x"), 10), parseInt($("#data-me").attr("data-y"), 10)),
@@ -128,26 +74,7 @@
 					url: "/account/mycharacters.html"
 				});
 		}
-		var pois = $.parseJSON($("#data-pois").attr("data-pois"));
-		var wanted = decodeURI(gup("poi")).toLowerCase().split(",");
-		var key;
-		for (key in pois) {
-			if (pois.hasOwnProperty(key)) {
-				var poi = pois[key];
-				if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
-					|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
-
-					var marker = new google.maps.Marker({position: worldToLatLng(poi.gx, poi.gy),
-						map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
-	
-					addClickEventToMarker(map, marker, poi);
-
-					if ($("#data-center").attr("data-open")) {
-						openInfoForPOI(map, marker, poi);
-					}
-				}
-			}
-		}
+		
 	}
 */
 
@@ -191,7 +118,7 @@
 
 		var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
 		var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
-		console.log(x, y, "^=", lx, ly);
+//		console.log(x, y, "^=", lx, ly);
 		return fromPointToLatLng([lx, ly]);
 	}
 
@@ -208,20 +135,18 @@
 	}
 
 	function initializeLeafletAtlas() {
-		
+/*		
 		console.log(worldToLatLng([499616, 499744]));
 		console.log(worldToLatLng([500000, 500000]));
 		console.log(worldToLatLng([501280, 500896]));
-
+*/
 
 		var map = L.map('map_leaflet', {
-//			center: worldToLatLng([500000, 500000]),
-			zoom: 3,
-			// set maxBounds to prevent draging into a copy of the world
+			attributionControl: false
 		});
 		
 		map.crs = L.CRS.Simple;
-		map.setView(worldToLatLng([500000, 500000]), 6);
+		map.setView(worldToLatLng([500000, 500000]), 3);
 		
 		var marker = L.marker(worldToLatLng([500000, 500000])).addTo(map);
 
