@@ -234,22 +234,16 @@
 				if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
 					|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
 
-					var marker = L.marker(worldToLatLng([poi.gx, poi.gy]))
+					var marker = L.marker(
+							worldToLatLng([poi.gx, poi.gy]), {
+								icon: L.icon({iconUrl: "/images/mapmarker/" + poi.type + ".png"}),
+								title: poi.name
+							})
 						.addTo(map)
 						.bindPopup("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
 							 + poi.url + "\">" 
 							 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
 							 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p></div>");
-
-					
-					/*,
-						map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
-	
-					addClickEventToMarker(map, marker, poi);
-
-					if ($("#data-center").attr("data-open")) {
-						openInfoForPOI(map, marker, poi);
-					}*/
 				}
 			}
 		}
