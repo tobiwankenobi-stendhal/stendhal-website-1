@@ -151,15 +151,62 @@
 	}
 */
 
+	var mapX0 = -180, mapY0 = 90,  gameX0 = 499616, gameY0 = 499744;
+	var mapXZ = 124,  mapYZ = -22, gameXZ = 501280, gameYZ = 500896;
+
+	var gameXD = gameXZ - gameX0;
+	var gameYD = gameYZ - gameY0;
+	var mapXD = mapXZ = mapX0;
+	var mapYD = mapYZ - mapY0;
+
+	function gameToMap(point) {
+		var x_ = point[0] - gameX0;
+		var y_ = point[1] - gameY0;
+		
+		return [x_ * mapXD / gameXD + mapX0, y_ * mapYD / gameYD + mapY0];
+	}
+
+	function fromPointToLatLng(point) {
+		var x = point[0] * (360 / 255) - 180; // (0 - 255) => (-180 - 180)
+		var y = (255 - point[1]) * (180 / 255) - 90;    // (0 - 255) => (-90 - 90)
+		return [y, x];
+	}
+
+	function worldToLatLng(point) {
+		var x = point[0];
+		var y = point[1];
+		var xw0 = 499616;
+		var yw0 = 499744;
+		var xwz = 501280;
+		var ywz = 500896;
+
+		var xl0 = 0;
+		var yl0 = 0;
+		var xlz = 208.15;
+		var ylz = 144.2;
+
+		var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
+		var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
+		console.log(x, y, "^=", lx, ly);
+		return fromPointToLatLng([lx, ly]);
+	}
+
 	function initializeLeafletAtlas() {
+		
+		console.log(worldToLatLng([499616, 499744]));
+		console.log(worldToLatLng([500000, 500000]));
+		console.log(worldToLatLng([501280, 500896]));
+		
 		var map = L.map('map_leaflet', {
-			center: [1, 1],
+//			center: worldToLatLng([500000, 500000]),
 			zoom: 3,
 			// set maxBounds to prevent draging into a copy of the world
 		});
 		
 		map.crs = L.CRS.Simple;
-		map.setView([80, -100], 3)
+		map.setView(worldToLatLng([501280, 500896]), 3);
+		
+		
 		L.tileLayer('https://stendhalgame.org/map/2/{z}-{x}-{y}.png', {
 			attribution: '',
 			minZoom: 2,
