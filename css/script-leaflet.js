@@ -185,10 +185,26 @@
 		var xlz = 208.15;
 		var ylz = 144.2;
 
+		var xlz = 210;
+		var ylz = 75;
+		
+
 		var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
 		var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
 		console.log(x, y, "^=", lx, ly);
 		return fromPointToLatLng([lx, ly]);
+	}
+
+	// http://www.netlobo.com/url_query_string_javascript.html
+	function gup(name) {
+		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/,"\\\]");
+		var regexS = "[\\?&]"+name+"=([^&#]*)";
+		var regex = new RegExp( regexS );
+		var results = regex.exec( window.location.href );
+		if (results == null) {
+			return "";
+		}
+		return results[1];
 	}
 
 	function initializeLeafletAtlas() {
@@ -196,7 +212,8 @@
 		console.log(worldToLatLng([499616, 499744]));
 		console.log(worldToLatLng([500000, 500000]));
 		console.log(worldToLatLng([501280, 500896]));
-		
+
+
 		var map = L.map('map_leaflet', {
 //			center: worldToLatLng([500000, 500000]),
 			zoom: 3,
@@ -204,8 +221,40 @@
 		});
 		
 		map.crs = L.CRS.Simple;
-		map.setView(worldToLatLng([501280, 500896]), 3);
+		map.setView(worldToLatLng([500000, 500000]), 6);
 		
+		var marker = L.marker(worldToLatLng([500000, 500000])).addTo(map);
+
+		var pois = $.parseJSON($("#data-pois").attr("data-pois"));
+		var wanted = decodeURI(gup("poi")).toLowerCase().split(",");
+		var key;
+		for (key in pois) {
+			if (pois.hasOwnProperty(key)) {
+				var poi = pois[key];
+				if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
+					|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
+
+					var marker = L.marker(worldToLatLng([poi.gx, poi.gy]))
+						.addTo(map)
+						.bindPopup("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
+							 + poi.url + "\">" 
+							 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+							 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p></div>");
+
+					
+					/*,
+						map: map, title: poi.name, icon: "/images/mapmarker/" + poi.type + ".png"});
+	
+					addClickEventToMarker(map, marker, poi);
+
+					if ($("#data-center").attr("data-open")) {
+						openInfoForPOI(map, marker, poi);
+					}*/
+				}
+			}
+		}
+		
+
 		
 		L.tileLayer('https://stendhalgame.org/map/2/{z}-{x}-{y}.png', {
 			attribution: '',
