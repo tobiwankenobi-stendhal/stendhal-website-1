@@ -82,7 +82,11 @@
 			attributionControl: false
 		});
 		map.crs = L.CRS.Simple;
-		map.setView(worldToLatLng(map, [500000, 500000]), 3);
+
+		var focusX = parseInt($("#data-center").attr("data-x"), 10);
+		var focusY = parseInt($("#data-center").attr("data-y"), 10);
+		var zoom = parseInt($("#data-center").attr("data-zoom"), 10);
+		map.setView(worldToLatLng(map, [focusX, focusY]), zoom);
 
 		addActivePOIs(map);
 		addMe(map);
