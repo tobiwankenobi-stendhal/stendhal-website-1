@@ -55,7 +55,8 @@
 						.bindPopup("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
 							 + poi.url + "\">" 
 							 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-							 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</p></div>");
+							 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+							 + " » " + "<a target=\"_blank\" href=\"" + poi.url + "\">details</a></p></div>");
 				}
 			}
 		}
