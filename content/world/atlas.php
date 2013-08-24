@@ -1,14 +1,5 @@
 <?php
 class AtlasPage extends Page {
-
-	public function writeHttpHeader() {
-		$csp = "default-src https://* http://* data: 'unsafe-inline' 'unsafe-eval' https://sflogo.sourceforge.net http://sflogo.sourceforge.net ; options eval-script inline-script; report-uri /?id=content/scripts/cspreport";
-		header("X-Content-Security-Policy: ". $csp);
-		header("Content-Security-Policy: ". $csp);
-		header("X-WebKit-CSP: ". $csp);
-		return true;
-	}
-
 	public function writeHtmlHeader() {
 		echo '<title>Atlas'.STENDHAL_TITLE.'</title>';
 		$this->includeJs();
@@ -99,17 +90,13 @@ class AtlasPage extends Page {
 		}
 		echo '<span id="data-pois" data-pois="'.htmlspecialchars(json_encode(PointofInterest::getPOIs())).'"></span>';
 		echo '</div>';
-
-		echo '<script type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?sensor=false"></script>';
 	}
 	
 	public function writeAfterJS() {
-		if ($_REQUEST['test'] == 'leaflet') {
-			echo '<link rel="stylesheet" href="/css/leaflet.css">';
-			echo '<!--[if lte IE 8]><link rel="stylesheet" href="/css/leaflet.ie.css" /><![endif]-->';
-			echo '<script type="text/javascript" src="/css/leaflet.js"></script>';
-			echo '<script type="text/javascript" src="/css/script-leaflet.js"></script>';
-		}
+		echo '<link rel="stylesheet" href="/css/leaflet.css">';
+		echo '<!--[if lte IE 8]><link rel="stylesheet" href="/css/leaflet.ie.css" /><![endif]-->';
+		echo '<script type="text/javascript" src="/css/leaflet.js"></script>';
+		echo '<script type="text/javascript" src="/css/script-leaflet.js"></script>';
 	}
 }
 $page = new AtlasPage();
