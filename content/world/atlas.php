@@ -6,11 +6,7 @@ class AtlasPage extends Page {
 	}
 
 	function writeContent() {
-		$id = 'map_canvas';
-		if ($_REQUEST['test'] == 'leaflet') {
-			$id = 'map_leaflet';
-		}
-		echo '<div id="'.$id.'" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
+		echo '<div id="map_canvas" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'" style="width: 570px; height: 380px;"></div><p>&nbsp;</p>';
 		startBox('Extended information');
 		echo '<p>You can use your mouse or the map controls to zoom and pan.</p>';
 		echo '<p>There is lots more information about each of the <a href="https://stendhalgame.org/wiki/Semos">regions</a> and <a href="https://stendhalgame.org/wiki/Semos_Dungeons">dungeons</a> on the Stendhal Wiki.</p>';

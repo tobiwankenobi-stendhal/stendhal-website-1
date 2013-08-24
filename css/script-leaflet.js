@@ -83,7 +83,7 @@
 	function initializeLeafletAtlas() {
 
 
-		var map = L.map('map_leaflet', {
+		var map = L.map('map_canvas', {
 			attributionControl: false
 		});
 		map.crs = L.CRS.Simple;
@@ -112,7 +112,7 @@
 
 
 	$().ready(function () {
-		if (document.getElementById("map_leaflet") != null) {
+		if (document.getElementById("map_canvas") != null) {
 			initializeLeafletAtlas();
 		}
 	});
