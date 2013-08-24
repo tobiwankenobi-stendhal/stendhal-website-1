@@ -2,38 +2,6 @@
 	//----------------------------------------------------------------------------
 	//                                 Atlas
 	//----------------------------------------------------------------------------
-/*
-
-	function initializeAtlas() {
-		var tileUrlBase = $("#map_canvas").attr("data-tile-url-base");
-		mapType.projection = new EuclideanProjection(); 
-
-		var mapOptions = {
-			backgroundColor: "#5f9860",
-			center: worldToLatLng(parseInt($("#data-center").attr("data-x"), 10), parseInt($("#data-center").attr("data-y"), 10)),
-			noClear: true,
-			zoom: parseInt($("#data-center").attr("data-zoom"), 10),
-			mapTypeControl: false,
-			streetViewControl: false
-		};
-
-		if ($("#data-me").length > 0) {
-			var me = new google.maps.Marker({
-				position: worldToLatLng(parseInt($("#data-me").attr("data-x"), 10), parseInt($("#data-me").attr("data-y"), 10)),
-				map: map, title:"Me",
-				icon: "/images/mapmarker/me.png"
-				});
-			addClickEventToMarker(map, me, {
-					name: "Me",
-					title: "Me",
-					description: "I am here at " + $("#data-me").attr("data-zone")
-						+ " (" + $("#data-me").attr("data-local-x") + ", " + $("#data-me").attr("data-local-y") + ")",
-					url: "/account/mycharacters.html"
-				});
-		}
-		
-	}
-*/
 
 	function worldToLatLng(map, point) {
 		var x = point[0];
@@ -50,7 +18,7 @@
 
 		var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
 		var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
-		return map.unproject(point, 0);
+		return map.unproject([lx, ly], 0);
 	}
 
 	// http://www.netlobo.com/url_query_string_javascript.html
@@ -65,16 +33,10 @@
 		return results[1];
 	}
 
-	function initializeLeafletAtlas() {
-
-
-		var map = L.map('map_leaflet', {
-			attributionControl: false
-		});
-		map.crs = L.CRS.Simple;
-		map.setView(worldToLatLng(map, [500000, 500000]), 3);
-		
-
+	/**
+	 * adds active points of interest to the map
+	 */
+	function addActivePOIs(map) {
 		var pois = $.parseJSON($("#data-pois").attr("data-pois"));
 		var wanted = decodeURI(gup("poi")).toLowerCase().split(",");
 		var key;
@@ -84,11 +46,11 @@
 				if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
 					|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
 
-					var marker = L.marker(
-							worldToLatLng([poi.gx, poi.gy]), {
-								icon: L.icon({iconUrl: "/images/mapmarker/" + poi.type + ".png"}),
-								title: poi.name
-							})
+					L.marker(
+						worldToLatLng(map, [poi.gx - 1, poi.gy - 1]), {
+							icon: L.icon({iconUrl: "/images/mapmarker/" + poi.type + ".png"}),
+							title: poi.name
+						})
 						.addTo(map)
 						.bindPopup("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
 							 + poi.url + "\">" 
@@ -97,6 +59,33 @@
 				}
 			}
 		}
+	}
+
+	function addMe(map) {
+		if ($("#data-me").length > 0) {
+			L.marker(
+				worldToLatLng(map, [parseInt($("#data-me").attr("data-x"), 10) - 1, parseInt($("#data-me").attr("data-y"), 10) - 1]), {
+					icon: L.icon({iconUrl: "/images/mapmarker/me.png"}),
+					title: "Me"
+				})
+				.addTo(map)
+				.bindPopup("I am here at " + $("#data-me").attr("data-zone")
+						+ " (" + $("#data-me").attr("data-local-x") + ", " + $("#data-me").attr("data-local-y") + ")");
+		}
+
+	}
+
+	function initializeLeafletAtlas() {
+
+
+		var map = L.map('map_leaflet', {
+			attributionControl: false
+		});
+		map.crs = L.CRS.Simple;
+		map.setView(worldToLatLng(map, [500000, 500000]), 3);
+
+		addActivePOIs(map);
+		addMe(map);
 
 		L.tileLayer('https://stendhalgame.org/map/2/{z}-{x}-{y}.png', {
 			attribution: '',
