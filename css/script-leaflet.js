@@ -47,8 +47,8 @@
 					|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
 
 					L.marker(
-						worldToLatLng(map, [poi.gx - 1, poi.gy - 1]), {
-							icon: L.icon({iconUrl: "/images/mapmarker/" + poi.type + ".png"}),
+						worldToLatLng(map, [poi.gx, poi.gy]), {
+							icon: L.icon({iconUrl: "/images/mapmarker/" + poi.type + ".png", iconSize: [26, 25]}),
 							title: poi.name
 						})
 						.addTo(map)
@@ -65,8 +65,8 @@
 	function addMe(map) {
 		if ($("#data-me").length > 0) {
 			L.marker(
-				worldToLatLng(map, [parseInt($("#data-me").attr("data-x"), 10) - 1, parseInt($("#data-me").attr("data-y"), 10) - 1]), {
-					icon: L.icon({iconUrl: "/images/mapmarker/me.png"}),
+				worldToLatLng(map, [parseInt($("#data-me").attr("data-x"), 10), parseInt($("#data-me").attr("data-y"), 10)]), {
+					icon: L.icon({iconUrl: "/images/mapmarker/me.png", iconSize: [26, 25]}),
 					title: "Me"
 				})
 				.addTo(map)
