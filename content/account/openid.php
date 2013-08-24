@@ -53,11 +53,11 @@ class OpenID {
 		$openid->returnUrl = Account::createReturnUrl();
 		try {
 			if (!$openid->validate()) {
-				$this-$openid->error = 'Open ID validation failed.';
+				$this->error = 'Open ID validation failed.';
 				return false;
 			}
 		} catch (Exception $e) {
-			$this->openid->error = $e->getMessage();
+			$this->error = $e->getMessage();
 		}
 		$attributes = $openid->getAttributes();
 		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
@@ -71,12 +71,12 @@ class OpenID {
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 		$openid->returnUrl = Account::createReturnUrl();
 		if (!$openid->validate()) {
-			$this-$openid->error = 'Open ID validation failed.';
+			$this->error = 'Open ID validation failed.';
 			return false;
 		}
 		$identifier = $openid->identity;
 		if (strpos($identifier, 'https://stendhalgame.org/a/') !== 0) {
-			$this-$openid->error = 'Only Stendhal Accounts accepted';
+			$this->error = 'Only Stendhal Accounts accepted';
 			return false;
 		}
 		return substr($identifier, 27);
