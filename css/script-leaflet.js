@@ -40,13 +40,14 @@
 		var pois = $.parseJSON($("#data-pois").attr("data-pois"));
 		var wanted = decodeURI(gup("poi")).toLowerCase().split(",");
 		var key;
+		var open = $("#data-center").attr("data-open");
 		for (key in pois) {
 			if (pois.hasOwnProperty(key)) {
 				var poi = pois[key];
 				if (($.inArray(poi.type.toLowerCase(), wanted) > -1)
 					|| ($.inArray(poi.name.toLowerCase(), wanted) > -1)) {
 
-					L.marker(
+					var marker = L.marker(
 						worldToLatLng(map, [poi.gx, poi.gy]), {
 							icon: L.icon({iconUrl: "/images/mapmarker/" + poi.type + ".png", iconSize: [26, 25]}),
 							title: poi.name
@@ -57,6 +58,9 @@
 							 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
 							 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
 							 + " » " + "<a target=\"_blank\" href=\"" + poi.url + "\">details</a></p></div>");
+					if (open) {
+						marker.openPopup();
+					}
 				}
 			}
 		}
