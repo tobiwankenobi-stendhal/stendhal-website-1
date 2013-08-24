@@ -820,6 +820,7 @@ span.stendhalAdminHigh {color: #770}
 span.stendhalAdminMiddle {color: #AA0}
 span.stendhalAdminLow {color: #CC0}
 
+.leaflet-container {background: transparent !important}
 
 /* chat */
 .irctext {color: #000; vertical-align:top}
