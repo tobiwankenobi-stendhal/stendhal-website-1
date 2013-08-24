@@ -26,9 +26,9 @@ class AtlasPage extends Page {
 		echo '<p>You can add <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a> to this map or open a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a>.</p>';
 		endBox();
 
-		$zoom = 2;
-		$focusX = 500200;
-		$focusY = 500100;
+		$zoom = 3;
+		$focusX = 500000;
+		$focusY = 500000;
 
 		$zones = Zone::getZones();
 
