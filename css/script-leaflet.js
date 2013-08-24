@@ -94,9 +94,10 @@
 	}
 
 	function fromPointToLatLng(point) {
-		var x = point[0] * (360 / 255) - 180; // (0 - 255) => (-180 - 180)
+		/*var x = point[0] * (360 / 255) - 180; // (0 - 255) => (-180 - 180)
 		var y = (255 - point[1]) * (180 / 255) - 90;    // (0 - 255) => (-90 - 90)
-		return [y, x];
+		return [y, x];*/
+		return map.unproject(point, 0);
 	}
 
 	function worldToLatLng(point) {
@@ -112,8 +113,8 @@
 		var xlz = 208.15;
 		var ylz = 144.2;
 
-		var xlz = 210;
-		var ylz = 75;
+//		var xlz = 210;
+//		var ylz = 75;
 		
 
 		var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
@@ -144,11 +145,52 @@
 		var map = L.map('map_leaflet', {
 			attributionControl: false
 		});
-		
+		window.map = map;
 		map.crs = L.CRS.Simple;
+		
+		
+		var southWest = map.unproject([0, 255], 0);
+		var northEast = map.unproject([255, 0], 0);
+		map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+		
 		map.setView(worldToLatLng([500000, 500000]), 3);
 		
 		var marker = L.marker(worldToLatLng([500000, 500000])).addTo(map);
+
+		var marker = L.marker(worldToLatLng([499100, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499200, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499300, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499400, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499500, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499600, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499700, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499800, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([499900, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500100, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500200, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500300, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500400, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500500, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500600, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500700, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500800, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500900, 500000])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 499300])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 499400])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 499500])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 499600])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 499700])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 499800])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 499900])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500100])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500200])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500300])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500400])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500500])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500600])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500700])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500800])).addTo(map);
+		var marker = L.marker(worldToLatLng([500000, 500900])).addTo(map);
 
 		var pois = $.parseJSON($("#data-pois").attr("data-pois"));
 		var wanted = decodeURI(gup("poi")).toLowerCase().split(",");
