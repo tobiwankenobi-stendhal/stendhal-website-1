@@ -118,9 +118,7 @@ $csp = "default-src 'self' https://stendhalgame.org; "
 	. "style-src 'self' 'unsafe-inline' ; "
 	. "report-uri /?id=content/scripts/cspreport";
 
-header("X-Content-Security-Policy: ". $csp);
 header("Content-Security-Policy: ". $csp);
-header("X-WebKit-CSP: ". $csp);
 
 
 if ($page->writeHttpHeader()) {
