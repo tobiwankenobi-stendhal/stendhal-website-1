@@ -29,9 +29,7 @@ class EditPage extends Page {
 			header('HTTP/1.1 403 Forbidden');
 		}
 		$csp = "default-src * data: 'unsafe-inline' 'unsafe-eval' https://sflogo.sourceforge.net http://sflogo.sourceforge.net; options eval-script inline-script; report-uri /?id=content/scripts/cspreport";
-		header("X-Content-Security-Policy: ". $csp);
 		header("Content-Security-Policy: ". $csp);
-		header("X-WebKit-CSP: ". $csp);
 		return true;
 	}
 
