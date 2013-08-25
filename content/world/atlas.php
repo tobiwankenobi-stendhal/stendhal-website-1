@@ -91,8 +91,6 @@ class AtlasPage extends Page {
 	public function writeAfterJS() {
 		echo '<link rel="stylesheet" href="/css/leaflet.css">';
 		echo '<!--[if lte IE 8]><link rel="stylesheet" href="/css/leaflet.ie.css" /><![endif]-->';
-		echo '<script type="text/javascript" src="/css/leaflet.js"></script>';
-		echo '<script type="text/javascript" src="/css/script-leaflet.js"></script>';
 	}
 }
 $page = new AtlasPage();
