@@ -246,13 +246,6 @@ class AccountMerge extends Page {
 		endBox();
 	}
 
-	function writeAfterJS() {
-			if (isset($_REQUEST['test'])) {
-			echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000005.js" type="text/javascript"></script>';
-		} else {
-			echo '<script src="'.STENDHAL_FOLDER.'/css/openid-00000004.js" type="text/javascript"></script>';
-		}
-	}
 }
 $page = new AccountMerge();
 ?>
