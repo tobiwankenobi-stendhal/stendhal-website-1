@@ -53,6 +53,23 @@
 		</exec>
 	</target>
 
+	<target name="jscompile">
+		<concat destfile="css/script.js">
+			<filelist
+				dir="src/js"
+				files="jquery-1.8.2.min.js, jquery.tooltip-merged.min.js, openid.js, leaflet.js, atlas.js, misc.js"/>
+		</concat>
+		<replaceregexp file="css/script.js"
+			match="goog\..*?\)"
+			replace=""
+			byline="true" />
+	<!--
+		<exec executable="java" failonerror="true">
+			<arg line="-jar lib/closure/compiler.jar - -compilation_level ADVANCED_OPTIMIZATIONS - -js src/js/all.js - -js src/js/jquery-1.8.2.min.js - -js src/js/jquery.tooltip-merged.min.js - -js src/js/leaflet-src.js - -js src/js/openid.js - -js src/js/atlas.js - -js src/js/misc.js  - -js_output_file css/script.js" />
+		</exec>
+	-->
+	</target>
+
 	<target name="build" depends="clean,prepare, phpdoc, pdepend, phpunit, phpcs" />
 </project>
 
