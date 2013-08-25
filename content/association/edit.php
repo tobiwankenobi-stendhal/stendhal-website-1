@@ -28,9 +28,7 @@ class EditPage extends Page {
 			|| ($_SESSION['accountPermissions']['edit_page'] != '1')) {
 			header('HTTP/1.1 403 Forbidden');
 		}
-		$csp = "* data: 'self' 'unsafe-inline' 'unsafe-eval' https://sflogo.sourceforge.net http://sflogo.sourceforge.net";
-		$csp = "default-src ".$csp."; style-src ".$csp."; script-src ".$csp."; report-uri /?id=content/scripts/cspreport";
-		header("Content-Security-Policy: ". $csp, true);
+		header_remove('Content-Security-Policy');
 		return true;
 	}
 
