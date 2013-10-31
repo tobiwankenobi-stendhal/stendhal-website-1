@@ -185,7 +185,7 @@ class PlayerLoginEntry {
 		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY) "
 		. "UNION SELECT address, timedate, service, 'password change' As event, result FROM passwordChange "
 		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
-		. "ORDER BY timedate DESC LIMIT 500;";
+		. "ORDER BY timedate DESC LIMIT 1000;";
 
 		$result = mysql_query($sql, getGameDB());
 		$list=array();
