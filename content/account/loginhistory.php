@@ -60,7 +60,7 @@ class LoginHistoryPage extends Page {
 				$service = $entry->eventType;
 			}
 			echo '<tr><td>'.htmlspecialchars(substr($entry->timedate, 0, 16))
-				.'</td><td>'.htmlspecialchars($this->getHost($entry->address)) . '<br>' . htmlspecialchars($entry->address)
+				.'</td><td>'./*htmlspecialchars($this->getHost($entry->address)) . '<br>' .*/ htmlspecialchars($entry->address)
 				.'</td><td>'.htmlspecialchars($service)
 				.'</td><td>';
 			if ($entry->success == 1) {
