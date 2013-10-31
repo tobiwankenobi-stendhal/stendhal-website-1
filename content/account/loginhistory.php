@@ -19,6 +19,8 @@
  */
 
 class LoginHistoryPage extends Page {
+	private $ips;
+	private $ipCacheDirty = false;
 
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
@@ -31,7 +33,12 @@ class LoginHistoryPage extends Page {
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/history.html').'">login</a> to view your personal login history.</p>';
 			endBox();
 		} else {
+			global $cache;
+			$this->ips = $cache->fetchAsArray('ipcache');
 			$this->printLoginHistory();
+			if ($this->ipCacheDirty) {
+				$cache->store('ipcache', new ArrayObject($this->ips), 3660*24);
+			}
 		}
 	}
 	
@@ -46,12 +53,15 @@ class LoginHistoryPage extends Page {
 			. '<a href="'.rewriteURL('/account/change-password.html').'">change your password</a>'
 			.' immediately and contact <code>/support</code> in game.</p>';
 
-		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th><th>event</th><th>result</th></tr>';
+		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th><th>result</th></tr>';
 		foreach ($events as $entry) {
-			$timedate = htmlspecialchars($entry->timedate);
-			echo '<tr><td>'.$timedate.'</td><td>'.htmlspecialchars($entry->address)
-				.'</td><td>'.htmlspecialchars($entry->service)
-				.'</td><td>'.htmlspecialchars($entry->eventType)
+			$service = $entry->service = 'website' ? 'web' : 'game';
+			if ($entry->eventType != 'login') {
+				$service = $entry->eventType;
+			}
+			echo '<tr><td>'.htmlspecialchars(substr($entry->timedate, 0, 16))
+				.'</td><td>'.htmlspecialchars($this->getHost($entry->address)) . '<br>' . htmlspecialchars($entry->address)
+				.'</td><td>'.htmlspecialchars($service)
 				.'</td><td>';
 			if ($entry->success == 1) {
 				echo '<span style="color:#0A0">OK</span>';
@@ -62,8 +72,24 @@ class LoginHistoryPage extends Page {
 		}
 		echo '</table>';
 		endBox(); 
-
 	}
+
+	private function getHost($ip) {
+		if (isset($this->ips[trim($data)])) {
+			return $this->ips[trim($data)];
+		}
+
+		$host = exec('host -W1 ' . escapeshellarg($ip));
+		if (strpos($host, 'pointer') === false) {
+			$host = '?';
+		} else {
+			$host = substr($host, strrpos($host, ' ') + 1, -1);
+		}
+		$this->ips[$ip] = $host;
+		$this->ipCacheDirty = true;
+		return $host;
+	}
+	
 }
 $page = new LoginHistoryPage();
 ?>
