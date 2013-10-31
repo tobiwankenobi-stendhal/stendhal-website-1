@@ -75,11 +75,11 @@ class LoginHistoryPage extends Page {
 	}
 
 	private function getHost($ip) {
-		if (isset($this->ips[trim($ip)])) {
+		if (isset($this->ips[trim($ip)]) && ($this->ips[trim($ip)] != '?')) {
 			return $this->ips[trim($ip)];
 		}
 
-		$host = exec('host -W1 ' . escapeshellarg($ip));
+		$host = exec('host -W2 ' . escapeshellarg($ip));
 		if (strpos($host, 'pointer') === false) {
 			$host = '?';
 		} else {
