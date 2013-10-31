@@ -55,7 +55,7 @@ class LoginHistoryPage extends Page {
 
 		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th><th>result</th></tr>';
 		foreach ($events as $entry) {
-			$service = $entry->service = 'website' ? 'web' : 'game';
+			$service = ($entry->service == 'website' ? 'web' : 'game');
 			if ($entry->eventType != 'login') {
 				$service = $entry->eventType;
 			}
@@ -75,8 +75,8 @@ class LoginHistoryPage extends Page {
 	}
 
 	private function getHost($ip) {
-		if (isset($this->ips[trim($data)])) {
-			return $this->ips[trim($data)];
+		if (isset($this->ips[trim($ip)])) {
+			return $this->ips[trim($ip)];
 		}
 
 		$host = exec('host -W1 ' . escapeshellarg($ip));
@@ -85,7 +85,7 @@ class LoginHistoryPage extends Page {
 		} else {
 			$host = substr($host, strrpos($host, ' ') + 1, -1);
 		}
-		$this->ips[$ip] = $host;
+		$this->ips[trim($ip)] = $host;
 		$this->ipCacheDirty = true;
 		return $host;
 	}
