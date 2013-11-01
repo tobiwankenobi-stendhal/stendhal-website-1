@@ -82,8 +82,9 @@ class LoginHistoryPage extends Page {
 	}
 
 	private function getHost($ip) {
-		if (isset($this->ips[trim($ip)]) && ($this->ips[trim($ip)] != '?')) {
-			return $this->ips[trim($ip)];
+		$ip = trim($ip);
+		if (isset($this->ips[$ip]) && ($this->ips[$ip] != '?')) {
+			return $this->ips[$ip];
 		}
 
 		$host = exec('host -W2 ' . escapeshellarg($ip));
@@ -92,7 +93,7 @@ class LoginHistoryPage extends Page {
 		} else {
 			$host = substr($host, strrpos($host, ' ') + 1, -1);
 		}
-		$this->ips[trim($ip)] = $host;
+		$this->ips[$ip] = $host;
 		$this->ipCacheDirty = true;
 		return $host;
 	}
