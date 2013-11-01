@@ -37,7 +37,7 @@ class LoginHistoryPage extends Page {
 			$this->ips = $cache->fetchAsArray('ipcache');
 			$this->printLoginHistory();
 			if ($this->ipCacheDirty) {
-				$cache->store('ipcache', new ArrayObject($this->ips), 3660*24);
+				$cache->store('ipcache', new ArrayObject($this->ips), 10*60);
 			}
 		}
 	}
