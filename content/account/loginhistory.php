@@ -59,10 +59,17 @@ class LoginHistoryPage extends Page {
 			if ($entry->eventType != 'login') {
 				$service = $entry->eventType;
 			}
+			if (isset($_REQUEST['test'])) {
+			echo '<tr><td>'.htmlspecialchars(substr($entry->timedate, 0, 16))
+				.'</td><td>'.htmlspecialchars($this->getHost($entry->address)) . '<br>' . htmlspecialchars($entry->address)
+				.'</td><td>'.htmlspecialchars($service)
+				.'</td><td>';
+			} else {
 			echo '<tr><td>'.htmlspecialchars(substr($entry->timedate, 0, 16))
 				.'</td><td>'./*htmlspecialchars($this->getHost($entry->address)) . '<br>' .*/ htmlspecialchars($entry->address)
 				.'</td><td>'.htmlspecialchars($service)
 				.'</td><td>';
+			}
 			if ($entry->success == 1) {
 				echo '<span style="color:#0A0">OK</span>';
 			} else {
