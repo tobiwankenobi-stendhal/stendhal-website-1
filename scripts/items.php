@@ -135,6 +135,9 @@ function getItems() {
 			$items = $items['items'][0]['item'];
 
 			for ($i=0;$i<sizeof($items)/2;$i++) {
+				if (!is_array($items[$i.' attr'])) {
+					break;
+				}
 				$name=$items[$i.' attr']['name'];
 
 				if (isset($items[$i]['description'])) {
