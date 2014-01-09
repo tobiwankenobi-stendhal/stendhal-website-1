@@ -165,7 +165,7 @@ class Achievement {
 	public static function getAwardedToMyFriends($accountId, $achievementId) {
 		$query = "SELECT DISTINCT character_stats.name, character_stats.outfit, character_stats.outfit_colors, reached_achievement.timedate "
 			. "FROM character_stats, characters, characters As char2, buddy "
-			. "LEFT JOIN reached_achievement ON (buddy.buddy=reached_achievement.charname "
+			. "LEFT JOIN reached_achievement ON (buddy.buddy=reached_achievement.charname AND buddy.relationtype='buddy'  "
 			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
 			. REMOVE_ADMINS_AND_POSTMAN
 			. " AND buddy.buddy = character_stats.name "

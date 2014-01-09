@@ -58,7 +58,7 @@ class Event {
 	function getFilterFrom($filter) {
 		if($filter=="friends") {
 			return ", (SELECT buddy.buddy as charname FROM characters, buddy "
-				. "WHERE characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."' AND account.id=characters.player_id AND characters.charname=buddy.charname) As x ";
+				. "WHERE characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."' AND account.id=characters.player_id AND characters.charname=buddy.charname AND buddy.relationtype='buddy') As x ";
 		} else {
 			return '';
 		}

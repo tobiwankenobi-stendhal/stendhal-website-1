@@ -78,7 +78,7 @@ class HallOfFamePage extends Page {
 				return;
 			}
 			$this->filterFrom = ", characters, buddy ";
-			$this->filterWhere = " AND character_stats.name=buddy.buddy AND buddy.charname=characters.charname "
+			$this->filterWhere = " AND character_stats.name=buddy.buddy AND buddy.relationtype='buddy' AND buddy.charname=characters.charname "
 				. " AND characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."'";
 			$this->tableSuffix = 'alltimes';
 		}
