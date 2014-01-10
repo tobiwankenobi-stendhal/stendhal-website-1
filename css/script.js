@@ -518,7 +518,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
  *
  * Copyright (c) 2006 - 2008 Jörn Zaefferer
  *
- * $Id: script.js,v 1.3 2013/08/25 11:30:11 nhnb Exp $
+ * $Id: script.js,v 1.4 2014/01/10 18:07:06 nhnb Exp $
  * 
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -553,13 +553,13 @@ var providers_large = {
 		x: -1,
 		y: -63
 	},
-	myopenid: {
+	/*	myopenid: {
 		name: 'MyOpenID',
 		url: 'http://myopenid.com/',
 		x: -1,
 		y: -187
 	}
-/*,
+,
 	 	aol: {
 		name: 'AOL',
 		label: 'Enter your AOL screenname',
