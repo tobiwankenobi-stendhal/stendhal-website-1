@@ -80,9 +80,9 @@ class StarterPage extends Page {
 	}
 	
 	private function streamWebstart() {
-		$version = '1.08';
+		$version = '1.12.1';
 		if (isset($_REQUEST['test'])) {
-			$version = '1.08';
+			$version = '1.12.1';
 		}
 		header('Content-Type: application/x-java-jnlp-file', true);
 		echo '<?xml version="1.0" encoding="utf-8"?>
@@ -99,8 +99,8 @@ Stendhal features a new, rich and expanding world in which you can explore towns
 
 So what are you waiting for?! A whole new world awaits...</description>
 		<description kind="short">A multiplayer online adventures game</description>
-		<icon href="http://stendhalgame.org/data/gui/StendhalIcon.png"/>
-		<icon kind="splash" href="http://stendhalgame.org/data/gui/StendhalSplash.jpg"/>
+		<icon href="http://arianne.sourceforge.net/images/stendhal_webstart_icon.png"/>
+		<icon kind="splash" href="http://arianne.sourceforge.net/images/stendhal_splash.jpg"/>
 	</information>
 	<security>
 		<all-permissions/>

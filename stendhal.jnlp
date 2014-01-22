@@ -14,16 +14,16 @@ Stendhal features a new, rich and expanding world in which you can explore towns
 
 So what are you waiting for?! A whole new world awaits...</description>
     <description kind="short">A multiplayer online adventures game</description>
-    <icon href="https://stendhalgame.org/data/gui/StendhalIcon.png"/>
-    <icon kind="splash" href="https://stendhalgame.org/data/gui/StendhalSplash.jpg"/>
+    <icon href="http://arianne.sourceforge.net/images/stendhal_webstart_icon.png"/>
+    <icon kind="splash" href="http://arianne.sourceforge.net/images/stendhal_splash.jpg"/>
     <offline-allowed/>
   </information>
   <security>
     <all-permissions/>
   </security>
   <resources>
-    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+" max-heap-size="200m" />
-    <jar href="http://arianne.sourceforge.net/jws/stendhal-starter-1.08.jar" download="eager" main="true" />
+    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.6+" max-heap-size="200m" />
+    <jar href="http://arianne.sourceforge.net/jws/stendhal-starter-1.12.1.jar" download="eager" main="true" />
   </resources>
   <application-desc/>
 </jnlp>
