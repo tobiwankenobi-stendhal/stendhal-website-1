@@ -1,4 +1,3 @@
-.project
 data
 configuration.php
 .classpath
@@ -13,11 +12,9 @@ test
 w
 googlebac*.html
 robots.txt
-.buildpath
 LiveSearchSiteAuth.xml
 common
 media
-.settings
 build
 website
 download
