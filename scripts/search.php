@@ -45,18 +45,23 @@ class Searcher {
 		return $results;
 	}
 
-	function generateWhere($column) {
-		$query = '(';
-		$first = true;
-		foreach ($this->terms as $term) {
-			if ($first) {
-				$first = false;
-			} else {
-				$query .= ' OR ';
+	function generateWhere($columns) {
+		$query = ' (';
+		$firstColumn = true;
+		foreach ($colums as $column) {
+			$first = true;
+			$query .= ' (';
+			foreach ($this->terms as $term) {
+				if ($first) {
+					$first = false;
+				} else {
+					$query .= ' AND ';
+				}
+				$query .= $column . " LIKE '%". mysql_real_escape_string($term) . "%'";
 			}
-			$query .= $column . " LIKE '%". mysql_real_escape_string($term) . "%'";
+			$query .= ')';
 		}
-		$query .= ')';
+		$query .= ') ';
 		return $query;
 	}
 	
