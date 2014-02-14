@@ -25,7 +25,12 @@ class SearchsPage extends Page {
 
 	function writeContent() {
 		startBox('Search');
-		
+		$this->writeSearchForm();
+		$this->writeSearchResult();
+		endBox();
+	}
+
+	function writeSearchForm() {
 		echo '<form action="'.rewriteURL('/search').'" method="GET">';
 		if (!STENDHAL_MODE_REWRITE) {
 			echo '<input type="hidden" name="id" value="content/game/search">';
@@ -35,12 +40,20 @@ class SearchsPage extends Page {
 			echo ' value="'.htmlspecialchars($_REQUEST['q']).'"';
 		}
 		echo '><input type="submit" value="Search"></form>';
+	}
 
+	function writeSearchResult() {
 		$searcher = new Searcher($_REQUEST['q']);
-		echo '<pre>';
-		var_dump($searcher->search());
-		echo '</pre>';
-		endBox();
+		$rows = $searcher->search();
+
+		echo '<table class="prettytable"><tr><th>T</th><th>Name</th><th>score</th></tr>';
+		foreach ($rows As $row) {
+			echo '<tr><td>'.htmlspecialchars($row['entitytype']);
+			echo '</td><td>'.htmlspecialchars($row['entityname']);
+			echo '</td><td>'.htmlspecialchars($row['score']);
+			echo '</td></tr>';
+		}
+		echo '</table>';
 	}
 }
 $page = new SearchsPage();
