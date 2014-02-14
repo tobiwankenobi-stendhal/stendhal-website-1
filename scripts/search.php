@@ -24,9 +24,10 @@
  */
 class Searcher {
 	private $terms;
+	private $searchTerm;
 
 	function __construct($searchTerm) {
-		echo $searchTerm; 
+		$this->searchTerm = $searchTerm;
 		$this->terms = preg_split("/[\s,]+/", strtolower($searchTerm), -1, PREG_SPLIT_NO_EMPTY);
 	}
 
@@ -35,13 +36,7 @@ class Searcher {
 		if (count($this->terms) == 0) {
 			return $results;
 		}
-		array_push($results, $this->searchAchievements());
-		array_push($results, $this->searchItem());
-		array_push($results, $this->searchNPC());
-		array_push($results, $this->searchCreature());
-		array_push($results, $this->searchCharacter());
-// 		array_push($results, $this->searchZone());
-		array_push($results, $this->searchGuide());
+		$results = array_merge($results, $this->searchIndex());
 		return $results;
 	}
 
@@ -71,24 +66,37 @@ class Searcher {
 		return Achievement::getAchievements($where);
 	}
 
-	function searchCharacter() {
+	function searchIndex() {
+		// TODO: $terms.removeAll($stopWords);
+		$terms = $this->terms;
 		
-	}
+		$sql = "SELECT s0.entitytype, s0.entityname, s0.searchscore * "
+				. count(terms) ." FROM searchindex s0 WHERE s0.searchterm = '"
+						. mysql_real_escape_string($this->searchTerm) ."' ORDER BY s0.searchscore DESC";
 
-	function searchCreature() {
-		
-	}
+		$result = fetchToArray($sql, getGameDB());
 
-	function searchGuide() {
-	
-	}
+		if (count($terms) > 1) {
+			$columns = "SELECT s0.entitytype, s0.entityname, s0.searchscore";
+			$from = ' As score FROM searchindex s0';
+			$where = " WHERE s0.searchterm = '". mysql_real_escape_string($terms[0]) ."'";
+			$order = " ORDER BY score DESC";
+			for ($i = 1; $i < count($terms); $i++) {
+				$columns .= "+ s".$i.".searchscore";
+				$from .= ", searchindex s".$i;
+				$where .= " AND s".$i.".searchterm = '". mysql_real_escape_string($terms[$i]) ."'"
+						. " AND s0.entitytype=s".$i.".entitytype AND s0.entityname=s".$i.".entityname";
+			}
+			$sql = $columns . $from . $where . $order;
+			$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		}
 
-	function searchItem() {
-		
-	}
+		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', 1, -1) * 35 As searchscore"
+				. " FROM characters, account WHERE characters.status='active' AND charname = '" 
+				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id;";
+		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 
-	function searchNPC() {
-		
+		return $result;
 	}
 
 }
