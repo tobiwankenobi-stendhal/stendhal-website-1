@@ -71,7 +71,7 @@ class Searcher {
 		$terms = $this->terms;
 		
 		$sql = "SELECT s0.entitytype, s0.entityname, s0.searchscore * "
-				. count(terms) ." FROM searchindex s0 WHERE s0.searchterm = '"
+				. count(terms) ." As score FROM searchindex s0 WHERE s0.searchterm = '"
 						. mysql_real_escape_string($this->searchTerm) ."' ORDER BY s0.searchscore DESC";
 
 		$result = fetchToArray($sql, getGameDB());
@@ -91,7 +91,7 @@ class Searcher {
 			$result = array_merge($result, fetchToArray($sql, getGameDB()));
 		}
 
-		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', 1, -1) * 35 As searchscore"
+		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', 1, -1) * 35 As score"
 				. " FROM characters, account WHERE characters.status='active' AND charname = '" 
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id;";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
