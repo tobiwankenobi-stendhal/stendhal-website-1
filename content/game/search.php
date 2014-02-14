@@ -46,8 +46,19 @@ class SearchsPage extends Page {
 		$searcher = new Searcher($_REQUEST['q']);
 		$rows = $searcher->search();
 
+		$known = array();
+
 		echo '<table class="prettytable"><tr><th>T</th><th>Name</th><th>score</th></tr>';
 		foreach ($rows As $row) {
+
+			// filter duplicated entries
+			$key = $row['entitytype'].$row['entityname'];
+			if (isset($known[$key])) {
+				continue;
+			}
+			$known[$key] = 1;
+
+			// display result
 			echo '<tr><td>'.htmlspecialchars($row['entitytype']);
 			echo '</td><td>'.htmlspecialchars($row['entityname']);
 			echo '</td><td>'.htmlspecialchars($row['score']);
