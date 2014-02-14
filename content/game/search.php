@@ -20,17 +20,26 @@
 class SearchsPage extends Page {
 
 	public function writeHtmlHeader() {
-		// TODO: include search query
 		echo '<title>Search'.STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
 		startBox('Search');
-		$searcher = new Searcher('item fun');
+		
+		echo '<form action="'.rewriteURL('/search').'" method="GET">';
+		if (!STENDHAL_MODE_REWRITE) {
+			echo '<input type="hidden" name="id" value="content/game/search">';
+		}
+		echo '<label for="q">Search: </label><input name="q" id="q"';
+		if (isset($_REQUEST['q'])) {
+			echo ' value="'.htmlspecialchars($_REQUEST['q']).'"';
+		}
+		echo '><input type="submit" value="Search"></form>';
+
+		$searcher = new Searcher($_REQUEST['q']);
 		echo '<pre>';
-		echo 'T';
 		var_dump($searcher->search());
-		echo 'U';
+		echo '</pre>';
 		endBox();
 	}
 }

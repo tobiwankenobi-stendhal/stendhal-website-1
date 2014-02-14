@@ -98,6 +98,9 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 # rss
                 RewriteRule ^/rss/news.rss$ /index.php?id=content/news/rss&rewritten=true [L]
 
+                # search
+                RewriteRule ^/search.*$ /index.php?id=content/game/search&rewritten=true [L,QSA]
+
                 # world
                 RewriteRule ^/world/atlas\.html$ /index.php?id=content/world/atlas&rewritten=true [L,QSA]
                 RewriteRule ^/world/events\.html$ /world/events/all.html [R=301]
@@ -233,7 +236,6 @@ Note: You need to restart apache after editing these files.
  * @return real url
  */
 function rewriteURL($url) {
-
 	$folder = STENDHAL_FOLDER;
 
 	if (STENDHAL_MODE_REWRITE) {
@@ -367,6 +369,11 @@ function rewriteURL($url) {
 		if (preg_match('|^/rss/news.rss$|', $url)) {
 			return preg_replace('|^/rss/news.rss$|', $folder.'/?id=content/news/rss', $url);
 		}
+
+	// search
+	} else if (preg_match('|^/search.*|', $url)) {
+		return preg_replace('|^/search.*|', $folder.'/?id=content/game/search', $url);
+	
 
 	// world
 	} else if (preg_match('|^/world.*|', $url)) {
