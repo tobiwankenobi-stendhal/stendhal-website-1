@@ -67,8 +67,16 @@ class Searcher {
 	}
 
 	function searchIndex() {
-		// TODO: $terms.removeAll($stopWords);
 		$terms = $this->terms;
+
+		// apply stopword filter (keep in sync with SearchIndexManager.java)
+		$stopwords = array("you", "see", "a", "an", "to", "the", "and");
+		foreach ($stopwords As $word) {
+			$offset = array_search($word, $terms);
+			if ($offset !== false) {
+				array_splice($terms, $offset, 1);
+			}
+		}
 		
 		$sql = "SELECT s0.entitytype, s0.entityname, s0.searchscore * "
 				. count(terms) ." As score FROM searchindex s0 WHERE s0.searchterm = '"
@@ -76,7 +84,7 @@ class Searcher {
 
 		$result = fetchToArray($sql, getGameDB());
 
-		if (count($terms) > 1) {
+		if (strpos($this->searchTerm, ' ') !== false) {
 			$columns = "SELECT s0.entitytype, s0.entityname, s0.searchscore";
 			$from = ' As score FROM searchindex s0';
 			$where = " WHERE s0.searchterm = '". mysql_real_escape_string($terms[0]) ."'";
