@@ -99,8 +99,10 @@ class Searcher {
 			$result = array_merge($result, fetchToArray($sql, getGameDB()));
 		}
 
+		//join character_stats because very old, unused accoutns don't have an entry there
 		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', 1, -1) * 35 As score"
-				. " FROM characters, account WHERE characters.status='active' AND charname = '" 
+				. " FROM characters, account, character_stats"
+				. " WHERE characters.status='active' AND characters.charname=character_stats.name AND charname = '" 
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id;";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 
