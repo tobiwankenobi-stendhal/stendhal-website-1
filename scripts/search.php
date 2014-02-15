@@ -70,7 +70,7 @@ class Searcher {
 		$terms = $this->terms;
 
 		// apply stopword filter (keep in sync with SearchIndexManager.java)
-		$stopwords = array("you", "see", "a", "an", "to", "the", "and");
+		$stopwords = array("a", "an", "and", "is", "it", "of", "see", "the", "to", "you");
 		foreach ($stopwords As $word) {
 			$offset = array_search($word, $terms);
 			if ($offset !== false) {
