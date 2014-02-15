@@ -21,6 +21,17 @@ class SearchsPage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<title>Search'.STENDHAL_TITLE.'</title>';
+
+		?>
+		<style type="text/css">
+		.searchform {margin: 1em}
+		.searchresults {margin: 0 0 2em 1em}
+		.searchentry {margin: 0 0 1em 0}
+		.searchheader {font-weight: bold; padding: 0 0 0.2em 0}
+		.searchtype {color: #777}
+		.searchicon {float: left; padding: 0.1em .5em 0 0}
+		</style>
+		<?php
 	}
 
 	function writeContent() {
@@ -31,7 +42,7 @@ class SearchsPage extends Page {
 	}
 
 	function writeSearchForm() {
-		echo '<form action="'.rewriteURL('/search').'" method="GET">';
+		echo '<form class="searchform" action="'.rewriteURL('/search').'" method="GET">';
 		if (!STENDHAL_MODE_REWRITE) {
 			echo '<input type="hidden" name="id" value="content/game/search">';
 		}
@@ -46,6 +57,24 @@ class SearchsPage extends Page {
 		$searcher = new Searcher($_REQUEST['q']);
 		$rows = $searcher->search();
 
+		$known = array();
+		
+		echo '<div class="searchresults">';
+		
+		foreach ($rows As $row) {
+		
+			// filter duplicated entries
+			$key = $row['entitytype'].$row['entityname'];
+			if (isset($known[$key])) {
+				continue;
+			}
+			$known[$key] = 1;
+		
+			// display result
+			$this->render($row);
+		}
+		echo '</div>';
+		
 		$known = array();
 
 		echo '<table class="prettytable"><tr><th>T</th><th>Name</th><th>score</th></tr>';
@@ -65,6 +94,26 @@ class SearchsPage extends Page {
 			echo '</td></tr>';
 		}
 		echo '</table>';
+	}
+
+	function render($row) {
+		switch ($row['entitytype']) {
+			case 'A': {
+				$this->renderAchievement($row['entityname']);
+				break;
+			}
+		}
+	}
+
+	function renderAchievement($name) {
+		$achievement = Achievement::getAchievement($name);
+		echo '<div class="searchentry">';
+		echo '<div class="searchheader"><a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html')
+			.'">'.htmlspecialchars($achievement->title).'</a></div>';
+		echo '<img class="searchicon" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" alt="">';
+		echo '<div class="searchtype">Achievement</div>';
+		echo '<div class="searchdescr">'.htmlspecialchars($achievement->description).'</div>';
+		echo '</div>';
 	}
 }
 $page = new SearchsPage();
