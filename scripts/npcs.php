@@ -64,7 +64,7 @@ class NPC {
 	/**
 	 * gets the names NPC from the database.
 	 */
-	function getNPC($name) {
+	static function getNPC($name) {
 		$npcs = NPC::_getNPCs('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
 		return $npcs[0];	
 	}
