@@ -17,6 +17,14 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+function searchScoreCallback($a, $b) {
+	if (abs($a['score']) == abs($b['score'])) {
+		return 0;
+	}
+	return (abs($a['score']) < abs($b['score'])) ? 1 : -1;
+}
+
 class SearchsPage extends Page {
 
 	public function writeHtmlHeader() {
@@ -58,6 +66,9 @@ class SearchsPage extends Page {
 		$searcher = new Searcher($_REQUEST['q']);
 		$rows = $searcher->search();
 
+		// the database resutls are pre sorted within each query, but we still need to "merge-sort" the results from multiple queries
+		usort($rows, searchScoreCallback);
+
 		$known = array();
 		$filteredResults = false;
 		
@@ -91,6 +102,7 @@ class SearchsPage extends Page {
 			echo 'Some inappropriate results have been filtered. <input type="submit" name="disablefilter" id="disablefilter" value="Disable Filter"></form>';
 		}
 	}
+
 
 	function render($row) {
 		switch ($row['entitytype']) {
