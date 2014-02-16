@@ -372,6 +372,9 @@ function rewriteURL($url) {
 
 	// search
 	} else if (preg_match('|^/search.*|', $url)) {
+		if (preg_match('|^/search?q=.*|', $url)) {
+			return preg_replace('|^/search?q=|', $folder.'/?id=content/game/search&a=', $url);
+		}
 		return preg_replace('|^/search.*|', $folder.'/?id=content/game/search', $url);
 	
 

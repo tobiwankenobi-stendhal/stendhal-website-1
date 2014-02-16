@@ -59,6 +59,7 @@ class SearchsPage extends Page {
 		$rows = $searcher->search();
 
 		$known = array();
+		$filteredResults = false;
 		
 		echo '<div class="searchresults">';
 		
@@ -70,31 +71,25 @@ class SearchsPage extends Page {
 				continue;
 			}
 			$known[$key] = 1;
-		
+
+			// filter irrelevant
+			if ($row['score'] < 0) {
+				// we intentionally check for POST here
+				if (!isset($_POST['disablefilter'])) {
+					$filteredResults = true;
+					continue;
+				}
+			}
+
 			// display result
 			$this->render($row);
 		}
 		echo '</div>';
-		
-		$known = array();
 
-		echo '<table class="prettytable"><tr><th>T</th><th>Name</th><th>score</th></tr>';
-		foreach ($rows As $row) {
-
-			// filter duplicated entries
-			$key = $row['entitytype'].$row['entityname'];
-			if (isset($known[$key])) {
-				continue;
-			}
-			$known[$key] = 1;
-
-			// display result
-			echo '<tr><td>'.htmlspecialchars($row['entitytype']);
-			echo '</td><td>'.htmlspecialchars($row['entityname']);
-			echo '</td><td>'.htmlspecialchars($row['score']);
-			echo '</td></tr>';
+		if ($filteredResults) {
+			echo '<form action="'.rewriteURL('/search/?q='.urlencode($_REQUEST['q'])).'" method="POST">';
+			echo 'Some inappropriate results have been filtered. <input type="submit" name="disablefilter" id="disablefilter" value="Disable Filter"></form>';
 		}
-		echo '</table>';
 	}
 
 	function render($row) {
