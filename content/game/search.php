@@ -28,7 +28,11 @@ function searchScoreCallback($a, $b) {
 class SearchsPage extends Page {
 
 	public function writeHtmlHeader() {
-		echo '<title>Search'.STENDHAL_TITLE.'</title>';
+		$q = '';
+		if (isset($_REQUEST['q'])) {
+			$q = $_REQUEST['q'];
+		}
+		echo '<title>Search '.htmlspecialchars($q).STENDHAL_TITLE.'</title>';
 
 		?>
 		<style type="text/css">
