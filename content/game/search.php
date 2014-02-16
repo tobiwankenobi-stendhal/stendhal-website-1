@@ -29,7 +29,8 @@ class SearchsPage extends Page {
 		.searchentry {margin: 0 0 1.5em 0;}
 		.searchheader {font-weight: bold; padding: 0 0 0.2em 0}
 		.searchtype {color: #777}
-		.searchicon {float: left; padding: 0 .5em 0 0; max-height: 48px}
+		.searchimagecontainer {float: left; width: 48px; height: 3em}
+		.searchicon {max-height: 48px}
 		</style>
 		<?php
 	}
@@ -125,7 +126,7 @@ class SearchsPage extends Page {
 		echo '<div class="searchentry">';
 		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name).'.html')
 		.'">'.htmlspecialchars($name).'</a></div>';
-		echo '<img class="searchicon" src="'.htmlspecialchars($icon).'" alt="">';
+		echo '<div class="searchimagecontainer"><img class="searchicon" src="'.htmlspecialchars($icon).'" alt=""></div>';
 		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
 		echo '<div class="searchdescr">'.htmlspecialchars($description).'</div>';
 		echo '</div>';
