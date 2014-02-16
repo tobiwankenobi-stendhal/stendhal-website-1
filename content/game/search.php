@@ -135,8 +135,13 @@ class SearchsPage extends Page {
 		.'">'.htmlspecialchars(ucfirst($name)).'</a></div>';
 		echo '<div class="searchimagecontainer"><img class="searchicon" src="'.htmlspecialchars($icon).'" alt=""></div>';
 		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
-		echo '<div class="searchdescr">'.htmlspecialchars($description).'</div>';
-		echo '</div>';
+		echo '<div class="searchdescr">';
+		if (isset($description) && $description != '') {
+			echo htmlspecialchars($description);
+		} else {
+			echo '&nbsp;';
+		}
+		echo '</div></div>';
 	}
 
 	function renderAchievement($name) {
