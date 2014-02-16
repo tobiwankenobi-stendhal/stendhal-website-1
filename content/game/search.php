@@ -102,18 +102,76 @@ class SearchsPage extends Page {
 				$this->renderAchievement($row['entityname']);
 				break;
 			}
+			case 'C': {
+				$this->renderCreature($row['entityname']);
+				break;
+			}
+			case 'I': {
+				$this->renderItem($row['entityname']);
+				break;
+			}
+			case 'N': {
+				$this->renderNpc($row['entityname']);
+				break;
+			}
+			case 'P': {
+				$this->renderPlayer($row['entityname']);
+				break;
+			}
 		}
 	}
 
-	function renderAchievement($name) {
-		$achievement = Achievement::getAchievement($name);
+	function renderEntry($name, $type, $url, $icon, $description) {
 		echo '<div class="searchentry">';
-		echo '<div class="searchheader"><a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html')
-			.'">'.htmlspecialchars($achievement->title).'</a></div>';
-		echo '<img class="searchicon" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" alt="">';
-		echo '<div class="searchtype">Achievement</div>';
-		echo '<div class="searchdescr">'.htmlspecialchars($achievement->description).'</div>';
+		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name).'.html')
+		.'">'.htmlspecialchars($name).'</a></div>';
+		echo '<img class="searchicon" src="'.htmlspecialchars($icon).'" alt="">';
+		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
+		echo '<div class="searchdescr">'.htmlspecialchars($description).'</div>';
 		echo '</div>';
+	}
+
+	function renderAchievement($name) {
+		$entry = Achievement::getAchievement($name);
+		$this->renderEntry($name, 
+			'Achievement', 
+			'/achievement/', 
+			'/images/achievements/'.htmlspecialchars(strtolower($entry->category)).'.png', 
+			$entry->description);
+	}
+
+	function renderCreature($name) {
+		$entry = getMonster($name);
+		$this->renderEntry($name,
+			'Creature',
+			'/creature/',
+			$entry->gfx,
+			'Level: '.$entry->level);
+	}
+
+	function renderItem($name) {
+		$entry = getItem($name);
+		$this->renderEntry($name,
+				'Item',
+				'/item/'.surlencode($entry->class).'/',
+				$entry->gfx,
+				$entry->description);
+	}
+	function renderNpc($name) {
+		$entry = NPC::getNpc($name);
+		$this->renderEntry($name,
+			'NPC',
+			'/npc/',
+			$entry->imagefile,
+			$entry->description);
+	}
+	function renderPlayer($name) {
+		$entry = getPlayer($name);
+		$this->renderEntry($name,
+			'Character',
+			'/character/',
+			'/images/outfit/'.surlencode($entry->outfit).'.png',
+			'Level: '.$entry->level);
 	}
 }
 $page = new SearchsPage();
