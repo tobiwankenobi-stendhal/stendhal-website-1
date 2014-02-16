@@ -132,7 +132,7 @@ class SearchsPage extends Page {
 	function renderEntry($name, $type, $url, $icon, $description) {
 		echo '<div class="searchentry">';
 		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name).'.html')
-		.'">'.htmlspecialchars($name).'</a></div>';
+		.'">'.htmlspecialchars(ucfirst($name)).'</a></div>';
 		echo '<div class="searchimagecontainer"><img class="searchicon" src="'.htmlspecialchars($icon).'" alt=""></div>';
 		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
 		echo '<div class="searchdescr">'.htmlspecialchars($description).'</div>';
@@ -142,7 +142,7 @@ class SearchsPage extends Page {
 	function renderAchievement($name) {
 		$entry = Achievement::getAchievement($name);
 		$this->renderEntry($name, 
-			'Achievement', 
+			'Achievement – Earned: '.$achievements->count, 
 			'/achievement/', 
 			'/images/achievements/'.htmlspecialchars(strtolower($entry->category)).'.png', 
 			$entry->description);
@@ -151,24 +151,29 @@ class SearchsPage extends Page {
 	function renderCreature($name) {
 		$entry = getMonster($name);
 		$this->renderEntry($name,
-			'Creature',
+			'Creature – Level: '.$entry->level,
 			'/creature/',
 			$entry->gfx,
-			'Level: '.$entry->level);
+			$entry->description);
 	}
 
 	function renderItem($name) {
 		$entry = getItem($name);
 		$this->renderEntry($name,
-				'Item',
+				'Item – '.ucfirst($entry->class),
 				'/item/'.surlencode($entry->class).'/',
 				$entry->gfx,
 				$entry->description);
 	}
 	function renderNpc($name) {
 		$entry = NPC::getNpc($name);
+		if ($entry->pos != '') {
+			$pos = $entry->zone.' '.$entry->pos;
+		} else {
+			$pos = $npc->zone;
+		}
 		$this->renderEntry($name,
-			'NPC',
+			'NPC – '.$pos,
 			'/npc/',
 			$entry->imagefile,
 			$entry->description);
@@ -176,10 +181,10 @@ class SearchsPage extends Page {
 	function renderPlayer($name) {
 		$entry = getPlayer($name);
 		$this->renderEntry($name,
-			'Character',
+			'Character – Level: '.$entry->level,
 			'/character/',
 			'/images/outfit/'.surlencode($entry->outfit).'.png',
-			'Level: '.$entry->level);
+			$entry->sentence);
 	}
 }
 $page = new SearchsPage();
