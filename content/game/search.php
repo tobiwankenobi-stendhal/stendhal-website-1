@@ -26,10 +26,10 @@ class SearchsPage extends Page {
 		<style type="text/css">
 		.searchform {margin: 1em}
 		.searchresults {margin: 0 0 2em 1em}
-		.searchentry {margin: 0 0 1em 0}
+		.searchentry {margin: 0 0 1.5em 0;}
 		.searchheader {font-weight: bold; padding: 0 0 0.2em 0}
 		.searchtype {color: #777}
-		.searchicon {float: left; padding: 0.1em .5em 0 0}
+		.searchicon {float: left; padding: 0 .5em 0 0; max-height: 48px}
 		</style>
 		<?php
 	}
