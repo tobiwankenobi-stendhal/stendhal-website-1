@@ -100,7 +100,7 @@ class Searcher {
 		}
 
 		//join character_stats because very old, unused accoutns don't have an entry there
-		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', 1, -1) * 35 As score"
+		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', if(character_stats.level=0, 0, 1), -1) * 35) As score"
 				. " FROM characters, account, character_stats"
 				. " WHERE characters.status='active' AND characters.charname=character_stats.name AND charname = '" 
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id;";
@@ -120,7 +120,7 @@ class Searcher {
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 						. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 200";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
-		
+
 		return $result;
 	}
 
