@@ -79,7 +79,7 @@ class Searcher {
 		}
 		
 		$sql = "SELECT s0.entitytype, s0.entityname, s0.searchscore * "
-				. count(terms) ." As score FROM searchindex s0 WHERE s0.searchterm = '"
+				. count($terms) ." As score FROM searchindex s0 WHERE s0.searchterm = '"
 						. mysql_real_escape_string($this->searchTerm) ."' ORDER BY s0.searchscore DESC";
 
 		$result = fetchToArray($sql, getGameDB());
@@ -107,15 +107,17 @@ class Searcher {
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 
 		// wiki
-		$sql = "SELECT stendhal_category_search.entitytype, page.page_title, stendhal_category_search.searchscore + 20"
-				. " FROM page, searchindex, categorylinks, stendhal_category_search"
+		$sql = "SELECT stendhal_category_search.entitytype, page.page_title, (stendhal_category_search.searchscore + 20) * ". count($terms)
+				. " As score  FROM a1111_wiki.page, a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search"
 				. " WHERE page_id=si_page AND MATCH(si_title) AGAINST('".mysql_real_escape_string($this->searchTerm)
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 200";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 
-		$sql = "SELECT stendhal_category_search.entitytype, page.page_title, stendhal_category_search.searchscore + 10"
-				. " FROM page, searchindex, categorylinks, stendhal_category_search"
+		echo $sql;
+
+		$sql = "SELECT stendhal_category_search.entitytype, page.page_title, (stendhal_category_search.searchscore + 10) * ". count($terms)
+				. " As score  FROM a1111_wiki.page, a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search"
 				. " WHERE page_id=si_page AND MATCH(si_text) AGAINST('".mysql_real_escape_string($this->searchTerm)
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 						. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 200";
