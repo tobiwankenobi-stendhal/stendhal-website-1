@@ -105,7 +105,6 @@ class Searcher {
 				. " WHERE characters.status='active' AND characters.charname=character_stats.name AND charname = '" 
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id;";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
-		echo $sql;
 
 		// wiki
 		$sql = "SELECT stendhal_category_search.entitytype, page.page_title As entityname, (stendhal_category_search.searchscore + 20) * ". count($terms)
