@@ -141,9 +141,9 @@ class SearchsPage extends Page {
 		}
 	}
 
-	function renderEntry($name, $type, $url, $icon, $description) {
+	function renderEntry($name, $type, $url, $icon, $description, $linkSuffix = '.html') {
 		echo '<div class="searchentry">';
-		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name).'.html')
+		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name))
 		.'">'.htmlspecialchars(ucfirst($name)).'</a></div>';
 		echo '<div class="searchimagecontainer"><img class="searchicon" src="'.htmlspecialchars($icon).'" alt=""></div>';
 		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
@@ -217,6 +217,7 @@ class SearchsPage extends Page {
 			$type,
 			'/wiki/',
 			'/images/item/documents/paper.png',
+			'',
 			'');
 	}
 }
