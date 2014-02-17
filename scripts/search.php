@@ -106,6 +106,21 @@ class Searcher {
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id;";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 
+		// wiki
+		$sql = "SELECT stendhal_category_search.entitytype, page.page_title, stendhal_category_search.searchscore + 20"
+				. " FROM page, searchindex, categorylinks, stendhal_category_search"
+				. " WHERE page_id=si_page AND MATCH(si_title) AGAINST('".mysql_real_escape_string($this->searchTerm)
+				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
+				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 200";
+		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+
+		$sql = "SELECT stendhal_category_search.entitytype, page.page_title, stendhal_category_search.searchscore + 10"
+				. " FROM page, searchindex, categorylinks, stendhal_category_search"
+				. " WHERE page_id=si_page AND MATCH(si_text) AGAINST('".mysql_real_escape_string($this->searchTerm)
+				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
+						. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 200";
+		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		
 		return $result;
 	}
 

@@ -118,6 +118,10 @@ class SearchsPage extends Page {
 				$this->renderCreature($row['entityname']);
 				break;
 			}
+			case 'G': {
+				$this->renderWiki($row['entitytype'], $row['entityname']);
+				break;
+			}
 			case 'I': {
 				$this->renderItem($row['entityname']);
 				break;
@@ -128,6 +132,10 @@ class SearchsPage extends Page {
 			}
 			case 'P': {
 				$this->renderPlayer($row['entityname']);
+				break;
+			}
+			case 'W': {
+				$this->renderWiki($row['entitytype'], $row['entityname']);
 				break;
 			}
 		}
@@ -174,6 +182,7 @@ class SearchsPage extends Page {
 				$entry->gfx,
 				$entry->description);
 	}
+
 	function renderNpc($name) {
 		$entry = NPC::getNpc($name);
 		if ($entry->pos != '') {
@@ -187,6 +196,7 @@ class SearchsPage extends Page {
 			$entry->imagefile,
 			$entry->description);
 	}
+
 	function renderPlayer($name) {
 		$entry = getPlayer($name);
 		$this->renderEntry($name,
@@ -194,6 +204,20 @@ class SearchsPage extends Page {
 			'/character/',
 			'/images/outfit/'.surlencode($entry->outfit).'.png',
 			$entry->sentence);
+	}
+
+	function renderWiki($entitytype, $name) {
+		$type = 'Wiki page';
+		if ($entitytype == 'G') {
+			$type = "Player's guide";
+		} else if ($entitytype == 'W') {
+			$type = "World guide";
+		}
+		$this->renderEntry($name,
+			$type,
+			'/wiki/',
+			'/images/item/documents/paper.png',
+			'');
 	}
 }
 $page = new SearchsPage();
