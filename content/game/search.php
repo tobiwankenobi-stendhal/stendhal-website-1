@@ -71,7 +71,7 @@ class SearchsPage extends Page {
 		$rows = $searcher->search();
 
 		// the database resutls are pre sorted within each query, but we still need to "merge-sort" the results from multiple queries
-		usort($rows, searchScoreCallback);
+		usort($rows, 'searchScoreCallback');
 
 		$known = array();
 		$filteredResults = false;
