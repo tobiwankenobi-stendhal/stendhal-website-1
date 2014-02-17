@@ -33,6 +33,7 @@ class SearchsPage extends Page {
 			$q = $_REQUEST['q'];
 		}
 		echo '<title>Search '.htmlspecialchars($q).STENDHAL_TITLE.'</title>';
+		echo '<meta name="robots" content="noindex,follow">'
 
 		?>
 		<style type="text/css">
@@ -213,7 +214,7 @@ class SearchsPage extends Page {
 		} else if ($entitytype == 'W') {
 			$type = "World guide";
 		}
-		$this->renderEntry($name,
+		$this->renderEntry(str_replace('_', ' ', $name),
 			$type,
 			'/wiki/',
 			'/images/item/documents/paper.png',
