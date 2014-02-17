@@ -114,8 +114,6 @@ class Searcher {
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 200";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 
-		echo $sql;
-
 		$sql = "SELECT stendhal_category_search.entitytype, page.page_title, (stendhal_category_search.searchscore + 10) * ". count($terms)
 				. " As score  FROM a1111_wiki.page, a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search"
 				. " WHERE page_id=si_page AND MATCH(si_text) AGAINST('".mysql_real_escape_string($this->searchTerm)
