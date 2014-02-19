@@ -33,25 +33,21 @@ class SearchsPage extends Page {
 			$q = $_REQUEST['q'];
 		}
 		echo '<title>Search '.htmlspecialchars($q).STENDHAL_TITLE.'</title>';
-		echo '<meta name="robots" content="noindex,follow">'
-
-		?>
-		<style type="text/css">
-		.searchform {margin: 1em}
-		.searchresults {margin: 0 0 2em 1em}
-		.searchentry {margin: 0 0 1.5em 0;}
-		.searchheader {font-weight: bold; padding: 0 0 0.2em 0}
-		.searchtype {color: #777}
-		.searchimagecontainer {float: left; width: 48px; height: 3em}
-		.searchicon {max-height: 48px}
-		</style>
-		<?php
+		echo '<meta name="robots" content="noindex,follow">';
 	}
 
 	function writeContent() {
 		startBox('Search');
 		$this->writeSearchForm();
 		$this->writeSearchResult();
+		endBox();
+
+		startBox("Search Information");
+		echo 'This unified search is still experimental.<ul><li>Please give <a href="https://sourceforge.net/p/arianne/bugs/new/">feedback</a>.';
+		echo '<li>There may be additional information available at the <a href="https://stendhalgame.org/w/index.php?title=Special%3ASearch&profile=default&search='
+				.urlencode($_REQUEST['q']).'&fulltext=Search">Stendhal Wiki</a>.';
+		echo '<li>Please help to split the <a href="https://stendhalgame.org/wiki/Stendhal_Quest">Stendhal Quest page</a> into one subpage per quest. Quests on their own subpage will be included in the search.';
+		echo '</ul>';
 		endBox();
 	}
 
@@ -106,13 +102,6 @@ class SearchsPage extends Page {
 			echo '<form action="'.rewriteURL('/search/?q='.urlencode($_REQUEST['q'])).'" method="POST">';
 			echo 'Some inappropriate results have been filtered. <input type="submit" name="disablefilter" id="disablefilter" value="Disable Filter"></form>';
 		}
-		
-		echo '<div class="bubble">';
-		echo 'This unified search is still experimental.<ul><li>Please give <a href="https://sourceforge.net/p/arianne/bugs/new/">feedback</a>.';
-		echo '<li>There may be additional information available at the <a href="https://stendhalgame.org/w/index.php?title=Special%3ASearch&profile=default&search='
-			.urlencode($_REQUEST['q']).'&fulltext=Search">Stendhal Wiki</a>.';
-		echo '<li>Please help to split the <a href="https://stendhalgame.org/wiki/Stendhal_Quest">Stendhal Quest page</a> into one subpage per quest. Quests on their own subpage will be included in the search.';
-		echo '</ul></div>';
 	}
 
 

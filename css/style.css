@@ -108,6 +108,13 @@ body {
 	width: 150px;
 }
 
+.searchform {margin: 1em}
+.searchresults {margin: 0 0 2em 1em}
+.searchentry {margin: 0 0 1.5em 0;}
+.searchheader {font-weight: bold; padding: 0 0 0.2em 0}
+.searchtype {color: #777}
+.searchimagecontainer {float: left; width: 48px; height: 3em}
+.searchicon {max-height: 48px}
 
 #topMenu ul {
 	text-align: center;
