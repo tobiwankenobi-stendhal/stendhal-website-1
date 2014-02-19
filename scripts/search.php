@@ -103,7 +103,8 @@ class Searcher {
 		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', if(character_stats.level=0, 0, 1), -1) * 3050 As score"
 				. " FROM characters, account, character_stats"
 				. " WHERE characters.status='active' AND characters.charname=character_stats.name AND charname = '" 
-				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id;";
+				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id"
+				. " AND (age > 5 OR level > 0)";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 
 		// wiki
