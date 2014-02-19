@@ -40,33 +40,8 @@ class Searcher {
 		return $results;
 	}
 
-	function generateWhere($columns) {
-		$query = ' (';
-		$firstColumn = true;
-		foreach ($colums as $column) {
-			$first = true;
-			$query .= ' (';
-			foreach ($this->terms as $term) {
-				if ($first) {
-					$first = false;
-				} else {
-					$query .= ' AND ';
-				}
-				$query .= $column . " LIKE '%". mysql_real_escape_string($term) . "%'";
-			}
-			$query .= ')';
-		}
-		$query .= ') ';
-		return $query;
-	}
-	
-	function searchAchievements() {
-		$where = ' AND (' . $this->generateWhere('achievement.title')
-			. ' OR '. $this->generateWhere('achievement.description') . ')';
-		return Achievement::getAchievements($where);
-	}
-
 	function searchIndex() {
+		profilePoint('searchIndex');
 		$terms = $this->terms;
 
 		// apply stopword filter (keep in sync with SearchIndexManager.java)
@@ -83,6 +58,7 @@ class Searcher {
 						. mysql_real_escape_string($this->searchTerm) ."' ORDER BY s0.searchscore DESC";
 
 		$result = fetchToArray($sql, getGameDB());
+		profilePoint($sql);
 
 		if (strpos($this->searchTerm, ' ') !== false) {
 			$columns = "SELECT s0.entitytype, s0.entityname, s0.searchscore";
@@ -97,6 +73,7 @@ class Searcher {
 			}
 			$sql = $columns . $from . $where . $order;
 			$result = array_merge($result, fetchToArray($sql, getGameDB()));
+			profilePoint($sql);
 		}
 
 		//join character_stats because very old, unused accoutns don't have an entry there
@@ -106,6 +83,7 @@ class Searcher {
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id"
 				. " AND (age > 5 OR level > 0)";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		profilePoint($sql);
 
 		// wiki
 		$sql = "SELECT stendhal_category_search.entitytype, page.page_title As entityname, (stendhal_category_search.searchscore + 2000) * ". count($terms)
@@ -114,6 +92,7 @@ class Searcher {
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		profilePoint($sql);
 
 		$sql = "SELECT stendhal_category_search.entitytype, page.page_title As entityname, (stendhal_category_search.searchscore + 1000) * ". count($terms)
 				. " As score  FROM a1111_wiki.page, a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search"
@@ -121,6 +100,7 @@ class Searcher {
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 						. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		profilePoint($sql);
 
 		return $result;
 	}

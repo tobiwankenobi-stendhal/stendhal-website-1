@@ -137,3 +137,11 @@ function formatNumber($value, $digits = 6) {
 
 	return $sBefore . $decimalSeparator . $sAfter;
 }
+
+function profilePoint($name) {
+	if (isset($_REQUEST['_profiler'])) {
+		global $profilerReferenceTime;
+		echo "\n".'<!--'. number_format(microtime(true) - $profilerReferenceTime, 3). ': '.htmlspecialchars($name).'-->';
+		$profilerReferenceTime = microtime(true);
+	}
+}
