@@ -146,6 +146,7 @@ class SearchsPage extends Page {
 				break;
 			}
 		}
+		profilePoint($row['entitytype'].' '.$row['entityname']);
 	}
 
 	function renderEntry($name, $type, $url, $icon, $description, $linkSuffix = '.html') {
