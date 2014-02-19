@@ -60,7 +60,7 @@ class StendhalFrame extends PageFrame {
 			echo '<input type="hidden" name="id" value="content/game/search">';
 		}
 		echo '<div>';
-		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><input type="image" src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></form>';
+		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><button><img src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></button></form>';
 		echo '</div>';
 		?>
 		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>

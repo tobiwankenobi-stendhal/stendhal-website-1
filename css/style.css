@@ -100,12 +100,17 @@ body {
 	border: 1px solid #AAA;
 	padding: 0.2em;
 	border-radius: 5px;
-	margin-right: 0.5em;
+	margin-right: 5px;
+}
+
+#headersearchform button {
+	background-color:#FFF; 
+	border: none;
 }
 
 #headersearchforminput {
 	border: none;
-	width: 150px;
+	width: 130px;
 }
 
 .searchform {margin: 1em}
