@@ -91,6 +91,24 @@ body {
 	background-repeat: no-repeat;
 }
 
+#headersearchform {
+	float: right;
+}
+
+#headersearchform div {
+	background-color:#FFF; 
+	border: 1px solid #AAA;
+	padding: 0.2em;
+	border-radius: 5px;
+	margin-right: 0.5em;
+}
+
+#headersearchforminput {
+	border: none;
+	width: 150px;
+}
+
+
 #topMenu ul {
 	text-align: center;
 	padding: 45px 0 2px 0;

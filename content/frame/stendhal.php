@@ -54,11 +54,20 @@ class StendhalFrame extends PageFrame {
 <body <?php echo $page->getBodyTagAttributes()?>>
 <div id="container">
 	<div id="header">
+		<?php
+		echo '<form id="headersearchform" action="'.rewriteURL('/search').'" method="GET">';
+		if (!STENDHAL_MODE_REWRITE) {
+			echo '<input type="hidden" name="id" value="content/game/search">';
+		}
+		echo '<div>';
+		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><input type="image" src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></form>';
+		echo '</div>';
+		?>
 		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
 	</div>
 
 	<div id="topMenu"></div>
-
+	
 	<div id="leftArea">
 		<?php 
 		startBox('Screenshot');
