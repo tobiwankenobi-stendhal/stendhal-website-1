@@ -166,7 +166,7 @@ class SearchsPage extends Page {
 	function renderAchievement($name) {
 		$entry = Achievement::getAchievement($name);
 		$this->renderEntry($name, 
-			'Achievement – Earned: '.$achievements->count, 
+			'Achievement', 
 			'/achievement/', 
 			'/images/achievements/'.htmlspecialchars(strtolower($entry->category)).'.png', 
 			$entry->description);
