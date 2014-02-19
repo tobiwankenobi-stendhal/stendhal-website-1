@@ -106,6 +106,12 @@ class SearchsPage extends Page {
 			echo '<form action="'.rewriteURL('/search/?q='.urlencode($_REQUEST['q'])).'" method="POST">';
 			echo 'Some inappropriate results have been filtered. <input type="submit" name="disablefilter" id="disablefilter" value="Disable Filter"></form>';
 		}
+		
+		echo '<div class="bubble">';
+		echo 'This unified search is still experimental.<ul><li>Please give <a href="https://sourceforge.net/p/arianne/bugs/new/">feedback</a>.';
+		echo '<li>There may be additional information available at the <a href="https://stendhalgame.org/w/index.php?title=Special%3ASearch&profile=default&search='
+			.urlencode($_REQUEST['q']).'&fulltext=Search">Stendhal Wiki</a>.';
+		echo '</ul></div>';
 	}
 
 
