@@ -199,8 +199,7 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2013 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
-		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">&nbsp;</a></span>
+		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 	</div>
 
 	<div class="time">
