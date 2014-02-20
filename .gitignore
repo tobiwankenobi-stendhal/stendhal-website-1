@@ -13,7 +13,6 @@ w
 googlebac*.html
 robots.txt
 LiveSearchSiteAuth.xml
-common
 media
 build
 website
@@ -28,3 +27,4 @@ BingSiteAuth.xml
 map
 forum
 stendhal-client
+stendhal.version

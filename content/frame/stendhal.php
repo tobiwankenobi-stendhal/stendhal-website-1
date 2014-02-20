@@ -54,11 +54,20 @@ class StendhalFrame extends PageFrame {
 <body <?php echo $page->getBodyTagAttributes()?>>
 <div id="container">
 	<div id="header">
+		<?php
+		echo '<form id="headersearchform" action="'.rewriteURL('/search').'" method="GET">';
+		if (!STENDHAL_MODE_REWRITE) {
+			echo '<input type="hidden" name="id" value="content/game/search">';
+		}
+		echo '<div>';
+		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><button><img src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></button></form>';
+		echo '</div>';
+		?>
 		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
 	</div>
 
 	<div id="topMenu"></div>
-
+	
 	<div id="leftArea">
 		<?php 
 		startBox('Screenshot');
@@ -199,8 +208,7 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2013 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
-		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">&nbsp;</a></span>
+		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 	</div>
 
 	<div class="time">

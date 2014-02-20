@@ -91,6 +91,37 @@ body {
 	background-repeat: no-repeat;
 }
 
+#headersearchform {
+	float: right;
+}
+
+#headersearchform div {
+	background-color:#FFF; 
+	border: 1px solid #AAA;
+	padding: 0.2em;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+#headersearchform button {
+	background-color:#FFF; 
+	border: none;
+}
+
+#headersearchforminput {
+	border: none;
+	width: 130px;
+	outline: 0;
+}
+
+.searchform {margin: 1em}
+.searchresults {margin: 0 0 2em 1em}
+.searchentry {margin: 0 0 1.5em 0;}
+.searchheader {font-weight: bold; padding: 0 0 0.2em 0}
+.searchtype {color: #777}
+.searchimagecontainer {float: left; width: 48px; height: 3em}
+.searchicon {max-height: 48px}
+
 #topMenu ul {
 	text-align: center;
 	padding: 45px 0 2px 0;

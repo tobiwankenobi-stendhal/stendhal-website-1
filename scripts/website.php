@@ -43,6 +43,7 @@ require_once('scripts/npcs.php');
 require_once('scripts/playerhistory.php');
 require_once('scripts/players.php');
 require_once('scripts/screenshots.php');
+require_once('scripts/search.php');
 require_once('scripts/statistics.php');
 require_once('scripts/urlrewrite.php');
 require_once('scripts/xml.php');
@@ -135,4 +136,12 @@ function formatNumber($value, $digits = 6) {
 	}
 
 	return $sBefore . $decimalSeparator . $sAfter;
+}
+
+function profilePoint($name) {
+	if (isset($_REQUEST['_profiler'])) {
+		global $profilerReferenceTime;
+		echo "\n".'<!--'. number_format(microtime(true) - $profilerReferenceTime, 3). ': '.htmlspecialchars($name).'-->';
+		$profilerReferenceTime = microtime(true);
+	}
 }
