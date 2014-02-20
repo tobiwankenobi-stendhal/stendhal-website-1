@@ -111,6 +111,7 @@ body {
 #headersearchforminput {
 	border: none;
 	width: 130px;
+	outline: 0;
 }
 
 .searchform {margin: 1em}
