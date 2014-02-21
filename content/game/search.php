@@ -139,9 +139,12 @@ class SearchsPage extends Page {
 		profilePoint($row['entitytype'].' '.$row['entityname']);
 	}
 
-	function renderEntry($name, $type, $url, $icon, $description, $linkSuffix = '.html') {
+	function renderEntry($name, $type, $url, $icon, $description, $linkSuffix = '.html', $linkName = '') {
+		if ($linkName == '') {
+			$linkName = $name;
+		}
 		echo '<div class="searchentry">';
-		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name.$linkSuffix))
+		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name).$linkSuffix)
 		.'">'.htmlspecialchars(ucfirst($name)).'</a></div>';
 		echo '<div class="searchimagecontainer"><img class="searchicon" src="'.htmlspecialchars($icon).'" alt=""></div>';
 		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
@@ -211,14 +214,16 @@ class SearchsPage extends Page {
 		} else if ($entitytype == 'W') {
 			$type = "World guide – " . str_replace('Stendhal ', '', str_replace('_', ' ', $category));
 		}
-		$name = str_replace('_', ' ', $name);
-		$name = preg_replace('|.*/|', '', $name);
-		$this->renderEntry($name,
+		$displayName = str_replace('_', ' ', $name);
+		$displayName = preg_replace('|.*/|', '', $displayName);
+		$this->renderEntry($displayName,
 			$type,
 			'/wiki/',
 			'/images/item/documents/paper.png',
 			'',
-			'');
+			'',
+			$name
+		);
 	}
 }
 $page = new SearchsPage();
