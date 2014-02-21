@@ -68,6 +68,7 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="topMenu"></div>
+	<a class="navigationMenuButton" href="#navigationColumns"> Show navigation menu</a>
 	<div id="navigationColumns">
 	<div id="leftArea">
 		<?php 
@@ -208,7 +209,8 @@ class StendhalFrame extends PageFrame {
 			$page->writeContent();
 		?>
 	</div>
-
+	<a class="navigationMenuButton" href="#navigationColumns"> Show navigation menu</a>
+	
 	<div id="footerArea">
 		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 	</div>

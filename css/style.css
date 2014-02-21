@@ -44,6 +44,10 @@ body {
 	display: table-cell;
 }
 
+.navigationMenuButton {
+	display: none;
+}
+
 #container {
 	max-width: 970px;
 	margin: 5px auto 5px auto;
@@ -1039,9 +1043,25 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 	}
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
 	#leftArea,
 	#rightArea {float: none; margin: 0}
 	#navigationColumns {float: left}
 	#contentArea {margin: 0 0 0 190px}
+}
+
+@media screen and (max-width : 480px) {
+	.navigationMenuButton {
+		display: block;
+		background-color: #AAA;
+		border: 2px solid #777;
+		border-radius: 5px;
+		padding: 0.5em;
+		width: 15em;
+	}
+	#navigationColumns {
+		display: none;
+		float: none;
+	}	
+	#contentArea {margin: 0}
 }
