@@ -144,7 +144,7 @@ class SearchsPage extends Page {
 			$linkName = $name;
 		}
 		echo '<div class="searchentry">';
-		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name).$linkSuffix)
+		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($linkName).$linkSuffix)
 		.'">'.htmlspecialchars(ucfirst($name)).'</a></div>';
 		echo '<div class="searchimagecontainer"><img class="searchicon" src="'.htmlspecialchars($icon).'" alt=""></div>';
 		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
