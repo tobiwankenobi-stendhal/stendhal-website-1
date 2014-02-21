@@ -132,7 +132,7 @@ class SearchsPage extends Page {
 				break;
 			}
 			case 'W': {
-				$this->renderWiki($row['entitytype'], $row['entityname']);
+				$this->renderWiki($row['entitytype'], $row['entityname'], $row['category']);
 				break;
 			}
 		}
@@ -204,14 +204,16 @@ class SearchsPage extends Page {
 			$entry->sentence);
 	}
 
-	function renderWiki($entitytype, $name) {
+	function renderWiki($entitytype, $name, $category = '') {
 		$type = 'Wiki page';
 		if ($entitytype == 'G') {
 			$type = "Player's guide";
 		} else if ($entitytype == 'W') {
-			$type = "World guide";
+			$type = "World guide – " . str_replace('Stendhal ', '', str_replace('_', ' ', $category));
 		}
-		$this->renderEntry(str_replace('_', ' ', $name),
+		$name = str_replace('_', ' ', $name);
+		$name = preg_replace('|.*/|', '', $name);
+		$this->renderEntry($name,
 			$type,
 			'/wiki/',
 			'/images/item/documents/paper.png',
