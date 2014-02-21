@@ -67,7 +67,7 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="topMenu"></div>
-	
+	<div id="navigationColumns">
 	<div id="leftArea">
 		<?php 
 		startBox('Screenshot');
@@ -198,6 +198,7 @@ class StendhalFrame extends PageFrame {
 			?>
 		</ul>
 		<?php endBox(); ?>
+	</div>
 	</div>
 
 	<div id="contentArea">
