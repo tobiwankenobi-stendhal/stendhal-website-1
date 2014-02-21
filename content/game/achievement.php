@@ -69,7 +69,7 @@ class AchievementPage extends Page {
 		startBox('My Friends');
 		if (isset($_SESSION) && isset($_SESSION['account'])) {
 			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
-			echo '<div style="height: '.(ceil(count($list) / 7) * 90) .'px">';
+			echo '<div class="tableCell">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		} else {
@@ -82,7 +82,7 @@ class AchievementPage extends Page {
 		startBox('My Characters');
 		if (isset($_SESSION) && isset($_SESSION['account'])) {
 			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
-			echo '<div style="height: '.(ceil(count($list) / 7) * 90) .'px">';
+			echo '<div class="tableCell">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		} else {
@@ -97,7 +97,7 @@ class AchievementPage extends Page {
 		if (count($list) == 0) {
 			echo 'No character has earned this achievement, yet. Be the first!';
 		} else {
-			echo '<div style="height: 180px;">';
+			echo '<div class="tableCell">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		}

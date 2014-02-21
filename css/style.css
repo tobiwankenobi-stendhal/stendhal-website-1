@@ -40,6 +40,10 @@ body {
 	font-size: 12pt;
 }
 
+.tableCell {
+	display: table-cell;
+}
+
 #container {
 	max-width: 970px;
 	margin: 5px auto 5px auto;
