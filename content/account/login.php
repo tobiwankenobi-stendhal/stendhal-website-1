@@ -249,7 +249,7 @@ class LoginPage extends Page {
 		<table id="openid-url-input">
 		<tbody><tr>
 			<td class="vt large">
-				<input id="openid_identifier" name="openid_identifier" class="openid-identifier" style="height: 28px; width: 450px;" tabindex="100" type="text">
+				<input id="openid_identifier" name="openid_identifier" class="openid-identifier" style="height: 28px" tabindex="100" type="text">
 			</td>
 
 			<td class="vt large">
