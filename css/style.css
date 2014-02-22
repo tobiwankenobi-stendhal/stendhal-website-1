@@ -309,6 +309,11 @@ img.screenshot {
 	background-color:#AFF;
 }
 
+#map_canvas {
+	max-width: 570px;
+	height: 380px;
+}
+
 /* -------------------------------------------------------------------------*/
 /* achievement.css */
 
