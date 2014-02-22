@@ -62,7 +62,7 @@ class MyCharactersPage extends Page {
 			echo '<div>Please <a target="_top" href="'.$createURL.'">create a new character</a>.</div>';
 		} else {
 			echo '<div>Click on a character below to play or <a href="'.$createURL.'">create a new character</a>.</div>';
-			echo '<div style="height: '.(ceil(count($players) / $charsPerRow) * 140) .'px">';
+			echo '<div class="tableCell">';
 			foreach($players as $p) {
 				echo '<div class="onlinePlayer characterHeight">';
 				echo '  <a class = "onlineLink" href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';

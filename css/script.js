@@ -1361,6 +1361,15 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 
 
 	$().ready(function () {
+		$('.navigationMenuButton').click(function (event) {
+			var e = document.getElementById("navigationColumns");
+			if (e.style.display === "block") {
+				e.style.display = "none";
+			} else {
+				e.style.display = "block";
+			}
+		});
+
 		$('#screenshotLink').click(function (event) {
 			var left = Math.max(0, (screen.width-800)/2);
 			var top = Math.max(0, (screen.height-550)/2);

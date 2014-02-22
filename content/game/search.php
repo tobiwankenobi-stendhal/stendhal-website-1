@@ -132,16 +132,19 @@ class SearchsPage extends Page {
 				break;
 			}
 			case 'W': {
-				$this->renderWiki($row['entitytype'], $row['entityname']);
+				$this->renderWiki($row['entitytype'], $row['entityname'], $row['category']);
 				break;
 			}
 		}
 		profilePoint($row['entitytype'].' '.$row['entityname']);
 	}
 
-	function renderEntry($name, $type, $url, $icon, $description, $linkSuffix = '.html') {
+	function renderEntry($name, $type, $url, $icon, $description, $linkSuffix = '.html', $linkName = '') {
+		if ($linkName == '') {
+			$linkName = $name;
+		}
 		echo '<div class="searchentry">';
-		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($name.$linkSuffix))
+		echo '<div class="searchheader"><a href="'.rewriteURL($url.surlencode($linkName).$linkSuffix)
 		.'">'.htmlspecialchars(ucfirst($name)).'</a></div>';
 		echo '<div class="searchimagecontainer"><img class="searchicon" src="'.htmlspecialchars($icon).'" alt=""></div>';
 		echo '<div class="searchtype">'.htmlspecialchars($type).'</div>';
@@ -204,19 +207,23 @@ class SearchsPage extends Page {
 			$entry->sentence);
 	}
 
-	function renderWiki($entitytype, $name) {
+	function renderWiki($entitytype, $name, $category = '') {
 		$type = 'Wiki page';
 		if ($entitytype == 'G') {
 			$type = "Player's guide";
 		} else if ($entitytype == 'W') {
-			$type = "World guide";
+			$type = "World guide – " . str_replace('Stendhal ', '', str_replace('_', ' ', $category));
 		}
-		$this->renderEntry(str_replace('_', ' ', $name),
+		$displayName = str_replace('_', ' ', $name);
+		$displayName = preg_replace('|.*/|', '', $displayName);
+		$this->renderEntry($displayName,
 			$type,
 			'/wiki/',
 			'/images/item/documents/paper.png',
 			'',
-			'');
+			'',
+			$name
+		);
 	}
 }
 $page = new SearchsPage();

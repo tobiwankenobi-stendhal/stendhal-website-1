@@ -40,6 +40,14 @@ body {
 	font-size: 12pt;
 }
 
+.tableCell {
+	display: table-cell;
+}
+
+.navigationMenuButton {
+	display: none;
+}
+
 #container {
 	width: 970px;
 	margin: 5px auto 5px auto;
@@ -299,6 +307,11 @@ img.screenshot {
 }
 .even {
 	background-color:#AFF;
+}
+
+#map_canvas {
+	max-width: 570px;
+	height: 380px;
 }
 
 /* -------------------------------------------------------------------------*/
@@ -1018,3 +1031,44 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 #menuShareTwitter {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAAK8AAACvABQqw0mAAAAAd0SU1FB9oEHRYxDYjFGKYAAAQCSURBVEjHrZbPixxVEMc%2FVf26e2Z2Z3fyY5MlCBGPEkQQ9hJBAiIoiN70pHj25C0g8eY5J%2F8Hj%2BYQT4J4zILgwR948KLJISRxJ5nd6Znp96o8dM8vd9aLKWj60T%2FqW9%2Bqb9V7AnB4eHgD%2BAx4E%2BjyfKwCvgNuHxwcfC%2BHh4dvDQaDL%2Fv9%2Fqv9fl9DCPo8UGKMNhqNbDQa%2FTQcDj8PwM1%2Bv39tMBiETqcD4ID8Txwvy1KzLFPg2nA4vBmA671eLy%2FLEjPD3UVatNqc5M0aQHEyIGTK%2FJszTESEsizp9XolcD0Ahari7m5mAmDu1OZMDQKQSeM0ujMDSjeCKiJnE3d3VNVVVYAiAKSUMDNpGZHMqAxUM36fCA9roRC4Ujj7uTOZ1RSZkrXMWgobmaWUgCZgzGwOhpsxiwkLOV2Brx9n3HmiXCqcDy4aH%2B8laodZMrIWQNxROV1Yd8fMlkDzB3M2KUW06CLiHMWlOh7WggEeCmqgbqUjOJoiuRuZyimwNUZzIEuJGFPzogVQwByGEX4ey0Ig7rCVCZcK2NXALNbkKaEiiMjC70ZG5n5KTyowdfjxWPhlHFaihQS8vuPceiEyzgL1ZELIMrQVyxojd19cTRS%2BQUXCxOE4rTwDRgnuT5saqSp1Ssw7vlVzA7RK0d1xM9xtQ2NAT52%2BrvYV7BfOjYFTO6S6xlLCVJFF0GelbgMjA0pxXu4675wzYlsjBS4VcLVsJH%2FydEiuS3%2BnUrcmBndswUgWRXfgfIC3zxmdlWkYHSqDk4kTpxPyTrkGNL9vZLRMnzQjR6Ay4bcK7h4p%2B%2FmyZ7qZcy4IO3lOubWNWFw4P5MRgLfrOJuROiVXCmc3OJUJ96fCF3%2BGBcNM4MWO8%2F5548OLQt3boh49RVaA5n51VXVm1qTOjElVMTPn3QvOa9tNsVWcjkBXoadQCvxRCfdGQhAIeYFZIqW0puSNNZo3yPHRY8puh5fKLp9cNvYCfHskHPsybeYN6F7erOvplFhHQshOMTpVI1bm16MH97mwf4WrW9t8dNl47wIk9wWQAyrCThCmDrNJ1frRs1U3n7JzoDzPiVXFowd%2Fsb07YGd3wF6nQwhhpbkgxUg1qXj67ITRk8eURY7ZUpZrjNrUubsvJqKqUpYl4%2FGYZ38%2FYXx8jKgiqo3e2y52NywlMIMUESma4ZwSIrLY4wIwM7Ngq2G0lmUZ3W6X2WzG9GREjHGpThxBEFXyECiKgrLTWUuXu4s1P8QA3EspHYhI2W5ea2eGLMsoy5KiKBYg%2F7b5AJ3PNm%2BQpGVWA%2FcCcLuu61tm9kqWZSIiZ56CVPU%2Ft%2B6VOou7W0rJU0q%2FAreDiHwTY6xjjJ%2BKyBvP8Vw3dfcfgK9E5O4%2F0J7gCbJdYGMAAAAASUVORK5CYII%3D")}
 #menuAssociationContact,
 #menuShareEMail {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sFHRQ1EpQZ%2FiwAAAK9SURBVEjHvZUxSFtrFMf%2F12hy46uvDkVJo%2FBEJIJRRAXJJrTUWYRkdnIQCy1FHHWwPl10FbuJWwvSLV4U28FF0UEUEamLYtRSlaiJeuOvy8vtezXGvLbpgQ8u5zv3%2FDjnnv%2B5hr7ZY0mvJD2RVCGpQNmtQNKfklT6oJiTs4szSUj6ImlZ0htJ0e9fanQXuT7%2FE%2Fgrz9%2F%2FhvzlcRce5wGSPs%2FT3Xntf%2FSQPIKQ9NTlLip8d3KWMJVfSxSY7sKH90XV1NRodHRUKysrisfjsm1bBwcHsixLvb29KikpuS9FQH%2BY7tRdJXs8HsbHx7Ftm2x2eHhIZ2dnttZ9lKSTTJemaTI3NwfA9fU1k5OTtLW1UVpaitvtpqKigkgkwvz8vAPs7u6%2BC%2FRBkjJO3MTEBAB7e3s0Nzdn%2FdhdXV3Yts3V1RXBYDB3UFNTEzc3NySTSRoaGnKarIGBAQCmpqZyB6WrGRsbc3yBQID19XWOjo4IhUJOu9L3fr8fgFgsljtoa2sL4D8ti0ajTvLl5eVbINM0AUgkErmDLi8vATBN0%2FFdXFwA0NLSQmtr6y1QJBIBYHV1NSOoMNPQG4YhSXK5XBlFkUqlnOeysjKFw2ENDw9LkkZGRu4U062KdnZ2AGhsbHR8lmU5VSwtLd3S0vn5OT09Pf9vvKenpwEYGhpyfLW1tWxsbBCLxQiFQiSTSXZ3d7Esi%2F7%2Bfnw%2BX7apzAxqb28HIB6PU11d%2FSuW6t2CnZ2dBWBzc5Oqqqr8gcrLy9ne3gbg9PSUwcFB6uvr8Xq9eL1egsEgfX19rK2tUVdX9%2BMgSfh8PhYWFrIu1MXFRSorK%2B8DfZSkT9mCDMOgo6ODmZkZ9vf3SaVSHB8fE41GCYfDGIaRS%2BveS9LbPP9dkfRSkp79BpA%2FLdqxPEIC32%2BIF5Ji6YCSYs%2FPAhYk1aaTfwVWc03R8y8aXgAAAABJRU5ErkJggg%3D%3D")}
+
+/*
+@media screen and (max-width: 960px) {
+	#oneLineDescription {
+		background-image: none;
+		height: auto;
+		width: auto;
+		background-color: #FFA;
+		border: 2px solid #AA0;
+		padding: 1em;
+		margin: 0;
+	}
+	
+	#oneLineDescription span {
+		position: static;		
+	}
+}
+
+@media screen and (max-width: 700px) {
+	#leftArea,
+	#rightArea {float: none; margin: 0}
+	#navigationColumns {float: left}
+	#contentArea {margin: 0 0 0 190px}
+}
+
+@media screen and (max-width : 480px) {
+	.navigationMenuButton {
+		display: block;
+		background-color: #AAA;
+		border: 2px solid #777;
+		border-radius: 5px;
+		padding: 0.5em;
+		width: 15em;
+	}
+	#navigationColumns {
+		display: none;
+		float: none;
+	}	
+	#contentArea {margin: 0}
+}
+*/

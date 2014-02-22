@@ -48,7 +48,7 @@ class OnlinePage extends Page {
 		if(sizeof($players)==0) {
 			echo 'There are no players logged in at the moment.';
 		}
-		echo '<div style="height: '.(ceil(count($players) / 7) * 80 + 10) .'px">';
+		echo '<div class="tableCell">';
 		foreach($players as $p) {
 			echo '<div class="onlinePlayer onlinePlayerHeight">';
 			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.urlencode($p->name).'.html').'">';

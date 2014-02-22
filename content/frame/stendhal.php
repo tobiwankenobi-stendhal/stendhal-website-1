@@ -43,6 +43,7 @@ class StendhalFrame extends PageFrame {
 	 */
 	function writeHtmlHeader() {
 		echo '<link rel="icon" type="image/x-icon" href="'.STENDHAL_FOLDER.'/favicon.ico">';
+// 		echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
 	}
 
 	/**
@@ -67,7 +68,7 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="topMenu"></div>
-	
+	<div id="navigationColumns">
 	<div id="leftArea">
 		<?php 
 		startBox('Screenshot');
@@ -199,6 +200,7 @@ class StendhalFrame extends PageFrame {
 		</ul>
 		<?php endBox(); ?>
 	</div>
+	</div>
 
 	<div id="contentArea">
 		<?php
@@ -206,7 +208,7 @@ class StendhalFrame extends PageFrame {
 			$page->writeContent();
 		?>
 	</div>
-
+	
 	<div id="footerArea">
 		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 	</div>
