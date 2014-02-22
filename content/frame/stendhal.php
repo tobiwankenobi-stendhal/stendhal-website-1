@@ -43,7 +43,7 @@ class StendhalFrame extends PageFrame {
 	 */
 	function writeHtmlHeader() {
 		echo '<link rel="icon" type="image/x-icon" href="'.STENDHAL_FOLDER.'/favicon.ico">';
-		echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
+// 		echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
 	}
 
 	/**
@@ -68,7 +68,6 @@ class StendhalFrame extends PageFrame {
 	</div>
 
 	<div id="topMenu"></div>
-	<a class="navigationMenuButton" href="#navigationColumns"> Show navigation menu</a>
 	<div id="navigationColumns">
 	<div id="leftArea">
 		<?php 
@@ -209,7 +208,6 @@ class StendhalFrame extends PageFrame {
 			$page->writeContent();
 		?>
 	</div>
-	<a class="navigationMenuButton" href="#navigationColumns"> Show navigation menu</a>
 	
 	<div id="footerArea">
 		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
