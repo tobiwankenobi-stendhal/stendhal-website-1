@@ -151,8 +151,14 @@ function profilePoint($name) {
 class Wiki {
 
 	static function render($page) {
-		$url = 'https://stendhalgame.org/wiki/'.surlencode($page).'?action=render';
+		// do not use ?action=render in order to use filecache 
+		$url = 'https://stendhalgame.org/wiki/'.surlencode($page);
 		$content = file_get_contents($url);
+
+		$start = strpos($content, '<!-- bodycontent -->');
+		$end = strrpos($content, '<!-- /bodycontent -->');
+		$content = substr($content, $start, $end - $start);
+		
 		return $content;
 	}
 }
