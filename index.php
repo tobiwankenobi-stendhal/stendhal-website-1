@@ -127,8 +127,14 @@ header('Content-Type: text/html; charset=utf-8')
 <!DOCTYPE html>
 <html>
 	<head>
+<?php 
+/*
 	<link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER.'/css/style-'.STENDHAL_CACHE_BUSTER.'.css';?>">
 	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="<?php echo STENDHAL_FOLDER.'/css/ie-'.STENDHAL_CACHE_BUSTER.'.css';?>"><![endif]-->
+*/?>
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php
 		/*

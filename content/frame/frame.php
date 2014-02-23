@@ -55,5 +55,6 @@ abstract class PageFrame {
 	 */
 	public function includeJs() {
 		echo '<script type="text/javascript" src="'.STENDHAL_FOLDER.'/css/script-'.STENDHAL_CACHE_BUSTER.'.js"></script>';
+		echo '<script src="/lib/bootstrap/js/bootstrap.min.js"></script>';
 	}
 }
