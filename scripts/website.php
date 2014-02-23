@@ -147,8 +147,18 @@ function profilePoint($name) {
 }
 
 
-
+/**
+ * read pages from the Stendal wiki to embed them into the Stendhal Website.
+ * 
+ * @author hendrik
+ */
 class Wiki {
+
+	/**
+	 * gets the content of the wiki page
+	 * @param string $page page name
+	 * @return string content
+	 */
 	private static function get($page) {
 		// check file cache
 		$md5 = md5($page);
@@ -157,14 +167,19 @@ class Wiki {
 		$content = file_get_contents($path);
 		
 		if ($content === false) {
-			echo '<!--not-cached-->';
-			// do not use ?action=render in order to use filecache
+			// do not use ?action=render because that does not write file cache
 			$url = 'https://stendhalgame.org/wiki/'.surlencode($page);
 			$content = file_get_contents($url);
 		}
 		return $content;
 	}
 
+	/**
+	 * renders a wiki page in the Stendhal website
+	 *
+	 * @param string $page page name
+	 * @return prepared content
+	 */
 	static function render($page) {
 		$content = Wiki::get($page);
 
