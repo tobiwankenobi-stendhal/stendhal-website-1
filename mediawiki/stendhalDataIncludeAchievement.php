@@ -62,8 +62,6 @@ function stendhalDataIncludeAchievementStats($Achievement, $argv) {
 function stendhalDataIncludeAchievement($input, $argv, $parser) {
 	$parsedInput = stendhalDataIncludeParseInput($input);
 
-	$parser->disableCache();
-
 	$res = '';
 	connect();
 	$Achievement = Achievement::getAchievement($parsedInput['name']);

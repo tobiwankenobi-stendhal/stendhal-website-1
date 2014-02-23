@@ -62,8 +62,6 @@ function stendhalDataIncludeNPCStats($NPC, $argv) {
 function stendhalDataIncludeNPC($input, $argv, $parser) {
 	$parsedInput = stendhalDataIncludeParseInput($input);
 
-	$parser->disableCache();
-
 	$res = '';
 	connect();
 	$NPC = NPC::getNPC($parsedInput['name']);
