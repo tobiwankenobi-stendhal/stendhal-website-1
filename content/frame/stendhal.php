@@ -53,7 +53,103 @@ class StendhalFrame extends PageFrame {
 		global $page, $protocol, $adminLevel;
 ?>
 <body <?php echo $page->getBodyTagAttributes()?>>
-<div id="container">
+
+<div class="container">
+
+<br>
+
+      <!-- Static navbar -->
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          	<a class="navbar-brand" href="/"><img src="/images/logo.gif" title="Stendhal Logo" alt=""></a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a id="menuAboutNews" href="https://stendhalgame.org/wiki/">News (TODO)</a></li>
+<li><a id="menuAboutScreenshots" href="https://stendhalgame.org/wiki/">Screenshots (TODO)</a></li>
+<li><a id="menuAboutVideos" href="https://stendhalgame.org/wiki/Stendhal_Videos">Videos</a></li>
+</ul>
+</li>
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Player's Guide <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a id="menuHelpManual" href="https://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
+<li><a id="menuHelpFAQ" href="https://stendhalgame.org/wiki/StendhalFAQ">FAQ</a></li>
+<li><a id="menuHelpBeginner" href="https://stendhalgame.org/wiki/BeginnersGuide">Beginner's Guide</a></li>
+<li><a id="menuHelpAsk" href="https://stendhalgame.org/wiki/AskForHelp">Ask For Help</a></li>
+<li><a id="menuHelpChat" href="/chat/">Chat</a></li>
+<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a></li>
+<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a></li>
+<li><a id="menuHelpRules" href="https://stendhalgame.org/wiki/StendhalRuleSystem">Rules</a></li>
+</ul>
+</li>
+			
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">World Guide <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a id="menuAtlas" href="/world/atlas.html">Atlas</a></li>
+<li><a id="menuNPCs" href="/npc/">NPCs</a></li>
+<li><a id="menuCreatures" href="/creature/">Creatures</a></li>
+<li><a id="menuItems" href="'/item/">Items</a></li>
+<li><a id="menuQuests" href="https://stendhalgame.org/wiki/StendhalQuest">Quests</a></li>
+<li><a id="menuAchievements" href="/achievement.html">Achievements</a></li>
+<li><a id="menuHistory" href="https://stendhalgame.org/wiki/StendhalHistory">History</a></li>
+</ul>
+</li>
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Players <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a id="menuPlayerOnline" href="/world/online.html">Online players</a></li>
+<li><a id="menuPlayerHalloffame" href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a></li>
+<li><a id="menuPlayerEvents" href="/world/events.html">Recent Events</a></li>
+<li><a id="menuPlayerKillstats" href="/world/kill-stats.html">Kill stats</a></li>
+</ul>
+</li>
+
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Development <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a id="menuContribChat" href="/chat/">Chat</a></li>
+<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a></li>
+<li><a id="menuContribBugs" href="/development/bug.html">Report Bug</a></li>
+<li><a id="menuContribRequests" href="https://sourceforge.net/p/arianne/feature-requests/new/">Suggest Feature</a></li>
+<li><a id="menuContribHelp" href="https://sourceforge.net/p/arianne/patches/new/">Submit Patch</a></li>
+<li><a id="menuContribQuests" href="https://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a></li>
+<li><a id="menuContribTesting" href="https://stendhalgame.org/wiki/Stendhal_Testing">Testing</a></li>
+<li><a id="menuContribHistory" href="/development/sourcelog.html">Changes</a></li>
+<li><a id="menuContribDownload" href="https://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>
+<li><a id="menuContribDevelopment" href="/development">Development</a></li>
+</ul>
+</li>
+
+
+
+</ul>
+         
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="./">Default</a></li>
+              <li><a href="../navbar-static-top/">Static top</a></li>
+              <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+
 	<div id="header">
 		<?php
 		echo '<form id="headersearchform" action="'.rewriteURL('/search').'" method="GET">';
@@ -64,7 +160,6 @@ class StendhalFrame extends PageFrame {
 		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><button><img src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></button></form>';
 		echo '</div>';
 		?>
-		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
 	</div>
 
 	<div id="topMenu"></div>
@@ -80,34 +175,7 @@ class StendhalFrame extends PageFrame {
 		endBox();
 
 		startBox('Movie'); ?>
-			<a href="<?php echo $protocol;?>://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?php echo STENDHAL_FOLDER;?>/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
-		<?php endBox() ?>
-
-		<?php startBox('Game System'); ?>
-		<ul id="gamemenu" class="menu">
-			<?php 
-			echo '<li><a id="menuAtlas" href="'.rewriteURL('/world/atlas.html').'">Atlas</a></li>'."\n";
-			echo '<li><a id="menuNPCs" href="'.rewriteURL('/npc/').'">NPCs</a></li>'."\n";
-			echo '<li><a id="menuCreatures" href="'.rewriteURL('/creature/').'">Creatures</a></li>'."\n";
-			echo '<li><a id="menuItems" href="'.rewriteURL('/item/').'">Items</a></li>'."\n";
-			?>
-			<li><a id="menuQuests" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalQuest">Quests</a></li>
-			<?php echo '<li><a id="menuAchievements" href="'.rewriteURL('/achievement.html').'">Achievements</a></li>'."\n"; ?>
-			<li><a id="menuHistory" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalHistory">History</a></li>
-		</ul>
-		<?php endBox(); ?>
-
-		<?php startBox('Help'); ?>
-		<ul id="helpmenu" class="menu">
-			<li><a id="menuHelpManual" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
-			<li><a id="menuHelpFAQ" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalFAQ">FAQ</a></li>
-			<li><a id="menuHelpBeginner" href="<?php echo $protocol;?>://stendhalgame.org/wiki/BeginnersGuide">Beginner's Guide</a></li>
-			<li><a id="menuHelpAsk" href="<?php echo $protocol;?>://stendhalgame.org/wiki/AskForHelp">Ask For Help</a></li>
-			<li><a id="menuHelpChat" href="<?php echo rewriteURL('/chat/');?>">Chat</a></li>
-			<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a></li>
-			<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a></li>
-			<li><a id="menuHelpRules" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalRuleSystem">Rules</a></li>
-		</ul>
+			<a href="<?php echo $protocol;?>://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?php echo STENDHAL_FOLDER;?>/images/video.jpeg" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
 		<?php endBox() ?>
 
 	</div>
@@ -169,36 +237,7 @@ class StendhalFrame extends PageFrame {
 		}
 		endBox(); ?>
 
-		<?php startBox('Players'); ?>
-		<ul class="menu">
-			<li style="white-space: nowrap"><a id="menuPlayerOnline" href="<?php echo rewriteURL('/world/online.html')?>">Online players</a></li>
-			<li><a id="menuPlayerHalloffame" href="<?php echo rewriteURL('/world/hall-of-fame/active_overview.html')?>">Hall Of Fame</a></li>
-			<li><a id="menuPlayerEvents" href="<?php echo rewriteURL('/world/events.html')?>">Recent Events</a></li>
-			<li><a id="menuPlayerKillstats" href="<?php echo rewriteURL('/world/kill-stats.html')?>">Kill stats</a></li>
-		</ul>
-		<form method="get" action="<?php echo STENDHAL_FOLDER;?>/" accept-charset="iso-8859-1">
-			<input type="hidden" name="id" value="content/scripts/character">
-			<input type="text" name="name" maxlength="30" style="width:9.8em">
-			<input type="submit" name="search" value="Player search">
-		</form>
-		<?php endBox(); ?>
 
-		<?php startBox('Contribute'); ?>
-		<ul id="contribmenu" class="menu">
-			<?php
-			echo '<li><a id="menuContribChat" href="'.rewriteURL('/chat/').'">Chat</a></li>'."\n";
-			echo '<li><a id="menuContribWiki" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
-			echo '<li><a id="menuContribBugs" href="'.rewriteURL('/development/bug.html').'">Report Bug</a></li>'."\n";
-			echo '<li><a id="menuContribRequests" href="https://sourceforge.net/p/arianne/feature-requests/new/">Suggest Feature</a></li>'."\n";
-			echo '<li><a id="menuContribHelp" href="https://sourceforge.net/p/arianne/patches/new/">Submit Patch</a></li>'."\n";
-			echo '<li><a id="menuContribQuests" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a></li>'."\n";
-			echo '<li><a id="menuContribTesting" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Testing">Testing</a></li>'."\n";
-			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/sourcelog.html').'">Changes</a></li>'."\n";
-			echo '<li><a id="menuContribDownload" href="'.$protocol.'://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
-			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
-			?>
-		</ul>
-		<?php endBox(); ?>
 	</div>
 	</div>
 
