@@ -145,3 +145,14 @@ function profilePoint($name) {
 		$profilerReferenceTime = microtime(true);
 	}
 }
+
+
+
+class Wiki {
+
+	static function render($page) {
+		$url = 'https://stendhalgame.org/wiki/'.surlencode($page).'?action=render';
+		$content = file_get_contents($url);
+		return $content;
+	}
+}
