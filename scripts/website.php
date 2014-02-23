@@ -149,11 +149,24 @@ function profilePoint($name) {
 
 
 class Wiki {
+	private static function get($page) {
+		// check file cache
+		$md5 = md5($page);
+		$path = '/var/www/stendhal/w/images/cache/'.$md5[0].'/'.$md5[0].$md5[1]
+			.'/'.str_replace('/', '%2F', urlencode($page)).'.html';
+		$content = file_get_contents($path);
+		
+		if ($content === false) {
+			echo '<!--not-cached-->';
+			// do not use ?action=render in order to use filecache
+			$url = 'https://stendhalgame.org/wiki/'.surlencode($page);
+			$content = file_get_contents($url);
+		}
+		return $content;
+	}
 
 	static function render($page) {
-		// do not use ?action=render in order to use filecache 
-		$url = 'https://stendhalgame.org/wiki/'.surlencode($page);
-		$content = file_get_contents($url);
+		$content = Wiki::get($page);
 
 		$start = strpos($content, '<!-- bodycontent -->');
 		$end = strrpos($content, '<!-- /bodycontent -->');
