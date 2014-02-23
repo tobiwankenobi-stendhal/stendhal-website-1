@@ -164,7 +164,7 @@ class Wiki {
 		$md5 = md5($page);
 		$path = '/var/www/stendhal/w/images/cache/'.$md5[0].'/'.$md5[0].$md5[1]
 			.'/'.str_replace('/', '%2F', urlencode($page)).'.html';
-		$content = file_get_contents($path);
+		$content = @file_get_contents($path);
 		
 		if ($content === false) {
 			// do not use ?action=render because that does not write file cache
@@ -186,6 +186,15 @@ class Wiki {
 		$start = strpos($content, '<!-- bodycontent -->');
 		$end = strrpos($content, '<!-- /bodycontent -->');
 		$content = substr($content, $start, $end - $start);
+
+		while (true) {
+			$start = strpos($content, '<span class="skip-start"></span>');
+			if ($start === false) {
+				break;
+			}
+			$end = strpos($content, '<span class="skip-end"></span>');
+			$content = substr($content, 0, $start).substr($content, $end + 30);
+		}		
 		
 		return $content;
 	}
