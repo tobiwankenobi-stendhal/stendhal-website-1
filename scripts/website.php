@@ -163,7 +163,7 @@ class Wiki {
 		// check file cache
 		$md5 = md5($page);
 		$path = '/var/www/stendhal/w/images/cache/'.$md5[0].'/'.$md5[0].$md5[1]
-			.'/'.str_replace('/', '%2F', urlencode($page)).'.html';
+			.'/'.wikiUrlEncode($page).'.html';
 		$content = @file_get_contents($path);
 		
 		if ($content === false) {
@@ -175,14 +175,27 @@ class Wiki {
 	}
 
 	/**
-	 * renders a wiki page in the Stendhal website
+	 * encodes an url acording to wiki rules
 	 *
-	 * @param string $page page name
-	 * @return prepared content
+	 * @param string $title
+	 * @return encoded url
 	 */
-	static function render($page) {
-		$content = Wiki::get($page);
+	private static function wikiUrlEncode($title) {
+		return str_replace('/', '%2F', urlencode($title));
+	}
 
+	private static function findPage($url) {
+		$sql = "SELECT page_id, page_title As title FROM a1111_wiki.page_props, a1111_wiki.page" 
+		." WHERE pp_propname='externalcanonical' AND pp_value = '" . mysql_real_escape_string($url) 
+		."' AND page.page_namespace=0 AND page.page_id=page_props.pp_page";
+		$res = fetchToArray($sql, getGameDB());
+		if (count($res) > 0) {
+			return $res[0];
+		}
+		return null;
+	}
+
+	private static function clean($content) {
 		$start = strpos($content, '<!-- bodycontent -->');
 		$end = strrpos($content, '<!-- /bodycontent -->');
 		$content = substr($content, $start, $end - $start);
@@ -194,7 +207,37 @@ class Wiki {
 			}
 			$end = strpos($content, '<span class="skip-end"></span>');
 			$content = substr($content, 0, $start).substr($content, $end + 30);
-		}		
+		}
+		return $content;
+	}
+
+	private static function rewriteLinks($pageId, $content) {
+		$sql = "SELECT page_title, pp_value FROM a1111_wiki.page_props, a1111_wiki.page, a1111_wiki.pagelinks"
+			." WHERE pp_propname='externalcanonical' AND page.page_namespace=0 AND page.page_id=page_props.pp_page" 
+			." AND pl_namespace=0 AND page_title=pl_title AND pl_from=".intval($pageId);
+		$res = fetchToArray($sql, getGameDB());
+		
+		$prefix = '<a href="/wiki/';
+		foreach ($res as $row) {
+			$content = str_replace(Wiki::wikiUrlEncode($prefix.$row['page_title']), 
+				Wiki::wikiUrlEncode($prefix.$row['pp_value']), $content);
+		}
+	}
+
+	/**
+	 * renders a wiki page in the Stendhal website
+	 *
+	 * @param string $page page name
+	 * @return prepared content
+	 */
+	static function render($url) {
+		$page = Wiki::findPage($url);
+		if (!isset($page)) {
+			return;
+		}
+		$content = Wiki::get($page['page_title']);
+		$content = Wiki::clean($content);
+		$content = Wiki::rewriteLinks($page['page_id'], $content);
 		
 		return $content;
 	}
