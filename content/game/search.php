@@ -46,7 +46,6 @@ class SearchsPage extends Page {
 		echo 'This unified search is still experimental.<ul><li>Please give <a href="https://sourceforge.net/p/arianne/bugs/new/">feedback</a>.';
 		echo '<li>There may be additional information available at the <a href="https://stendhalgame.org/w/index.php?title=Special%3ASearch&profile=default&search='
 				.urlencode($_REQUEST['q']).'&fulltext=Search">Stendhal Wiki</a>.';
-		echo '<li>Please help to split the <a href="https://stendhalgame.org/wiki/Stendhal_Quest">Stendhal Quest page</a> into one subpage per quest. Quests on their own subpage will be included in the search.';
 		echo '</ul>';
 		endBox();
 	}
