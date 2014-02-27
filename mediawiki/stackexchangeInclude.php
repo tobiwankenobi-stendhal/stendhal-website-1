@@ -28,7 +28,8 @@ if (defined('MEDIAWIKI')) {
 		}
 
 		function parserFunction($parser, $type, $uuid) {
-			if ($type == "user") {
+			return '';
+			/*if ($type == "user") {
 				$opts = array(
 					'http' => array(
 						'method' => 'GET',
@@ -44,7 +45,7 @@ if (defined('MEDIAWIKI')) {
 				return '';
 			} else {
 				return 'Unknown first parameter. Please use "user"';
-			}
+			}*/
 		}
 
 	}
