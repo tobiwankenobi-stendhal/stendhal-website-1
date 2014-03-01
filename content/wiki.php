@@ -36,8 +36,8 @@ class WikiPage extends Page {
 	public function writeHttpHeader() {
 		if (!isset($this->pageTitle)) {
 			header('HTTP/1.1 404');
-			return true;
 		}
+		return true;
 	}
 
 	public function writeHtmlHeader() {
