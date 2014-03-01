@@ -163,7 +163,7 @@ class Wiki {
 		// check file cache
 		$md5 = md5($page);
 		$path = '/var/www/stendhal/w/images/cache/'.$md5[0].'/'.$md5[0].$md5[1]
-			.'/'.wikiUrlEncode($page).'.html';
+			.'/'.str_replace('/', '%2F', urlencode($page)).'.html';
 		$content = @file_get_contents($path);
 		
 		if ($content === false) {
@@ -181,7 +181,7 @@ class Wiki {
 	 * @return encoded url
 	 */
 	private static function wikiUrlEncode($title) {
-		return str_replace('/', '%2F', urlencode($title));
+		return str_replace('%2F', '/', urlencode($title));
 	}
 
 	private static function findPage($url) {
@@ -217,11 +217,12 @@ class Wiki {
 			." AND pl_namespace=0 AND page_title=pl_title AND pl_from=".intval($pageId);
 		$res = fetchToArray($sql, getGameDB());
 		
-		$prefix = '<a href="/wiki/';
+		$prefix = '<a href="';
 		foreach ($res as $row) {
-			$content = str_replace(Wiki::wikiUrlEncode($prefix.$row['page_title']), 
-				Wiki::wikiUrlEncode($prefix.$row['pp_value']), $content);
+			$content = str_replace($prefix.'/wiki/'.Wiki::wikiUrlEncode($row['page_title']).'"', 
+				$prefix.Wiki::wikiUrlEncode($row['pp_value']).'"', $content);
 		}
+		return $content;
 	}
 
 	/**
@@ -235,7 +236,7 @@ class Wiki {
 		if (!isset($page)) {
 			return;
 		}
-		$content = Wiki::get($page['page_title']);
+		$content = Wiki::get($page['title']);
 		$content = Wiki::clean($content);
 		$content = Wiki::rewriteLinks($page['page_id'], $content);
 		
