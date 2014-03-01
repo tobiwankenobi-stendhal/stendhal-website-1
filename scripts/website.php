@@ -153,13 +153,20 @@ function profilePoint($name) {
  * @author hendrik
  */
 class Wiki {
+	private $url;
+	private $page;
+
+	public function __construct($url) {
+		$this->url = $url;
+	}
 
 	/**
 	 * gets the content of the wiki page
 	 * @param string $page page name
 	 * @return string content
 	 */
-	private static function get($page) {
+	private function get($page) {
+
 		// check file cache
 		$md5 = md5($page);
 		$path = '/var/www/stendhal/w/images/cache/'.$md5[0].'/'.$md5[0].$md5[1]
@@ -180,22 +187,23 @@ class Wiki {
 	 * @param string $title
 	 * @return encoded url
 	 */
-	private static function wikiUrlEncode($title) {
+	private function wikiUrlEncode($title) {
 		return str_replace('%2F', '/', urlencode($title));
 	}
 
-	private static function findPage($url) {
+	public function findPage() {
 		$sql = "SELECT page_id, page_title As title FROM a1111_wiki.page_props, a1111_wiki.page" 
-		." WHERE pp_propname='externalcanonical' AND pp_value = '" . mysql_real_escape_string($url) 
+		." WHERE pp_propname='externalcanonical' AND pp_value = '" . mysql_real_escape_string($this->url) 
 		."' AND page.page_namespace=0 AND page.page_id=page_props.pp_page";
 		$res = fetchToArray($sql, getGameDB());
 		if (count($res) > 0) {
+			$this->page = $res[0];
 			return $res[0];
 		}
 		return null;
 	}
 
-	private static function clean($content) {
+	private function clean($content) {
 		$start = strpos($content, '<!-- bodycontent -->');
 		$end = strrpos($content, '<!-- /bodycontent -->');
 		$content = substr($content, $start, $end - $start);
@@ -211,7 +219,7 @@ class Wiki {
 		return $content;
 	}
 
-	private static function rewriteLinks($pageId, $content) {
+	private function rewriteLinks($pageId, $content) {
 		$sql = "SELECT page_title, pp_value FROM a1111_wiki.page_props, a1111_wiki.page, a1111_wiki.pagelinks"
 			." WHERE pp_propname='externalcanonical' AND page.page_namespace=0 AND page.page_id=page_props.pp_page" 
 			." AND pl_namespace=0 AND page_title=pl_title AND pl_from=".intval($pageId);
@@ -219,8 +227,8 @@ class Wiki {
 		
 		$prefix = '<a href="';
 		foreach ($res as $row) {
-			$content = str_replace($prefix.'/wiki/'.Wiki::wikiUrlEncode($row['page_title']).'"', 
-				$prefix.Wiki::wikiUrlEncode($row['pp_value']).'"', $content);
+			$content = str_replace($prefix.'/wiki/'.$this->wikiUrlEncode($row['page_title']).'"', 
+				$prefix.$this->wikiUrlEncode($row['pp_value']).'"', $content);
 		}
 		return $content;
 	}
@@ -231,14 +239,13 @@ class Wiki {
 	 * @param string $page page name
 	 * @return prepared content
 	 */
-	static function render($url) {
-		$page = Wiki::findPage($url);
-		if (!isset($page)) {
+	function render($url) {
+		if (!isset($this->page)) {
 			return;
 		}
-		$content = Wiki::get($page['title']);
-		$content = Wiki::clean($content);
-		$content = Wiki::rewriteLinks($page['page_id'], $content);
+		$content = $this->get($this->page['title']);
+		$content = $this->clean($content);
+		$content = $this->rewriteLinks($this->page['page_id'], $content);
 		
 		return $content;
 	}

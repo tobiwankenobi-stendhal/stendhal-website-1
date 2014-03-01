@@ -18,17 +18,44 @@
  */
 
 class WikiPage extends Page {
+	private $wiki;
+	private $pageTitle;
+
+	public function __construct() {
+		$this->wiki = new Wiki($_REQUEST["title"]);
+		$temp = $this->wiki->findPage();
+		if (!isset($temp)) {
+			return;
+		}
+		$title = str_replace('_', ' ', $temp['title']);
+		$title = preg_replace('|.*/|', '', $title);
+		$this->pageTitle = $title;
+	}
+	
+
+	public function writeHttpHeader() {
+		if (!isset($this->pageTitle)) {
+			header('HTTP/1.1 404');
+			return true;
+		}
+	}
 
 	public function writeHtmlHeader() {
-		echo '<meta name="robots" content="noindex">';
-		echo '<title>'.htmlspecialchars($_REQUEST['title']).STENDHAL_TITLE.'</title>';
+		if (!isset($this->pageTitle)) {
+			echo '<meta name="robots" content="noindex">';
+		}
+		echo '<title>'.htmlspecialchars($this->pageTitle).STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
-		startBox('Wiki');
-		echo '<h1>'.htmlspecialchars($_REQUEST['title']).'</h1>';
-		
-		echo Wiki::render($_REQUEST['title']);
+		startBox(htmlspecialchars($this->pageTitle));
+
+		if (!isset($this->pageTitle)) {
+			echo '<h1>Page not found</h1>';
+		} else {
+			echo Wiki::render($_REQUEST['title']);
+		}
+
 		endBox();
 	}
 }
