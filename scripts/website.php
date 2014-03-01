@@ -239,7 +239,7 @@ class Wiki {
 	 * @param string $page page name
 	 * @return prepared content
 	 */
-	function render($url) {
+	function render() {
 		if (!isset($this->page)) {
 			return;
 		}

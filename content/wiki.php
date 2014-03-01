@@ -53,7 +53,7 @@ class WikiPage extends Page {
 		if (!isset($this->pageTitle)) {
 			echo '<h1>Page not found</h1>';
 		} else {
-			echo Wiki::render($_REQUEST['title']);
+			echo $this->wiki->render();
 		}
 
 		endBox();
