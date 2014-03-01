@@ -21,11 +21,13 @@ class WikiPage extends Page {
 
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">';
-		echo '<title>Player '.htmlspecialchars($_REQUEST['title']).STENDHAL_TITLE.'</title>';
+		echo '<title>'.htmlspecialchars($_REQUEST['title']).STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
 		startBox('Wiki');
+		echo '<h1>'.htmlspecialchars($_REQUEST['title']).'</h1>';
+		
 		echo Wiki::render($_REQUEST['title']);
 		endBox();
 	}
