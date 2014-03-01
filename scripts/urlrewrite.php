@@ -100,6 +100,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # search
                 RewriteRule ^/search.*$ /index.php?id=content/game/search&rewritten=true [L,QSA]
+                RewriteRule ^(/quest.*)$ /index.php?id=content/wiki&title=$1&rewritten=true [L]
 
                 # world
                 RewriteRule ^/world/atlas\.html$ /index.php?id=content/world/atlas&rewritten=true [L,QSA]
