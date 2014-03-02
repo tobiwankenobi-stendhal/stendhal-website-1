@@ -236,10 +236,10 @@ Note: You need to restart apache after editing these files.
  * @param string $url
  * @return real url
  */
-function rewriteURL($url) {
+function rewriteURL($url, $force = false) {
 	$folder = STENDHAL_FOLDER;
 
-	if (STENDHAL_MODE_REWRITE) {
+	if (!$force && STENDHAL_MODE_REWRITE) {
 		return $folder.$url;
 	}
 
@@ -421,6 +421,12 @@ function rewriteURL($url) {
 		}
 
 	} else {
+		if ($force) {
+			if ($url == '/index.html') {
+				return '/?id=content/main';
+			}
+			return '/?id=content/wiki&amp;title='.$url;
+		}
 		echo '">Error parsing link';
 	}
 }
@@ -428,4 +434,36 @@ function rewriteURL($url) {
 function surlencode($url) {
 	return str_replace('%2F', '/', urlencode(preg_replace('/[ +]/', '_', $url)));
 }
-?>
+
+/**
+ * Returns the url query as associative array
+ *
+ * @param    string    query
+ * @return    array    params
+ */
+// http://www.php.net/manual/de/function.parse-url.php#104527
+function convertUrlQuery($query) {
+	$queryParts = explode('&', $query);
+
+	$params = array();
+	foreach ($queryParts as $param) {
+		$item = explode('=', $param);
+		if (isset($item[1])) {
+			$value = $item[1];
+		} else {
+			$value = '';
+		}
+		$params[$item[0]] = $value;
+	}
+
+	return $params;
+}
+
+function handleRewriteUrlParameter() {
+	if (isset($_REQUEST['rewriteurl'])) {
+		$rewrittenUrl = rewriteURL($_REQUEST['rewriteurl'], true);
+		$rewrittenUrl = str_replace('&amp;', '&', substr($rewrittenUrl, 2));
+		$_REQUEST = $_REQUEST + convertUrlQuery($rewrittenUrl);
+		unset($_REQUEST['rewriteurl']);
+	}
+}

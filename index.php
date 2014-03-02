@@ -17,7 +17,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+
 require_once('scripts/website.php');
+
+handleRewriteUrlParameter();
 
 if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 	$protocol = 'https';
