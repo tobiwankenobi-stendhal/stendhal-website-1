@@ -1032,6 +1032,54 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 #menuAssociationContact,
 #menuShareEMail {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sFHRQ1EpQZ%2FiwAAAK9SURBVEjHvZUxSFtrFMf%2F12hy46uvDkVJo%2FBEJIJRRAXJJrTUWYRkdnIQCy1FHHWwPl10FbuJWwvSLV4U28FF0UEUEamLYtRSlaiJeuOvy8vtezXGvLbpgQ8u5zv3%2FDjnnv%2B5hr7ZY0mvJD2RVCGpQNmtQNKfklT6oJiTs4szSUj6ImlZ0htJ0e9fanQXuT7%2FE%2Fgrz9%2F%2FhvzlcRce5wGSPs%2FT3Xntf%2FSQPIKQ9NTlLip8d3KWMJVfSxSY7sKH90XV1NRodHRUKysrisfjsm1bBwcHsixLvb29KikpuS9FQH%2BY7tRdJXs8HsbHx7Ftm2x2eHhIZ2dnttZ9lKSTTJemaTI3NwfA9fU1k5OTtLW1UVpaitvtpqKigkgkwvz8vAPs7u6%2BC%2FRBkjJO3MTEBAB7e3s0Nzdn%2FdhdXV3Yts3V1RXBYDB3UFNTEzc3NySTSRoaGnKarIGBAQCmpqZyB6WrGRsbc3yBQID19XWOjo4IhUJOu9L3fr8fgFgsljtoa2sL4D8ti0ajTvLl5eVbINM0AUgkErmDLi8vATBN0%2FFdXFwA0NLSQmtr6y1QJBIBYHV1NSOoMNPQG4YhSXK5XBlFkUqlnOeysjKFw2ENDw9LkkZGRu4U062KdnZ2AGhsbHR8lmU5VSwtLd3S0vn5OT09Pf9vvKenpwEYGhpyfLW1tWxsbBCLxQiFQiSTSXZ3d7Esi%2F7%2Bfnw%2BX7apzAxqb28HIB6PU11d%2FSuW6t2CnZ2dBWBzc5Oqqqr8gcrLy9ne3gbg9PSUwcFB6uvr8Xq9eL1egsEgfX19rK2tUVdX9%2BMgSfh8PhYWFrIu1MXFRSorK%2B8DfZSkT9mCDMOgo6ODmZkZ9vf3SaVSHB8fE41GCYfDGIaRS%2BveS9LbPP9dkfRSkp79BpA%2FLdqxPEIC32%2BIF5Ji6YCSYs%2FPAhYk1aaTfwVWc03R8y8aXgAAAABJRU5ErkJggg%3D%3D")}
 
+
+/* Wiki */
+
+.floatright {
+	float: right;
+	border: 0 none;
+	margin: 0 0 0.5em 0.5em;
+	position: relative;
+}
+
+ul.gallery {
+	display: block;
+	margin: 2px;
+	padding: 2px;
+}
+
+li.gallerycaption {
+	display: block;
+	font-weight: bold;
+	text-align: center;
+	word-wrap: break-word;
+}
+li {
+	margin-bottom: 0.1em;
+}
+
+li.gallerybox {
+	border: 2px solid #FFFFFF;
+	display: inline-block;
+	vertical-align: top;
+}
+
+li.gallerybox div.thumb {
+	background-color: #F9F9F9;
+	border: 1px solid #CCCCCC;
+	margin: 2px;
+	text-align: center;
+}
+
+div.gallerytext {
+	font-size: 94%;
+	overflow: hidden;
+	padding: 2px 4px;
+	word-wrap: break-word;
+}
+
+/* /wiki */
+
 /*
 @media screen and (max-width: 960px) {
 	#oneLineDescription {
