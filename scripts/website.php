@@ -227,8 +227,10 @@ class Wiki {
 
 		// removed breadcrumb navigation (categories have already been removed because they are outside "bodyconent")
 		$start = strpos($content, '<div class="breadcrumbs" ');
-		$end = strpos($content, '</div>', $start);
-		$content = substr($content, $start, $end - $start);
+		if ($start !== false) {
+			$end = strpos($content, '</div>', $start);
+			$content = substr($content, 0, $start).substr($content, $end);
+		}
 
 		return $content;
 	}
