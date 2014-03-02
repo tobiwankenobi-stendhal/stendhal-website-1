@@ -43,6 +43,8 @@ class APIPage extends Page {
 				$categories = $_REQUEST['categories'];
 			}
 			$this->getData($categories);
+		} else if ($_REQUEST['method'] == 'screenshots') {
+			$this->getScreenshots();
 		} else {
 			$this->unknown($_REQUEST['param']);
 		}
@@ -133,6 +135,16 @@ class APIPage extends Page {
 		}
 		if (in_array('zones', $c)) {
 			$res['zones'] = Zone::getZones();
+		}
+		echo json_encode($res);
+	}
+
+	public function getScreenshots() {
+		$sql = "SELECT page_title As href, cl_sortkey_prefix As title FROM categorylinks, page WHERE cl_to='Stendhal_Slideshow' AND cl_type='file' AND page_id=cl_from ORDER BY page_touched DESC, page_id DESC";
+		$data = fetchToArray($sql, getWikiDB());
+		foreach ($data As $row) {
+			$hash = md5($row['href']);
+			$row['href'] = '/wiki/images/' . $hash{0} . '/' . substr( $hash, 0, 2 ) . '/' . urlencode($row['href']);
 		}
 		echo json_encode($res);
 	}
