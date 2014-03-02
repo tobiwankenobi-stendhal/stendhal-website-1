@@ -203,11 +203,19 @@ class Wiki {
 		return null;
 	}
 
+	/**
+	 * removes unwanted html code
+	 *
+	 * @param string $content
+	 * @return string
+	 */
 	private function clean($content) {
+		// remove wiki navigation
 		$start = strpos($content, '<!-- bodycontent -->');
 		$end = strrpos($content, '<!-- /bodycontent -->');
 		$content = substr($content, $start, $end - $start);
 
+		// remove content which was marked as to be removed
 		while (true) {
 			$start = strpos($content, '<span class="skip-start"></span>');
 			if ($start === false) {
@@ -216,6 +224,12 @@ class Wiki {
 			$end = strpos($content, '<span class="skip-end"></span>');
 			$content = substr($content, 0, $start).substr($content, $end + 30);
 		}
+
+		// removed breadcrumb navigation (categories have already been removed because they are outside "bodyconent")
+		$start = strpos($content, '<div class="breadcrumbs" ');
+		$end = strpos($content, '</div>', $start);
+		$content = substr($content, $start, $end - $start);
+
 		return $content;
 	}
 
