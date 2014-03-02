@@ -48,15 +48,18 @@ class WikiPage extends Page {
 	}
 
 	function writeContent() {
-		startBox(htmlspecialchars($this->pageTitle));
-
 		if (!isset($this->pageTitle)) {
+			startBox(htmlspecialchars('Error'));
 			echo '<h1>Page not found</h1>';
-		} else {
-			echo $this->wiki->render();
-		}
+			echo 'The requested page does not exist.';
+			endBox();
 
-		endBox();
+		} else {
+
+			startBox(htmlspecialchars($this->pageTitle));
+			echo $this->wiki->render();
+			endBox();
+		}
 	}
 }
 $page = new WikiPage();
