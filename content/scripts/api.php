@@ -146,7 +146,7 @@ class APIPage extends Page {
 			$hash = md5($row['href']);
 			$row['href'] = '/wiki/images/' . $hash{0} . '/' . substr( $hash, 0, 2 ) . '/' . urlencode($row['href']);
 		}
-		echo json_encode($res);
+		echo json_encode($data);
 	}
 }
 $page = new APIPage();
