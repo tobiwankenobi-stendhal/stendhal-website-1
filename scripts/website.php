@@ -249,6 +249,17 @@ class Wiki {
 		return $content;
 	}
 
+	private function rewriteImageLinks($content) {
+		// <a href="/wiki/File:Semos.png" class="image"><img alt="Semos.png" src="/wiki/images/thumb/f/f0/Semos.png/300px-Semos.png" height="266" width="300"></a>
+		// <a href="/wiki/File:[^"]* class="image"><img alt="([^"]*)" src="/wiki/images/thumb/(./..)/([^/]*)/"
+		// <a href="/wiki/images/$2/$3* class="image fancybox"><img alt="$1" src="/wiki/images/thumb/$2/$3/"
+		$content = preg_replace(
+			'|<a href="/wiki/File:[^"]*" class="image"><img alt="([^"]*)" src="/wiki/images/thumb/(./..)/([^/]*)/|',
+			'<a href="/wiki/images/$2/$3" class="image fancybox"><img alt="$1" src="/wiki/images/thumb/$2/$3/"',
+			$content);
+		return $content;
+	}
+
 	/**
 	 * renders a wiki page in the Stendhal website
 	 *
@@ -262,6 +273,7 @@ class Wiki {
 		$content = $this->get($this->page['title']);
 		$content = $this->clean($content);
 		$content = $this->rewriteLinks($this->page['page_id'], $content);
+		$content = $this->rewriteImageLinks($content);
 		
 		return $content;
 	}
