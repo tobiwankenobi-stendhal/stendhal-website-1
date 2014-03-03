@@ -30,20 +30,29 @@ Then edit your sites-enabled virtual host configuration file and add these comma
         <IfModule mod_rewrite.c>
                 RewriteEngine on
 
+                RewriteRule ^/css/(.*)-[0-9]+(.[^0-9]*)$ /css/$1$2 [L]
+                RewriteRule ^/wiki/images/(.*)$ /wiki/images/$1 [L]
+
+                RewriteCond %{QUERY_STRING} title=([^&]*)
+                RewriteRule ^/wiki/index.php$ /wiki/%1? [R=301,L]
+
+                RewriteRule ^/wiki/index.php/(.*)$ /wiki/$1 [R=301,L]
+                RewriteRule ^/wiki/index.php(.*)$ /wiki/$1 [R=301,L]
+                RewriteRule ^/wiki/(.*)$ /w/index.php?title=$1 [PT,L,QSA]
+                RewriteRule ^/wiki/*$ /w/index.php [L,QSA]
+
                 # images
                 RewriteRule ^/images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png&rewritten=true [L]
                 RewriteRule ^/images/image/(.*)$ /image.php?img=$1&rewritten=true [L]
                 RewriteRule ^/images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png&rewritten=true [L]
                 RewriteRule ^/images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png&rewritten=true [L]
                 RewriteRule ^/images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1&rewritten=true [L]
-                RewriteRule ^/images/screenshot/(.*)$ /index.php?id=content/games/screenshot&file=$1&rewritten=true [L]
+                RewriteRule ^/images/screenshot/(.*)$ /index.php?id=content/game/screenshot&file=$1&rewritten=true [L]
                 RewriteRule ^/images/thumbnail/(.*)$ /thumbnail.php?img=$1&rewritten=true [L]
-
-                RewriteRule ^/css/(.*)-[0-9]+(.[^0-9]*)$ /css/$1$2 [L]
 
                 # account
                 RewriteRule ^/account/approve-password.html$ /index.php?id=content/account/approve&rewritten=true [L]
-                RewriteRule ^/account/change-email.html$ /index.php?id=content/account/email&rewritten=true [L]
+                RewriteRule ^/account/email.html$ /index.php?id=content/account/email&rewritten=true [L]
                 RewriteRule ^/account/change-password.html$ /index.php?id=content/account/changepassword&rewritten=true [L]
                 RewriteRule ^/account/create-account.html$ /index.php?id=content/account/createaccount&rewritten=true [L]
                 RewriteRule ^/account/create-character.html$ /index.php?id=content/account/createcharacter&rewritten=true [L]
@@ -51,11 +60,12 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/account/login.html$ /index.php?id=content/account/login&rewritten=true [L]
                 RewriteRule ^/account/logout.html$ /index.php?id=content/account/logout&rewritten=true [L]
                 RewriteRule ^/account/merge.html$ /index.php?id=content/account/merge&rewritten=true [L]
-                RewriteRule ^/account/messages.html$ /account/messages/to-me.html [R=301]
+                RewriteRule ^/account/messages.html$ /account/messages/to-me.html [R=301,L]
                 RewriteRule ^/account/messages/(.*)\.html$ /index.php?id=content/account/messages&filter=$1&rewritten=true [L]
                 RewriteRule ^/account/myaccount.html$ /index.php?id=content/account/myaccount&rewritten=true [L]
                 RewriteRule ^/account/mycharacters.html$ /index.php?id=content/account/mycharacters&rewritten=true [L]
                 RewriteRule ^/account/remind-mail.html$ /index.php?id=content/account/remind&rewritten=true [L]
+                RewriteRule ^/account/confirm/(.*)$ /index.php?id=content/account/confirm&token=$1 [L]
                 RewriteRule ^/a/(.*)$ /index.php?id=content/account/a&account=$1&rewritten=true [L]
 
                 # achievement
@@ -75,11 +85,11 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # development
                 RewriteRule ^/development/bug\.html$ /index.php?id=content/game/bug&rewritten=true [L]
-                RewriteRule ^/development/chat\.html$ /chat/ [R=301]
+                RewriteRule ^/development/chat\.html$ /chat/ [R=301,L]
                 RewriteRule ^/development/sourcelog\.html$ /index.php?id=content/game/sourcelog&rewritten=true [L]
                 RewriteRule ^/development/sourcelog/(.*)\.html$ /index.php?id=content/game/sourcelog&month=$1&rewritten=true [L]
                 RewriteRule ^/development/download\.html$ /index.php?id=content/game/download&rewritten=true [L]
-                RewriteRule ^/development/?$ /development.html [R=301]
+                RewriteRule ^/development/?$ /development.html [R=301,L]
                 RewriteRule ^/development.html$ /index.php?id=content/game/development&rewritten=true [L]
 
                 # items
@@ -88,8 +98,11 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/item/([^/]*)\.html$ /index.php?id=content/game/items&class=$1&rewritten=true [L]
 
                 # news
-                RewriteRule ^/news/(.*)$ /index.php?id=content/news/newss&news=$1&rewritten=true [L]
-                RewriteRule ^/(-.*)$ /index.php?id=content/news/newss&news=$1&rewritten=true [L]
+                RewriteRule ^/news/(.*)$ /index.php?id=content/news/news&news=$1&rewritten=true [L]
+                RewriteRule ^/(-.*)$ /index.php?id=content/news/news&news=$1&rewritten=true [L]
+                RewriteRule ^/trade.atom$ /index.php?id=content/news/tradefeed&rewritten=true [L]
+                RewriteRule ^/trade/(.*).html$ /index.php?id=content/news/trade&tradeid=$1&rewritten=true [L]
+                RewriteRule ^/trade/?$ /index.php?id=content/news/trade&rewritten=true [L]
 
                 # npcs
                 RewriteRule ^/npc/?$ /index.php?id=content/game/npcs&rewritten=true [L]
@@ -104,9 +117,9 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # world
                 RewriteRule ^/world/atlas\.html$ /index.php?id=content/world/atlas&rewritten=true [L,QSA]
-                RewriteRule ^/world/events\.html$ /world/events/all.html [R=301]
+                RewriteRule ^/world/events\.html$ /world/events/all.html [R=301,L]
                 RewriteRule ^/world/events/(.*)\.html$ /index.php?id=content/scripts/events&filter=$1&rewritten=true [L]
-                RewriteRule ^/world/hall-of-fame\.html$ /world/hall-of-fame/active_overview.html [R=301]
+                RewriteRule ^/world/hall-of-fame\.html$ /world/hall-of-fame/active_overview.html [R=301,L]
                 RewriteRule ^/world/hall-of-fame/(.*)_(.*)\.html$ /index.php?id=content/halloffame&filter=$1&detail=$2&rewritten=true [L]
                 RewriteRule ^/world/map\.html$ /index.php?id=content/world/map&rewritten=true [L]
                 RewriteRule ^/world/newsarchive\.html$ /index.php?id=content/newsarchive&rewritten=true [L]
@@ -131,39 +144,39 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # images
                 RewriteCond %{QUERY_STRING} url=data/sprites/monsters/(.*)\.png
-                RewriteRule ^/monsterimage.php /images/creature/%1.png? [R=301]
+                RewriteRule ^/monsterimage.php /images/creature/%1.png? [R=301,L]
                 RewriteCond %{QUERY_STRING} url=data/sprites/items/(.*).png
-                RewriteRule ^/itemimage.php /images/item/%1.png? [R=301]
+                RewriteRule ^/itemimage.php /images/item/%1.png? [R=301,L]
                 RewriteCond %{QUERY_STRING} url=data/sprites/npc/(.*).png
-                RewriteRule ^/monsterimage.php /images/npc/%1.png? [R=301]
+                RewriteRule ^/monsterimage.php /images/npc/%1.png? [R=301,L]
                 RewriteCond %{QUERY_STRING} outfit=(.*)
-                RewriteRule ^/createoutfit.php /images/outfit/%1.png? [R=301]
+                RewriteRule ^/createoutfit.php /images/outfit/%1.png? [R=301,L]
 
                 # characters
                 RewriteCond %{QUERY_STRING} id=content/scripts/character&name=([^&]*)
-                RewriteRule ^/.* /character/%1.html? [R=301]
+                RewriteRule ^/.* /character/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fcharacter&name=([^&]*)
-                RewriteRule ^/.* /character/%1.html? [R=301]
+                RewriteRule ^/.* /character/%1.html? [R=301,L]
 
                 # chat
                 RewriteCond %{QUERY_STRING} id=content/game/chat&date=([^&]*)
-                RewriteRule ^/.* /chat/%1.html? [R=301]
+                RewriteRule ^/.* /chat/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/game/chat$
-                RewriteRule ^/.* /chat/? [R=301]
+                RewriteRule ^/.* /chat/? [R=301,L]
 
                 # creatures
                 RewriteCond %{QUERY_STRING} id=content/game/creatures
-                RewriteRule ^/.* /creature/? [R=301]
+                RewriteRule ^/.* /creature/? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/scripts/monster&name=([^&]*)
-                RewriteRule ^/.* /creature/%1.html? [R=301]
+                RewriteRule ^/.* /creature/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fmonster&name=([^&]*)
-                RewriteRule ^/.* /creature/%1.html? [R=301]
+                RewriteRule ^/.* /creature/%1.html? [R=301,L]
 
                 # development
                 RewriteCond %{QUERY_STRING} id=content/game/development
-                RewriteRule ^/.* /development/? [R=301]
+                RewriteRule ^/.* /development/? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/game/bug
-                RewriteRule ^/.* /development/bug\.html? [R=301]
+                RewriteRule ^/.* /development/bug\.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/game/cvslog&month=([^&]*)
                 RewriteRule ^/.* /development/sourcelog/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/game/cvslog
@@ -176,51 +189,57 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # items
                 RewriteCond %{QUERY_STRING} id=content/game/items$
-                RewriteRule ^/.* /item/? [R=301]
+                RewriteRule ^/.* /item/? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/scripts/item&class=([^&]*)&name=([^&]*)
-                RewriteRule ^/.* /item/%1/%2.html? [R=301]
+                RewriteRule ^/.* /item/%1/%2.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/scripts/item&name=([^&]*)
-                RewriteRule ^/.* /item/all/%1.html? [R=301]
+                RewriteRule ^/.* /item/all/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/game/items&class=([^&]*)
-                RewriteRule ^/.* /item/%1.html? [R=301]
+                RewriteRule ^/.* /item/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fitem&class=([^&]*)&name=([^&]*)
-                RewriteRule ^/.* /item/%1/%2.html? [R=301]
+                RewriteRule ^/.* /item/%1/%2.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content%2Fscripts%2Fitem&name=([^&]*)
-                RewriteRule ^/.* /item/all/%1.html? [R=301]
+                RewriteRule ^/.* /item/all/%1.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content%2Fgame%2Fitems&class=([^&]*)
-                RewriteRule ^/.* /item/%1.html? [R=301]
+                RewriteRule ^/.* /item/%1.html? [R=301,L]
 
                 # news
                 RewriteCond %{QUERY_STRING} id=content/news/news&news=([^&]*)
-                RewriteRule ^/.* /news/%1? [R=301]
+                RewriteRule ^/.* /news/%1? [R=301,L]
 
                 # npcs
                 RewriteCond %{QUERY_STRING} id=content/game/npcs
-                RewriteRule ^/.* /npc/? [R=301]
+                RewriteRule ^/.* /npc/? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/scripts/npc&name=([^&]*)
-                RewriteRule ^/.* /npc/%1.html? [R=301]
+                RewriteRule ^/.* /npc/%1.html? [R=301,L]
 
                 # world
                 RewriteCond %{QUERY_STRING} id=content/game/atlas
-                RewriteRule ^/.* /world/atlas.html? [R=301]
+                RewriteRule ^/.* /world/atlas.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} ^id=content/halloffame$
-                RewriteRule ^/.* /world/hall-of-fame/active_overview.html? [R=301]
+                RewriteRule ^/.* /world/hall-of-fame/active_overview.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/newsarchive
-                RewriteRule ^/.* /world/newsarchive.html? [R=301]
+                RewriteRule ^/.* /world/newsarchive.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/scripts/killedstats
-                RewriteRule ^/.* /world/kill-stats.html? [R=301]
+                RewriteRule ^/.* /world/kill-stats.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/scripts/online
-                RewriteRule ^/.* /world/online.html? [R=301]
+                RewriteRule ^/.* /world/online.html? [R=301,L]
                 RewriteCond %{QUERY_STRING} id=content/scripts/serverstats
-                RewriteRule ^/.* /world/server-stats.html? [R=301]
+                RewriteRule ^/.* /world/server-stats.html? [R=301,L]
 
+                RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301,L]
 
                 # Association
                 RewriteRule ^/(..)/documents/(.*)$ /index.php?lang=$1&id=content/association/documents&file=$2 [L]
                 RewriteRule ^/(..)/(.*)\.html$ /index.php?lang=$1&title=$2 [L]
 
                 # other
-                RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301]
+                RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301,L]
+                
+                RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
+                RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-d
+                RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-l
+                RewriteRule ^(.*)$ /index.php?rewriteurl=$1 [L,QSA]
         </IfModule>
 
 
@@ -254,7 +273,7 @@ function rewriteURL($url, $force = false) {
 		} else if (preg_match('|^/images/outfit/(.*)\.png$|', $url)) {
 			return preg_replace('|^/images/outfit/(.*)\.png$|', $folder.'/createoutfit.php?outfit=$1', $url);
 		} else if (preg_match('|^/images/screenshot/(.*)$|', $url)) {
-			return preg_replace('|^/images/screenshot/(.*)$|', $folder.'/?id=content/games/screenshot.php?file=$1', $url);
+			return preg_replace('|^/images/screenshot/(.*)$|', $folder.'/?id=content/game/screenshot.php?file=$1', $url);
 		} else if (preg_match('|^/images/thumbnail/(.*)$|', $url)) {
 			return preg_replace('|^/images/thumbnail/(.*)$|', $folder.'/thumbnail.php?img=$1', $url);
 		} else if (preg_match('|^/images/image/(.*)$|', $url)) {
