@@ -1535,4 +1535,8 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			audio.currentTime = 0;
 		}
 	});
+
+	$("a.fancybox").fancybox({
+		'titlePosition'  : 'inside'
+	});
 }());

@@ -255,7 +255,7 @@ class Wiki {
 		// <a href="/wiki/images/$2/$3* class="image fancybox"><img alt="$1" src="/wiki/images/thumb/$2/$3/"
 		$content = preg_replace(
 			'|<a href="/wiki/File:[^"]*" class="image"><img alt="([^"]*)" src="/wiki/images/thumb/(./..)/([^/]*)/|',
-			'<a href="/wiki/images/$2/$3" class="image fancybox"><img alt="$1" src="/wiki/images/thumb/$2/$3/"',
+			'<a href="/wiki/images/$2/$3" class="image fancybox"><img alt="$1" src="/wiki/images/thumb/$2/$3/',
 			$content);
 		return $content;
 	}
