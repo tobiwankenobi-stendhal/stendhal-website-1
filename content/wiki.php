@@ -20,13 +20,15 @@
 class WikiPage extends Page {
 	private $wiki;
 	private $pageTitle;
-
+	private $url;
+	
 	public function __construct() {
 		$this->wiki = new Wiki($_REQUEST["title"]);
 		$temp = $this->wiki->findPage();
 		if (!isset($temp)) {
 			return;
 		}
+		$this->url = $temp['title'];
 		$title = str_replace('_', ' ', $temp['title']);
 		$title = preg_replace('|.*/|', '', $title);
 		$this->pageTitle = $title;
@@ -58,6 +60,12 @@ class WikiPage extends Page {
 
 			startBox(htmlspecialchars($this->pageTitle));
 			echo $this->wiki->render();
+			endBox();
+
+			startBox('Contribute');
+			echo '<p>You can edit this pages because it is imported from the Stendhal Wiki.</p>';
+			echo '<ul><li><a rel="nofollow" href="https://stendhalgame.org/w/index.php?title='.surlencode($this->url).'&action=edit">Edit this page</a>';
+			echo '<li><a rel="nofollow" href="https://stendhalgame.org/w/index.php?title='.surlencode($this->url).'&action=history">History and authors</a>';
 			endBox();
 		}
 	}
