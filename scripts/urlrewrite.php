@@ -439,15 +439,15 @@ function rewriteURL($url, $force = false) {
 			return preg_replace('|^/(..)/(.*)\.html$|', $folder.'/index.php?lang=$1&title=$2', $url);
 		}
 
-	} else {
-		if ($force) {
-			if ($url == '/index.html') {
-				return '/?id=content/main';
-			}
-			return '/?id=content/wiki&amp;title='.$url;
-		}
-		echo '">Error parsing link';
 	}
+
+	if ($force) {
+		if ($url == '/index.html') {
+			return '/?id=content/main';
+		}
+		return '/?id=content/wiki&amp;title='.$url;
+	}
+	echo '">Error parsing link';
 }
 
 function surlencode($url) {
