@@ -228,7 +228,7 @@ class Wiki {
 		// removed breadcrumb navigation (categories have already been removed because they are outside "bodyconent")
 		$start = strpos($content, '<div class="breadcrumbs" ');
 		if ($start !== false) {
-			$end = strpos($content, '</div>', $start);
+			$end = strpos($content, '</div>', $start) + 6;
 			$content = substr($content, 0, $start).substr($content, $end);
 		}
 
@@ -249,13 +249,13 @@ class Wiki {
 		return $content;
 	}
 
-	private function rewriteImageLinks($content) {
+	public static function rewriteImageLinks($content) {
 		// <a href="/wiki/File:Semos.png" class="image"><img alt="Semos.png" src="/wiki/images/thumb/f/f0/Semos.png/300px-Semos.png" height="266" width="300"></a>
 		// <a href="/wiki/File:[^"]* class="image"><img alt="([^"]*)" src="/wiki/images/thumb/(./..)/([^/]*)/"
 		// <a href="/wiki/images/$2/$3* class="image fancybox"><img alt="$1" src="/wiki/images/thumb/$2/$3/"
 		$content = preg_replace(
-			'|<a href="/wiki/File:[^"]*" class="image"><img alt="([^"]*)" src="/wiki/images/thumb/(./..)/([^/]*)/|',
-			'<a href="/wiki/images/$2/$3" class="image fancybox"><img alt="$1" src="/wiki/images/thumb/$2/$3/',
+			'|<a href="/wiki/File:[^"]*" class="image"><img alt="([^"]*)" src="/wiki/images/(thumb/)?(./..)/([^/]*)/|',
+			'<a href="/wiki/images/$3/$4" class="image fancybox"><img alt="$1" src="/wiki/images/$2$3/$4/',
 			$content);
 		return $content;
 	}
