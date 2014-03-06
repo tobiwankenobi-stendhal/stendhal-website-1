@@ -1419,6 +1419,13 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			}
 		});
 
+		$("a.fancybox").fancybox({
+			'titlePosition'  : 'inside'
+		});
+		$("li.gallerybox").each(function() {
+			$("a", $(this)).attr("rel", "gallery");
+			$("a", $(this)).attr("title", $("div.gallerytext p", $(this)).text());
+		});
 		$('#screenshotLink').click(function (event) {
 			$.getJSON("/?id=content/scripts/api&method=screenshots", function (data) {
 				$.fancybox(
@@ -1534,9 +1541,5 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			audio.pause();
 			audio.currentTime = 0;
 		}
-	});
-
-	$("a.fancybox").fancybox({
-		'titlePosition'  : 'inside'
 	});
 }());
