@@ -1446,6 +1446,11 @@ dt {
 	font-weight: bold;
 }
 
+dl {
+	margin-bottom: 0.5em;
+	margin-top: 0.2em;
+}
+
 /* /wiki */
 
 /*
