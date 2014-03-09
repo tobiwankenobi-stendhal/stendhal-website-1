@@ -163,6 +163,22 @@ class AchievementPage extends Page {
 			echo '</div>';
 		}
 	}
+
+	public function getBreadCrumbs() {
+		$array = array('World Guide', '/world.html', 'Achievement', '/achievement.html');
+		if (isset($_REQUEST['name']) && ($_REQUEST['name']=='special')) {
+			$array[] = 'Special';
+			$array[] = '/achievement/special.html';
+		} else if (isset($_REQUEST['name'])) {
+			if (count($this->achievements)==0) {
+				return null;
+			} else {
+				$array[] = ucfirst($this->achievements->title);
+				$array[] = '/achievement/'.$this->achievements->title.'.html';
+			}
+		}
+	
+		return $array;
+	}
 }
 $page = new AchievementPage();
-?>
