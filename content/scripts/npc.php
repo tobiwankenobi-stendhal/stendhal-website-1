@@ -9,13 +9,6 @@ class NPCPage extends Page {
 		$this->npcs = NPC::getNPCs('where name="'.mysql_real_escape_string($this->name).'"', 'name');
 	}
 
-	public function writeHtmlHeader() {
-		echo '<title>NPC '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
-		if(sizeof($this->npcs)==0) {
-			echo '<meta name="robots" content="noindex">';
-		}
-	}
-
 	public function writeHttpHeader() {
 		global $protocol;
 		if (sizeof($this->npcs)==0) {
@@ -27,8 +20,15 @@ class NPCPage extends Page {
 			header('Location: '.$protocol.'://'.$_SERVER['SERVER_NAME'].preg_replace('/&amp;/', '&', rewriteURL('/npc/'.preg_replace('/[ ]/', '_', $this->name.'.html'))));
 			return false;
 		}
-
+	
 		return true;
+	}
+
+	public function writeHtmlHeader() {
+		echo '<title>NPC '.htmlspecialchars($this->name).STENDHAL_TITLE.'</title>';
+		if(sizeof($this->npcs)==0) {
+			echo '<meta name="robots" content="noindex">';
+		}
 	}
 
 	function writeContent() {
@@ -74,6 +74,16 @@ $npc=$this->npcs[0];
 <?php
 endBox();
 	}
+
+	public function getBreadCrumbs() {
+		if (sizeof($this->npcs) == 0) {
+			return null;
+		}
+	
+		return array('World Guide', '/world.html',
+				'NPC', '/npc/',
+				ucfirst($this->name), '/npc/'.$this->name.'.html'
+		);
+	}
 }
 $page = new NPCPage();
-?>

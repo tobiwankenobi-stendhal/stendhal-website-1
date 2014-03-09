@@ -61,6 +61,9 @@ endBox();
 
 <?php
 	}
+
+	public function getBreadCrumbs() {
+		return array('World Guide', '/world.html', 'NPC', '/npc/');
+	}
 }
 $page = new NPCsPage();
-?>
