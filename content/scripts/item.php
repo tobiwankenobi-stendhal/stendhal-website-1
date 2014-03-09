@@ -209,7 +209,17 @@ foreach($this->items as $m) {
 		$this->includeJs();
   }
 }
+}
+	public function getBreadCrumbs() {
+		if ($this->isExact && !$this->found) {
+			return null;
+		}
 
+		return array('World Guide', '/world.html',
+			'Item', '/item/',
+			ucfirst($_GET['class']), '/item/'.$_GET['class'].'.html',
+			ucfirst($this->name), '/item/'.$this->class.'/'.$this->name.'.html'
+			);
 	}
 }
 $page = new ItemPage();

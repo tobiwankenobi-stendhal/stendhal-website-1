@@ -84,11 +84,18 @@ startBox(ucfirst($class).' Items');
 	  <?php
 	}
   }
-  ?>
-  <div style="clear: left;"></div>
-  <?php 
-  endBox();
+	echo '<div style="clear: left;"></div>';
+	endBox();
+	}
+
+
+	public function getBreadCrumbs() {
+		$array = array('World Guide', '/world.html', 'Item', '/item/');
+		if (isset($_GET['class'])) {
+			$array[] = ucfirst($_GET['class']);
+			$array[] = '/item/'.$_GET['class'].'.html';
+		}
+		return $array;
 	}
 }
 $page = new ItemsPage();
-?>
