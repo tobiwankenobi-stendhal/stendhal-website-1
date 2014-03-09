@@ -179,6 +179,16 @@ foreach($this->monsters as $m) {
 }
 		$this->includeJs();
 	}
+
+	public function getBreadCrumbs() {
+		if (!$this->isExact || !$this->found) {
+			return null;
+		}
+
+		return array('World Guide', '/world.html',
+			'Creature', '/creature/',
+			ucfirst($this->name), '/creature/'.$this->name.'.html'
+			);
+	}
 }
 $page = new MonsterPage();
-?>

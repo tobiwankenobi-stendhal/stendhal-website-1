@@ -211,7 +211,7 @@ foreach($this->items as $m) {
 }
 }
 	public function getBreadCrumbs() {
-		if ($this->isExact && !$this->found) {
+		if (!$this->isExact || !$this->found) {
 			return null;
 		}
 

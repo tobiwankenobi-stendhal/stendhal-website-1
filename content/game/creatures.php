@@ -59,6 +59,10 @@ endBox();
 </div>
 <div style="clear: left;"></div>
 <?php
+
+	}
+	public function getBreadCrumbs() {
+		return array('World Guide', '/world.html', 'Creature', '/creature/');
 	}
 }
 $page = new CreaturesPage();
