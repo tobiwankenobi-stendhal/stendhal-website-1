@@ -83,7 +83,7 @@ class StendhalFrame extends PageFrame {
 			<a href="<?php echo $protocol;?>://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?php echo STENDHAL_FOLDER;?>/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
 		<?php endBox() ?>
 
-		<?php startBox('Game System'); ?>
+		<?php startBox('World Guide'); ?>
 		<ul id="gamemenu" class="menu">
 			<?php 
 			echo '<li><a id="menuAtlas" href="'.rewriteURL('/world/atlas.html').'">Atlas</a></li>'."\n";
@@ -97,7 +97,7 @@ class StendhalFrame extends PageFrame {
 		</ul>
 		<?php endBox(); ?>
 
-		<?php startBox('Help'); ?>
+		<?php startBox('Player\'s Guide'); ?>
 		<ul id="helpmenu" class="menu">
 			<li><a id="menuHelpManual" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
 			<li><a id="menuHelpFAQ" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalFAQ">FAQ</a></li>
