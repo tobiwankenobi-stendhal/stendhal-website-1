@@ -57,6 +57,15 @@ class Page {
 		// do nothing
 	}
 
+	/**
+	 * this methods returns breadcrumb information
+	 *
+	 * @return array breadcrumb information (name1, url1, name2, url2)
+	 */
+	public function getBreadCrumbs() {
+		return null;
+	}
+
 	public function includeJs() {
 		// deprecated
 	}
