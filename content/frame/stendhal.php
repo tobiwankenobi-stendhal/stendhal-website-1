@@ -210,6 +210,19 @@ class StendhalFrame extends PageFrame {
 	</div>
 	
 	<div id="footerArea">
+		<?php
+		if (isset($_REQUEST['test'])) {
+		$breadcrumbs = $page->getBreadCrumbs();
+		if (isset($breadcrumbs)) {
+			echo '<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
+			for ($i = 0; $i < count($breadcrumbs) / 2; $i++) {
+				echo '&gt; <span typeof="v:Breadcrumb"><a href="'.surlencode($breadcrumbs[$i * 2 + 1]).'" rel="v:url" property="v:title">';
+				echo htmlspecialchars($breadcrumbs[$i * 2]);
+				echo '</a></span> ';
+			}
+			echo '</div>';
+		}
+		}?>
 		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 	</div>
 
