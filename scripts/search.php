@@ -96,8 +96,6 @@ class Searcher {
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 		
-		echo $sql;
-		
 		profilePoint($sql);
 
 		$sql = "SELECT stendhal_category_search.entitytype, page.page_title As entityname, (stendhal_category_search.searchscore + 1000) * "
