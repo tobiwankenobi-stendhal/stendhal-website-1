@@ -55,7 +55,7 @@ function getURLFromLink($link) {
 			$pos2 = strlen($link) - 2;
 		}
 		$url = substr($link, $start, $pos2 - $start);
-		return trim(preg_replace('/\$1/', urlencode(preg_replace('/[ +]/', '_', trim($url))), $wgArticlePath));
+		return trim(preg_replace('/%2F/', '/', preg_replace('/\$1/', urlencode(preg_replace('/[ +]/', '_', trim($url))), $wgArticlePath)));
 	} else if (strpos($link, '[') === 0) {
 		// external link
 		$delimiter = ' ';
