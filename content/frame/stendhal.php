@@ -87,13 +87,13 @@ class StendhalFrame extends PageFrame {
 		<ul id="gamemenu" class="menu">
 			<?php 
 			echo '<li><a id="menuAtlas" href="'.rewriteURL('/world/atlas.html').'">Atlas</a></li>'."\n";
+			echo '<li><a id="menuDungeons" href="/dungeons.html">Dungeons</a></li>'."\n";
 			echo '<li><a id="menuNPCs" href="'.rewriteURL('/npc/').'">NPCs</a></li>'."\n";
+			echo '<li><a id="menuQuests" href="/quest.html">Quests</a></li>'."\n";
+			echo '<li><a id="menuAchievements" href="'.rewriteURL('/achievement.html').'">Achievements</a></li>'."\n";
 			echo '<li><a id="menuCreatures" href="'.rewriteURL('/creature/').'">Creatures</a></li>'."\n";
 			echo '<li><a id="menuItems" href="'.rewriteURL('/item/').'">Items</a></li>'."\n";
 			?>
-			<li><a id="menuQuests" href="/quest.html">Quests</a></li>
-			<?php echo '<li><a id="menuAchievements" href="'.rewriteURL('/achievement.html').'">Achievements</a></li>'."\n"; ?>
-			<li><a id="menuHistory" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalHistory">History</a></li>
 		</ul>
 		<?php endBox(); ?>
 
