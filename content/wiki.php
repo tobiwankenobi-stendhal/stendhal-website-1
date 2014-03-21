@@ -56,7 +56,7 @@ class WikiPage extends Page {
 
 		} else {
 
-			startBox(htmlspecialchars($this->pageTitle));
+			startBox('<h1>'.htmlspecialchars($this->pageTitle).'</h1>');
 			echo $this->wiki->render();
 			endBox();
 
@@ -68,11 +68,12 @@ class WikiPage extends Page {
 		}
 	}
 
+/*
 	public function getBreadCrumbs() {
 		if (!isset($this->pageTitle)) {
 		//	return null;
 		}
 		return array('World Guide', '/world.html', 'Quest', '/quest.html', $this->pageTitle, $_REQUEST["title"]);
-	}
+	}*/
 }
 $page = new WikiPage();
