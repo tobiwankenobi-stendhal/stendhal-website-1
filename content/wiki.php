@@ -29,9 +29,7 @@ class WikiPage extends Page {
 			return;
 		}
 		$this->url = $temp['title'];
-		$title = str_replace('_', ' ', $temp['title']);
-		$title = preg_replace('|.*/|', '', $title);
-		$this->pageTitle = $title;
+		$this->pageTitle =  $temp['displaytitle'];
 	}
 	
 
@@ -68,6 +66,13 @@ class WikiPage extends Page {
 			echo '<li><a rel="nofollow" href="https://stendhalgame.org/w/index.php?title='.surlencode($this->url).'&action=history">History and authors</a>';
 			endBox();
 		}
+	}
+
+	public function getBreadCrumbs() {
+		if (!isset($this->pageTitle)) {
+		//	return null;
+		}
+		return array('World Guide', '/world.html', 'Quest', '/quest.html', $this->pageTitle, $_REQUEST["title"]);
 	}
 }
 $page = new WikiPage();
