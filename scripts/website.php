@@ -195,7 +195,9 @@ class Wiki {
 		$sql = "SELECT page_id, page_title As title, p2.pp_value As displaytitle FROM a1111_wiki.page, a1111_wiki.page_props as p1, a1111_wiki.page_props as p2 " 
 		." WHERE p1.pp_propname='externalcanonical' AND p1.pp_value = '" . mysql_real_escape_string($this->url) 
 		."' AND page.page_namespace=0 AND page.page_id=p1.pp_page"
-		." p2.pp_propname='externaltitle' AND page.page_id=p2.pp_page";
+		." AND p2.pp_propname='externaltitle' AND page.page_id=p2.pp_page";
+		echo $sql;
+		
 		$res = fetchToArray($sql, getGameDB());
 		if (count($res) > 0) {
 			$this->page = $res[0];
