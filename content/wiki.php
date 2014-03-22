@@ -74,6 +74,11 @@ class WikiPage extends Page {
 		}
 
 		$categories = $this->wiki->getCategories();
+		
+		echo '<!-- Categories: ';
+		var_dump($categories);
+		echo '-->';
+		
 		if (in_array('Stendhal_Quest', $categories)) {
 			if ($_REQUEST["title"] == '/quest.html') {
 				return array('World Guide', '/world.html', 'Quest', '/quest.html');
