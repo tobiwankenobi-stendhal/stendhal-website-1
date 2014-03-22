@@ -155,6 +155,7 @@ function profilePoint($name) {
 class Wiki {
 	private $url;
 	private $page;
+	private $breadcrumbs;
 
 	public function __construct($url) {
 		$this->url = $url;
@@ -278,5 +279,10 @@ class Wiki {
 		$content = $this->rewriteImageLinks($content);
 		
 		return $content;
+	}
+
+	function getCategories() {
+		$sql =  "SELECT cl_to FROM categorylinks WHERE cl_from=" . intval($this->page['page_id']);
+		return fetchColumnToArray($sql, getGameDB(), 'cl_to');
 	}
 }

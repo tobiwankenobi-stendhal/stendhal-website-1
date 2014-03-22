@@ -68,12 +68,36 @@ class WikiPage extends Page {
 		}
 	}
 
-/*
 	public function getBreadCrumbs() {
 		if (!isset($this->pageTitle)) {
-		//	return null;
+			return null;
 		}
-		return array('World Guide', '/world.html', 'Quest', '/quest.html', $this->pageTitle, $_REQUEST["title"]);
-	}*/
+
+		$categories = $this->wiki->getCategories();
+		if (in_array('Stendhal_Quest')) {
+			if ($_REQUEST["title"] == '/quest.html') {
+				return array('World Guide', '/world.html', 'Quest', '/quest.html');
+			} else {
+				return array('World Guide', '/world.html', 'Quest', '/quest.html', $this->pageTitle, $_REQUEST["title"]);
+			}
+		}
+
+		if (in_array('Stendhal_Dungeon')) {
+			if ($_REQUEST["title"] == '/dungeon.html') {
+				return array('World Guide', '/world.html', 'Dungeon', '/dungeon.html');
+			} else {
+				return array('World Guide', '/world.html', 'Dungeon', '/dungeon.html', $this->pageTitle, $_REQUEST["title"]);
+			}
+		}
+
+		if (in_array('Stendhal_Region') || in_array('Stendhal_Place')) {
+			if ($_REQUEST["title"] == '/world/atlas.html') {
+				return array('World Guide', '/world.html', 'Atlas', '/world/atlas.html');
+			} else {
+				return array('World Guide', '/world.html', 'Atlas', '/world/atlas.html', $this->pageTitle, $_REQUEST["title"]);
+			}
+		}
+
+	}
 }
 $page = new WikiPage();
