@@ -282,7 +282,7 @@ class Wiki {
 	}
 
 	function getCategories() {
-		$sql =  "SELECT cl_to FROM categorylinks WHERE cl_from=" . intval($this->page['page_id']);
+		$sql =  "SELECT cl_to FROM a1111_wiki.categorylinks WHERE cl_from=" . intval($this->page['page_id']);
 		return fetchColumnToArray($sql, getGameDB(), 'cl_to');
 	}
 }
