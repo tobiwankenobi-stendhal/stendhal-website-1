@@ -74,7 +74,7 @@ class WikiPage extends Page {
 		}
 
 		$categories = $this->wiki->getCategories();
-		if (in_array('Stendhal_Quest')) {
+		if (in_array('Stendhal_Quest', $categories)) {
 			if ($_REQUEST["title"] == '/quest.html') {
 				return array('World Guide', '/world.html', 'Quest', '/quest.html');
 			} else {
@@ -82,7 +82,7 @@ class WikiPage extends Page {
 			}
 		}
 
-		if (in_array('Stendhal_Dungeon')) {
+		if (in_array('Stendhal_Dungeon', $categories)) {
 			if ($_REQUEST["title"] == '/dungeon.html') {
 				return array('World Guide', '/world.html', 'Dungeon', '/dungeon.html');
 			} else {
@@ -90,7 +90,7 @@ class WikiPage extends Page {
 			}
 		}
 
-		if (in_array('Stendhal_Region') || in_array('Stendhal_Place')) {
+		if (in_array('Stendhal_Region', $categories) || in_array('Stendhal_Place', $categories)) {
 			if ($_REQUEST["title"] == '/world/atlas.html') {
 				return array('World Guide', '/world.html', 'Atlas', '/world/atlas.html');
 			} else {
@@ -98,6 +98,7 @@ class WikiPage extends Page {
 			}
 		}
 
+		return null;
 	}
 }
 $page = new WikiPage();
