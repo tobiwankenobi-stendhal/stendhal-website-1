@@ -211,7 +211,6 @@ class StendhalFrame extends PageFrame {
 	
 	<div id="footerArea">
 		<?php
-		if (isset($_REQUEST['test'])) {
 		$breadcrumbs = $page->getBreadCrumbs();
 		if (isset($breadcrumbs)) {
 			echo '<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
@@ -221,7 +220,6 @@ class StendhalFrame extends PageFrame {
 				echo '</a></span> ';
 			}
 			echo '</div>';
-		}
 		}?>
 		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 	</div>
