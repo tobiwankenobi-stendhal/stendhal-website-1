@@ -89,18 +89,21 @@ class Searcher {
 		// wiki
 		$sql = "SELECT stendhal_category_search.entitytype, page.page_title As entityname, (stendhal_category_search.searchscore + 2000) * "
 				. count($terms)	. " As score, stendhal_category_search.category As category, page_props.pp_value As path"
-				. " FROM a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search"
+				. " FROM a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search,"
 				. " a1111_wiki.page LEFT JOIN a1111_wiki.page_props ON (pp_propname='externalcanonical' AND page.page_id=page_props.pp_page)"
 				. " WHERE page_id=si_page AND MATCH(si_title) AGAINST('+".mysql_real_escape_string(str_replace(' ', ' +', $this->searchTerm))
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
+		
+		echo $sql;
+		
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 		
 		profilePoint($sql);
 
 		$sql = "SELECT stendhal_category_search.entitytype, page.page_title As entityname, (stendhal_category_search.searchscore + 1000) * "
 				. count($terms)	. " As score, stendhal_category_search.category As category, page_props.pp_value As path"
-				. " FROM a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search"
+				. " FROM a1111_wiki.searchindex, a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search,"
 				. " a1111_wiki.page LEFT JOIN a1111_wiki.page_props ON (pp_propname='externalcanonical' AND page.page_id=page_props.pp_page)"
 				. " WHERE page_id=si_page AND MATCH(si_text) AGAINST('+".mysql_real_escape_string(str_replace(' ', ' +', $this->searchTerm))
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
