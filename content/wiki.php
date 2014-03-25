@@ -97,9 +97,9 @@ class WikiPage extends Page {
 
 		if (in_array('Stendhal_Region', $categories) || in_array('Stendhal_Place', $categories)) {
 			if ($_REQUEST["title"] == '/world/atlas.html') {
-				return array('World Guide', '/world.html', 'Atlas', '/world/atlas.html');
+				return array('World Guide', '/world.html', 'Region', '/region.html');
 			} else {
-				return array('World Guide', '/world.html', 'Atlas', '/world/atlas.html', $this->pageTitle, $_REQUEST["title"]);
+				return array('World Guide', '/world.html', 'Region', '/region.html', $this->pageTitle, $_REQUEST["title"]);
 			}
 		}
 
