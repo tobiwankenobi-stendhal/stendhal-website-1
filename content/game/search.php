@@ -115,7 +115,7 @@ class SearchsPage extends Page {
 				break;
 			}
 			case 'G': {
-				$this->renderWiki($row['entitytype'], $row['entityname']);
+				$this->renderWiki($row['entitytype'], $row['entityname'], '', $row['path']);
 				break;
 			}
 			case 'I': {
@@ -131,7 +131,7 @@ class SearchsPage extends Page {
 				break;
 			}
 			case 'W': {
-				$this->renderWiki($row['entitytype'], $row['entityname'], $row['category']);
+				$this->renderWiki($row['entitytype'], $row['entityname'], $row['category'], $row['path']);
 				break;
 			}
 		}
@@ -206,7 +206,7 @@ class SearchsPage extends Page {
 			$entry->sentence);
 	}
 
-	function renderWiki($entitytype, $name, $category = '') {
+	function renderWiki($entitytype, $name, $category = '', $path = '') {
 		$type = 'Wiki page';
 		if ($entitytype == 'G') {
 			$type = "Player's guide";
@@ -215,13 +215,16 @@ class SearchsPage extends Page {
 		}
 		$displayName = str_replace('_', ' ', $name);
 		$displayName = preg_replace('|.*/|', '', $displayName);
+		if (!isset($path) || ($path == '')) {
+			$path = '/wiki/'.$name;
+		}
 		$this->renderEntry($displayName,
 			$type,
-			'/wiki/',
+			'',
 			'/images/item/documents/paper.png',
 			'',
 			'',
-			$name
+			$path
 		);
 	}
 }
