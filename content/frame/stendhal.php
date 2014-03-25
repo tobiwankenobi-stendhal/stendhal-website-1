@@ -86,7 +86,8 @@ class StendhalFrame extends PageFrame {
 		<?php startBox('World Guide'); ?>
 		<ul id="gamemenu" class="menu">
 			<?php 
-			echo '<li><a id="menuAtlas" href="'.rewriteURL('/world/atlas.html').'">Atlas</a></li>'."\n";
+			echo '<li><a id="menuAtlas" href="'.rewriteURL('/world/atlas.html').'">Map</a></li>'."\n";
+			echo '<li><a id="menuRegion" href="'.rewriteURL('/region.html').'">Regions</a></li>'."\n";
 			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a></li>'."\n";
 			echo '<li><a id="menuNPCs" href="'.rewriteURL('/npc/').'">NPCs</a></li>'."\n";
 			echo '<li><a id="menuQuests" href="/quest.html">Quests</a></li>'."\n";
