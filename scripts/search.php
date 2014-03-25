@@ -95,8 +95,6 @@ class Searcher {
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
 		
-		echo $sql;
-		
 		$result = array_merge($result, fetchToArray($sql, getGameDB()));
 		
 		profilePoint($sql);
