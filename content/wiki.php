@@ -96,13 +96,20 @@ class WikiPage extends Page {
 		}
 
 		if (in_array('Stendhal_Region', $categories) || in_array('Stendhal_Place', $categories)) {
-			if ($_REQUEST["title"] == '/world/atlas.html') {
+			if ($_REQUEST["title"] == '/region.html') {
 				return array('World Guide', '/world.html', 'Region', '/region.html');
 			} else {
 				return array('World Guide', '/world.html', 'Region', '/region.html', $this->pageTitle, $_REQUEST["title"]);
 			}
 		}
 
+		if (in_array('Stendhal_Player\'s_Guide', $categories)) {
+			if ($_REQUEST["title"] == '/player-guide.html') {
+				return array('World Guide', '/player-guide.html');
+			} else {
+				return array('Player\'s Guide', '/player-guide.html', $this->pageTitle, $_REQUEST["title"]);
+			}
+		}
 		return null;
 	}
 }
