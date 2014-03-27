@@ -1385,6 +1385,26 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 
 /* Wiki */
 
+
+.toc {
+	background-color: #F9F9F9;
+	border: 1px solid #AAAAAA;
+	font-size: 95%;
+	padding: 5px;
+}
+
+.toc h2 {
+	font-size: 100%;
+	font-weight: bold;
+	padding: 0;
+}
+#toc ul, .toc ul {
+	list-style-image: none;
+	list-style-type: none;
+	margin-left: 0;
+	padding: 0;
+}
+
 .floatright {
 	float: right;
 	border: 0 none;
