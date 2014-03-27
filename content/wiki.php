@@ -105,7 +105,7 @@ class WikiPage extends Page {
 
 		if (in_array('Stendhal_Player\'s_Guide', $categories)) {
 			if ($_REQUEST["title"] == '/player-guide.html') {
-				return array('World Guide', '/player-guide.html');
+				return array('Player\'s Guide', '/player-guide.html');
 			} else {
 				return array('Player\'s Guide', '/player-guide.html', $this->pageTitle, $_REQUEST["title"]);
 			}
