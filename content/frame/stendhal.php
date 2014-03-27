@@ -100,14 +100,16 @@ class StendhalFrame extends PageFrame {
 
 		<?php startBox('Player\'s Guide'); ?>
 		<ul id="helpmenu" class="menu">
-			<li><a id="menuHelpManual" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
-			<li><a id="menuHelpFAQ" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalFAQ">FAQ</a></li>
-			<li><a id="menuHelpBeginner" href="<?php echo $protocol;?>://stendhalgame.org/wiki/BeginnersGuide">Beginner's Guide</a></li>
-			<li><a id="menuHelpAsk" href="<?php echo $protocol;?>://stendhalgame.org/wiki/AskForHelp">Ask For Help</a></li>
-			<li><a id="menuHelpChat" href="<?php echo rewriteURL('/chat/');?>">Chat</a></li>
-			<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a></li>
-			<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a></li>
-			<li><a id="menuHelpRules" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalRuleSystem">Rules</a></li>
+			<?php 
+			echo '<li><a id="menuHelpManual" href="/wiki/Stendhal_Manual">Manual</a></li>';
+			echo '<li><a id="menuHelpFAQ" href="/player-guide/faq.html">FAQ</a></li>';
+			echo '<li><a id="menuHelpBeginner" href=/wiki/Stendhal_Beginner\'s_Guide">Beginner\'s Guide</a></li>';
+			echo '<li><a id="menuHelpAsk" href="/wiki/How_to_ask_for_help_in_Stendhal">Ask For Help</a></li>';
+			echo '<li><a id="menuHelpChat" href="/chat/">Chat</a></li>';
+			// echo '<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a></li>';
+			// echo '<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a></li>';
+			echo '<li><a id="menuHelpRules" href="/player-guide/rules.html">Rules</a></li>';
+ 			?>
 		</ul>
 		<?php endBox() ?>
 
