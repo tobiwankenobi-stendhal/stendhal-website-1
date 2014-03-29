@@ -1384,8 +1384,6 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 /* fancybox */
 
 /* Wiki */
-
-
 .toc {
 	background-color: #F9F9F9;
 	border: 1px solid #AAAAAA;
@@ -1403,6 +1401,15 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 	list-style-type: none;
 	margin-left: 0;
 	padding: 0;
+}
+
+div.thumbinner {
+	float: right;
+	background-color: #F9F9F9;
+	border: 1px solid #CCCCCC;
+	font-size: 94%;
+	overflow: hidden;
+	padding: 3px;
 }
 
 .floatright {
