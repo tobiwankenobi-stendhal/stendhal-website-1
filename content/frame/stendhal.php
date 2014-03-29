@@ -103,8 +103,8 @@ class StendhalFrame extends PageFrame {
 			<?php 
 			echo '<li><a id="menuHelpManual" href="/wiki/Stendhal_Manual">Manual</a></li>';
 			echo '<li><a id="menuHelpFAQ" href="/player-guide/faq.html">FAQ</a></li>';
-			echo '<li><a id="menuHelpBeginner" href="/wiki/Stendhal_Beginner\'s_Guide">Beginner\'s Guide</a></li>';
-			echo '<li><a id="menuHelpAsk" href="/wiki/How_to_ask_for_help_in_Stendhal">Ask For Help</a></li>';
+			echo '<li><a id="menuHelpBeginner" href="/player-guide/beginner-guide.html">Beginner\'s Guide</a></li>';
+			echo '<li><a id="menuHelpAsk" href="/player-guide/ask-for-help.html">Ask For Help</a></li>';
 			echo '<li><a id="menuHelpChat" href="/chat/">Chat</a></li>';
 			// echo '<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a></li>';
 			// echo '<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a></li>';
