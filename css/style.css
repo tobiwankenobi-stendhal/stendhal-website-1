@@ -1410,6 +1410,8 @@ div.thumbinner {
 	font-size: 94%;
 	overflow: hidden;
 	padding: 3px;
+	margin-left: 1em;
+	margin-bottom: 0.5em;
 }
 
 .floatright {
