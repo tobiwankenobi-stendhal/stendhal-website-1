@@ -74,10 +74,9 @@ if (!$this->found) {
 foreach($this->monsters as $m) {
 	/* If name of the creature match or contains part of the name.*/
 	if($m->name==$this->name || (!$this->isExact and strpos($m->name, $this->name) != false)) {
-	startBox("Detailed information");
+	startBox('<h1>'.htmlspecialchars(ucfirst($m->name)).'</h1>');
 	?>
 	<div class="monster">
-		<div class="name"><?php echo ucfirst($m->name); ?></div>
 		<img class="monster" src="<?php echo $m->gfx; ?>" alt="">
 		<div class="level">Level <?php echo $m->level; ?></div>
 		<div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
