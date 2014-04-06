@@ -32,47 +32,41 @@ class NPCPage extends Page {
 	}
 
 	function writeContent() {
-		
+		if (sizeof($this->npcs) == 0) {
+			startBox("No such NPC");
+			echo 'There is no such NPC in Stendhal.<br>Please make sure you spelled it correctly.';
+			endBox();
+			return;
+		}
 
-if(sizeof($this->npcs)==0) {
-  startBox("No such NPC");
-  ?>
-  There is no such NPC at Stendhal.<br>
-  Please make sure you spelled it correctly.
-  <?php
-  endBox();
-  return;
-}
-$npc=$this->npcs[0];
-?>
+		$npc=$this->npcs[0];
+		startBox('<h1>'.htmlspecialchars($npc->name).'</h1>');
 
-<?php startBox('NPC info for '.$npc->name); ?>
-<div class="table">
-  <div class="title">Details</div>
-  <img class="bordered_image" src="<?php echo $npc->imagefile ?>" alt="">
-  <div class="statslabel">Name:</div><div class="data"><?php echo $npc->name; ?></div>
-  <div class="statslabel">Zone:</div><div class="data"><?php 
-  if ($npc->pos != '') {
-    echo '<a href="/world/atlas.html?poi='.htmlspecialchars($npc->name).'">'.htmlspecialchars($npc->zone).' '.htmlspecialchars($npc->pos).'</a>';
-  } else {
-    echo htmlspecialchars($npc->zone);
-  }
-  ?></div>
-  <?php if ($npc->level > 0) {?>
-	  <div class="statslabel">Level:</div><div class="data"><?php echo $npc->level; ?></div>
-	  <div class="statslabel">HP:</div><div class="data"><?php echo $npc->hp . '/' . $npc->base_hp; ?></div>
-  <?php }?>
-  
-  <?php if ((isset($npc->job) && strlen($npc->job) > 0)) {?>
-  	<div class="sentence"><?php echo str_replace('#', '', $npc->job); ?></div> 
-  <?php }?>
-  <?php if ((isset($npc->description) && strlen($npc->description) > 0)) {?>
-	<div class="sentence"><?php echo $npc->description; ?></div> 
-  <?php }?>
-</div>
+		echo '<div class="table">';
+		echo '<div class="title">Details</div>';
+		echo '<img class="bordered_image" src="'.htmlspecialchars($npc->imagefile).'" alt="">';
+		echo '<div class="statslabel">Name:</div><div class="data">'.htmlspecialchars($npc->name).'</div>';
+		echo '<div class="statslabel">Zone:</div><div class="data">'; 
+		if ($npc->pos != '') {
+			echo '<a href="/world/atlas.html?poi='.htmlspecialchars($npc->name).'">'.htmlspecialchars($npc->zone).' '.htmlspecialchars($npc->pos).'</a>';
+		} else {
+			echo htmlspecialchars($npc->zone);
+		}
+		echo '</div>';
 
-<?php
-endBox();
+		if ($npc->level > 0) {
+			echo '<div class="statslabel">Level:</div><div class="data">'.$npc->level.'</div>';
+			echo '<div class="statslabel">HP:</div><div class="data">'.$npc->hp . '/' . $npc->base_hp.'</div>';
+		}
+
+		if ((isset($npc->job) && strlen($npc->job) > 0)) {
+			echo '<div class="sentence">'.htmlspecialchars(str_replace('#', '', $npc->job)).'</div>';
+		}
+		if ((isset($npc->description) && strlen($npc->description) > 0)) {
+			echo '<div class="sentence">'.htmlspecialchars($npc->description).'</div>';
+		}
+		echo '</div>';
+		endBox();
 	}
 
 	public function getBreadCrumbs() {
