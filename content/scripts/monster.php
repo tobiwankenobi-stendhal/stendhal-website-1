@@ -172,6 +172,7 @@ foreach($this->monsters as $m) {
     <img style="padding: 4px; border: 1px solid black;" src="/bargraph.php?data=<?php echo $data; ?>" alt="<?php echo $data; ?>" title="Killed Players" >
     <?php
     endBox();
+		$this->writeRelatedPages('C.'.strtolower($m->name), 'Stendhal_Quest', 'Quests');
     ?>
     <div style="margin-bottom: 48px;"></div>
     <?php

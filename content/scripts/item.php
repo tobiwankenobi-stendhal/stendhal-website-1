@@ -87,10 +87,9 @@ foreach($this->items as $m) {
    * If name of the creature match or contains part of the name.
    */
   if (($m->name==$this->name || (!$this->isExact && strpos($m->name, $this->name) !== FALSE)) && (($m->class == $this->class) || ($this->class == 'all'))) {
-    startBox("Detailed information");
+    startBox('<h1>'.htmlspecialchars(ucfirst($m->name)).'</h1>');
     ?>
     <div class="item">
-      <div class="name"><?php echo ucfirst($m->name); ?></div>
       <div class="type">This item is of <?php echo $m->class ?> class</div>
       <img class="item" src="<?php echo $m->gfx; ?>" alt="">
       <div class="description">
@@ -206,8 +205,9 @@ foreach($this->items as $m) {
 	</div>
     <?php
     endBox();
+		$this->writeRelatedPages('I.'.strtolower($m->name), 'Stendhal_Quest', 'Quests');
 		$this->includeJs();
-  }
+	}
 }
 }
 	public function getBreadCrumbs() {
