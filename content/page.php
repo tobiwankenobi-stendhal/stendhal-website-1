@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2009  The Arianne Project
+ Copyright (C) 2008-2014  The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -71,6 +71,26 @@ class Page {
 	}
 
 	public function writeAfterJS() {
+	}
+
+	/**
+	 * adds a box with related pages, if there are any resutls
+	 *
+	 * @param string $propName name of property
+	 * @param string $category category to filter the results
+	 * @param string $title title of the box
+	 */
+	public function writeRelatedPages($propName, $category, $title) {
+		$res = Wiki::findRelatedPages($propName, $category);
+		if (count($res) > 0) {
+			startBox(htmlspecialchars($title));
+			echo '<ul>';
+			foreach ($res as $row) {
+				echo '<li><a href="'.htmlspecialchars($row['path']).'">'.htmlspecialchars($row['title']).'</a>';
+			}
+			echo '</ul>';
+			endBox();
+		}
 	}
 }
 $page = new Page();

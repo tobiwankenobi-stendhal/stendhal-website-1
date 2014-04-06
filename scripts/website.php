@@ -285,4 +285,23 @@ class Wiki {
 		$sql =  "SELECT cl_to FROM a1111_wiki.categorylinks WHERE cl_from=" . intval($this->page['page_id']);
 		return fetchColumnToArray($sql, getGameDB(), 'cl_to');
 	}
+
+	/**
+	 * gets a list of related pages
+	 *
+	 * @param string $propName name of property to look for
+	 * @param string $category name of page category
+	 */
+	public static function findRelatedPages($propName, $category) {
+		$sql = "SELECT stendhal_category_search.entitytype, pp_title.pp_value As title, stendhal_category_search.category As category, pp_url.pp_value As path
+				FROM a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search, 
+				     a1111_wiki.page_props As pp_url, a1111_wiki.page_props As pp_title, a1111_wiki.page_props As pp_keyword
+				WHERE pp_url.pp_propname='externalcanonical' 
+				AND pp_keyword.pp_page=pp_title.pp_page AND pp_title.pp_propname='externaltitle'
+				AND pp_url.pp_page=pp_keyword.pp_page AND pp_keyword.pp_propname='".mysql_real_escape_string($propName)."'
+				AND categorylinks.cl_from=pp_keyword.pp_page AND stendhal_category_search.category=categorylinks.cl_to
+				AND categorylinks.cl_to = '".mysql_real_escape_string($category)."'
+				LIMIT 100";
+		return fetchToArray($sql, getGameDB());
+	}
 }

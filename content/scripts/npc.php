@@ -67,6 +67,8 @@ class NPCPage extends Page {
 		}
 		echo '</div>';
 		endBox();
+
+		$this->writeRelatedPages('N.'.strtolower($npc->name), 'Stendhal_Quest', 'Quests');
 	}
 
 	public function getBreadCrumbs() {
