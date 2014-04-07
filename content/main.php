@@ -39,9 +39,8 @@ class MainPage extends Page {
 		echo '<meta name="description" content="Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...">';
 	}
 
-	function writeContent() {
+	function writeContentOld() {
 ?>
-
 <div id="oneLineDescription">
 	<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'))?>" style="border:0">
 	<img style="border:0" src="/images/playit.gif" alt="play stendhal" width="106px" height="45px"></a>
@@ -67,8 +66,63 @@ class MainPage extends Page {
 	endBox();
 	?>
 </div>
-
 <?php
+	}
+
+	function writeContent() {
+		if (isset($_REQUEST['test'])) {
+			$this->writeStartPage();
+		} else {
+			$this->writeContentOld();
+		}
+	}
+
+	function writeStartPage() {
+		echo '<style type="text/css">';
+		echo '#contentArea {margin: 51px 0 80px 190px;}';
+		echo '#leftArea, #rightArea {display: none}';
+		echo '.box {margin-bottom: 1em}';
+		echo '</style>';
+
+		echo '<div style="width: 50%; float: left">';
+		startBox('<h1>Stendhal</h1>');
+		echo '<p><b>Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...</b></p>';
+		echo '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>';
+ 		echo '<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>';
+		endBox();
+
+		startBox('<h1>Learn more</h1>');
+		echo '<p>World Guide: <a href="">Map</a>, <a href="">Regions</a>, <a href="">Dungeons</a>, <a href="">NPCs</a>, <a href="">Quests</a>, <a href="">Achievements</a>, <a href="">Creatures</a>, <a href="">Items</a></p>';
+	 	echo '<p>Player\'s Guide: <a href="">Manual</a>, <a href="">FAQ</a>, <a href="">Beginner\'s Guide</a>, <a href="">Ask For Help</a>, <a href="">Chat</a>, <a href="">Rules</a></p>';
+		endBox();
+		
+		echo '</div>';
+		
+
+		echo '<div style="width: 45%; float: right">';
+		startBox('<h1>Login</h1>');
+		echo '<form>';
+		echo '<input type="text" placeholder="Username">';
+		echo '<input type="password" placeholder="Password">';
+		echo '<p><input type="submit" value="Login"></p>';
+		echo '<p><a href="">Create account...</a></p>';
+		echo '</form>';
+		endBox();
+
+		startBox('<h1>Media</h1>');
+		echo '<p><img src="/images/screenshot.jpeg" width="150px" height=""> ';
+		echo '<img src="/images/video.jpeg" width="150px"> ';
+		echo '<img src="/images/screenshot.jpeg" width="150px"> ';
+		echo '<img src="/images/video.jpeg" width="150px"> ';
+		echo '<p><a href="">More images...</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">More videos...</a>';
+		endBox();
+
+		startBox('<h1>News</h1>');
+		echo '<p><a href="">Development meeting: Stendhal Website</a><br>2014-03-30 14:23:01';
+		echo '<p><a href="">Stendhal 1.13: Hellish repainting</a><br>2014-02-10 20:53:37';
+		endBox();
+		echo '</div>';
+
 	}
 }
 $page = new MainPage();
