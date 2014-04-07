@@ -21,23 +21,36 @@
 class NewsArchivePage extends Page {
 
 	public function writeHtmlHeader() {
-		echo '<title>News Archive'.STENDHAL_TITLE.'</title>';
+		echo '<title>News'.STENDHAL_TITLE.'</title>';
 		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="/rss/news.rss" >';
 		
 	}
 
 	function writeContent() {
-?>
+		echo '<div id="newsArea">';
+		foreach(getNews(' where news.active=1 ', 'created desc', '') as $i) {
+			$i->show();
+		}
+		echo '</div>';
 
-<div id="newsArea">
-  <?php
-  foreach(getNews(' where news.active=1 ', 'created desc', '') as $i) {
-   $i->show();
-  }
-  ?>
-</div>
-<?php
+		?>
+		<div>
+			<?php startBox('More News');?>
+			<ul class="menu">
+				<li style="width: 100%"><a id="menuNewsRss" href="<?php echo rewriteURL('/rss/news.rss');?>">RSS-Feed for this page</a></li>
+				<li style="width: 100%"><a id="menuNewsTrade" href="/trade/">Harold's Trading Announcements</a></li>
+			</ul>
+			<?php
+			endBox();
+			?>
+		</div>
+		<?php
 	}
+/*
+	public function getBreadCrumbs() {
+		return array('Media', '/media.html', 'News', '/news.html');
+	}
+*/
 }
+
 $page = new NewsArchivePage();
-?>
