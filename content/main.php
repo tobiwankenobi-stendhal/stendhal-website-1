@@ -79,27 +79,48 @@ class MainPage extends Page {
 
 	function writeStartPage() {
 		echo '<style type="text/css">';
+		// general layout adjustments
+		echo 'body {background-image: none} #container, .box {border: none} #container {width: auto; max-with: 970px}';
+
+		// layout adjustments for the start page
 		echo '#contentArea {margin: 51px 0 80px 190px;}';
 		echo '#leftArea, #rightArea {display: none}';
 		echo '.box {margin-bottom: 1em}';
 		echo '</style>';
 
-		echo '<div style="width: 50%; float: left">';
+		// about stendhal
+		echo '<div style="width: 55%; float: left">';
 		startBox('<h1>Stendhal</h1>');
 		echo '<p><b>Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...</b></p>';
 		echo '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>';
  		echo '<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>';
 		endBox();
 
+		// quick access to important pages
 		startBox('<h1>Learn more</h1>');
-		echo '<p>World Guide: <a href="">Map</a>, <a href="">Regions</a>, <a href="">Dungeons</a>, <a href="">NPCs</a>, <a href="">Quests</a>, <a href="">Achievements</a>, <a href="">Creatures</a>, <a href="">Items</a></p>';
-	 	echo '<p>Player\'s Guide: <a href="">Manual</a>, <a href="">FAQ</a>, <a href="">Beginner\'s Guide</a>, <a href="">Ask For Help</a>, <a href="">Chat</a>, <a href="">Rules</a></p>';
-		endBox();
+		echo '<p>World Guide: ';
+		echo '<a href="'.rewriteURL('/world/atlas.html').'">Map</a>, ';
+		echo '<a href="'.rewriteURL('/region.html').'">Regions</a>, ';
+		echo '<a href="/dungeon.html">Dungeons</a>, ';
+		echo '<a href="'.rewriteURL('/npc/').'">NPCs</a>, ';
+		echo '<a href="/quest.html">Quests</a>, ';
+		echo '<a href="'.rewriteURL('/achievement.html').'">Achievements</a>, ';
+		echo '<a href="'.rewriteURL('/creature/').'">Creatures</a>, ';
+		echo '<a href="'.rewriteURL('/item/').'">Items</a></p>';
+
+		echo '<p>Player\'s Guide: ';
+		echo '<a href="/wiki/Stendhal_Manual">Manual</a>, ';
+		echo '<a href="/player-guide/faq.html">FAQ</a>, ';;
+		echo '<a href="/player-guide/beginner-guide.html">Beginner\'s Guide</a>, ';
+		echo '<a href="/player-guide/ask-for-help.html">Ask For Help</a>, ';
+		echo '<a href="/chat/">Chat</a></p>';
+
+	 	endBox();
 		
 		echo '</div>';
-		
 
-		echo '<div style="width: 45%; float: right">';
+		// login form
+		echo '<div style="width: 35%; float: right">';
 		startBox('<h1>Login</h1>');
 		echo '<form>';
 		echo '<input type="text" placeholder="Username">';
@@ -109,14 +130,16 @@ class MainPage extends Page {
 		echo '</form>';
 		endBox();
 
+		// screenshots and videos
 		startBox('<h1>Media</h1>');
-		echo '<p><img src="/images/screenshot.jpeg" width="150px" height=""> ';
-		echo '<img src="/images/video.jpeg" width="150px"> ';
-		echo '<img src="/images/screenshot.jpeg" width="150px"> ';
-		echo '<img src="/images/video.jpeg" width="150px"> ';
-		echo '<p><a href="">More images...</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">More videos...</a>';
+		echo '<p><img src="/images/screenshot.jpeg" width="120px" height=""> ';
+		echo '<img src="/images/video.jpeg" width="120px"> ';
+		echo '<img src="/images/screenshot.jpeg" width="120px"> ';
+		echo '<img src="/images/video.jpeg" width="120px"> ';
+		echo '<p><a href="">More images...</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">More videos...</a>';
 		endBox();
 
+		// news
 		startBox('<h1>News</h1>');
 		echo '<p><a href="">Development meeting: Stendhal Website</a><br>2014-03-30 14:23:01';
 		echo '<p><a href="">Stendhal 1.13: Hellish repainting</a><br>2014-02-10 20:53:37';
