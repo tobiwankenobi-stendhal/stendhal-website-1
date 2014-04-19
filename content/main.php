@@ -93,34 +93,11 @@ class MainPage extends Page {
 		echo '<div style="width: 55%; float: left">';
 		startBox('<h1>Stendhal</h1>');
 		echo '<p><b>Stendhal is a fun friendly and free multiplayer online adventure game with an old school feel.</b></p>';
-		echo '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>';
- 		echo '<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>';
+		echo '<p>Stendhal has a huge and rich world. You can explore cities, forest, mountains, plains and dungeons. You can fight monsters and become a hero.</p>';
+		echo '<p>You will meet a wide variaty of characters. Many will give you tasks and quests for valuable experience. You may be asked to help protect land, feed the hungry, heal the sick, make someone happy, solve a puzzle or simply lend a hand.</p>';
+		echo '<p>So what are you waiting for? A whole new world awaits... And if you like, get the source code, and add your own ideas!</p>';
 		endBox();
 
-/*
- Start playing, get hooked... Get the source code, and add your own ideas...
-		
-		Stendhal has a huge and rich world. You can explore cities, forest, mountains, mines, plains, caves and dungeons.
-		
-		You could meet over 250 NPCs, many will give you tasks and quests for valuable experience, shiny gold, but mainly a warm fuzzy feeling. You may be asked to help protect land or people from danger, feed the hungry, heal the sick, make someone happy, solve a puzzle, play a game or simply lend a hand. You can keep track of your progress using a Travel Log.
-		
-		Your character will develop and grow and with each new level up become stronger and better. With the money you acquire you can buy new items and improve your armour and weapons, trade with friends, or look for what other players are giving away in the 'community chest'.
-		
-				If you just want to fight that helps too - the cities could get overrun by monsters without you!
-		
-				Start playing, get hooked... and if you like, get the source code, and add your own ideas!
-		
-				So what are you waiting for? A whole new world awaits...
-				Start playing, get hooked...
-		
-				With Java installed, playing is as simple as clicking Play Now on stendhalgame.org. You can play Stendhal on Windows, Mac and Linux, it is completely free and all open source.
-		
-				There is an ingame tutorial, a manual and a beginners guide.
-				Get the source code, and add your own ideas!
-		
-				Stendhal is part of the Arianne project and framework for developing games. It's a great project to get involved in, if you are interested in learning to develop Java for example. If you don't want to code you can help with graphics, history, dialogue, quest ideas, music and more. Join a team of developers from all over the world who create the game just for fun, and of course for free, in our spare time. We would really love to get your help contributing.
-		
-*/
 
 		// quick access to important pages
 		startBox('<h1>Learn more</h1>');
@@ -148,19 +125,19 @@ class MainPage extends Page {
 		// login form
 		echo '<div style="width: 35%; float: right">';
 		startBox('<h1>Login</h1>');
-		echo '<form>';
-		echo '<input type="text" placeholder="Username">';
-		echo '<input type="password" placeholder="Password">';
-		echo '<p><input type="submit" value="Login"></p>';
-		echo '<p><a href="">Create account...</a></p>';
+		echo '<form method="post" action="/account/login.html">';
+		echo '<input id="user" name="user" maxlength="30" type="text" placeholder="Username">';
+		echo '<input id="pass" name="pass" maxlength="30" type="password" placeholder="Password">';
+		echo '<p><input name="sublogin" type="submit" value="Login">';
+		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/account/create-account.html">Create account...</a></p>';
 		echo '</form>';
 		endBox();
-
+		
 		// screenshots and videos
 		startBox('<h1>Media</h1>');
-		echo '<p><img src="/images/screenshot.jpeg" width="120px" height=""> ';
+		echo '<p><img src="/images/screenshot.jpg" width="120px" height="87px"> ';
 		echo '<img src="/images/video.jpeg" width="120px"> ';
-		echo '<img src="/images/screenshot.jpeg" width="120px"> ';
+		echo '<img src="/images/screenshot.jpg" width="120px" height="87px"> ';
 		echo '<img src="/images/video.jpeg" width="120px"> ';
 		echo '<p><a href="">More images...</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">More videos...</a>';
 		endBox();
