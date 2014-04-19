@@ -370,7 +370,7 @@ function rewriteURL($url, $force = false) {
 		} else if (preg_match('|^/item/([^/]*)\.html$|', $url)) {
 			return preg_replace('|^/item/([^/]*)\.html$|', $folder.'/?id=content/game/items&amp;class=$1', $url);
 		}
-	
+
 	// news
 	} else if (preg_match('|^/news/.*|', $url)) {
 		return preg_replace('|^/news/(.*)$|', $folder.'/?id=content/news/news&amp;news=$1', $url);
@@ -483,6 +483,7 @@ function handleRewriteUrlParameter() {
 		$rewrittenUrl = rewriteURL($_REQUEST['rewriteurl'], true);
 		$rewrittenUrl = str_replace('&amp;', '&', substr($rewrittenUrl, 2));
 		$_REQUEST = $_REQUEST + convertUrlQuery($rewrittenUrl);
+		$_GET = $_GET + convertUrlQuery($rewrittenUrl);
 		unset($_REQUEST['rewriteurl']);
 	}
 }
