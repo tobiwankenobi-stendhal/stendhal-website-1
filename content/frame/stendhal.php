@@ -80,14 +80,14 @@ class StendhalFrame extends PageFrame {
 		endBox();
 
 		startBox('Movie'); ?>
-			<a href="<?php echo $protocol;?>://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?php echo STENDHAL_FOLDER;?>/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
+			<a href="https://stendhalgame.org/wiki/Stendhal_Videos"><img src="<?php echo STENDHAL_FOLDER;?>/images/video.jpeg" width="99%" style="border: 0;" title="Stendhal videos &amp; video tutorials" alt="A screenshot of Stendhal in Semos Bank with a bank chest window open showing lots if items. In the middle of the screenshow a semitransparent play-icon is painted, indicating this image links to a video."></a>
 		<?php endBox() ?>
 
 		<?php startBox('World Guide'); ?>
 		<ul id="gamemenu" class="menu">
 			<?php 
 			echo '<li><a id="menuAtlas" href="'.rewriteURL('/world/atlas.html').'">Map</a></li>'."\n";
-			echo '<li><a id="menuRegion" href="'.rewriteURL('/region.html').'">Regions</a></li>'."\n";
+			echo '<li><a id="menuRegion" href="/region.html">Regions</a></li>'."\n";
 			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a></li>'."\n";
 			echo '<li><a id="menuNPCs" href="'.rewriteURL('/npc/').'">NPCs</a></li>'."\n";
 			echo '<li><a id="menuQuests" href="/quest.html">Quests</a></li>'."\n";
@@ -190,14 +190,14 @@ class StendhalFrame extends PageFrame {
 		<ul id="contribmenu" class="menu">
 			<?php
 			echo '<li><a id="menuContribChat" href="'.rewriteURL('/chat/').'">Chat</a></li>'."\n";
-			echo '<li><a id="menuContribWiki" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
+			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
 			echo '<li><a id="menuContribBugs" href="'.rewriteURL('/development/bug.html').'">Report Bug</a></li>'."\n";
 			echo '<li><a id="menuContribRequests" href="https://sourceforge.net/p/arianne/feature-requests/new/">Suggest Feature</a></li>'."\n";
 			echo '<li><a id="menuContribHelp" href="https://sourceforge.net/p/arianne/patches/new/">Submit Patch</a></li>'."\n";
-			echo '<li><a id="menuContribQuests" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a></li>'."\n";
-			echo '<li><a id="menuContribTesting" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal_Testing">Testing</a></li>'."\n";
+			echo '<li><a id="menuContribQuests" href="https://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a></li>'."\n";
+			echo '<li><a id="menuContribTesting" href="https://stendhalgame.org/wiki/Stendhal_Testing">Testing</a></li>'."\n";
 			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/sourcelog.html').'">Changes</a></li>'."\n";
-			echo '<li><a id="menuContribDownload" href="'.$protocol.'://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
+			echo '<li><a id="menuContribDownload" href="https://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
 			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
 			?>
 		</ul>

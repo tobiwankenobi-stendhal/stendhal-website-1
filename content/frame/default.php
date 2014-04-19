@@ -60,13 +60,13 @@ class DefaultFrame extends PageFrame {
 		<?php 
 		startBox('Game System');
 			echo '<ul id="gamemenu" class="menu">'; 
-			echo '<li><a id="menuAtlas" href="'.$protocol.'://stendhalgame.org/wiki/StendhalAtlas">Atlas</a></li>'."\n";
+			echo '<li><a id="menuAtlas" href="https://stendhalgame.org/wiki/StendhalAtlas">Atlas</a></li>'."\n";
 			echo '</ul>';
 		endBox();
 
 		startBox('Help'); ?>
 		<ul id="helpmenu" class="menu">
-			<li><a id="menuHelpManual" href="<?php echo $protocol;?>://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
+			<li><a id="menuHelpManual" href="https://stendhalgame.org/wiki/StendhalManual">Manual</a></li>
 		</ul>
 		<?php endBox() ?>
 
@@ -78,7 +78,7 @@ class DefaultFrame extends PageFrame {
 		<?php startBox('Contribute'); ?>
 		<ul id="contribmenu" class="menu">
 			<?php
-			echo '<li><a id="menuContribWiki" href="'.$protocol.'://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
+			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
@@ -100,7 +100,7 @@ class DefaultFrame extends PageFrame {
 	</div>
 
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2011 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
+		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 		<span><a id="footerSourceforge" href="http://sourceforge.net/projects/arianne">&nbsp;</a></span>
 	</div>
 
