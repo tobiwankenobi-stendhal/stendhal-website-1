@@ -303,24 +303,26 @@ function rewriteURL($url, $force = false) {
 		} else if (preg_match('|^/account/messages.html$|', $url)) {
 			return preg_replace('|^/account/messages.html$|', $folder.'/?id=content/account/messages', $url);
 		} else if (preg_match('|^/account/messages/(.*)\.html$|', $url)) {
-			return preg_replace('|^/account/messages/(.*)\.html$|', $folder.'/?id=content/account/messages&filter=$1', $url);
+			return preg_replace('|^/account/messages/(.*)\.html$|', $folder.'/?id=content/account/messages&amp;filter=$1', $url);
 		} else if (preg_match('|^/account/myaccount.html$|', $url)) {
 			return preg_replace('|^/account/myaccount.html$|', $folder.'/?id=content/account/myaccount', $url);
 		} else if (preg_match('|^/account/mycharacters.html$|', $url)) {
 			return preg_replace('|^/account/mycharacters.html$|', $folder.'/?id=content/account/mycharacters', $url);
 		} else if (preg_match('|^/account/remind-mail.html$|', $url)) {
 			return preg_replace('|^/account/remind-mail.html$|', $folder.'/?id=content/account/remind', $url);
+		} else if (preg_match('|^/account/confirm/(.*)$|', $url)) {
+			return preg_replace('|^/account/confirm/(.*)$|', $folder.'/?id=content/account/confirm&amp;token=$1', $url);
 		}
 	} else if (preg_match('|^/a/(.*)$|', $url)) {
-			return preg_replace('|^/a/(.*)$|', $folder.'/?id=content/account/a&account=$1', $url);
-		
+			return preg_replace('|^/a/(.*)$|', $folder.'/?id=content/account/a&amp;account=$1', $url);
+
 
 	// achievement
 	} else if (preg_match('|^/achievement.*|', $url)) {
 		if (preg_match('|^/achievement\.html$|', $url)) {
 			return preg_replace('|^/achievement\.html$|', $folder.'/?id=content/game/achievement', $url);
 		} else if (preg_match('|^/achievement/.*\.html$|', $url)) {
-			return preg_replace('|^/achievement/(.*)\.html$|', $folder.'/?id=content/game/achievement&name=$1&exact', $url);
+			return preg_replace('|^/achievement/(.*)\.html$|', $folder.'/?id=content/game/achievement&amp;name=$1&exact', $url);
 		}
 
 	// chat
@@ -393,10 +395,10 @@ function rewriteURL($url, $force = false) {
 	// search
 	} else if (preg_match('|^/search.*|', $url)) {
 		if (preg_match('|^/search?q=.*|', $url)) {
-			return preg_replace('|^/search?q=|', $folder.'/?id=content/game/search&a=', $url);
+			return preg_replace('|^/search?q=|', $folder.'/?id=content/game/search&q=', $url);
 		}
 		return preg_replace('|^/search.*|', $folder.'/?id=content/game/search', $url);
-	
+
 
 	// world
 	} else if (preg_match('|^/world.*|', $url)) {
