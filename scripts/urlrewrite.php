@@ -292,6 +292,8 @@ function rewriteURL($url, $force = false) {
 			return preg_replace('|^/account/create-account.html$|', $folder.'/?id=content/account/createaccount', $url);
 		} else if (preg_match('|^/account/create-character.html$|', $url)) {
 			return preg_replace('|^/account/create-character.html$|', $folder.'/?id=content/account/createcharacter', $url);
+		} else if (preg_match('|^/account/email.html$|', $url)) {
+			return preg_replace('|^/account/email.html$|', $folder.'/?id=content/account/email', $url);
 		} else if (preg_match('|^/account/history.html$|', $url)) {
 			return preg_replace('|^/account/history.html$|', $folder.'/?id=content/account/loginhistory', $url);
 		} else if (preg_match('|^/account/login.html$|', $url)) {
