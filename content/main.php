@@ -78,16 +78,6 @@ class MainPage extends Page {
 	}
 
 	function writeStartPage() {
-		echo '<style type="text/css">';
-		// general layout adjustments
-		echo 'body {background-image: none} #container, .box {border: none} #container {width: auto; max-width: 970px} #topMenu {background-image: none}';
-
-		// layout adjustments for the start page
-		echo '#contentArea {margin: 51px 0 80px 190px;}';
-		echo '#leftArea, #rightArea {display: none}';
-		echo '.box {margin-bottom: 1em}';
-		echo '.boxTitle {border:none; background-image: none; background: #0D4619}';
-		echo '</style>';
 
 		// about stendhal
 		echo '<div style="width: 55%; float: left">';
