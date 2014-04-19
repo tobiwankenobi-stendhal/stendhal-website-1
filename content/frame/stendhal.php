@@ -43,9 +43,9 @@ class StendhalFrame extends PageFrame {
 	 */
 	function writeHtmlHeader() {
 		echo '<link rel="icon" type="image/x-icon" href="'.STENDHAL_FOLDER.'/favicon.ico">';
-// 		echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
 
 		if (isset($_REQUEST['_layout'])) {
+ 			echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
 			echo '<style type="text/css">';
 			// general layout adjustments
 			echo 'body {background-image: none} #container, .box {border: none} #container {width: auto; max-width: 970px} #topMenu {background-image: none}';
