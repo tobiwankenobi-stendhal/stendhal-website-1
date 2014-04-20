@@ -134,8 +134,8 @@ class MainPage extends Page {
 
 		// news
 		startBox('<h1>News</h1>');
-		echo '<p><a href="">Development meeting: Stendhal Website</a><br>2014-03-30 14:23:01';
-		echo '<p><a href="">Stendhal 1.13: Hellish repainting</a><br>2014-02-10 20:53:37';
+		echo '<p><a href="">Development meeting: Stendhal Website</a> (2014-03-30)';
+		echo '<p><a href="">Stendhal 1.13: Hellish repainting</a> (2014-02-10)';
 		endBox();
 		echo '</div>';
 
