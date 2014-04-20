@@ -55,6 +55,9 @@ class StendhalFrame extends PageFrame {
 			echo '#leftArea, #rightArea {display: none}';
 			echo '.box {margin-bottom: 1em}';
 			echo '.boxTitle {border:none; background-image: none; background: #0D4619}';
+			echo '#container {background-image: none}';
+			echo '#header {background-image: url("../images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}';
+			echo '#topMenu {margin:0; height: auto}';
 			echo '@media screen and (max-width : 480px) { #contentArea {margin-left:0} }';
 			echo '</style>';
 		}
@@ -284,7 +287,9 @@ $page->writeAfterJS();
 		<style type="text/css">
 .navigation {
   font-size:14px;
-  position:absolute;  
+  position:absolute;
+  margin:0;
+  padding:0;
 }
 
 .navigation ul {
@@ -300,8 +305,9 @@ $page->writeAfterJS();
 
 .navtop a {
   float:left;
-  width:110px;
+  width:140px;
   text-align:center;
+  line-height:25px
 }
 
 .navtop ul{
@@ -310,13 +316,13 @@ $page->writeAfterJS();
 
 .navtop a, .dropdown li a{
   padding:1px 5px;
-  border:1px solid #C37000;
+  border:1px solid #545A58;
   border-collapse:collapse;
-  color:#C37000;
+  color:#FFF;
   font-weight:bold;
   text-decoration:none;
-  background-color:#7F4800;
-  margin:0;  
+  background-color:#545A58;
+  margin:0;
 }
 
 .dropdown li a{
@@ -324,6 +330,9 @@ $page->writeAfterJS();
   width:110px;
   position:relative;
   clear:both; /* special IE6 */
+  text-align:left;
+  background-color: #FFF;
+  color: #545A58;
 }
 
 .navigation a:hover, .navtop.on a {
