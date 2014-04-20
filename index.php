@@ -117,7 +117,7 @@ header('X-Frame-Options: sameorigin');
 $csp = "default-src 'self' https://stendhalgame.org; "
 	. "img-src http://ssl.gstatic.com https://ssl.gstatic.com http://csi.gstatic.com https://csi.gstatic.com http://arianne.sf.net http://arianne.sourceforge.net https://sflogo.sourceforge.net http://sflogo.sourceforge.net https://stendhalgame.org data: 'self'; "
 	. "script-src https://apis.google.com https://platform.twitter.com 'self'; "
-	. "frame-src https://www.facebook.com https://plusone.google.com https://apis.google.com http://platform.twitter.com https://platform.twitter.com https://www.youtube.com 'self'; "
+	. "frame-src https://www.facebook.com https://plusone.google.com https://apis.google.com http://platform.twitter.com https://platform.twitter.com https://www.youtube.com https://www.youtube-nocookie.com 'self'; "
 	. "style-src 'self' 'unsafe-inline' ; ";
 //	. "report-uri /?id=content/scripts/cspreport";
 
