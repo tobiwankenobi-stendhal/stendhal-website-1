@@ -137,24 +137,6 @@ h1 {
 .searchimagecontainer {float: left; width: 48px; height: 3em}
 .searchicon {max-height: 48px}
 
-#topMenu ul {
-	text-align: center;
-	padding: 45px 0 2px 0;
-	margin: 0 10% 0 10%;
-}
-
-#topMenu li {
-	list-style: none;
-	text-align: center;
-	display: inline;
-	padding: 3px;
-	margin: 0 3px 2px 0;
-}
-
-#topMenu img {
-	border: 0;
-}
-
 /* LEFT PANE */
 #leftArea {
 	width: 180px;
@@ -958,7 +940,7 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 	padding-left: 32px;
 	display:inline-block;
 	line-height:25px;
-	background: top left no-repeat;
+	background: top left no-repeat #FFF;
 }
 
 
