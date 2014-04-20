@@ -91,6 +91,9 @@ class StendhalFrame extends PageFrame {
 		}
 	?>
 	</div>
+	<?php
+		if (!isset($_REQUEST['_layout'])) {
+	?>
 	<div id="navigationColumns">
 	<div id="leftArea">
 		<?php 
@@ -227,6 +230,7 @@ class StendhalFrame extends PageFrame {
 		<?php endBox(); ?>
 	</div>
 	</div>
+	<?php }?>
 
 	<div id="contentArea">
 		<?php
@@ -290,6 +294,8 @@ $page->writeAfterJS();
   position:absolute;
   margin:0;
   padding:0;
+  list-style-type:none;
+  list-style-image:none;
 }
 
 .navigation ul {
