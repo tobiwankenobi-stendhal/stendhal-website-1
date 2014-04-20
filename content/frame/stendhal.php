@@ -81,7 +81,13 @@ class StendhalFrame extends PageFrame {
 		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
 	</div>
 
-	<div id="topMenu"></div>
+	<div id="topMenu">
+	<?php 
+		if (isset($_REQUEST['_layout'])) {
+			$this->navigationMenu();
+		}
+	?>
+	</div>
 	<div id="navigationColumns">
 	<div id="leftArea">
 		<?php 
@@ -269,7 +275,169 @@ $page->writeAfterJS();
 </body>
 </html>
 
-<?php 
-	}
+<?php
+		}
+
+	function navigationMenu() {
+// http://www.silent-fran.de/css/tutorial/aufklappmenue.html
+		?>
+		<style type="text/css">
+.navigation {
+  font-size:14px;
+  position:absolute;  
+}
+
+.navigation ul {
+  list-style-type:none;
+  list-style-image:none;
+  margin:0px;
+  padding:0px;
+}
+
+.navigation li.navtop {
+  float:left;
+}
+
+.navtop a {
+  float:left;
+  width:110px;
+  text-align:center;
+}
+
+.navtop ul{
+  display:none;
+}
+
+.navtop a, .dropdown li a{
+  padding:1px 5px;
+  border:1px solid #C37000;
+  border-collapse:collapse;
+  color:#C37000;
+  font-weight:bold;
+  text-decoration:none;
+  background-color:#7F4800;
+  margin:0;  
+}
+
+.dropdown li a{
+  font-size:12px;
+  width:110px;
+  position:relative;
+  clear:both; /* special IE6 */
+}
+
+.navigation a:hover, .navtop.on a {
+  color:#4C4C4C;
+  background-color:#ffddbb !important;
+}
+
+.navtop:hover ul {
+  display:block;  
+  z-index:500;
+}
+		</style>
+		<?php
+
+		echo '<ul class="navigation">';
+
+		echo '<li class="navtop"><a href="/about.html">About</a><ul class="dropdown">';
+			echo '<li><a href="/world/newsarchive.html">News</a>';
+			echo '<li><a href="/about/screenshot.html">Screenshots</a>';
+			echo '<li><a href="/about/video.html">Videos</a></ul>';
+
+		echo '<li class="navtop"><a href="/world.html">World Guide</a><ul class="dropdown">';
+			echo '<li><a id="menuAtlas" href="/world/atlas.html">Map</a>';
+			echo '<li><a id="menuRegion" href="/region.html">Regions</a>';
+			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a>';
+			echo '<li><a id="menuNPCs" href="/npc/">NPCs</a>';
+			echo '<li><a id="menuQuests" href="/quest.html">Quests</a>';
+			echo '<li><a id="menuAchievements" href="/achievement.html">Achievements</a>';
+			echo '<li><a id="menuCreatures" href="/creature/">Creatures</a>';
+			echo '<li><a id="menuItems" href="/item/">Items</a></ul>';
+
+		echo '<li class="navtop"><a href="/player-guide.html">Player\'s Guide</a><ul class="dropdown">';
+			echo '<li><a id="menuHelpManual" href="/wiki/Stendhal_Manual">Manual</a>';
+			echo '<li><a id="menuHelpFAQ" href="/player-guide/faq.html">FAQ</a>';
+			echo '<li><a id="menuHelpBeginner" href="/player-guide/beginner-guide.html">Beginner\'s Guide</a>';
+			echo '<li><a id="menuHelpAsk" href="/player-guide/ask-for-help.html">Ask For Help</a>';
+			echo '<li><a id="menuHelpChat" href="/chat/">Chat</a>';
+			// echo '<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a>';
+			// echo '<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a>';
+			echo '<li><a id="menuHelpRules" href="/player-guide/rules.html">Rules</a></ul>';
+
+		echo '<li class="navtop"><a href="/community.html">Community</a><ul class="dropdown">';
+			echo '<li><a id="menuPlayerOnline" href="/world/online.html">Online players</a>';
+			echo '<li><a id="menuPlayerHalloffame" href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>';
+			echo '<li><a id="menuPlayerEvents" href="/world/events.html">Recent Events</a>';
+			echo '<li><a id="menuPlayerKillstats" href="/world/kill-stats.html">Kill stats</a></ul>';
+			
+		echo '<li class="navtop"><a href="/development.html">Contribute</a><ul class="dropdown">';
+			echo '<li><a id="menuContribChat" href="/chat/">Chat</a>';
+			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a>';
+			echo '<li><a id="menuContribBugs" href="/development/bug.html">Report Bug</a>';
+			echo '<li><a id="menuContribRequests" href="https://sourceforge.net/p/arianne/feature-requests/new/">Suggest Feature</a>';
+			echo '<li><a id="menuContribHelp" href="https://sourceforge.net/p/arianne/patches/new/">Submit Patch</a>';
+			echo '<li><a id="menuContribQuests" href="https://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a>';
+			echo '<li><a id="menuContribTesting" href="https://stendhalgame.org/wiki/Stendhal_Testing">Testing</a>';
+			echo '<li><a id="menuContribHistory" href="/development/sourcelog.html">Changes</a>';
+			echo '<li><a id="menuContribDownload" href="https://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a>';
+			echo '<li><a id="menuContribDevelopment" href="/development">Development</a></ul>';
+						
+/*
+	<div id="rightArea">
+		<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));?>"><span class="block" id="playArea"></span></a>
+		<a href="http://arianne.sourceforge.net/download/stendhal.zip"><span class="block" id="downloadArea"></span></a>
+		<?php
+			startBox('My Account');
+		?>
+		<ul id="accountmenu" class=	"menu">
+			<?php if(checkLogin()) { 
+				$messageCount = StoredMessage::getCountUndeliveredMessages($_SESSION['account']->id, "characters.charname = postman.target AND deleted != 'R'"); ?>
+				<li><a id="menuAccountMain" href="<?php echo(rewriteURL('/account/myaccount.html')); ?>">Logged in as <strong><?php echo htmlspecialchars($_SESSION['account']->username); ?></strong></a></li>
+				<li><a id="menuAccountCharacters" href="<?php echo(rewriteURL('/account/mycharacters.html')); ?>">My Characters</a></li>
+				<li><a id="menuAccountMessages" href="<?php echo(rewriteURL('/account/messages.html')); ?>">Messages (<?php echo htmlspecialchars($messageCount); ?>)</a></li>
+				<li><a id="menuAccountHistory" href="<?php echo(rewriteURL('/account/history.html')); ?>">Login History</a></li>
+				<li><a id="menuAccountEMail" href="<?php echo(rewriteURL('/account/email.html')); ?>">Mail address</a></li>
+				<li><a id="menuAccountPassword" href="<?php echo(rewriteURL('/account/change-password.html')); ?>">New Password</a></li>
+				<li><a id="menuAccountMerge" href="<?php echo(rewriteURL('/account/merge.html')); ?>">Merge Accounts</a></li>
+				<li><a id="menuAccountLogout" href="<?php echo(rewriteURL('/account/logout.html')); ?>">Logout</a></li>
+			<?php } else { ?>
+				<li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/login.html')); ?>">Login</a></li>
+			<?php } ?>
+		</ul>
+		<?php
+			endBox();
+		?>
+
+		$adminLevel = getAdminLevel();
+		if($adminLevel >= 100) {
+			startBox('Administration'); ?>
+			<ul id="adminmenu" class="menu">
+				<?php 
+				if($adminLevel >= 400) { ?>
+					<li><a id="menuAdminNews" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/news">News</a></li>
+					<li><a id="menuAdminScreenshots" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/screenshots">Screenshots</a></li>
+				<?php } ?>
+				<li><a id="menuAdminDataExplorer" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/data">Data Explorer</a></li>
+				<li><a id="menuAdminInspect" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/inspect">Render Inspect</a></li>
+				<li><a id="menuAdminSupportlog" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/logs">Support Logs</a></li>
+				<li><a id="menuAdminPlayerhistory" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/playerhistory">Player History</a></li>
+			</ul>
+			<?php endBox();
+		}?>
+
+		<?php 
+		startBox('Best Player');
+		$player=getBestPlayer('recent', REMOVE_ADMINS_AND_POSTMAN);
+		if($player!=NULL) {
+			Player::showFromArray($player);
+		} else {
+			echo '<div class="small_notice">'.STENDHAL_NO_BEST_PLAYER.'</div>';
+		}
+		endBox(); ?>
+
+ */
+			echo '</ul>';
+		}
 }
 $frame = new StendhalFrame();
