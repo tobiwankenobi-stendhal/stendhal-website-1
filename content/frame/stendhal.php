@@ -377,12 +377,12 @@ nav ul li ul li a:hover{
 
 		echo '<nav><ul class="navigation">';
 
-		echo '<li class="navtop"><a href="/media.html">Media</a><ul class="dropdown">';
+		echo '<li><a href="/media.html">Media</a><ul>';
 			echo '<li><a href="/world/newsarchive.html">News</a>';
 			echo '<li><a href="/media/screenshots.html">Screenshots</a>';
 			echo '<li><a href="/media/videos.html">Videos</a></ul>';
 
-		echo '<li class="navtop"><a href="/world.html">World Guide</a><ul class="dropdown">';
+		echo '<li><a href="/world.html">World Guide</a><ul>';
 			echo '<li class=""><a id="menuAtlas" href="/world/atlas.html">Map</a>';
 			echo '<li class="cat2"><a id="menuRegion" href="/region.html">Regions</a>';
 			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a>';
@@ -392,7 +392,7 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuCreatures" href="/creature/">Creatures</a>';
 			echo '<li><a id="menuItems" href="/item/">Items</a></ul>';
 
-		echo '<li class="navtop"><a href="/player-guide.html">Player\'s Guide</a><ul class="dropdown">';
+		echo '<li><a href="/player-guide.html">Player\'s Guide</a><ul>';
 			echo '<li><a id="menuHelpManual" href="/wiki/Stendhal_Manual">Manual</a>';
 			echo '<li><a id="menuHelpFAQ" href="/player-guide/faq.html">FAQ</a>';
 			echo '<li><a id="menuHelpBeginner" href="/player-guide/beginner-guide.html">Beginner\'s Guide</a>';
@@ -402,13 +402,13 @@ nav ul li ul li a:hover{
 			// echo '<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a>';
 			echo '<li><a id="menuHelpRules" href="/player-guide/rules.html">Rules</a></ul>';
 
-		echo '<li class="navtop"><a href="/community.html">Community</a><ul class="dropdown">';
+		echo '<li><a href="/community.html">Community</a><ul>';
 			echo '<li><a id="menuPlayerOnline" href="/world/online.html">Online players</a>';
 			echo '<li><a id="menuPlayerHalloffame" href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>';
 			echo '<li><a id="menuPlayerEvents" href="/world/events.html">Recent Events</a>';
 			echo '<li><a id="menuPlayerKillstats" href="/world/kill-stats.html">Kill stats</a></ul>';
 			
-		echo '<li class="navtop"><a href="/development.html">Contribute</a><ul class="dropdown">';
+		echo '<li><a href="/development.html">Development</a><ul>';
 			echo '<li><a id="menuContribChat" href="/chat/">Chat</a>';
 			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a>';
 			echo '<li><a id="menuContribBugs" href="/development/bug.html">Report Bug</a>';
