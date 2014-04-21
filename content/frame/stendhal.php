@@ -56,7 +56,7 @@ class StendhalFrame extends PageFrame {
 			echo '.box {margin-bottom: 1em}';
 			echo '.boxTitle {border:none; background-image: none; background: #0D4619}';
 			echo '#container {background-image: none}';
-			echo '#header {background-image: url("../images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}';
+			echo '#header {background-image: url("/images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}';
 			echo '#topMenu {margin:0; height: auto}';
 			echo '@media screen and (max-width : 480px) { #contentArea {margin-left:0} }';
 			echo '</style>';
