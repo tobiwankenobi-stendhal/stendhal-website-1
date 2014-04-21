@@ -70,7 +70,7 @@ class MainPage extends Page {
 	}
 
 	function writeContent() {
-		if (isset($_REQUEST['_layout'])) {
+		if (isset($_SESSION['_layout'])) {
 			$this->writeStartPage();
 		} else {
 			$this->writeContentOld();
