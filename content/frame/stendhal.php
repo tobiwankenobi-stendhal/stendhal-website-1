@@ -289,7 +289,7 @@ $page->writeAfterJS();
 // http://www.silent-fran.de/css/tutorial/aufklappmenue.html
 		?>
 		<style type="text/css">
-.navigation {
+/*.navigation {
   font-size:14px;
   position:absolute;
   margin:0;
@@ -335,7 +335,7 @@ $page->writeAfterJS();
   font-size:12px;
   width:110px;
   position:relative;
-  clear:both; /* special IE6 */
+  clear:both; /* special IE6 * /
   text-align:left;
   background-color: #FFF;
   color: #545A58;
@@ -349,11 +349,107 @@ $page->writeAfterJS();
 .navtop:hover ul {
   display:block;  
   z-index:500;
+}*/
+
+nav {
+    width: 960px;
 }
+nav ul {
+    padding: 0px;
+    margin: 0px;
+}
+nav ul:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+    nav ul,nav ul li{
+    background-color: #FAFAFA;
+}
+    nav ul li {
+    list-style: none;
+    float:left;
+}
+nav ul li a {
+    text-decoration: none;
+    display: block;
+    color: #333;
+    padding: 14px 34px 14px 34px;
+}
+nav ul li:hover > ul {
+    visibility: visible;
+}
+nav ul li ul{
+    display: inline;
+    visibility: hidden;
+    position: absolute;
+    padding:0px;
+}
+nav ul li ul li{
+    float: none;
+    text-align: left;
+}
+nav ul li ul li a:hover{
+    color: #333;
+}
+
+nav ul {
+    padding: 0px;
+    margin: 0px;
+ 
+    box-shadow: 2px 2px 2px #dfdfdf;
+    -moz-box-shadow: 2px 2px 2px #dfdfdf;
+    -webkit-box-shadow: 2px 2px 2px #dfdfdf;
+}
+nav ul li {
+list-style: none;
+    float:left;
+    border-right: 1px solid #dfdfdf;
+}
+nav ul li a {
+    text-decoration: none;
+    display: block;
+    color: #333;
+    padding: 14px 34px 14px 34px;
+ 
+    -webkit-transition: background 0.3s ease-out 0s;
+    -moz-transition: background 0.3s ease-out 0s;
+    -o-transition: background 0.3s ease-out 0s;
+    transition: background 0.3s ease-out 0s;
+}
+nav ul li.cat1:hover a, nav ul li.cat1:hover > ul li a  {
+    background-color: #E6DD00;
+}
+nav ul li.cat2:hover a, nav ul li.cat2:hover > ul li a  {
+    background-color: #8CB302;
+}
+nav ul li.cat3:hover a, nav ul li.cat3:hover > ul li a {
+    background-color: #008C74;
+}
+nav ul li.cat4:hover a, nav ul li.cat4:hover > ul li a {
+    background-color: #004C66;
+}
+nav ul li.cat5:hover a, nav ul li.cat5:hover > ul li a {
+    background-color: #332B40;
+}
+nav ul li:hover > a {
+    color: #FAFAFA;
+}
+nav ul li ul li a {
+    color: #FAFAFA;
+}
+nav ul li ul li a:hover{
+    color: #333;
+    background-color: #FAFAFA !important;
+}
+
 		</style>
 		<?php
 
-		echo '<ul class="navigation">';
+		echo '<nav><ul class="navigation">';
 
 		echo '<li class="navtop"><a href="/media.html">Media</a><ul class="dropdown">';
 			echo '<li><a href="/world/newsarchive.html">News</a>';
@@ -452,7 +548,7 @@ $page->writeAfterJS();
 		endBox(); ?>
 
  */
-			echo '</ul>';
+			echo '</ul></nav>';
 		}
 }
 $frame = new StendhalFrame();
