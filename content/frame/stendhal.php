@@ -57,6 +57,7 @@ class StendhalFrame extends PageFrame {
 			echo '.boxTitle {border:none; background-image: none; background: #0D4619}';
 			echo '#container {background-image: none}';
 			echo '#header {background-image: url("/images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}';
+			echo '#playArea, #downloadArea {border: none}';	
 			echo '#topMenu {margin:0; height: auto}';
 			echo '.tabPageContent {background-image:none; background-color: transparent; border: none}';
 			echo '.activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}';
@@ -76,16 +77,22 @@ class StendhalFrame extends PageFrame {
 <div id="container">
 	<div id="header">
 		<?php
+		echo '<a href="/"><img style="border: 0;" src="/images/logo.gif" alt="Stendhal"></a>';
 		echo '<form id="headersearchform" action="'.rewriteURL('/search').'" method="GET">';
 		if (!STENDHAL_MODE_REWRITE) {
 			echo '<input type="hidden" name="id" value="content/game/search">';
 		}
 		echo '<div>';
-		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><button><img src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></button></form>';
+		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><button><img src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></button>';
 		echo '</div>';
+
+		if (isset($_SESSION['_layout'])) {
+			echo '<a href="'.STENDHAL_LOGIN_TARGET.'/account/mycharacters.html"><span class="block" id="playArea"></span></a>';
+			echo '<a href="http://arianne.sourceforge.net/download/stendhal.zip"><span class="block" id="downloadArea"></span></a>';
+		}
+		echo '</form>';
 		?>
-		<a href="<?php echo STENDHAL_FOLDER;?>/"><img style="border: 0;" src="<?php echo STENDHAL_FOLDER;?>/images/logo.gif" title="Stendhal Logo" alt="The Stendhal logo shows the word &quot;Stendhal&quot;in large blue letters."></a>
-	</div>
+ 		</div>
 
 	<div id="topMenu">
 	<?php 
@@ -435,14 +442,7 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs">Support Logs</a>';
 			echo '<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></ul>';
 		}
-/*
-	<div id="rightArea">
-		<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));?>"><span class="block" id="playArea"></span></a>
-		<a href="http://arianne.sourceforge.net/download/stendhal.zip"><span class="block" id="downloadArea"></span></a>
-		<?php
-			startBox('My Account');
-		?>
-*/
+
 		if (checkLogin()) { 
 			$messageCount = StoredMessage::getCountUndeliveredMessages($_SESSION['account']->id, "characters.charname = postman.target AND deleted != 'R'");
 			echo '<li><a href="/account/myaccount.html">'.htmlspecialchars(substr($_SESSION['account']->username, 0, 10)).'</a><ul>';
