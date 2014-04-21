@@ -138,11 +138,11 @@ class MainPage extends Page {
 
 		// screenshots and videos
 		startBox('<h1>Media</h1>');
-		echo '<p><a href="/about/screenshot.html"><img src="/images/screenshot.jpg" width="120px" height="87px"></a> ';
-		echo '<a href="/about/video.html"><img src="/images/video.jpeg" width="120px"></a> ';
+		echo '<p><a href="/media/screenshots.html"><img src="/images/screenshot.jpg" width="120px" height="87px"></a> ';
+		echo '<a href="/media/videos.html"><img src="/images/video.jpeg" width="120px"></a> ';
 // 		echo '<img src="/images/screenshot.jpg" width="120px" height="87px"> ';
 // 		echo '<img src="/images/video.jpeg" width="120px"> ';
-		echo '<p><a href="/about/screenshot.html">More images...</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="/about/video.html">More videos...</a>';
+		echo '<p><a href="/media/screenshots.html">More images...</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="/media/videos.html">More videos...</a>';
 		endBox();
 
 		// news
