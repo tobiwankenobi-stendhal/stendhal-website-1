@@ -35,7 +35,6 @@ body {
 	background-image: url("../images/background.png");
 
 	/* must do this to center body as IE doesnt like auto margin on body */
-	text-align: center;
 	font-family: Arial, Helvetica, "Liberation Sans", "Lucida Sans", Sans-serif;
 	font-size: 12pt;
 }
@@ -925,17 +924,7 @@ a.openid_large_btn:focus{-moz-outline-style:none;}
 
 
 /* menu */
-#menuAtlas, #menuRegion, #menuNPCs, #menuCreatures, #menuItems, #menuQuests, #menuDungeons, #menuAchievements, #menuHistory,
-#menuHelpManual, #menuHelpFAQ, #menuHelpBeginner, #menuHelpAsk, #menuHelpChat, #menuHelpSupport, #menuHelpForum, #menuHelpRules,
-#menuPlayerOnline, #menuPlayerHalloffame, #menuPlayerKillstats,  #menuPlayerEvents,
-#menuAccountMain,#menuAccountCharacters, #menuAccountMerge, #menuAccountMessages, #menuAccountHistory, #menuAccountPassword, #menuAccountLogout, #menuAccountLogin, #menuAccountEMail,
-#menuAdminNews, #menuAdminInspect, #menuAdminScreenshots, #menuAdminSupportlog, #menuAdminPlayerhistory,
-#menuContribChat, #menuContribWiki, #menuContribBugs, #menuContribQuests, #menuContribHelp, #menuContribTesting, #menuContribHistory, #menuContribDownload, #menuContribDevelopment, #menuContribRequests,
-#menuNewsArchive, #menuNewsRss, #menuNewsTrade,
-#menuAssociationAbout,#menuAssociationNews,#menuAssociationStatue,#menuAssociationMembers,#menuAssociationContact,#menuAssociationDonations,
-#menuResourceConcept,#menuResourceProjects,#menuResourceMaterial,#menuResourceChat,#menuResourceEvents,
-#menuLangDe,#menuLangEn,
-#menuShareFacebook,#menuShareTwitter,#menuShareEMail
+.menu a
 {
 	padding-left: 32px;
 	display:inline-block;
