@@ -289,161 +289,87 @@ $page->writeAfterJS();
 // http://www.silent-fran.de/css/tutorial/aufklappmenue.html
 		?>
 		<style type="text/css">
-/*.navigation {
-  font-size:14px;
-  position:absolute;
-  margin:0;
-  padding:0;
-  list-style-type:none;
-  list-style-image:none;
-}
-
-.navigation ul {
-  list-style-type:none;
-  list-style-image:none;
-  margin:0px;
-  padding:0px;
-}
-
-.navigation li.navtop {
-  float:left;
-}
-
-.navtop a {
-  float:left;
-  width:140px;
-  text-align:center;
-  line-height:25px
-}
-
-.navtop ul{
-  display:none;
-}
-
-.navtop a, .dropdown li a{
-  padding:1px 5px;
-  border:1px solid #545A58;
-  border-collapse:collapse;
-  color:#FFF;
-  font-weight:bold;
-  text-decoration:none;
-  background-color:#545A58;
-  margin:0;
-}
-
-.dropdown li a{
-  font-size:12px;
-  width:110px;
-  position:relative;
-  clear:both; /* special IE6 * /
-  text-align:left;
-  background-color: #FFF;
-  color: #545A58;
-}
-
-.navigation a:hover, .navtop.on a {
-  color:#4C4C4C;
-  background-color:#ffddbb !important;
-}
-
-.navtop:hover ul {
-  display:block;  
-  z-index:500;
-}*/
 
 nav {
-    width: 960px;
+	width: 100%;
 }
 nav ul {
-    padding: 0px;
-    margin: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 nav ul:after {
-    clear: both;
-    content: " ";
-    display: block;
-    font-size: 0;
-    height: 0;
-    visibility: hidden;
+	clear: both;
+	content: " ";
+	display: block;
+	font-size: 0;
+	height: 0;
+	visibility: hidden;
 }
-    nav ul,nav ul li{
-    background-color: #FAFAFA;
+nav ul,nav ul li{
+	background-color: #FAFAFA;
 }
-    nav ul li {
-    list-style: none;
-    float:left;
+nav ul li {
+	list-style: none;
+	float:left;
 }
 nav ul li a {
-    text-decoration: none;
-    display: block;
-    color: #333;
-    padding: 14px 34px 14px 34px;
+	text-decoration: none;
+	display: block;
+	color: #333;
+	padding: 0.5em 34px;
 }
 nav ul li:hover > ul {
-    visibility: visible;
+	visibility: visible;
 }
 nav ul li ul{
-    display: inline;
-    visibility: hidden;
-    position: absolute;
-    padding:0px;
+	display: inline;
+	visibility: hidden;
+	position: absolute;
+	padding:0px;
 }
 nav ul li ul li{
-    float: none;
-    text-align: left;
+	float: none;
+	text-align: left;
+}
+nav ul li ul li a {
+	padding-left: 35px;
+	background: 5px center no-repeat;
 }
 nav ul li ul li a:hover{
-    color: #333;
+	color: #333;
 }
 
 nav ul {
-    padding: 0px;
-    margin: 0px;
- 
-    box-shadow: 2px 2px 2px #dfdfdf;
-    -moz-box-shadow: 2px 2px 2px #dfdfdf;
-    -webkit-box-shadow: 2px 2px 2px #dfdfdf;
+	padding: 0px;
+	margin: 0px;
+	box-shadow: 2px 2px 2px #dfdfdf;
+	-moz-box-shadow: 2px 2px 2px #dfdfdf;
+	-webkit-box-shadow: 2px 2px 2px #dfdfdf;
 }
 nav ul li {
-list-style: none;
-    float:left;
-    border-right: 1px solid #dfdfdf;
+	list-style: none;
+	float:left;
+	border-right: 1px solid #dfdfdf;
 }
 nav ul li a {
-    text-decoration: none;
-    display: block;
-    color: #333;
-    padding: 14px 34px 14px 34px;
- 
-    -webkit-transition: background 0.3s ease-out 0s;
-    -moz-transition: background 0.3s ease-out 0s;
-    -o-transition: background 0.3s ease-out 0s;
-    transition: background 0.3s ease-out 0s;
+	-webkit-transition: background 0.3s ease-out 0s;
+	-moz-transition: background 0.3s ease-out 0s;
+	-o-transition: background 0.3s ease-out 0s;
+	transition: background 0.3s ease-out 0s;
 }
-nav ul li.cat1:hover a, nav ul li.cat1:hover > ul li a  {
-    background-color: #E6DD00;
+nav ul li:hover a, nav ul li:hover > ul li a  {
+	background-color: #545A58;
 }
-nav ul li.cat2:hover a, nav ul li.cat2:hover > ul li a  {
-    background-color: #8CB302;
-}
-nav ul li.cat3:hover a, nav ul li.cat3:hover > ul li a {
-    background-color: #008C74;
-}
-nav ul li.cat4:hover a, nav ul li.cat4:hover > ul li a {
-    background-color: #004C66;
-}
-nav ul li.cat5:hover a, nav ul li.cat5:hover > ul li a {
-    background-color: #332B40;
-}
+
 nav ul li:hover > a {
-    color: #FAFAFA;
+	color: #FAFAFA;
 }
 nav ul li ul li a {
-    color: #FAFAFA;
+	color: #FAFAFA;
 }
 nav ul li ul li a:hover{
-    color: #333;
-    background-color: #FAFAFA !important;
+	color: #333;
+	background-color: #FAFAFA !important;
 }
 
 		</style>
@@ -457,8 +383,8 @@ nav ul li ul li a:hover{
 			echo '<li><a href="/media/videos.html">Videos</a></ul>';
 
 		echo '<li class="navtop"><a href="/world.html">World Guide</a><ul class="dropdown">';
-			echo '<li><a id="menuAtlas" href="/world/atlas.html">Map</a>';
-			echo '<li><a id="menuRegion" href="/region.html">Regions</a>';
+			echo '<li class=""><a id="menuAtlas" href="/world/atlas.html">Map</a>';
+			echo '<li class="cat2"><a id="menuRegion" href="/region.html">Regions</a>';
 			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a>';
 			echo '<li><a id="menuNPCs" href="/npc/">NPCs</a>';
 			echo '<li><a id="menuQuests" href="/quest.html">Quests</a>';
