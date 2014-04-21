@@ -326,7 +326,7 @@ nav ul li a {
 	text-decoration: none;
 	display: block;
 	color: #333;
-	padding: 0.5em 2em;
+	padding: 0.5em 1.5em;
 }
 nav ul li:hover > ul {
 	visibility: visible;
