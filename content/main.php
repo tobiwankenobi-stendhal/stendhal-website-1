@@ -111,9 +111,10 @@ class MainPage extends Page {
 	 	endBox();
 		
 		echo '</div>';
-
-		// login form
 		echo '<div style="width: 35%; float: right">';
+
+/*
+		// login form
 		startBox('<h1>Login</h1>');
 		echo '<form method="post" action="/account/login.html">';
 		echo '<input id="user" name="user" maxlength="30" type="text" placeholder="Username">';
@@ -122,7 +123,19 @@ class MainPage extends Page {
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/account/create-account.html">Create account...</a></p>';
 		echo '</form>';
 		endBox();
-		
+*/
+
+		// best player
+		startBox('<h1>Best Player</h1>');
+		$player = getBestPlayer('recent', REMOVE_ADMINS_AND_POSTMAN);
+		if( $player != NULL) {
+			Player::showFromArray($player);
+		} else {
+			echo STENDHAL_NO_BEST_PLAYER;
+		}
+		endBox();
+
+
 		// screenshots and videos
 		startBox('<h1>Media</h1>');
 		echo '<p><img src="/images/screenshot.jpg" width="120px" height="87px"> ';
