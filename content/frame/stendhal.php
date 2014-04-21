@@ -355,10 +355,10 @@ $page->writeAfterJS();
 
 		echo '<ul class="navigation">';
 
-		echo '<li class="navtop"><a href="/about.html">About</a><ul class="dropdown">';
+		echo '<li class="navtop"><a href="/media.html">Media</a><ul class="dropdown">';
 			echo '<li><a href="/world/newsarchive.html">News</a>';
-			echo '<li><a href="/about/screenshot.html">Screenshots</a>';
-			echo '<li><a href="/about/video.html">Videos</a></ul>';
+			echo '<li><a href="/media/screenshots.html">Screenshots</a>';
+			echo '<li><a href="/media/videos.html">Videos</a></ul>';
 
 		echo '<li class="navtop"><a href="/world.html">World Guide</a><ul class="dropdown">';
 			echo '<li><a id="menuAtlas" href="/world/atlas.html">Map</a>';
