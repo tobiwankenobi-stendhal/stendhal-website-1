@@ -44,7 +44,7 @@ class StendhalFrame extends PageFrame {
 	function writeHtmlHeader() {
 		echo '<link rel="icon" type="image/x-icon" href="'.STENDHAL_FOLDER.'/favicon.ico">';
 
-		if (isset($_REQUEST['_layout'])) {
+		if (isset($_SESSION['_layout'])) {
  			echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
 			echo '<style type="text/css">';
 			// general layout adjustments
@@ -86,13 +86,13 @@ class StendhalFrame extends PageFrame {
 
 	<div id="topMenu">
 	<?php 
-		if (isset($_REQUEST['_layout'])) {
+		if (isset($_SESSION['_layout'])) {
 			$this->navigationMenu();
 		}
 	?>
 	</div>
 	<?php
-		if (!isset($_REQUEST['_layout'])) {
+		if (!isset($_SESSION['_layout'])) {
 	?>
 	<div id="navigationColumns">
 	<div id="leftArea">
