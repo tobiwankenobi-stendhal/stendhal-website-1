@@ -316,7 +316,7 @@ nav ul li a {
 	text-decoration: none;
 	display: block;
 	color: #333;
-	padding: 0.5em 34px;
+	padding: 0.5em 2em;
 }
 nav ul li:hover > ul {
 	visibility: visible;
@@ -419,7 +419,19 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuContribHistory" href="/development/sourcelog.html">Changes</a>';
 			echo '<li><a id="menuContribDownload" href="https://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a>';
 			echo '<li><a id="menuContribDevelopment" href="/development">Development</a></ul>';
-						
+
+		$adminLevel = getAdminLevel();
+		if ($adminLevel >= 100) {
+			echo '<li><a>A</a><ul>';
+			if ($adminLevel >= 400) {
+				echo '<li><a id="menuAdminNews" href="/?id=content/admin/news">News</a>';
+				echo '<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots">Screenshots</a>';
+			}
+			echo '<li><a id="menuAdminDataExplorer" href="/?id=content/admin/data">Data Explorer</a>';
+			echo '<li><a id="menuAdminInspect" href="/?id=content/admin/inspect">Render Inspect</a>';
+			echo '<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs">Support Logs</a>';
+			echo '<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></ul>';
+		}
 /*
 	<div id="rightArea">
 		<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'));?>"><span class="block" id="playArea"></span></a>
@@ -427,41 +439,22 @@ nav ul li ul li a:hover{
 		<?php
 			startBox('My Account');
 		?>
-		<ul id="accountmenu" class=	"menu">
-			<?php if(checkLogin()) { 
-				$messageCount = StoredMessage::getCountUndeliveredMessages($_SESSION['account']->id, "characters.charname = postman.target AND deleted != 'R'"); ?>
-				<li><a id="menuAccountMain" href="<?php echo(rewriteURL('/account/myaccount.html')); ?>">Logged in as <strong><?php echo htmlspecialchars($_SESSION['account']->username); ?></strong></a></li>
-				<li><a id="menuAccountCharacters" href="<?php echo(rewriteURL('/account/mycharacters.html')); ?>">My Characters</a></li>
-				<li><a id="menuAccountMessages" href="<?php echo(rewriteURL('/account/messages.html')); ?>">Messages (<?php echo htmlspecialchars($messageCount); ?>)</a></li>
-				<li><a id="menuAccountHistory" href="<?php echo(rewriteURL('/account/history.html')); ?>">Login History</a></li>
-				<li><a id="menuAccountEMail" href="<?php echo(rewriteURL('/account/email.html')); ?>">Mail address</a></li>
-				<li><a id="menuAccountPassword" href="<?php echo(rewriteURL('/account/change-password.html')); ?>">New Password</a></li>
-				<li><a id="menuAccountMerge" href="<?php echo(rewriteURL('/account/merge.html')); ?>">Merge Accounts</a></li>
-				<li><a id="menuAccountLogout" href="<?php echo(rewriteURL('/account/logout.html')); ?>">Logout</a></li>
-			<?php } else { ?>
-				<li><a id="menuAccountLogin" href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/login.html')); ?>">Login</a></li>
-			<?php } ?>
-		</ul>
-		<?php
-			endBox();
-		?>
+*/
+		if (checkLogin()) { 
+			$messageCount = StoredMessage::getCountUndeliveredMessages($_SESSION['account']->id, "characters.charname = postman.target AND deleted != 'R'");
+			echo '<li><a href="/account/myaccount.html">'.htmlspecialchars(substr($_SESSION['account']->username, 0, 10)).'</a><ul>';
+			echo '<li><a id="menuAccountCharacters" href="/account/mycharacters.html">My Characters</a>';
+			echo '<li><a id="menuAccountMessages" href="/account/messages.html">Messages (<?php echo htmlspecialchars($messageCount); ?>)</a>';
+			echo '<li><a id="menuAccountHistory" href="/account/history.html">Login History</a>';
+			echo '<li><a id="menuAccountEMail" href="/account/email.html">Mail address</a>';
+			echo '<li><a id="menuAccountPassword" href="/account/change-password.html">New Password</a>';
+			echo '<li><a id="menuAccountMerge" href="/account/merge.html">Merge Accounts</a>';
+			echo '<li><a id="menuAccountLogout" href="/account/logout.html">Logout</a></ul>';
+		} else {
+			echo '<li><a href="'.STENDHAL_LOGIN_TARGET.'/account/login.html">Login</a></li>';
+		}
+/*
 
-		$adminLevel = getAdminLevel();
-		if($adminLevel >= 100) {
-			startBox('Administration'); ?>
-			<ul id="adminmenu" class="menu">
-				<?php 
-				if($adminLevel >= 400) { ?>
-					<li><a id="menuAdminNews" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/news">News</a></li>
-					<li><a id="menuAdminScreenshots" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/screenshots">Screenshots</a></li>
-				<?php } ?>
-				<li><a id="menuAdminDataExplorer" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/data">Data Explorer</a></li>
-				<li><a id="menuAdminInspect" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/inspect">Render Inspect</a></li>
-				<li><a id="menuAdminSupportlog" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/logs">Support Logs</a></li>
-				<li><a id="menuAdminPlayerhistory" href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/playerhistory">Player History</a></li>
-			</ul>
-			<?php endBox();
-		}?>
 
 		<?php 
 		startBox('Best Player');
