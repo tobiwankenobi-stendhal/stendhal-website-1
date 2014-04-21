@@ -58,6 +58,9 @@ class StendhalFrame extends PageFrame {
 			echo '#container {background-image: none}';
 			echo '#header {background-image: url("/images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}';
 			echo '#topMenu {margin:0; height: auto}';
+			echo '.tabPageContent {background-image:none; background-color: transparent; border: none}';
+			echo '.activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}';
+			echo '.backgroundTab {background-image:none; background-color: #545A58}';
 			echo '@media screen and (max-width : 480px) { #contentArea {margin-left:0} }';
 			echo '</style>';
 		}
