@@ -149,11 +149,11 @@ class MainPage extends Page {
 		startBox('<h1>News</h1>');
 		$i = 0;
 		foreach(getNews(' where news.active=1 ') as $news) {
-			echo '<p><a href="'.rewriteURL('/news/'.$news->getNiceURL()).'">'.$news->title.'</a>';
-			echo ' ('.substr($news->date, 0, 10).')';
 			if ($i >= 2) {
 				break;
 			}
+			echo '<p><a href="'.rewriteURL('/news/'.$news->getNiceURL()).'">'.$news->title.'</a>';
+			echo ' ('.substr($news->date, 0, 10).')';
 			$i++;
 		}
 		echo '<p><a href="/world/newsarchive.html">More news...</p>';
