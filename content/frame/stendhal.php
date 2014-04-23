@@ -408,12 +408,12 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuHelpFAQ" href="/player-guide/faq.html">FAQ</a>';
 			echo '<li><a id="menuHelpBeginner" href="/player-guide/beginner-guide.html">Beginner\'s Guide</a>';
 			echo '<li><a id="menuHelpAsk" href="/player-guide/ask-for-help.html">Ask For Help</a>';
-			echo '<li><a id="menuHelpChat" href="/chat/">Chat</a>';
 			// echo '<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a>';
 			// echo '<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a>';
 			echo '<li><a id="menuHelpRules" href="/player-guide/rules.html">Rules</a></ul>';
 
 		echo '<li><a href="/community.html">Community</a><ul>';
+			echo '<li><a id="menuHelpChat" href="/chat/">Chat</a>';
 			echo '<li><a id="menuPlayerOnline" href="/world/online.html">Online players</a>';
 			echo '<li><a id="menuPlayerHalloffame" href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>';
 			echo '<li><a id="menuPlayerEvents" href="/world/events.html">Recent Events</a>';
