@@ -336,6 +336,7 @@ nav ul li ul{
 	visibility: hidden;
 	position: absolute;
 	padding:0px;
+	z-index: 10000;
 }
 nav ul li ul li{
 	float: none;
