@@ -19,9 +19,6 @@ There are loads of tutorials on our wiki including how to set up the Eclipse dev
 <?php startBox("Development"); ?>
 <ul id="dmenu" >
 	<li><a href="/wiki/StendhalCodeDesign"><img src="/images/buttons/c_code_button.png" alt="">Code</a> - details of code designs and conventions</li>
-	<li><a href="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/inspect"><img src="/images/buttons/faq_button.png" alt="">Render Inspect</a> - easy readable form of /script DeepInspect.class</li>
-	<li><a href="/jenkins/"><img src="/images/buttons/c_code_button.png" alt="">Jenkins</a> - continuous integration and testing</li>
-	<li><a href="/wiki/StendhalRPProposal"><img src="/images/buttons/rpsystem_button.png" alt="">RP System</a> - proposed new system which is in planning stages</li>
 	<li><a href="/wiki/StendhalRefactoringGraphics"><img src="/images/buttons/c_gfx_button.png" alt="">Graphics</a> - artists, this one is for you</li>
 	<li><a href="/wiki/Stendhal_Sound"><img src="/images/buttons/c_snd_button.png" alt="">Sounds &amp; Music</a> </li>
 	<li><a href="/wiki/Stendhal_Quest_Contribution"><img src="/images/buttons/quests_button.png" alt="">Quests</a> - planned or ideas</li>
