@@ -99,7 +99,7 @@ class TradePage extends Page {
 		}
 		$res = '';
 		$res .= '<img class="newsIcons" src="/images/outfit/5013401.png">';
-		$res .= '<p>I am Harold and I have my little shop in Semos Tavern. On this page, I announce new trade offers. Please note that I won\'t take offers down once the items are sold.</p>';
+		$res .= '<p>I am Harold and I have my little shop in Semos Tavern. On this page, I announce new trade offers by other players. Please note that I won\'t take offers down once the items are sold.</p>';
 		
 		$res .= '<span class="newsIcons"> <a href="/trade.atom"><img src="/images/buttons/feed-icon-28x28.png"></a><a href="https://twitter.com/stendhaltrade"><img src="/images/buttons/twitter_button.png"></a></span>';
 		$res .= '<p>I suggest that you use a feed reader to access this page. For reference, the current server time is '.date('G:i') . '.</p>';
