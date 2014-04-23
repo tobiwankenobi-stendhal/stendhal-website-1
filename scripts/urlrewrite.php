@@ -364,7 +364,10 @@ function rewriteURL($url, $force = false) {
 		} else if (preg_match('|^/development/download\.html$|', $url)) {
 			return preg_replace('|^/development/download\.html$|', $folder.'/?id=content/game/download', $url);
 		}
+	} else if (preg_match('|^/download\.html$|', $url)) {
+		return preg_replace('|^/download\.html$|', $folder.'/?id=content/game/download', $url);
 
+		
 	// items
 	} else if (preg_match('|^/item.*|', $url)) {
 		if (preg_match('|^/item/?$|', $url)) {
