@@ -1,6 +1,7 @@
 .boxTitle {background-image: url("/data/gui/panelwood119.jpg")}
 
-#menuAtlas, #menuRegion {background-image: url(/images/buttons/atlas_button.png)}
+#menuAtlas {background-image: url(/images/buttons/atlas_button.png)}
+#menuRegion {background-image: url(/images/buttons/regions_button.png)}
 #menuNPCs {background-image: url(/images/buttons/npcs_button.png)}
 #menuCreatures {background-image: url(/images/buttons/creatures_button.png)}
 #menuItems {background-image: url(/images/buttons/items_button.png)}
@@ -32,6 +33,7 @@
 #menuPlayerHalloffame {background-image: url(/images/buttons/quests_button.png)}
 #menuPlayerKillstats {background-image: url(/images/buttons/items_button.png)}
 #menuPlayerEvents {background-image: url(/images/buttons/events_button.png)}
+#menuPlayerTrade {background-image: url(/images/buttons/trade_button.png)}
 
 #menuAssociationNews,
 #menuResourceEvents,
@@ -76,3 +78,6 @@
 #menuShareTwitter {background-image: url(/images/buttons/twitter_button.png)}
 #menuAssociationContact,
 #menuShareEMail {background-image: url(/images/buttons/email_button.png)}
+
+#menuMediaScreenshot {background-image: url(/images/buttons/screenshots_button.png)}
+#menuMediaVideo {background-image: url(/images/buttons/movies_button.png)}

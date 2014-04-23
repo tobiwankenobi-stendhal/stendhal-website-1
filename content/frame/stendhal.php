@@ -389,13 +389,14 @@ nav ul li ul li a:hover{
 		echo '<nav><ul class="navigation">';
 
 		echo '<li><a href="/media.html">Media</a><ul>';
-			echo '<li><a href="/world/newsarchive.html">News</a>';
-			echo '<li><a href="/media/screenshots.html">Screenshots</a>';
-			echo '<li><a href="/media/videos.html">Videos</a></ul>';
+			echo '<li><a id="menuNewsArchive" href="/world/newsarchive.html">News</a>';
+			echo '<li><a id="menuMediaScreenshot" href="/media/screenshots.html">Screenshots</a>';
+			echo '<li><a id="menuMediaVideo" href="/media/videos.html">Videos</a>';
+			echo '<li><a id="menuContribDownload" href="https://stendhalgame.org/download.html">Downloads</a></ul>';
 
 		echo '<li><a href="/world.html">World Guide</a><ul>';
 			echo '<li class=""><a id="menuAtlas" href="/world/atlas.html">Map</a>';
-			echo '<li class="cat2"><a id="menuRegion" href="/region.html">Regions</a>';
+			echo '<li><a id="menuRegion" href="/region.html">Regions</a>';
 			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a>';
 			echo '<li><a id="menuNPCs" href="/npc/">NPCs</a>';
 			echo '<li><a id="menuQuests" href="/quest.html">Quests</a>';
@@ -418,7 +419,7 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuPlayerHalloffame" href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>';
 			echo '<li><a id="menuPlayerEvents" href="/world/events.html">Recent Events</a>';
 			echo '<li><a id="menuPlayerKillstats" href="/world/kill-stats.html">Kill stats</a>';
-			echo '<li><a id="menuNewsTrade" href="/trade/">Player trades</a></ul>';
+			echo '<li><a id="menuPlayerTrade" href="/trade/">Player trades</a></ul>';
 
 		echo '<li><a href="/development.html">Development</a><ul>';
 			echo '<li><a id="menuContribChat" href="/chat/">Chat</a>';
@@ -429,7 +430,6 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuContribQuests" href="https://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a>';
 			echo '<li><a id="menuContribTesting" href="https://stendhalgame.org/wiki/Stendhal_Testing">Testing</a>';
 			echo '<li><a id="menuContribHistory" href="/development/sourcelog.html">Changes</a>';
-			echo '<li><a id="menuContribDownload" href="https://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a>';
 			echo '<li><a id="menuContribDevelopment" href="/development">Development</a></ul>';
 
 		$adminLevel = getAdminLevel();
