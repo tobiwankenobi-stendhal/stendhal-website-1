@@ -417,8 +417,9 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuPlayerOnline" href="/world/online.html">Online players</a>';
 			echo '<li><a id="menuPlayerHalloffame" href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>';
 			echo '<li><a id="menuPlayerEvents" href="/world/events.html">Recent Events</a>';
-			echo '<li><a id="menuPlayerKillstats" href="/world/kill-stats.html">Kill stats</a></ul>';
-			
+			echo '<li><a id="menuPlayerKillstats" href="/world/kill-stats.html">Kill stats</a>';
+			echo '<li><a id="menuNewsTrade" href="/trade/">Player trades</a></ul>';
+
 		echo '<li><a href="/development.html">Development</a><ul>';
 			echo '<li><a id="menuContribChat" href="/chat/">Chat</a>';
 			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a>';
