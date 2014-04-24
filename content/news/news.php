@@ -122,6 +122,10 @@ endBox();
 </div>
 <?php
 	}
+
+	public function getBreadCrumbs() {
+		return array('Media', '/media.html', 'News', '/world/newsarchive.html', htmlspecialchars(substr($this->news->title, 0, 100)), $this->news->getNiceURL());
+	}
 }
+
 $page = new NewsPage();
-?>

@@ -161,6 +161,10 @@ class MainPage extends Page {
 		echo '</div>';
 
 	}
+
+	public function getBreadCrumbs() {
+		return array();
+	}
 }
 $page = new MainPage();
 ?>

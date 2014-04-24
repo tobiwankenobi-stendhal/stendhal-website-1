@@ -46,11 +46,11 @@ class NewsArchivePage extends Page {
 		</div>
 		<?php
 	}
-/*
+
 	public function getBreadCrumbs() {
-		return array('Media', '/media.html', 'News', '/news.html');
+		return array('Media', '/media.html', 'News', '/world/newsarchive.html');
 	}
-*/
+
 }
 
 $page = new NewsArchivePage();

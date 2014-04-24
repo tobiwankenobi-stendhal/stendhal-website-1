@@ -51,7 +51,7 @@ class StendhalFrame extends PageFrame {
 			echo 'body {background-image: none} #container, .box {border: none} #container {width: auto; max-width: 970px} #topMenu {background-image: none}';
 		
 			// layout adjustments for the start page
-			echo '#contentArea {margin: 51px 0 80px 190px;}';
+			echo '#contentArea {margin: 10px 0 80px 190px; overflow: hidden}';
 			echo '#leftArea, #rightArea {display: none}';
 			echo '.box {margin-bottom: 1em}';
 			echo '.boxTitle {border:none; background-image: none; background: #0D4619}';
@@ -97,7 +97,8 @@ class StendhalFrame extends PageFrame {
 	<div id="topMenu">
 	<?php 
 		if (isset($_SESSION['_layout'])) {
-			$this->navigationMenu();
+			$this->navigationMenu($page);
+			$this->breadcrubs($page);
 		}
 	?>
 	</div>
@@ -251,15 +252,8 @@ class StendhalFrame extends PageFrame {
 	
 	<div id="footerArea">
 		<?php
-		$breadcrumbs = $page->getBreadCrumbs();
-		if (isset($breadcrumbs)) {
-			echo '<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
-			for ($i = 0; $i < count($breadcrumbs) / 2; $i++) {
-				echo '&gt; <span typeof="v:Breadcrumb"><a href="'.surlencode($breadcrumbs[$i * 2 + 1]).'" rel="v:url" property="v:title">';
-				echo htmlspecialchars($breadcrumbs[$i * 2]);
-				echo '</a></span> ';
-			}
-			echo '</div>';
+		if (!isset($_SESSION['_layout'])) {
+			$this->breadcrubs($page);
 		}?>
 		<span class="copyright">&copy; 1999-2014 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
 	</div>
@@ -295,7 +289,7 @@ $page->writeAfterJS();
 <?php
 		}
 
-	function navigationMenu() {
+	function navigationMenu($page) {
 		// http://www.silent-fran.de/css/tutorial/aufklappmenue.html
 		echo '<nav><ul class="navigation">';
 
@@ -371,6 +365,20 @@ $page->writeAfterJS();
 		}
 
 		echo '</ul></nav>';
+	}
+
+	function breadcrubs($page) {
+		$breadcrumbs = $page->getBreadCrumbs();
+		if (isset($breadcrumbs)) {
+			echo '<div class="small_notice breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
+			echo '<a href="https://stendhalgame.org">Stendhal</a> ';
+			for ($i = 0; $i < count($breadcrumbs) / 2; $i++) {
+				echo '&gt; <span typeof="v:Breadcrumb"><a href="'.surlencode($breadcrumbs[$i * 2 + 1]).'" rel="v:url" property="v:title">';
+				echo htmlspecialchars($breadcrumbs[$i * 2]);
+				echo '</a></span> ';
+			}
+			echo '</div>';
+		}
 	}
 }
 $frame = new StendhalFrame();
