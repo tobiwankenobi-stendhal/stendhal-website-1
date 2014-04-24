@@ -77,7 +77,7 @@ class News {
 		if (!$detail) {
 			$heading .= '<a href="'.rewriteURL('/news/'.$this->getNiceURL()).'">'.$this->title.'</a>';
 		} else {
-			$heading .= $this->title;
+			$heading .= '<h1>'.$this->title.'</h1>';
 		}
 		$heading .= '</div>';
 		
