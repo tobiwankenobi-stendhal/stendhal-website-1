@@ -395,7 +395,7 @@ nav ul li ul li a:hover{
 			echo '<li><a id="menuContribDownload" href="https://stendhalgame.org/download.html">Downloads</a></ul>';
 
 		echo '<li><a href="/world.html">World Guide</a><ul>';
-			echo '<li class=""><a id="menuAtlas" href="/world/atlas.html">Map</a>';
+			echo '<li><a id="menuAtlas" href="/world/atlas.html">Map</a>';
 			echo '<li><a id="menuRegion" href="/region.html">Regions</a>';
 			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a>';
 			echo '<li><a id="menuNPCs" href="/npc/">NPCs</a>';
@@ -449,7 +449,7 @@ nav ul li ul li a:hover{
 			$messageCount = StoredMessage::getCountUndeliveredMessages($_SESSION['account']->id, "characters.charname = postman.target AND deleted != 'R'");
 			echo '<li><a href="/account/myaccount.html">'.htmlspecialchars(substr($_SESSION['account']->username, 0, 10)).'</a><ul>';
 			echo '<li><a id="menuAccountCharacters" href="/account/mycharacters.html">My Characters</a>';
-			echo '<li><a id="menuAccountMessages" href="/account/messages.html">Messages (<?php echo htmlspecialchars($messageCount); ?>)</a>';
+			echo '<li><a id="menuAccountMessages" href="/account/messages.html">Messages ('.htmlspecialchars($messageCount).')</a>';
 			echo '<li><a id="menuAccountHistory" href="/account/history.html">Login History</a>';
 			echo '<li><a id="menuAccountEMail" href="/account/email.html">Mail address</a>';
 			echo '<li><a id="menuAccountPassword" href="/account/change-password.html">New Password</a>';
