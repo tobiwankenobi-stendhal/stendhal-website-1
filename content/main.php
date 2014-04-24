@@ -124,6 +124,12 @@ class MainPage extends Page {
 		echo '</form>';
 		endBox();
 */
+		
+		// login form
+		startBox('<h1>Register</h1>');
+		echo '<p>Stendhal is completely free and open source.</p>';
+		echo '<p><a href="'.STENDHAL_LOGIN_TARGET.'/account/create-account.html">Join now</a></p>';
+		endBox();
 
 		// best player
 		startBox('<h1>Best Player</h1>');
