@@ -62,7 +62,7 @@ class StendhalFrame extends PageFrame {
 			echo '.tabPageContent {background-image:none; background-color: transparent; border: none}';
 			echo '.activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}';
 			echo '.backgroundTab {background-image:none; background-color: #545A58}';
-			echo '@media screen and (max-width : 480px) { #contentArea {margin-left:0} }';
+			echo '@media screen and (max-width : 500px) { #contentArea {margin-left:0} #playArea, #downloadArea {display: none} }';
 			echo '</style>';
 		}
 	}
