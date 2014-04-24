@@ -60,7 +60,7 @@ class WikiPage extends Page {
 			echo $this->wiki->render();
 			endBox();
 
-			if (strpos($_REQUEST["title"], '/') !== false) {
+			if (strpos($_REQUEST["title"], '/', 1) !== false) {
 				startBox('Contribute');
 				echo '<p>You can edit this pages because it is imported from the Stendhal Wiki.</p>';
 				echo '<ul><li><a rel="nofollow" href="https://stendhalgame.org/w/index.php?title='.surlencode($this->url).'&action=edit">Edit this page</a>';
