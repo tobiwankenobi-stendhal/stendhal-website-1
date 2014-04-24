@@ -296,96 +296,7 @@ $page->writeAfterJS();
 		}
 
 	function navigationMenu() {
-// http://www.silent-fran.de/css/tutorial/aufklappmenue.html
-		?>
-		<style type="text/css">
-
-nav {
-	width: 100%;
-}
-nav ul {
-	padding: 0px;
-	margin: 0px;
-}
-nav ul:after {
-	clear: both;
-	content: " ";
-	display: block;
-	font-size: 0;
-	height: 0;
-	visibility: hidden;
-}
-nav ul,nav ul li{
-	background-color: #FAFAFA;
-}
-nav ul li {
-	list-style: none;
-	float:left;
-}
-nav ul li a {
-	text-decoration: none;
-	display: block;
-	color: #333;
-	padding: 0.5em 1.5em;
-}
-nav ul li:hover > ul {
-	visibility: visible;
-}
-nav ul li ul{
-	display: inline;
-	visibility: hidden;
-	position: absolute;
-	padding:0px;
-	z-index: 10000;
-}
-nav ul li ul li{
-	float: none;
-	text-align: left;
-}
-nav ul li ul li a {
-	padding-left: 35px;
-	background: 5px center no-repeat;
-}
-nav ul li ul li a:hover{
-	color: #333;
-}
-
-nav ul {
-	padding: 0px;
-	margin: 0px;
-	box-shadow: 2px 2px 2px #dfdfdf;
-	-moz-box-shadow: 2px 2px 2px #dfdfdf;
-	-webkit-box-shadow: 2px 2px 2px #dfdfdf;
-}
-nav ul li {
-	list-style: none;
-	float:left;
-	border-right: 1px solid #dfdfdf;
-}
-nav ul li a {
-	-webkit-transition: background 0.3s ease-out 0s;
-	-moz-transition: background 0.3s ease-out 0s;
-	-o-transition: background 0.3s ease-out 0s;
-	transition: background 0.3s ease-out 0s;
-}
-nav ul li:hover a, nav ul li:hover > ul li a  {
-	background-color: #545A58;
-}
-
-nav ul li:hover > a {
-	color: #FAFAFA;
-}
-nav ul li ul li a {
-	color: #FAFAFA;
-}
-nav ul li ul li a:hover{
-	color: #333;
-	background-color: #FAFAFA !important;
-}
-
-		</style>
-		<?php
-
+		// http://www.silent-fran.de/css/tutorial/aufklappmenue.html
 		echo '<nav><ul class="navigation">';
 
 		echo '<li><a href="/media.html">Media</a><ul>';
@@ -458,21 +369,8 @@ nav ul li ul li a:hover{
 		} else {
 			echo '<li><a href="'.STENDHAL_LOGIN_TARGET.'/account/login.html">Login</a></li>';
 		}
-/*
 
-
-		<?php 
-		startBox('Best Player');
-		$player=getBestPlayer('recent', REMOVE_ADMINS_AND_POSTMAN);
-		if($player!=NULL) {
-			Player::showFromArray($player);
-		} else {
-			echo '<div class="small_notice">'.STENDHAL_NO_BEST_PLAYER.'</div>';
-		}
-		endBox(); ?>
-
- */
-			echo '</ul></nav>';
-		}
+		echo '</ul></nav>';
+	}
 }
 $frame = new StendhalFrame();

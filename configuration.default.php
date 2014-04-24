@@ -23,7 +23,7 @@
 # Please change to match your system configuration.
 #
 @define('STENDHAL_VERSION','1.13');
-@define('STENDHAL_CACHE_BUSTER', '00000125');
+@define('STENDHAL_CACHE_BUSTER', '00000126');
 
 @define('STENDHAL_TITLE', ' &ndash; Stendhal MMORPG');
 #
