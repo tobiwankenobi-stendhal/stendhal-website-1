@@ -91,6 +91,12 @@ class MainPage extends Page {
 
 		// quick access to important pages
 		startBox('<h1>Learn more</h1>');
+		echo '<p>Media: ';
+		echo '<a href="/world/newsarchive.html">News</a>, ';
+		echo '<a href="/media/screenshots.html">Screenshots</a>, ';
+		echo '<a href="/media/videos.html">Videos</a>, ';
+		echo '<a href="https://stendhalgame.org/download.html">Downloads</a></p>';
+
 		echo '<p>World Guide: ';
 		echo '<a href="/world/atlas.html">Map</a>, ';
 		echo '<a href="/region.html">Regions</a>, ';
@@ -105,9 +111,19 @@ class MainPage extends Page {
 		echo '<a href="/wiki/Stendhal_Manual">Manual</a>, ';
 		echo '<a href="/player-guide/faq.html">FAQ</a>, ';
 		echo '<a href="/player-guide/beginner-guide.html">Beginner\'s Guide</a>, ';
-		echo '<a href="/player-guide/ask-for-help.html">Ask For Help</a>, ';
-		echo '<a href="/chat/">Chat</a></p>';
+		echo '<a href="/player-guide/ask-for-help.html">Ask For Help</a></p>';
 
+		echo '<p>Community: ';
+		echo '<a href="/chat/">Chat</a>, ';
+		echo '<a href="/world/online.html">Online players</a>, ';
+		echo '<a href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>, ';
+		echo '<a href="/world/events.html">Recent Events</a>, ';
+		echo '<a href="/world/kill-stats.html">Kill stats</a>, ';
+		echo '<a href="/trade/">Player trades</a></p>';
+		
+
+		
+		
 	 	endBox();
 		
 		echo '</div>';
