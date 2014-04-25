@@ -84,7 +84,7 @@ class MainPage extends Page {
 		startBox('<h1>Stendhal</h1>');
 		echo '<p><b>Stendhal is a fun friendly and free multiplayer online adventure game with an old school feel.</b></p>';
 		echo '<p>Stendhal has a huge and rich world. You can explore cities, forest, mountains, plains and dungeons. You can fight monsters and become a hero.</p>';
-		echo '<p>You will meet a wide variaty of characters. Many will give you tasks and quests for valuable experience. You may be asked to help protect land, feed the hungry, heal the sick, make someone happy, solve a puzzle or simply lend a hand.</p>';
+		echo '<p>You will meet a wide variety of characters. Many will give you tasks and quests for valuable experience. You may be asked to help protect land, feed the hungry, heal the sick, make someone happy, solve a puzzle or simply lend a hand.</p>';
 		echo '<p>So what are you waiting for? A whole new world awaits... And if you like, get the source code, and add your own ideas!</p>';
 		endBox();
 
