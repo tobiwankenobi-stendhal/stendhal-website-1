@@ -90,7 +90,8 @@ class MyCharactersPage extends Page {
 			startBox("Trouble Shooting");
 			?>
 			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
-			If the application is unknown, please download and install <a target="_blank" href="http://java.com">Java</a>.</p>
+			If the application is unknown, please download and install <a target="_blank" href="http://java.com">Java</a>. If you have Java installed
+			and it still does not find the Webstarter, please <a href="http://arianne.sourceforge.net/download/stendhal.zip">download Stendhal</a> and try to start it normally.</p>
 
 			<p>If you have trouble to join the game, please ask in the <a target="_top" href="/chat/">#arianne</a> chat or create a 
 			<a target="_blank" href="https://sourceforge.net/tracker/?group_id=1111&amp;atid=201111">support ticket</a>.</p>
