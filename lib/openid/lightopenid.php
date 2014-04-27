@@ -765,6 +765,10 @@ class LightOpenID
         return $this->authUrl_v1($immediate);
     }
 
+    function debug($msg) {
+        echo '<pre>openid: '.htmlspecialchars($msg).'</pre>';
+    }
+
     /**
      * Performs OpenID verification with the OP.
      * @return Bool Whether the verification was successful.
@@ -778,10 +782,12 @@ class LightOpenID
         # id_res, in order to avoid throwing errors.
         if(isset($this->data['openid_user_setup_url'])) {
             $this->setup_url = $this->data['openid_user_setup_url'];
+            $this->debug('setup');
             return false;
         }
         if($this->mode != 'id_res') {
-            return false;
+            $this->debug('mode != id_res');
+        	return false;
         }
 
         $this->claimed_id = isset($this->data['openid_claimed_id'])?$this->data['openid_claimed_id']:$this->data['openid_identity'];
@@ -805,10 +811,11 @@ class LightOpenID
                              .  'openid.claimed_id=' . $this->claimed_id;
         }
 
-        if ($this->data['openid_return_to'] != $this->returnUrl) {
+        if ($this->data['openid_return_to'] != str_replace('%2F', '/', $this->returnUrl)) {
             # The return_to url must match the url of current request.
             # I'm assuing that noone will set the returnUrl to something that doesn't make sense.
-            return false;
+            $this->debug('invalid return: '.$this->data['openid_return_to']. ' || ' . str_replace('%2F', '/', $this->returnUrl));
+        	return false;
         }
 
         $server = $this->discover($this->claimed_id);
@@ -829,6 +836,7 @@ class LightOpenID
 
         $response = $this->request($server, 'POST', $params);
 
+        $this->debug('is_valid'.preg_match('/is_valid\s*:\s*true/i', $response));
         return preg_match('/is_valid\s*:\s*true/i', $response);
     }
 
