@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2011 The Arianne Project
+ Copyright (C) 2008-2014 The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -83,7 +83,7 @@ class StendhalFrame extends PageFrame {
 			echo '<input type="hidden" name="id" value="content/game/search">';
 		}
 		echo '<div>';
-		echo '<input id="headersearchforminput" name="q" id="q" placeholder="Search"><button><img src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></button>';
+		echo '<input id="headersearchforminput" name="q" id="q" type="search" placeholder="Search"><button><img src="https://stendhalgame.org/w/skins/vector/images/search-ltr.png?303" alt=""></button>';
 		echo '</div>';
 
 		if (isset($_SESSION['_layout'])) {

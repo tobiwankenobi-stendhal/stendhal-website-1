@@ -180,7 +180,7 @@ class LoginPage extends Page {
 	}
 
 	function displayLoginForm() {
-		startBox("Login");
+		startBox("<h1>Login</h1>");
 	?>
 
 		<div class="bubble">

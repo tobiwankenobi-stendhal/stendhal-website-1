@@ -86,7 +86,7 @@ class CreateAccountPage extends Page {
 		}
 
 		$_SESSION['csrf'] = createRandomString();
-		startBox("Create Account");
+		startBox("<h1>Create Account</h1>");
 ?>
 
 <form id="createAccountForm" name="createAccountForm" action="" method="post"> <!-- onsubmit="return createAccountCheckForm()" -->
@@ -113,7 +113,7 @@ class CreateAccountPage extends Page {
 
 <tr>
 <td><label for="email">E-Mail: </label></td>
-<td><input id="email" name="email" value="<?php if (isset($_REQUEST['email'])) {echo htmlspecialchars($_REQUEST['email']);}?>" type="text" maxlength="50"></td>
+<td><input id="email" name="email" value="<?php if (isset($_REQUEST['email'])) {echo htmlspecialchars($_REQUEST['email']);}?>" type="email" maxlength="50"></td>
 <td><div id="emailwarn" class="warn"></div></td>
 </tr>
 </table>
@@ -133,12 +133,10 @@ hack an account or creation of many accounts to cause trouble).</font></p>
 Furthermore all events and actions that happen within the game-world 
 (like solving quests, attacking monsters) are logged. This information is 
 used to analyse bugs and in rare cases for abuse handling.</font></p>
-<?php endBox();
-		$this->includeJs();
+<?php 
+		endBox();
 	}
 	
 }
 
 $page = new CreateAccountPage();
-
-?>
