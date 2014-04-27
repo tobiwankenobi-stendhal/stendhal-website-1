@@ -261,13 +261,14 @@ class LoginPage extends Page {
 		if (isset($_REQUEST['url'])) {
 			echo '<input type="hidden" name="url" value="'.htmlspecialchars($_REQUEST['url']).'">';
 		}
-		?>
-	</form>
-<?php
+	
+		if (isset($this->openid->error)) {
+			echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
+		}
 
-	if (isset($this->openid->error)) {
-		echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
-	}
+		?>
+			</form>
+		<?php
 
 		endBox();
 	}

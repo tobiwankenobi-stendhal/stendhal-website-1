@@ -121,8 +121,56 @@ class CreateAccountPage extends Page {
 <input id="serverpath" name="serverpath" type="hidden" value="<?php echo STENDHAL_FOLDER;?>">
 <input name="submit" style="margin-top: 2em" type="submit" value="Create Account">
 </form>
-<?php endBox(); ?>
-<br><br>
+<?php 
+
+endBox();
+
+echo '<br>';
+
+startBox("External Account");
+?>
+	<form id="openid_form" action="<?php echo STENDHAL_FOLDER;?>/?id=content/account/login" method="post">
+		<input id="oauth_version" name="oauth_version" type="hidden">
+		<input id="oauth_server" name="oauth_server" type="hidden">
+
+		<div id="openid_choice">
+			<p>Do you already have an account on one of these sites?</p>
+			<div id="openid_btns"></div>
+		</div>
+
+		<div>
+			<noscript>
+				<p>OpenID is a service that allows you to log on to many different websites using a single identity.</p>
+			</noscript>
+		</div>
+		<table id="openid-url-input">
+		<tbody><tr>
+			<td class="vt large">
+				<input id="openid_identifier" name="openid_identifier" class="openid-identifier" style="height: 28px" tabindex="100" type="text">
+			</td>
+
+			<td class="vt large">
+				<input id="submit-button" style="margin-left: 5px; height: 36px;" value="Log in" tabindex="101" type="submit">
+			</td>
+		</tr></tbody>
+		</table>
+		<?php 
+		if (isset($_REQUEST['url'])) {
+			echo '<input type="hidden" name="url" value="'.htmlspecialchars($_REQUEST['url']).'">';
+		}
+	
+		if (isset($this->openid->error)) {
+			echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
+		}
+
+?>
+	</form>
+<?php
+
+		endBox();
+?>
+
+<br>
 <?php startBox("Logging and privacy");?>
 <p>
 <font size="-1">On login information which identifies your computer on the internet will be 
