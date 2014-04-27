@@ -73,7 +73,7 @@ class StendhalFrame extends PageFrame {
 	function renderFrame() {
 		global $page, $protocol, $adminLevel;
 ?>
-<body <?php echo $page->getBodyTagAttributes()?>>
+<body lang="en" <?php echo $page->getBodyTagAttributes()?>>
 <div id="container">
 	<div id="header">
 		<?php
