@@ -809,7 +809,7 @@ class Account {
 		if (isset($_REQUEST['tab'])) {
 			$res .= '&tab='.urlencode($_REQUEST['tab']);
 		}
-		return $res;
+		return str_repalce('%2F', '/', $res);
 	}
 
 	/**
