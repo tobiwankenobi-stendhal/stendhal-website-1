@@ -28,23 +28,25 @@ class NewsArchivePage extends Page {
 
 	function writeContent() {
 		echo '<div id="newsArea">';
-		foreach(getNews(' where news.active=1 ', 'created desc', '') as $i) {
-			$i->show();
+		$limit = '';
+		if (isset($_REQUEST['recent'])) {
+			$limit = 'LIMIT 3';
+		}
+		foreach(getNews(' where news.active=1 ', 'created desc', $limit) as $news) {
+			$news->show();
 		}
 		echo '</div>';
 
-		?>
-		<div>
-			<?php startBox('More News');?>
-			<ul class="menu">
-				<li style="width: 100%"><a id="menuNewsRss" href="<?php echo rewriteURL('/rss/news.rss');?>">RSS-Feed for this page</a></li>
-				<li style="width: 100%"><a id="menuNewsTrade" href="/trade/">Harold's Trading Announcements</a></li>
-			</ul>
-			<?php
-			endBox();
-			?>
-		</div>
-		<?php
+		
+		startBox('More News');
+		echo '<ul class="menu">';
+		if (isset($_REQUEST['recent'])) {
+			echo '<li style="width: 100%"><a id="menuNewsArchive" href="/world/newsarchive.html">Older news</a></li>';
+		}
+		echo '<li style="width: 100%"><a id="menuNewsRss" href="/rss/news.rss">RSS-Feed for this page</a></li>';
+		echo '<li style="width: 100%"><a id="menuNewsTrade" href="/trade/">Harold\'s Trading Announcements</a></li>';
+		echo '</ul>';
+		endBox();
 	}
 
 	public function getBreadCrumbs() {

@@ -294,7 +294,7 @@ $page->writeAfterJS();
 		echo '<nav><ul class="navigation">';
 
 		echo '<li><a href="/media.html">Media</a><ul>';
-			echo '<li><a id="menuNewsArchive" href="/world/newsarchive.html">News</a>';
+			echo '<li><a id="menuNewsArchive" href="/news.html">News</a>';
 			echo '<li><a id="menuMediaScreenshot" href="/media/screenshots.html">Screenshots</a>';
 			echo '<li><a id="menuMediaVideo" href="/media/videos.html">Videos</a>';
 			echo '<li><a id="menuContribDownload" href="https://stendhalgame.org/download.html">Downloads</a></ul>';
