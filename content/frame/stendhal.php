@@ -46,24 +46,6 @@ class StendhalFrame extends PageFrame {
 
 		if (isset($_SESSION['_layout'])) {
  			echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
-			echo '<style type="text/css">';
-			// general layout adjustments
-			echo 'body {background-image: none} #container, .box {border: none} #container {width: auto; max-width: 970px} #topMenu {background-image: none}';
-		
-			// layout adjustments for the start page
-			echo '#contentArea {margin: 10px 0 80px 190px; overflow: hidden}';
-			echo '#leftArea, #rightArea {display: none}';
-			echo '.box {margin-bottom: 1em}';
-			echo '.boxTitle {border:none; background-image: none; background: #0D4619}';
-			echo '#container {background-image: none}';
-			echo '#header {background-image: url("/images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}';
-			echo '#playArea, #downloadArea {border: none}';	
-			echo '#topMenu {margin:0; height: auto}';
-			echo '.tabPageContent {background-image:none; background-color: transparent; border: none}';
-			echo '.activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}';
-			echo '.backgroundTab {background-image:none; background-color: #545A58}';
-			echo '@media screen and (max-width : 500px) { #contentArea {margin-left:0} #playArea, #downloadArea {display: none} }';
-			echo '</style>';
 		}
 	}
 
@@ -73,7 +55,11 @@ class StendhalFrame extends PageFrame {
 	function renderFrame() {
 		global $page, $protocol, $adminLevel;
 ?>
-<body lang="en" <?php echo $page->getBodyTagAttributes()?>>
+<body lang="en" <?php
+echo $page->getBodyTagAttributes();
+if (isset($_SESSION['_layout'])) {
+	echo ' class="layout"';
+}?>>
 <div id="container">
 	<div id="header">
 		<?php
@@ -294,15 +280,15 @@ $page->writeAfterJS();
 		echo '<nav><ul class="navigation">';
 
 		echo '<li><a href="/media.html">Media</a><ul>';
-			echo '<li><a id="menuNewsArchive" href="/world/newsarchive.html">News</a>';
+			echo '<li><a id="menuNewsArchive" href="/news.html">News</a>';
 			echo '<li><a id="menuMediaScreenshot" href="/media/screenshots.html">Screenshots</a>';
 			echo '<li><a id="menuMediaVideo" href="/media/videos.html">Videos</a>';
 			echo '<li><a id="menuContribDownload" href="https://stendhalgame.org/download.html">Downloads</a></ul>';
 
 		echo '<li><a href="/world.html">World Guide</a><ul>';
 			echo '<li><a id="menuAtlas" href="/world/atlas.html">Map</a>';
-			echo '<li><a id="menuRegion" href="/region.html">Regions</a>';
-			echo '<li><a id="menuDungeons" href="/dungeon.html">Dungeons</a>';
+			echo '<li><a id="menuRegion" href="https://stendhalgame.org/region.html">Regions</a>';
+			echo '<li><a id="menuDungeons" href="https://stendhalgame.org/dungeon.html">Dungeons</a>';
 			echo '<li><a id="menuNPCs" href="/npc/">NPCs</a>';
 			echo '<li><a id="menuQuests" href="/quest.html">Quests</a>';
 			echo '<li><a id="menuAchievements" href="/achievement.html">Achievements</a>';
@@ -310,13 +296,13 @@ $page->writeAfterJS();
 			echo '<li><a id="menuItems" href="/item/">Items</a></ul>';
 
 		echo '<li><a href="/player-guide.html">Player\'s Guide</a><ul>';
-			echo '<li><a id="menuHelpManual" href="/wiki/Stendhal_Manual">Manual</a>';
-			echo '<li><a id="menuHelpFAQ" href="/player-guide/faq.html">FAQ</a>';
-			echo '<li><a id="menuHelpBeginner" href="/player-guide/beginner-guide.html">Beginner\'s Guide</a>';
-			echo '<li><a id="menuHelpAsk" href="/player-guide/ask-for-help.html">Ask For Help</a>';
+			echo '<li><a id="menuHelpManual" href="https://stendhalgame.org/wiki/Stendhal_Manual">Manual</a>';
+			echo '<li><a id="menuHelpFAQ" href="https://stendhalgame.org/player-guide/faq.html">FAQ</a>';
+			echo '<li><a id="menuHelpBeginner" href="https://stendhalgame.org/player-guide/beginner-guide.html">Beginner\'s Guide</a>';
+			echo '<li><a id="menuHelpAsk" href="https://stendhalgame.org/player-guide/ask-for-help.html">Ask For Help</a>';
 			// echo '<li><a id="menuHelpSupport" href="https://sourceforge.net/p/arianne/support-requests/new/">Support Ticket</a>';
 			// echo '<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a>';
-			echo '<li><a id="menuHelpRules" href="/player-guide/rules.html">Rules</a></ul>';
+			echo '<li><a id="menuHelpRules" href="https://stendhalgame.org/player-guide/rules.html">Rules</a></ul>';
 
 		echo '<li><a href="/community.html">Community</a><ul>';
 			echo '<li><a id="menuHelpChat" href="/chat/">Chat</a>';

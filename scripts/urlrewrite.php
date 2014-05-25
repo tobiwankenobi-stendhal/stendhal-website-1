@@ -381,8 +381,12 @@ function rewriteURL($url, $force = false) {
 		}
 
 	// news
-	} else if (preg_match('|^/news/.*|', $url)) {
-		return preg_replace('|^/news/(.*)$|', $folder.'/?id=content/news/news&amp;news=$1', $url);
+	} else if (preg_match('|^/news.*|', $url)) {
+		if (preg_match('|^/news.html$|', $url)) {
+			return preg_replace('|^/news.html$|', $folder.'/?id=content/newsarchive&recent=true', $url);
+		} else if (preg_match('|^/news/.*|', $url)) {
+			return preg_replace('|^/news/(.*)$|', $folder.'/?id=content/news/news&amp;news=$1', $url);
+		}
 	
 
 	// npcs

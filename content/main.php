@@ -92,7 +92,7 @@ class MainPage extends Page {
 		// quick access to important pages
 		startBox('<h1>Learn more</h1>');
 		echo '<p>Media: ';
-		echo '<a href="/world/newsarchive.html">News</a>, ';
+		echo '<a href="/news.html">News</a>, ';
 		echo '<a href="/media/screenshots.html">Screenshots</a>, ';
 		echo '<a href="/media/videos.html">Videos</a>, ';
 		echo '<a href="https://stendhalgame.org/download.html">Downloads</a></p>';
@@ -178,7 +178,7 @@ class MainPage extends Page {
 			echo ' ('.substr($news->date, 0, 10).')';
 			$i++;
 		}
-		echo '<p><a href="/world/newsarchive.html">More news...</p>';
+		echo '<p><a href="/news.html">More news...</p>';
 		endBox();
 		echo '</div>';
 

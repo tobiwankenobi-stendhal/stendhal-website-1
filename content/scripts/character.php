@@ -66,7 +66,7 @@ $account=$choosen->getAccountInfo();
 		echo '<div class="sentence">' . htmlspecialchars($choosen->sentence). '</div>';
 	}?>
 </div>
-<div style="height:220px">
+<div style="overflow: hidden">
 <div class="table" style ="float:left; height:190px; margin-right: 12px;">
 	<div class="title"><a name="attributes">Attributes and statistics</a></div>
 
@@ -281,4 +281,3 @@ endBox();
 	}
 }
 $page = new CharacterPage();
-?>

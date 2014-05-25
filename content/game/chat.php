@@ -110,7 +110,7 @@ function renderYear($year, $startMonth, $startDay, $endMonth, $endDay) {
 			if ($day < 10) {
 				$myDay = '0'.$day;
 			}
-			echo '&nbsp;<a href="'.rewriteURL('/chat/'.$year.'-'.$myMonth.'-'.$myDay.'.html').'">'.$myDay.'</a>&nbsp;';
+			echo '&nbsp;<a href="'.rewriteURL('/chat/'.$year.'-'.$myMonth.'-'.$myDay.'.html').'">'.$myDay.'</a> ';
 			if ($day == 15) {
 				echo '<br>';
 			}
@@ -151,4 +151,3 @@ These logs of  <?php echo(MAIN_CHANNEL); ?> were automatically created on
 	}
 }
 $page = new ChatPage();
-?>
