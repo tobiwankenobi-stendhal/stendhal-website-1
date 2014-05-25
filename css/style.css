@@ -1552,3 +1552,31 @@ dl {
 
 /* /wiki */
 
+
+
+
+
+body.layout {background-image: none} 
+body.layout #container, 
+body.layout .box {border: none} 
+body.layout #container {width: auto; max-width: 970px}
+body.layout #topMenu {background-image: none}
+		
+body.layout #contentArea {margin: 10px 0 80px 190px; overflow: hidden}
+body.layout #leftArea,
+body.layout #rightArea {display: none}
+body.layout .box {margin-bottom: 1em}
+body.layout .boxTitle {border:none; background-image: none; background: #0D4619}
+body.layout #container {background-image: none}
+body.layout #header {background-image: url("/images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}
+body.layout #playArea, 
+body.layout #downloadArea {border: none}	
+body.layout #topMenu {margin:0; height: auto}
+body.layout .tabPageContent {background-image:none; background-color: transparent; border: none}
+body.layout .activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}
+body.layout .backgroundTab {background-image:none; background-color: #545A58}
+@media screen and (max-width : 500px) {
+	body.layout #contentArea {margin-left:0}
+	body.layout #playArea, 
+	body.layout #downloadArea {display: none}
+}

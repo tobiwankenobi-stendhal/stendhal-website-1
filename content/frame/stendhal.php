@@ -46,24 +46,6 @@ class StendhalFrame extends PageFrame {
 
 		if (isset($_SESSION['_layout'])) {
  			echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
-			echo '<style type="text/css">';
-			// general layout adjustments
-			echo 'body {background-image: none} #container, .box {border: none} #container {width: auto; max-width: 970px} #topMenu {background-image: none}';
-		
-			// layout adjustments for the start page
-			echo '#contentArea {margin: 10px 0 80px 190px; overflow: hidden}';
-			echo '#leftArea, #rightArea {display: none}';
-			echo '.box {margin-bottom: 1em}';
-			echo '.boxTitle {border:none; background-image: none; background: #0D4619}';
-			echo '#container {background-image: none}';
-			echo '#header {background-image: url("/images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}';
-			echo '#playArea, #downloadArea {border: none}';	
-			echo '#topMenu {margin:0; height: auto}';
-			echo '.tabPageContent {background-image:none; background-color: transparent; border: none}';
-			echo '.activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}';
-			echo '.backgroundTab {background-image:none; background-color: #545A58}';
-			echo '@media screen and (max-width : 500px) { #contentArea {margin-left:0} #playArea, #downloadArea {display: none} }';
-			echo '</style>';
 		}
 	}
 
@@ -73,7 +55,11 @@ class StendhalFrame extends PageFrame {
 	function renderFrame() {
 		global $page, $protocol, $adminLevel;
 ?>
-<body lang="en" <?php echo $page->getBodyTagAttributes()?>>
+<body lang="en" <?php
+echo $page->getBodyTagAttributes();
+if (isset($_SESSION['_layout'])) {
+	echo ' class="layout"';
+}?>>
 <div id="container">
 	<div id="header">
 		<?php
