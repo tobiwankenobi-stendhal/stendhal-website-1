@@ -43,19 +43,17 @@ class WikiPage extends Page {
 	public function writeHtmlHeader() {
 		if (!isset($this->pageTitle)) {
 			echo '<meta name="robots" content="noindex">';
+			echo '<title>Page not found'.STENDHAL_TITLE.'</title>';
+		} else {
+			echo '<title>'.htmlspecialchars($this->pageTitle).STENDHAL_TITLE.'</title>';
 		}
-		echo '<title>'.htmlspecialchars($this->pageTitle).STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
 		if (!isset($this->pageTitle)) {
-			startBox(htmlspecialchars('Error'));
-			echo '<h1>Page not found</h1>';
-			echo 'The requested page does not exist.';
-			endBox();
-
+			$this->write404();
 		} else {
-
+			
 			startBox('<h1>'.htmlspecialchars($this->pageTitle).'</h1>');
 			echo $this->wiki->render();
 			endBox();
@@ -68,6 +66,13 @@ class WikiPage extends Page {
 				endBox();
 			}
 		}
+	}
+
+	function write404() {
+		echo '<br>';
+		startBox('<h1>Not found</h1>');
+		echo '<p><img src="/data/sprites/signs/signpost.png" alt="">We are sorry, the requested page does not exist.</p>';
+		endBox();
 	}
 
 	public function getBreadCrumbs() {
