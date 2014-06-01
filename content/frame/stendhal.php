@@ -313,7 +313,7 @@ $page->writeAfterJS();
 			echo '<li><a id="menuPlayerTrade" href="/trade/">Player trades</a></ul>';
 
 		echo '<li><a href="/development.html">Development</a><ul>';
-			echo '<li><a id="menuContribDevelopment" href="/development/introduction.html">Introduction</a></ul>';
+			echo '<li><a id="menuContribDevelopment" href="/development/introduction.html">Introduction</a>';
 			echo '<li><a id="menuContribChat" href="/chat/">Chat</a>';
 			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a>';
 			echo '<li><a id="menuContribBugs" href="/development/bug.html">Report Bug</a>';
@@ -321,7 +321,7 @@ $page->writeAfterJS();
 			echo '<li><a id="menuContribHelp" href="https://sourceforge.net/p/arianne/patches/new/">Submit Patch</a>';
 			echo '<li><a id="menuContribQuests" href="https://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a>';
 			echo '<li><a id="menuContribTesting" href="https://stendhalgame.org/wiki/Stendhal_Testing">Testing</a>';
-			echo '<li><a id="menuContribHistory" href="/development/sourcelog.html">Changes</a>';
+			echo '<li><a id="menuContribHistory" href="/development/sourcelog.html">Changes</a></ul>';
 
 		$adminLevel = getAdminLevel();
 		if ($adminLevel >= 100) {
