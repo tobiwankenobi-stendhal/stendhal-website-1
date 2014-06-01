@@ -90,7 +90,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
                 RewriteRule ^/development/sourcelog/(.*)\.html$ /index.php?id=content/game/sourcelog&month=$1&rewritten=true [L]
                 RewriteRule ^/development/download\.html$ /index.php?id=content/game/download&rewritten=true [L]
                 RewriteRule ^/development/?$ /development.html [R=301,L]
-                RewriteRule ^/development.html$ /index.php?id=content/game/development&rewritten=true [L]
+                RewriteRule ^/development/introduction.html$ /index.php?id=content/game/development&rewritten=true [L]
 
                 # items
                 RewriteRule ^/item/?$ /index.php?id=content/game/items&rewritten=true [L]
@@ -351,10 +351,8 @@ function rewriteURL($url, $force = false) {
 
 	// development
 	} else if (preg_match('|^/development.*|', $url)) {
-		if (preg_match('|^/development/?$|', $url)) {
-			return preg_replace('|^/development/?$|', $folder.'/?id=content/game/development', $url);
-		} else if (preg_match('|^/development.html$|', $url)) {
-			return preg_replace('|^/development.html$|', $folder.'/?id=content/game/development', $url);
+		if (preg_match('|^/development/introduction.html$|', $url)) {
+			return preg_replace('|^/development/introduction.html$|', $folder.'/?id=content/game/development', $url);
 		} else if (preg_match('|^/development/bug\.html$|', $url)) {
 			return preg_replace('|^/development/bug\.html$|', $folder.'/?id=content/game/bug', $url);
 		} else if (preg_match('|^/development/chat\.html$|', $url)) {

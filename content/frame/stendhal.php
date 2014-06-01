@@ -212,6 +212,7 @@ if (isset($_SESSION['_layout'])) {
 		<?php startBox('Contribute'); ?>
 		<ul id="contribmenu" class="menu">
 			<?php
+			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development/introduction.html').'">Development</a></li>'."\n";
 			echo '<li><a id="menuContribChat" href="'.rewriteURL('/chat/').'">Chat</a></li>'."\n";
 			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a></li>'."\n";
 			echo '<li><a id="menuContribBugs" href="'.rewriteURL('/development/bug.html').'">Report Bug</a></li>'."\n";
@@ -221,7 +222,6 @@ if (isset($_SESSION['_layout'])) {
 			echo '<li><a id="menuContribTesting" href="https://stendhalgame.org/wiki/Stendhal_Testing">Testing</a></li>'."\n";
 			echo '<li><a id="menuContribHistory" href="'.rewriteURL('/development/sourcelog.html').'">Changes</a></li>'."\n";
 			echo '<li><a id="menuContribDownload" href="https://sourceforge.net/projects/arianne/files/stendhal">All Downloads</a></li>'."\n";
-			echo '<li><a id="menuContribDevelopment" href="'.rewriteURL('/development').'">Development</a></li>'."\n";
 			?>
 		</ul>
 		<?php endBox(); ?>
@@ -313,6 +313,7 @@ $page->writeAfterJS();
 			echo '<li><a id="menuPlayerTrade" href="/trade/">Player trades</a></ul>';
 
 		echo '<li><a href="/development.html">Development</a><ul>';
+			echo '<li><a id="menuContribDevelopment" href="/development/introduction.html">Introduction</a></ul>';
 			echo '<li><a id="menuContribChat" href="/chat/">Chat</a>';
 			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a>';
 			echo '<li><a id="menuContribBugs" href="/development/bug.html">Report Bug</a>';
@@ -321,7 +322,6 @@ $page->writeAfterJS();
 			echo '<li><a id="menuContribQuests" href="https://stendhalgame.org/wiki/Stendhal_Quest_Contribution">Quests</a>';
 			echo '<li><a id="menuContribTesting" href="https://stendhalgame.org/wiki/Stendhal_Testing">Testing</a>';
 			echo '<li><a id="menuContribHistory" href="/development/sourcelog.html">Changes</a>';
-			echo '<li><a id="menuContribDevelopment" href="/development">Development</a></ul>';
 
 		$adminLevel = getAdminLevel();
 		if ($adminLevel >= 100) {
