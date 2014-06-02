@@ -41,9 +41,8 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 	$protocol = 'http';
 }
 
-if (isset($_REQUEST['_layout'])) {
-	$_SESSION['_layout'] = true;
-}
+$_SESSION['_layout'] = true;
+
 
 /*
  * Open connection to both databases.
