@@ -80,9 +80,9 @@ class StarterPage extends Page {
 	}
 	
 	private function streamWebstart() {
-		$version = '1.12.5';
+		$version = '1.14';
 		if (isset($_REQUEST['test'])) {
-			$version = '1.12.5';
+			$version = '1.14';
 		}
 		header('Content-Type: application/x-java-jnlp-file', true);
 		echo '<?xml version="1.0" encoding="utf-8"?>
