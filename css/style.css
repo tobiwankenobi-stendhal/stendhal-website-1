@@ -1576,7 +1576,7 @@ body.layout .tabPageContent {background-image:none; background-color: transparen
 body.layout .activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}
 body.layout .backgroundTab {background-image:none; background-color: #545A58}
 
-body.layout div.cards div.creature, body.layout div.cards div.item, body.layout div.cards  div.f3cols {
+body.layout div.cards div.creature, body.layout div.cards div.npc, body.layout div.cards div.item, body.layout div.cards  div.f3cols {
 border: 1px solid #000;
 border-radius: 10px;
 margin: 10px;
@@ -1584,7 +1584,7 @@ width: 93px;
 overflow: hidden;
 }
 
-body.layout div.cards div.creature {
+body.layout div.cards div.creature, body.layout div.cards div.npc {
 	height: 120px;
 	padding: 10px;
 }

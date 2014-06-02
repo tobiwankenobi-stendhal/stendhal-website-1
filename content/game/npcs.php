@@ -41,6 +41,7 @@ startBox('NPCs');
   <?php echo sizeof($npcs); ?> NPCs so far.
 </div>
 
+<div class="cards">
 <?php 
 
 foreach($npcs as $npc) {
@@ -51,6 +52,7 @@ foreach($npcs as $npc) {
 	echo '</div>';
 }
 ?>
+</div>
 <div style="clear: left;"></div>
 <?php
 
