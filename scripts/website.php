@@ -99,7 +99,7 @@ function queryWithCache($query, $ttl, $db) {
 			$list[] = $row;
 		}
 		mysql_free_result($result);
-		if ($ttl && $ttl > 0) {
+		if ($ttl && $ttl > 0 && count($list) > 0) {
 			$cache->store('stendhal_query_'.$query, new ArrayObject($list), $ttl);
 		}
 	}

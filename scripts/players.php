@@ -91,18 +91,7 @@ class Player {
 		echo '  <span class="block name">'.htmlspecialchars($player['charname']).'</span>';
 		echo ' </a>';
 		echo '  <div>Level: '.$player['level'].'</div>';
-		if ($player['sentence'] != '') {
-			$temp = $player['sentence'];
-			if(strlen($temp)>=54) {
-				$temp = substr($player['sentence'], 0, strpos($player['sentence'], ' ', 55) - 1);
-			}
-			if ($temp != $player['sentence']) {
-				$temp = $temp.'...';
-			}
-			echo ' <div class="quote">'.htmlspecialchars($temp).'</div>';
-		} else {
-			echo ' <div style="clear:left"></div>';
-		}
+		echo '  <div>Achievements: '.$player['achievements'].'</div>';
 		echo '</div>';
 	}
 
@@ -135,7 +124,8 @@ class Player {
   }
 
   function getAccountInfo() {
-	$result=mysql_query('select characters.timedate, account.status, characters.status As charstatus from account, characters where account.id=characters.player_id AND charname="'.mysql_real_escape_string($this->name).'"',getGameDB());    $account=array();
+	$result=mysql_query('select characters.timedate, account.status, characters.status As charstatus from account, characters where account.id=characters.player_id AND charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
+	$account=array();
 
     $row=mysql_fetch_assoc($result);
 
@@ -178,7 +168,13 @@ function getPlayer($name) {
 }
 
 function getBestPlayer($tableSuffix, $where='') {
-	$query = 'select halloffame_archive_'.$tableSuffix.'.points, halloffame_archive_'.$tableSuffix.'.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.sentence from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "R" order by rank limit 1';
+	
+	$query = "select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.sentence, count(*) as achievements"
+	. " from halloffame_archive_'.$tableSuffix.' As halloffame_archive join character_stats on (halloffame_archive.charname=name) join reached_achievement on (reached_achievement.charname=name) "
+	. $where
+	. " and day = CURRENT_DATE() and fametype = 'R'"
+	. " group by halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.sentence"
+	. " order by rank limit 1";
 	$list = queryWithCache($query, 60*60, getGameDB());
 	if (count($list) > 0) {
 		return $list[0];
