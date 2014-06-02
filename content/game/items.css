@@ -1,4 +1,4 @@
-.item {
+div.item {
 	height: 84px;
 	min-height: 84px;
 	width: 60px;
@@ -9,7 +9,7 @@
 	float: left;
 }
 
-.f3cols {
+div.f3cols {
 	font-weight: bolder;
 	padding: 4px;
 	margin: 8px;

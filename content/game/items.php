@@ -44,6 +44,7 @@ if(!isset($_GET['class'])) {
   <div style="margin-bottom: 10px;">
     <?php echo sizeof($items); ?> items so far.
   </div>
+  <div class="cards">
   <?php
   foreach($classes as $class=>$zero) {
     foreach($items as $item) {
@@ -61,6 +62,7 @@ if(!isset($_GET['class'])) {
     <?php
   }  
   ?>
+  </div>
   <div style="clear: left;"></div>
   <?php
   endBox();
@@ -72,6 +74,7 @@ if(!isset($_GET['class'])) {
 //foreach($classes as $class=>$zero) {
 $class=$_GET['class'];
 startBox(ucfirst($class).' Items');
+echo '<div class="cards">';
   foreach($items as $item) {
 	if($item->class==$class) {
 	  ?>
@@ -84,6 +87,7 @@ startBox(ucfirst($class).' Items');
 	  <?php
 	}
   }
+	echo '</div>';
 	echo '<div style="clear: left;"></div>';
 	endBox();
 	}

@@ -41,6 +41,7 @@ startBox('Creatures');
   <?php echo sizeof($monsters); ?> creatures so far.
 </div>
 
+<div class="cards">
 <?php 
 foreach($monsters as $m) {
 	echo '<div class="creature"><a class="creature" href="'.rewriteURL('/creature/'.surlencode($m->name).'.html').'">';
@@ -51,6 +52,7 @@ foreach($monsters as $m) {
 	echo '</div>';
 }
 ?>
+</div>
 <div style="clear: left;"></div>
 <?php
 
