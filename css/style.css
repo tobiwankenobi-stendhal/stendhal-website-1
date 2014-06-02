@@ -32,7 +32,6 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-image: url("/images/background.png");
 
 	/* must do this to center body as IE doesnt like auto margin on body */
 	font-family: Arial, Helvetica, "Liberation Sans", "Lucida Sans", Sans-serif;
@@ -55,20 +54,18 @@ h1 {
 }
 
 #container {
-	width: 970px;
 	margin: 5px auto 5px auto;
-	border: 4px solid black;
-	
-	/* As background overflow header it needs to be placed here for best effect. */
-	background-image: url("/images/header_background.jpg");
-	background-position: top center;
-	background-repeat: repeat-x;
+	max-width: 970px;
 }
 
 #header {
 	margin: 0;
 	text-align: left;
 	padding: 20px 0 20px 20px;
+	background-image: url("/images/header_background.jpg");
+	background-position: center top;
+	background-repeat: repeat-x;
+	height: 130px;
 }
 
 #oneLineDescription {
@@ -97,13 +94,6 @@ h1 {
 	padding: 0px 8px 0 0;
 }
 
-/* Top horizontal menu */
-#topMenu {
-	height: 85px;
-	margin: 0 190px 4px 190px;
-	background-image: url("/images/menu.png");
-	background-repeat: no-repeat;
-}
 
 #headersearchform {
 	float: right;
@@ -137,13 +127,6 @@ h1 {
 .searchicon {max-height: 48px}
 
 /* LEFT PANE */
-#leftArea {
-	width: 180px;
-	margin: -80px 3px 0 0;
-	position: relative;
-	float: left;
-	text-align: left;
-}
 
 img.screenshot {
 	text-decoration: none;
@@ -178,20 +161,12 @@ img.screenshot {
 }
 
 /* RIGHT PANE */
-#rightArea { /*border: 1px solid red;*/
-	width: 180px;
-	margin: -80px 0 0 3px;
-	position: relative;
-	float: right;
-	text-align: left;
-}
 
 /* big buttons */
-#playArea,#downloadArea {
+#playArea, #downloadArea {
 	width: 170px;
 	height: 42px;
 	margin: 4px;
-	border: 2px black solid;
 }
 
 #playArea {
@@ -205,7 +180,8 @@ img.screenshot {
 /* content area */
 #contentArea {
 	text-align: left;
-	margin: 0px 190px 0 190px;
+	margin: 10px 0 80px 190px;
+	overflow: hidden
 }
 
 #footerArea {
@@ -440,10 +416,11 @@ img.screenshot {
 
 /* -------------------------------------------------------------------------*/
 
+
 .box {
 	margin: 4px;
+	margin-bottom: 1em;
 	padding: 0;
-	border: solid 2px black;
 	background-color: white;
 }
 
@@ -452,9 +429,7 @@ img.screenshot {
 	padding: 3px;
 	color: white;
 	font-weight: bolder;
-	background-image: url("/data/gui/panelwood119.jpg");
-	background-repeat: repeat;
-	border: outset 2px brown;
+	background: #0D4619
 }
 
 .boxContent {
@@ -629,13 +604,15 @@ img.screenshot {
 
 .activeTab {
 	padding: 0.5em; 
-	text-align: center; 
-	background-color: #CFC; 
-	line-height: 0.95em; 
+	text-align: center;
+	background-color: transparent;
+	line-height: 0.95em;
 	font-weight: bold;
-	white-space: nowrap; 
-	background-image:url(/images/palegrasstab.jpg);
+	white-space: nowrap;
+	border: 2px solid #000;
+	border-bottom: none;
 }
+
 
 .activeTabA {
 	color: #000; 
@@ -644,14 +621,13 @@ img.screenshot {
 }
 
 .backgroundTab {
-	padding: 0.5em; 
-	text-align: center; 
-	background-color: #7A7; 
-	font-size: 90%; 
-	line-height: 0.95em; 
-	border-bottom: 2px solid #000; 
-	white-space: nowrap; 
-	background-image:url(/images/darkgrasstab.jpg);
+	padding: 0.5em;
+	text-align: center;
+	background-color: #545A58;
+	font-size: 90%;
+	line-height: 0.95em;
+	border-bottom: 2px solid #000;
+	white-space: nowrap;
 }
 
 .backgroundTabA {
@@ -670,12 +646,9 @@ img.screenshot {
 }
 
 .tabPageContent{
-	background-color: #CFC; 
-	border-left: 2px solid #000; 
-	border-right: 2px solid #000; 
-	border-bottom: 2px solid #000; 
-	background-image:url(/images/palegrass.jpg);
+	background-color: transparent;
 }
+
 
 /* popup */
 
@@ -1018,7 +991,6 @@ nav ul li ul li a:hover{
 
 /* To add images, upload each to http://software.hixie.ch/utilities/cgi/data/data with 'base64' ticked and copy the URL into here */
 
-.boxTitle {background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABQAFADASIAAhEBAxEB/8QAGgAAAwEBAQEAAAAAAAAAAAAAAgMEAQAFB//EADcQAAIBAgIFCQYGAwAAAAAAAAECAwASBBETISIyUSMxQUJxcoHB4RRSYoKSwjNhY6Gy0dLi8P/EABkBAQEBAQEBAAAAAAAAAAAAAAIDAQAGBP/EACARAAMBAAIDAQADAAAAAAAAAAABAhESMQMhQRMiI1H/2gAMAwEAAhEDEQA/APkFzDaSSRu69bHNiFOxJJs9F1LVVRLXYs1aXGWplSvNcZPY7QUmieRmlhWV+s1tCJVU8m0sXa2Y/egEbO2d2Z4X+tNKSDqEjsX+q14kZ7bNZJZSS20p1dH90SyzQroldrQMufVSXw+lK/iJ3SBViyWQ6FMNI3F5JBU6Y5WkYGHG17MjHipAoo5wp2JJlXg9rUbRuddsYz6LifKlNHKp3V+VT5il6aA17OaROvIy94f7VqtFcrLiW+pVpcqsw2ozb2GhVGZbOUS33Vp5OYYt7PQjGDMHLzq0zb2juNC0Mbpci4gg/kaeqyKWydFzrDJlvMrNwBr5tfwv6+kww5Az0cuXFjlWaN7tUTZcc6a0jl+oOOs0aylRzI3iTVNom+KYcGDeUbhH/d6tmwTLvpMe7tedDHi2XO+23gGasOMl6iN8zVL+wp/AmeO1iFim7XNvnQiMuTcgyHxCrkmlcbZiJ8aIuuvK3PtpK6XYXCfRFoY1yAAQjpvpcj4oZLFOjD9XaqmWSS7UVy7Sa5QzDU48Wpcv9DxKpDiMRtJhr1PM7ZCoZJoQ9o0Qf3Vf0rFlmhXRK7WgZc+qkgYcbXsyMeKkCujxpCq9KBaecp9fpSMUsQO8rdjt/jWxzhTsSTKvB7WoWkTryMveH+1OU9JU+SJ8KkF7bLL9TfbXpKiOm7O1vWst+6plaK5WXEt9SrRXMNpJJG7r118qNhTI+PDM2zBgZG+IuorJz7Pyc+gjcdXS7X8aVHNiFOxJJs9F1ZJonkZpYVlfrNbRmXvsfJZ6HI1y3ZJ4t6VRh8QkTjJ0XX0EnyrzxKqnk2li7WzH70bJLKSW2lOro/uurxp9mKmuihZLIdCmGkbi8kgpDRuddsYz6LifKrJsEy76THu7XnUbx2sQsU3a5t86M0vjFSbXQpo5VO6vyqfMUEqsw2ozb2GnCMuTcgyHxCj0Ma5AAIR031Xnn0lmskVGZbOUS33VpqqqJa7FmopHxQyWKdGH6u1VMYwZg5edWmbe0dxrH5GhTKZKXGWplSgEbO2d2Z4X+tVtDG6XIuIIP5GgGHIGejly4scq5eRHVDwApIOoSOxf6oHw+lK/iJ3SBTdG92qJsuOdVwYN5RuEf93qNUl2zZl/ATjJeojfM1Gk0rjbMRPjSFRHTdna3rWW/dXR4Zm2YMDI3xF1FTalDTopLrrytz7anlkku1Fcu0mhnPs/Jz6CNx1dLtfxrka5bsk8W9KSnDGwlDMNTjxamqsilsnRc63D4hInGTouvoJPlTJDiMRtJhr1PM7ZCg3W5g0k1uiTJlvMrNwBpTSOX6g46zQSTQh7Rog/uq/pWi085T6/Smkl2Bv5o1ZSo5kbxJoo8Wy53228AzVDiliB3lbsdv8AGpsKkF7bLL9TfbT/ADlrWS/Sk8R//9k=")}
 
 #menuAtlas {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAbNSURBVHjafFZbbBxnGT1zv+3szfbuemPHNnJImjShqVWKEDT0wqVCICHICykSKk8UoVBAAh5BiDdUIXhCVXlAQpQ+FNEiBKWlUGhpFGLSEFOnJLHXSey1vfZeZ+c+nJnawVFof+vTzsw//s//f9855xsB/xt1xjcZDzImGCLefYiyJKqVoq05XoB23+nzWcLYYpxlPMn4/e7L0s7vXaoivXbne8YfyBlqtVKyjVZnoPP5O8YdUxXt1Inj8vcf/ZhgGiPCysa2RmBt6PlFzh9mPMIwGH9MAQTGtKbK8yfvP1Z86N47cOVaC/mcjl++cA5+EEPgG14YQBREKNxWkgiojuTwhU/MQfCAzYGP1xe3Yck6HM/B3y4uwFJViKKIfy+vIE6S08T4SQr0g32jhe989eR9WG/30O45yJkaRgs5xJwVBQlbnQEURYRtSIihQObzruvC1GSstQSsbAxhKiqiOATiCNVSDpok4VLjOv5w7rwbRtGnZFWRHzt+cBKL1zZQyslwXAlBFKDvtiBkSCLCIIIgCmhJAgSeKCHckKet2Ab/R8dyM8BmdwimDkmUzvlZuXI5G6qi6AT6nKyrcuGew/tRtBUsrbrYaHdgmQqmqzIXjyGJErrO24vomoI4zrChuD43E6BesfHg3WNwvRivLXTgJy4MTUeUkBeynKWe46AYRXHs+SFMnZO+zIUSLipxP8xzwjSlKdM1TNfG0OlpWN0QocoSN4DslIokwzJkFCwFli5D4VySiNkaR6YMvpshSVIQRl9fWFrVbbMIN5TgRy5m6jKOvr8FUY2wvJhHseLi7rkhrq2RGH4Clg+OH6Fg66iP5qFwYUNVMD5CtjALUSTjxPsq+NlvX8FKs5MCLaf0/tbQC/TGWhPHDhSRMwSCAQ8/uoCHTy1hZcnCya9cxOShZbzxahlJILHoEQkhwOTiOtmoCwo0WUTbcUke4NBMjiTZxktnL4Nr3wT6dqoLxwvJdQkT1RJizp353QSq9RAPff4qzjxXx69+PoPN6xYSMYAiJhgr27CYttnpCrRKDl6XLJQUmKzLm0sb+NEzr6DneLt6XZb3Sr2QM5h77tCUYFUSlKoOjEjAmbM2NpcKmJxMUM5XoLJAMZlYGSvgvXNTiPn+upeg2+GJqLE32224rPstNrL3JkmZwhGR1lbZg8148dkpfPeHF3Dv/dsY9JRMjGmadLK0NjuClBUb55tw3QhhwpxTW2pBv92v9t5QxQQjf4UQJx+fR6up4tdPHcCfX9yHR758EXfNRfD9AFrewOzRKeotwtqlJtpr3ew6USWYNR0as5Kyb+9IubfNSP0J9xyewvHZCQSpwlNZUpzpX0ARVsomSoaJimmgemcNkRChu9qD13QgZIsmkFQZ9nQJlZKJ7/34ebz890u7OH+5pUZjRRMGNWFABoWcaUqljnhO1AqsR3UMVlFDeaaM9a0OwusD7K+PEhTZOz6zUds/iudemN8Lcnvq9pULGCebKOIsjemvphCUec/LCosXwpqyEZPDXj9Cr+WQhenJ4zTvmZAvLDbw/J8u3FajW07kcqGKbWXX650eJBa9Vi4iHHgYqedRmSynTQgIYwxYF0WXINABpJQEFKpqKJg/fxnz/2q8O1CH9CQbkKMWRBpietwUxGDOvRxdutdHwJR1rmzD7fpIpASXb7DPpUBMnVUwoCvK/+2SN4HmDk7g0ycOo0fhTRQLUGigqePFTN9AE1Gm9edJhMCLoK576FGcPvvUWNHKDFQIEwTc2UfvOwjP9fDUM69i4PjY22EzZzgwOYoPHpvGcquHgABuEmaaYRtBd3PAtGjI503ImoTyRB5SQYNW1DFzpAab9/6GS/3R5+j8H//wETz2xRNorG7j0uVmitMQd+iddXuF+VZTaBY4vW902mgOB3AQodPYxtaFtWxnbGJsFWwhZGRIoQYtf0crPJlAMLrG1rUBnjj9GdTpHhztNHXnGDNd+tLFKy1c33AwWUswEH3iCej2PXZTksE00fF8dBYSaJSAr5KEdO2FfzTQv9GDzGd61YRColyliLeubGKrlEfoZVb0cgr0U8ZnjbQm7KCtdgiJYtxfV5Cz2JPo0hJtJhJIEkOFvOVDyQP52RK6XXrhuA2zRI9MexQ7tOv7WCeB+IGEp/96Hq2+8x+u/7SwU6snTF392vR4iUBu9p3wjVMfwpO/ef3tj5OAzs6LIhtgaociaZ+oAj75kaM4/aUH0OkPs3l3GOCfb6ziF8/O462rDbx1o9mO4uQDXH9xLwMfZ6ztfJsltqklu9fvFLIsJRPj5WS8UrwZ5byVGlecpotxaHfx/wowAJdo04htTqdTAAAAAElFTkSuQmCC")}
 #menuRegion {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gQXFRUswy71dQAABn5JREFUSMd9lluIXWcVx3/fZV/P/czMmUsmk4lNTNvY1prUxCKtvajFIOIlINRSUAQvSLw+COKDSF/z0hclUFBRi3ihsZQ2BdOqJMEm07Q2yWRMOjOZZmYycybnnDlzzt5n729/PiSTC0m7YLHWgo/1Z12/JbhOI8CPgceAUUDywSS1km6tXPA6cUKj3WkDFlgB3gAOAC+vP1ZX5UddRx35yIeGH80H7mCtUgjqzTUfeF++a1PNe/Lh+/Uvv/4ZEQZ94sLSZU8r6XXjXhm4G/gaEACvAghg3HP1xN5H7i0/vusuzs/VKeZ9/njoBL0kQwiI0wQpJI4CawWDfXmeemIHIobltR7HJi+T0z6duMO/3zlFznWRUnJ65gKZtfuAZwXwzIb+0k+/t/chLjVWaax2yIce/aU8mQApFCvNNRxHUggUGQ5aQCuKCD3NQl1wYalL6LiYLIXMMFjJ4ynF2dn3eOXEySg15vPadfR37t+2kcm5JSp5TSdSJCahHdURmQApSRODkIK6EggrsGR0k4xaIaCS95lZTFhuddFKYk1GN+kBlny+gOs4fmrMV7Tv6tIDd49RLjhMz0csNZrkQofxQY2QGUoqWp0rTnzPIctASnCiHu0oYaRW4LGPDRDFGUdONenZiMDzMdaC1ggBwDZtTJbFvVSGfgHTS8kyi1YKi4uyBu1AwfcY7CszOdul3UnYvEHQk/Ba9au8KUooIbAuLI7HpKlh1/yf0Aq2bwp49ahgDZRKUvPDU9PzfiEsE6WKnonYPKIJPBDSIgUIITBZQj7MWO1aSnk47O2h4KR8s/I6H1dT7PbPs9WdY9bUmC7u5KktSzz34j+5sNgEmJGArTc7/O21Y3hug5F+wVqcklmLMdk16Tka39MUA8NaN0EJwSO9Q3RXY2QicBEESYMviJcYKGt+1XqYhXr7+tCtK8vNLsdPz6OVhhSkECglcbXE9xV1s8z5mYjEJJAZQt+h6LpsGu2jtLmCySwDQY4NhTwPzh3gzHPfZaXVuQakbxz1Uj5ASYkfquuRhC5Iy8xUiY0bLdViDVdJTieK0aE+PrxjE1mouBRbWs0I2ZfnTKNB1EtvXiM3GtZaAEwmkELgOIrVTo84Nmwag+Vli00tnpYoVzG0pQ+UZOnkIlFkSK0BT+OW/Fv31Y1GZi3WZiCu1OjG+qTGMLhxlaVGC68YUK0VSYxh4ewijYUWiTFYVxEO+XhS4mh1E9BNqWt3Y5KepZPFrHYiMisQCBYbHZK0x3itj7xSVAZLRAsp89MrxIsdhFaARbmatB7x0M6tHN55B4ePnr090EA5JAg0ARrf1WSZxXUkFstQqUR/mCNf9pBaEHqKsCsZG+nHCLBYejZjaKyfg4cmbgK5JXUbqiWGq4Xbt7V2qIYuwYYcv1vcycWm4mD9Tqy0ZDaDzOJqxduTs/z9H29/cI0ik1Ir5BgdKGEyg9KCoWqZfiekb6RIbVs/z05/gnbi8jQHEVrzm/YulBBIZfEDh4nTc0z8d/YWoJtS12xGYC15rZH5AhJI12KCSkicF/z89D3YLOZznUM0V1N2qyO8uPpp9rfuQ5KRD2Cjc+62v6QALgPlHdtG+faXHmStFTFaLuF4DtJaMpPR9hR/lo9TDSx7h86wOjlPpxuRmoSBcg5jLe90RziRjOFVXRamznD0D/tZ6/TWcV6/FlEucMkFLjOXWmSrbcJU43iDlB3Dbxfuw6+kfGv7FNKBoV3DLF/u0O32GB+rkmAJjy+yvXcRUcuxZccA+umf8ZNn/sILL5/EWiv0ekRYcJTijL4XQZ5G3E+76+IpSSDaPBH/h7m3fDbvqKJdBykzlCNJI0Oyll5Nj0WIDJMYWksx+/d9kTdOTPPepUZDAyeAzef6P8svZh+gEycMigiEIbSX2coUa3GPcwl04gbmVIwXaHouGCs5dXyW9sVVdKDxB0OcNOPds4usnF9mpVIkjVOAwxr4NfDlscWX2HPHHBPn69QqIWMjPvmcixSCtoyxAgbCInqlh1OE4pYKrVaHYLhAWAlQWqHymqjX49JajJIuz//rJPV253/A8+JqifaHvvv98eEK9UaEFIofPflJDrxw7MpxkqQIISj7HtaC1BLrCvZ86h72feNRmu0uQgiibsKbb83z+79OMPXuLFMXFxsms7uByRs78AfAwtXbzBZCz67r78daKzs6XLXDtfI1rhZzViAy4DBw57rz/wMl8/LWkj7cjgAAAABJRU5ErkJggg==")}
@@ -1554,29 +1526,7 @@ dl {
 
 
 
-
-
-body.layout {background-image: none} 
-body.layout #container, 
-body.layout .box {border: none} 
-body.layout #container {width: auto; max-width: 970px}
-body.layout #topMenu {background-image: none}
-		
-body.layout #contentArea {margin: 10px 0 80px 190px; overflow: hidden}
-body.layout #leftArea,
-body.layout #rightArea {display: none}
-body.layout .box {margin-bottom: 1em}
-body.layout .boxTitle {border:none; background-image: none; background: #0D4619}
-body.layout #container {background-image: none}
-body.layout #header {background-image: url("/images/header_background.jpg"); background-position: center top; background-repeat: repeat-x; height: 130px;}
-body.layout #playArea, 
-body.layout #downloadArea {border: none}	
-body.layout #topMenu {margin:0; height: auto}
-body.layout .tabPageContent {background-image:none; background-color: transparent; border: none}
-body.layout .activeTab {background-image:none; background-color: transparent; border: 2px solid #000; border-bottom: none}
-body.layout .backgroundTab {background-image:none; background-color: #545A58}
-
-body.layout div.cards div.creature, body.layout div.cards div.npc, body.layout div.cards div.item, body.layout div.cards  div.f3cols {
+div.cards div.creature, div.cards div.npc, div.cards div.item, div.cards div.f3cols {
 border: 1px solid #000;
 border-radius: 10px;
 margin: 10px;
@@ -1584,19 +1534,22 @@ width: 93px;
 overflow: hidden;
 }
 
-body.layout div.cards div.creature, body.layout div.cards div.npc {
+div.cards div.creature, div.cards div.npc {
 	height: 120px;
 	padding: 10px;
 }
 
-body.layout div.cards div.item, body.layout div.cards  div.f3cols {
+div.cards div.item, div.cards  div.f3cols {
 	height: 71px;
 	min-height: 71px;
 	padding: 20px 10px 5px;
 }
 
+
+/* small screen */
+
 @media screen and (max-width : 500px) {
-	body.layout #contentArea {margin-left:0}
-	body.layout #playArea, 
-	body.layout #downloadArea {display: none}
+	#contentArea {margin-left:0}
+	#playArea, 
+	#downloadArea {display: none}
 }

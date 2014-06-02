@@ -39,45 +39,7 @@ class MainPage extends Page {
 		echo '<meta name="description" content="Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...">';
 	}
 
-	function writeContentOld() {
-?>
-<div id="oneLineDescription">
-	<a href="<?php echo(STENDHAL_LOGIN_TARGET.rewriteURL('/account/mycharacters.html'))?>" style="border:0">
-	<img style="border:0" src="/images/playit.gif" alt="play stendhal" width="106px" height="45px"></a>
-	<span>Stendhal is a fun friendly and free multiplayer online adventure game. Start playing, get hooked... Get the source code, and add your own ideas...</span>
-</div>
-<div id="newsArea">
-	<?php
-	foreach(getNews(' where news.active=1 ') as $i) {
-		$i->show();
-	}
-	?>
-</div>
-<br>
-<br>
-<div>
-	<?php startBox('More News');?>
-	<ul class="menu">
-		<li style="width: 100%"><a id="menuNewsArchive" href="<?php echo rewriteURL('/world/newsarchive.html');?>">Older news</a></li>
-		<li style="width: 100%"><a id="menuNewsRss" href="<?php echo rewriteURL('/rss/news.rss');?>">RSS-Feed for this page</a></li>
-		<li style="width: 100%"><a id="menuNewsTrade" href="/trade/">Harold's Trading Announcements</a></li>
-	</ul>
-	<?php
-	endBox();
-	?>
-</div>
-<?php
-	}
-
 	function writeContent() {
-		if (isset($_SESSION['_layout'])) {
-			$this->writeStartPage();
-		} else {
-			$this->writeContentOld();
-		}
-	}
-
-	function writeStartPage() {
 
 		// about stendhal
 		echo '<div style="width: 55%; float: left">';
