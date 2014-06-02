@@ -757,9 +757,6 @@ span.block {
 }
 
 .bubble {
-	background-color: yellow;
-	color: black;
-	border: 1px solid black;
 	font-size: 10px;
 	padding: 3px;
 	margin-bottom: 6px;
