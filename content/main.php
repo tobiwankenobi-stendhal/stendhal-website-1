@@ -140,7 +140,7 @@ class MainPage extends Page {
 			echo ' ('.substr($news->date, 0, 10).')';
 			$i++;
 		}
-		echo '<p><a href="/news.html">More news...</p>';
+		echo '<p><a href="/news.html">More news...</a></p>';
 		endBox();
 		echo '</div>';
 

@@ -59,7 +59,7 @@ echo ' class="layout"';
 <div id="container">
 	<div id="header">
 		<?php
-		echo '<a href="/"><img style="border: 0;" src="/images/logo.gif" alt="Stendhal"></a>';
+		echo '<a href="/" class="stendhallogo"><img style="border: 0;" src="/images/logo.gif" alt="Stendhal"></a>';
 		echo '<form id="headersearchform" action="'.rewriteURL('/search').'" method="GET">';
 		if (!STENDHAL_MODE_REWRITE) {
 			echo '<input type="hidden" name="id" value="content/game/search">';
