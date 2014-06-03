@@ -69,7 +69,7 @@ class AchievementPage extends Page {
 		startBox('My Friends');
 		if (isset($_SESSION) && isset($_SESSION['account'])) {
 			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
-			echo '<div class="tableCell">';
+			echo '<div class="tableCell cards">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		} else {
@@ -82,7 +82,7 @@ class AchievementPage extends Page {
 		startBox('My Characters');
 		if (isset($_SESSION) && isset($_SESSION['account'])) {
 			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
-			echo '<div class="tableCell">';
+			echo '<div class="tableCell cards">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		} else {
@@ -97,7 +97,7 @@ class AchievementPage extends Page {
 		if (count($list) == 0) {
 			echo 'No character has earned this achievement, yet. Be the first!';
 		} else {
-			echo '<div class="tableCell">';
+			echo '<div class="tableCell cards">';
 			$this->renderPlayers($list);
 			echo '</div>';
 		}
@@ -152,7 +152,7 @@ class AchievementPage extends Page {
 				$style = 'class="achievementOpen"';
 				$title = 'Not earned yet';
 			}
-			echo '<div class="onlinePlayer onlinePlayerHeight">';
+			echo '<div class="onlinePlayer onlinePlayerHeight player">';
 			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
 			$outfit = $entry['outfit'];
 			if (isset($entry['outfit_colors']) && strlen($entry['outfit_colors']) > 0) {

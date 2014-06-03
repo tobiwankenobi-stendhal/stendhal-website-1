@@ -68,32 +68,9 @@ h1 {
 	height: 130px;
 }
 
-#oneLineDescription {
-	background-image: url("/images/onelinedesc.png");
-	background-position: center;
-	background-repeat: no-repeat;
-	color: Black;
-	text-align: left;
-	font-size: 14px;
-	font-weight: bold;
-	width: 546px;
-	height: 84px;
-	padding: 0;
-	margin: 0 0 0 15px;
-}
-
-#oneLineDescription img {
-	margin: 14px 0 0 10px;
+.stendhallogo {
 	float: left;
-	border: 0
 }
-
-#oneLineDescription span {
-	position: relative;
-	top: 15px;
-	padding: 0px 8px 0 0;
-}
-
 
 #headersearchform {
 	float: right;
@@ -185,7 +162,6 @@ img.screenshot {
 }
 
 #footerArea {
-	border-top: 2px black dotted;
 	padding-top: 8px;
 	text-align: right;
 	font-size: 60%;
@@ -1523,16 +1499,23 @@ dl {
 
 
 
-div.cards div.creature, div.cards div.npc, div.cards div.item, div.cards div.f3cols {
-border: 1px solid #000;
-border-radius: 10px;
-margin: 10px;
-width: 93px;
-overflow: hidden;
+div.cards div.creature, div.cards div.npc, 
+div.cards div.item, div.cards div.f3cols, 
+div.cards div.player, div.cards div.playerDetail {
+	border: 1px solid #000;
+	border-radius: 10px;
+	margin: 10px;
+	width: 93px;
+	overflow: hidden;
 }
 
-div.cards div.creature, div.cards div.npc {
+div.cards div.creature, div.cards div.npc, div.cards div.playerDetail {
 	height: 120px;
+	padding: 10px;
+}
+
+div.cards div.player {
+	height: 100px;
 	padding: 10px;
 }
 
