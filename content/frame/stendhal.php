@@ -202,17 +202,19 @@ $page->writeAfterJS();
 	}
 
 	function breadcrubs($page) {
+		echo '<div class="small_notice breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
 		$breadcrumbs = $page->getBreadCrumbs();
 		if (isset($breadcrumbs)) {
-			echo '<div class="small_notice breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
 			echo '<a href="https://stendhalgame.org">Stendhal</a> ';
 			for ($i = 0; $i < count($breadcrumbs) / 2; $i++) {
 				echo '&gt; <span typeof="v:Breadcrumb"><a href="'.surlencode($breadcrumbs[$i * 2 + 1]).'" rel="v:url" property="v:title">';
 				echo htmlspecialchars($breadcrumbs[$i * 2]);
 				echo '</a></span> ';
 			}
-			echo '</div>';
+		} else {
+			echo '&nbsp';
 		}
+		echo '</div>';
 	}
 }
 $frame = new StendhalFrame();

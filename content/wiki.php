@@ -69,7 +69,6 @@ class WikiPage extends Page {
 	}
 
 	function write404() {
-		echo '<br>';
 		startBox('<h1>Not found</h1>');
 		echo '<p><img src="/data/sprites/signs/signpost.png" alt="">We are sorry, the requested page does not exist.</p>';
 		endBox();
