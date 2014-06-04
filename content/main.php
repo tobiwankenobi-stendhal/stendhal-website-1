@@ -106,7 +106,7 @@ class MainPage extends Page {
 		// login form
 		startBox('<h1>Register</h1>');
 		echo '<p>Stendhal is completely free and open source.</p>';
-		echo '<p><a href="'.STENDHAL_LOGIN_TARGET.'/account/create-account.html">Join now</a></p>';
+		echo '<p><a href="'.STENDHAL_LOGIN_TARGET.'/account/login.html">Login</a> &ndash; <a href="'.STENDHAL_LOGIN_TARGET.'/account/create-account.html">Join</a></p>';
 		endBox();
 
 		// best player
