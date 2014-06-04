@@ -124,16 +124,22 @@ $page->writeAfterJS();
 		}
 
 	function navigationMenu($page) {
+
+		$noclick = '';
+		if (isset($_REQUEST['test'])) {
+			$noclick = 'class="noclick" ';
+		}
+
 		// http://www.silent-fran.de/css/tutorial/aufklappmenue.html
 		echo '<nav><ul class="navigation">';
 
-		echo '<li><a href="/media.html">Media</a><ul>';
+		echo '<li><a '.$noclick.'href="/media.html">Media</a><ul>';
 			echo '<li><a id="menuNewsArchive" href="/news.html">News</a>';
 			echo '<li><a id="menuMediaScreenshot" href="/media/screenshots.html">Screenshots</a>';
 			echo '<li><a id="menuMediaVideo" href="/media/videos.html">Videos</a>';
 			echo '<li><a id="menuContribDownload" href="https://stendhalgame.org/download.html">Downloads</a></ul>';
 
-		echo '<li><a href="/world.html">World Guide</a><ul>';
+		echo '<li><a '.$noclick.'href="/world.html">World Guide</a><ul>';
 			echo '<li><a id="menuAtlas" href="/world/atlas.html">Map</a>';
 			echo '<li><a id="menuRegion" href="https://stendhalgame.org/region.html">Regions</a>';
 			echo '<li><a id="menuDungeons" href="https://stendhalgame.org/dungeon.html">Dungeons</a>';
@@ -143,7 +149,7 @@ $page->writeAfterJS();
 			echo '<li><a id="menuCreatures" href="/creature/">Creatures</a>';
 			echo '<li><a id="menuItems" href="/item/">Items</a></ul>';
 
-		echo '<li><a href="/player-guide.html">Player\'s Guide</a><ul>';
+		echo '<li><a '.$noclick.'href="/player-guide.html">Player\'s Guide</a><ul>';
 			echo '<li><a id="menuHelpManual" href="https://stendhalgame.org/wiki/Stendhal_Manual">Manual</a>';
 			echo '<li><a id="menuHelpFAQ" href="https://stendhalgame.org/player-guide/faq.html">FAQ</a>';
 			echo '<li><a id="menuHelpBeginner" href="https://stendhalgame.org/player-guide/beginner-guide.html">Beginner\'s Guide</a>';
@@ -152,7 +158,7 @@ $page->writeAfterJS();
 			// echo '<li><a id="menuHelpForum" href="https://sourceforge.net/p/arianne/discussion/">Forum</a>';
 			echo '<li><a id="menuHelpRules" href="https://stendhalgame.org/player-guide/rules.html">Rules</a></ul>';
 
-		echo '<li><a href="/community.html">Community</a><ul>';
+		echo '<li><a '.$noclick.'href="/community.html">Community</a><ul>';
 			echo '<li><a id="menuHelpChat" href="/chat/">Chat</a>';
 			echo '<li><a id="menuPlayerOnline" href="/world/online.html">Online players</a>';
 			echo '<li><a id="menuPlayerHalloffame" href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>';
@@ -160,7 +166,7 @@ $page->writeAfterJS();
 			echo '<li><a id="menuPlayerKillstats" href="/world/kill-stats.html">Kill stats</a>';
 			echo '<li><a id="menuPlayerTrade" href="/trade/">Player trades</a></ul>';
 
-		echo '<li><a href="/development.html">Development</a><ul>';
+		echo '<li><a '.$noclick.'href="/development.html">Development</a><ul>';
 			echo '<li><a id="menuContribDevelopment" href="/development/introduction.html">Introduction</a>';
 			echo '<li><a id="menuContribChat" href="/chat/">Chat</a>';
 			echo '<li><a id="menuContribWiki" href="https://stendhalgame.org/wiki/Stendhal">Wiki</a>';
@@ -186,7 +192,7 @@ $page->writeAfterJS();
 
 		if (checkLogin()) { 
 			$messageCount = StoredMessage::getCountUndeliveredMessages($_SESSION['account']->id, "characters.charname = postman.target AND deleted != 'R'");
-			echo '<li><a href="/account/myaccount.html">'.htmlspecialchars(substr($_SESSION['account']->username, 0, 10)).'</a><ul>';
+			echo '<li><a '.$noclick.'href="/account/myaccount.html">'.htmlspecialchars(substr($_SESSION['account']->username, 0, 10)).'</a><ul>';
 			echo '<li><a id="menuAccountCharacters" href="/account/mycharacters.html">My Characters</a>';
 			echo '<li><a id="menuAccountMessages" href="/account/messages.html">Messages ('.htmlspecialchars($messageCount).')</a>';
 			echo '<li><a id="menuAccountHistory" href="/account/history.html">Login History</a>';

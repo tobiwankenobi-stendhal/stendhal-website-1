@@ -1485,6 +1485,10 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			createCharacterInit();
 		}
 
+		$('a.noclick').click(function(e) {
+			e.preventDefault();
+		});
+
 		$('.overliblink').tooltip({ 
 			bodyHandler: function () { 
 				return $(this).attr("data-popup");
