@@ -51,43 +51,20 @@ class MainPage extends Page {
 		endBox();
 
 
-		// quick access to important pages
-		startBox('<h1>Learn more</h1>');
-		echo '<p>Media: ';
-		echo '<a href="/news.html">News</a>, ';
-		echo '<a href="/media/screenshots.html">Screenshots</a>, ';
-		echo '<a href="/media/videos.html">Videos</a>, ';
-		echo '<a href="https://stendhalgame.org/download.html">Downloads</a></p>';
+		// news
+		startBox('<h1>News</h1>');
+		$i = 0;
+		foreach(getNews(' where news.active=1 ') as $news) {
+			if ($i >= 2) {
+				break;
+			}
+			echo '<p><a href="'.rewriteURL('/news/'.$news->getNiceURL()).'">'.$news->title.'</a>';
+			echo ' ('.substr($news->date, 0, 10).')';
+			$i++;
+		}
+		echo '<p><a href="/news.html">More news...</a></p>';
+		endBox();
 
-		echo '<p>World Guide: ';
-		echo '<a href="/world/atlas.html">Map</a>, ';
-		echo '<a href="/region.html">Regions</a>, ';
-		echo '<a href="/dungeon.html">Dungeons</a>, ';
-		echo '<a href="/npc/">NPCs</a>, ';
-		echo '<a href="/quest.html">Quests</a>, ';
-		echo '<a href="/achievement.html">Achievements</a>, ';
-		echo '<a href="/creature/">Creatures</a>, ';
-		echo '<a href="/item/">Items</a></p>';
-
-		echo '<p>Player\'s Guide: ';
-		echo '<a href="/wiki/Stendhal_Manual">Manual</a>, ';
-		echo '<a href="/player-guide/faq.html">FAQ</a>, ';
-		echo '<a href="/player-guide/beginner-guide.html">Beginner\'s Guide</a>, ';
-		echo '<a href="/player-guide/ask-for-help.html">Ask For Help</a></p>';
-
-		echo '<p>Community: ';
-		echo '<a href="/chat/">Chat</a>, ';
-		echo '<a href="/world/online.html">Online players</a>, ';
-		echo '<a href="/world/hall-of-fame/active_overview.html">Hall Of Fame</a>, ';
-		echo '<a href="/world/events.html">Recent Events</a>, ';
-		echo '<a href="/world/kill-stats.html">Kill stats</a>, ';
-		echo '<a href="/trade/">Player trades</a></p>';
-		
-
-		
-		
-	 	endBox();
-		
 		echo '</div>';
 		echo '<div style="width: 35%; float: right">';
 
@@ -129,21 +106,7 @@ class MainPage extends Page {
 		echo '<p><a href="/media/screenshots.html">More images...</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="/media/videos.html">More videos...</a>';
 		endBox();
 
-		// news
-		startBox('<h1>News</h1>');
-		$i = 0;
-		foreach(getNews(' where news.active=1 ') as $news) {
-			if ($i >= 2) {
-				break;
-			}
-			echo '<p><a href="'.rewriteURL('/news/'.$news->getNiceURL()).'">'.$news->title.'</a>';
-			echo ' ('.substr($news->date, 0, 10).')';
-			$i++;
-		}
-		echo '<p><a href="/news.html">More news...</a></p>';
-		endBox();
 		echo '</div>';
-
 	}
 
 	public function getBreadCrumbs() {
