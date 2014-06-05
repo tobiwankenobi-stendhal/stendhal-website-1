@@ -125,10 +125,7 @@ $page->writeAfterJS();
 
 	function navigationMenu($page) {
 
-		$noclick = '';
-		if (isset($_REQUEST['test'])) {
-			$noclick = 'class="noclick" ';
-		}
+		$noclick = 'class="noclick" ';
 
 		// http://www.silent-fran.de/css/tutorial/aufklappmenue.html
 		echo '<nav><ul class="navigation">';
