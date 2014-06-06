@@ -54,8 +54,7 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 		}
 		
 		$lines = explode("\n", file_get_contents($filename));
-		echo '<table style="table-layout:fixed; word-wrap:break-word; width:100%">';
-		echo '<tr><th style="width: 3em"></th><th style="width: 5.5em"></th><th></th></tr>';
+		echo '<div class="chattable">';
 		for ($i = 0; $i < count($lines); $i++) {
 			$line = $lines[$i];
 			
@@ -86,14 +85,14 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 				$line = preg_replace('!(http|https)://(faiumoni.de|stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com|libregamewiki.org)(/[^ ]*)?!', '<a href="$1://$2$3">$1://$2$3</a>', $line);
 		
 				if ($line != '') {
-					echo '<tr class="'.$class.'"><td>'
-						.htmlspecialchars($time).'</td><td>'
-						.htmlspecialchars($nick).'</td><td>'
-						.$line.'</td></tr>'."\n";
+					echo '<div class="chatrow '.$class.'"><span class="chatcell c1">'
+						.htmlspecialchars($time).'</span><span class="chatcell c2">'
+						.htmlspecialchars($nick).'</span><span class="chatcell c3">'
+						.$line.'</span></div>'."\n";
 				}
 			}
 		}
-		echo '</table>';
+		echo '</div>';
 		endBox();
 	}
 

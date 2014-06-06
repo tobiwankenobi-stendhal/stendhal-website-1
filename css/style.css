@@ -1526,10 +1526,79 @@ div.cards div.item, div.cards  div.f3cols {
 }
 
 
+div.chattable {
+	display: table;
+	table-layout:fixed;
+	word-wrap:break-word;
+	width:100%;
+}
+
+div.chatrow {
+	display: table-row;
+}
+
+.c1 {
+	width: 3em;
+}
+.c2 {
+	width: 5.5em;
+	padding: 0 1em 0 1em;
+}
+
+span.chatcell {
+	display: table-cell;
+}
+
+
 /* small screen */
 
-@media screen and (max-width : 500px) {
+@media screen and (max-width: 600px) {
 	#contentArea {margin-left:0}
+}
+
+@media screen and (max-width: 500px), handheld {
 	#playArea, 
 	#downloadArea {display: none}
+}
+
+@media screen and (max-width: 500px) {
+	div.chattable {
+		display: block;
+		table-layout:fixed;
+		word-wrap:break-word;
+		width:100%;
+	}
+	
+	div.chatrow {
+		display: block;
+		background-color: #DDD;
+		margin-bottom: .5em;
+		padding: 0.5em;
+		border-radius:5px;
+	}
+
+	span.chatcell {
+		display: block
+	}
+	
+	.c1 {
+		width: auto;
+		float:left;
+		font-style: italic;
+		font-size: 80%;
+	}
+	.c2 {
+		float:left;
+		width: auto;
+		padding: 0 0 0 1em;
+		font-style: italic;
+		font-size: 80%;
+	}
+	.c2:after {
+		content: ":";
+	}
+	.c3 {
+		clear:both
+	}
+
 }
