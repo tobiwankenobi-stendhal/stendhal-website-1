@@ -33,7 +33,7 @@ for ($i = 0; $i < count($lines); $i++) {
 		$class = "ircstatus";
 	} else if (substr($line, 8, 13) == 'postman-bot> ') {
 
-		if (substr($line, 21, 54) == 'Support: A new character has just been created called ') {
+		if (substr($line, 21, 10) == 'Character ') {
 			$class = "ircnewchar";
 		} else if (substr($line, 21, 22) == 'Administrator SHOUTS: ') {
 			$class = "ircshout";
