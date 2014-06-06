@@ -69,6 +69,7 @@ class APIPage extends Page {
 		if (!$ip || getAdminLevel() < 100) {
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
+		
 
 		// validate ip
 		if (!preg_match('/^[0-9a-fA-F.:]+$/', $ip)) {

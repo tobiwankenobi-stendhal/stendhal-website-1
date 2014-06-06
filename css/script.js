@@ -1260,7 +1260,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		var progress = 1;
 		var progressInterval = 0.2;
 
-		$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=1&ip=" + encodeURI($('traceip').text()),
+		$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=1&i="+ new Date().getTime()+"&ip=" + encodeURI($('#traceip').text()),
 			dataType: 'html',
 			success: function (data) {
 			$('#traceresult1').html(data);
@@ -1269,7 +1269,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			progress = 1;
 			progressInterval = 0.2;
 
-			$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=0&i="+ new Date().getTime()+"&ip=" + encodeURI($('traceip').text()),
+			$.ajax({url: "/index.php?id=content/scripts/api&method=traceroute&fast=0&i="+ new Date().getTime()+"&ip=" + encodeURI($('#traceip').text()),
 				dataType: 'html',
 				success: function (data) {
 				$('#traceresult2').html(data);

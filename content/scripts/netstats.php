@@ -23,7 +23,7 @@ class NetstatsPage extends Page {
 
 		$ip = '';
 		if (isset($_REQUEST['ip'])) {
-			$ip = '&ip='.urlencode($_REQUEST['ip']);
+			$ip = $_REQUEST['ip'];
 		}
 		echo '<span id="traceip" style="display: none">'.htmlspecialchars($ip).'</span>';
 	}
