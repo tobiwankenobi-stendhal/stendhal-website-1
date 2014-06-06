@@ -325,10 +325,15 @@ function getMonsters() {
 					}
 				}
 				
-				$drops=array();
-				foreach($creatures[$i]['drops'][0]['item'] as $drop) {
-					if(is_array($drop)) {
-						$drops[]=array("name"=>$drop['value'],"quantity"=>$drop['quantity'], "probability"=>$drop['probability']);
+				$drops = array();
+				if (isset($creatures[$i]['drops'])) {
+					$temp = $creatures[$i]['drops'][0];
+					if (isset($temp['item'])) {
+						foreach($temp['item'] as $drop) {
+							if(is_array($drop)) {
+								$drops[]=array("name"=>$drop['value'],"quantity"=>$drop['quantity'], "probability"=>$drop['probability']);
+							}
+						}
 					}
 				}
 

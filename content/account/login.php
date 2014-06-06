@@ -199,7 +199,11 @@ class LoginPage extends Page {
 			$urlParams = array();
 			foreach ($urlParamsArray as $urlParam) {
 				$item = explode('=', $urlParam);
-				$urlParams[$item[0]] = $item[1];
+				if (isset($item[1])) {
+					$urlParams[$item[0]] = $item[1];
+				} else {
+					$urlParams[$urlParam] = '';
+				}
 			}
 			if (isset($urlParams['openid.realm'])) {
 				$targetRealm = preg_replace('|^[^:]*://|', '', $urlParams['openid.realm']);

@@ -60,7 +60,7 @@ PING 83.83.205.120 (83.83.205.120) 56(84) bytes of data.
 
 	public function removeTrailingTimeouts($lines) {
 		$temp = 0;
-		for ($i = count($lines); $i > 0; $i--) {
+		for ($i = count($lines) - 1; $i > 0; $i--) {
 			if ($lines[$i]->ip != '') {
 				$temp = $i + 1;
 				break;

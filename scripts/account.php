@@ -412,9 +412,12 @@ class Account {
 			$account = Account::readAccountByLink($type, $username, $password);
 			if (isset($account)) {
 				$success = 1;
+			} else {
+				$success = 0;
 			}
 		}
 
+		$usedAccountLink = null;
 		if ($success == 1) {
 			$account->readAccountBan();
 			$banMessage = $account->getAccountStatusMessage();

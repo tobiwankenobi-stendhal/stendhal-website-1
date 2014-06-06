@@ -60,9 +60,16 @@ class OpenID {
 			$this->error = $e->getMessage();
 		}
 		$attributes = $openid->getAttributes();
-		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, 
-			$attributes['namePerson/friendly'], $attributes['contact/email'], null);
-		// echo 'token:' . $openid->getOAuthRequestToken();
+		$friendly = null;
+		$email = null;
+		if (isset($attributes['namePerson/friendly'])) {
+			$friendly = $attributes['namePerson/friendly'];
+		}
+		if (isset($attributes['contact/email'])) {
+			$email = $attributes['contact/email'];
+		}
+
+		$accountLink = new AccountLink(null, null, 'openid', $openid->identity, $friendly, $email, null);
 		return $accountLink;
 	}
 

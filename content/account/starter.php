@@ -25,11 +25,15 @@ class StarterPage extends Page {
 	private $seed;
 
 	public function __construct() {
-		$this->username = $_SESSION['account']->username;
-		$this->loggedIn = isset($this->username);
-		$this->character = $_REQUEST['character'];		
-		if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
-			$this->characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
+		$this->loggedIn = false;
+		$this->characterOkay = false;
+		if (isset($_SESSION['account']->username)) {
+			$this->username = $_SESSION['account']->username;
+			$this->loggedIn = true;
+			$this->character = $_REQUEST['character'];		
+			if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
+				$this->characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
+			}
 		}
 	}
 
