@@ -215,7 +215,7 @@ $page->writeAfterJS();
 				echo '</a></span> ';
 			}
 		} else {
-			echo '&nbsp';
+			echo '&nbsp;';
 		}
 		echo '</div>';
 	}
