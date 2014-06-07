@@ -214,9 +214,9 @@ class Wiki {
 	 */
 	private function clean($content) {
 		// remove wiki navigation
-		$start = strpos($content, '<!-- bodycontent -->');
-		$end = strrpos($content, '<!-- /bodycontent -->');
-		$content = substr($content, $start, $end - $start);
+		$start = strpos($content, '<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">');
+		$end = strrpos($content, '<div class="printfooter">');
+		$content = '<div id="mw-content-text">'.substr($content, $start, $end - $start);
 
 		// remove content which was marked as to be removed
 		while (true) {
