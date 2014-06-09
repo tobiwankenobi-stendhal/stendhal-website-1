@@ -6,7 +6,11 @@ class AtlasPage extends Page {
 	}
 
 	function writeContent() {
-		echo '<div id="map_canvas" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'"></div><p>&nbsp;</p>';
+		$tileset = '2';
+		if (isset($_REQUEST['tileset'])) {
+			$tileset = intval($_REQUEST['tileset']);
+		}
+		echo '<div id="map_canvas" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'/'.$tileset.'"></div>';
 		startBox('Extended information');
 		echo '<p>You can use your mouse or the map controls to zoom and pan.</p>';
 		echo '<p>There is lots more information about each of the <a href="/region.html">regions</a> and <a href="/dungeon.html">dungeons</a>.</p>';

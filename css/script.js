@@ -914,7 +914,7 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 		addActivePOIs(map);
 		addMe(map);
 
-		L.tileLayer('https://stendhalgame.org/map/2/{z}-{x}-{y}.png', {
+		L.tileLayer($("#map_canvas").attr("data-tile-url-base") + "/{z}-{x}-{y}.png", {
 			attribution: '',
 			minZoom: 2,
 			maxZoom: 6,
