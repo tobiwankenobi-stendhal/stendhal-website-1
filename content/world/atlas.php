@@ -6,7 +6,7 @@ class AtlasPage extends Page {
 	}
 
 	function writeContent() {
-		$tileset = '2';
+		$tileset = '3';
 		if (isset($_REQUEST['tileset'])) {
 			$tileset = intval($_REQUEST['tileset']);
 		}
