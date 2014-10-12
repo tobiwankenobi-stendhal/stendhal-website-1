@@ -1,4 +1,22 @@
 <?php
+
+/**
+ * Steps to rebuild the atlas:
+ *
+ * run ant renderatlas
+ * copy empty-large.png and reserved.png to large/
+ * copy tiled/world/world.tmx to tiled/large/word.tmx
+ * edit large/world.tmx: remove all layers except floor, remove all tilesets except 0_
+ * edit large/world.tmx: width="256" -> width="1024", width="128" -> width="512", width="64" -> width="256", same for height
+ * for both tiled/world.tmx and tiled/large/world.tmx zoom to 1:1, 100% visiblity of floor-layer, disable all layers
+ * export images as /tmp/world.png and /tmp/world-large.png
+ * create directory /tmp/map
+ * run net.sf.arianne.tools.image.ImageSplit from the unrelated-stuff repository
+ * upload /tmp/map to https://stendhalgame.org/map/3 and http://arianne.sf.net/stendhal/map/3 (increase number)
+ * test atlas with ?tileset=3
+ * change default $tileset value to new version
+ */
+
 class AtlasPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Atlas'.STENDHAL_TITLE.'</title>';
