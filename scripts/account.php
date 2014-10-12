@@ -1071,6 +1071,7 @@ class AccountLink {
 
 
 function fixSessionPermission() {
+	session_regenerate_id();
 	$id = session_id();
 	if (preg_match('/^[a-zA-Z0-9]+$/', $id)) {
 		chmod(session_save_path().'/sess_'.$id, 0640);
