@@ -156,7 +156,7 @@ class AccountMerge extends Page {
 
 	function writeContent() {
 		if (!isset($_SESSION['account'])) {
-			startBox("Account Merging");
+			startBox("<h1>Account Merging</h1>");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/merge.html">login</a> first to merge accounts.</p>';
 			endBox();
 		} else {
@@ -171,7 +171,7 @@ class AccountMerge extends Page {
 	}
 
 	function displayHelp() {
-		startBox("Account Merging");?>
+		startBox("<h2>Account Merging</h2>");?>
 		<p>With the form below you can merge your other accounts. &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
 		(<a href="https://stendhalgame.org/wiki/Stendhal_Account_Merging">Help</a>)</p>
 		<p>This means that all characters previously associated with the other 
@@ -182,7 +182,7 @@ class AccountMerge extends Page {
 
 	function displayMergeError() {
 		if ($this->error) {
-			startBox("Result");
+			startBox("<h2>Result</h2>");
 			echo '<p class="error">'.htmlspecialchars($this->error).'</p>';
 			endBox();
 		}
@@ -190,7 +190,7 @@ class AccountMerge extends Page {
 
 
 	function displayForm() {
-		startBox("Account to merge"); ?>
+		startBox("<h2>Account to merge</h2>"); ?>
 		<p>You are currently logged into the account <b><?php echo htmlspecialchars($_SESSION['account']->username) ?></b>.</p>
 
 		<form action="" method="post">
@@ -206,7 +206,7 @@ class AccountMerge extends Page {
 
 		<?php endBox();
 
-			startBox("External Account");
+			startBox("<h2>External Account</h2>");
 			?>
 				<form id="openid_form" action="<?php echo STENDHAL_FOLDER;?>/?id=content/account/merge" method="post">
 		<input id="oauth_version" name="oauth_version" type="hidden">

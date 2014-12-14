@@ -60,7 +60,7 @@ class StarterPage extends Page {
 	}
 
 	function writeContent() {
-		startBox("Starter");
+		startBox("<h1>Starter</h1>");
 		if(!isset($_SESSION['account'])) {
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/mycharacters.html').'">login</a> to start the Stendhal Client.</p>';
 		} else if (!$this->characterOkay) {

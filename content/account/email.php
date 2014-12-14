@@ -34,7 +34,7 @@ class EMailPage extends Page {
 
 	function writeContent() {
 		if (!isset($_SESSION['account'])) {
-			startBox("Email address");
+			startBox("<h1>Email address</h1>");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/email.html">login</a> to change your email-address.</p>';
 			endBox();
 		} else {
@@ -65,7 +65,7 @@ class EMailPage extends Page {
 	}
 
 	function showForm() {
-		startBox("Change email");
+		startBox("<h1>Change email</h1>");
 		if (isset($this->error)) {
 			echo '<p class="error">'.htmlspecialchars($this->error).'</p>';
 		} else {
@@ -94,7 +94,7 @@ class EMailPage extends Page {
 			return;
 		}
 
-		startBox("History");
+		startBox("<h2>History</h2>");
 		echo '<table class="prettytable">';
 		echo '<tr><th>email</th><th>saved</th><th>confirmed</th><th>by</th></tr>';
 

@@ -60,13 +60,13 @@ function changePassword() {
 	// reread the accoutn form the database, so that it is not flagged as passwordless account anymore.
 	$_SESSION['account'] = Account::readAccountByName($_SESSION['account']->username);
 
-	startBox("Password Change");
-		echo '<h1>Your password has been changed successfully.</h1> <h4>Remember to update and re-save any login profile you may have stored.</h4> Moving to main page.';
+	startBox("<h1>Password Change</h1>");
+		echo '<h2>Your password has been changed successfully.</h2> <h4>Remember to update and re-save any login profile you may have stored.</h4> Moving to main page.';
 	endBox();
 }
 
 function handleValidationError($error) {
-	startBox("Password Change Failed");
+	startBox("<h1>Password Change Failed</h1>");
 		echo '<p>'.htmlspecialchars($error).'</p>';
 	endBox();
 }
@@ -81,7 +81,7 @@ class ChangePasswordPage extends Page {
 
 	function writeContent() {
 		if (!isset($_SESSION['account'])) {
-			startBox("Change Password");
+			startBox("<h1>Change Password</h1>");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/change-password.html">login</a> to change your password.</p>';
 			endBox();
 		} else {
@@ -107,7 +107,7 @@ if(isset($_POST['sublogin'])){
 	}
 	
 } else {
-startBox("Change password");
+startBox("<h1>Change password</h1>");
 if (!$_SESSION['account']->password) {
 	echo '<p>You can create a local account here. The local account can be used in the download client.</p>';
 }

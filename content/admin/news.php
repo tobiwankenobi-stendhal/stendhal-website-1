@@ -28,7 +28,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   $id=mysql_real_escape_string($_REQUEST['edit']);  
   $newstoEdit=getNews('where news.id="'.$id.'"');
   if(sizeof($newstoEdit)==0) {
-    startBox("Edit news item");
+    startBox("<h1>Edit news item</h1>");
       echo '<div class="error">No such news item</div';
     endBox();
   } else {
@@ -40,7 +40,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
    * Show all the previous news items, just header and to tickets approbed and deleted.
    */ 
   $news=getNews('', 'created desc','');
-  startBox("Admin on existing news");
+  startBox("<h1>Admin on existing news</h1>");
   ?>
   <form class="news" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/news" name="updatenews">
   <input type="hidden" name="action" value="delete"/>
@@ -62,7 +62,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 ?>
 
 <a name="editform"></a>
-<?php startBox((isset($edited)?'Edit':'Submit').' news item'); ?>
+<?php startBox('<h1>'.(isset($edited)?'Edit':'Submit').' news item</h1>'); ?>
 <form class="news" method="post" action="/?id=content/admin/news" name="submitnews">
 	<?php if(isset($edited)) { ?>
 		<input type="hidden" name="action" value="update"/>

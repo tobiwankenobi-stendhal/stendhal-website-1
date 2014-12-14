@@ -38,7 +38,7 @@ class NewsArchivePage extends Page {
 		echo '</div>';
 
 		
-		startBox('More News');
+		startBox('<h2>More News</h2>');
 		echo '<ul class="menu">';
 		if (isset($_REQUEST['recent'])) {
 			echo '<li style="width: 100%"><a id="menuNewsArchive" href="/world/newsarchive.html">Older news</a></li>';

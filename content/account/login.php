@@ -234,7 +234,7 @@ class LoginPage extends Page {
 		endBox();
 
 			echo '<br>';
-			startBox("External Account");
+			startBox("<h2>External Account</h2>");
 			?>
 				<form id="openid_form" action="<?php echo STENDHAL_FOLDER;?>/?id=content/account/login" method="post">
 		<input id="oauth_version" name="oauth_version" type="hidden">

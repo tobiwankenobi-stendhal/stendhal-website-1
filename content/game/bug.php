@@ -7,7 +7,7 @@ class BugPage extends Page {
 	}
 
 	function writeContent() {
-startBox("Bugs"); ?>  
+startBox("<h1>Bugs</h1>"); ?>  
 Reporting bugs is very important so that we can keep Stendhal running smoothly. So, if a bug is worth asking /support or a developer about, it is worth submitting a bug report on. 
 
 <p>We have made this page to help you with the process of submitting a bug report, because we find them so helpful. 
@@ -19,7 +19,7 @@ Reporting bugs is very important so that we can keep Stendhal running smoothly. 
 <p>We are more than happy to close reports that are not really bugs, and would prefer you to submit a bug report and us close it, than not submit it and we never find out about it. Having said that, before submitting a bug you should scan over the previously posted bugs summaries so that you don't report an already known bug.
 
 <?php endBox(); ?>
-<?php startBox("Making a Report"); ?>  
+<?php startBox("<h2>Making a Report</h2>"); ?>  
 
 If you need any help on submitting a bug report feel free to come and ask the developers and contributors at the 
 <?php echo '<a href="'.rewriteURL('/development/chat.html').'">'?>
@@ -55,13 +55,13 @@ irc channel #arianne</a>, you can just ask the question as the channel is logged
 <li>Everything Else - don't worry about any of the other entries.</li>
 </ul>
 <?php endBox(); ?>
-<?php startBox("Pre release Testers"); ?> 
+<?php startBox("<h2>Pre release Testers</h2>"); ?> 
 <p>Please make sure you connect with the MAIN-client to the MAIN-server
 and with the (up to date!) TEST-client to the TEST-server
 </p>
 <p>Please add to the bug summary if you were on TEST or on MAIN
 <?php endBox(); ?>
-<?php startBox("Developers"); ?> 
+<?php startBox("<h2>Developers</h2>"); ?> 
 <p>Please make sure the bug also happens with latest cvs-HEAD <b>without</b> the changes you made to the source and did not yet commit.
 </p><p>Remember the importance of 'ant clean' or whatever the equivalent is in your IDE.
 </p>

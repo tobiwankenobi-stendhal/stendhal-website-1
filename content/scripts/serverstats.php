@@ -28,7 +28,7 @@ class ServerStatsPage extends Page {
 $content=implode("",file(STENDHAL_SERVER_STATS_XML));
 $xmlStats = XML_unserialize($content);
 
-startBox("Detailed statistics");
+startBox("<h1>Detailed statistics</h1>");
 ?>
 <div class="uptime">
   <?php echo getServerUptime($xmlStats); ?> since last server reset.

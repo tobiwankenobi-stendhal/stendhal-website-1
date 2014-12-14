@@ -106,7 +106,7 @@ class EventsPage extends Page {
 		
 		usort($events,"cmp");
 		
-		startBox('A selection of recent events');
+		startBox('<h1>A selection of recent events</h1>');
 		echo 'The current server time is '.date('G:i');
 		if(sizeof($events)==0) {
 			echo '<br>There are no recent events to report on.';

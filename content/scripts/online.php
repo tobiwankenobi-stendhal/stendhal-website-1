@@ -30,7 +30,7 @@ class OnlinePage extends Page {
 	 * writes an informative text about the server being offline.
 	 */
 	function writeOfflineHint() {
-		startBox("Server is offline");
+		startBox("<h1>Server is offline</h1>");
 		echo '<p>We are sorry! The server is offline right now.</p>';
 		echo '<p>This may be the desired behaviour, in case of an update, or it may be the result of some kind of problem.</p>';
 		echo '<p>Please join our IRC channel <a href="https://webchat.freenode.net/?channels='.substr(MAIN_CHANNEL, 1).'">'.MAIN_CHANNEL.'</a> ';
@@ -43,7 +43,7 @@ class OnlinePage extends Page {
 	 */
 	function writeOnlinePlayers() {
 		$players = getOnlinePlayers();
-		startBox('Online Players');
+		startBox('<h1>Online Players</h1>');
 		
 		if(sizeof($players)==0) {
 			echo 'There are no players logged in at the moment.';
@@ -62,7 +62,7 @@ class OnlinePage extends Page {
 
 	function writeRecent() {
 		$stats = ServerStatistics::readOnlineStats();
-		startBox('Recently online');
+		startBox('<h2>Recently online</h2>');
 		echo '<p>This table shows the number of different accounts and characters which have been online recently.</p>';
 		echo '<table class="prettytable">';
 		echo '<tr><th>&nbsp;</th><th>Accounts</th><th>Characters</th></tr>';

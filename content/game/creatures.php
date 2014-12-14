@@ -30,7 +30,7 @@ $classes=Monster::getClasses();
  
 <div style="float: left; width: 100%"><?php
 
-startBox('Creatures');
+startBox('<h1>Creatures</h1>');
 ?>
 <form method="get" action="/" id="currentContentSearch">
   <input type="hidden" name="id" value="content/scripts/monster">

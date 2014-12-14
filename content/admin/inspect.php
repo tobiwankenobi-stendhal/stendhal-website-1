@@ -24,7 +24,7 @@ class InspectPage extends Page {
 	}
 
 	private function writeInputForm() {
-		startBox("Upload Form");
+		startBox("<h2>Upload Form</h2>");
 		?>
 		<form action="#result" method="POST">
 			<label for="data">Paste result of /script DeepInspect.class:</label>
@@ -47,7 +47,7 @@ class InspectPage extends Page {
 	private function writeNavigationBox($parsedData) {
 		if (count($parsedData) > 1) {
 			echo '<div style="width: 12em; position: fixed; left: 0; top: 0"><ul style="margin: 0; padding: 0">';
-			startBox("Navigation");
+			startBox("<h2>Navigation</h2>");
 			foreach ($parsedData as $inspectData) {
 				echo '<li style="margin: 0; padding: 0"><a href="#result_'.htmlspecialchars($inspectData['name']).'">';
 				echo htmlspecialchars($inspectData['name']).'</a></li>';

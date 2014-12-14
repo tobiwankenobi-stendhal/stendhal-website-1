@@ -18,7 +18,7 @@ class AdminItemlogPage extends Page {
 		}
 		$itemid=$_REQUEST["itemid"];
 		$highlightTimestamp = $_REQUEST['timestamp'];
-		startBox('Search itemlog');
+		startBox('<h2>Search itemlog</h2>');
 ?>
 	<form method="get" action="" accept-charset="iso-8859-1">
 		<input type="hidden" name="id" value="content/admin/itemlog">
@@ -30,7 +30,7 @@ class AdminItemlogPage extends Page {
 		endBox(); 
 
 		if (isset($itemid)) {
-			startBox('Item History');
+			startBox('<h1>Item History</h1>');
 
 			echo '<p>History for item '.htmlspecialchars($itemid).'</a>.</p>';
 			echo '<table class="prettytable"><tr><th>itemid</th><th>time</th><th>source</th><th>event</th><th colspan="4">parameters</th></tr>';

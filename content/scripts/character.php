@@ -44,7 +44,7 @@ $choosen=$this->players[0];
 $account=$choosen->getAccountInfo();
 ?>
 
-<?php startBox('Character info for '.htmlspecialchars($choosen->name)); ?>
+<?php startBox('<h1>'.htmlspecialchars($choosen->name).'</h1>'); ?>
 <div class="table">
 	<div class="title">Details</div>
 	<div style="float: right">

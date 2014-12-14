@@ -9,7 +9,7 @@ if(getAdminLevel()<400) {
 if(isset($_POST['action'])) {
   if($_REQUEST['action']=='submit') {
 
-    startBox("Adding Event");
+    startBox("<h1>Adding Event</h1>");
       $target_path = "screenshots/";
       $target_path = $target_path . basename( $_FILES['uploadedfile']['name']); 
       if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
@@ -20,11 +20,11 @@ if(isset($_POST['action'])) {
       addScreenshot($target_path,$_REQUEST['description']);
     endBox();
   } elseif($_REQUEST['action']=='update') {
-    startBox("Updating event");
+    startBox("<h1>Updating event</h1>");
       updateScreenshot($_REQUEST['event_id'],$_REQUEST['url'],$_REQUEST['description']);
     endBox();
   } elseif($_REQUEST['action']=='delete') {
-    startBox("Deleting event");
+    startBox("<h1>Deleting event</h1>");
       foreach($_REQUEST['delete'] as $id) {
         deleteScreenshot($id);
       }
@@ -36,7 +36,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   $id=mysql_real_escape_string($_REQUEST['edit']);  
   $screenshotToEdit=getScreenshots('where id="'.$id.'"');
   if(sizeof($screenshotToEdit)==0) {
-    startBox("Edit events");
+    startBox("<h1>Edit events</h1>");
       echo '<div class="error">No such screenshot</div';
     endBox();
   } else {
@@ -48,7 +48,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
    * Show all the previous event items, just header and to tickets approbed and deleted.
    */ 
   $screenshots=getScreenshots();
-  startBox("Admin on existing screenshots");
+  startBox("<h1>Admin on existing screenshots</h1>");
   ?>
   <form class="news" method="post" action="/?id=content/admin/screenshots" name="updateevents">
   <input type="hidden" name="action" value="delete"/>
@@ -68,7 +68,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
   endBox();  
 ?>
 
-<?php startBox((isset($edited)?'Edit':'Submit').' screenshots'); ?>
+<?php startBox('<h1>'.(isset($edited)?'Edit':'Submit').' screenshots</h1>'); ?>
 <form class="news" method="post" enctype="multipart/form-data" action="/?id=content/admin/screenshots" name="submitevents">
   <?php 
    if(isset($edited)) {

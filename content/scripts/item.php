@@ -73,7 +73,7 @@ class ItemPage extends Page {
 
 	
 if ($this->isExact && !$this->found) {
-	startBox("No such Item");
+	startBox("<h1>No such Item</h1>");
 	?>
 	There is no such item at Stendhal.<br>
 	Please make sure you spelled it correctly.

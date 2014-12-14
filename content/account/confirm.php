@@ -11,7 +11,7 @@ class VerifyPage extends Page {
 	}
 
 	function writeContent() {
-		startBox('Verification of email-address');
+		startBox('<h1>Verification of email-address</h1>');
 		if (!isset($_REQUEST['token'])) {
 			echo '<p class="error">Error: The token is missing.</p>';
 		} else {

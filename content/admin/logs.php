@@ -6,7 +6,7 @@ class AdminLogsPage extends Page {
 	if(getAdminLevel()<100) {
 		die("Ooops!");
 	}
-	startBox(SUPPORT_CHANNEL . ' IRC log');
+	startBox('<h1>'.SUPPORT_CHANNEL . ' IRC log</h1>');
 	$directory = SUPPORT_LOG_DIRECTORY;
 
 	if (isset($_GET['date']) && preg_match("/^\d\d\d\d-\d\d-\d\d$/", $_GET['date'])) {

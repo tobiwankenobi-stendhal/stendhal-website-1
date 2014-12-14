@@ -40,7 +40,7 @@ $metadata = getSlrMetadata();
 
 if(isset($_POST['action'])) {
   if($_REQUEST['action']=='submit') {
-    startBox("Adding slr item");
+    startBox("<h1>Adding slr item</h1>");
     if (!isset($_REQUEST['paper_bibkey']) || trim($_REQUEST['paper_bibkey']) == '') {
     	die('Sorry you forgot the bibkey, all your data is lost.');
     }
@@ -61,7 +61,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
   }
   $slrtoEdit=getSlr($id);
   if(sizeof($slrtoEdit)==0) {
-    startBox("Edit slr item");
+    startBox("<h1>Edit slr item</h1>");
       echo '<div class="error">No such slr item</div';
     endBox();
   } else {
@@ -80,7 +80,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
    */ 
   $reviewer = str_replace(SystematicLiteratureReviewPage::$usernames, SystematicLiteratureReviewPage::$reviewers, $_SESSION['account']->username);
   $slr=getAllSlr();
-  startBox("Manage existing slr entries");
+  startBox("<h1>Manage existing slr entries</h1>");
   echo '<ul>';
   foreach($slr as $item) {
     ?>
@@ -102,7 +102,7 @@ if ((isset($_REQUEST['action'])) && ($_REQUEST['action']=='edit' || $_REQUEST['a
 
 <a name="editform"></a>
 <?php
-startBox((isset($this->edited)?'Edit':'Submit').' slr item');
+startBox('<h1>'.(isset($this->edited)?'Edit':'Submit').' slr item</h1>');
 
 ?>
 <form class="slr" method="post" action="<?php echo STENDHAL_FOLDER;?>/?id=content/admin/slr#editform" name="submitslr">
@@ -141,7 +141,7 @@ startBox((isset($this->edited)?'Edit':'Submit').' slr item');
 </form>
 <?php
 		endBox();
-		startBox("Caption");
+		startBox("<h2>Caption</h2>");
 		echo 'Y: details           A: alludes without details        N: not mentioned        (X: want discuss)';
 		endBox();
 	}

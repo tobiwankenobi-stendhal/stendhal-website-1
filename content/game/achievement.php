@@ -55,9 +55,8 @@ class AchievementPage extends Page {
 	}
 
 	function achievementDetail() {
-		startBox("Achievement");
+		startBox('<h1>'.htmlspecialchars($this->achievements->title).'</h1>');
 		echo '<div class="achievement">';
-		echo '<div class="name">'.htmlspecialchars($this->achievements->title).'</div>';
 		echo '<img class="achievement" src="/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png" alt="">';
 		echo '<div class="description">'.htmlspecialchars($this->achievements->description).'</div>';
 		echo '</div>';
@@ -66,7 +65,7 @@ class AchievementPage extends Page {
 		echo "\r\n";
 
 
-		startBox('My Friends');
+		startBox('<h2>My Friends</h2>');
 		if (isset($_SESSION) && isset($_SESSION['account'])) {
 			$list = Achievement::getAwardedToMyFriends($_SESSION['account']->id, $this->achievements->id);
 			echo '<div class="tableCell cards">';
@@ -79,7 +78,7 @@ class AchievementPage extends Page {
 		echo "\r\n";
 
 
-		startBox('My Characters');
+		startBox('<h2>My Characters</h2>');
 		if (isset($_SESSION) && isset($_SESSION['account'])) {
 			$list = Achievement::getAwardedToOwnCharacters($_SESSION['account']->id, $this->achievements->id);
 			echo '<div class="tableCell cards">';
@@ -92,7 +91,7 @@ class AchievementPage extends Page {
 		echo "\r\n";
 
 
-		startBox("Most Recently");
+		startBox("<h2>Most Recently</h2>");
 		$list = Achievement::getAwardedToRecently($this->achievements->id);
 		if (count($list) == 0) {
 			echo 'No character has earned this achievement, yet. Be the first!';
@@ -106,7 +105,7 @@ class AchievementPage extends Page {
 	}
 
 	function achievementList() {
-		startBox("Achievements");
+		startBox("<h2>Achievements</h2>");
 		echo '<table class="prettytable">';
 		foreach ($this->achievements as $achievement) {
 			echo '<tr>';
@@ -121,7 +120,7 @@ class AchievementPage extends Page {
 
 	function categoryAchievementList($category, $description) {
 		$list = Achievement::getAwardedInCategory($category);
-		startBox("Achievements");
+		startBox("<h2>Achievements</h2>");
 		echo '<div class="achievement">';
 		echo '<div class="name">'.ucfirst(htmlspecialchars($category)).'</div>';
 		echo '<img class="achievement" src="/images/achievements/'.htmlspecialchars($category).'.png" alt="">';
@@ -130,7 +129,7 @@ class AchievementPage extends Page {
 		echo count($list).' '.ucfirst(htmlspecialchars($category)).' achievements earned.';
 		endBox();
 		echo "\r\n";
-		startBox("Awarded to");
+		startBox("<h2>Awarded to</h2>");
 		if (count($list) == 0) {
 			echo 'No character has earned one of these achievements, yet.';
 		} else {

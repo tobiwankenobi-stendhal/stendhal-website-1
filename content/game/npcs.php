@@ -29,7 +29,7 @@ $npcs=NPC::getNPCs();
  
 <div style="float: left; width: 100%"><?php
 
-startBox('NPCs');
+startBox('<h1>NPCs</h1>');
 ?>
 <form method="get" action="<?php echo '/'.STENDHAL_FOLDER;?>" id="currentContentSearch">
   <input type="hidden" name="id" value="content/scripts/npc">

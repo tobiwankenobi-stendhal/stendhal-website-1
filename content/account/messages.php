@@ -30,7 +30,7 @@ class MessagesPage extends Page {
 
 	function writeContent() {
 		if(!isset($_SESSION['account'])) {
-			startBox("Messages");
+			startBox("<h1>Messages</h1>");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/messages.html').'">login</a> to view your personal messages.</p>';
 			endBox();
 		} else {
@@ -97,7 +97,7 @@ class MessagesPage extends Page {
 			return;
 		}
 		if (($_POST['csrf'] != $_SESSION['csrf'])) {
-			startBox("Error");
+			startBox("<h2>Error</h2>");
 			echo '<p class="error">Session information was lost.</p>';
 			endBox();
 			return;

@@ -7,14 +7,14 @@ class NetstatsPage extends Page {
 	}
 
 	function writeContent() {
-		startBox('Trace route');
+		startBox('<h1>Trace route</h1>');
 		echo '<div id="traceresult1">Tracing route, please wait...';
 		echo '<table class="progressTable"><tr><td id="progress1" class="progress">&nbsp;</td><td class="pendingprogress">&nbsp;</td></tr></table>';
 		echo' </div>';
 		endBox();
 
 		echo '<div id="tracebox2" style="display:none">';
-		startBox('Details');
+		startBox('<h2>Details</h2>');
 		echo '<div id="traceresult2">Gathering details about every hop on the route, please wait...';
 		echo '<table class="progressTable"><tr><td id="progress2" class="progress">&nbsp;</td><td class="pendingprogress">&nbsp;</td></tr></table>';
 		echo' </div>';

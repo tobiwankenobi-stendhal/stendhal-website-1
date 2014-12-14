@@ -14,7 +14,7 @@ class AdminEMailPage extends Page {
 	}
 
 	function renderForm() {
-		startBox("Email");
+		startBox("<h1>E-Mail</h1>");
 		?>
 <form method="POST">
 <table>
@@ -50,7 +50,7 @@ class AdminEMailPage extends Page {
 	}
 
 	function sendMail() {
-		startBox("Email");
+		startBox("<h1>E-Mail</h1>");
 		$res = mail($_REQUEST['to'], $_REQUEST['subject'], $_REQUEST['body'], 
 			'Cc: '.STENDHAL_GM_EMAIL."\r\nFrom: ".STENDHAL_GM_EMAIL
 			."\r\nMime-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit",

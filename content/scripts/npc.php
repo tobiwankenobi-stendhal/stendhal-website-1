@@ -33,7 +33,7 @@ class NPCPage extends Page {
 
 	function writeContent() {
 		if (sizeof($this->npcs) == 0) {
-			startBox("No such NPC");
+			startBox("<h1>No such NPC</h1>");
 			echo 'There is no such NPC in Stendhal.<br>Please make sure you spelled it correctly.';
 			endBox();
 			return;

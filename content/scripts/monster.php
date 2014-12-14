@@ -62,7 +62,7 @@ class MonsterPage extends Page {
 	function writeContent() {
 
 if (!$this->found) {
-	startBox("No such Creature");
+	startBox("<h1>No such Creature</h1>");
 	?>
 	There is no such creature at Stendhal.<br>
 	Please make sure you spelled it correctly.

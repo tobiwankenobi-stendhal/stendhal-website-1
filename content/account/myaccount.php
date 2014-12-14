@@ -46,13 +46,13 @@ class MyAccountPage extends Page {
 
 	function writeContent() {
 		if (!isset($_SESSION['account'])) {
-			startBox("Login Required");
+			startBox("<h1>Login Required</h1>");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login">login</a>.</p>';
 			endBox();
 			return;
 		}
 
-startBox("My Account"); ?>
+startBox("<h1>My Account</h1>"); ?>
 	<p>You are logged in as <b><?php echo htmlspecialchars($_SESSION['account']->username);?></b>.</p>
 <ul id="dmenu" >
 	<?php 

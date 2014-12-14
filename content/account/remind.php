@@ -83,7 +83,7 @@ class RemindPage extends Page {
 			die();
 		}
 	
-		startBox("Password reset link emailed");
+		startBox("<h1>Password reset link emailed</h1>");
 		?>
 		We have just sent you a link to reset your password.<br>
 		Check you inbox and follow the email instructions.
@@ -95,7 +95,7 @@ class RemindPage extends Page {
 	}
 
 	function showForm() {
-		startBox("Forgot your password?");
+		startBox("<h1>Forgot your password?</h1>");
 		?>
 		In case you have forgotten your new password or your account information we can send you it to your email account that you used to create your stendhal account.<p>
 		<form action="" method="post">

@@ -43,7 +43,7 @@ $classes=Monster::getClasses();
 ?>
 
 <div style="float: left; width: 50%"><?php
-startBox('Most killed (recently)');
+startBox('<h2>Most killed (recently)</h2>');
 $result=$this->getMostKilledMonsterXml($xmlStats, $monsters);
 if($result==null) {
 	$result=array($monsters[0],0);
@@ -63,7 +63,7 @@ endBox();
 ?></div>
 
 <div style="float: left; width: 50%"><?php
-startBox('Best Player killer (recently)');
+startBox('<h2>Best Player killer (recently)</h2>');
 $result=getBestKillerMonster($monsters);
 if($result==null) {
 	$result=array($monsters[0],0);
@@ -84,7 +84,7 @@ endBox();
 
 <div style="float: left; width: 100%"><?php
 
-startBox("Killed monsters on this server run");
+startBox("<h2>Killed monsters on this server run</h2>");
 $monsters=getMonsters();
 
 foreach($monsters as $m) {

@@ -55,7 +55,7 @@ class CreateCharacterPage extends Page {
 
 	function writeContent() {
 		if (!isset($_SESSION['account'])) {
-			startBox("Create Character");
+			startBox("<h1>Create Character</h1>");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url=/account/create-character.html">login</a> to create a character.</p>';
 			endBox();
 		} else {
@@ -93,7 +93,7 @@ class CreateCharacterPage extends Page {
 		$this->initOutfitArray();
 
 		if (isset($_POST['name']) && ($_POST['csrf'] != $_SESSION['csrf'])) {
-			startBox("Error");
+			startBox("<h2>Error</h2>");
 			echo '<p class="error">Session information was lost.</p>';
 			endBox();
 		}
@@ -104,7 +104,7 @@ class CreateCharacterPage extends Page {
 			endBox();
 		}
 
-		startBox("Create Character");
+		startBox("<h1>Create Character</h1>");
 ?>
 
 <form id="createCharacterForm" name="createCharacterForm" action="<?php echo $createURL;?>" method="POST" style="height:22em; padding: 1em"> <!-- onsubmit="return checkForm()"  -->

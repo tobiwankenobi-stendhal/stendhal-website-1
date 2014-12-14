@@ -32,16 +32,14 @@ class UploadPage extends Page {
 	}
 
 	function writeContent() {
+		startBox('<h1>Upload</h1>');
 		if (!isset($_FILES['file'])) {
-			startBox('Upload');
 			echo 'Upload failed. Did you select a file?';
-			endBox();
 		} else {
-			startBox('Upload');
 			move_uploaded_file($_FILES['file']['tmp_name'], "/srv/upload/".date('ymd_His').'_'.$_SERVER["REMOTE_ADDR"].'.txt');
 			echo 'Thanks for you help.';
-			endBox();
 		}
+		endBox();
 	}
 }
 $page = new UploadPage();

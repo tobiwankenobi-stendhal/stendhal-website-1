@@ -59,7 +59,7 @@ class WikiPage extends Page {
 			endBox();
 
 			if (strpos($_REQUEST["title"], '/', 1) !== false) {
-				startBox('Contribute');
+				startBox('<h2>Contribute</h2>');
 				echo '<p>You can edit this pages because it is imported from the Stendhal Wiki.</p>';
 				echo '<ul><li><a rel="nofollow" href="https://stendhalgame.org/w/index.php?title='.surlencode($this->url).'&action=edit">Edit this page</a>';
 				echo '<li><a rel="nofollow" href="https://stendhalgame.org/w/index.php?title='.surlencode($this->url).'&action=history">History and authors</a>';

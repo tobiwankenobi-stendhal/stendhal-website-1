@@ -49,7 +49,7 @@ class TradePage extends Page {
 	}
 
 	public function writeContent() {
-		startBox('New trade offers');
+		startBox('<h1>New trade offers</h1>');
 		if (isset($_REQUEST['tradeid'])) {
 			$this->writeEntry($_REQUEST['tradeid']);
 			echo '<p>See <a href="/trade/">all recent trade offers</a>.</p>';

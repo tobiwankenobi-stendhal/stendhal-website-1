@@ -37,12 +37,12 @@ class SearchsPage extends Page {
 	}
 
 	function writeContent() {
-		startBox('Search');
+		startBox('<h1>Search</h1>');
 		$this->writeSearchForm();
 		$this->writeSearchResult();
 		endBox();
 
-		startBox("Search Information");
+		startBox("<h2>Search Information</h2>");
 		echo 'This unified search is still experimental.<ul><li>Please give <a href="https://sourceforge.net/p/arianne/bugs/new/">feedback</a>.';
 		echo '<li>There may be additional information available at the <a href="https://stendhalgame.org/w/index.php?title=Special%3ASearch&profile=default&search='
 				.urlencode($_REQUEST['q']).'&fulltext=Search">Stendhal Wiki</a>.';

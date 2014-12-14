@@ -21,7 +21,7 @@ class LogoutPage extends Page {
 	}
 
 	function writeContent() {
-		startBox("Logging Out");
+		startBox("<h1>Logging Out</h1>");
 		echo 'You have successfully <b>logged out</b>.<p>Back to <a href="/">start page</a>';
 		endBox();
 	}

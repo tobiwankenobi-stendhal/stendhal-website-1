@@ -156,7 +156,7 @@ class HallOfFamePage extends Page {
 
 	function renderDetails($detail) {
 		//TODO: add more
-		startBox("Strongest players");
+		startBox("<h2>Strongest players</h2>");
 		?>
 		<div class="bubble">XP, Achievements and Age</div>
 		<?php
@@ -169,7 +169,7 @@ class HallOfFamePage extends Page {
 	function renderOverview() {
 		$choosen = getBestPlayer($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere);
 		if ($choosen !== false) {
-			startBox("Best player");
+			startBox("<h1>Best player</h1>");
 			?>
 			<div class="bubble">The best player is decided based on the relation between XP, age, and achievement score. The best players are those who spend time earning XP and achievements.</div>    
 			<div class="best">
@@ -191,7 +191,7 @@ class HallOfFamePage extends Page {
 		}?>
 
 		<div style="float: left; width: 34%">
-			<?php startBox("Best players"); ?>
+			<?php startBox("<h2>Best players</h2>"); ?>
 			<div class="bubble">XP, Achievements per Age</div>
 			<?php
 			$players = getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'R', 'limit '.TOTAL_HOF_PLAYERS);
@@ -202,7 +202,7 @@ class HallOfFamePage extends Page {
 		</div>
 
 		<div style="float: left; width: 33%">
-			<?php startBox("Richest players"); ?>
+			<?php startBox("<h2>Richest players</h2>"); ?>
 			<div class="bubble">Amount of money</div>
 			<?php
 			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'W', 'limit '.TOTAL_HOF_PLAYERS);
@@ -212,7 +212,7 @@ class HallOfFamePage extends Page {
 		</div>
 
 		<div style="float: left; width: 33%">
-			<?php startBox("Eldest players"); ?>
+			<?php startBox("<h2>Eldest players</h2>"); ?>
 			<div class="bubble">Age in hours</div>
 			<?php
 			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere,'A', 'limit '.TOTAL_HOF_PLAYERS);
@@ -222,7 +222,7 @@ class HallOfFamePage extends Page {
 		</div>
 
 		<div style="float: left; width: 33%">
-			<?php startBox("Deathmatch heroes"); ?>
+			<?php startBox("<h2>Deathmatch heroes</h2>"); ?>
 			<div class="bubble">Deathmatch score</div>
 			<?php
 			$players=getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'D', 'limit '.TOTAL_HOF_PLAYERS);
@@ -232,7 +232,7 @@ class HallOfFamePage extends Page {
 		</div>
 
 		<div style="float: left; width: 33%">
-			<?php startBox("Best attackers"); ?>
+			<?php startBox("<h2>Best attackers</h2>"); ?>
 			<div class="bubble">Based on atk*(1+0.03*level)</div>
 			<?php
 			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'T', 'limit '.TOTAL_HOF_PLAYERS);
@@ -242,7 +242,7 @@ class HallOfFamePage extends Page {
 		</div>
 
 		<div style="float: left; width: 33%">
-			<?php startBox("Best defenders"); ?>
+			<?php startBox("<h2>Best defenders</h2>"); ?>
 			<div class="bubble">Based on def*(1+0.03*level)</div>
 			<?php
 			$players= getHOFPlayers($this->tableSuffix, $this->filterFrom.REMOVE_ADMINS_AND_POSTMAN.$this->filterWhere, 'F', 'limit '.TOTAL_HOF_PLAYERS);

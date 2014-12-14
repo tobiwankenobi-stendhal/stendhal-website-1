@@ -55,7 +55,7 @@ class MyCharactersPage extends Page {
 
 	function writeCharacterList($charsPerRow, $createURL) {
 		global $adminLevel;
-		startBox("Character Selector");
+		startBox("<h2>My characters</h1>");
 
 		$players = getCharactersForUsername($_SESSION['account']->username);
 		if(sizeof($players)==0) {
@@ -81,13 +81,13 @@ class MyCharactersPage extends Page {
 		endBox();
 
 		if(sizeof($players) > 0) {
-			startBox("Note");
+			startBox("<h2>Note</h2>");
 			?>
 			<p>On the very first start Stendhal will need to download some additional files. Subsequent starts will be a lot faster.</p>
 			<?php 
 			endBox();
 
-			startBox("Trouble Shooting");
+			startBox("<h2>Trouble Shooting</h2>");
 			?>
 			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
 			If the application is unknown, please download and install <a target="_blank" href="http://java.com">Java</a>. If you have Java installed

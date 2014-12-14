@@ -29,7 +29,7 @@ class LoginHistoryPage extends Page {
 
 	function writeContent() {
 		if(!isset($_SESSION['account'])) {
-			startBox("Login History");
+			startBox("<h1>Login History</h1>");
 			echo '<p>Please <a href="'.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&amp;url='.rewriteURL('/account/history.html').'">login</a> to view your personal login history.</p>';
 			endBox();
 		} else {

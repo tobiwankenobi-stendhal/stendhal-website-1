@@ -33,7 +33,7 @@ $classes=Item::getClasses();
 
 
 if(!isset($_GET['class'])) {
-  startBox('Items classes');
+  startBox('<h1>Items</h1>');
   ?>
   <form method="get" action="/" id="currentContentSearch">
     <input type="hidden" name="id" value="content/scripts/item">
@@ -73,7 +73,7 @@ if(!isset($_GET['class'])) {
 <?php
 //foreach($classes as $class=>$zero) {
 $class=$_GET['class'];
-startBox(ucfirst($class).' Items');
+startBox('<h1>'.ucfirst($class).' Items</h1>');
 echo '<div class="cards">';
   foreach($items as $item) {
 	if($item->class==$class) {

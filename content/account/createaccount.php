@@ -76,7 +76,7 @@ class CreateAccountPage extends Page {
 
 	function show() {
 		if ($this->error || (isset($this->result) && !$this->result->wasSuccessful())) {
-			startBox("Error");
+			startBox("<h1>Error</h1>");
 			if ($this->error) {
 				echo '<span class="error">'.htmlspecialchars($this->error).'</span>';
 			} else {
@@ -127,7 +127,7 @@ endBox();
 
 echo '<br>';
 
-startBox("External Account");
+startBox("<h2>External Account</h2>");
 ?>
 	<form id="openid_form" action="<?php echo STENDHAL_FOLDER;?>/?id=content/account/login" method="post">
 		<input id="oauth_version" name="oauth_version" type="hidden">
@@ -171,7 +171,7 @@ startBox("External Account");
 ?>
 
 <br>
-<?php startBox("Logging and privacy");?>
+<?php startBox("<h2>Logging and privacy</h2>");?>
 <p>
 <font size="-1">On login information which identifies your computer on the internet will be 
 logged to prevent abuse (like many attempts to guess a password in order to
