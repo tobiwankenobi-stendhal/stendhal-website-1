@@ -8,7 +8,7 @@ class DevelopmentPage extends Page {
 
 	function writeContent() {
 
-startBox("Stendhal, Arianne, and You"); ?>
+startBox("<h1>Stendhal, Arianne, and You</h1>"); ?>
 <img src = "/images/ariannelogo.png"  style="float:right;" alt="Arianne Logo"  />
 Stendhal is an open source project, written and released under the GNU GPL license by the <a href="http://arianne.sf.net">Arianne project</a>. We aim to make it easy to get involved and there are many ways to contribute. If you have an idea for a feature or something you would like different, you're very encouraged to make it happen!
 <p>
@@ -16,7 +16,7 @@ You can contribute if you are a beginner or experienced Java coder, or just want
 <p>
 There are loads of tutorials on our wiki including how to set up the Eclipse development environment and get started with your first Java code for a quest, so it's an ideal project for beginners to programming, supported by a friendly development team.
 <?php endBox(); ?>
-<?php startBox("Development"); ?>
+<?php startBox("<h1>Development</h1>"); ?>
 <ul id="dmenu" >
 	<li><a href="/wiki/StendhalCodeDesign"><img src="/images/buttons/c_code_button.png" alt="">Code</a> - details of code designs and conventions</li>
 	<li><a href="/wiki/StendhalRefactoringGraphics"><img src="/images/buttons/c_gfx_button.png" alt="">Graphics</a> - artists, this one is for you</li>
@@ -28,7 +28,7 @@ There are loads of tutorials on our wiki including how to set up the Eclipse dev
 </ul>
 If you plan to help with Stendhal development it is a very good idea to talk about it with the developers and contributors at the <a href="<?php echo rewriteURL('/development/chat.html');?>">irc channel #arianne on freenode.</a>.  
 <?php endBox(); ?>
-<?php startBox("Video"); ?>
+<?php startBox("<h1>Video</h1>"); ?>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/x4OpqCWAYaU" name="videoframe" frameborder="0" allowfullscreen></iframe>
 <br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=92" target="videoframe">0:01</a> Introduction
 <br><a href="https://www.youtube.com/embed/x4OpqCWAYaU?autoplay=1&start=92" target="videoframe">1:32</a> Source code download

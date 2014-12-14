@@ -19,7 +19,7 @@ class ChatPage extends Page {
 	
 
 	function writeIntroduction() {
-		startBox("Chat to other users and developers");
+		startBox("<h1>Chat to other users and developers</h1>");
 		?>
 You can get an IRC client and connect to:
 
@@ -36,7 +36,7 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 	}
 
 	function writeLog() {
-		startBox(MAIN_CHANNEL . ' IRC log');
+		startBox('<h2>'.MAIN_CHANNEL . ' IRC log</h2>');
 		echo '<a name="log" id="log"></a>';
 		$directory = MAIN_LOG_DIRECTORY;
 
