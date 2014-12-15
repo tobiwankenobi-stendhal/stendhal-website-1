@@ -25,13 +25,14 @@ startBox("<h1>Source Code</h1>"); ?>
 <p>You can use a git client to <a href="/wiki/Arianne_Source_Code_Repositories">download our Marauroa source code</a> or you can browse the <a href="http://arianne.git.sourceforge.net/git/gitweb.cgi?p=arianne/marauroa.git;a=summary">web-based Git repository</a>.</p>
 
 <p>Recent changes to the code are recorded below. </p>
-<?php endBox() ?>
-<?php startBox("<h2>Recent Development</h2>"); ?>
-<?php
+<?php endBox();
+
 	$directory = CVS_LOG_DIRECTORY;
 
 	if (isset($_GET['month']) && preg_match("/^\d\d\d\d-\d\d$/", $_GET['month'])) {
 	$month = $_GET['month'];
+
+startBox('<h2>Changes in '.htmlspecialchars($month).'</h2>');
 ?>
 	<p>
 		<a href="<?php echo rewriteURL('/development/sourcelog.html')?>">Index of logs</a>
@@ -88,6 +89,7 @@ for ($day = 1; $day <= 31; $day++) {
 
 <?php
 	} else {
+		startBox('<h2>Recent changes</h2>');
 		$dir = opendir($directory);
 		if ($dir !== false) {
 			while (false !== ($file = readdir($dir))) {
@@ -98,11 +100,8 @@ for ($day = 1; $day <= 31; $day++) {
 			closedir($dir);
 			rsort($filearray);
 		}
-?>
-	<ul>
-<?php
 
-
+		echo '<ul>';
 		$last = '';
 		foreach ($filearray as $file) {
 			$month = substr($file, 0, 7);
@@ -111,12 +110,10 @@ for ($day = 1; $day <= 31; $day++) {
 				$last = $month;
 			}
 		}
-?>
-	</ul>
-<?php
-}
+		echo '</ul>';
+	}
 
-endBox();
+	endBox();
 
 	}
 
