@@ -19,6 +19,11 @@
  */
 
 $OUTFITS_BASE="data/sprites/outfit";
+$OUTFITS_BODY=$OUTFITS_BASE . "/body";
+$OUTFITS_DRESS=$OUTFITS_BASE . "/dress";
+$OUTFITS_HEAD=$OUTFITS_BASE . "/head";
+$OUTFITS_HAIR=$OUTFITS_BASE . "/hair";
+$OUTFITS_DETAIL=$OUTFITS_BASE . "/detail";
 
 require_once 'configuration.php';
 
@@ -111,6 +116,30 @@ function load_part($part_name, $index, $offset) {
 }
 
 /*
+ * Load a part of an outfit from a specified sub-directory
+ */
+function load_part($part_name, $index, $offset, $directory) {
+	if (index < 10) {
+		$suffix = "00" . strval($index);
+	} else if (index < 100) {
+		$suffix = "0" . strval($index);
+	} else {
+		$suffix = strval($index);
+	}
+	
+	$location = $directory . $part_name . $suffix . '.png';
+	
+	// A workaround for imagick crashing when the file does not
+	// exist.
+	if (file_exists($location)) {
+		$image = new Imagick($location);
+		$image->cropImage(48, 64, 0, $offset * 64);
+		return $image;
+	}
+	return 0;
+}
+
+/*
  * Paint a colored image over outfit
  */
 function composite_with_color($outfit, $overlay, $color) {
@@ -126,6 +155,12 @@ function composite_with_color($outfit, $overlay, $color) {
  * Create an outfit image.
  */
 function create_outfit($completeOutfit, $offset) {
+	global $OUTFITS_BODY;
+	global $OUTFITS_DRESS;
+	global $OUTFITS_HEAD;
+	global $OUTFITS_HAIR;
+	global $OUTFITS_DETAIL;
+	
 	// outfit code
 	$code = $completeOutfit[0];
 	// The client won't let select pure black, so 0 works for no color.
@@ -141,7 +176,7 @@ function create_outfit($completeOutfit, $offset) {
 	// body:
 	$index = $code % 100;
 	$bodyIndex = $index;
-	$outfit = load_part('/player_base_', $index, $offset);
+	$outfit = load_part('/body_', $index, $offset, $OUTFITS_BODY);
 	if (!$outfit) {
 		// ensure we have something to draw on
 		$outfit = new Imagick();
@@ -155,7 +190,7 @@ function create_outfit($completeOutfit, $offset) {
 		$index = 91;
 	}
 	if ($index) {
-		$tmp = load_part('/dress_', $index, $offset);
+		$tmp = load_part('/dress_', $index, $offset, $OUTFITS_DRESS);
 	} else {
 		$tmp = 0;
 	}
@@ -164,7 +199,7 @@ function create_outfit($completeOutfit, $offset) {
 	// head
 	$code /= 100;		
 	$index = $code % 100;
-	$tmp = load_part('/head_', $index, $offset);
+	$tmp = load_part('/head_', $index, $offset, $OUTFITS_HEAD);
 	if ($tmp) {
 		$outfit->compositeImage($tmp, imagick::COMPOSITE_OVER, 0, 0);
 	}
@@ -173,7 +208,7 @@ function create_outfit($completeOutfit, $offset) {
 	$code /= 100;		
 	$index = $code % 100;
 	if ($index) {
-		$tmp = load_part('/hair_', $index, $offset);
+		$tmp = load_part('/hair_', $index, $offset, $OUTFITS_HAIR);
 	} else {
 		$tmp = 0;
 	}
@@ -183,7 +218,7 @@ function create_outfit($completeOutfit, $offset) {
 	$code /= 100;		
 	$index = $code % 100;
 	if ($index) {
-		$tmp = load_part('/detail_', $index, $offset);
+		$tmp = load_part('/detail_', $index, $offset, $OUTFITS_DETAIL);
 	} else {
 		$tmp = 0;
 	}
