@@ -120,14 +120,14 @@ function load_part($part_name, $index, $offset) {
  */
 function load_part($part_name, $index, $offset, $directory) {
 	if (index < 10) {
-		$suffix = "00" . strval($index);
+		$suffix = '00' . strval($index);
 	} else if (index < 100) {
-		$suffix = "0" . strval($index);
+		$suffix = '0' . strval($index);
 	} else {
 		$suffix = strval($index);
 	}
 	
-	$location = $directory . $part_name . $suffix . '.png';
+	$location = $directory . '/' . $part_name . '_' . $suffix . '.png';
 	
 	// A workaround for imagick crashing when the file does not
 	// exist.
@@ -176,7 +176,7 @@ function create_outfit($completeOutfit, $offset) {
 	// body:
 	$index = $code % 100;
 	$bodyIndex = $index;
-	$outfit = load_part('/body_', $index, $offset, $OUTFITS_BODY);
+	$outfit = load_part('body', $index, $offset, $OUTFITS_BODY);
 	if (!$outfit) {
 		// ensure we have something to draw on
 		$outfit = new Imagick();
@@ -190,7 +190,7 @@ function create_outfit($completeOutfit, $offset) {
 		$index = 91;
 	}
 	if ($index) {
-		$tmp = load_part('/dress_', $index, $offset, $OUTFITS_DRESS);
+		$tmp = load_part('dress', $index, $offset, $OUTFITS_DRESS);
 	} else {
 		$tmp = 0;
 	}
@@ -199,7 +199,7 @@ function create_outfit($completeOutfit, $offset) {
 	// head
 	$code /= 100;		
 	$index = $code % 100;
-	$tmp = load_part('/head_', $index, $offset, $OUTFITS_HEAD);
+	$tmp = load_part('head', $index, $offset, $OUTFITS_HEAD);
 	if ($tmp) {
 		$outfit->compositeImage($tmp, imagick::COMPOSITE_OVER, 0, 0);
 	}
@@ -208,7 +208,7 @@ function create_outfit($completeOutfit, $offset) {
 	$code /= 100;		
 	$index = $code % 100;
 	if ($index) {
-		$tmp = load_part('/hair_', $index, $offset, $OUTFITS_HAIR);
+		$tmp = load_part('hair', $index, $offset, $OUTFITS_HAIR);
 	} else {
 		$tmp = 0;
 	}
@@ -218,7 +218,7 @@ function create_outfit($completeOutfit, $offset) {
 	$code /= 100;		
 	$index = $code % 100;
 	if ($index) {
-		$tmp = load_part('/detail_', $index, $offset, $OUTFITS_DETAIL);
+		$tmp = load_part('detail', $index, $offset, $OUTFITS_DETAIL);
 	} else {
 		$tmp = 0;
 	}
