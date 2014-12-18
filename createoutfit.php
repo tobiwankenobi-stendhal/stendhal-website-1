@@ -100,22 +100,6 @@ function color_image($image, $color) {
 }
 
 /*
- * Load a part of an outfit
- */
-function load_part($part_name, $index, $offset) {
-	global $OUTFITS_BASE;
-	$location = $OUTFITS_BASE . $part_name . $index . '.png';
-	// A workaround for imagick crashing when the file does not
-	// exist.
-	if (file_exists($location)) {
-		$image = new Imagick($location);
-		$image->cropImage(48, 64, 0, $offset * 64);
-		return $image;
-	}
-	return 0;
-}
-
-/*
  * Load a part of an outfit from a specified sub-directory
  */
 function load_part($part_name, $index, $offset, $directory) {
