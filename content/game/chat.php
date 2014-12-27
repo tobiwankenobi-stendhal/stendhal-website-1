@@ -83,8 +83,8 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 				$line = htmlspecialchars($line);
 				$line = preg_replace('/@/', '&lt;(a)&gt;', $line);
 				$line = preg_replace(
-						'!(http|https)://(faiumoni.de|stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com|libregamewiki.org|freesound.org|opengameart.org|openclipart.org)(/[^ ]*)?!',
-						'<a href="$1://$2$3">$1://$2$3</a>', $line);
+						'!(http|https)://(www.)(faiumoni.de|stendhalgame.org|arianne.sf.net|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com|libregamewiki.org|freesound.org|opengameart.org|openclipart.org)(/[^ ]*)?!',
+						'<a href="$1://$2$3$4">$1://$2$3$4</a>', $line);
 		
 				if ($line != '') {
 					echo '<div class="chatrow '.$class.'"><span class="chatcell c1">'
