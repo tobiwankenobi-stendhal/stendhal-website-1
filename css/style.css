@@ -180,7 +180,7 @@ img.screenshot {
 	text-align: left;
 	position: relative;
 	top: 40px;
-	left: 2px;
+	padding-left: 2px;
 }
 
 .copyright a {
