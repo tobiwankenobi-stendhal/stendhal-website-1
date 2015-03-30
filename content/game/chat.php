@@ -96,8 +96,8 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 		}
 		
 		
-		echo '<p><a href="'.rewriteURL('/chat/'.date_format(date_sub(date_create($date), date_interval_create_from_date_string('1 day')), 'Y-m-d').'.html');
-		echo '">Older</a> &nbsp;&nbsp;&nbsp; * &nbsp;&nbsp;&nbsp; <a href="'.rewriteURL('/chat/'.date_format(date_add(date_create($date), date_interval_create_from_date_string('1 day')), 'Y-m-d').'.html').'">Newer</a>';
+		echo '<p><a href="'.rewriteURL('/chat/'.date_format(date_sub(date_create($date), date_interval_create_from_date_string('1 day')), 'Y-m-d').'.html#log');
+		echo '">Older</a> &nbsp;&nbsp;&nbsp; * &nbsp;&nbsp;&nbsp; <a href="'.rewriteURL('/chat/'.date_format(date_add(date_create($date), date_interval_create_from_date_string('1 day')), 'Y-m-d').'.html#log').'">Newer</a>';
 		
 		echo '</div>';
 		endBox();
