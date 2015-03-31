@@ -29,7 +29,7 @@ class DownloadPage extends Page {
 		echo '<p>We use <a href="http://www.mapeditor.org/download.html">Tiled</a> to edit Stendhal maps.</p>';
 		endBox();
 
-		startBox('<h2>Pre-release testing</h2>');
+		startBox('<h2>Pre-release testing</h2>', 'testing');
 		echo '<p>Please see <a href="http://stendhalgame.org/wiki/Stendhal_Testing">Stendhal Testing</a>, if you want to help us test the next release.</p>';
 		echo '<p>Use this beta version with care as it will contain bugs. Please note: It will not update itself.</p>';
 
