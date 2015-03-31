@@ -56,6 +56,12 @@ function startBox($title) {
 	echo '<div class="boxContent">';
 }
 
+function startBox($title, $id) {
+	echo '<div class="box" id="'.$id.'">';
+	echo '<div class="boxTitle">'.$title.'</div>';
+	echo '<div class "boxContent">';
+}
+
 function endBox() {
 	echo '</div></div>';
 }
