@@ -87,7 +87,8 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 						'<a href="$1://$2$3$4$5">$1://$2$3$4$5</a>', $line);
 		
 				if ($line != '') {
-					echo '<div class="chatrow '.$class.'"><span class="chatcell c1">'
+					echo '<div class="chatrow '.$class.'" id="'
+						.$time.'"><span class="chatcell c1">'
 						.htmlspecialchars($time).'</span><span class="chatcell c2">'
 						.htmlspecialchars($nick).'</span><span class="chatcell c3">'
 						.$line.'</span></div>'."\n";
