@@ -50,16 +50,14 @@ require_once('scripts/xml.php');
 require_once('scripts/zones.php');
 
 
-function startBox($title) {
-	echo '<div class="box">';
-	echo '<div class="boxTitle">'.$title.'</div>';
-	echo '<div class="boxContent">';
-}
-
 function startBox($title, $id) {
-	echo '<div class="box" id="'.$id.'">';
-	echo '<div class="boxTitle">'.$title.'</div>';
-	echo '<div class "boxContent">';
+	echo '<div class="box">';
+	$idAttr = '';
+	if (isset($id)) {
+		$idAttr = ' id="'.htmlspecialchars($id).'"';
+	}
+	echo '<div class="boxTitle"'.$idAttr.'>'.$title.'</div>';
+	echo '<div class="boxContent">';
 }
 
 function endBox() {
