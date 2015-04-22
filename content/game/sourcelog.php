@@ -20,9 +20,9 @@ class SourceLogPage extends Page {
 startBox("<h1>Source Code</h1>"); ?>
 <p>The Arianne project is hosted on <a href="http://sourceforge.net/projects/arianne">Sourceforge</a> and uses CVS (Concurrent Versions System) and Git to manage changes to our source code. </p> 
 
-<p>You can use a CVS client to <a href="http://sourceforge.net/scm/?type=cvs&amp;group_id=1111">download our Stendhal source code</a> or you can browse the <a href="http://arianne.cvs.sourceforge.net/arianne">web-based CVS repository</a>.</p>
+<p>You can use a Git client to <a href="https://sourceforge.net/p/arianne/stendhal/ci/master/tree/">download our Stendhal source code</a> or <a href="https://sourceforge.net/p/arianne/marauroa/ci/master/tree/">our Marauroa source code</a>.</p>
 
-<p>You can use a git client to <a href="/wiki/Arianne_Source_Code_Repositories">download our Marauroa source code</a> or you can browse the <a href="http://arianne.git.sourceforge.net/git/gitweb.cgi?p=arianne/marauroa.git;a=summary">web-based Git repository</a>.</p>
+<p>For more information check out the <a href="/wiki/Arianne_Source_Code_Repositories">Source Code Repositories wiki page</a>.</p>
 
 <p>Recent changes to the code are recorded below. </p>
 <?php endBox();
