@@ -1,6 +1,6 @@
 <?php
 /*
- Copyright (C) 2011-2013 Faiumoni e. V.
+ Copyright (C) 2011-2015 Faiumoni e. V.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -191,7 +191,7 @@ body {
 		$page->writeContent();
 	?>
 	<div id="footerArea">
-		<span>&copy; 2011-2013 Faiumoni e. V.</span>
+		<span>&copy; 2011-2015 Faiumoni e. V.</span>
 	</div>
 </div>
 <div id="bodycontainer">
