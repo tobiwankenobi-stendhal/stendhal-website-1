@@ -153,6 +153,9 @@ body {
 	vertical-align: top;
 }
 .menu a {background-color: transparent}
+#rightArea {
+    margin: 0 0 0 800px;
+}
 @media print {
 	#bodycontainer {
 		display: none;
@@ -230,6 +233,7 @@ body {
 		<?php endBox() ?>
 
 	</div>
+</div>
 
 	<div id="rightArea">
 		<?php
@@ -259,7 +263,6 @@ body {
 		}
 		?>
 	</div>
-</div>
 </div>
 <?php $this->includeJs();?>
 </body>
