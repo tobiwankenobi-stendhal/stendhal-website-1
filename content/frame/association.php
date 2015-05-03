@@ -88,6 +88,7 @@ body {
 }
 #header {
 	padding: 10px 0 0 8px;
+	background-image: none;
 }
 #bodycontainer {
 	background-color: #ccd9dc;
@@ -151,6 +152,7 @@ body {
 #contentArea tr {
 	vertical-align: top;
 }
+.menu a {background-color: transparent}
 @media print {
 	#bodycontainer {
 		display: none;
