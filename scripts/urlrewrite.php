@@ -443,7 +443,7 @@ function rewriteURL($url, $force = false) {
 		}
 
 	// association
-	} else if (preg_match('|^/../.*|', $url)) {
+	} else if (STENDHAL_FRAME != 'content/frame/stendhal.php' && preg_match('|^/../.*|', $url)) {
 		if (preg_match('|^/(..)/documents/(.*)$|', $url)) {
 			return preg_replace('|^/(..)/documents/(.*)$|', $folder.'/index.php?lang=$1&id=content/association/documents&file=$2', $url);
 		} else if (preg_match('|^/(..)/(.*)\.html$|', $url)) {
