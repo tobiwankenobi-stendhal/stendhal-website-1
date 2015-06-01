@@ -55,7 +55,13 @@ class WikiPage extends Page {
 		} else {
 			
 			startBox('<h1>'.htmlspecialchars($this->pageTitle).'</h1>');
+			$lang='en';
+			if (substr($this->url, 2, 1) == '/') {
+				$lang=substr($this->url, 0, 2);
+			}
+			echo '<div lang="'.htmlspecialchars($lang).'">';
 			echo $this->wiki->render();
+			echo '</div>';
 			endBox();
 
 			if (strpos($_REQUEST["title"], '/', 1) !== false) {
