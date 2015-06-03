@@ -68,7 +68,6 @@ class SearchsPage extends Page {
 
 		// the database resutls are pre sorted within each query, but we still need to "merge-sort" the results from multiple queries
 		usort($rows, 'searchScoreCallback');
-
 		$known = array();
 		$filteredResults = false;
 		
@@ -77,7 +76,7 @@ class SearchsPage extends Page {
 		foreach ($rows As $row) {
 		
 			// filter duplicated entries
-			$key = $row['entitytype'].$row['entityname'];
+			$key = $row['entitytype'].$row['entityname'].$row['path'];
 			if (isset($known[$key])) {
 				continue;
 			}
@@ -115,7 +114,7 @@ class SearchsPage extends Page {
 				break;
 			}
 			case 'G': {
-				$this->renderWiki($row['entitytype'], $row['entityname'], '', $row['path']);
+				$this->renderWiki($row['entitytype'], $row['entityname'], '', $row['path'], $row['lang']);
 				break;
 			}
 			case 'I': {
@@ -131,7 +130,7 @@ class SearchsPage extends Page {
 				break;
 			}
 			case 'W': {
-				$this->renderWiki($row['entitytype'], $row['entityname'], $row['category'], $row['path']);
+				$this->renderWiki($row['entitytype'], $row['entityname'], $row['category'], $row['path'], $row['lang']);
 				break;
 			}
 		}
@@ -206,7 +205,7 @@ class SearchsPage extends Page {
 			$entry->sentence);
 	}
 
-	function renderWiki($entitytype, $name, $category = '', $path = '') {
+	function renderWiki($entitytype, $name, $category = '', $path = '', $lang = '') {
 		$type = 'Wiki page';
 		if ($entitytype == 'G') {
 			$type = "Player's guide";
@@ -215,6 +214,9 @@ class SearchsPage extends Page {
 		}
 		$displayName = str_replace('_', ' ', $name);
 		$displayName = preg_replace('|.*/|', '', $displayName);
+		if ($lang != '') {
+			$displayName = $displayName. ' ('.$lang.')';
+		}
 		if (!isset($path) || ($path == '')) {
 			$path = '/wiki/'.$name;
 		}
