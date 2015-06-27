@@ -1002,6 +1002,16 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		return i.toString();
 	}
 
+	function formatNumber3(i) {
+		if (i < 10) {
+			return "00" + i;
+		}
+		if (i < 100) {
+			return "0" + i;
+		}
+		return "" + i;
+	}
+
 
 	// ----------------------------------------------------------------------------
 	//                               changepassword.php
@@ -1147,11 +1157,11 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 
 	var createCharacterFaceOffset = 2;
 	var createCharacterMaxOutfit = [44, 21, 15, 53];
-	var createCharacterOutfitNames = ["hair", "head", "player_base", "dress"];
+	var createCharacterOutfitNames = ["hair", "head", "body", "dress"];
 	var currentOutfit = [0, 0, 0, 0];
 
 	function createCharacterUpdate(i) {
-		document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + createCharacterOutfitNames[i] + "_" + currentOutfit[i] + ".png')";
+		document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + createCharacterOutfitNames[i] + "/" + createCharacterOutfitNames[i] + "_" + formatNumber3(currentOutfit[i]) + ".png')";
 		var outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 		document.getElementById("outfitcode").value = outfitCode;
 		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "&rewritten=true')";
@@ -1173,7 +1183,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 	function createCharacterUpdateAll() {
 		var i;
 		for (i = 0; i < 4; i++) {
-			document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + createCharacterOutfitNames[i] + "_" + currentOutfit[i] + ".png')";
+			document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + createCharacterOutfitNames[i] + "/" + createCharacterOutfitNames[i] + "_" + formatNumber3(currentOutfit[i]) + ".png')";
 		}
 		var outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 		document.getElementById("outfitcode").value = outfitCode;
@@ -1196,7 +1206,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			document.getElementById("outfit" + i).style.backgroundPosition = "0 " + (cssOffset * 64) + "px";
 		}
 		var outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
-		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "')";
+		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "&rewritten=tru')";
 	}
 
 	var createCharacterLastRequestedName = "";
