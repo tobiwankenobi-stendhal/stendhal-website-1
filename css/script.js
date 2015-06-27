@@ -1177,7 +1177,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		}
 		var outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
 		document.getElementById("outfitcode").value = outfitCode;
-		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "')";
+		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "&rewritten=true')";
 	}
 
 	function createCharacterInit() {
