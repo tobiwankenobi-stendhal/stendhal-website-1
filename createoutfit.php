@@ -32,6 +32,18 @@ function color_name($color) {
 	return '#' . $name;
 }
 
+
+function formatNumber3($i) {
+	if ($i < 10) {
+		return "00" . $i;
+	}
+	if ($i < 100) {
+		return "0" . $i;
+	}
+	return "" . $i;
+
+}
+
 /*
  * Color an image roughly like Stendhal Blend.TrueColor does.
  * 
@@ -99,7 +111,8 @@ function color_image($image, $color) {
  */
 function load_part($part_name, $index, $offset) {
 	global $OUTFITS_BASE;
-	$location = $OUTFITS_BASE . $part_name . $index . '.png';
+	$location = $OUTFITS_BASE . '/' . $part_name . '/' . $part_name . '_' . formatNumber3($index) . '.png';
+	
 	// A workaround for imagick crashing when the file does not
 	// exist.
 	if (file_exists($location)) {
@@ -141,7 +154,7 @@ function create_outfit($completeOutfit, $offset) {
 	// body:
 	$index = $code % 100;
 	$bodyIndex = $index;
-	$outfit = load_part('/player_base_', $index, $offset);
+	$outfit = load_part('body', $index, $offset);
 	if (!$outfit) {
 		// ensure we have something to draw on
 		$outfit = new Imagick();
@@ -155,7 +168,7 @@ function create_outfit($completeOutfit, $offset) {
 		$index = 91;
 	}
 	if ($index) {
-		$tmp = load_part('/dress_', $index, $offset);
+		$tmp = load_part('dress', $index, $offset);
 	} else {
 		$tmp = 0;
 	}
@@ -164,7 +177,7 @@ function create_outfit($completeOutfit, $offset) {
 	// head
 	$code /= 100;		
 	$index = $code % 100;
-	$tmp = load_part('/head_', $index, $offset);
+	$tmp = load_part('head', $index, $offset);
 	if ($tmp) {
 		$outfit->compositeImage($tmp, imagick::COMPOSITE_OVER, 0, 0);
 	}
@@ -173,7 +186,7 @@ function create_outfit($completeOutfit, $offset) {
 	$code /= 100;		
 	$index = $code % 100;
 	if ($index) {
-		$tmp = load_part('/hair_', $index, $offset);
+		$tmp = load_part('hair', $index, $offset);
 	} else {
 		$tmp = 0;
 	}
@@ -183,7 +196,7 @@ function create_outfit($completeOutfit, $offset) {
 	$code /= 100;		
 	$index = $code % 100;
 	if ($index) {
-		$tmp = load_part('/detail_', $index, $offset);
+		$tmp = load_part('detail', $index, $offset);
 	} else {
 		$tmp = 0;
 	}
