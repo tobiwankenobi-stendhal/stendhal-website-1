@@ -50,7 +50,7 @@ require_once('scripts/xml.php');
 require_once('scripts/zones.php');
 
 
-function startBox($title, $id) {
+function startBox($title, $id=null) {
 	echo '<div class="box">';
 	$idAttr = '';
 	if (isset($id)) {
