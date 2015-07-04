@@ -44,6 +44,7 @@ class StendhalFrame extends PageFrame {
 	function writeHtmlHeader() {
 		echo '<link rel="icon" type="image/x-icon" href="'.STENDHAL_FOLDER.'/favicon.ico">';
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
+		echo '<link rel="manifest" href="/manifest.json">';
 	}
 
 	/**
