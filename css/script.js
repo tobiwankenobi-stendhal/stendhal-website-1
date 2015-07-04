@@ -1484,13 +1484,11 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			});
 		})
 		.catch(function(err) {
-				console.warn('Error during serviceWorker.ready', err);
-			});
+			console.warn('Error during serviceWorker.ready', err);
+		});
 	}
 
-	function pushSubscribe() {  
-		// Disable the button so it can't be changed while  
-		// we process the permission request  
+	function pushSubscribe() {
 		$("#pushNotificationButton").attr("disabled", "disabled");
 
 		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
@@ -1500,11 +1498,14 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 				isPushEnabled = true;
 				//pushButton.textContent = 'Disable Push Messages';
 				$("#pushNotificationButton").removeAttr("disabled");
-
-				// TODO: Send the subscription.subscriptionId and
-				// subscription.endpoint to your server
-				// and save it to send a push message at a later date
-		        return console.log("sendSubscriptionToServer", subscription);
+				var serverpath = document.getElementById("serverpath").value;
+				var data = {endpoint: subscription.endpoint,
+						subscriptionId: subscription.subscriptionId
+				}
+				$.post(serverpath + "/index.php?id=content/scripts/api"
+					+ "&method=pushnotification&param=subscribe"
+					+ "&csrf=" + $("#csrf").val(), data);
+		        return true;
 			})
 			.catch(function(e) {
 				if (Notification.permission === 'denied') {
@@ -1521,6 +1522,52 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 					console.error('Unable to subscribe to push.', e);
 					$("#pushNotificationButton").attr("disabled", "disabled");
 				}
+			});
+		});
+	}
+
+	function pushUnsubscribe() {
+		$("#pushNotificationButton").attr("disabled", "disabled");
+
+		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+			// To unsubscribe from push messaging, you need get the
+			// subscription object, which you can call unsubscribe() on.
+			serviceWorkerRegistration.pushManager.getSubscription().then(function(pushSubscription) {
+				// Check we have a subscription to unsubscribe
+				if (!pushSubscription) {
+					// No subscription object, so set the state
+					// to allow the user to subscribe to push
+					isPushEnabled = false;
+					$("#pushNotificationButton").removeAttr("disabled");
+					// pushButton.textContent = 'Enable Push Messages';
+					return;
+				}
+
+				var serverpath = document.getElementById("serverpath").value;
+				var data = {endpoint: pushSubscription.endpoint,
+						subscriptionId: pushSubscription.subscriptionId
+				}
+				$.post(serverpath + "/index.php?id=content/scripts/api"
+						+ "&method=pushnotification&param=unsubscribe"
+						+ "&csrf=" + $("#csrf").val(), data);
+
+				// We have a subscription, so call unsubscribe on it
+				pushSubscription.unsubscribe().then(function(successful) {
+					$("#pushNotificationButton").removeAttr("disabled");
+					// pushButton.textContent = 'Enable Push Messages';
+					isPushEnabled = false;
+				}).catch(function(e) {
+					// We failed to unsubscribe, this can lead to
+					// an unusual state, so may be best to remove
+					// the users data from your data store and
+					// inform the user that you have done so
+
+					console.log('Unsubscription error: ', e);
+					$("#pushNotificationButton").removeAttr("disabled");
+					// pushButton.textContent = 'Enable Push Messages'
+				});
+			}).catch(function(e) {
+				console.error('Error thrown while unsubscribing from push messaging.', e);
 			});
 		});
 	}
