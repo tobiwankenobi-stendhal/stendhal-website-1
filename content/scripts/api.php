@@ -45,6 +45,8 @@ class APIPage extends Page {
 			$this->getData($categories);
 		} else if ($_REQUEST['method'] == 'screenshots') {
 			$this->getScreenshots();
+		} else if ($_REQUEST['method'] == 'pushnotification') {
+			$this->pushNotification($_REQUEST['param']);
 		} else {
 			$this->unknown($_REQUEST['param']);
 		}
@@ -148,6 +150,28 @@ class APIPage extends Page {
 			$data[$i]['href'] = '/wiki/images/' . $hash{0} . '/' . substr( $hash, 0, 2 ) . '/' . urlencode($data[$i]['href']);
 		}
 		echo json_encode($data);
+	}
+	
+	
+	public function pushNotification($param) {
+		if (!checkLogin()) {
+			http_response_code(403);
+			echo 'Not logged in.';
+			return;
+		}
+
+		if (($_REQUEST['csrf'] !== $_SESSION['csrf'])) {
+			http_response_code(403);
+			echo 'Invalid csrf';
+			echo $_POST['csrf'] . '--!--' . $_SESSION['csrf'];
+			return;
+		}
+
+		if ($param === 'subscribe') {
+			addAccountLink($_SESSION['account']->username, 'push', $_REQUEST['subscriptionId'], '', $_REQUEST['endpoint']);
+		} else if ($param === 'unsubscribe') {
+			delAccountLink($_SESSION['account']->username, 'push', $_REQUEST['subscriptionId']);
+		}
 	}
 }
 $page = new APIPage();

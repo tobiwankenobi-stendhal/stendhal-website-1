@@ -151,6 +151,22 @@ function addAccountLink($username, $type, $identifier, $email, $nickname) {
 	mysql_query($sql, getGameDB());
 }
 
+/**
+ * dels an account link (like an openid)
+ *
+ * @param string $username the name of the logged in user to add the link to
+ * @param $identifier the openid identifier
+ * @param $type "openid" or "connect"
+ */
+function delAccountLink($username, $type, $identifier) {
+	$accountId = getUserID($username);
+	$sql = "DELETE FROM accountLink WHERE player_id='"
+		. mysql_real_escape_string($accountId)."' AND type='"
+		. mysql_real_escape_string($type)."' AND username='"
+		. mysql_real_escape_string($identifier)."';";
+	mysql_query($sql, getGameDB());
+}
+
 
 /**
  * A class that represent a player history entry
