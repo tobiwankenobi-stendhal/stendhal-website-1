@@ -163,14 +163,19 @@ class APIPage extends Page {
 		if (($_REQUEST['csrf'] !== $_SESSION['csrf'])) {
 			http_response_code(403);
 			echo 'Invalid csrf';
-			echo $_POST['csrf'] . '--!--' . $_SESSION['csrf'];
 			return;
 		}
 
 		if ($param === 'subscribe') {
+			http_response_code(204);
 			addAccountLink($_SESSION['account']->username, 'push', $_REQUEST['subscriptionId'], '', $_REQUEST['endpoint']);
 		} else if ($param === 'unsubscribe') {
 			delAccountLink($_SESSION['account']->username, 'push', $_REQUEST['subscriptionId']);
+		}
+		if (($param === 'check') || ($param === 'unsubscribe')) {
+			$links = AccountLink::findAccountLink('push', $_REQUEST['subscriptionId']);
+			header('Content-Type: text/json');
+			echo '{remaining:'.(count($links) > 0).'}';
 		}
 	}
 }
