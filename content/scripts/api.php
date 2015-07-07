@@ -173,9 +173,17 @@ class APIPage extends Page {
 			delAccountLink($_SESSION['account']->username, 'push', $_REQUEST['subscriptionId']);
 		}
 		if (($param === 'check') || ($param === 'unsubscribe')) {
-			$links = AccountLink::findAccountLink('push', $_REQUEST['subscriptionId']);
+			if ($param === 'check') {
+				$links = AccountLink::findAccountLinksForUsername('push', $_SESSION['account']->id, $_REQUEST['subscriptionId']);
+			} else {
+				$links = AccountLink::findAccountLink('push', $_REQUEST['subscriptionId']);
+			}
+			$res = "false";
+			if (isset($links) && count($links) > 0) {
+				$res = "true";
+			}
 			header('Content-Type: text/json');
-			echo '{remaining:'.(count($links) > 0).'}';
+			echo '{"remaining":'.$res.'}';
 		}
 	}
 }

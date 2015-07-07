@@ -954,12 +954,29 @@ class AccountLink {
 		return $links;
 	}
 
+	public static function findAccountLinksForUsername($type, $accountId, $username) {
+		$sql = "SELECT id, player_id, type, username, nickname, email, secret "
+				. "FROM accountLink "
+				. "WHERE username ='".mysql_real_escape_string($username)."'"
+				. " AND type = '".mysql_real_escape_string($type)."'"
+				. " AND player_id=".intval($accountId);
+		$result = mysql_query($sql, getGameDB());
+		$links = array();
+		while($row = mysql_fetch_assoc($result)) {
+			$links[] = new AccountLink($row['id'], $row['player_id'],
+					$row['type'], $row['username'], $row['nickname'],
+					$row['email'], $row['secret']);
+		}
+		mysql_free_result($result);
+		return $links;
+	}
 	public static function findAccountLink($type, $username) {
 		$sql = "SELECT id, player_id, type, username, nickname, email, secret "
 		. "FROM accountLink "
 		. "WHERE username ='".mysql_real_escape_string($username)."'"
-		. " AND type = '".mysql_real_escape_string($username)."'";
+		. " AND type = '".mysql_real_escape_string($type)."'";
 		$result = mysql_query($sql, getGameDB());
+		$links = array();
 		while($row = mysql_fetch_assoc($result)) {
 			$links[] = new AccountLink($row['id'], $row['player_id'],
 			$row['type'], $row['username'], $row['nickname'],
