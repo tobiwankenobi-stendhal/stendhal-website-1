@@ -1417,20 +1417,11 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 	//----------------------------------------------------------------------------
 	//                                       push
 	//----------------------------------------------------------------------------
-	var isPushEnabled = false;
 	function initPush() {
-		$("#pushNotificationButton").click(function() {  
-			if (isPushEnabled) {  
-				pushUnsubscribe();  
-			} else {  
-				pushSubscribe();  
-			}
-		});
-
 		if ('serviceWorker' in navigator) {  
 			navigator.serviceWorker.register('/service-worker.js').then(initialisePushState);  
 		} else {
-			console.log('Service workers aren\'t supported in this browser.');  
+			$("#pushNotificationBox").text("Stendhal can send push notification when you receive an offline message. But your browser does not support push notifications, yet. Please use Chrome on Android for example.");
 		}
 	}
 
@@ -1438,7 +1429,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 	function initialisePushState() {
 		// Are Notifications supported in the service worker?
 		if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
-			console.log('Notifications aren\'t supported.');
+			$("#pushNotificationBox").text("Stendhal can send push notification when you receive an offline message. But your browser does not support push notifications, yet. Please use Chrome on Android for example.");
 			return;
 		}
 
@@ -1446,13 +1437,13 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		// If its denied, it's a permanent block until the
 		// user changes the permission
 		if (Notification.permission === 'denied') {
-			console.log('The user has blocked notifications.');
+			$("#pushNotificationBox").text("Stendhal can send push notification when you receive an offline message. But your browser has denied permissions.");
 			return;
 		}
 
 		// Check if push messaging is supported
 		if (!('PushManager' in window)) {
-			console.log('Push messaging isn\'t supported.');
+			$("#pushNotificationBox").text("Stendhal can send push notification when you receive an offline message. But your browser does not support push notifications, yet. Please use Chrome on Android for example.");
 			return;
 		}
 
@@ -1461,23 +1452,18 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			// Do we already have a push message subscription?
 			serviceWorkerRegistration.pushManager.getSubscription()
 				.then(function(subscription) {
-					// Enable any UI which subscribes / unsubscribes from
-					// push messages.
-					$("#pushNotificationButton").removeAttr("disabled");
-
-					if (!subscription) {
-						// We aren't subscribed to push, so set UI
-						// to allow the user to enable push
-						return;
+					if (subscription) {
+						var serverpath = document.getElementById("serverpath").value;
+						$.post(serverpath + "/index.php?id=content/scripts/api"
+								+ "&method=pushnotification&param=check"
+								+ "&csrf=" + $("#csrf").val(), {subscriptionId: subscription.subscriptionId}, 
+								function(data) {
+									renderSubscribeButton(!data.remaining);
+								});
+					} else {
+						renderSubscribeButton(true);
 					}
 
-				// Keep your server in sync with the latest subscriptionId
-				console.log("sendSubscriptionToServer", subscription);
-
-				// Set your UI to show they have subscribed for
-				// push messages
-				//pushButton.textContent = 'Disable Push Messages';
-				isPushEnabled = true;
 			})
 			.catch(function(err) {
 				console.warn('Error during getSubscription()', err);
@@ -1487,17 +1473,23 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			console.warn('Error during serviceWorker.ready', err);
 		});
 	}
+	
+	function renderSubscribeButton(subscribe) {
+		if (subscribe) {
+			$("#pushNotificationBox").html("<button id=\"pushNotificationButton\">Subscribe</button>");
+			$("#pushNotificationButton").click(pushSubscribe);
+		} else {
+			$("#pushNotificationBox").html("<button id=\"pushNotificationButton\">Unsubscribe</button>");
+			$("#pushNotificationButton").click(pushUnsubscribe);
+		}
+	}
 
 	function pushSubscribe() {
-		$("#pushNotificationButton").attr("disabled", "disabled");
+		renderSubscribeButton(false);
 
 		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
 			serviceWorkerRegistration.pushManager.subscribe()
 			.then(function(subscription) {
-				// The subscription was successful
-				isPushEnabled = true;
-				//pushButton.textContent = 'Disable Push Messages';
-				$("#pushNotificationButton").removeAttr("disabled");
 				var serverpath = document.getElementById("serverpath").value;
 				var data = {endpoint: subscription.endpoint,
 						subscriptionId: subscription.subscriptionId
@@ -1509,39 +1501,18 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			})
 			.catch(function(e) {
 				if (Notification.permission === 'denied') {
-					// The user denied the notification permission which
-					// means we failed to subscribe and the user will need
-					// to manually change the notification permission to
-					// subscribe to push messages
-					console.warn('Permission for Notifications was denied');
-					$("#pushNotificationButton").attr("disabled", "disabled");
+					$("#pushNotificationBox").text("Stendhal can send push notification when you receive an offline message. But your browser has denied permissions.");
 				} else {
-					// A problem occurred with the subscription; common reasons
-					// include network errors, and lacking gcm_sender_id and/or
-					// gcm_user_visible_only in the manifest.
 					console.error('Unable to subscribe to push.', e);
-					$("#pushNotificationButton").attr("disabled", "disabled");
 				}
 			});
 		});
 	}
 
 	function pushUnsubscribe() {
-		$("#pushNotificationButton").attr("disabled", "disabled");
-
+		renderSubscribeButton(true);
 		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-			// To unsubscribe from push messaging, you need get the
-			// subscription object, which you can call unsubscribe() on.
 			serviceWorkerRegistration.pushManager.getSubscription().then(function(pushSubscription) {
-				// Check we have a subscription to unsubscribe
-				if (!pushSubscription) {
-					// No subscription object, so set the state
-					// to allow the user to subscribe to push
-					isPushEnabled = false;
-					$("#pushNotificationButton").removeAttr("disabled");
-					// pushButton.textContent = 'Enable Push Messages';
-					return;
-				}
 
 				var serverpath = document.getElementById("serverpath").value;
 				var data = {endpoint: pushSubscription.endpoint,
@@ -1549,25 +1520,11 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 				}
 				$.post(serverpath + "/index.php?id=content/scripts/api"
 						+ "&method=pushnotification&param=unsubscribe"
-						+ "&csrf=" + $("#csrf").val(), data);
-
-				// We have a subscription, so call unsubscribe on it
-				pushSubscription.unsubscribe().then(function(successful) {
-					$("#pushNotificationButton").removeAttr("disabled");
-					// pushButton.textContent = 'Enable Push Messages';
-					isPushEnabled = false;
-				}).catch(function(e) {
-					// We failed to unsubscribe, this can lead to
-					// an unusual state, so may be best to remove
-					// the users data from your data store and
-					// inform the user that you have done so
-
-					console.log('Unsubscription error: ', e);
-					$("#pushNotificationButton").removeAttr("disabled");
-					// pushButton.textContent = 'Enable Push Messages'
+						+ "&csrf=" + $("#csrf").val(), data, function(data) {
+					if (!data.remaining) {
+						pushSubscription.unsubscribe();
+					}
 				});
-			}).catch(function(e) {
-				console.error('Error thrown while unsubscribing from push messaging.', e);
 			});
 		});
 	}
@@ -1715,7 +1672,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		}
 	});
 	
-	if (document.getElementById("pushNotificationButton") != null) {
+	if (document.getElementById("pushNotificationBox") != null) {
 		initPush();
 	}
 }());
