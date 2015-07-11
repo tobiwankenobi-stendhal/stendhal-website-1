@@ -1417,6 +1417,23 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 	//----------------------------------------------------------------------------
 	//                                       push
 	//----------------------------------------------------------------------------
+	// This method handles the removal of subscriptionId
+	// in Chrome 44 by concatenating the subscription Id
+	// to the subscription endpoint
+	function endpointWorkaround(pushSubscription) {
+		if (pushSubscription.endpoint.indexOf('https://android.googleapis.com/gcm/send') !== 0) {
+			return pushSubscription.endpoint;
+		}
+
+		var mergedEndpoint = pushSubscription.endpoint;
+		if (pushSubscription.subscriptionId &&
+				pushSubscription.endpoint.indexOf(pushSubscription.subscriptionId) === -1) {
+			mergedEndpoint = pushSubscription.endpoint + '/' +
+			pushSubscription.subscriptionId;
+		}
+		return mergedEndpoint;
+	}
+
 	function initPush() {
 		if ('serviceWorker' in navigator) {  
 			navigator.serviceWorker.register('/service-worker.js').then(initialisePushState);  
@@ -1456,7 +1473,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 						var serverpath = document.getElementById("serverpath").value;
 						$.post(serverpath + "/index.php?id=content/scripts/api"
 								+ "&method=pushnotification&param=check"
-								+ "&csrf=" + $("#csrf").val(), {subscriptionId: subscription.subscriptionId}, 
+								+ "&csrf=" + $("#csrf").val(), {subscriptionId: endpointWorkaround(subscription)}, 
 								function(data) {
 									renderSubscribeButton(!data.remaining);
 								});
@@ -1488,15 +1505,26 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		renderSubscribeButton(false);
 
 		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-			serviceWorkerRegistration.pushManager.subscribe()
+			serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true})
 			.then(function(subscription) {
+				// tell stendhal server
 				var serverpath = document.getElementById("serverpath").value;
-				var data = {endpoint: subscription.endpoint,
-						subscriptionId: subscription.subscriptionId
-				}
+				var data = {subscriptionId: endpointWorkaround(subscription)}
 				$.post(serverpath + "/index.php?id=content/scripts/api"
 					+ "&method=pushnotification&param=subscribe"
 					+ "&csrf=" + $("#csrf").val(), data);
+
+				// tell service worker
+				var request = indexedDB.open("config");
+				request.onupgradeneeded = function() {
+					var db = request.result;
+					var store = db.createObjectStore("config", {keyPath: "key"});
+				};
+				request.onsuccess = function() {
+					var db = request.result;
+					var trans = db.transaction(["config"], "readwrite");
+					trans.objectStore("config").put({key: "pushendpoint", endpoint: endpointWorkaround(subscription)});
+				};
 		        return true;
 			})
 			.catch(function(e) {
@@ -1515,9 +1543,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			serviceWorkerRegistration.pushManager.getSubscription().then(function(pushSubscription) {
 
 				var serverpath = document.getElementById("serverpath").value;
-				var data = {endpoint: pushSubscription.endpoint,
-						subscriptionId: pushSubscription.subscriptionId
-				}
+				var data = {subscriptionId: endpointWorkaround(pushSubscription)}
 				$.post(serverpath + "/index.php?id=content/scripts/api"
 						+ "&method=pushnotification&param=unsubscribe"
 						+ "&csrf=" + $("#csrf").val(), data, function(data) {
