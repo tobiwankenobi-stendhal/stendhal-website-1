@@ -142,7 +142,7 @@ class LoginPage extends Page {
 	}
 
 	function handleRedirectIfAlreadyLoggedIn() {
-		if (checkLogin()) {
+		if ($this->checkLogin()) {
 			if (isset($_REQUEST['url'])) {
 				if ($_REQUEST['url'] == 'close') {
 					echo '<!DOCTYPE html><html><head><title>Close</title>';
@@ -157,6 +157,24 @@ class LoginPage extends Page {
 			return true;
 		}
 		return false;
+	}
+	
+	function checkLogin() {
+		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
+			return false;
+		}
+
+		if (isset($_REQUEST['username'])) {
+			$okay = $_REQUEST['username'] === $_SESSION['account']->username;
+			if (!$okay) {
+				unset($_SESSION['account']);
+				unset($_SESSION['csrf']);
+				$_SESSION = array(); 
+				session_destroy();
+			}
+			return $okay;
+		}
+		return true;
 	}
 
 	function getUrl() {
@@ -216,7 +234,11 @@ class LoginPage extends Page {
 
 		<form action="" method="post">
 			<table>
-				<tr><td><label for="user">Username:</label></td><td><input type="text" id="user" name="user" maxlength="30"></td></tr>
+				<tr><td><label for="user">Username:</label></td><td><input type="text" id="user" name="user" maxlength="30" <?php
+				if (isset($_REQUEST['username'])) {
+					echo ' value="'.htmlspecialchars($_REQUEST['username']).'" ';
+				}
+				?>></td></tr>
 				<tr><td><label for="pass">Password:</label></td><td><input type="password" id="pass" name="pass" maxlength="30"></td></tr>
 				<tr><td colspan="2" align="right"><input type="submit" name="sublogin" value="Login"></td></tr>
 			</table>
