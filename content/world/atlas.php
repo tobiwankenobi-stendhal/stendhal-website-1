@@ -110,6 +110,12 @@ class AtlasPage extends Page {
 			echo 'data-local-x="'.htmlspecialchars($coordinates[1]).'" data-local-y="'.htmlspecialchars($coordinates[2]).'"></span>';
 		}
 		echo '<span id="data-pois" data-pois="'.htmlspecialchars(json_encode(PointofInterest::getPOIs())).'"></span>';
+		foreach ($zones as $zone) {
+			if ($zone->int || $zone->z != 0) {
+				continue;
+			}
+			echo '<span class="zone-data" data-name="'. htmlspecialchars($zone->name) . '" data-x="' . htmlspecialchars($zone->x) . '" data-y="' . htmlspecialchars($zone->y) . '"></span>';
+		}
 		echo '</div>';
 	}
 	

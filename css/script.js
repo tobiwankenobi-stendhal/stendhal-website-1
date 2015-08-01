@@ -884,6 +884,26 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 		}
 	}
 
+	/**
+	 * adds zone labels to the map
+	 */
+	function addZoneLabels(map) {
+		var layer = L.layerGroup();
+		$(".zone-data").each(function() {
+			layer.addLayer(L.marker(
+				worldToLatLng(map, [this.getAttribute("data-x"), this.getAttribute("data-y")]), {
+					icon: L.divIcon({
+				        className: 'zone-names',
+				        iconAnchor: [0, 0],
+				        iconSize: [80, 23],
+				        html: "<span style='color:#FFF'>" + this.getAttribute("data-name") + "</span>"
+				     })
+				}
+			))
+		});
+		return layer;
+	}
+
 	function addMe(map) {
 		if ($("#data-me").length > 0) {
 			L.marker(
@@ -895,12 +915,9 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 				.bindPopup("I am here at " + $("#data-me").attr("data-zone")
 						+ " (" + $("#data-me").attr("data-local-x") + ", " + $("#data-me").attr("data-local-y") + ")");
 		}
-
 	}
 
 	function initializeLeafletAtlas() {
-
-
 		var map = L.map('map_canvas', {
 			attributionControl: false
 		});
@@ -913,6 +930,23 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 
 		addActivePOIs(map);
 		addMe(map);
+
+		// zone labels
+		var layer = addZoneLabels(map);
+		if (map.getZoom() >= 4) {
+			layer.addTo(map);
+		}
+		map.on("zoomend", function(e) {
+			if (map.getZoom() >= 4) {
+				if (!map.hasLayer(layer)) {
+					map.addLayer(layer);
+				}
+			} else {
+				if (map.hasLayer(layer)) {
+					map.removeLayer(layer);
+				}
+			}
+		});
 
 		L.tileLayer($("#map_canvas").attr("data-tile-url-base") + "/{z}-{x}-{y}.png", {
 			attribution: '',
