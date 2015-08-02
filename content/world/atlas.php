@@ -116,6 +116,7 @@ class AtlasPage extends Page {
 			}
 			echo '<span class="zone-data" data-name="'. htmlspecialchars($zone->name) . '" data-x="' . htmlspecialchars($zone->x) . '" data-y="' . htmlspecialchars($zone->y) . '"></span>';
 		}
+		echo '<span id="zone-info" data-zones="'.htmlspecialchars(json_encode(Zone::getZoneInfos())).'"></span>';
 		echo '</div>';
 	}
 	

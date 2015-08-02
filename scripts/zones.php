@@ -38,6 +38,10 @@ class Zone {
 		$this->file = $file;
 	}
 
+	public static function getZoneInfos() {
+		return fetchToArray('SELECT * FROM zoneinfo WHERE level=0 AND iterior=0', getGameDB());
+	}
+
 	public static function getZones() {
 		global $cache;
 		if(sizeof(Zone::$zones) == 0) {
@@ -254,3 +258,4 @@ class PointofInterest {
 		return PointofInterest::$pois;
 	}
 }
+ 

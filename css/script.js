@@ -917,6 +917,30 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 		}
 	}
 
+	function addZoneDanger(map) {
+		var zones = $.parseJSON($("#zone-info").attr("data-zones"));
+		var key;
+		for (key in zones) {
+			var  color;
+			if (zones[key]["dangerLevel"] < 1) {
+				color = "#00A000";
+			} else if (zones[key]["dangerLevel"] < 5) {
+				color = "#A0FFFF";
+			} else if (zones[key]["dangerLevel"] < 10) {
+				color = "#FFFF00";
+			}  else if (zones[key]["dangerLevel"] < 50) {
+				color = "#FF8000";
+			}  else if (zones[key]["dangerLevel"] < 100) {
+				color = "#800000";
+			} else {
+				color = "#A000A0"
+			}
+			    L.rectangle([worldToLatLng(map, [parseInt(zones[key]["x"], 10) + 1, parseInt(zones[key]["y"], 10) + 1]),  
+			             worldToLatLng(map, [parseInt(zones[key]["x"], 10) + parseInt(zones[key]["width"], 10) - 2, parseInt(zones[key]["y"], 10) + parseInt(zones[key]["height"], 10) - 2])],
+			             {color: color, weight: 2, fill: false, opacity: 1}).addTo(map);
+		}
+	}
+
 	function initializeLeafletAtlas() {
 		var map = L.map('map_canvas', {
 			attributionControl: false
@@ -930,6 +954,8 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 
 		addActivePOIs(map);
 		addMe(map);
+		
+		// addZoneDanger(map);
 
 		// zone labels
 		var layer = addZoneLabels(map);
