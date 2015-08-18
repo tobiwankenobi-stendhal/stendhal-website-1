@@ -84,13 +84,13 @@ class StarterPage extends Page {
 	}
 	
 	private function streamWebstart() {
-		$version = '1.17';
+		$version = '1.18';
 		if (isset($_REQUEST['test'])) {
-			$version = '1.17';
+			$version = '1.18';
 		}
 		header('Content-Type: application/x-java-jnlp-file', true);
 		echo '<?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0+" codebase="http://arianne.sourceforge.net/jws">
+<jnlp spec="1.0+" codebase="https://arianne-project.org/jws">
 	<information>
 		<title>Stendhal</title>
 		<vendor>The Arianne Project</vendor>

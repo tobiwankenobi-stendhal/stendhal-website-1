@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- set codebase to game-server to allow connection (security restriction) -->
 <!-- the .jar-files are downloaded from sf.net in order not to cause lag in game -->
-<jnlp spec="1.0+" codebase="http://arianne.sourceforge.net/jws" href="stendhal.jnlp">
+<jnlp spec="1.0+" codebase="https://arianne-project.org/jws" href="stendhal.jnlp">
   <information>
     <title>Stendhal</title>
     <vendor>The Arianne Project</vendor>
@@ -22,8 +22,8 @@ So what are you waiting for?! A whole new world awaits...</description>
     <all-permissions/>
   </security>
   <resources>
-    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.6+" max-heap-size="200m" />
-    <jar href="http://arianne.sourceforge.net/jws/stendhal-starter-1.14.jar" download="eager" main="true" />
+    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.7+" max-heap-size="200m" />
+    <jar href="http://arianne.sourceforge.net/jws/stendhal-starter-1.18.jar" download="eager" main="true" />
   </resources>
   <application-desc/>
 </jnlp>
