@@ -5,7 +5,7 @@
   <information>
     <title>Stendhal</title>
     <vendor>The Arianne Project</vendor>
-    <homepage href="http://arianne.sourceforge.net"/>
+    <homepage href="https://arianne-project.org"/>
     <description>Are you looking for adventure? Want to fight for riches? Develop yourself and your social standing? Meet new people? Do you want to be part of a brave new world?
 
 Stendhal is a fully fledged multiplayer online adventures game (MMORPG) developed using the Arianne game development system.
@@ -14,8 +14,8 @@ Stendhal features a new, rich and expanding world in which you can explore towns
 
 So what are you waiting for?! A whole new world awaits...</description>
     <description kind="short">A multiplayer online adventures game</description>
-    <icon href="http://arianne.sourceforge.net/images/stendhal_webstart_icon.png"/>
-    <icon kind="splash" href="http://arianne.sourceforge.net/images/stendhal_splash.jpg"/>
+    <icon href="https://arianne-project.org/images/stendhal_webstart_icon.png"/>
+    <icon kind="splash" href="https://arianne-project.org/images/stendhal_splash.jpg"/>
     <offline-allowed/>
   </information>
   <security>
@@ -23,7 +23,7 @@ So what are you waiting for?! A whole new world awaits...</description>
   </security>
   <resources>
     <j2se href="http://java.sun.com/products/autodl/j2se" version="1.7+" max-heap-size="200m" />
-    <jar href="http://arianne.sourceforge.net/jws/stendhal-starter-1.18.jar" download="eager" main="true" />
+    <jar href="https://arianne-project.org/jws/stendhal-starter-1.18.jar" download="eager" main="true" />
   </resources>
   <application-desc/>
 </jnlp>
