@@ -63,7 +63,10 @@ class MessagesPage extends Page {
 	
 	function writeTabs() {
 		$playerId = $_SESSION['account']->id;
+//		<input name="pushNotificationButton" id="pushNotificationButton" type="checkbox" disabled>
+//		<label for="pushNotificationButton">Push Notifications</label>
 		?>
+
 		<br>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
 		<td class="barTab" width="2%"> &nbsp;</td>
@@ -137,7 +140,8 @@ class MessagesPage extends Page {
 		echo '<p>This is a list of the recent messages'.$which.'your characters.';
 
 		echo '<form name="messages" id="messages" method="POST" action="'.rewriteURL('/account/messages/'.surlencode($this->filter).'.html').'">';
-		echo '<input type="hidden" name="csrf" value="'.htmlspecialchars($_SESSION['csrf']).'">';
+		echo '<input type="hidden" id="csrf" name="csrf" value="'.htmlspecialchars($_SESSION['csrf']).'">';
+		echo '<input id="serverpath" name="serverpath" type="hidden" value="'.htmlspecialchars(STENDHAL_FOLDER).'">';
 		echo '<table class="prettytable"><tr><th>mark</th><th>from</th><th>to</th><th>server time</th><th>message</th></tr>'."\n";
 		foreach ($messages as $entry) {
 			if ($this->filter!="from-me" && $entry->delivered == 0) {
