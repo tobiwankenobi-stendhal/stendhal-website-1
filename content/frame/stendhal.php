@@ -70,7 +70,7 @@ echo ' class="layout"';
 		echo '</div>';
 
 		echo '<a href="'.STENDHAL_LOGIN_TARGET.'/account/mycharacters.html"><span class="block" id="playArea"></span></a>';
-		echo '<a href="http://arianne.sourceforge.net/download/stendhal.zip"><span class="block" id="downloadArea"></span></a>';
+		echo '<a href="https://arianne-project.org/download/stendhal.zip"><span class="block" id="downloadArea"></span></a>';
 		echo '</form>';
 		?>
  		</div>
@@ -90,7 +90,7 @@ echo ' class="layout"';
 	</div>
 	
 	<div id="footerArea">
-		<span class="copyright">&copy; 1999-2015 <a href="http://arianne.sourceforge.net">Arianne Project</a></span>
+		<span class="copyright">&copy; 1999-2015 <a href="https://arianne-project.org">Arianne Project</a></span>
 	</div>
 
 	<div class="time">

@@ -91,7 +91,7 @@ class MyCharactersPage extends Page {
 			?>
 			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
 			If the application is unknown, please download and install <a target="_blank" href="http://java.com">Java</a>. If you have Java installed
-			and it still does not find the Webstarter, please <a href="http://arianne.sourceforge.net/download/stendhal.zip">download Stendhal</a> and try to start it normally.</p>
+			and it still does not find the Webstarter, please <a href="https://arianne-project.org/download/stendhal.zip">download Stendhal</a> and try to start it normally.</p>
 
 			<p>If you have trouble to join the game, please ask in the <a target="_top" href="/chat/">#arianne</a> chat or create a 
 			<a target="_blank" href="https://sourceforge.net/p/arianne/support-requests/new/?summary=Webstart%20does%20not%20work%20for%20me">support ticket</a>.</p>

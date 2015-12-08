@@ -35,7 +35,7 @@ class AtlasPage extends Page {
 		startBox('<h2>Extended information</h2>');
 		echo '<p>You can use your mouse or the map controls to zoom and pan.</p>';
 		echo '<p>There is lots more information about each of the <a href="/region.html">regions</a> and <a href="/dungeon.html">dungeons</a>.</p>';
-		echo '<p>You can add <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a> to this map or open a map with <a href="http://arianne.sourceforge.net/screens/stendhal/world_labelled.png">zone names</a>.</p>';
+		echo '<p>You can add <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a> to this map or open a map with <a href="https://arianne-project.org/screens/stendhal/world_labelled.png">zone names</a>.</p>';
 		endBox();
 
 		$zoom = 3;

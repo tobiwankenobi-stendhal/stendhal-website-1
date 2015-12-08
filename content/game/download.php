@@ -14,7 +14,7 @@ class DownloadPage extends Page {
 		startBox('<h2>For players</h2>');
 		echo '<p>You most likely want this download:</p>';
 		echo '<ul>';
-		echo '<li><b><a href="http://arianne.sourceforge.net/download/stendhal.zip">stendhal.zip</a></b> <img src="/images/buttons/star.png"><br>Download this file to play.</li>';
+		echo '<li><b><a href="https://arianne-project.org/download/stendhal.zip">stendhal.zip</a></b> <img src="/images/buttons/star.png"><br>Download this file to play.</li>';
 		echo '</ul>';
 		echo '<p>Stendhal works on Windows, Mac and Linux. It requires a <a href="https://java.com">Java runtime</a>.</p>';
 		echo '<p>&nbsp;</p>';
@@ -23,8 +23,8 @@ class DownloadPage extends Page {
 		startBox('<h2>For developers</h2>');
 		echo '<p>If you are a developer, you may be interested in these files. Please have a look at the <a href="/development.html">development corner</a>.</p>';
 		echo '<ul>';
-		echo '<li><a href="http://arianne.sourceforge.net/download/stendhal-server.zip">stendhal-server.zip</a><br>This file contains the stendhal server files. It is not needed to play Stendhal.</li>';
-		echo '<li><a href="http://arianne.sourceforge.net/download/stendhal-src.tar.gz">stendhal-src.tar.gz</a><br>This file is for developers. It contains the source code for both the client and the server.</li>';
+		echo '<li><a href="https://arianne-project.org/download/stendhal-server.zip">stendhal-server.zip</a><br>This file contains the stendhal server files. It is not needed to play Stendhal.</li>';
+		echo '<li><a href="https://arianne-project.org/download/stendhal-src.tar.gz">stendhal-src.tar.gz</a><br>This file is for developers. It contains the source code for both the client and the server.</li>';
 		echo '</ul>';
 		echo '<p>We use <a href="http://www.mapeditor.org/download.html">Tiled</a> to edit Stendhal maps.</p>';
 		endBox();
