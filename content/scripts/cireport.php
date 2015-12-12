@@ -18,29 +18,26 @@
  */
 
 
-class UploadPage extends Page {
+class CIReportPage extends Page {
 
 	public function writeHttpHeader() {
-		if (!isset($_FILES['file'])) {
-			header('HTTP/1.0 404 Not Found');
+		if (isset($_FILES['file'])) {
+			header('HTTP/1.0 204 Not Found');
+			move_uploaded_file($_FILES['file']['tmp_name'], "/srv/upload/testresults_".date('ymd_His').'_'.$_SERVER["REMOTE_ADDR"].'.txt');
+			return false;
 		}
 		return true;
 	}
 
 	public function writeHtmlHeader() {
-		echo '<title>Upload'.STENDHAL_TITLE.'</title>';
+		echo '<title>Testresults'.STENDHAL_TITLE.'</title>';
 	}
 
 	function writeContent() {
-		startBox('<h1>Upload</h1>');
-		if (!isset($_FILES['file'])) {
-			echo 'Upload failed. Did you select a file?';
-		} else {
-			move_uploaded_file($_FILES['file']['tmp_name'], "/srv/upload/testresults_".date('ymd_His').'_'.$_SERVER["REMOTE_ADDR"].'.txt');
-			echo 'Thanks for you help.';
-		}
+		startBox('<h1>Testresults</h1>');
+		$files = glob('/srv/upload/testresults_*');
+		echo '<pre>'.htmlspecialchars(file_get_contents($files[count($files)-1])).'</pre>';
 		endBox();
 	}
 }
-$page = new UploadPage();
-?>
+$page = new CIReportPage();
