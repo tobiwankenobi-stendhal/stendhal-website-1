@@ -36,7 +36,19 @@ class CIReportPage extends Page {
 	function writeContent() {
 		startBox('<h1>Testresults</h1>');
 		$files = glob('/srv/upload/testresults_*');
-		echo '<pre>'.htmlspecialchars(file_get_contents($files[count($files)-1])).'</pre>';
+		$content = file_get_contents($files[count($files)-1]);
+		
+		$root = new SimpleXMLElement($content);
+		foreach ($root as $testsuite) {
+			foreach ($testsuite as $testcase) {
+				if (isset($testcase->failure) || isset($testcase->error)) {
+					startBox('<h2>'.htmlspecialchars($testcase['classname'])
+					.' '.htmlspecialchars($testcase['name']).'</h2>');
+					echo '<div style="white-space: pre-line">'.htmlspecialchars($testcase->failure).htmlspecialchars($testcase->error).'</div>';
+					endBox();
+				}
+			}
+		}
 		endBox();
 	}
 }
