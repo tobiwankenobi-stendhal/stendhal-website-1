@@ -38,6 +38,7 @@ class CIReportPage extends Page {
 		$files = glob('/srv/upload/testresults_*');
 		$content = file_get_contents($files[count($files)-1]);
 		
+		$failures = 0;
 		$root = new SimpleXMLElement($content);
 		foreach ($root as $testsuite) {
 			foreach ($testsuite as $testcase) {
@@ -46,9 +47,15 @@ class CIReportPage extends Page {
 					.' '.htmlspecialchars($testcase['name']).'</h2>');
 					echo '<div style="white-space: pre-line">'.htmlspecialchars($testcase->failure).htmlspecialchars($testcase->error).'</div>';
 					endBox();
+					$failures++;
 				}
 			}
 		}
+		
+		if ($failures == 0) {
+			echo 'Yay! All test pass.';	
+		}
+		
 		endBox();
 	}
 }
