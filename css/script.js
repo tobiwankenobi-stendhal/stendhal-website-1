@@ -541,12 +541,12 @@ This code is licenced under the New BSD License.
  */
 
 var providers_large = {
-	google: {
+	/*google: {
 		name: 'Google',
 		url: 'https://www.google.com/accounts/o8/id',
 		x: -1,
 		y: -1
-	},
+	},*/
 	yahoo: {
 		name: 'Yahoo',
 		url: 'http://me.yahoo.com/',
