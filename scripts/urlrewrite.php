@@ -351,8 +351,12 @@ function rewriteURL($url, $force = false) {
 
 	// development
 	} else if (preg_match('|^/development.*|', $url)) {
-		if (preg_match('|^/development/introduction.html$|', $url)) {
-			return preg_replace('|^/development/introduction.html$|', $folder.'/?id=content/game/development', $url);
+		if (preg_match('|^/development/git-push\.html$|', $url)) {
+			return preg_replace('|^/development/git-push\.html$|', $folder.'/?id=content/scripts/gitpush', $url);
+		} else if (preg_match('|^/development/cireport\.html$|', $url)) {
+			return preg_replace('|^/development/cireport\.html$|', $folder.'/?id=content/scripts/cireport', $url);
+		} else if (preg_match('|^/development/introduction\.html$|', $url)) {
+			return preg_replace('|^/development/introduction\.html$|', $folder.'/?id=content/game/development', $url);
 		} else if (preg_match('|^/development/bug\.html$|', $url)) {
 			return preg_replace('|^/development/bug\.html$|', $folder.'/?id=content/game/bug', $url);
 		} else if (preg_match('|^/development/chat\.html$|', $url)) {
