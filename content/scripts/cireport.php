@@ -22,8 +22,12 @@ class CIReportPage extends Page {
 
 	public function writeHttpHeader() {
 		if (isset($_FILES['file'])) {
-			header('HTTP/1.0 204 Not Found');
-			move_uploaded_file($_FILES['file']['tmp_name'], "/srv/upload/testresults_".date('ymd_His').'_'.$_SERVER["REMOTE_ADDR"].'.txt');
+			if ($_REQUEST['cikey'] != STENDHAL_CIKEY) {
+				echo 'Unknown cikey';
+			} else {
+				header('HTTP/1.0 204 Not Found');
+				move_uploaded_file($_FILES['file']['tmp_name'], "/srv/upload/testresults_".date('ymd_His').'_'.$_SERVER["REMOTE_ADDR"].'.txt');
+			}
 			return false;
 		}
 		return true;
