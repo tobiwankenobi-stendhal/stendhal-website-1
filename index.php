@@ -112,6 +112,7 @@ require_once($page_url.'.php');
 
 
 header('X-Frame-Options: sameorigin');
+header('X-Content-Type-Options: nosniff');
 
 $csp = "default-src 'self' https://stendhalgame.org; "
 	. "img-src http://ssl.gstatic.com https://ssl.gstatic.com http://csi.gstatic.com https://csi.gstatic.com http://arianne.sf.net http://arianne.sourceforge.net https://sflogo.sourceforge.net http://sflogo.sourceforge.net https://stendhalgame.org data: 'self'; "
