@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2010  The Arianne Project
+ Copyright (C) 2008-2016  The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -493,7 +493,11 @@ function convertUrlQuery($query) {
 
 function handleRewriteUrlParameter() {
 	if (isset($_REQUEST['rewriteurl'])) {
-		$rewrittenUrl = rewriteURL($_REQUEST['rewriteurl'], true);
+		$url = $_REQUEST['rewriteurl'];
+		if ($url[0] != '/') {
+			$url = '/'.$url;
+		}
+		$rewrittenUrl = rewriteURL($url, true);
 		$rewrittenUrl = str_replace('&amp;', '&', substr($rewrittenUrl, 2));
 		$_REQUEST = $_REQUEST + convertUrlQuery($rewrittenUrl);
 		$_GET = $_GET + convertUrlQuery($rewrittenUrl);

@@ -1,0 +1,12 @@
+RewriteEngine on
+
+RewriteRule ^client.* - [L]
+RewriteRule ^css/(.*)-[0-9]+(.[^0-9]*)$ /css/$1$2 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_URI} !^php5-fcgi
+RewriteCond %{REQUEST_URI} !css/
+RewriteCond %{QUERY_STRING} !rewriteurl
+RewriteRule ^(.*)$ /index.php?rewriteurl=$1 [L,QSA]
