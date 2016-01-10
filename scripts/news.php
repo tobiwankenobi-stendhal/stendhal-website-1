@@ -187,7 +187,6 @@ class News {
   * Returns a list of news. Note: All parameters need to be SQL escaped.
   */
 function getNews($where='', $sortby='created desc', $cond='limit 3') {
-
 	$sql = 'SELECT news.id As news_id, news.title As title, news.created As created, '
 		.'news.shortDescription As shortDescription, '
 		.'news.extendedDescription As extendedDescription, '
@@ -285,44 +284,11 @@ function getNewsBetween($adate, $bdate) {
 }
 
 
-
-/**
-  * A class representing a news item without comments.
-  */
-class NewsType {
-	public $id;
-
-	/** Title */
-	public $title;
-
-	/** Image */
-	public $image;
-
-	function __construct($id, $title, $image) {
-		$this->id=$id;
-		$this->title=$title;
-		$this->image=$image;
-	}
-}
-
 function getNewsTypes() {
-	$sql = 'SELECT * FROM news_type ORDER BY title';
-
-	$result = mysql_query($sql, getWebsiteDB());
-	$list = array();
-
-	while($row = mysql_fetch_assoc($result)) {
-		$list[]=new NewsType(
-			$row['id'],
-			$row['title'],
-			$row['image_url']
-		);
-	}
-
-	mysql_free_result($result);
-	return $list;
+	$sql = 'SELECT id, title FROM news_type ORDER BY title';
+	$stmt = DB::web()->query($sql);
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 
 
 /**

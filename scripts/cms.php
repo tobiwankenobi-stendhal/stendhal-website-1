@@ -58,17 +58,19 @@ class CMS {
 		$sql = "SELECT content, displaytitle, account_id, timedate"
 			." FROM page_version WHERE id = ("
 			." SELECT max(page_version.id) FROM page, page_version"
-			." WHERE page.language = '".mysql_real_escape_string($lang). "'"
-			." AND page.title = '".mysql_real_escape_string($title). "'"
+			." WHERE page.language = :language "
+			." AND page.title = :title "
 			." AND page_version.page_id = page.id)";
-		$result = mysql_query($sql, getWebsiteDB());
-		$row = mysql_fetch_assoc($result);
-		$res = null;
-		if (isset($row) && $row != null) {
-			$res = new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(
+			':language' => $lang,
+			':title' => $title
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($row) {
+			return new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
 		}
-		mysql_free_result($result);
-		return $res;
+		return null;
 	}
 
 	/**
@@ -78,16 +80,16 @@ class CMS {
 	 * @param string $title page title
 	 */
 	public static function readPageVersion($id) {
-		$sql = "SELECT content, displaytitle, account_id, timedate"
-			." FROM page_version WHERE id = ".intval($id);
-		$result = mysql_query($sql, getWebsiteDB());
-		$row = mysql_fetch_assoc($result);
-		$res = null;
-		if (isset($row) && $row != null) {
-			$res = new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
+		$sql = 'SELECT content, displaytitle, account_id, timedate FROM page_version WHERE id = :$id';
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(
+			':id' => $id,
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($row) {
+			return new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
 		}
-		mysql_free_result($result);
-		return $res;
+		return null;
 	}
 
 
@@ -102,45 +104,57 @@ class CMS {
 			." FROM page_version, page, stendhal.account"
 			." WHERE page_version.page_id = page.id"
 			." AND page_version.account_id = stendhal.account.id";
+		$var = array();
 		if (isset($title) && $title != '') {
 			$sql = $sql 
-				." AND page.language = '".mysql_real_escape_string($lang). "'"
-				." AND page.title = '".mysql_real_escape_string($title). "'";
+				." AND page.language = :language "
+				." AND page.title = :title ";
+			$var = array(
+					':language' => $lang,
+					':title' => $title
+			);
 		}
 		$sql = $sql . ' ORDER BY page_version.id DESC';
-		$result = mysql_query($sql, getWebsiteDB());
+		
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute($var);
 		$res = array();
-		while (($row = mysql_fetch_assoc($result)) != null) {
+		foreach ($stmt->fetch(PDO::FETCH_ASSOC) as $row) {
 			$res[] = new CMSPageVersion($row['content'], $row['displaytitle'], 
 					$row['account_id'], $row['timedate'], $row['id'], $row['title'],
 					$row['language'], $row['commitcomment'], $row['username']);
 		}
-		mysql_free_result($result);
 		return $res;
 	}
 
 	public static function getPreviousVersion($to) {
 		$sql = "SELECT v2.id FROM page_version As v1, page_version As v2 WHERE v1.page_id=v2.page_id "
-			." AND v2.timedate<v1.timedate AND v1.id=".intval($to)." ORDER BY v2.id DESC LIMIT 1";
-		$res = intval(queryFirstCell($sql, getWebsiteDB()));
-		return intval(queryFirstCell($sql, getWebsiteDB()));
+			." AND v2.timedate<v1.timedate AND v1.id=:id ORDER BY v2.id DESC LIMIT 1";
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(':id' => $to));
+		return $stmt->fetch(PDO::FETCH_NUM)[0];
 	}
 
 	public static function getLatestVersion($from) {
-		$sql = "SELECT v2.id FROM page_version As v1, page_version As v2 WHERE v1.page_id=v2.page_id AND v1.id="
-			.intval($from)." ORDER BY v2.id DESC LIMIT 1";
-		return intval(queryFirstCell($sql, getWebsiteDB()));
+		$sql = "SELECT v2.id FROM page_version As v1, page_version As v2 "
+			. " WHERE v1.page_id=v2.page_id AND v1.id=:id ORDER BY v2.id DESC LIMIT 1";
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(':id' => $from));
+		return $stmt->fetch(PDO::FETCH_NUM)[0];
 	}
 
 	public static function save($lang, $title, $content, $commitcomment, $displaytitle, $accountId) {
 		$pageId = CMS::getPageIdCreateIfNecessary($lang, $title);
-		$sql = "INSERT INTO page_version (page_id, content, commitcomment, displaytitle, account_id) VALUES"
-			." ('".mysql_real_escape_string($pageId). "',"
-			." '".mysql_real_escape_string($content). "',"
-			." '".mysql_real_escape_string($commitcomment). "', "
-			." '".mysql_real_escape_string($displaytitle). "', "
-			." '".mysql_real_escape_string($accountId). "')";
-		mysql_query($sql, getWebsiteDB());
+		$sql = "INSERT INTO page_version (page_id, content, commitcomment, displaytitle, account_id) "
+			. " VALUES (:page_id, :content, :commitcomment, :displaytitle, :account_id)";
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(
+			':page_id' => $pageId,
+			':content' => $content,
+			':commitcomment' => $commitcomment,
+			':displaytitle' => $displaytitle,
+			':account_id' => $accountId
+		));
 	}
 
 
@@ -169,16 +183,18 @@ class CMS {
 	 * @return id of page or <code>null</code>.
 	 */
 	public static function getPageId($lang, $title) {
-		$sql = "SELECT id FROM page"
-			." WHERE page.language = '".mysql_real_escape_string($lang). "'"
-			." AND page.title = '".mysql_real_escape_string($title). "'";
-		$result = mysql_query($sql, getWebsiteDB());
-		$row = mysql_fetch_assoc($result);
-		if (isset($row) && $row != null) {
-			$res = $row[id];
+		$sql = "SELECT id FROM page WHERE page.language = :language AND page.title = :title";
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(
+			':language' => $lang,
+			':title' => $title
+		));
+			
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($row) {
+			return $row['id'];
 		}
-		mysql_free_result($result);
-		return $res;
+		return null;
 	}
 
 	/**
@@ -188,9 +204,11 @@ class CMS {
 	 * @param string $title page title
 	 */
 	public static function createPage($lang, $title) {
-		$sql = "INSERT INTO page (language, title) VALUES"
-			." ('".mysql_real_escape_string($lang). "',"
-			." '".mysql_real_escape_string($title). "')";
-		mysql_query($sql, getWebsiteDB());
+		$sql = "INSERT INTO page (language, title) VALUES (:language, :title)";
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(
+			':language' => $lang,
+			':title' => $title
+		));
 	}
 }

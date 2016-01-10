@@ -23,22 +23,31 @@ class Registration {
 
 function saveMemberdata($playerId) {
 	if (isset($_POST["realname"])) {
-		$query = "insert into members (realname, street, city, country, email, visiblename, visibleemail, player_id) values "
-		 . "('" . mysql_real_escape_string($_POST["realname"]) . "', '" . mysql_real_escape_string($_POST["street"])
-		 . "', '" . mysql_real_escape_string($_POST["city"]). "', '" . mysql_real_escape_string($_POST["country"])
-		 . "', '" . mysql_real_escape_string($_POST["email"]) . "', '" . mysql_real_escape_string($_POST["visiblename"])
-		 . "', '" . mysql_real_escape_string($_POST["visibleemail"]) . "', '" . $playerId . "');";
-		return mysql_query($query, getWebsiteDB());
+
+		$sql = "insert into members (realname, street, city, country, email, visiblename, visibleemail, player_id) values "
+		 . "(:realname, :street, :city, :country, :email, :visiblename, :visibleemail, :player_id);";
+
+		$stmt = DB::web()->prepare($sql);
+		return $stmt->execute(array(
+			':realname' => $_POST["realname"], 
+			':street' => $_POST["street"],
+			':city' => $_POST["city"],
+			':country' => $_POST["country"],
+			':email' => $_POST["email"],
+			':visiblename' => $_POST["visiblename"],
+			':visibleemail' => $_POST["visibleemail"],
+			':player_id' => $playerId
+			));
+		 
 	}
 	return false;
 }
 
 function getMemberdata($playerId) {
-	$query = "select * from members where player_id='".mysql_real_escape_string($playerId)."' ORDER BY id DESC LIMIT 1;";
-	$result = mysql_query($query, getWebsiteDB());
-
-	while($row = mysql_fetch_assoc($result)) {
-
+	$query = "select * from members where player_id=:playerId ORDER BY id DESC LIMIT 1;";
+	$stmt = DB::web()->prepare($sql);
+	$stmt->execute(array(':id' => $playerId));
+	foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 		$registration = new Registration(
 			$row['realname'],
 			$row['street'],
@@ -49,8 +58,5 @@ function getMemberdata($playerId) {
 			$row['visibleemail']
 		);
 	}
-
-	mysql_free_result($result);
-	
 	return $registration;
 }

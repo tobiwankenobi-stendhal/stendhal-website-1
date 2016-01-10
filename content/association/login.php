@@ -79,7 +79,7 @@ class LoginPage extends Page {
 
 		$permissions = Account::readPermissions($account->id);
 		if (!$permissions) {
-			// TODO: niecer error message
+			// TODO: nicer error message
 			die('This account is unknown. Please see the member section on how to become a member.');
 		}
 
