@@ -180,9 +180,8 @@ $page->writeAfterJS();
 			echo '<li><a>A</a><ul>';
 			if ($adminLevel >= 400) {
 				echo '<li><a id="menuAdminNews" href="/?id=content/admin/news">News</a>';
-				echo '<li><a id="menuAdminScreenshots" href="/?id=content/admin/screenshots">Screenshots</a>';
+				echo '<li><a id="menuAdminDataExplorer" href="/?id=content/admin/data">Data Explorer</a>';
 			}
-			echo '<li><a id="menuAdminDataExplorer" href="/?id=content/admin/data">Data Explorer</a>';
 			echo '<li><a id="menuAdminInspect" href="/?id=content/admin/inspect">Render Inspect</a>';
 			echo '<li><a id="menuAdminSupportlog" href="/?id=content/admin/logs">Support Logs</a>';
 			echo '<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></ul>';
