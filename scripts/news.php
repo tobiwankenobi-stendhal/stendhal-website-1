@@ -2,6 +2,7 @@
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
  Copyright (C) 2008  Miguel Angel Blanch Lardin
+ Copyright (C) 2008-2016  The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -195,19 +196,11 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 		.'news.updateCount As updateCount '
 		.'FROM news LEFT JOIN news_type ON news.news_type_id=news_type.id '.$where.' order by '.$sortby.' '.$cond;
 
-	$result = mysql_query($sql, getWebsiteDB());
+	$result = DB::web()->query($sql);
 	$list=array();
 	
-	while($row=mysql_fetch_assoc($result)) {
+	foreach($result as $row) {
 		$images=array();
-		/* unused
-		/$resultimages = mysql_query('select * from news_images where news_id="'.$row['news_id'].'" order by created desc', getWebsiteDB());
-
-		while($rowimages=mysql_fetch_assoc($resultimages)) {      
-			$images[]=$rowimages['url'];
-		}
-		mysql_free_result($resultimages);
-		*/
 
 		$list[]=new News(
 			$row['news_id'],
@@ -225,82 +218,71 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 		);
 	}
 
-	mysql_free_result($result);
-	
 	return $list;
 }
 
 
 function addNews($title, $oneline, $body, $images, $details, $type) {
-	$title=mysql_real_escape_string($title);
-	$oneline=mysql_real_escape_string($oneline);
-	$body=mysql_real_escape_string($body);
-	$details=mysql_real_escape_string($details);
-	$type=mysql_real_escape_string($type);
-
-	$query="insert into news (title, shortDescription, extendedDescription, active, detailedDescription, news_type_id) values "
-		."('$title', '$oneline', '$body', 1, '$details', '$type')";
-	mysql_query($query, getWebsiteDB());
-	if(mysql_affected_rows()==0) {
-		echo '<span class="error">There has been a problem while inserting news:'.mysql_affected_rows().'</span>';
-		echo '<span class="error_cause">'.$query.'</span>';
-		return;
-	}
-
-	$result=mysql_query('select LAST_INSERT_ID() As lastid from news;', getWebsiteDB());
-	while($rowimages=mysql_fetch_assoc($result)) {      
-		$newsid=$rowimages['lastid'];
-	}
-	mysql_free_result($result);
-
-	foreach(explode("\n",$images) as $image) {
-		mysql_query('insert into news_images values(null,'.$newsid.',"'.mysql_real_escape_string($image).'",null, null', getWebsiteDB());
+	try {
+		$stmt = DB::web()->prepare("insert into news (title, shortDescription, extendedDescription, active, detailedDescription, news_type_id) values "
+			."(:title, :shortDescription, :extendedDescription, :active, :detailedDescription, :news_type_id)");
+		$stmt->execute(array(
+			':title' => $title,
+			':shortDescription' => $oneline,
+			':extendedDescription' => $body,
+			':active' => 1,
+			':detailedDescription' => $details,
+			':news_type_id' => $type
+		));
+	} catch(PDOException $e) {
+		echo '<span class="error">There has been a problem while inserting news</span>';
+		error_log('ERROR addNews: ' . $e->getMessage());
 	}
 }
 
 
 function deleteNews($id) {
-    $id=mysql_real_escape_string($id);
-    
-	$query='delete from news where id="'.mysql_real_escape_string($id).'"';
-    mysql_query($query, getWebsiteDB());
-    if(mysql_affected_rows()==0) {
-        echo '<span class="error">There has been a problem while deleting news.</span>';
-        echo '<span class="error_cause">'.$query.'</span>';
-        return;
-    }
+	try {
+		$stmt = DB::web()->prepare('delete from news where id=:id');
+		$stmt->execute(array(
+			':id' => $id
+		));
+	} catch(PDOException $e) {
+		echo '<span class="error">There has been a problem while delteting news</span>';
+		error_log('ERROR deleteNews: ' . $e->getMessage());
+	}
 }
 
 function updateNews($id, $title, $oneline, $body, $images, $details, $type, $incUpdateCount = true) {
-	$id=mysql_real_escape_string($id);
-	$title=mysql_real_escape_string($title);
-	$oneline=mysql_real_escape_string($oneline);
-	$body=mysql_real_escape_string($body);
-	$details=mysql_real_escape_string($details);
-	$type=mysql_real_escape_string($type);
 	$update = '';
 	if ($incUpdateCount) {
 		$update = ', updateCount=updateCount+1';
 	}
-	
-	$query="UPDATE news SET title='".$title."', shortDescription='".$oneline."',extendedDescription='".$body
-		."', detailedDescription='".$details."', news_type_id='".$type."' ".$update." WHERE id='".$id."'";
-	mysql_query($query, getWebsiteDB());
-	if(mysql_affected_rows()==0) {
-		echo '<span class="error">There has been a problem while updating news.</span>';
-		echo '<span class="error_cause">'.$query.'</span>';
-	}
+	try {
+		$query="UPDATE news SET title=:title, shortDescription=:shortDescription, "
+			. " extendedDescription=:extendedDescription, detailedDescription=:detailedDescription, "
+			. " news_type_id=:news_type_id ".$update." WHERE id=:id";
+		$stmt = DB::web()->prepare($query);
+		$stmt->execute(array(
+				':title' => $title,
+				':shortDescription' => $oneline,
+				':extendedDescription' => $body,
+				':detailedDescription' => $details,
+				':news_type_id' => $type,
+				':id' => $id
+		));
+	} catch(PDOException $e) {
+		echo '<span class="error">There has been a problem while updating news</span>';
+		error_log('ERROR updateNews: ' . $e->getMessage());
+	}	
 }
+
 /**
   * Returns a list of news between adate and bdate both inclusive
   */
 function getNewsBetween($adate, $bdate) {
   return getNews('where date between '.mysql_real_escape_string($adate).' and '.mysql_real_escape_string($bdate));
 }
-
-
-
-
 
 
 
@@ -340,23 +322,6 @@ function getNewsTypes() {
 	mysql_free_result($result);
 	return $list;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
