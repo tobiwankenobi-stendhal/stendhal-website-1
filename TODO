@@ -1,6 +1,0 @@
-* Remove Tables from webpage and use CSS (only a few missing)
-* Clean HTML code a bit, some parts can render in a simpler way.
-* Movies should be handled from database.
-* Refactor Events, Screenshots and movies as the database handling code is almost equal.
-* Automate creation of world map and split scaled up parts of the world map.
-* Migrate mysql_* to pdo
