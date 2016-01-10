@@ -85,11 +85,11 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 			<?php 
 				$types = getNewsTypes();
 				foreach($types as $type) {
-					echo '<option value="'.htmlspecialchars($type->id).'"';
+					echo '<option value="'.htmlspecialchars($type['id']).'"';
 					if (isset($edited->typeId) && ($edited->typeId == $type->id)) {
 						echo ' selected="selected"';
 					}
-					echo '>'.htmlspecialchars($type->title).'</option>';
+					echo '>'.htmlspecialchars($type['title']).'</option>';
 				}
 			?>
 			</select>
