@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2010  The Arianne Project
+ Copyright (C) 2008-2016  The Arianne Project
  Copyright (C) 2008  Miguel Angel Blanch Lardin
 
  This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,54 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+class DB {
+	private static $game;
+	private static $web;
+	private static $wiki;
+
+	public function game() {
+		if (!isset(DB::$game)) {
+			try {
+				DB::$game = new PDO(STENDHAL_WEB_CONNECTION, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD);
+				DB::$game->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				DB::$game->exec('set character set utf8');
+			} catch(PDOException $e) {
+				error_log('ERROR connecting to game database: ' . $e->getMessage());
+				die(databaseConnectionErrorMessage('game database'));
+			}
+		}
+		return DB::$web;
+	}
+
+	public function web() {
+		if (!isset(DB::$web)) {
+			try {
+				DB::$web = new PDO(STENDHAL_WEB_CONNECTION, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD);
+				DB::$web->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				DB::$web->exec('set character set utf8');
+			} catch(PDOException $e) {
+				error_log('ERROR connecting to web database: ' . $e->getMessage());
+				die(databaseConnectionErrorMessage('game database'));
+			}
+		}
+		return DB::$web;
+	}
+
+	public function wiki() {
+		if (!isset(DB::$wiki)) {
+			try {
+				DB::$wiki = new PDO(STENDHAL_WIKI_CONNECTION, STENDHAL_WIKI_USERNAME, STENDHAL_WIKI_PASSWORD);
+				DB::$wiki->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				DB::$wiki->exec('set character set utf8');
+			} catch(PDOException $e) {
+				error_log('ERROR connecting to wiki database: ' . $e->getMessage());
+				die(databaseConnectionErrorMessage('game database'));
+			}
+		}
+		return DB::$wiki;
+	}
+	
+}
 
 $websitedb = -1;
 $gamedb = -1;
@@ -72,8 +120,8 @@ function connect() {
 }
 
 function databaseConnectionErrorMessage($message) {
-	@header('HTTP 1/0 500 Maintenance', true, 500)
-	?>
+	@header('HTTP/1.0 500 Maintenance', true, 500);
+		?>
 	<html>
 		<head>
 			<title>Stendhal</title><meta name="robots" content="noindex">
