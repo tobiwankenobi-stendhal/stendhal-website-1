@@ -2,7 +2,7 @@
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
  Copyright (C) 2008  Miguel Angel Blanch Lardin
- Copyright (C) 2008-2010  The Arianne Project
+ Copyright (C) 2008-2016  The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -42,7 +42,6 @@ require_once('scripts/news.php');
 require_once('scripts/npcs.php');
 require_once('scripts/playerhistory.php');
 require_once('scripts/players.php');
-require_once('scripts/screenshots.php');
 require_once('scripts/search.php');
 require_once('scripts/statistics.php');
 require_once('scripts/urlrewrite.php');
