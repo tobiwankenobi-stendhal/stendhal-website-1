@@ -3,6 +3,16 @@ RewriteEngine on
 RewriteRule ^client.* - [L]
 RewriteRule ^css/(.*)-[0-9]+(.[^0-9]*)$ /css/$1$2 [L]
 
+# images
+RewriteRule ^images/creature/(.*)\.png$ /monsterimage.php?url=data/sprites/monsters/$1.png&rewritten=true [L]
+RewriteRule ^images/image/(.*)$ /image.php?img=$1&rewritten=true [L]
+RewriteRule ^images/item/(.*)\.png$ /itemimage.php?url=data/sprites/items/$1.png&rewritten=true [L]
+RewriteRule ^images/npc/(.*)\.png$ /monsterimage.php?url=data/sprites/npc/$1.png&rewritten=true [L]
+RewriteRule ^images/outfit/(.*)\.png$ /createoutfit.php?outfit=$1&rewritten=true [L]
+RewriteRule ^images/screenshot/(.*)$ /index.php?id=content/game/screenshot&file=$1&rewritten=true [L]
+RewriteRule ^images/thumbnail/(.*)$ /thumbnail.php?img=$1&rewritten=true [L]
+
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
