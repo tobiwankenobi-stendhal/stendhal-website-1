@@ -18,7 +18,7 @@
 
 
 $dict = array();
-if ($_REQUEST['lang'] == 'en' || $_REQUEST['lang'] == 'de') {
+if (isset($_REQUEST['lang']) && ($_REQUEST['lang'] == 'en' || $_REQUEST['lang'] == 'de')) {
 	$lang = $_REQUEST['lang'];
 }
 if (!isset($lang) && !isset($_REQUEST['id'])) {
@@ -34,7 +34,9 @@ if ($lang == 'de') {
 	loadLanguage();
 }
 
-$internalTitle = $_REQUEST['title'];
+if (isset($_REQUEST['title'])) {
+	$internalTitle = $_REQUEST['title'];
+}
 if (!isset($internalTitle) || $internalTitle == '') {
 	$internalTitle = 'start';
 }
