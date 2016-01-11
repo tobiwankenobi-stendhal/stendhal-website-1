@@ -32,29 +32,18 @@ class ApprovePage extends Page {
 		$signature=mysql_real_escape_string($signature);
 
 		// Get the user name from the username<->hash relation
-		$query='select username from remind_password where confirmhash="'.$signature.'"';
-		$result = mysql_query($query, getWebsiteDB());
+		$sql='select username from remind_password where confirmhash=:confirmhash';
+		$stmt = DB::web()->prepare($sql);
+		$stmt->execute(array(':confirmhash' => $signature));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if(mysql_numrows($result)!=1) {
-			mysql_free_result($result);
-
-			startBox("No such username");
-			?>
-			We are unable to find a valid username associated to that email account.
-			<p>Your password can not be reset.
-			<p>Back to <a href="?">Main</a>
-			<?php
-			endBox();
-
-		} else {
-
-			$row=mysql_fetch_assoc($result);
+		if ($row) {
 			$username=$row["username"];
-			mysql_free_result($result);
 
 			// Remove the entry or anything 48 hours old.
-			$q = "delete from remind_password where username = '".mysql_real_escape_string($username)."' or  datediff(now(),requested)>2";
-			$result = mysql_query($q,getWebsiteDB());
+			$sql = "delete from remind_password where username = :username or datediff(now(),requested)>2";
+			$stmt = DB::web()->prepare($sql);
+			$stmt->execute(array(':username' => $username));
 
 			// Create a random password for it and set it.
 			$newpassword=createRandomPassword();
@@ -71,7 +60,15 @@ class ApprovePage extends Page {
 			<p>Store it on a secure place.
 			<?php
 			endBox();
-		}
+		} else {
+			startBox("No such username");
+			?>
+			We are unable to find a valid username associated to that email account.
+			<p>Your password can not be reset.
+			<p>Back to <a href="/">Main</a>
+			<?php
+			endBox();
+		}						
 	}
 }
 

@@ -48,15 +48,17 @@ class RemindPage extends Page {
 		$signature=strtoupper(md5(rand()));
 	
 		// Good, store it...
-		$query='insert into remind_password values("'.mysql_real_escape_string($username).'","'.$signature.'",null)';
-		if(!mysql_query($query, getWebsiteDB())) {
-			echo '<span class="error">There has been a problem while sending your password.</span>';
-			die();
-		}
-	
-		// Remove the entry or anything 48 hours old.
-		$q = "delete from remind_password where datediff(now(),requested)>2";
-		$result = mysql_query($q,getWebsiteDB());
+		$query = 'insert into remind_password (username, confirmhash)'
+			. ' values(:username, :confirmhash)';
+		$stmt = PDO::web()->prepare($sql);
+		$stmt->execute(array(
+			':username' => $username,
+			':confirmhash' => $signature
+		));
+		
+
+		// TODO: Remove the entry or anything 48 hours old.
+		DB::web()->execute('delete from remind_password where datediff(now(),requested)>2');
 	
 		// ...and email
 		$server=$_SERVER["SERVER_NAME"];
