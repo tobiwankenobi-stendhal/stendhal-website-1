@@ -203,7 +203,11 @@ body {
 		<div id="header">
 		<?php 
 			$websiteRoot = STENDHAL_FOLDER.rewriteURL('/'.$lang.'/start.html');
-			if ((strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'de') !== 0) && ($lang == 'en')) {
+			if (
+					( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ||
+						(strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'de') !== 0)
+					) 
+					&& ($lang == 'en')) {
 				$websiteRoot = STENDHAL_FOLDER.'/';
 			}
 			echo '<a href="'.$websiteRoot.'">';
