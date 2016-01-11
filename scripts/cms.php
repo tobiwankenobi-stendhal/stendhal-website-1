@@ -80,7 +80,7 @@ class CMS {
 	 * @param string $title page title
 	 */
 	public static function readPageVersion($id) {
-		$sql = 'SELECT content, displaytitle, account_id, timedate FROM page_version WHERE id = :$id';
+		$sql = 'SELECT content, displaytitle, account_id, timedate FROM page_version WHERE id = :id';
 		$stmt = DB::web()->prepare($sql);
 		$stmt->execute(array(
 			':id' => $id,
