@@ -798,7 +798,7 @@ class Account {
 			$stmt->execute(array(
 				':id' => $accountId
 			));
-			return $sth->fetch(PDO::FETCH_ASSOC);
+			return $stmt->fetch(PDO::FETCH_ASSOC);
 		} catch(PDOException $e) {
 			error_log('ERROR addNews: ' . $e->getMessage());
 			return null;
