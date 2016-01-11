@@ -124,8 +124,7 @@ function databaseConnectionErrorMessage($message) {
 }
 
 function disconnect() {
-	global $websitedb, $gamedb, $wikidb;
-	mysql_close($websitedb);
+	global $gamedb, $wikidb;
 	mysql_close($gamedb);
 	if (isset($wikidb)) {
 		mysql_close($wikidb);
