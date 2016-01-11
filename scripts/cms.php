@@ -119,7 +119,7 @@ class CMS {
 		$stmt = DB::web()->prepare($sql);
 		$stmt->execute($var);
 		$res = array();
-		foreach ($stmt->fetch(PDO::FETCH_ASSOC) as $row) {
+		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 			$res[] = new CMSPageVersion($row['content'], $row['displaytitle'], 
 					$row['account_id'], $row['timedate'], $row['id'], $row['title'],
 					$row['language'], $row['commitcomment'], $row['username']);
