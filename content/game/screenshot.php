@@ -8,7 +8,7 @@ class ScreenshotPage extends Page {
 
 	function __construct() {
 		$sql = "SELECT page_title As filename, cl_sortkey_prefix As subtitle FROM categorylinks, page WHERE cl_to='Stendhal_Slideshow' AND cl_type='file' AND page_id=cl_from ORDER BY page_touched DESC, page_id DESC";
-		$this->screenshots = fetchToArray($sql, getWikiDB());
+		$this->screenshots = DB::wiki()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 		$this->idx = 0;
 		if (isset($_REQUEST['file'])) {
 			$temp = $_REQUEST['file'];

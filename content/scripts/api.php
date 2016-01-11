@@ -144,7 +144,7 @@ class APIPage extends Page {
 
 	public function getScreenshots() {
 		$sql = "SELECT page_title As href, cl_sortkey_prefix As title FROM categorylinks, page WHERE cl_to='Stendhal_Slideshow' AND cl_type='file' AND page_id=cl_from ORDER BY page_touched DESC, page_id DESC";
-		$data = fetchToArray($sql, getWikiDB());
+		$data = DB::wiki()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 		for ($i = 0; $i < count($data); $i++) {
 			$hash = md5($data[$i]['href']);
 			$data[$i]['href'] = '/wiki/images/' . $hash{0} . '/' . substr( $hash, 0, 2 ) . '/' . urlencode($data[$i]['href']);

@@ -30,7 +30,6 @@ class GalleryPage extends Page {
 	function writeContent() {
 		startBox(htmlspecialchars($this->title));
 		$images = $this->getGalleryImages($this->title);
-		//$images[]['image'] = 'A';
 
 		$cnt = count($images);
 		$index = $this->getIndex($cnt);		
@@ -54,19 +53,11 @@ class GalleryPage extends Page {
 	
 	// TODO: put into scripts-folder
 	function getGalleryImages($title) {
-		$sql = "SELECT page_title As image, cl_sortkey As description FROM categorylinks, page WHERE categorylinks.cl_to = '"
-			.mysql_real_escape_string($title)
-			. "' AND categorylinks.cl_from = page.page_id AND page_namespace = 6 AND page_is_redirect = 0";
-			$result = mysql_query($sql, getWikiDB());
-			
-		$list = array();
-
-		while($row = mysql_fetch_assoc($result)) {
-			$list[] = $row;
-		}
-
-		mysql_free_result($result);
-		return $list;
+		$sql = "SELECT page_title As image, cl_sortkey As description FROM categorylinks, page "
+			. " WHERE categorylinks.cl_to = :title AND categorylinks.cl_from = page.page_id AND page_namespace = 6 AND page_is_redirect = 0";
+		$stmt = DB::wiki()->prepare($sql);
+		$stmt->execute(array(':title' => $title));
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 }
 $page = new GalleryPage();

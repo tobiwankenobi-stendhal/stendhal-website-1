@@ -26,7 +26,7 @@ class DB {
 	public static function game() {
 		if (!isset(DB::$game)) {
 			try {
-				DB::$game = new PDO(STENDHAL_WEB_CONNECTION, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD);
+				DB::$game = new PDO(STENDHAL_GAME_CONNECTION, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD);
 				DB::$game->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				DB::$game->exec('set character set utf8');
 			} catch(PDOException $e) {
@@ -73,17 +73,6 @@ function getGameDB() {
 	return $gamedb;
 }
 
-
-function getWikiDB() {
-	global $wikidb;
-	if (!isset($wikidb)) {
-		$wikidb = mysql_connect(STENDHAL_WIKI_HOSTNAME, STENDHAL_WIKI_USERNAME, STENDHAL_WIKI_PASSWORD, true);
-		@mysql_select_db(STENDHAL_WIKI_DB, $wikidb) or die( "Unable to select Wiki database");
-		mysql_query('set character set utf8;', $wikidb);
-	}
-	return $wikidb;
-}
-
 function getTestDB() {
 	global $testdb;
 	if (!isset($testdb)) {
@@ -124,11 +113,8 @@ function databaseConnectionErrorMessage($message) {
 }
 
 function disconnect() {
-	global $gamedb, $wikidb;
+	global $gamedb;
 	mysql_close($gamedb);
-	if (isset($wikidb)) {
-		mysql_close($wikidb);
-	}
 }
 
 
