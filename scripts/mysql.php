@@ -23,7 +23,7 @@ class DB {
 	private static $web;
 	private static $wiki;
 
-	public function game() {
+	public static function game() {
 		if (!isset(DB::$game)) {
 			try {
 				DB::$game = new PDO(STENDHAL_WEB_CONNECTION, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD);
@@ -37,7 +37,7 @@ class DB {
 		return DB::$web;
 	}
 
-	public function web() {
+	public static function web() {
 		if (!isset(DB::$web)) {
 			try {
 				DB::$web = new PDO(STENDHAL_WEB_CONNECTION, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD);
@@ -51,7 +51,7 @@ class DB {
 		return DB::$web;
 	}
 
-	public function wiki() {
+	public static function wiki() {
 		if (!isset(DB::$wiki)) {
 			try {
 				DB::$wiki = new PDO(STENDHAL_WIKI_CONNECTION, STENDHAL_WIKI_USERNAME, STENDHAL_WIKI_PASSWORD);
