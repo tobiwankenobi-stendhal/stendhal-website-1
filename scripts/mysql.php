@@ -67,15 +67,6 @@ class DB {
 	
 }
 
-$websitedb = -1;
-$gamedb = -1;
-
-function getWebsiteDB() {
-	global $websitedb;
-	
-	return $websitedb;
-}
-
 function getGameDB() {
 	global $gamedb;
 	
@@ -104,7 +95,7 @@ function getTestDB() {
 }
 
 function connect() {
-	global $websitedb, $gamedb;
+	global $gamedb;
 
 	if (isset($_REQUEST) && isset($_REQUEST['test']) && $_REQUEST['test'] == 'testdb') {
 		$gamedb = getTestDB();
@@ -113,10 +104,6 @@ function connect() {
 		@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( databaseConnectionErrorMessage('game database'));
 		mysql_query('set character set utf8;', $gamedb);
 	}
-
-	$websitedb = @mysql_connect(STENDHAL_WEB_HOSTNAME, STENDHAL_WEB_USERNAME, STENDHAL_WEB_PASSWORD, true);
-	@mysql_select_db(STENDHAL_WEB_DB, $websitedb) or die( databaseConnectionErrorMessage('website database') );
-	mysql_query('set character set utf8;', $websitedb);
 }
 
 function databaseConnectionErrorMessage($message) {
