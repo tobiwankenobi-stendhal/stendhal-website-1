@@ -11,8 +11,6 @@ if (!isset($_SERVER['SERVER_NAME'])) {
 	
 	require_once('scripts/website.php');
 	
-	connect();
-	
 	$playerId = $_SERVER['argv'][1];
 	$username = $_SERVER['argv'][2];
 	$token = $_SERVER['argv'][3];

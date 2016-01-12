@@ -42,11 +42,6 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 }
 
 
-/*
- * Open connection to both databases.
- */
-connect();
-
 if (function_exists('stendhal_website_init')) {
 	stendhal_website_init();
 }

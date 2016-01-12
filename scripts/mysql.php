@@ -26,6 +26,10 @@ class DB {
 	public static function game() {
 		if (!isset(DB::$game)) {
 			try {
+				$connection = STENDHAL_GAME_CONNECTION;
+				if (isset($_REQUEST) && isset($_REQUEST['test']) && $_REQUEST['test'] == 'testdb') {
+					$connection = STENDHAL_TEST_CONNECTION;
+				}
 				DB::$game = new PDO(STENDHAL_GAME_CONNECTION, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD);
 				DB::$game->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				DB::$game->exec('set character set utf8');
@@ -70,30 +74,21 @@ class DB {
 function getGameDB() {
 	global $gamedb;
 	
+	if (!isset($gamedb)) {
+		$gamedb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
+		if (isset($_REQUEST) && isset($_REQUEST['test']) && $_REQUEST['test'] == 'testdb') {
+			@mysql_select_db(STENDHAL_TEST_DB, $gamedb) or die( "Unable to select test database");
+		} else {
+			@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( databaseConnectionErrorMessage('game database'));
+		}
+		mysql_query('set character set utf8;', $gamedb);
+	}		
+	
 	return $gamedb;
 }
 
-function getTestDB() {
-	global $testdb;
-	if (!isset($testdb)) {
-		$testdb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
-		@mysql_select_db(STENDHAL_TEST_DB, $testdb) or die( "Unable to select test database");
-		mysql_query('set character set utf8;', $testdb);
-	}
-	return $testdb;
-}
-
-function connect() {
-	global $gamedb;
-
-	if (isset($_REQUEST) && isset($_REQUEST['test']) && $_REQUEST['test'] == 'testdb') {
-		$gamedb = getTestDB();
-	} else {
-		$gamedb = @mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
-		@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( databaseConnectionErrorMessage('game database'));
-		mysql_query('set character set utf8;', $gamedb);
-	}
-}
+// invoke getGameDB() so that mysql_real_escape_string can be used
+getGameDB();
 
 function databaseConnectionErrorMessage($message) {
 	@header('HTTP/1.0 500 Maintenance', true, 500);
@@ -114,7 +109,9 @@ function databaseConnectionErrorMessage($message) {
 
 function disconnect() {
 	global $gamedb;
-	mysql_close($gamedb);
+	if (isset($gamedb)) {
+		mysql_close($gamedb);
+	}
 }
 
 

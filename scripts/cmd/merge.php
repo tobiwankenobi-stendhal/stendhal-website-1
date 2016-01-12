@@ -16,8 +16,6 @@ set_include_path('../..');
 
 require_once('scripts/website.php');
 
-connect();
-
 $oldUsername = $_SERVER['argv'][1];
 $newUsername = $_SERVER['argv'][2];
 
