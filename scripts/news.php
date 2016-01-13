@@ -347,13 +347,8 @@ class TradeOffer {
  	 * Returns a list of trade offers for an SQL statement
  	 */
 	private static function readOffers($sql) {
-	
-		$result = mysql_query($sql, getGameDB());
-		$list = array();
-
-		while($row = mysql_fetch_assoc($result)) {
+		foreach (DB::game()->query($sql) as $row) {
 			$images = array();
-	
 			$list[] = new TradeOffer(
 					$row['id'],
 					$row['itemname'],
@@ -363,8 +358,6 @@ class TradeOffer {
 					$row['timedate']
 			);
 		}
-
-		mysql_free_result($result);
 		return $list;
 	}
 }

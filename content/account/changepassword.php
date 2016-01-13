@@ -49,11 +49,16 @@ function changePassword() {
 	$username = $_SESSION['account']->username;
 	
 	/* Verify that user is in database */
-	$md5newpass = strtoupper(md5($_POST['newpass']));
-	$q = "update account set password='".mysql_real_escape_string(Account::sha512crypt($md5newpass))."' where username = '".mysql_real_escape_string($username)."'";
-	$result = mysql_query($q,getGameDB());
-	
-	if (mysql_affected_rows()!=1) {
+	$hash = Account::sha512crypt(strtoupper(md5($_POST['newpass'])));
+	try {
+		$sql = "update account set password=:password where username = :username";
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(
+			':password' => $hash,
+			':username' => $username
+		));
+	} catch (PDOException $e) {
+		error_log('ERROR updating password: ' . $e->getMessage());
 		die('Problem updating database');
 	}
 

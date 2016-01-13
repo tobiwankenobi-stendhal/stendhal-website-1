@@ -29,7 +29,6 @@ class ApprovePage extends Page {
 		}
 
 		$signature=$_GET["sign"];
-		$signature=mysql_real_escape_string($signature);
 
 		// Get the user name from the username<->hash relation
 		$sql='select username from remind_password where confirmhash=:confirmhash';
@@ -47,10 +46,13 @@ class ApprovePage extends Page {
 
 			// Create a random password for it and set it.
 			$newpassword=createRandomPassword();
-
-			$md5newpass = strtoupper(md5($newpassword));
-			$q = "update account set password='".mysql_real_escape_string($md5newpass)."' where username = '".mysql_real_escape_string($username)."'";
-			$result = mysql_query($q,getGameDB());
+			$hash = Account::sha512crypt(strtoupper(md5($newpassword)));
+			$sql = "update account set password=:password where username = :username";
+			$stmt = DB::game()->prepare($sql);
+			$stmt->execute(array(
+				':password' => $hash,
+				':username' => $username
+			));
 
 			// Show user the new password.
 			startBox("New password generated");

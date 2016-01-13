@@ -39,7 +39,8 @@ class Zone {
 	}
 
 	public static function getZoneInfos() {
-		return fetchToArray('SELECT * FROM zoneinfo WHERE level=0 AND iterior=0', getGameDB());
+		$sql = 'SELECT * FROM zoneinfo WHERE level=0 AND iterior=0';
+		return DB::game()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public static function getZones() {

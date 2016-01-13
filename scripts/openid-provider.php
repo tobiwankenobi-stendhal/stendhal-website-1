@@ -4,32 +4,6 @@
  */
 require_once 'lib/openid/provider.php';
 
-function getUserData($handle=null) {
-	// TODO: verify login
-	if(isset($_POST['login'],$_POST['password'])) {
-		$login = mysql_real_escape_string($_POST['login']);
-		$password = sha1($_POST['password']);
-		$q = mysql_query("SELECT * FROM Users WHERE login = '$login' AND password = '$password'", getGameDB());
-		if($data = mysql_fetch_assoc($q)) {
-			return $data;
-		}
-		if($handle) {
-			echo 'Wrong login/password.';
-		}
-	}
-	if($handle) {
-		?>
-<form action="" method="post"><input type="hidden"
-	name="openid.assoc_handle" value="<?php echo $handle?>">
-	Login: <input type="text" name="login"><br>
-	Password: <input type="password" name="password"><br>
-<button>Submit</button>
-</form>
-		<?php
-		die();
-	}
-}
-
 class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 	private $attrMap = array(
@@ -101,8 +75,13 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 			return STENDHAL_LOGIN_TARGET.'/a/'.surlencode(strtolower($account->username));
 		}
 
-		$result = mysql_query("SELECT attribute FROM openid_allowedsites WHERE player_id = '".$account->id."' AND realm = '".mysql_real_escape_string($realm)."'", getGameDB());
-		while($row=mysql_fetch_assoc($result)) {
+		$sql = "SELECT attribute FROM openid_allowedsites WHERE player_id = :player_id AND realm = :realm";
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(
+			':player_id' => $account->id,
+			':realm' => $realm
+		));
+		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 			if ($row['attributes'] == 'namePerson/friendly') {
 				$attributes['namePerson/friendly'] = $account->username;
 			}
@@ -118,7 +97,12 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 		// save, if user requested to remember
 		if(isset($_POST['always']) && count($attributes) == 0) {
-			mysql_query("INTO openid_allowedsites (player_id, realm, attribute) VALUES('".$account->id."', '".mysql_real_escape_string($realm)."', 'namePerson/friendly')", getGameDB());
+			$sql = "INTO openid_allowedsites (player_id, realm, attribute) VALUES(:player_id, :realm, 'namePerson/friendly')";
+			$stmt = DB::game()->prepare($sql);
+			$stmt->execute(array(
+				':player_id' => $account->id,
+				':realm' => $realm
+			));
 		}
 
 		return STENDHAL_LOGIN_TARGET.'/a/'.surlencode(strtolower($account->username));
@@ -130,15 +114,30 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 	function setAssoc($handle, $data) {
 		$data = serialize($data);
-		mysql_query("UPDATE openid_associations SET data='".mysql_real_escape_string($data)."' WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
-		if (mysql_affected_rows(getGameDB()) == 0) {
-			mysql_query("INSERT INTO openid_associations (handle, data) VALUES('".mysql_real_escape_string($handle)."', '".mysql_real_escape_string($data)."')", getGameDB());
+		$sql = "UPDATE openid_associations SET data=:data WHERE handle=:handle";
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(
+				':data' => $data,
+				':handle' => $handle
+		));
+		
+		if ($stmt->rowCount == 0) {
+			$sql = "INSERT INTO openid_associations (handle, data) VALUES(:handle, :data)";
+			$stmt = DB::game()->prepare($sql);
+			$stmt->execute(array(
+					':data' => $data,
+					':handle' => $handle
+			));
 		}
 	}
 
 	function getAssoc($handle) {
-		$q = mysql_query("SELECT data FROM openid_associations WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
-		$data = mysql_fetch_row($q);
+		$sql = "SELECT data FROM openid_associations WHERE handle=:handle";
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(
+				':handle' => $handle
+		));
+		$data = $stmt->fetch(PDO::FETCH_NUM);
 		if(!$data) {
 			return false;
 		}
@@ -146,7 +145,11 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 	}
 
 	function delAssoc($handle) {
-		mysql_query("DELETE FROM openid_associations WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
+		$sql = "DELETE FROM openid_associations WHERE handle=:handle";
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(
+				':handle' => $handle
+		));
 	}
 
 }

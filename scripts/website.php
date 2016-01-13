@@ -197,14 +197,16 @@ class Wiki {
 
 	public function findPage() {
 		$sql = "SELECT page_id, page_title As title, p2.pp_value As displaytitle FROM a1111_wiki.page, a1111_wiki.page_props as p1, a1111_wiki.page_props as p2 " 
-		." WHERE p1.pp_propname='externalcanonical' AND p1.pp_value = '" . mysql_real_escape_string($this->url) 
-		."' AND page.page_namespace=0 AND page.page_id=p1.pp_page"
+		." WHERE p1.pp_propname='externalcanonical' AND p1.pp_value = :url" 
+		." AND page.page_namespace=0 AND page.page_id=p1.pp_page"
 		." AND p2.pp_propname='externaltitle' AND page.page_id=p2.pp_page";
-		
-		$res = fetchToArray($sql, getGameDB());
-		if (count($res) > 0) {
-			$this->page = $res[0];
-			return $res[0];
+
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(':url' => $this->url));
+		$res = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($res) {
+			$this->page = $res;
+			return $res;
 		}
 		return null;
 	}
@@ -244,9 +246,12 @@ class Wiki {
 	private function rewriteLinks($pageId, $content) {
 		$sql = "SELECT page_title, pp_value FROM a1111_wiki.page_props, a1111_wiki.page, a1111_wiki.pagelinks"
 			." WHERE pp_propname='externalcanonical' AND page.page_namespace=0 AND page.page_id=page_props.pp_page" 
-			." AND pl_namespace=0 AND page_title=pl_title AND pl_from=".intval($pageId);
-		$res = fetchToArray($sql, getGameDB());
+			." AND pl_namespace=0 AND page_title=pl_title AND pl_from=:pageId";
 		
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(':pageId' => $pageId));
+		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 		$prefix = '<a href="';
 		foreach ($res as $row) {
 			$content = str_replace($prefix.'/wiki/'.$this->wikiUrlEncode($row['page_title']).'"', 
@@ -303,8 +308,10 @@ class Wiki {
 				AND pp_keyword.pp_page=pp_title.pp_page AND pp_title.pp_propname='externaltitle'
 				AND pp_url.pp_page=pp_keyword.pp_page AND pp_keyword.pp_propname='".mysql_real_escape_string($propName)."'
 				AND categorylinks.cl_from=pp_keyword.pp_page AND stendhal_category_search.category=categorylinks.cl_to
-				AND categorylinks.cl_to = '".mysql_real_escape_string($category)."'
+				AND categorylinks.cl_to = :category
 				LIMIT 100";
-		return fetchToArray($sql, getGameDB());
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(':category' => $category));
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 }
