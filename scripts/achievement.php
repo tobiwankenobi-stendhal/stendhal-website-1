@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2009-2010   Hendrik Brummermann
+ Copyright (C) 2009-2016   Stendhal
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -168,7 +168,7 @@ class Achievement {
 			. "LEFT JOIN reached_achievement ON (buddy.buddy=reached_achievement.charname AND buddy.relationtype='buddy'  "
 			. "    AND reached_achievement.achievement_id='".mysql_real_escape_string($achievementId)."')"
 			. REMOVE_ADMINS_AND_POSTMAN
-			. " AND buddy.buddy = character_stats.name "
+			. " AND buddy.buddy = character_stats.name AND buddy.relationtype='buddy'"
 			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
 			. "AND characters.charname = buddy.charname "
 			. "AND char2.charname = buddy.buddy AND char2.player_id != '".mysql_real_escape_string($accountId)."' "
