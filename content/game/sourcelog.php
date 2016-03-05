@@ -24,7 +24,7 @@ startBox("<h1>Source Code</h1>"); ?>
 
 <p>For more information check out the <a href="/wiki/Arianne_Source_Code_Repositories">Source Code Repositories wiki page</a>.</p>
 
-<p>Recent changes to the code are recorded below. </p>
+<p>Recent changes to the code are recorded below. We have an experimental <a href="https://arianne-project.org/postsai/query.html?repository=arianne%2F.*&amp;repositorytype=regexp&amp;date=month">commit database</a>.</p>
 <?php endBox();
 
 	$directory = CVS_LOG_DIRECTORY;
