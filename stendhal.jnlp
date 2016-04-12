@@ -23,7 +23,7 @@ So what are you waiting for?! A whole new world awaits...</description>
   </security>
   <resources>
     <j2se href="http://java.sun.com/products/autodl/j2se" version="1.7+" max-heap-size="200m" />
-    <jar href="https://arianne-project.org/jws/stendhal-starter-1.18.jar" download="eager" main="true" />
+    <jar href="https://arianne-project.org/jws/stendhal-starter-1.20.jar" download="eager" main="true" />
   </resources>
   <application-desc/>
 </jnlp>
