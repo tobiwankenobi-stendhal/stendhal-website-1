@@ -87,8 +87,16 @@ function getGameDB() {
 	return $gamedb;
 }
 
-// invoke getGameDB() so that mysql_real_escape_string can be used
-getGameDB();
+if (!function_exists('mysql_real_escape_string')) {
+	function mysql_real_escape_string($param) {
+		$quoted = DB::game()->query($param);
+		return subst($quoted, 1, -1);
+	}
+} else {
+	// invoke getGameDB() so that mysql_real_escape_string can be used
+	getGameDB();
+}
+
 
 function databaseConnectionErrorMessage($message) {
 	@header('HTTP/1.0 500 Maintenance', true, 500);
