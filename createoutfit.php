@@ -21,6 +21,8 @@
 require_once 'configuration.php';
 require_once 'scripts/imageprocessing.php';
 
+$outfitDrawer = new OutfitDrawer();
+
 $completeOutfit = $_GET['outfit'];
 if (isset($_GET['offset'])) {
 	$offset = intval($_GET['offset'], 10);
@@ -28,7 +30,7 @@ if (isset($_GET['offset'])) {
 	$offset = 2;
 }
 
-if (!validateInput($completeOutfit)) {
+if (!$outfitDrawer->validateInput($completeOutfit)) {
 	header('HTTP/1.0 404 Not found');
 	exit('Invalid outfit.');
 }
@@ -46,5 +48,5 @@ header('Etag: "'.$etag.'"');
 if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
 	header('HTTP/1.0 304 Not modified');
 } else {
-	loadOrCreate($completeOutfit, $offset);
+	$outfitDrawer->loadOrCreate($completeOutfit, $offset);
 }
