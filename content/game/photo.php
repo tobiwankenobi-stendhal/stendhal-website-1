@@ -22,18 +22,32 @@ require_once '../../scripts/imageprocessing.php';
 
 $OUTFITS_BASE="../../data/sprites/outfit";
 
+$params = [
+	//background, offset,   x,   y
+	['balduin',        1, 170, 190],
+	['hayunn_naratha', 3, 280, 130],
+	['semosdungeon',   3, 260, 155],
+	['tempel',         0, 280, 140],
+	['jenny',          3, 320, 200],
+	['gnomes',         3, 420, 150],
+	['ados',           1, 100, 150],
+	['toweroutside',   0, 250, 230],
+	['wildlife',       0, 215,  20]
+];
+
+$i = $_GET['i'];
 
 header('Content-Type: image/png');
 
 $image = imagecreatefrompng();
-$image = new Imagick('../../images/photos/balduin.png');
+$image = new Imagick('../../images/photos/'.$params[$i][0].'.png');
 
-$completeOutfit = '7080202';
-$offset = 1;
+$completeOutfit = $_GET['outfit'];
+$offset = $params[$i][1];
 
 $drawer = new OutfitDrawer();
 $outfit = $drawer->create_outfit(explode('_', $completeOutfit), $offset);
-$image->compositeImage($outfit, Imagick::COMPOSITE_OVER, 170, 190);
+$image->compositeImage($outfit, Imagick::COMPOSITE_OVER, $params[$i][2], $params[$i][3]);
 
 
 echo $image;
