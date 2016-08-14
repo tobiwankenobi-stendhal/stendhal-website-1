@@ -18,34 +18,7 @@
  */
 
 require_once 'configuration.php';
-
-function createImageData($url) {
-	$size = getimagesize($url);
-	$loc = 0;
-	$w = $size[0];
-	$h = $size[1];
-
-	if (strpos($url, "/ent/") !== false) {
-		// Ent images are tiles of 1x2 so we choose a single tile.
-		$w=$w;
-		$h=$h/2;
-		$loc=0;
-	} else if (strpos($url, "/alternative/") === false) {
-		// Images are tiles of 3x4 so we choose a single tile.
-		$w=$w/3;
-		$h=$h/4;
-		$loc=$h*2;
-	}
-
-	$result=imagecreate($w,$h);
-	$white=imagecolorallocate($result,255,255,255);
-	imagefilledrectangle($result, 0,0,$w,$h,$white);
-
-	$baseIm=imagecreatefrompng($url);
-	imagecopy($result,$baseIm,0,0,0,$loc,$w,$h);
-	return $result;
-}
-
+require_once 'scripts/imageprocessing.php';
 
 $url = $_GET['url'];
 if ((strpos($url, '..') !== false) || (strpos($url, 'data/sprites/') !== 0) || (strpos($url, '.') < strlen($url) - 4)) {
@@ -66,5 +39,6 @@ header('Etag: "'.$etag.'"');
 if (isset($requestedEtag) && (($requestedEtag == $etag) || ($requestedEtag == '"'.$etag.'"'))) {
 	header('HTTP/1.0 304 Not modified');
 } else {
-	imagepng(createImageData($url));
+	$drawer = new NPCAndCreatureDrawer();
+	imagepng($drawer->createImageData($url));
 }
