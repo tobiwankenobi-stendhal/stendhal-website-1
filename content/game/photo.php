@@ -36,18 +36,26 @@ $params = [
 ];
 
 $i = $_GET['i'];
+$completeOutfit = $_GET['outfit'];
+
+if (defined('STENDHAL_SECRET') && ($_GET['h'] != hash_hmac('sha256', $i.'_'.$completeOutfit, STENDHAL_SECRET))) {
+	header('404 Page not found');
+	echo 'Page not found';
+	exit;
+}
 
 header('Content-Type: image/png');
 
 $image = imagecreatefrompng();
 $image = new Imagick('../../images/photos/'.$params[$i][0].'.png');
 
-$completeOutfit = $_GET['outfit'];
 $offset = $params[$i][1];
 
 $drawer = new OutfitDrawer();
 $outfit = $drawer->create_outfit(explode('_', $completeOutfit), $offset);
 $image->compositeImage($outfit, Imagick::COMPOSITE_OVER, $params[$i][2], $params[$i][3]);
 
+$texture = new Imagick('../../images/photos/canvas.jpeg');
+$image->compositeImage($image->textureImage($texture), Imagick::COMPOSITE_HARDLIGHT, 0, 0);
 
 echo $image;
