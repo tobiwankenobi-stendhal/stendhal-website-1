@@ -56,6 +56,6 @@ $outfit = $drawer->create_outfit(explode('_', $completeOutfit), $offset);
 $image->compositeImage($outfit, Imagick::COMPOSITE_OVER, $params[$i][2], $params[$i][3]);
 
 $texture = new Imagick('../../images/photos/canvas.jpg');
-$image->compositeImage($image->textureImage($texture), Imagick::COMPOSITE_HARDLIGHT, 0, 0);
+$image->compositeImage($image->textureImage($texture), Imagick::COMPOSITE_SOFTLIGHT, 0, 0);
 
 echo $image;
