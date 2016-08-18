@@ -32,7 +32,9 @@ $params = [
 	['gnomes',         3, 420, 150],
 	['ados',           1, 100, 150],
 	['toweroutside',   0, 250, 230],
-	['wildlife',       0, 215,  20]
+	['wildlife',       0, 215,  20],
+#	['wizzardtower',   0, 210, 135]
+	['wizzardtower',   0, 345, 195]
 ];
 
 $i = $_GET['i'];
