@@ -33,8 +33,14 @@ $params = [
 	['ados',           1, 100, 150],
 	['toweroutside',   0, 250, 230],
 	['wildlife',       0, 215,  20],
-#	['wizzardtower',   0, 210, 135]
-	['wizzardtower',   0, 345, 195]
+	['wizzardtower',   0, 345, 195],
+	['annie',          3, 110,  80],
+	['hell',           0, 140, 160],
+	['imorgen',        1, 220, 200],
+	['imperial',       1, 130, 220],
+	['nalworhut',      2, 225, 140],
+	['onicastle',      2, 200,  40],
+	['sally',          1, 150, 160]
 ];
 
 $i = $_GET['i'];
