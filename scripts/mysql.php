@@ -73,6 +73,12 @@ class DB {
 
 function getGameDB() {
 	global $gamedb;
+
+	if (!function_exists('mysql_connect')) {
+		echo'<pre>';
+		debug_print_backtrace();
+		exit();
+	}
 	
 	if (!isset($gamedb)) {
 		$gamedb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
@@ -89,9 +95,17 @@ function getGameDB() {
 
 if (!function_exists('mysql_real_escape_string')) {
 	function mysql_real_escape_string($param) {
-		$quoted = DB::game()->query($param);
-		return subst($quoted, 1, -1);
+		$quoted = DB::game()->quote($param);
+		return substr($quoted, 1, -1);
 	}
+
+	function mysql_query() {
+		echo'<pre>';
+		debug_print_backtrace();
+		exit();
+	}
+	
+
 } else {
 	// invoke getGameDB() so that mysql_real_escape_string can be used
 	getGameDB();
