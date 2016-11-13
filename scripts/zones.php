@@ -39,7 +39,7 @@ class Zone {
 	}
 
 	public static function getZoneInfos() {
-		return fetchToArray('SELECT * FROM zoneinfo WHERE level=0 AND iterior=0', getGameDB());
+		return DB::game()->query('SELECT * FROM zoneinfo WHERE level=0 AND iterior=0');
 	}
 
 	public static function getZones() {

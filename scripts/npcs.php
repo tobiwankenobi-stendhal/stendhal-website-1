@@ -65,7 +65,7 @@ class NPC {
 	 * gets the names NPC from the database.
 	 */
 	static function getNPC($name) {
-		$npcs = NPC::_getNPCs('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
+		$npcs = NPC::_getNPCs('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1');
 		return $npcs[0];	
 	}
 
@@ -75,7 +75,7 @@ class NPC {
 	  * Note: Parmaters must be sql escaped.
 	  */
 	static function getNPCs($where='', $sortby='name', $cond='') {
-		return NPC::_getNPCs('select * from npcs '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+		return NPC::_getNPCs('select * from npcs '.$where.' order by '.$sortby.' '.$cond);
 	}
 
 
@@ -87,10 +87,10 @@ class NPC {
 			'Amber', 'Skye', 
 			'Red Crystal', 'Purple Crystal', 'Yellow Crystal', 'Pink Crystal', 'Blue Crystal');
 
-		$result = mysql_query($query, getGameDB());
+		$result = DB::game()->query($query);
 		$list = array();
 
-		while($row = mysql_fetch_assoc($result)) {
+		foreach($result as $row) {
 			$zone = $row['zone'];
 			$pos = 'at ' . $row['x'] . ', ' . $row['y'];
 			if (in_array($row['name'], $NO_ZONE)) {
@@ -112,7 +112,6 @@ class NPC {
 				$row['job'],
 				$row['image']);
 		}
-		mysql_free_result($result);
 		return $list;
 	}
 }

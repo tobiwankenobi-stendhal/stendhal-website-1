@@ -38,7 +38,7 @@ class DB {
 				die(databaseConnectionErrorMessage('game database'));
 			}
 		}
-		return DB::$web;
+		return DB::$game;
 	}
 
 	public static function web() {
