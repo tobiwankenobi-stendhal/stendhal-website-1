@@ -97,11 +97,10 @@ function queryWithCache($query, $ttl, $db) {
 	$list = $cache->fetchAsArray('stendhal_query_'.$query);
 	if (!isset($res)) {
 		$list=array();
-		$result = mysql_query($query, $db);
-		while($row=mysql_fetch_assoc($result)) {
+		$rows = $db->query($query);
+		foreach($rows as $row) {
 			$list[] = $row;
 		}
-		mysql_free_result($result);
 		if ($ttl && $ttl > 0 && count($list) > 0) {
 			$cache->store('stendhal_query_'.$query, new ArrayObject($list), $ttl);
 		}
@@ -197,11 +196,13 @@ class Wiki {
 
 	public function findPage() {
 		$sql = "SELECT page_id, page_title As title, p2.pp_value As displaytitle FROM a1111_wiki.page, a1111_wiki.page_props as p1, a1111_wiki.page_props as p2 " 
-		." WHERE p1.pp_propname='externalcanonical' AND p1.pp_value = '" . mysql_real_escape_string($this->url) 
-		."' AND page.page_namespace=0 AND page.page_id=p1.pp_page"
+		." WHERE p1.pp_propname='externalcanonical' AND p1.pp_value = :url" 
+		." AND page.page_namespace=0 AND page.page_id=p1.pp_page"
 		." AND p2.pp_propname='externaltitle' AND page.page_id=p2.pp_page";
-		
-		$res = fetchToArray($sql, getGameDB());
+
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(':url' => $this->url));
+		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		if (count($res) > 0) {
 			$this->page = $res[0];
 			return $res[0];
@@ -301,10 +302,15 @@ class Wiki {
 				     a1111_wiki.page_props As pp_url, a1111_wiki.page_props As pp_title, a1111_wiki.page_props As pp_keyword
 				WHERE pp_url.pp_propname='externalcanonical' 
 				AND pp_keyword.pp_page=pp_title.pp_page AND pp_title.pp_propname='externaltitle'
-				AND pp_url.pp_page=pp_keyword.pp_page AND pp_keyword.pp_propname='".mysql_real_escape_string($propName)."'
+				AND pp_url.pp_page=pp_keyword.pp_page AND pp_keyword.pp_propname=:pp_propname
 				AND categorylinks.cl_from=pp_keyword.pp_page AND stendhal_category_search.category=categorylinks.cl_to
-				AND categorylinks.cl_to = '".mysql_real_escape_string($category)."'
+				AND categorylinks.cl_to = :cl_to
 				LIMIT 100";
-		return fetchToArray($sql, getGameDB());
+		$stmt = DB::game()->prepare($sql);
+		$stmt->execute(array(
+			':pp_propname' => $propName,
+			':cl_to' => $category
+		));
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 }

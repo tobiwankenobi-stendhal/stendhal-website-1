@@ -173,9 +173,9 @@ function getBestPlayer($tableSuffix, $where='') {
 	. " from halloffame_archive_".$tableSuffix." As halloffame_archive join character_stats on (halloffame_archive.charname=name) join reached_achievement on (reached_achievement.charname=name) "
 	. $where
 	. " and day = CURRENT_DATE() and fametype = 'R'"
-	. " group by halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.sentence"
+	. " group by halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.sentence, halloffame_archive.rank"
 	. " order by rank limit 1";
-	$list = queryWithCache($query, 60*60, getGameDB());
+	$list = queryWithCache($query, 60*60, DB::game());
 	if (count($list) > 0) {
 		return $list[0];
 	} else {
@@ -189,15 +189,13 @@ function getBestPlayer($tableSuffix, $where='') {
   * Note: Parameters must be sql escaped.
   */
 function getHOFPlayers($tableSuffix, $where='', $fametype = '', $cond='limit 2') {
-	$query = 'select distinct halloffame_archive_'.$tableSuffix.'.charname, halloffame_archive_'.$tableSuffix.'.rank, halloffame_archive_'.$tableSuffix.'.points, character_stats.outfit, character_stats.outfit_colors  from halloffame_archive_'.$tableSuffix.' join character_stats on (charname=name) '.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '.$cond;
-	$result = mysql_query($query,getGameDB());
-	$list=array();
-
-	while($row=mysql_fetch_assoc($result)) {
-		$list[] = $row;
-	}
-	mysql_free_result($result);
-	return $list;
+	$query = "SELECT distinct halloffame_archive_".$tableSuffix.".charname, halloffame_archive_".$tableSuffix.".rank, halloffame_archive_".$tableSuffix.".points, character_stats.outfit, character_stats.outfit_colors
+			FROM halloffame_archive_".$tableSuffix." join character_stats on (charname=name) "
+			.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '
+			.$cond;
+	$stmt = DB::web()->prepare($query);
+	$stmt->execute(array(':fametype', $fametype));
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**

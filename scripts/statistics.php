@@ -21,20 +21,20 @@ class ServerStatistics {
 
 	public static function checkServerIsOnline() {
 		$sql = 'SELECT TIME_TO_SEC(TIMEDIFF(now(), timedate)) As diff FROM statistics ORDER BY id DESC LIMIT 1';
-		$result = queryFirstCell($sql, getGameDB());
-		return $result<300;
+		$rows = DB::game()->query($sql);
+		foreach ($rows as $row) {
+			return $row['diff']<300;
+		}
+		return false;
 	}
 
 	public static function readOnlineStatS() {
 		$res = array();
 		$sql = 'SELECT name, val FROM statistics_archive WHERE day = CURRENT_DATE()';
-		$result = mysql_query($sql, getGameDB());
-
-		while ($row = mysql_fetch_assoc($result)) {
+		$rows = DB::game()->query($sql);
+		foreach ($rows as $row) {
 			$res[$row['name']] = $row['val'];
 		}
-
-		mysql_free_result($result);
 		return $res;
 	}
 }
