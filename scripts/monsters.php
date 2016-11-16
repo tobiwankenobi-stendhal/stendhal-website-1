@@ -199,47 +199,37 @@ function listOfMonstersEscaped($monsters) {
 }
 
 function getMostKilledMonster($monsters) {
-	$numOfDays=7;
 	$query = "SELECT killed, count(*) As amount
 		FROM kills
-		WHERE killed_type='C' AND killer_type='P' AND date_sub(curdate(), INTERVAL ".$numOfDays." DAY) < day
+		WHERE killed_type='C' AND killer_type='P' AND date_sub(curdate(), INTERVAL 7 DAY) < day
 		GROUP BY killed
 		ORDER BY amount DESC
 		LIMIT 1;";
-	$result = mysql_query($query, getGameDB());
 
-	$monster=null;
-	while($row=mysql_fetch_assoc($result)) {
-		foreach($monsters as $m) {
-			if($m->name==$row['killed']) {
-				$monster=array($m, $row['amount']);
-			}
-		}
-	}
-
-	mysql_free_result($result);
+	$stmt = DB::game()->prepare($query);
+	$stmt->execute();
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+	$monster = array(getMonster($row['killed']), $row['amount']);
 	return $monster;
 }
 
 function getBestKillerMonster($monsters) {
-	$numOfDays=7;
-
-	$query="SELECT killer, count(*) As amount 
+	$query = "SELECT killer, count(*) As amount 
 		FROM kills
-		WHERE killer_type='C' AND killed_type='P' AND date_sub(curdate(), INTERVAL " . $numOfDays . " DAY) < day
+		WHERE killer_type='C' AND killed_type='P' AND date_sub(curdate(), INTERVAL 7 DAY) < day
 		GROUP BY killer
 		ORDER BY amount DESC
 		LIMIT 1;";
-	$result = mysql_query($query, getGameDB());
 
-	$monster=null;
-	while($row=mysql_fetch_assoc($result)) {
-		$monster=array(getMonster($row['killer']), $row['amount']);
-	}
-
-	mysql_free_result($result);
+	$stmt = DB::game()->prepare($query);
+	$stmt->execute();
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+	$monster = array(getMonster($row['killer']), $row['amount']);
 	return $monster;
 }
+
 
 /**
  * Returns a list of Monsters
