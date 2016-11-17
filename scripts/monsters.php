@@ -2,6 +2,7 @@
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
  Copyright (C) 2008  Miguel Angel Blanch Lardin
+ Copyright (C) 2008-2016 The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -131,36 +132,32 @@ class Monster {
 		/*
 		 * Amount of times this creature has been killed by a player or another creature.
 		 */
-		$result = mysql_query("
+		$rows = DB::game()->query("
 			SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
 			FROM kills
 			WHERE killed_type='C' AND killer_type='P'
 			AND killed='" . mysql_real_escape_string($this->name) . "'
 			AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
-			GROUP BY day", getGameDB());
+			GROUP BY day");
 
-		while($row=mysql_fetch_assoc($result)) {
-			$this->kills[$row['day_offset']]=$row['amount'];
+		foreach ($rows as $row) {
+			$this->kills[$row['day_offset']] = $row['amount'];
 		}
-
-		mysql_free_result($result);
 
 		/*
 		 * Amount of times this creature has killed a player.
 		 */
-		$result = mysql_query("
+		$rows = DB::game()->query("
 			SELECT to_days(NOW()) - to_days(day) As day_offset, sum(cnt) As amount
 			FROM kills
 			WHERE killed_type='P' AND killer_type='C'
 			AND killer='" . mysql_real_escape_string($this->name) . "'
 			AND date_sub(curdate(), INTERVAL " . $numberOfDays . " DAY) < day
-			GROUP BY day", getGameDB());
+			GROUP BY day");
 
-		while($row=mysql_fetch_assoc($result)) {
-			$this->killed[$row['day_offset']]=$row['amount'];
+		foreach ($rows as $row) {
+			$this->killed[$row['day_offset']] = $row['amount'];
 		}
-
-		mysql_free_result($result);
 	}
 }
 

@@ -137,12 +137,7 @@ class Achievement {
 			. "AND reached_achievement.achievement_id = '".mysql_real_escape_string($achievementId)."' "
 			. REMOVE_ADMINS_AND_POSTMAN
 			. " ORDER BY reached_achievement.timedate DESC LIMIT 14";
-		$result = mysql_query($query, getGameDB());
-		$list= array();
-		while($row = mysql_fetch_assoc($result)) {
-			$list[] = $row;
-		}
-		return $list;
+		return DB::game()->query($query);
 	}
 
 	public static function getAwardedToOwnCharacters($accountId, $achievementId) {
@@ -154,12 +149,7 @@ class Achievement {
 			. " AND characters.charname = character_stats.name "
 			. "AND characters.player_id='".mysql_real_escape_string($accountId)."' "
 			. "ORDER BY character_stats.name LIMIT 100";
-		$result = mysql_query($query, getGameDB()) or die($query.':'. mysql_error(getGameDB()));
-		$list= array();
-		while($row = mysql_fetch_assoc($result)) {
-			$list[] = $row;
-		}
-		return $list;
+		return DB::game()->query($query);
 	}
 
 	public static function getAwardedToMyFriends($accountId, $achievementId) {
@@ -173,12 +163,7 @@ class Achievement {
 			. "AND characters.charname = buddy.charname "
 			. "AND char2.charname = buddy.buddy AND char2.player_id != '".mysql_real_escape_string($accountId)."' "
 			. " ORDER BY character_stats.name LIMIT 100";
-		$result = mysql_query($query, getGameDB()) or die($query.':'. mysql_error(getGameDB()));
-		$list= array();
-		while($row = mysql_fetch_assoc($result)) {
-			$list[] = $row;
-		}
-		return $list;
+		return DB::game()->query($query);
 	}
 	
 	
@@ -190,18 +175,13 @@ class Achievement {
 			. "AND achievement.category = '".mysql_real_escape_string($category)."' " 
 			. REMOVE_ADMINS_AND_POSTMAN
 			. " ORDER BY reached_achievement.timedate DESC;";
-		$result = mysql_query($query, getGameDB());
-		$list= array();
-		while($row = mysql_fetch_assoc($result)) {
-			$list[] = $row;
-		}
-		return $list;
+		return DB::game()->query($query);
 	}
 	
 	private static function _getAchievements($query) {
-		$result = mysql_query($query, getGameDB());
+		$rows = DB::game()->query($query);
 		$list = array();
-		while($row = mysql_fetch_assoc($result)) {
+		foreach ($rows as $row) {
 			if (isset($row['reachedOn'])) {
 				$reachedOn = $row['reachedOn'];
 			} else {
@@ -210,8 +190,7 @@ class Achievement {
 			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
 				$row['category'], $row['base_score'], $row['description'], $row['cnt'], $reachedOn);
 		}
-		mysql_free_result($result);
 		return $list;
 	}
 }
-?>
+

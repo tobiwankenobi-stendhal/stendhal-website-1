@@ -2,7 +2,7 @@
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
  Copyright (C) 2008  Miguel Angel Blanch Lardin
- Copyright (C) 2008-2010 The Arianne Project
+ Copyright (C) 2008-2016 The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -61,17 +61,12 @@ class PlayerHistoryEntry {
 	}
 
 	function _getPlayerHistoryEntries($query) {
-	    $result = mysql_query($query, getGameDB());
-	    $list=array();
-
-	    while($row=mysql_fetch_assoc($result)) {            
+	    $rows = DB::game()->query($query);
+	    $list = array();
+	    foreach($rows as $row) {            
 			$list[]=new PlayerHistoryEntry($row['timedate'],
 	        	$row['source'], $row['event'], $row['param1'],$row['param2']);
 	    }
-
-	    mysql_free_result($result);
-
 	    return $list;
 	}
 }
-?>

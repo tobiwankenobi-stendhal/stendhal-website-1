@@ -80,16 +80,13 @@ class ItemLog {
 	 * @return array of ItemLogEntry objects
 	 */
 	public static function _getItemLogEntries($query) {
-		$result = mysql_query($query, getGameDB());
+		$rows = DB::game()->query($query);
 		$res = array();
-
-		while ($row = mysql_fetch_assoc($result)) {
+		foreach ($rows as $row) {
 			$res[] = new ItemLogEntry($row['id'], $row['timedate'],
 				$row['itemid'], $row['source'], $row['event'], 
 				$row['param1'], $row['param2'], $row['param3'], $row['param4']);
 		}
-
-		mysql_free_result($result);
 		return $res;
 	}
 }
