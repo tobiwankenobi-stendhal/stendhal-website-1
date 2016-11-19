@@ -11,26 +11,19 @@ class BingoPage extends Page {
 	
 	public function __construct() {
 		$this->query = "SELECT id, killed, killed_type, killer, killer_type FROM kills WHERE id>'".mysql_real_escape_string($_REQUEST['lastid'])."'+1 ORDER BY id LIMIT 1";
-		$result = mysql_query($this->query, getGameDB());
-		
-        $row=mysql_fetch_assoc($result);
+		$stmt = DB::game()->query($this->query);		
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$this->id = $row['id'];
 		$this->name = $row['killed'];
 		$this->killed_type = $row['killed_type'];
 		$this->killer = $row['killer'];
 		$this->killer_type = $row['killer_type'];
 
-        mysql_free_result($result);
-
-
 		$this->query = "SELECT level, outfit FROM character_stats WHERE name='".mysql_real_escape_string($this->killer)."'";
-		$result = mysql_query($this->query, getGameDB());
-		
-        $row=mysql_fetch_assoc($result);
+		$stmt = DB::game()->query($this->query);		
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$this->level = $row['level'];
 		$this->outfit = $row['outfit'];
-
-        mysql_free_result($result);
 	}
 	
 	public function writeHttpHeader() {
@@ -90,4 +83,3 @@ class BingoPage extends Page {
 }
 
 $page = new BingoPage();
-?>

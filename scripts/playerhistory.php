@@ -50,7 +50,7 @@ class PlayerHistoryEntry {
 	  * Note: Parameters must be sql escaped. the condition might not work at all because of the union. But this function is not used anyway.
 	  */
 	function getPlayerHistoryEntriesForPlayers($where='', $sortby='id', $cond='') {
-	    return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+	    return _getPlayers('select * from character_stats '.$where.' order by '.$sortby.' '.$cond);
 		$query = "(SELECT * FROM gameEvents_2009_08_17 WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') ".$where." ORDER BY ".$sortby." ".$cond.") UNION (SELECT * FROM gameEvents  WHERE event in ('adminlevel', 'adminnote', 'alter', 'ban', 'gag', 'ghostmode', 'invisible', 'jail', 'removed', 'summon', 'summonat', 'script', 'support', 'supportanswer', 'teleclickmode', 'teleport', 'teleportto', 'tellall', 'wrap') ".$where." ORDER BY ".$sortby." ".$cond.")";
 	    return PlayerHistoryEntry::_getPlayerHistoryEntries($query);
 	}

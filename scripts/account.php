@@ -38,26 +38,22 @@ function getAdminLevel() {
 	$sql = "select max(admin) As adminlevel FROM character_stats, characters, account "
 		. " WHERE character_stats.name=characters.charname AND characters.player_id=account.id "
 		. " AND account.username='".mysql_real_escape_string($_SESSION['account']->username)."'";
-	$result = mysql_query($sql, getGameDB());
-	while($row=mysql_fetch_assoc($result)) {
-		return (int)$row['adminlevel'];
-	}
+	return DB::game()->query($sql)->fetchColumn();
 }
 
 
 // Returns user id for username or false
 function getUserID($username) {
-	$q = "SELECT id FROM account WHERE username = '".
-	mysql_real_escape_string($username)."'";
+	$sql = "SELECT id FROM account WHERE username = '".
+		mysql_real_escape_string($username)."'";
 
-	$result = mysql_query($q, getGameDB());
-
-	if (!$result || mysql_num_rows($result) !== 1) {
-		/* Couldn't find the userid or DB failure */
+	$stmt = DB::game()->query($sql);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	if (!$row) {
+		// Couldn't find the userid or DB failure
 		return false;
 	}
 
-	$row = mysql_fetch_assoc($result);
 	return $row['id'];
 }
 
@@ -77,10 +73,7 @@ function verifyCharacterBelongsToUsername($username, $charname) {
 	. "WHERE account.username='".mysql_real_escape_string($username)
 	. "' AND account.id=characters.player_id "
 	. "AND characters.charname='".mysql_real_escape_string($charname)."'";
-	$result = mysql_query($sql, getGameDB());
-	$res = mysql_numrows($result) > 0;
-	mysql_free_result($result);
-	return $res;
+	return DB::game()->query($sql)->rowCount() > 0;
 }
 
 /**
@@ -93,10 +86,7 @@ function doesCharacterExist($charname) {
 	$sql = "SELECT player_id "
 	. "FROM characters "
 	. "WHERE characters.charname='".mysql_real_escape_string($charname)."'";
-	$result = mysql_query($sql, getGameDB());
-	$res = mysql_numrows($result) > 0;
-	mysql_free_result($result);
-	return $res;
+	return DB::game()->query($sql)->rowCount() > 0;
 }
 
 function storeSeed($username, $ip, $seed, $authenticated) {
@@ -104,7 +94,7 @@ function storeSeed($username, $ip, $seed, $authenticated) {
 	." SELECT id, '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($seed)."', '"
 	.mysql_real_escape_string($authenticated)."', 0 FROM account WHERE username='".mysql_real_escape_string($username)."'";
 
-	mysql_query($query, getGameDB());
+	DB::game()>exec($query);
 }
 
 
@@ -117,17 +107,17 @@ function storeSeed($username, $ip, $seed, $authenticated) {
 function mergeAccount($oldUsername, $newUsername) {
 	$oldAccountId = getUserID($oldUsername);
 	$newAccountId = getUserID($newUsername);
-	mysql_query("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
-	$result = mysql_query("SELECT charname FROM characters WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
+	DB::game()>exec("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'");
+	$sql = "SELECT charname FROM characters WHERE player_id='".mysql_real_escape_string($oldAccountId)."'";
+	$rows = DB::game()->query($sql);
 	$chars = array();
-	while($row = mysql_fetch_assoc($result)) {
+	foreach($rows as $row) {
 		$chars[] = $row['charname'];
 		PlayerLoginEntry::logAccountMerge($row['charname'], $oldAccountId, $oldUsername, $newUsername);
 	}
 	sendUdpMessage('stendhal', $oldUsername . ' was merged into ' . $newUsername. ' (' . implode(', ', $chars) . ')');
-	mysql_free_result($result);
-	mysql_query("UPDATE characters SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
-	mysql_query("UPDATE accountLink SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'", getGameDB());
+	DB::game()>exec("UPDATE characters SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'");
+	DB::game()>exec("UPDATE accountLink SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'");
 }
 
 
@@ -148,7 +138,7 @@ function addAccountLink($username, $type, $identifier, $email, $nickname) {
 	. mysql_real_escape_string($identifier)."', '"
 	. mysql_real_escape_string($email)."', '"
 	. mysql_real_escape_string($nickname)."');";
-	mysql_query($sql, getGameDB());
+	DB::game()>exec($sql);
 }
 
 /**
@@ -164,7 +154,7 @@ function delAccountLink($username, $type, $identifier) {
 		. mysql_real_escape_string($accountId)."' AND type='"
 		. mysql_real_escape_string($type)."' AND username='"
 		. mysql_real_escape_string($identifier)."';";
-	mysql_query($sql, getGameDB());
+	DB::game()>exec($sql);
 }
 
 
@@ -203,15 +193,12 @@ class PlayerLoginEntry {
 		. "WHERE player_id=".mysql_real_escape_string($playerId)." AND timedate > DATE_SUB(CURDATE(),INTERVAL 7 DAY)) As data "
 		. "ORDER BY timedate DESC LIMIT 1000;";
 
-		$result = mysql_query($sql, getGameDB());
 		$list=array();
-
-		while($row = mysql_fetch_assoc($result)) {
+		$rows = DB::game()->query($sql);
+		foreach($rows as $row) {
 			$list[] = new PlayerLoginEntry($row['timedate'],
 			$row['address'], $row['service'], $row['event'],$row['result']);
 		}
-
-		mysql_free_result($result);
 		return $list;
 	}
 
@@ -228,8 +215,7 @@ class PlayerLoginEntry {
 
 		$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
 			" values (".$userid.", '".mysql_real_escape_string(trim($ip))."', '".mysql_real_escape_string($oldpass)."', 'website', ".intval($result).")";
-		$result = mysql_query($q, getGameDB());
-		return $result !== false;
+		return DB::game()>exec($q);
 	}
 
 	/**
@@ -253,16 +239,14 @@ class PlayerLoginEntry {
 		}
 		$q = $q . ")";
 
-		$result = mysql_query($q, getGameDB());
-		return $result !== false;
+		return DB::game()>exec($q);
 	}
 
 	public static function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) {
 		$q = "INSERT INTO gameEvents (source, event, param1, param2) values ".
 			"('".mysql_real_escape_string($character)."', 'accountmerge', '".mysql_real_escape_string($oldAccountId)."', '"
 			.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."')";
-			$result = mysql_query($q, getGameDB());
-			return $result !== false;
+		return DB::game()>exec($q);
 	}
 }
 
@@ -305,14 +289,7 @@ class StoredMessage {
 		. " WHERE " . $where
 		. " AND characters.player_id=".mysql_real_escape_string($playerId)
 		. " AND delivered = 0;";
-		$result = mysql_query($sql, getGameDB());
-
-		while($row = mysql_fetch_assoc($result)) {
-			$count = $row['count'];
-		}
-
-		mysql_free_result($result);
-		return $count;
+		return $rows = DB::game()->query($sql)->fetchColumn();
 	}
 
 	/**
@@ -326,15 +303,13 @@ class StoredMessage {
 		. " AND postman.timedate > DATE_SUB(CURDATE(),INTERVAL 3 MONTH) "
 		. " ORDER BY postman.timedate DESC LIMIT 100;";
 		// echo $sql;
-		$result = mysql_query($sql, getGameDB());
+		$rows = DB::game()->query($sql);
 		$list=array();
 
-		while($row = mysql_fetch_assoc($result)) {
+		foreach($rows as $row) {
 			$list[] = new StoredMessage($row['id'], $row['source'], $row['target'], $row['timedate'],
 			$row['message'], $row['messageType'], $row['delivered']);
 		}
-
-		mysql_free_result($result);
 		return $list;
 	}
 
@@ -347,11 +322,11 @@ class StoredMessage {
 	public static function deleteSentMessages($playerId, $ids) {
 		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
 			."' AND characters.charname=postman.source AND (postman.deleted='R') AND postman.id IN (".$ids.")";
-		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
+		DB::game()>exec($sql);
 
 		$sql = "UPDATE postman, characters SET postman.deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
 			."' AND characters.charname=postman.source AND postman.id IN (".$ids.")";
-		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
+		DB::game()>exec($sql);
 	}
 
 
@@ -362,13 +337,13 @@ class StoredMessage {
 	 * @param $ids id of messages to delete (need to be sql escaped)
 	 */
 		public static function deleteReceivedMessages($playerId, $ids) {
-		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.charname=postman.target AND (postman.deleted='S' OR postman.messagetype='N') AND postman.id IN (".$ids.")";
-		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
+			$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
+				."' AND characters.charname=postman.target AND (postman.deleted='S' OR postman.messagetype='N') AND postman.id IN (".$ids.")";
+			DB::game()>exec($sql);
 
-		$sql = "UPDATE postman, characters SET postman.deleted='R' WHERE characters.player_id='".mysql_real_escape_string($playerId)
-			."' AND characters.charname=postman.target AND postman.id IN (".$ids.")";
-		mysql_query($sql, getGameDB()) || die(mysql_error(getGameDB()));
+			$sql = "UPDATE postman, characters SET postman.deleted='R' WHERE characters.player_id='".mysql_real_escape_string($playerId)
+				."' AND characters.charname=postman.target AND postman.id IN (".$ids.")";
+			DB::game()>exec($sql);
 	}
 }
 
@@ -473,15 +448,11 @@ class Account {
 		$sql = "SELECT account.id, username, password, email.email, account.timedate, account.status "
 		. " FROM account LEFT JOIN email ON email.player_id=account.id "
 		. " WHERE id=".((int) $id);
-		$result = mysql_query($sql, getGameDB());
-		$list=array();
-	
-		$row = mysql_fetch_assoc($result);
+		$stmt = DB::game()->query($sql);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 		}
-	
-		mysql_free_result($result);
 		return $res;
 	}
 
@@ -494,15 +465,11 @@ class Account {
 		$sql = "SELECT account.id, username, password, email.email, account.timedate, account.status "
 			. " FROM account LEFT JOIN email ON email.player_id=account.id "
 			. " WHERE username='".mysql_real_escape_string($username)."'";
-		$result = mysql_query($sql, getGameDB());
-		$list=array();
-
-		$row = mysql_fetch_assoc($result);
+		$stmt = DB::game()->query($sql);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 		}
-
-		mysql_free_result($result);
 		return $res;
 	}
 
@@ -528,17 +495,12 @@ class Account {
 			$sql = $sql . " AND accountLink.secret IS NULL";
 		}
 
-		$result = mysql_query($sql, getGameDB());
-		$list = array();
-
-		$res = null;
-		$row = mysql_fetch_assoc($result);
+		$stmt = DB::game()->query($sql);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 			$res->usedAccountLink = $row['usedAccountLink'];
 		}
-
-		mysql_free_result($result);
 		return $res;
 	}
 
@@ -582,7 +544,7 @@ class Account {
 			. " WHERE address='" . mysql_real_escape_string($ip) . "'"
 			. " AND result != 1 and timedate > date_sub(CURRENT_TIMESTAMP(), INTERVAL 10 MINUTE)";
 		
-		$count = queryFirstCell($sql, getGameDB());
+		$count = queryFirstCell($sql, DB::game());
 		if ($count > 3) {
 			return "There have been too many failed login attempts from your network. Please wait a couple of minutes or contact support.";
 		}
@@ -592,7 +554,7 @@ class Account {
 			. " AND username='" . mysql_real_escape_string($username) . "'"
 			. " AND loginEvent.result != 1 and loginEvent.timedate > date_sub(CURRENT_TIMESTAMP(), INTERVAL 10 MINUTE)";
 		
-		$count = queryFirstCell($sql, getGameDB());
+		$count = queryFirstCell($sql, DB::game());
 		if ($count > 10) {
 			return "There have been too many failed login attempts for your account. Please wait a couple of minutes or contact support.";
 		}
@@ -604,16 +566,12 @@ class Account {
 		$sql = "SELECT reason, expire FROM accountban "
 			." WHERE accountban.player_id='".mysql_real_escape_string($this->id)."'"
 			." AND (accountban.expire > CURRENT_TIMESTAMP OR accountban.expire IS NULL) ORDER BY ifnull(expire,'9999-12-31') desc limit 1 ";
-		$result = mysql_query($sql, getGameDB());
-		$list=array();
-
-		$row = mysql_fetch_assoc($result);
+		$stmt = DB::game()->query($sql);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if ($row) {
 			$this->banMessage = $row['reason'];
 			$this->banExpire = $row['expire'];
 		}
-
-		mysql_free_result($result);
 	}
 
 	/**
@@ -709,10 +667,8 @@ class Account {
 			$sql2 .= ", '".mysql_real_escape_string(Account::sha512crypt($this->password))."'";
 		}
 		$sql = $sql.$sql2.');';
-		if (!mysql_query($sql, getGameDB())) {
-			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
-		}
-		$this->id = mysql_insert_id(getGameDB());
+		DB::game()->exec($sql);
+		$this->id = DB::game()->lastInsertId();
 		$this->insertEMail($this->email, $this->emailTrusted);
 	}
 
@@ -724,15 +680,7 @@ class Account {
 		. " FROM email WHERE player_id=" . intval($playerId)
 		. " ORDER BY id DESC";
 	
-		$result = mysql_query($sql, getGameDB());
-		$list = array();
-	
-		while($row = mysql_fetch_assoc($result)) {
-			$list[] = $row;
-		}
-	
-		mysql_free_result($result);
-		return $list;
+		return DB::game()->query();
 	}
 	
 	/**
@@ -744,7 +692,7 @@ class Account {
 		if ($trusted) {
 			$sql = "insert into email(player_id, email, address, confirmed) values ('".mysql_real_escape_string($this->id)
 			."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($_SERVER['REMOTE_ADDR'])."', NOW())";
-			mysql_query($sql, getGameDB());
+			DB::game()->exec($sql);
 		} else {
 			$data = Account::getEmailHistory($this->id);
 			if (count($data) > 0) {
@@ -762,7 +710,7 @@ class Account {
 				$token = createRandomString();
 				$sql = "insert into email(player_id, email, token) values ('".mysql_real_escape_string($this->id)
 					."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($token)."')";
-				mysql_query($sql, getGameDB());
+				DB::game()->exec($sql);
 			}
 			require_once('scripts/cmd/mail.php');
 			sendRegistrationMail($this->id, $this->username, $token, $email);
@@ -781,10 +729,8 @@ class Account {
 			$sql = "SELECT username FROM account WHERE username = '".mysql_real_escape_string($name)."' UNION ";
 		}
 		$sql .= "SELECT charname FROM characters WHERE charname = '".mysql_real_escape_string($name)."';";
-		$result = mysql_query($sql, getGameDB());
-		$res = mysql_numrows($result) == 0;
-		mysql_free_result($result);
-		return $res;
+		$stmt = DB::game()->query($sql);
+		return $stmt->rowCount();
 	}
 
 	/**
@@ -860,7 +806,7 @@ class Account {
 	 */
 	function verifyEMail($token) {
 		$sql = "SELECT count(*) FROM email WHERE token='".mysql_real_escape_string($token)."'";
-		$temp = queryFirstCell($sql, getGameDB());
+		$temp = queryFirstCell($sql, DB::game());
 		if ($temp == 0) {
 			return false;
 		}
@@ -868,7 +814,7 @@ class Account {
 		$sql = "UPDATE email SET address='".mysql_real_escape_string($_SERVER['REMOTE_ADDR']) 
 			. "', confirmed=NOW() WHERE token='".mysql_real_escape_string($token)
 			. "' AND (confirmed IS NULL OR confirmed='0000-00-00 00:00:00')";
-		mysql_query($sql, getGameDB());
+		DB::game()->exec($sql);
 		return true;
 	}
 
@@ -947,13 +893,12 @@ class AccountLink {
 		$sql = "SELECT id, player_id, type, username, nickname, email, secret "
 		. "FROM accountLink "
 		. "WHERE player_id ='".mysql_real_escape_string($playerId)."'";
-		$result = mysql_query($sql, getGameDB());
-		while($row = mysql_fetch_assoc($result)) {
+		$rows = DB::game()->query($sql);
+		foreach($rows as $row) {
 			$links[] = new AccountLink($row['id'], $row['player_id'],
 			$row['type'], $row['username'], $row['nickname'],
 			$row['email'], $row['secret']);
 		}
-		mysql_free_result($result);
 		return $links;
 	}
 
@@ -963,14 +908,13 @@ class AccountLink {
 				. "WHERE username ='".mysql_real_escape_string($username)."'"
 				. " AND type = '".mysql_real_escape_string($type)."'"
 				. " AND player_id=".intval($accountId);
-		$result = mysql_query($sql, getGameDB());
 		$links = array();
-		while($row = mysql_fetch_assoc($result)) {
+		$rows = DB::game()->query($sql);
+		foreach($rows as $row) {
 			$links[] = new AccountLink($row['id'], $row['player_id'],
 					$row['type'], $row['username'], $row['nickname'],
 					$row['email'], $row['secret']);
 		}
-		mysql_free_result($result);
 		return $links;
 	}
 	public static function findAccountLink($type, $username) {
@@ -978,14 +922,13 @@ class AccountLink {
 		. "FROM accountLink "
 		. "WHERE username ='".mysql_real_escape_string($username)."'"
 		. " AND type = '".mysql_real_escape_string($type)."'";
-		$result = mysql_query($sql, getGameDB());
 		$links = array();
-		while($row = mysql_fetch_assoc($result)) {
+		$rows = DB::game()->query($sql);
+		foreach($rows as $row) {
 			$links[] = new AccountLink($row['id'], $row['player_id'],
-			$row['type'], $row['username'], $row['nickname'],
-			$row['email'], $row['secret']);
+				$row['type'], $row['username'], $row['nickname'],
+				$row['email'], $row['secret']);
 		}
-		mysql_free_result($result);
 		return $links;
 	}
 
@@ -1024,7 +967,7 @@ class AccountLink {
 		$proposedUsernames = $this->proposeUsernames();
 		
 		// create sql statement to check which suggestions exist
-		mysql_query("BEGIN WORK", getGameDB());
+		DB::game()->beginTransaction();
 		$first = true;
 		$in = '';
 		foreach($proposedUsernames As $name ) {
@@ -1044,15 +987,10 @@ class AccountLink {
 
 		// check database
 		$existingUsernames = array();
-		$result = mysql_query($sql, getGameDB());
-		if (!$result) {
-			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
-		}
-
-		while($row = mysql_fetch_assoc($result)) {
+		$rows = DB::game()->query($sql);
+		foreach($rows as $row) {
 			$existingUsernames[] = $row['username'];
 		}
-		mysql_free_result($result);
 
 		// pick username
 		foreach($proposedUsernames As $name ) {
@@ -1072,7 +1010,7 @@ class AccountLink {
 		$this->playerId = $account->id;
 		$this->insert();
 		
-		mysql_query("COMMIT", getGameDB());
+		DB::game()->commit();
 
 		return $account;
 	}
@@ -1098,10 +1036,8 @@ class AccountLink {
 			$sql2 .= ", '".mysql_real_escape_string($this->secret)."'";
 		}
 		$sql = $sql.$sql2.');';
-		if (!mysql_query($sql, getGameDB())) {
-			echo htmlspecialchars($sql.': '.mysql_error(getGameDB()));
-		}
-		$this->id = mysql_insert_id(getGameDB());
+		DB::game()->exec($sql);
+		$this->id = DB::game()->lastInsertId();
 	}
 }
 

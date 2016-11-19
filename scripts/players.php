@@ -152,11 +152,11 @@ class Player {
   * Note: Parameters must be sql escaped.
   */
 function getPlayers($where='', $sortby='name', $cond='limit 2') {
-	return _getPlayers('select distinct character_stats.* from character_stats '.$where.' order by '.$sortby.' '.$cond, getGameDB());
+	return _getPlayers('select distinct character_stats.* from character_stats '.$where.' order by '.$sortby.' '.$cond);
 }
 
 function getPlayer($name) {
-	$player=_getPlayers('select character_stats.* from character_stats where name="'.mysql_real_escape_string($name).'" limit 1', getGameDB());
+	$player=_getPlayers('select character_stats.* from character_stats where name="'.mysql_real_escape_string($name).'" limit 1');
     return $player[0];
 }
 

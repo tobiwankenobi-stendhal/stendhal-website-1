@@ -57,7 +57,7 @@ class Searcher {
 				. count($terms) ." As score FROM searchindex s0 WHERE s0.searchterm = '"
 						. mysql_real_escape_string($this->searchTerm) ."' ORDER BY s0.searchscore DESC";
 
-		$result = fetchToArray($sql, getGameDB());
+		$result = fetchToArray($sql, DB::game());
 		profilePoint($sql);
 
 		if (strpos($this->searchTerm, ' ') !== false) {
@@ -72,7 +72,7 @@ class Searcher {
 						. " AND s0.entitytype=s".$i.".entitytype AND s0.entityname=s".$i.".entityname";
 			}
 			$sql = $columns . $from . $where . $order;
-			$result = array_merge($result, fetchToArray($sql, getGameDB()));
+			$result = array_merge($result, fetchToArray($sql, DB::game()));
 			profilePoint($sql);
 		}
 
@@ -82,7 +82,7 @@ class Searcher {
 				. " WHERE characters.status='active' AND characters.charname=character_stats.name AND charname = '" 
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id"
 				. " AND (age > 5 OR level > 0)";
-		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		$result = array_merge($result, fetchToArray($sql, DB::game()));
 		profilePoint($sql);
 		
 
@@ -97,7 +97,7 @@ class Searcher {
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
 		
-		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		$result = array_merge($result, fetchToArray($sql, DB::game()));
 		
 		profilePoint($sql);
 
@@ -110,7 +110,7 @@ class Searcher {
 				. " WHERE page_id=si_page AND MATCH(si_text) AGAINST('+".mysql_real_escape_string(str_replace(' ', ' +', $this->searchTerm))
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 						. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
-		$result = array_merge($result, fetchToArray($sql, getGameDB()));
+		$result = array_merge($result, fetchToArray($sql, DB::game()));
 		profilePoint($sql);
 		
 		return $result;

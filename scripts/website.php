@@ -246,10 +246,10 @@ class Wiki {
 		$sql = "SELECT page_title, pp_value FROM a1111_wiki.page_props, a1111_wiki.page, a1111_wiki.pagelinks"
 			." WHERE pp_propname='externalcanonical' AND page.page_namespace=0 AND page.page_id=page_props.pp_page" 
 			." AND pl_namespace=0 AND page_title=pl_title AND pl_from=".intval($pageId);
-		$res = fetchToArray($sql, getGameDB());
+		$rows = DB::game()->query($sql);
 		
 		$prefix = '<a href="';
-		foreach ($res as $row) {
+		foreach ($rows as $row) {
 			$content = str_replace($prefix.'/wiki/'.$this->wikiUrlEncode($row['page_title']).'"', 
 				$prefix.$this->wikiUrlEncode($row['pp_value']).'"', $content);
 		}
@@ -287,7 +287,12 @@ class Wiki {
 
 	function getCategories() {
 		$sql =  "SELECT cl_to FROM a1111_wiki.categorylinks WHERE cl_from=" . intval($this->page['page_id']);
-		return fetchColumnToArray($sql, getGameDB(), 'cl_to');
+		$rows = DB::game()->query($sql);
+		$res = array();
+		foreach($rows as $row) {
+			$res[] = $row['cl_to'];
+		}
+		return $res;
 	}
 
 	/**

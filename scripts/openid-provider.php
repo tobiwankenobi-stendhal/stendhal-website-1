@@ -5,12 +5,12 @@
 require_once 'lib/openid/provider.php';
 
 function getUserData($handle=null) {
-	// TODO: verify login
 	if(isset($_POST['login'],$_POST['password'])) {
 		$login = mysql_real_escape_string($_POST['login']);
 		$password = sha1($_POST['password']);
-		$q = mysql_query("SELECT * FROM Users WHERE login = '$login' AND password = '$password'", getGameDB());
-		if($data = mysql_fetch_assoc($q)) {
+		$sql = "SELECT * FROM Users WHERE login = '$login' AND password = '$password'";
+		$data = DB::game()->query($sql)->fetch(PDO::FETCH_ASSOC);
+		if ($data) {
 			return $data;
 		}
 		if($handle) {
@@ -101,8 +101,9 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 			return STENDHAL_LOGIN_TARGET.'/a/'.surlencode(strtolower($account->username));
 		}
 
-		$result = mysql_query("SELECT attribute FROM openid_allowedsites WHERE player_id = '".$account->id."' AND realm = '".mysql_real_escape_string($realm)."'", getGameDB());
-		while($row=mysql_fetch_assoc($result)) {
+		$sql = "SELECT attribute FROM openid_allowedsites WHERE player_id = '".$account->id."' AND realm = '".mysql_real_escape_string($realm)."'";
+		$rows = DB::game()->query($sql);
+		foreach ($rows as $row) {
 			if ($row['attributes'] == 'namePerson/friendly') {
 				$attributes['namePerson/friendly'] = $account->username;
 			}
@@ -118,7 +119,7 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 		// save, if user requested to remember
 		if(isset($_POST['always']) && count($attributes) == 0) {
-			mysql_query("INTO openid_allowedsites (player_id, realm, attribute) VALUES('".$account->id."', '".mysql_real_escape_string($realm)."', 'namePerson/friendly')", getGameDB());
+			DB::game()->exec("INTO openid_allowedsites (player_id, realm, attribute) VALUES('".$account->id."', '".mysql_real_escape_string($realm)."', 'namePerson/friendly')");
 		}
 
 		return STENDHAL_LOGIN_TARGET.'/a/'.surlencode(strtolower($account->username));
@@ -130,15 +131,16 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 
 	function setAssoc($handle, $data) {
 		$data = serialize($data);
-		mysql_query("UPDATE openid_associations SET data='".mysql_real_escape_string($data)."' WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
-		if (mysql_affected_rows(getGameDB()) == 0) {
-			mysql_query("INSERT INTO openid_associations (handle, data) VALUES('".mysql_real_escape_string($handle)."', '".mysql_real_escape_string($data)."')", getGameDB());
+		$res = DB::game()->exec("UPDATE openid_associations SET data='".mysql_real_escape_string($data)."' WHERE handle='".mysql_real_escape_string($handle)."'");
+		if ($res === 0) {
+			DB::game()->exec("INSERT INTO openid_associations (handle, data) VALUES('".mysql_real_escape_string($handle)."', '".mysql_real_escape_string($data)."')");
 		}
 	}
 
 	function getAssoc($handle) {
-		$q = mysql_query("SELECT data FROM openid_associations WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
-		$data = mysql_fetch_row($q);
+		$sql = "SELECT data FROM openid_associations WHERE handle='".mysql_real_escape_string($handle)."'";
+		$stmt = DB::game()->query($sql);
+		$data = $stmt->fetch(PDO::FETCH_NUM);
 		if(!$data) {
 			return false;
 		}
@@ -146,7 +148,7 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 	}
 
 	function delAssoc($handle) {
-		mysql_query("DELETE FROM openid_associations WHERE handle='".mysql_real_escape_string($handle)."'", getGameDB());
+		DB::game()->exec("DELETE FROM openid_associations WHERE handle='".mysql_real_escape_string($handle)."'");
 	}
 
 }

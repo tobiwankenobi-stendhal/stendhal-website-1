@@ -50,7 +50,7 @@ class ApprovePage extends Page {
 
 			$md5newpass = strtoupper(md5($newpassword));
 			$q = "update account set password='".mysql_real_escape_string($md5newpass)."' where username = '".mysql_real_escape_string($username)."'";
-			$result = mysql_query($q,getGameDB());
+			$result = DB::game()->exec($q);
 
 			// Show user the new password.
 			startBox("New password generated");

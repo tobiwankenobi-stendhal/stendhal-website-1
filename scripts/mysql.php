@@ -67,48 +67,20 @@ class DB {
 			}
 		}
 		return DB::$wiki;
-	}
-	
+	}	
 }
 
-function getGameDB() {
-	global $gamedb;
-
-	if (!function_exists('mysql_connect')) {
-		echo'<pre>';
-		debug_print_backtrace();
-		exit();
-	}
-	
-	if (!isset($gamedb)) {
-		$gamedb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
-		if (isset($_REQUEST) && isset($_REQUEST['test']) && $_REQUEST['test'] == 'testdb') {
-			@mysql_select_db(STENDHAL_TEST_DB, $gamedb) or die( "Unable to select test database");
-		} else {
-			@mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( databaseConnectionErrorMessage('game database'));
-		}
-		mysql_query('set character set utf8;', $gamedb);
-	}		
-	
-	return $gamedb;
-}
 
 if (!function_exists('mysql_real_escape_string')) {
 	function mysql_real_escape_string($param) {
 		$quoted = DB::game()->quote($param);
 		return substr($quoted, 1, -1);
 	}
-
-	function mysql_query() {
-		echo'<pre>';
-		debug_print_backtrace();
-		exit();
-	}
-	
-
 } else {
-	// invoke getGameDB() so that mysql_real_escape_string can be used
-	getGameDB();
+	// connect to database old-style so that mysql_real_escape_string can be used
+	$gamedb = mysql_connect(STENDHAL_GAME_HOSTNAME, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD, true);
+	mysql_select_db(STENDHAL_GAME_DB, $gamedb) or die( databaseConnectionErrorMessage('game database'));
+	mysql_query('set character set utf8;', $gamedb);
 }
 
 
@@ -130,65 +102,21 @@ function databaseConnectionErrorMessage($message) {
 }
 
 function disconnect() {
-	global $gamedb;
-	if (isset($gamedb)) {
-		mysql_close($gamedb);
-	}
 }
 
-
 function queryFirstCell($query, $connection) {
-	$result = mysql_query($query, $connection);
-	$res = mysql_fetch_row($result);
-	mysql_free_result($result);
-	if (isset($res)) {
-		return $res[0];
-	}
+	$result = $connection->query($query);
+	$res = $result->fetch(PDO::FETCH_NUM);
+	return $res[0];
 }
 
 function fetchToArray($query, $connection) {
-	$result = mysql_query($query, $connection);
+	$rows = $connection->query($query);
 	$res = array();
 	
-	while($row = mysql_fetch_assoc($result)) {
+	foreach($rows as $row) {
 		$res[] = $row;
 	}
-	
-	mysql_free_result($result);
-	return $res;
-}
 
-function fetchColumnToArray($query, $connection, $column) {
-	$result = mysql_query($query, $connection);
-	$res = array();
-
-	while($row = mysql_fetch_assoc($result)) {
-		$res[] = $row[$column];
-	}
-
-	mysql_free_result($result);
-	return $res;
-}
-
-/**
- * creates an id list from a query
- *
- * @param unknown_type $query
- * @param unknown_type $connection
- */
-function fetchToIdList($query, $connection) {
-	$result = mysql_query($query, $connection);
-	$res = '';
-	$first = true;
-	
-	while($row = mysql_fetch_row($result)) {
-		if ($first) {
-			$first = false;
-		} else {
-			$res .= ', ';
-		}
-		$res .= intval($row[0]);
-	}
-	mysql_free_result($result);
 	return $res;
 }
