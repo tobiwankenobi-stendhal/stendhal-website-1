@@ -97,7 +97,7 @@ class Player {
 	}
 
   function getDeaths() {
-    $result = mysql_query("
+    $sql = "
     select
       timedate,
       source
@@ -108,46 +108,38 @@ class Player {
       datediff(now(),timedate)<=7*52 and
       (param2 = 'C P' or param2 = 'E P' or param2 = 'P P')
     order by timedate desc
-    limit 4", getGameDB());
+    limit 4";
 
-    $kills=array();
+    $kills = array();
 
-    /*
-     * TODO: Refactor to use the new table.
-     */
-
-    while($row=mysql_fetch_assoc($result)) {
-      $kills[$row['timedate']]=$row['source'];
+    // TODO: Refactor to use the new table.
+    $rows = DB::game()->query($sql);
+    foreach($rows as $row) {
+		$kills[$row['timedate']]=$row['source'];
     }
-
-    mysql_free_result($result);
     return $kills;
   }
 
   function getAccountInfo() {
-	$result=mysql_query('select characters.timedate, account.status, characters.status As charstatus from account, characters where account.id=characters.player_id AND charname="'.mysql_real_escape_string($this->name).'"',getGameDB());
+	$sql = "select characters.timedate, account.status, characters.status As charstatus from account, characters where account.id=characters.player_id AND charname='".mysql_real_escape_string($this->name)."'";
 	$account=array();
-
-    $row=mysql_fetch_assoc($result);
+	$stmt = DB::game()->query($sql);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $account["register"]=$row["timedate"];
     $account["status"]=$row["status"];
     $account["charstatus"]=$row["charstatus"];
-
-    mysql_free_result($result);
 
     return $account;
   }
 
 	function getHallOfFameScore($fametype) {
 		$tableSuffix = 'alltimes';
-		$result = mysql_query('select points from halloffame_archive_'.$tableSuffix.' where day = CURRENT_DATE() and charname="'.mysql_real_escape_string($this->name).'" and fametype="'.mysql_real_escape_string($fametype).'"',getGameDB());
-
-		while($row = mysql_fetch_assoc($result)) {
+		$sql = "select points from halloffame_archive_".$tableSuffix." where day = CURRENT_DATE() and charname='".mysql_real_escape_string($this->name)."' and fametype='".mysql_real_escape_string($fametype)."'";
+		$rows = DB::game()->query($sql);
+		foreach($rows as $row) {
 			$points = $row['points'];
 		}
-
-		mysql_free_result($result);
 		if (!isset($points)) {
 			$points=0;
 		}
@@ -221,11 +213,9 @@ function getCharactersForUsername($username) {
 }
 
 function _getPlayers($query) {
-//	echo $query;
-    $result = mysql_query($query,getGameDB());
-    $list=array();
-
-    while($row=mysql_fetch_assoc($result)) {
+    $list = array();
+    $rows = DB::game()->query($query);
+    foreach($rows as $row) {
       $attributes=array();
       $attributes['atk']=$row['atk'];
       $attributes['def']=$row['def'];
@@ -256,9 +246,6 @@ function _getPlayers($query) {
                      $equipment,
                      $row['lastseen']);
     }
-
-    mysql_free_result($result);
-
     return $list;
 }
 
@@ -269,21 +256,18 @@ function _getPlayers($query) {
  */
 function getCharacterRanks($charname) {
 	$query = "SELECT fametype, rank FROM halloffame_archive_recent WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE()";
-	$result = mysql_query($query, getGameDB());
+	$rows = DB::game()->query($sql);
 	// if the player has not played recently, we fetch the all times data
 	// this way it is not obvious that the account was abandoned
-	if (mysql_num_rows($result) == 0) {
-		mysql_free_result($result);
+	if ($rows->rowCount() == 0) {
 		$query = "SELECT fametype, rank FROM halloffame_archive_alltimes WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE()";
-		$result = mysql_query($query, getGameDB());
+		$rows = DB::game()->query($sql);
 		$res['__'] = 'alltimes';
 	}
 
-	while($row = mysql_fetch_assoc($result)) {
+	foreach($rows as $row) {
 		$res[$row['fametype']] = $row['rank'];
 	}
-
-	mysql_free_result($result);
 	return $res;
 }
 
@@ -295,7 +279,6 @@ function getCharacterRanks($charname) {
  */
 function getHallOfFameHistory($charname) {
 	$query = "SELECT day, fametype, rank FROM halloffame_archive_recent WHERE charname='".mysql_real_escape_string($charname)."' ORDER BY day";
-	$result = mysql_query($query, getGameDB());
 
 	$res = array();
 	$res['D'] = array();
@@ -310,10 +293,9 @@ function getHallOfFameHistory($charname) {
 	$res['R'] = array();
 	$res['@'] = array();
 
-	while($row = mysql_fetch_assoc($result)) {
+	$rows = DB::game()->query($sql);
+	foreach($rows as $row) {
 		$res[$row['fametype']][] = intval($row['rank'], 10);
 	}
-
-	mysql_free_result($result);
 	return $res;
 }
