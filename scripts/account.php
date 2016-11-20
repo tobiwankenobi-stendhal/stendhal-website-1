@@ -95,7 +95,7 @@ function storeSeed($username, $ip, $seed, $authenticated) {
 	." SELECT id, '".mysql_real_escape_string($ip)."', '".mysql_real_escape_string($seed)."', '"
 	.mysql_real_escape_string($authenticated)."', 0 FROM account WHERE username='".mysql_real_escape_string($username)."'";
 
-	DB::game()>exec($query);
+	DB::game()->exec($query);
 }
 
 
@@ -108,7 +108,7 @@ function storeSeed($username, $ip, $seed, $authenticated) {
 function mergeAccount($oldUsername, $newUsername) {
 	$oldAccountId = getUserID($oldUsername);
 	$newAccountId = getUserID($newUsername);
-	DB::game()>exec("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'");
+	DB::game()->exec("UPDATE account SET status='merged' WHERE id='".mysql_real_escape_string($oldAccountId)."'");
 	$sql = "SELECT charname FROM characters WHERE player_id='".mysql_real_escape_string($oldAccountId)."'";
 	$rows = DB::game()->query($sql);
 	$chars = array();
@@ -117,8 +117,8 @@ function mergeAccount($oldUsername, $newUsername) {
 		PlayerLoginEntry::logAccountMerge($row['charname'], $oldAccountId, $oldUsername, $newUsername);
 	}
 	sendUdpMessage('stendhal', $oldUsername . ' was merged into ' . $newUsername. ' (' . implode(', ', $chars) . ')');
-	DB::game()>exec("UPDATE characters SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'");
-	DB::game()>exec("UPDATE accountLink SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'");
+	DB::game()->exec("UPDATE characters SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'");
+	DB::game()->exec("UPDATE accountLink SET player_id='".mysql_real_escape_string($newAccountId)."' WHERE player_id='".mysql_real_escape_string($oldAccountId)."'");
 }
 
 
@@ -139,7 +139,7 @@ function addAccountLink($username, $type, $identifier, $email, $nickname) {
 	. mysql_real_escape_string($identifier)."', '"
 	. mysql_real_escape_string($email)."', '"
 	. mysql_real_escape_string($nickname)."');";
-	DB::game()>exec($sql);
+	DB::game()->exec($sql);
 }
 
 /**
@@ -155,7 +155,7 @@ function delAccountLink($username, $type, $identifier) {
 		. mysql_real_escape_string($accountId)."' AND type='"
 		. mysql_real_escape_string($type)."' AND username='"
 		. mysql_real_escape_string($identifier)."';";
-	DB::game()>exec($sql);
+	DB::game()->exec($sql);
 }
 
 
@@ -216,7 +216,7 @@ class PlayerLoginEntry {
 
 		$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
 			" values (".$userid.", '".mysql_real_escape_string(trim($ip))."', '".mysql_real_escape_string($oldpass)."', 'website', ".intval($result).")";
-		return DB::game()>exec($q);
+		return DB::game()->exec($q);
 	}
 
 	/**
@@ -240,7 +240,7 @@ class PlayerLoginEntry {
 		}
 		$q = $q . ")";
 
-		$res = DB::game()>exec($q);
+		$res = DB::game()->exec($q);
 		return $res;
 	}
 
@@ -248,7 +248,7 @@ class PlayerLoginEntry {
 		$q = "INSERT INTO gameEvents (source, event, param1, param2) values ".
 			"('".mysql_real_escape_string($character)."', 'accountmerge', '".mysql_real_escape_string($oldAccountId)."', '"
 			.mysql_real_escape_string($oldUsername). "-->". mysql_real_escape_string($newUsername) ."')";
-		return DB::game()>exec($q);
+		return DB::game()->exec($q);
 	}
 }
 
@@ -324,11 +324,11 @@ class StoredMessage {
 	public static function deleteSentMessages($playerId, $ids) {
 		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
 			."' AND characters.charname=postman.source AND (postman.deleted='R') AND postman.id IN (".$ids.")";
-		DB::game()>exec($sql);
+		DB::game()->exec($sql);
 
 		$sql = "UPDATE postman, characters SET postman.deleted='S' WHERE characters.player_id='".mysql_real_escape_string($playerId)
 			."' AND characters.charname=postman.source AND postman.id IN (".$ids.")";
-		DB::game()>exec($sql);
+		DB::game()->exec($sql);
 	}
 
 
@@ -341,11 +341,11 @@ class StoredMessage {
 		public static function deleteReceivedMessages($playerId, $ids) {
 			$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
 				."' AND characters.charname=postman.target AND (postman.deleted='S' OR postman.messagetype='N') AND postman.id IN (".$ids.")";
-			DB::game()>exec($sql);
+			DB::game()->exec($sql);
 
 			$sql = "UPDATE postman, characters SET postman.deleted='R' WHERE characters.player_id='".mysql_real_escape_string($playerId)
 				."' AND characters.charname=postman.target AND postman.id IN (".$ids.")";
-			DB::game()>exec($sql);
+			DB::game()->exec($sql);
 	}
 }
 
