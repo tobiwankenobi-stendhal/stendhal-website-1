@@ -67,6 +67,7 @@ class CMS {
 			':title' => $title
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($row) {
 			return new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
 		}
@@ -86,6 +87,7 @@ class CMS {
 			':id' => $id,
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($row) {
 			return new CMSPageVersion($row['content'], $row['displaytitle'], $row['account_id'], $row['timedate']);
 		}
@@ -132,7 +134,9 @@ class CMS {
 			." AND v2.timedate<v1.timedate AND v1.id=:id ORDER BY v2.id DESC LIMIT 1";
 		$stmt = DB::web()->prepare($sql);
 		$stmt->execute(array(':id' => $to));
-		return $stmt->fetch(PDO::FETCH_NUM)[0];
+		$tmp = $stmt->fetch(PDO::FETCH_NUM)[0];
+		$stmt->closeCursor();
+		return $tmp;
 	}
 
 	public static function getLatestVersion($from) {
@@ -140,7 +144,9 @@ class CMS {
 			. " WHERE v1.page_id=v2.page_id AND v1.id=:id ORDER BY v2.id DESC LIMIT 1";
 		$stmt = DB::web()->prepare($sql);
 		$stmt->execute(array(':id' => $from));
-		return $stmt->fetch(PDO::FETCH_NUM)[0];
+		$tmp = $stmt->fetch(PDO::FETCH_NUM)[0];
+		$stmt->closeCursor();
+		return $tmp;
 	}
 
 	public static function save($lang, $title, $content, $commitcomment, $displaytitle, $accountId) {
@@ -191,6 +197,7 @@ class CMS {
 		));
 			
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($row) {
 			return $row['id'];
 		}

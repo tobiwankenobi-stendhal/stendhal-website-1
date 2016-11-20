@@ -206,6 +206,7 @@ function getMostKilledMonster($monsters) {
 	$stmt = DB::game()->prepare($query);
 	$stmt->execute();
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$stmt->closeCursor();
 	
 	$monster = array(getMonster($row['killed']), $row['amount']);
 	return $monster;
@@ -222,7 +223,8 @@ function getBestKillerMonster($monsters) {
 	$stmt = DB::game()->prepare($query);
 	$stmt->execute();
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
-	
+	$stmt->closeCursor();
+
 	$monster = array(getMonster($row['killer']), $row['amount']);
 	return $monster;
 }

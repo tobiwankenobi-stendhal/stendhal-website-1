@@ -105,8 +105,9 @@ function disconnect() {
 }
 
 function queryFirstCell($query, $connection) {
-	$result = $connection->query($query);
-	$res = $result->fetch(PDO::FETCH_NUM);
+	$stmt = $connection->query($query);
+	$res = $stmt->fetch(PDO::FETCH_NUM);
+	$stmt->closeCursor();
 	return $res[0];
 }
 

@@ -9,7 +9,9 @@ function getUserData($handle=null) {
 		$login = mysql_real_escape_string($_POST['login']);
 		$password = sha1($_POST['password']);
 		$sql = "SELECT * FROM Users WHERE login = '$login' AND password = '$password'";
-		$data = DB::game()->query($sql)->fetch(PDO::FETCH_ASSOC);
+		$stmt = DB::game()->query($sql);
+		$data = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($data) {
 			return $data;
 		}
@@ -141,6 +143,7 @@ class MySQLBasedOpenidProvider extends LightOpenIDProvider {
 		$sql = "SELECT data FROM openid_associations WHERE handle='".mysql_real_escape_string($handle)."'";
 		$stmt = DB::game()->query($sql);
 		$data = $stmt->fetch(PDO::FETCH_NUM);
+		$stmt->closeCursor();
 		if(!$data) {
 			return false;
 		}

@@ -125,7 +125,8 @@ class Player {
 	$account=array();
 	$stmt = DB::game()->query($sql);
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+	$stmt->closeCursor();
+	
     $account["register"]=$row["timedate"];
     $account["status"]=$row["status"];
     $account["charstatus"]=$row["charstatus"];

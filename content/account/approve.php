@@ -36,7 +36,8 @@ class ApprovePage extends Page {
 		$stmt = DB::web()->prepare($sql);
 		$stmt->execute(array(':confirmhash' => $signature));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+		$stmt->closeCursor();
+		
 		if ($row) {
 			$username=$row["username"];
 

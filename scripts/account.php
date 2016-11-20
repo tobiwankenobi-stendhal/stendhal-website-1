@@ -49,6 +49,7 @@ function getUserID($username) {
 
 	$stmt = DB::game()->query($sql);
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$stmt->closeCursor();
 	if (!$row) {
 		// Couldn't find the userid or DB failure
 		return false;
@@ -210,7 +211,7 @@ class PlayerLoginEntry {
 		$userid = getUserID($user);
 
 		if ( $userid === false) {
-			return false;
+			return $userid = -1;
 		}
 
 		$q = "INSERT INTO passwordChange (player_id, address, oldpassword, service, result)".
@@ -226,7 +227,7 @@ class PlayerLoginEntry {
 		$userid = getUserID($user);
 
 		if ( $userid === false ) {
-			return false;
+			$userid = -1;
 		}
 
 		$q = "INSERT INTO loginEvent (player_id, address, result, service";
@@ -239,7 +240,8 @@ class PlayerLoginEntry {
 		}
 		$q = $q . ")";
 
-		return DB::game()>exec($q);
+		$res = DB::game()>exec($q);
+		return $res;
 	}
 
 	public static function logAccountMerge($character, $oldAccountId, $oldUsername, $newUsername) {
@@ -418,14 +420,12 @@ class Account {
 			$passhash = $account->password;
 			$usedAccountLink = $account->usedAccountLink;
 		}
-		
 		// Log loginEvent or passwordChange
 		if ($type != 'passwordchange') {
 			PlayerLoginEntry::logUserLogin($username, $_SERVER['REMOTE_ADDR'], $usedAccountLink, $success);
 		} else {
 			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $passhash, $success);
 		}
-
 		
 		// if the account is banned
 		if (isset($banMessage)) {
@@ -450,6 +450,7 @@ class Account {
 		. " WHERE id=".((int) $id);
 		$stmt = DB::game()->query($sql);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 		}
@@ -467,6 +468,7 @@ class Account {
 			. " WHERE username='".mysql_real_escape_string($username)."'";
 		$stmt = DB::game()->query($sql);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 		}
@@ -497,6 +499,7 @@ class Account {
 
 		$stmt = DB::game()->query($sql);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
 			$res->usedAccountLink = $row['usedAccountLink'];
@@ -568,6 +571,7 @@ class Account {
 			." AND (accountban.expire > CURRENT_TIMESTAMP OR accountban.expire IS NULL) ORDER BY ifnull(expire,'9999-12-31') desc limit 1 ";
 		$stmt = DB::game()->query($sql);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
 		if ($row) {
 			$this->banMessage = $row['reason'];
 			$this->banExpire = $row['expire'];
@@ -744,7 +748,9 @@ class Account {
 			$stmt->execute(array(
 				':id' => $accountId
 			));
-			return $stmt->fetch(PDO::FETCH_ASSOC);
+			$tmp = $stmt->fetch(PDO::FETCH_ASSOC);
+			$stmt->closeCursor();
+			return $tmp;
 		} catch(PDOException $e) {
 			error_log('ERROR addNews: ' . $e->getMessage());
 			return null;

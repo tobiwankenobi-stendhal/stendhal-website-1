@@ -13,7 +13,8 @@ class BingoPage extends Page {
 		$this->query = "SELECT id, killed, killed_type, killer, killer_type FROM kills WHERE id>'".mysql_real_escape_string($_REQUEST['lastid'])."'+1 ORDER BY id LIMIT 1";
 		$stmt = DB::game()->query($this->query);		
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$this->id = $row['id'];
+		$stmt->closeCursor();
+        $this->id = $row['id'];
 		$this->name = $row['killed'];
 		$this->killed_type = $row['killed_type'];
 		$this->killer = $row['killer'];
@@ -22,7 +23,8 @@ class BingoPage extends Page {
 		$this->query = "SELECT level, outfit FROM character_stats WHERE name='".mysql_real_escape_string($this->killer)."'";
 		$stmt = DB::game()->query($this->query);		
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$this->level = $row['level'];
+		$stmt->closeCursor();
+        $this->level = $row['level'];
 		$this->outfit = $row['outfit'];
 	}
 	
