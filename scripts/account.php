@@ -730,7 +730,7 @@ class Account {
 		}
 		$sql .= "SELECT charname FROM characters WHERE charname = '".mysql_real_escape_string($name)."';";
 		$stmt = DB::game()->query($sql);
-		return $stmt->rowCount();
+		return $stmt->rowCount() == 0;
 	}
 
 	/**
