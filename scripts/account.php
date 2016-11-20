@@ -471,8 +471,9 @@ class Account {
 		$stmt->closeCursor();
 		if ($row) {
 			$res = new Account($row['id'], $row['username'], $row['password'], $row['email'], false, $row['timedate'], $row['status']);
-		}
 		return $res;
+		}
+		return null;
 	}
 
 	/**
@@ -684,7 +685,7 @@ class Account {
 		. " FROM email WHERE player_id=" . intval($playerId)
 		. " ORDER BY id DESC";
 	
-		return DB::game()->query($sql);
+		return fetchToArray($sql, DB::game());
 	}
 	
 	/**
