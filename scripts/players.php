@@ -187,7 +187,7 @@ function getHOFPlayers($tableSuffix, $where='', $fametype = '', $cond='limit 2')
 			FROM halloffame_archive_".$tableSuffix." join character_stats on (charname=name) "
 			.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '
 			.$cond;
-	$stmt = DB::web()->prepare($query);
+	$stmt = DB::game()->prepare($query);
 	$stmt->execute(array(':fametype', $fametype));
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
