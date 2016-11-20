@@ -54,7 +54,7 @@ class Event {
 		$players[]=$this->source;
 	}
 	
-	function getFilterFrom($filter) {
+	static function getFilterFrom($filter) {
 		if($filter=="friends") {
 			return ", (SELECT buddy.buddy as charname FROM characters, buddy "
 				. "WHERE characters.player_id='".mysql_real_escape_string($_SESSION['account']->id)."' AND account.id=characters.player_id AND characters.charname=buddy.charname AND buddy.relationtype='buddy') As x ";
@@ -63,7 +63,7 @@ class Event {
 		}
 	}
 	
-	function getFilterWhereSource($filter) {
+	static function getFilterWhereSource($filter) {
 		if($filter=="friends") {
 			return " source=x.charname and ";
 		} else {
@@ -71,7 +71,7 @@ class Event {
 		}
     }
     
- 	function getFilterWhereParam1($filter) {
+ 	static function getFilterWhereParam1($filter) {
 		if($filter=="friends") {
 			return " param1=x.charname and ";
 		} else {
@@ -79,7 +79,7 @@ class Event {
 		}
     }
     
-	function getFilterWhereBoth($filter) {
+	static function getFilterWhereBoth($filter) {
 		if($filter=="friends") {
 			return " (source=x.charname OR param1=x.charname) and ";
 		} else {
