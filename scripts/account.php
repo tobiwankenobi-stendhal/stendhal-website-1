@@ -680,7 +680,7 @@ class Account {
 		. " FROM email WHERE player_id=" . intval($playerId)
 		. " ORDER BY id DESC";
 	
-		return DB::game()->query();
+		return DB::game()->query($sql);
 	}
 	
 	/**
