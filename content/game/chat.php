@@ -142,7 +142,7 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 		echo '<table>';
 		for ($month = $endMonth; $month >= $startMonth; $month--) {
 			$time = mktime(0, 0, 0, $month, 1, $year);
-			echo '<tr><td>'.date('F', $time).'</td><td>';
+			echo '<tr><td style="vertical-align: top">'.date('F', $time).'</td><td>';
 			$myMonth = $month;
 			if ($month < 10) {
 				$myMonth = '0'.$month;
