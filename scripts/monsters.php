@@ -243,6 +243,7 @@ function getMonsters() {
 	if ((Monster::$monsters !== false) && (sizeof(Monster::$monsters) != 0)) {
  		return Monster::$monsters;
 	}
+	Monster::$classes = array();
 
 	$monstersXMLConfigurationFile="data/conf/creatures.xml";
 	$monstersXMLConfigurationBase='data/conf/';

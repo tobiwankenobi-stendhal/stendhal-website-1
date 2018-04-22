@@ -115,7 +115,8 @@ function getItems() {
 	if((Item::$items !== false) && (sizeof(Item::$items) != 0)) {
 		return Item::$items;
 	}
-
+	Item::$classes = array();
+	
 	
 	$itemsXMLConfigurationFile="data/conf/items.xml";
 	$itemsXMLConfigurationBase='data/conf/';
