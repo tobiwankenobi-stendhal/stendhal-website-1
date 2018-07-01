@@ -13,7 +13,7 @@ class PharauroaMessageS2CCreateCharacterNACK extends PharauroaMessage{
 	/**
 	 * This method returns the resolution of the character creation
 	 *
-	 * @return a byte representing the resolution given.
+	 * @return int representing the resolution given.
 	 */
 	public function getResolutionCode() {
 		return $this->reason->getResult();
@@ -23,7 +23,7 @@ class PharauroaMessageS2CCreateCharacterNACK extends PharauroaMessage{
 	 * This method returns a String that represent the resolution 
 	 * of the character creation
 	 *
-	 * @return a string representing the resolution.
+	 * @return string representing the resolution.
 	 */
 	public function getResolution() {
 		return $this->reason->getMessage();

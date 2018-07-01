@@ -20,7 +20,7 @@ class PharauroaMessageS2CInvalidMessage extends PharauroaMessage{
 	/**
 	 * Returns reason
 	 *
-	 * @return reason
+	 * @return string reason
 	 */
 	public function getReason() {
 		return $this->reason;

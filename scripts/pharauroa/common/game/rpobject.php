@@ -23,7 +23,7 @@ class PharauroaRPObject extends PharauroaAttributes {
 	
 
 	public function readObject(&$in) {
-		parent::readObject($im);
+		parent::readObject($in);
 		// TODO: implement Attributes.readObject
 	}
 }

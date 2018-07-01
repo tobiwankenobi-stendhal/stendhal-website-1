@@ -15,7 +15,7 @@ class PharauroaMessageS2CCreateAccountACK extends PharauroaMessage{
 	 * This method returns a String that represent the resolution given to the
 	 * login event
 	 *
-	 * @return a string representing the resolution.
+	 * @return string representing the resolution.
 	 */
 	public function getUsername() {
 		return $this->username;

@@ -10,9 +10,9 @@ class PharauroaClientFramework {
 	/**
 	 * creates a new PharauroaClientFramework
 	 *
-	 * @param $server name or ip-address of server
-	 * @param $port port of server
-	 * @param $credentials credentials for proxy message authentication
+	 * @param $server string name or ip-address of server
+	 * @param $port   int    port of server
+	 * @param $credentials   string credentials for proxy message authentication
 	 */
 	public function __construct($server, $port, $credentials) {
 		$this->server = $server;

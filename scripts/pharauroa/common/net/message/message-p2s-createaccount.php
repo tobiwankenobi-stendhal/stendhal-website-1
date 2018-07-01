@@ -39,7 +39,8 @@ class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
 	
 	/**
 	 * Returns desired account's username
-	 * @return desired account's username
+	 *
+	 * @return string desired account's username
 	 */
 	public function getUsername() {
 		return $this->username;
@@ -47,7 +48,8 @@ class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
 
 	/**
 	 * Returns desired account's password
-	 * @return desired account's password
+	 *
+	 * @return string desired account's password
 	 */
 	public function getPassword() {
 		return $this->password;
@@ -55,7 +57,8 @@ class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
 
 	/**
 	 * Returns the account associated email.
-	 * @return the account associated email.
+	 *
+	 * @return string the account associated email.
 	 */
 	public function getEmail() {
 		return $this->email;

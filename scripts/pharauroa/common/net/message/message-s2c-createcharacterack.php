@@ -16,7 +16,7 @@ class PharauroaMessageS2CCreateCharacterACK extends PharauroaMessage{
 	/**
 	 * This method returns the character name
 	 *
-	 * @return character name
+	 * @return string character name
 	 */
 	public function getCharacter() {
 		return $this->character;
@@ -25,7 +25,7 @@ class PharauroaMessageS2CCreateCharacterACK extends PharauroaMessage{
 	/**
 	 * This method returns the approved template object
 	 *
-	 * @return template
+	 * @return PharauroaRPObject template
 	 */
 	public function getTemplate() {
 		return $this->template();

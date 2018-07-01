@@ -18,7 +18,7 @@ class PharauroaMessageFactory {
 		$deserializer = new PharauroaDeserializer($data);
 		$type = ord($data[1]);
 		if ($type == PharauroaMessageType::S2C_CONNECT_NACK) {
-			$message = new PharauroaMessageS2ConnectNACK();
+			$message = new PharauroaMessageS2CConnectNACK();
 		} else if ($type == PharauroaMessageType::S2C_CREATEACCOUNT_ACK) {
 			$message = new PharauroaMessageS2CCreateAccountACK();
 		} else if ($type == PharauroaMessageType::S2C_CREATEACCOUNT_NACK) {
@@ -38,5 +38,3 @@ class PharauroaMessageFactory {
 	}
 
 }
-
-?>

@@ -13,7 +13,7 @@ class PharauroaDeserializer {
 	/**
 	 * sets the protocol version
 	 *
-	 * @param $protocolVersion version of protocol
+	 * @param $protocolVersion int version of protocol
 	 */
 	public function setProtocolVersion($protocolVersion) {
 		$this->$protocolVersion = min($protocolVersion, PHARAUROA_NETWORK_PROTOCOL_VERSION);
@@ -31,7 +31,7 @@ class PharauroaDeserializer {
 	/**
 	 * This method reads a byte
 	 *
-	 * @return the byte 
+	 * @return int the byte 
 	 */
 	public function readByte() {
 		if (strlen($this->data) < 1) {
@@ -45,7 +45,7 @@ class PharauroaDeserializer {
 	/**
 	 * This method reads a byte
 	 *
-	 * @return the byte 
+	 * @return int the shot 
 	 */
 	public function readShort() {
 		if (strlen($this->data) < 2) {
@@ -59,7 +59,7 @@ class PharauroaDeserializer {
 	/**
 	 * This method reads an integer
 	 *
-	 * @return the integer
+	 * @return int the integer
 	 */
 	public function readInt() {
 		if (strlen($this->data) < 4) {
@@ -73,7 +73,7 @@ class PharauroaDeserializer {
 	/**
 	 * This method reads a long string
 	 *
-	 * @return the string
+	 * @return string the string
 	 */
 		public function readString() {
 		$length = $this->readInt();
@@ -88,7 +88,7 @@ class PharauroaDeserializer {
 	/**
 	 * This method reads a short string
 	 *
-	 * @return the string
+	 * @return string the string
 	 */
 	public function read255LongString() {
 		$length = $this->readByte();
@@ -100,4 +100,3 @@ class PharauroaDeserializer {
 		return $output;
 	}
 }
-?>

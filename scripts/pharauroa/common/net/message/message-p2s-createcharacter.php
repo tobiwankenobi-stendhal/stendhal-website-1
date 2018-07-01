@@ -49,7 +49,7 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 	/**
 	 * Returns desired character name
 	 *
-	 * @return desired character name
+	 * @return string desired character name
 	 */
 	public function getCharacter() {
 		return $this->character;
@@ -57,7 +57,8 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 
 	/**
 	 * Returns the template
-	 * @return the template
+	 *
+	 * @return PharauroaRPObject the template
 	 */
 	public function getTemplate() {
 		return $this->template;

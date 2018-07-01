@@ -22,7 +22,7 @@ class PharauroaMessageS2CLoginACK extends PharauroaMessage{
 	/**
 	 * Returns an array of past login events
 	 *
-	 * @return loginEvents
+	 * @return string[] loginEvents
 	 */
 	public function getPreviousLogins() {
 		return $this->previousLogins;
@@ -43,7 +43,7 @@ class PharauroaMessageS2CLoginACK extends PharauroaMessage{
 		$size = $in->readByte();
 		$this->previousLogins = array();
 		for ($i = 0; $i < $size; $i++) {
-			$previousLogins[] = $in->read255LongString();
+		    $this->previousLogins[] = $in->read255LongString();
 		}
 
 		if ($this->messageType != PharauroaMessageType::S2C_LOGIN_ACK) {
