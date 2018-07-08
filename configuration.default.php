@@ -85,7 +85,7 @@
 @define('STENDHAL_MODE_REWRITE', false);
 @define('STENDHAL_FOLDER', '');
 
-@define('STENDHAL_MAP_TILE_URL_BASE', 'http://arianne.sourceforge.net/stendhal/map');
+@define('STENDHAL_MAP_TILE_URL_BASE', 'https://stendhalgame.org/map/');
 
 ## for displaying support logs
 @define('SUPPORT_SERVER','irc.freenode.net');

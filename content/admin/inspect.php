@@ -73,7 +73,7 @@ class InspectPage extends Page {
 	/**
 	 * renders the top level attributes
 	 *
-	 * @param $inspectData data of an deep inspect
+	 * @param $inspectData object data of an deep inspect
 	 */
 	private function renderTopLevelAttributes($inspectData) {
 		startBox('Attributes');
@@ -93,7 +93,7 @@ class InspectPage extends Page {
 	/**
 	 * renders a slot with items
 	 *
-	 * @param $inspectData data of an deep inspect
+	 * @param $inspectData object data of an deep inspect
 	 */
 	private function renderCharacterItemSlots($inspectData) {
 		startBox('Character');
@@ -125,7 +125,7 @@ class InspectPage extends Page {
 	/**
 	 * renders a slot with items
 	 *
-	 * @param $inspectData data of an deep inspect
+	 * @param $inspectData object data of an deep inspect
 	 */
 	private function renderNonCharacterItemSlots($inspectData) {
 		foreach ($inspectData as $slotName => $slot) {
@@ -186,7 +186,7 @@ class InspectPage extends Page {
 	/**
 	 * renders a slot with an object that is a map
 	 *
-	 * @param $inspectData data of an deep inspect
+	 * @param $inspectData object data of an deep inspect
 	 */
 	private function renderKeyedSlots($inspectData) {
 		foreach (InspectPage::$KEYED_SLOTS as $keyedSlot) {

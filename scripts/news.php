@@ -119,7 +119,7 @@ class News {
 	/**
 	 * gets a nice url
 	 *
-	 * @return nice url
+	 * @return string nice url
 	 */
 	function getNiceURL() {
 		$res = strtolower($this->title.'-'.$this->id);
@@ -131,7 +131,7 @@ class News {
 	/**
 	 * Creates a button for posting tweets about this message
 	 * 
-	 * @return the html code for a fitting tweet button
+	 * @return string the html code for a fitting tweet button
 	 */
 	function renderTweetButton() {
 		//prepare status parts
@@ -148,7 +148,7 @@ class News {
 		}
 		
 		if(strlen($message) + $titleLength < 141) {
-			$message = $message.' '.$title;
+		    $message = $message.' '.urlencode($this->title);
 		}
 		
 		if(strlen($message) + $tagLength < 141) {
@@ -166,7 +166,7 @@ class News {
 	/**
 	 * Creates a button for sharing this news on facebook
 	 * 
-	 * @return the html code for a fitting share button
+	 * @return string the html code for a fitting share button
 	 */
 	function renderFacebookButton() {
 		$res = '<a href="http://facebook.com/sharer.php?u=';

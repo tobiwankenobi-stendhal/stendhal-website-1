@@ -56,8 +56,8 @@ class APIPage extends Page {
 	/**
 	 * checks if a name is available for account or character creation
 	 *
-	 * @param $name account/character name to check
-	 * @param $ignoreAccount ignore this account on the character check (to allow someone to create a character with his own account name)
+	 * @param $name string account/character name to check
+	 * @param $ignoreAccount boolean gnore this account on the character check (to allow someone to create a character with his own account name)
 	 */
 	public function isNameAvailable($name, $ignoreAccount) {
 		$res = array();
@@ -109,7 +109,7 @@ class APIPage extends Page {
 	/**
 	 * returns an error response because the method is not known
 	 *
-	 * @param $param ignored
+	 * @param $param object ignored
 	 */
 	public function unknown($param) {
 		header('HTTP/1.1', true, 400);

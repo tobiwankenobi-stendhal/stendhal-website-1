@@ -89,13 +89,13 @@ function createRandomString() {
 /**
  * queries the database for an array result, using the cache
  *
- * @param unknown_type $query query to execute
- * @param unknown_type $ttl cache time, use 0 to disable cache
+ * @param string $query query to execute
+ * @param int    $ttl cache time, use 0 to disable cache
  */
 function queryWithCache($query, $ttl, $db) {
 	global $cache;
 	$list = $cache->fetchAsArray('stendhal_query_'.$query);
-	if (!isset($res)) {
+	if (!isset($list)) {
 		$list=array();
 		$rows = $db->query($query);
 		foreach($rows as $row) {
@@ -187,8 +187,8 @@ class Wiki {
 	/**
 	 * encodes an url acording to wiki rules
 	 *
-	 * @param string $title
-	 * @return encoded url
+	 * @param  string $title
+	 * @return string encoded url
 	 */
 	private function wikiUrlEncode($title) {
 		return str_replace('%2F', '/', urlencode($title));
@@ -270,8 +270,8 @@ class Wiki {
 	/**
 	 * renders a wiki page in the Stendhal website
 	 *
-	 * @param string $page page name
-	 * @return prepared content
+	 * @param  string $page page name
+	 * @return string prepared content
 	 */
 	function render() {
 		if (!isset($this->page)) {

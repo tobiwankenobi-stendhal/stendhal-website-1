@@ -20,9 +20,9 @@ interface Cache {
 	/**
 	 * stores a value in the cache
 	 *
-	 * @param $key    key to access the value
-	 * @param $value  value to be stored
-	 * @param $ttl    optional time to live
+	 * @param $key    object key to access the value
+	 * @param $value  object value to be stored
+	 * @param $ttl    int optional time to live
 	 * @return boolean caching successful?
 	 */
 	function store($key, $value, $ttl = 0);
@@ -30,7 +30,7 @@ interface Cache {
 	/**
 	 * fetches a value from the cache
 	 *
-	 * @param $key     key to access the value
+	 * @param $key     object key to access the value
 	 * @param $success true, if the fetch was succesful
 	 * @return mixed   value
 	 */
@@ -39,7 +39,7 @@ interface Cache {
 	/**
 	 * fetches an array value from the cache that was previously converted into an ArrayObject 
 	 *
-	 * @param $key     key to access the value
+	 * @param $key     object key to access the value
 	 * @param $success true, if the fetch was succesful
 	 * @return mixed   value
 	 */

@@ -23,7 +23,7 @@ class StendhalFrame extends PageFrame {
 	/**
 	 * gets the default page in case none is specified.
 	 *
-	 * @return name of default page
+	 * @return string name of default page
 	 */
 	function getDefaultPage() {
 		return 'content/main';

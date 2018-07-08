@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2014  The Arianne Project
+ Copyright (C) 2008-2018  The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -44,7 +44,7 @@ class Page {
 	/**
 	 * this methos can add attributes to the body tag.
 	 *
-	 * @return attributes for the body tag
+	 * @return string attributes for the body tag
 	 */
 	public function getBodyTagAttributes() {
 		return "";

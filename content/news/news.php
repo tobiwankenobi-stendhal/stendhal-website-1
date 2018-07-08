@@ -41,7 +41,7 @@ class NewsPage extends Page {
 	/**
 	 * extracts the id from the nice url
 	 *
-	 * @return id
+	 * @return int id
 	 */
 	function getNewsIdFromUrl() {
 		$url = $_GET['news'];

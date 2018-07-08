@@ -140,7 +140,7 @@ class LightOpenID
     /**
      * Checks if the server specified in the url exists.
      *
-     * @param $url url to check
+     * @param $url string url to check
      * @return true, if the server exists; false otherwise
      */
     function hostExists($url)
@@ -470,7 +470,7 @@ class LightOpenID
 
     /**
      * Performs Yadis and HTML discovery. Normally not used.
-     * @param $url Identity URL.
+     * @param $url string Identity URL.
      * @return String OP Endpoint (i.e. OpenID provider address).
      * @throws ErrorException
      */

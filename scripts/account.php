@@ -125,11 +125,11 @@ function mergeAccount($oldUsername, $newUsername) {
 /**
  * adds an account link (like an openid)
  *
- * @param string $username the name of the logged in user to add the link to
- * @param $identifier the openid identifier
- * @param $type "openid" or "connect"
- * @param $email email address provided by the identity provider
- * @param $nickname nick name
+ * @param $username   string the name of the logged in user to add the link to
+ * @param $identifier string the openid identifier
+ * @param $type       string "openid" or "connect"
+ * @param $email      string email address provided by the identity provider
+ * @param $nickname   string nick name
  */
 function addAccountLink($username, $type, $identifier, $email, $nickname) {
 	$accountId = getUserID($username);
@@ -145,9 +145,9 @@ function addAccountLink($username, $type, $identifier, $email, $nickname) {
 /**
  * dels an account link (like an openid)
  *
- * @param string $username the name of the logged in user to add the link to
- * @param $identifier the openid identifier
- * @param $type "openid" or "connect"
+ * @param $username   string the name of the logged in user to add the link to
+ * @param $identifier string the openid identifier
+ * @param $type       string "openid" or "connect"
  */
 function delAccountLink($username, $type, $identifier) {
 	$accountId = getUserID($username);
@@ -291,7 +291,7 @@ class StoredMessage {
 		. " WHERE " . $where
 		. " AND characters.player_id=".mysql_real_escape_string($playerId)
 		. " AND delivered = 0;";
-		return $rows = DB::game()->query($sql)->fetchColumn();
+		return DB::game()->query($sql)->fetchColumn();
 	}
 
 	/**
@@ -318,8 +318,8 @@ class StoredMessage {
 	/**
 	 * deleted messages sent by the player
 	 *
-	 * @param $playerId id of player
-	 * @param $ids id of messages to delete (need to be sql escaped)
+	 * @param $playerId int   id of player
+	 * @param $ids      array id of messages to delete (need to be sql escaped)
 	 */
 	public static function deleteSentMessages($playerId, $ids) {
 		$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
@@ -335,8 +335,8 @@ class StoredMessage {
 	/**
 	 * deleted messages received by the player
 	 *
-	 * @param $playerId id of player
-	 * @param $ids id of messages to delete (need to be sql escaped)
+	 * @param $playerId int   id of player
+	 * @param $ids      array id of messages to delete (need to be sql escaped)
 	 */
 		public static function deleteReceivedMessages($playerId, $ids) {
 			$sql = "DELETE FROM postman USING postman, characters WHERE characters.player_id='".mysql_real_escape_string($playerId)
@@ -582,7 +582,7 @@ class Account {
 	/**
 	 * get a message telling the player why the account is not active
 	 * 
-	 * @return message or <code>null</code> if the account is active
+	 * @return string message or <code>null</code> if the account is active
 	 */
 	public function getAccountStatusMessage() {
 		if (isset($this->banMessage)) {
@@ -608,7 +608,7 @@ class Account {
 	/**
 	 * get a status telling the player why the account is not active
 	 *
-	 * @return message or <code>null</code> if the account is active
+	 * @return int message or <code>null</code> if the account is active
 	 */
 	public function getAccountStatusCode() {
 		if (isset($this->banMessage)) {
@@ -620,14 +620,14 @@ class Account {
 		} else if ($this->status == "merged") {
 			$res = 5;
 		}
-		return 1;
+		return $res;
 	}
 	
 	/**
 	 * tries to convert a proposed username into a valid one
 	 *
 	 * @param string $username proposed username
-	 * @return valid username or <code>null</code>.
+	 * @return string valid username or <code>null</code>.
 	 */
 	public static function convertToValidUsername($username) {
 		$temp = preg_replace('/[^a-z]/', '', strtolower($username));
@@ -646,7 +646,7 @@ class Account {
 	 * Creates a sha512crypt hash of the password hash, unless it is disabled in configuration
 	 * 
 	 * @param string $passwordHash password hash
-	 * @return sha512crypt hash
+	 * @return string sha512crypt hash
 	 */
 	public static function sha512crypt($passwordHash) {
 		if (STENDHAL_PASSWORD_HASH == 'md5') {
@@ -725,8 +725,8 @@ class Account {
 	/**
 	 * checks if a name is available for account/character creation
 	 *
-	 * @param $name name to check
-	 * @param $ignoreAccount ignore this account on the character check (to allow someone to create a character with his own account name)
+	 * @param $name          string  name to check
+	 * @param $ignoreAccount boolean ignore this account on the character check (to allow someone to create a character with his own account name)
 	 */
 	public static function isNameAvailable($name, $ignoreAccount) {
 		$sql = '';
@@ -834,10 +834,11 @@ class Account {
 
 	/**
 	 * self bans an account
+	 *
 	 * @param int $accountid
 	 * @param string $timestamp
 	 * @param string $signature
-	 * @return enum value
+	 * @return int enum value
 	 */
 	public function selfban($accountid, $timestamp, $signature) {
 		if (!defined('STENDHAL_SECRET')) {
@@ -849,7 +850,7 @@ class Account {
 			return Account::SELFBAN_INVALID_TOKEN;
 		}
 
-		$account = Account::readAccountById($id);
+		$account = Account::readAccountById($accountid);
 		$account->readAccountBan();
 
 		if (isset($account->banMessage) || $account->status == 'banned') {

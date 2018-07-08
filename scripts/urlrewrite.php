@@ -252,8 +252,8 @@ Note: You need to restart apache after editing these files.
 /**
  * rewrite nice urls to ugly once (in case mod_rewrite is not used).
  *
- * @param string $url
- * @return real url
+ * @param  string $url
+ * @return string real url
  */
 function rewriteURL($url, $force = false) {
 	$folder = STENDHAL_FOLDER;

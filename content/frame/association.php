@@ -1,6 +1,6 @@
 <?php
 /*
- Copyright (C) 2011-2015 Faiumoni e. V.
+ Copyright (C) 2011-2018 Faiumoni e. V.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -56,7 +56,7 @@ class AssociationFrame extends PageFrame {
 	/**
 	 * gets the default page in case none is specified.
 	 *
-	 * @return name of default page
+	 * @return string name of default page
 	 */
 	function getDefaultPage() {
 		return 'content/association/main';

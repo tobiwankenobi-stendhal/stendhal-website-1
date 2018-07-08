@@ -169,7 +169,7 @@ class CMS {
 	 * 
 	 * @param string $lang language
 	 * @param string $title page title
-	 * @return id of page
+	 * @return int   id of page
 	 */
 	public static function getPageIdCreateIfNecessary($lang, $title) {
 		$id = CMS::getPageId($lang, $title);
@@ -186,7 +186,7 @@ class CMS {
 	 * 
 	 * @param string $lang language
 	 * @param string $title page title
-	 * @return id of page or <code>null</code>.
+	 * @return int id of page or <code>null</code>.
 	 */
 	public static function getPageId($lang, $title) {
 		$sql = "SELECT id FROM page WHERE page.language = :language AND page.title = :title";

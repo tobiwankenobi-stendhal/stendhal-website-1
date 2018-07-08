@@ -204,7 +204,7 @@ function getOnlinePlayers() {
  * Returns a list of characters owned by this account.
  *
  * @param string $username
- * @return List of Players
+ * @return array List of Players
  */
 function getCharactersForUsername($username) {
 	return _getPlayers('SELECT character_stats.* FROM character_stats, characters, account '
