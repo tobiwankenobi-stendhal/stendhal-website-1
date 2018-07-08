@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2014 Faiumoni e. V.
+ Copyright (C) 2014-2018 Faiumoni e. V.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -126,7 +126,7 @@ class SearchsPage extends Page {
 				break;
 			}
 			case 'P': {
-				$this->renderPlayer($row['entityname']);
+				$this->renderPlayer($row['entityname'], $row['score']);
 				break;
 			}
 			case 'W': {
@@ -196,13 +196,16 @@ class SearchsPage extends Page {
 			$entry->description);
 	}
 
-	function renderPlayer($name) {
+	function renderPlayer($name, $score) {
 		$entry = getPlayer($name);
+		if ($score >= 0) {
+			$sentence = $entry->sentence;
+		}
 		$this->renderEntry($name,
 			'Character – Level: '.$entry->level,
 			'/character/',
 			'/images/outfit/'.surlencode($entry->outfit).'.png',
-			$entry->sentence);
+			$sentence);
 	}
 
 	function renderWiki($entitytype, $name, $category = '', $path = '', $lang = '') {
