@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2016  The Arianne Project
+ Copyright (C) 2008-2018  The Arianne Project
  Copyright (C) 2008  Miguel Angel Blanch Lardin
 
  This program is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@ class DB {
 				if (isset($_REQUEST) && isset($_REQUEST['test']) && $_REQUEST['test'] == 'testdb') {
 					$connection = STENDHAL_TEST_CONNECTION;
 				}
-				DB::$game = new PDO(STENDHAL_GAME_CONNECTION, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD);
+				DB::$game = new PDO($connection, STENDHAL_GAME_USERNAME, STENDHAL_GAME_PASSWORD);
 				DB::$game->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				DB::$game->exec('set character set utf8');
 			} catch(PDOException $e) {
