@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2009-2016   Stendhal
+ Copyright (C) 2009-2018   Stendhal
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -97,7 +97,7 @@ class Achievement {
 		}
 		$query = $query
 			. 'GROUP BY achievement.id, achievement.identifier, achievement.title, '
-			. 'achievement.category, achievement.base_score, achievement.description '
+			. 'achievement.category, achievement.base_score, achievement.description, reachedOn '
 			. 'ORDER BY achievement.category, achievement.identifier';
 		return Achievement::_getAchievements($query);
 	}
