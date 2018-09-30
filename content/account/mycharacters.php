@@ -1,7 +1,7 @@
 <?php
 /*
  Stendhal website - a website to manage and ease playing of Stendhal game
- Copyright (C) 2008-2010 The Arianne Project
+ Copyright (C) 2008-2018 The Arianne Project
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -54,7 +54,6 @@ class MyCharactersPage extends Page {
 	}
 
 	function writeCharacterList($charsPerRow, $createURL) {
-		global $adminLevel;
 		startBox("<h2>My characters</h1>");
 
 		$players = getCharactersForUsername($_SESSION['account']->username);
@@ -65,15 +64,12 @@ class MyCharactersPage extends Page {
 			echo '<div class="tableCell cards">';
 			foreach($players as $p) {
 				echo '<div class="onlinePlayer characterHeight playerDetail">';
-				echo '  <a class = "onlineLink" href="'.STENDHAL_FOLDER.'/index.php/stendhal-starter.jnlp?id=content/account/starter&amp;character='.surlencode($p->name).'">';
+				echo '  <a class = "onlineLink" href="'.STENDHAL_FOLDER.'/client/stendhal.html#'.surlencode($p->name).'">';
 				echo '  <img src="'.rewriteURL('/images/outfit/'.surlencode($p->outfit).'.png').'" alt="">';
 				echo '  <span class="block">'.htmlspecialchars($p->name).'</span></a>';
 				echo '  <span class="block">Level: '.$p->level.'</span>';
 				echo '  <span class="block">Age: '.intval($p->age/60).' h</span>';
 				echo '  <span class="block"><a class = "characterLink" target="_top" href="'.rewriteURL('/character/'.surlencode($p->name).'.html').'">Details</a></span>';
-				if ($adminLevel > 0) {
-					echo '  <span class="block"><a class = "characterLink" onclick=\'window.open("/client/stendhal.html#'.surlencode($p->name).'", "_blank", "directories=0,height=750,location=0,left=1,top=1,menubar=0,scrollbars=n,status=n,toolbar=n,width=1000", false);return false;\' href="/client/stendhal.html#'.surlencode($p->name).'">Alpha</a></span>';
-				}
 				echo '</div>';
 			}
 			echo '</div>';
@@ -83,19 +79,9 @@ class MyCharactersPage extends Page {
 		if(sizeof($players) > 0) {
 			startBox("<h2>Note</h2>");
 			?>
-			<p>On the very first start Stendhal will need to download some additional files. Subsequent starts will be a lot faster.</p>
+			<p>Please click on your character to start the experimental webclient. At this time, the webclient is still unfinished and missing many features.
+			<p>Please download the Java client to get the full experience. The client requires a <a target="_blank" href="http://java.com">Java</a> installation.</p>
 			<?php 
-			endBox();
-
-			startBox("<h2>Trouble Shooting</h2>");
-			?>
-			<p>You will be asked to open a file called stendhal-starter.jnlp with Java Webstart or Java Network Launched Application.
-			If the application is unknown, please download and install <a target="_blank" href="http://java.com">Java</a>. If you have Java installed
-			and it still does not find the Webstarter, please <a href="https://arianne-project.org/download/stendhal.zip">download Stendhal</a> and try to start it normally.</p>
-
-			<p>If you have trouble to join the game, please ask in the <a target="_top" href="/chat/">#arianne</a> chat or create a 
-			<a target="_blank" href="https://sourceforge.net/p/arianne/support-requests/new/?summary=Webstart%20does%20not%20work%20for%20me">support ticket</a>.</p>
-			<?php
 			endBox();
 		}
 	}
