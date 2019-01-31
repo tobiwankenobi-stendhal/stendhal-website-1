@@ -611,6 +611,7 @@ class Account {
 	 * @return int message or <code>null</code> if the account is active
 	 */
 	public function getAccountStatusCode() {
+	    $res = 1;
 		if (isset($this->banMessage)) {
 			$res = 2;
 		} else if ($this->status == "banned") {
