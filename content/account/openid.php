@@ -74,7 +74,7 @@ class OpenID {
 	}
 
 	public function getStendhalAccountName() {
-		$openid = new LightOpenID();
+	    $openid = new LightOpenID($_SERVER['HTTP_HOST']);
 		$openid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 		$openid->returnUrl = Account::createReturnUrl();
 		if (!$openid->validate()) {
