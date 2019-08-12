@@ -821,7 +821,7 @@ class Account {
 
 		$sql = "UPDATE email SET address='".mysql_real_escape_string($_SERVER['REMOTE_ADDR']) 
 			. "', confirmed=NOW() WHERE token='".mysql_real_escape_string($token)
-			. "' AND (confirmed IS NULL OR confirmed='0000-00-00 00:00:00')";
+			. "' AND confirmed IS NULL";
 		DB::game()->exec($sql);
 		return true;
 	}
