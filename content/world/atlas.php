@@ -24,7 +24,7 @@ class AtlasPage extends Page {
 	}
 
 	function writeContent() {
-		$tileset = '3';
+		$tileset = '4';
 		if (isset($_REQUEST['tileset'])) {
 			$tileset = intval($_REQUEST['tileset']);
 		}
@@ -38,7 +38,7 @@ class AtlasPage extends Page {
 		echo '<p>You can add <a href="/world/atlas.html?poi=dungeon">dungeon entrances</a> to this map or open a map with <a href="https://arianne-project.org/screens/stendhal/world_labelled.png">zone names</a>.</p>';
 		endBox();
 
-		$zoom = 3;
+		$zoom = 4;
 		$focusX = 500000;
 		$focusY = 500000;
 
@@ -50,7 +50,7 @@ class AtlasPage extends Page {
 			$pois = PointofInterest::getPOIs();
 			if (isset($pois[$_REQUEST['poi']])) {
 				$poi = $pois[$_REQUEST['poi']];
-				$zoom = 5;
+				$zoom = 6;
 				$focusX = $poi->gx;
 				$focusY = $poi->gy;
 				$poiOpen = true;
@@ -66,9 +66,9 @@ class AtlasPage extends Page {
 				$meX = $zone->x + intval($coordinates[1]);
 				$meY = $zone->y + intval($coordinates[2]);
 				if ($zone->z === 0) {
-					$zoom = 5;
+					$zoom = 6;
 				} else {
-					$zoom = 4;
+					$zoom = 5;
 				}
 				$focusX = $meX;
 				$focusY = $meY;
@@ -77,7 +77,7 @@ class AtlasPage extends Page {
 
 		// if there is a focus parameter, use it
 		if (isset($_REQUEST['focus'])) {
-			$zoom = 5;
+			$zoom = 6;
 			$coordinates = explode('.', $_REQUEST['focus']);
 			if (count($coordinates) === 1) {
 				$pois = PointofInterest::getPOIs();
@@ -99,7 +99,7 @@ class AtlasPage extends Page {
 		}
 
 		if (isset($_REQUEST['zoom'])) {
-			$zoom = intval($_REQUEST['zoom']);
+			$zoom = intval($_REQUEST['zoom']) + 1;
 		}
 
 		echo "\n".'<div class="data">';

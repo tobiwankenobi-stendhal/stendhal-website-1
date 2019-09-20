@@ -824,15 +824,15 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 	function worldToLatLng(map, point) {
 		var x = point[0];
 		var y = point[1];
-		var xw0 = 499616;
+		var xw0 = 499104;
 		var yw0 = 499744;
 		var xwz = 501280;
 		var ywz = 500896;
 
 		var xl0 = 0;
 		var yl0 = 0;
-		var xlz = 208.15;
-		var ylz = 144.2;
+		var xlz = 137;
+		var ylz = 72;
 
 		var lx = (x - xw0) / (xwz - xw0) * (xlz - xl0) + xl0;
 		var ly = (y - yw0) / (ywz - yw0) * (ylz - yl0) + yl0;
@@ -959,11 +959,11 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 
 		// zone labels
 		var layer = addZoneLabels(map);
-		if (map.getZoom() >= 4) {
+		if (map.getZoom() >= 5) {
 			layer.addTo(map);
 		}
 		map.on("zoomend", function(e) {
-			if (map.getZoom() >= 4) {
+			if (map.getZoom() >= 5) {
 				if (!map.hasLayer(layer)) {
 					map.addLayer(layer);
 				}
@@ -976,8 +976,8 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 
 		L.tileLayer($("#map_canvas").attr("data-tile-url-base") + "/{z}-{x}-{y}.png", {
 			attribution: '',
-			minZoom: 2,
-			maxZoom: 6,
+			minZoom: 3,
+			maxZoom: 7,
 			noWrap: true
 		}).addTo(map);
 	}
