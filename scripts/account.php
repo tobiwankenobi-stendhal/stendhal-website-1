@@ -391,6 +391,11 @@ class Account {
 				$success = 4;
 			} else {
 				$account = Account::readAccountByName($username);
+
+				if ($account->status === "deleted") {
+					return "This account name is reserved. Accounts names will be reserved if they are missleading (e. g. the name might indicate an admin status) or if an account with that name existed in the past.";
+				}
+				
 				if (isset($account)) {
 					$success = $account->checkPassword($password);
 					if ($success == 0) {
@@ -598,6 +603,8 @@ class Account {
 			$res = "Your account has been flagged as inactive. Please contact support.";
 		} else if ($this->status == "merged") {
 			$res = "Your account has been merged into another account. Please login with that account or contact support.";
+		} else if ($this->status == "deleted") {
+		    $res = "This account name is reserved. Accounts names will be reserved if they are missleading (e. g. the name might indicate an admin status) or if an account with that name existed in the past.";
 		}
 		if (isset($res)) {
 			return $res;
