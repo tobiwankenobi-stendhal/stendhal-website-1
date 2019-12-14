@@ -97,10 +97,14 @@ class NPC {
 				$zone = 'unknown';
 				$pos = '';
 			}
+			$outfit = $row['outfit'];
+			if (isset($row['outfit_layers'])) {
+			    $outfit = $row['outfit_layers'];
+			}
 			$list[]=new NPC($row['name'],
 				$row['title'],
 				$row['class'],
-				$row['outfit'],
+				$outfit,
 				$row['level'],
 				$row['hp'],
 				$row['base_hp'],

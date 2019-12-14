@@ -45,7 +45,7 @@ class Player {
   /* When was this player last seen */
   public $lastseen;
 
-  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $outfitColors, $money, $adminlevel, $attributes, $equipment, $lastseen) {
+  function __construct($name, $sentence, $age, $level, $xp, $married, $outfit, $outfitColors, $outfitLayers, $money, $adminlevel, $attributes, $equipment, $lastseen) {
     $this->name=$name;
     $this->sentence=$sentence;
     $this->age=$age;
@@ -53,6 +53,9 @@ class Player {
     $this->outfit=$outfit;
     if (isset($outfitColors) && strlen($outfitColors) > 0) {
         $this->outfit=$outfit.'_'.$outfitColors;
+    }
+    if (isset($outfitLayers) && strlen($outfitLayers) > 0) {
+        $this->outfit = $outfitLayers;
     }
     $this->xp=$xp;
     $this->married=$married;
@@ -162,8 +165,7 @@ function getPlayer($name) {
 }
 
 function getBestPlayer($tableSuffix, $where='') {
-	
-	$query = "select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.sentence, count(*) as achievements"
+	$query = "select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.outfit_layers, character_stats.sentence, count(*) as achievements"
 	. " from halloffame_archive_".$tableSuffix." As halloffame_archive join character_stats on (halloffame_archive.charname=name) join reached_achievement on (reached_achievement.charname=name) "
 	. $where
 	. " and day = CURRENT_DATE() and fametype = 'R'"
@@ -183,7 +185,7 @@ function getBestPlayer($tableSuffix, $where='') {
   * Note: Parameters must be sql escaped.
   */
 function getHOFPlayers($tableSuffix, $where='', $fametype = '', $cond='limit 2') {
-	$query = "SELECT distinct halloffame_archive_".$tableSuffix.".charname, halloffame_archive_".$tableSuffix.".rank, halloffame_archive_".$tableSuffix.".points, character_stats.outfit, character_stats.outfit_colors
+	$query = "SELECT distinct halloffame_archive_".$tableSuffix.".charname, halloffame_archive_".$tableSuffix.".rank, halloffame_archive_".$tableSuffix.".points, character_stats.outfit, character_stats.outfit_colors, character_stats.outfit_layers
 			FROM halloffame_archive_".$tableSuffix." join character_stats on (charname=name) "
 			.$where.' and day = CURRENT_DATE() and fametype = "'.mysql_real_escape_string($fametype).'" order by rank '
 			.$cond;
@@ -242,6 +244,7 @@ function _getPlayers($query) {
                      $row['married'],
                      $row['outfit'],
                      $row['outfit_colors'],
+                     $row['outfit_layers'],
                      $row['money'],
                      $row['admin'],
                      $attributes,
@@ -261,6 +264,7 @@ function getCharacterRanks($charname) {
 	$rows = DB::game()->query($sql);
 	// if the player has not played recently, we fetch the all times data
 	// this way it is not obvious that the account was abandoned
+	$res = [];
 	if ($rows->rowCount() == 0) {
 		$sql = "SELECT fametype, rank FROM halloffame_archive_alltimes WHERE charname='".mysql_real_escape_string($charname)."' AND day=CURRENT_DATE()";
 		$rows = DB::game()->query($sql);
@@ -295,7 +299,7 @@ function getHallOfFameHistory($charname) {
 	$res['R'] = array();
 	$res['@'] = array();
 
-	$rows = DB::game()->query($sql);
+	$rows = DB::game()->query($query);
 	foreach($rows as $row) {
 		$res[$row['fametype']][] = intval($row['rank'], 10);
 	}

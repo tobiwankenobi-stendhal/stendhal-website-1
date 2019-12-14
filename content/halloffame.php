@@ -140,6 +140,9 @@ class HallOfFamePage extends Page {
 					if (isset($entry['outfit_colors']) && strlen($entry['outfit_colors']) > 0) {
 						$outfit = $outfit.'_'.$entry['outfit_colors'];
 					}
+					if (isset($entry['outfit_layers']) && strlen($entry['outfit_layers']) > 0) {
+					    $outfit = $entry['outfit_layers'];
+					}
 					?>
 					<img class="small_image" src="<?php echo rewriteURL('/images/outfit/'.$outfit.'.png')?>" alt="" />
 					<span class="block label"><?php echo htmlspecialchars($entry['charname']); ?></span>
@@ -182,6 +185,15 @@ class HallOfFamePage extends Page {
 				</a>
 			</div>
 			<a href="<?php echo rewriteURL('/character/'.surlencode($choosen['charname']).'.html'); ?>">
+			<?php 
+			$outfit = $choosen['outfit'];
+			if (isset($choosen['outfit_colors']) && strlen($choosen['outfit_colors']) > 0) {
+			    $outfit = $outfit.'_'.$choosen['outfit_colors'];
+			}
+			if (isset($choosen['outfit_layers']) && strlen($choosen['outfit_layers']) > 0) {
+			    $outfit = $choosen['outfit_layers'];
+			}
+			?>
 			<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen['outfit']).'.png')?>" alt="">
 			</a>
 			<?php if (isset($choosen->sentence) && $choosen->sentence != '') {

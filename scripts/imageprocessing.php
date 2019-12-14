@@ -110,7 +110,7 @@ class OutfitDrawer {
 	 */
 	function load_part($part_name, $index, $offset) {
 		global $OUTFITS_BASE;
-		$location = $OUTFITS_BASE . '/' . $part_name . '/' . $part_name . '_' . $this->formatNumber3($index) . '.png';
+		$location = $OUTFITS_BASE . '/' . $part_name . '/' . $part_name . '_' . $index . '.png';
 		
 		// A workaround for imagick crashing when the file does not
 		// exist.
@@ -137,73 +137,89 @@ class OutfitDrawer {
 	/**
 	 * Create an outfit image.
 	 */
-	function create_outfit($completeOutfit, $offset) {
-		// outfit code
-		$code = $completeOutfit[0];
-		// The client won't let select pure black, so 0 works for no color.
-		$detailColor = 0;
-		$hairColor = 0;
-		$dressColor = 0;
-		if (count($completeOutfit) > 1) {
-			$detailColor = hexdec($completeOutfit[1]);
-			$hairColor = hexdec($completeOutfit[2]);
-			$dressColor = hexdec($completeOutfit[4]);
-		}
-	
-		// body:
-		$index = $code % 100;
-		$bodyIndex = $index;
-		$outfit = $this->load_part('body', $index, $offset);
-		if (!$outfit) {
-			// ensure we have something to draw on
-			$outfit = new Imagick();
-			$outfit->newImage(48, 64, 'transparent', 'png');
-		}
-	
-		// dress
-		$code /= 100;		
-		$index = $code % 100;
-		if (($index == 0) && ($bodyIndex < 50)) {
-			$index = 91;
-		}
-		if ($index) {
-			$tmp = $this->load_part('dress', $index, $offset);
-		} else {
-			$tmp = 0;
-		}
-		$this->composite_with_color($outfit, $tmp, $dressColor);
-	
-		// head
-		$code /= 100;		
-		$index = $code % 100;
-		$tmp = $this->load_part('head', $index, $offset);
-		if ($tmp) {
-			$outfit->compositeImage($tmp, imagick::COMPOSITE_OVER, 0, 0);
-		}
-	
-		// hair
-		$code /= 100;		
-		$index = $code % 100;
-		if ($index) {
-			$tmp = $this->load_part('hair', $index, $offset);
-		} else {
-			$tmp = 0;
-		}
-		$this->composite_with_color($outfit, $tmp, $hairColor);
-	
-		// detail
-		$code /= 100;		
-		$index = $code % 100;
-		if ($index) {
-			$tmp = $this->load_part('detail', $index, $offset);
-		} else {
-			$tmp = 0;
-		}
-		$this->composite_with_color($outfit, $tmp, $detailColor);
-	
-		return $outfit;
+	function create_outfit_old($completeOutfit, $offset) {
+	    // outfit code
+	    $code = $completeOutfit[0];
+	    // The client won't let select pure black, so 0 works for no color.
+	    $detailColor = 0;
+	    $hairColor = 0;
+	    $dressColor = 0;
+	    if (count($completeOutfit) > 1) {
+	        $detailColor = hexdec($completeOutfit[1]);
+	        $hairColor = hexdec($completeOutfit[2]);
+	        $dressColor = hexdec($completeOutfit[4]);
+	    }
+	    
+	    // body:
+	    $index = $code % 100;
+	    $bodyIndex = $index;
+	    $outfit = $this->load_part('body', $this->formatNumber3($index), $offset);
+	    if (!$outfit) {
+	        // ensure we have something to draw on
+	        $outfit = new Imagick();
+	        $outfit->newImage(48, 64, 'transparent', 'png');
+	    }
+	    
+	    // dress
+	    $code /= 100;
+	    $index = $code % 100;
+	    if (($index == 0) && ($bodyIndex < 50)) {
+	        $index = 91;
+	    }
+	    if ($index) {
+	        $tmp = $this->load_part('dress', $this->formatNumber3($index), $offset);
+	    } else {
+	        $tmp = 0;
+	    }
+	    $this->composite_with_color($outfit, $tmp, $dressColor);
+	    
+	    // head
+	    $code /= 100;
+	    $index = $code % 100;
+	    $tmp = $this->load_part('head', $this->formatNumber3($index), $offset);
+	    if ($tmp) {
+	        $outfit->compositeImage($tmp, imagick::COMPOSITE_OVER, 0, 0);
+	    }
+	    
+	    // hair
+	    $code /= 100;
+	    $index = $code % 100;
+	    if ($index) {
+	        $tmp = $this->load_part('hair', $this->formatNumber3($index), $offset);
+	    } else {
+	        $tmp = 0;
+	    }
+	    $this->composite_with_color($outfit, $tmp, $hairColor);
+	    
+	    // detail
+	    $code /= 100;
+	    $index = $code % 100;
+	    if ($index) {
+	        $tmp = $this->load_part('detail', $this->formatNumber3($index), $offset);
+	    } else {
+	        $tmp = 0;
+	    }
+	    $this->composite_with_color($outfit, $tmp, $detailColor);
+	    
+	    return $outfit;
 	}
+	/**
+	 * Create an outfit image.
+	 */
+	function create_outfit($layers, $offset) {
+        $outfit = new Imagick();
+        $outfit->newImage(48, 64, 'transparent', 'png');
 
+        foreach ($layers as $layer) {
+            $l = explode('-', $layer);
+            $image = $this->load_part($l[0], $this->formatNumber3($l[1]), $offset);
+	        $color = hexdec($l[2]);
+    	    $this->composite_with_color($outfit, $image, $color);
+        }
+	    
+	    return $outfit;
+	}
+	
 	/**
 	 * tries to load an outfit from the file cache, creates and stores it otherwise
 	 *
@@ -216,10 +232,14 @@ class OutfitDrawer {
 
 		if (file_exists($cacheIdentifier)) {
 			readfile($cacheIdentifier);
-			return;
+ 			return;
 		}
 
-		$data = $this->create_outfit(explode('_', $completeOutfit), $offset);
+		if (strpos($completeOutfit, '-') > 0) {
+		    $data = $this->create_outfit(explode('_', $completeOutfit), $offset);
+		} else {
+		    $data = $this->create_outfit_old(explode('_', $completeOutfit), $offset);
+		}
 
 		if (!file_exists('/tmp/outfits')) {
 			mkdir('/tmp/outfits', 0755);
@@ -237,7 +257,7 @@ class OutfitDrawer {
 	 * @return boolean
 	 */
 	function validateInput($outfit) {
-		return preg_match('/^[a-f0-9_]+$/', $outfit);
+		return preg_match('/^[a-z0-9_\\-]+$/', $outfit);
 	}
 }
 

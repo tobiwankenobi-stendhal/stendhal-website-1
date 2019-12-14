@@ -155,8 +155,11 @@ class AchievementPage extends Page {
 			echo '  <a class = "onlineLink" href="'.rewriteURL('/character/'.surlencode($entry['name']).'.html').'">';
 			$outfit = $entry['outfit'];
 			if (isset($entry['outfit_colors']) && strlen($entry['outfit_colors']) > 0) {
-				$outfit = $outfit.'_'.$entry['outfit_colors'];
-			}			
+			    $outfit = $outfit.'_'.$entry['outfit_colors'];
+			}
+			if (isset($entry['outfit_layers']) && strlen($entry['outfit_layers']) > 0) {
+			    $outfit = $entry['outfit_layers'];
+			}
 			echo '  <img '.$style.' src="'.rewriteURL('/images/outfit/'.$outfit.'.png').'" alt="" title="'.$title.'">';
 			echo '  <span class="block onlinename">'.htmlspecialchars($entry['name']).'</span></a>';
 			echo '</div>';

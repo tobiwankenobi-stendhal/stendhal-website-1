@@ -20,12 +20,12 @@ class BingoPage extends Page {
 		$this->killer = $row['killer'];
 		$this->killer_type = $row['killer_type'];
 
-		$this->query = "SELECT level, outfit FROM character_stats WHERE name='".mysql_real_escape_string($this->killer)."'";
+		$this->query = "SELECT level, outfit_layers FROM character_stats WHERE name='".mysql_real_escape_string($this->killer)."'";
 		$stmt = DB::game()->query($this->query);		
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$stmt->closeCursor();
         $this->level = $row['level'];
-		$this->outfit = $row['outfit'];
+		$this->outfit = $row['outfit_layers'];
 	}
 	
 	public function writeHttpHeader() {
