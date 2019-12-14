@@ -194,7 +194,7 @@ class HallOfFamePage extends Page {
 			    $outfit = $choosen['outfit_layers'];
 			}
 			?>
-			<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($choosen['outfit']).'.png')?>" alt="">
+			<img class="bordered_image" src="<?php echo rewriteURL('/images/outfit/'.surlencode($outfit).'.png')?>" alt="">
 			</a>
 			<?php if (isset($choosen->sentence) && $choosen->sentence != '') {
 				echo '<div class="sentence">'.htmlspecialchars($choosen['sentence']).'</div>';
