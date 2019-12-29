@@ -1214,45 +1214,58 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 	//----------------------------------------------------------------------------
 
 
-
 	var createCharacterFaceOffset = 2;
-	var createCharacterMaxOutfit = [44, 21, 15, 53];
-	var createCharacterOutfitNames = ["hair", "head", "body", "dress"];
-	var currentOutfit = [0, 0, 0, 0];
+	var createCharacterMinOutfits   = [      0,       1,      0,       0,      0,      0,     0,      0,        0 ];
+	var createCharacterCountOutfits = [      3,      64,      4,       5,     26,      0,    49,      0,        0 ];
+	var createCharacterOutfitNames  = [ "body", "dress", "head", "mouth", "eyes", "mask", "hair", "hat", "detail" ];
+	var currentOutfit =               [      0,       1,      0,       0,      0,      0,     0,      0,        0 ];
 
-	function createCharacterUpdate(i) {
-		document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + createCharacterOutfitNames[i] + "/" + createCharacterOutfitNames[i] + "_" + formatNumber3(currentOutfit[i]) + ".png')";
-		var outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
+	function createCharacterUpdate() {
+		let outfitCode = "";
+		let outfitUrl = "";
+		for (let i = 0; i < createCharacterOutfitNames.length; i++) {
+			if (outfitCode !== "") {
+				outfitCode += ",";
+				outfitUrl += "_";
+			}
+			outfitCode += createCharacterOutfitNames[i] + "=" + currentOutfit[i];
+			outfitUrl += createCharacterOutfitNames[i] + "-" + currentOutfit[i] + "-0";
+		}
 		document.getElementById("outfitcode").value = outfitCode;
-		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "&rewritten=true')";
+		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitUrl + "&rewritten=true')";
 	}
 
 	function createCharacterDown(i) {
 		currentOutfit[i]--;
-		if (currentOutfit[i] < 0) {
-			currentOutfit[i] = createCharacterMaxOutfit[i] - 1;
+		if (currentOutfit[i] < createCharacterMinOutfits[i]) {
+			currentOutfit[i] = createCharacterCountOutfits[i] - 1;
 		}
 		createCharacterUpdate(i);
 	}
 
 	function createCharacterUp(i) {
-		currentOutfit[i] = (currentOutfit[i] + 1) % createCharacterMaxOutfit[i];
+		currentOutfit[i] = (currentOutfit[i] + 1) % createCharacterCountOutfits[i];
+		if (currentOutfit[i] < createCharacterMinOutfits[i]) {
+			currentOutfit[i] = createCharacterMinOutfits[i];
+		}
 		createCharacterUpdate(i);
 	}
 
-	function createCharacterUpdateAll() {
-		var i;
-		for (i = 0; i < 4; i++) {
-			document.getElementById("outfit" + i).style.backgroundImage = "url('/data/sprites/outfit/" + createCharacterOutfitNames[i] + "/" + createCharacterOutfitNames[i] + "_" + formatNumber3(currentOutfit[i]) + ".png')";
-		}
-		var outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
-		document.getElementById("outfitcode").value = outfitCode;
-		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "&rewritten=true')";
-	}
 
 	function createCharacterInit() {
-		createCharacterUpdateAll();
+		let outfitCode = document.getElementById("currentOutfit").value;
+		if (outfitCode) {
+			let outfitArray = outfitCode.split(",");
+			for (let i = 0; i < createCharacterOutfitNames.length; i++) {
+				 let entry = outfitArray[i].split("=");
+				 currentOutfit[i] = entry[1];
+			}
+		} else {
+			currentOutfit[1] = Math.floor(Math.random() * (createCharacterCountOutfits[1] - createCharacterMinOutfits[1])) + createCharacterMinOutfits[1];
+			currentOutfit[6] = Math.floor(Math.random() * (createCharacterCountOutfits[6] - createCharacterMinOutfits[6])) + createCharacterMinOutfits[6];
+		}
 		document.getElementById("name").focus();
+		createCharacterUpdate();
 	}
 
 	function createCharacterTurn(i) {
@@ -1260,14 +1273,9 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		if (createCharacterFaceOffset < 0) {
 			createCharacterFaceOffset = 3;
 		}
-		var cssOffset = 4 - createCharacterFaceOffset;
-	
-		for (i = 0; i < 4; i++) {
-			document.getElementById("outfit" + i).style.backgroundPosition = "0 " + (cssOffset * 64) + "px";
-		}
-		var outfitCode = formatNumber(currentOutfit[0]) + formatNumber(currentOutfit[1]) + formatNumber(currentOutfit[3]) + formatNumber(currentOutfit[2]);
-		document.getElementById("canvas").style.backgroundImage = "url('/createoutfit.php?offset=" + createCharacterFaceOffset + "&outfit=" + outfitCode + "&rewritten=true')";
+		createCharacterUpdate();
 	}
+
 
 	var createCharacterLastRequestedName = "";
 	var createCharacterMinLengthOnceReached = false;
@@ -1316,6 +1324,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		}
 		return true;
 	}
+
 
 	//----------------------------------------------------------------------------
 	//                                     netstat
@@ -1677,7 +1686,6 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		}
 
 		if (document.getElementById("createCharacterForm") != null) {
-			currentOutfit = document.getElementById("currentOutfit").value.split(",");
 			$('#createCharacterForm #name').change(function () {
 				return createCharacterNameChanged(this);
 			});
@@ -1687,10 +1695,10 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			$('#createCharacterForm .turn').click(function () {
 				return createCharacterTurn(parseInt(this.getAttribute("data-offset"), 10));
 			});
-			$('#createCharacterForm .prev').click(function () {
+			$('#createCharacterForm .outfitprev').click(function () {
 				return createCharacterDown(parseInt(this.getAttribute("data-offset"), 10));
 			});
-			$('#createCharacterForm .next').click(function () {
+			$('#createCharacterForm .outfitnext').click(function () {
 				return createCharacterUp(parseInt(this.getAttribute("data-offset"), 10));
 			});
 			createCharacterInit();

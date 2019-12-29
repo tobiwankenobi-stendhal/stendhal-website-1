@@ -17,7 +17,6 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class CreateCharacterPage extends Page {
-	private $outfitArray;
 	private $result;
 
 	/**
@@ -46,11 +45,6 @@ class CreateCharacterPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Create Character'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
-		echo '<style type="text/css">
-				.outfitpanel {border: 1px solid black; width: 8.5em; height: 256px; padding: 0em; float: left; margin-right: 2em; margin-bottom: 2em}
-				.prev, .next {float: left; margin-top: 2em}
-				.outfitpart {float: left; display: block; width:48px; height: 64px; background-position: 0 128px;}
-			</style>';
 	}
 
 	function writeContent() {
@@ -77,7 +71,7 @@ class CreateCharacterPage extends Page {
 		require_once('scripts/pharauroa/pharauroa.php');
 		$clientFramework = new PharauroaClientFramework(STENDHAL_MARAUROA_SERVER, STENDHAL_MARAUROA_PORT, STENDHAL_MARAUROA_CREDENTIALS);
 		$template = new PharauroaRPObject();
-		$template->put('outfit', $_REQUEST['outfitcode']);
+		$template->put('outfit_ext', $_REQUEST['outfitcode']);
 
 		$this->result = $clientFramework->createCharacter($_SESSION['account']->username, $user, $template);
 
@@ -90,8 +84,6 @@ class CreateCharacterPage extends Page {
 	
 
 	function show($createURL) {
-		$this->initOutfitArray();
-
 		if (isset($_POST['name']) && ($_POST['csrf'] != $_SESSION['csrf'])) {
 			startBox("<h2>Error</h2>");
 			echo '<p class="error">Session information was lost.</p>';
@@ -110,41 +102,43 @@ class CreateCharacterPage extends Page {
 <form id="createCharacterForm" name="createCharacterForm" action="<?php echo $createURL;?>" method="POST" style="height:22em; padding: 1em"> <!-- onsubmit="return checkForm()"  -->
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'])?>">
 
-<div class="outfitpanel">
-<div style="clear: both">
-<input class="prev" type="button" data-offset="0" value="&lt;">
-<span id="outfit0" class="outfitpart"></span>
-<input class="next" type="button" data-offset="0" value="&gt;">
-</div>
+<table style="float: left; margin-right: 2em">
+<tr>
+	<td>Hair</td>
+	<td><input class="outfitprev" type="button" data-offset="6" value="&lt;"></td>
+	<td rowspan="5"><canvas id="canvas" style="background-position: center;
+  background-size: cover; margin: 0 16px" height="98px" width="68px"></canvas></td>
+	<td><input class="outfitnext" type="button" data-offset="6" value="&gt;"></td>
+</tr>
+<tr>
+	<td>Eyes</td>
+	<td><input class="outfitprev" type="button" data-offset="4" value="&lt;"></td>
+	<td><input class="outfitnext" type="button" data-offset="4" value="&gt;"></td>
+</tr>
+<tr>
+	<td>Mouth</td>
+	<td><input class="outfitprev" type="button" data-offset="3" value="&lt;"></td>
+	<td><input class="outfitnext" type="button" data-offset="3" value="&gt;"></td>
+</tr>
+<tr>
+	<td>Head</td>
+	<td><input class="outfitprev" type="button" data-offset="2" value="&lt;"></td>
+	<td><input class="outfitnext" type="button" data-offset="2" value="&gt;"></td>
+</tr>
+<tr>
+	<td>Dress</td>
+	<td><input class="outfitprev" type="button" data-offset="1" value="&lt;"></td>
+	<td><input class="outfitnext" type="button" data-offset="1" value="&gt;"></td>
+</tr>
 
-<div style="clear: both">
-<input class="prev" type="button" data-offset="1" value="&lt;">
-<span id="outfit1" class="outfitpart"></span>
-<input class="next" type="button" data-offset="1" value="&gt;">
-</div>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td style="text-align: center"><input class="turn" type="button" data-offset="-1" value="l"> <input class="turn" type="button" data-offset="1" value="r"></td>
+<td>&nbsp;</td>
+</tr>
 
-
-<div style="clear: both">
-<input class="prev" type="button" data-offset="2" value="&lt;">
-<span id="outfit2" class="outfitpart"></span>
-<input class="next" type="button" data-offset="2" value="&gt;">
-</div>
-
-
-<div style="clear: both">
-<input class="prev" type="button" data-offset="3" value="&lt;">
-<span id="outfit3" class="outfitpart"></span>
-<input class="next" type="button" data-offset="3" value="&gt;">
-</div>
-
-</div>
-
-<div style="float:left; width: 50%">
-<span id="canvas" style="border: 1px solid #AAA; display: block; width: 48px; height: 64px"></span>
-<input class="turn" type="button" data-offset="-1" value="l">
-<input class="turn" type="button" data-offset="1" value="r">
-</div>
-
+</table>
 
 <div style="float:left; width: 50%; padding-top: 2em">
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
@@ -162,7 +156,11 @@ class CreateCharacterPage extends Page {
 ?>>
 <div id="warn" class="warn">&nbsp;</div>
 <input name="submit" style="margin-top: 2em" type="submit" value="Create Character">
-<input id="currentOutfit" name="currentOutfit" type="hidden" value = "<?php echo $this->outfitArray[0].','.$this->outfitArray[1].','.$this->outfitArray[2].','.$this->outfitArray[3];?>">
+<input id="currentOutfit" name="currentOutfit" type="hidden" value = "<?php
+if (isset($_REQUEST['outfitcode'])) {
+    echo htmlspecialchars($_REQUEST['outfitcode']);
+}
+?>">
 <input id="sessionUsername" type="hidden" value="<?php echo htmlspecialchars($_SESSION['account']->username);?>">
 <input id="serverpath" name="serverpath" type="hidden" value="<?php echo STENDHAL_FOLDER;?>">
 </div>
@@ -170,26 +168,6 @@ class CreateCharacterPage extends Page {
 <?php
 		endBox();
 		$this->includeJs();
-	}
-
-	
-	function initOutfitArray() {
-		if (isset($_REQUEST['outfitcode'])) {
-			$code = intval($_REQUEST['outfitcode'], 10);
-			$this->outfitArray[2] = $code % 100;
-			$this->outfitArray[3] = $code / 100 % 100;
-			$this->outfitArray[1] = $code / 10000 % 100;
-			$this->outfitArray[0] = $code / 1000000 % 100;
-		} else {
-			$this->randomOutfit();
-		}
-	}
-
-	function randomOutfit() {
-		$maxRndOutfit = array(26, 15, 5, 15);
-		for ($i = 0; $i < 4; $i++) {
-			$this->outfitArray[$i] = rand(1, $maxRndOutfit[$i]);
-		}
 	}
 
 }
