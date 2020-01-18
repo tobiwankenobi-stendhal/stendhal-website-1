@@ -335,14 +335,11 @@ function getAchievementEvents($filter) {
 }
 
 function getOutfitsForPlayers($players) {
-	$query = 'SELECT distinct name, outfit, outfit_colors FROM character_stats where name IN ("'.implode('","',$players).'")';
+	$query = 'SELECT distinct name, outfit_layers FROM character_stats where name IN ("'.implode('","',$players).'")';
     $rows = DB::game()->query($query);
 	$outfits = array();
 	foreach($rows as $row) {
-		$outfit = $row['outfit'];
-		if (isset($row['outfit_colors']) && strlen($row['outfit_colors']) > 0) {
-			$outfit = $outfit.'_'.$row['outfit_colors'];
-		}
+		$outfit = $row['outfit_layers'];
 		$outfits[$row['name']] = $outfit;
 	}
 	return $outfits;
