@@ -1,4 +1,4 @@
-<?php 
+<?php
 class AchievementPage extends Page {
 	private $achievements;
 
@@ -23,15 +23,15 @@ class AchievementPage extends Page {
 	public function writeHtmlHeader() {
 		if (count($this->achievements) == 1) {
 			echo '<title>Achievement '.$this->achievements->title.STENDHAL_TITLE.'</title>';
-			
+
 			echo '<meta property="og:type" content="game.achievement">';
 			echo '<meta property="og:url" content="https://stendhalgame.org/'.rewriteURL('/achievement/'.surlencode($this->achievements->title).'.html').'">';
 			echo '<meta property="og:title" content="'.$this->achievements->title.'">';
 			echo '<meta property="og:description" content="'.htmlspecialchars($this->achievements->description).'">';
-			echo '<meta property="og:image" content="https://stendhalgame.org/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png">';
+			echo '<meta property="og:image" content="https://stendhalgame.org/data/sprites/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png">';
 			echo '<meta property="game:points" content="10">';
 			echo '<meta property="fb:app_id" content="'.FACEBOOK_APP_ID.'">';
-				
+
 		} else {
 			echo '<title>Achievements'.STENDHAL_TITLE.'</title>';
 		}
@@ -57,7 +57,7 @@ class AchievementPage extends Page {
 	function achievementDetail() {
 		startBox('<h1>'.htmlspecialchars($this->achievements->title).'</h1>');
 		echo '<div class="achievement">';
-		echo '<img class="achievement" src="/images/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png" alt="">';
+		echo '<img class="achievement" src="/data/sprites/achievements/'.htmlspecialchars(strtolower($this->achievements->category)).'.png" alt="">';
 		echo '<div class="description">'.htmlspecialchars($this->achievements->description).'</div>';
 		echo '</div>';
 		echo 'Earned by '.htmlspecialchars($this->achievements->count). ' characters.';
@@ -109,7 +109,7 @@ class AchievementPage extends Page {
 		echo '<table class="prettytable">';
 		foreach ($this->achievements as $achievement) {
 			echo '<tr>';
-			echo '<td><a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'"><img style="border:none" src="/images/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->category).'"></a></td>';
+			echo '<td><a href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'"><img style="border:none" src="/data/sprites/achievements/'.htmlspecialchars(strtolower($achievement->category)).'.png" title="'.htmlspecialchars($achievement->category).'"></a></td>';
 			echo '<td><a style="color: #000" href="'.rewriteURL('/achievement/'.surlencode($achievement->title).'.html').'" title="'.htmlspecialchars($achievement->description).'">'.htmlspecialchars($achievement->title).'</a></td>';
 			echo '<td>'.htmlspecialchars($achievement->count).'</td>';
 			echo '</tr>';
@@ -123,7 +123,7 @@ class AchievementPage extends Page {
 		startBox("<h2>Achievements</h2>");
 		echo '<div class="achievement">';
 		echo '<div class="name">'.ucfirst(htmlspecialchars($category)).'</div>';
-		echo '<img class="achievement" src="/images/achievements/'.htmlspecialchars($category).'.png" alt="">';
+		echo '<img class="achievement" src="/data/sprites/achievements/'.htmlspecialchars($category).'.png" alt="">';
 		echo '<div class="description">'.htmlspecialchars($description).'</div>';
 		echo '</div>';
 		echo count($list).' '.ucfirst(htmlspecialchars($category)).' achievements earned.';
@@ -139,7 +139,7 @@ class AchievementPage extends Page {
 		}
 		endBox();
 	}
-	
+
 	function renderPlayers($list) {
 		foreach ($list as $entry) {
 			$style = '';
@@ -179,7 +179,7 @@ class AchievementPage extends Page {
 				$array[] = '/achievement/'.$this->achievements->title.'.html';
 			}
 		}
-	
+
 		return $array;
 	}
 }
