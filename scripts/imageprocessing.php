@@ -116,7 +116,9 @@ class OutfitDrawer {
 		// exist.
 		if (file_exists($location)) {
 			$image = new Imagick($location);
-			$image->cropImage(48, 64, 0, $offset * 64);
+			$w = $image->getImageWidth() / 3;
+			$x_pos = $w * 2; // use center frame
+			$image->cropImage(48, 64, $x_pos, $offset * 64);
 			return $image;
 		}
 		return 0;
@@ -266,7 +268,8 @@ class NPCAndCreatureDrawer {
 
 	function createImageData($url) {
 		$size = getimagesize($url);
-		$loc = 0;
+		$x_loc = 0;
+		$y_loc = 0;
 		$w = $size[0];
 		$h = $size[1];
 
@@ -274,12 +277,12 @@ class NPCAndCreatureDrawer {
 			// Ent images are tiles of 1x2 so we choose a single tile.
 			$w = $w;
 			$h = $h / 2;
-			$loc = 0;
 		} else if (strpos($url, "/alternative/") === false) {
 			// Images are tiles of 3x4 so we choose a single tile.
 			$w = $w / 3;
 			$h = $h / 4;
-			$loc = $h * 2;
+			$x_loc = $w * 2; // use center frame
+			$y_loc = $h * 2; // use south-facing frame
 		}
 
 		$result = imagecreate($w, $h);
@@ -287,7 +290,7 @@ class NPCAndCreatureDrawer {
 		imagefilledrectangle($result, 0, 0, $w, $h, $white);
 
 		$baseIm=imagecreatefrompng($url);
-		imagecopy($result, $baseIm, 0, 0, 0, $loc, $w, $h);
+		imagecopy($result, $baseIm, 0, 0, $x_loc, $y_loc, $w, $h);
 		return $result;
 	}
 }
