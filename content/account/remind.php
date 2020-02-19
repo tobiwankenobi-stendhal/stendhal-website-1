@@ -33,7 +33,7 @@ class RemindPage extends Page {
 
 		$username = $_POST['account'];
 		$account = Account::readAccountByName($username);
-		
+
 		if (!isset($account) || $account->status != 'active') {
 			$this->error = true; // 'The account does not exis, was merged into another account, is not active or does not have a valid email-address.';
 			return;
@@ -46,7 +46,7 @@ class RemindPage extends Page {
 		}
 
 		$signature=strtoupper(md5(rand()));
-	
+
 		// Good, store it...
 		$query = 'insert into remind_password (username, confirmhash)'
 			. ' values(:username, :confirmhash)';
@@ -55,36 +55,36 @@ class RemindPage extends Page {
 			':username' => $username,
 			':confirmhash' => $signature
 		));
-		
+
 
 		// TODO: Remove the entry or anything 48 hours old.
 		DB::web()->execute('delete from remind_password where datediff(now(),requested)>2');
-	
+
 		// ...and email
 		$server=$_SERVER["SERVER_NAME"];
 		$location=str_replace("/index.php","",$_SERVER["PHP_SELF"]);
-	
+
 		$clientip=$_SERVER['REMOTE_ADDR'];
-	
+
 		$body=file_get_contents("login/remindpassword.email");
-	
+
 		// Fill variables
 		$body = str_replace("[SERVER]", $server.$location, $body);
 		$body = str_replace("[SIGNATURE]", $signature, $body);
 		$body = str_replace("[CLIENTIP]", $clientip, $body);
 		$body = str_replace("[ACCOUNT]", $username, $body);
-		
+
 		if ($body == false) {
 			echo '<span class="error">There has been a problem while getting password email template.</span>';
 			die();
 		}
-	
+
 		$headers = 'From: noreply@stendhalgame.org';
 		if(!mail($email,"Password reset request",$body,$headers)) {
 			echo '<span class="error">There has been a problem while sending your password email.</span>';
 			die();
 		}
-	
+
 		startBox("<h1>Password reset link emailed</h1>");
 		?>
 		We have just sent you a link to reset your password.<br>
@@ -112,4 +112,3 @@ class RemindPage extends Page {
 }
 
 $page = new RemindPage();
-

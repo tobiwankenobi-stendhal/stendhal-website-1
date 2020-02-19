@@ -54,13 +54,13 @@ if(!isset($_GET['class'])) {
     }
 	?>
     <div class="f3cols">
-      <?php 
+      <?php
         echo '<a href="'.rewriteURL('/item/'.surlencode($class).'.html').'">';
         echo '<img src="'.$choosen->gfx.'" alt=""><br>';
         echo ucfirst($class). '</a>';?>
     </div>
     <?php
-  }  
+  }
   ?>
   </div>
   <div style="clear: left;"></div>

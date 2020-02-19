@@ -1,7 +1,7 @@
 <?php
 
 class PharauroaSerializer {
-	
+
 	private $data;
 	private $protocolVersion = PHARAUROA_NETWORK_PROTOCOL_VERSION;
 
@@ -12,11 +12,11 @@ class PharauroaSerializer {
 	public function getProtocolVersion() {
 		return $this->protocolVersion;
 	}
-	
+
 	public function writeByte($byte) {
 		$this->data = $this->data . chr($byte);
 	}
-	
+
 	public function writeShort($short) {
 		$this->data = $this->data . pack("s", $short);
 	}

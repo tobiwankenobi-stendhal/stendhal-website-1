@@ -72,7 +72,7 @@ class AccountMerge extends Page {
 				return false;
 			}
 		}
-				
+
 		if (isset($_POST['pass'])) {
 			if (! isset($_POST['submerge'])) {
 				return false;
@@ -92,9 +92,9 @@ class AccountMerge extends Page {
 				$this->error = 'Session information was lost.';
 				return false;
 			}
-	
+
 			$result = Account::tryLogin("password", $_POST['user'], $_POST['pass']);
-	
+
 			if (! ($result instanceof Account)) {
 				$this->error = htmlspecialchars($result);
 				return false;
@@ -134,7 +134,7 @@ class AccountMerge extends Page {
 			return true;
 
 		} else if (isset($_REQUEST['code'])) {
-		
+
 			$accountLink = $this->fb->createAccountLink();
 			if (!$accountLink) {
 				$this->fb = 'Facebook login failed.';
@@ -144,7 +144,7 @@ class AccountMerge extends Page {
 			$this->fb->merge($accountLink);
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -174,7 +174,7 @@ class AccountMerge extends Page {
 		startBox("<h2>Account Merging</h2>");?>
 		<p>With the form below you can merge your other accounts. &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
 		(<a href="https://stendhalgame.org/wiki/Stendhal_Account_Merging">Help</a>)</p>
-		<p>This means that all characters previously associated with the other 
+		<p>This means that all characters previously associated with the other
 		account will be available in this account.</p>
 		<p class="warn">Merging accounts cannot be undone.</p>
 		<?php endBox();

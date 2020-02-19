@@ -31,7 +31,7 @@ class AtlasPage extends Page {
 		startBox('<h1>Atlas</h1>');
 		echo '<div id="map_canvas" data-tile-url-base="'.STENDHAL_MAP_TILE_URL_BASE.'/'.$tileset.'"></div>';
 		endBox();
-		
+
 		startBox('<h2>Extended information</h2>');
 		echo '<p>You can use your mouse or the map controls to zoom and pan.</p>';
 		echo '<p>There is lots more information about each of the <a href="/region.html">regions</a> and <a href="/dungeon.html">dungeons</a>.</p>';
@@ -119,7 +119,7 @@ class AtlasPage extends Page {
 		echo '<span id="zone-info" data-zones="'.htmlspecialchars(json_encode(Zone::getZoneInfos())).'"></span>';
 		echo '</div>';
 	}
-	
+
 	public function writeAfterJS() {
 		echo '<link rel="stylesheet" href="/css/leaflet.css">';
 		echo '<!--[if lte IE 8]><link rel="stylesheet" href="/css/leaflet.ie.css" /><![endif]-->';

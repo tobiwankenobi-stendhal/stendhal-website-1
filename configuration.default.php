@@ -80,7 +80,7 @@
 # Show achievements on character page
 @define('STENDHAL_ACHIEVEMENTS', true);
 
-# URL-Rewriting. 
+# URL-Rewriting.
 # Please see scripts/urlrewrite.php for the mod_rewrite rules required in your apache configuration file.
 @define('STENDHAL_MODE_REWRITE', false);
 @define('STENDHAL_FOLDER', '');

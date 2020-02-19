@@ -24,7 +24,7 @@ class EditPage extends Page {
 	}
 
 	public function writeHttpHeader() {
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['edit_page'] != '1')) {
 			header('HTTP/1.1 403 Forbidden');
 		}
@@ -52,14 +52,14 @@ class EditPage extends Page {
 			endBox();
 			return;
 		}
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 		|| ($_SESSION['accountPermissions']['edit_page'] != '1')) {
 			startBox(t('Edit'));
 			echo '<p>'.t('You are missing the required permission for this action.').'</p>';
 			endBox();
 			return;
 		}
-		
+
 		echo '<form method="POST">';
 		startBox(t('Editing').' '.htmlspecialchars(ucfirst($title)));
 		echo '<p>'.t('Please skip Heading 1 and start with Heading 2.').'</p>';

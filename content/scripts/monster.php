@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function printRespawn($turns) {
   return round($turns *0.3/60,2);
@@ -8,7 +8,7 @@ function renderAmount($amount) {
   $amount=str_replace("[","",$amount);
   $amount=str_replace("]","",$amount);
   list($min,$max)=explode(",",$amount);
-  
+
   if($min!=$max) {
     return "between $min and $max.";
   } else {
@@ -33,7 +33,6 @@ class MonsterPage extends Page {
 				$this->found = true;
 			}
 		}
-		
 	}
 
 
@@ -82,7 +81,7 @@ foreach($this->monsters as $m) {
 		<div class="xp">Killing it will give you <?php echo $m->xp; ?> XP.</div>
 		<div class="respawn">Respawns on average in <?php echo printRespawn($m->respawn); ?> minutes.</div>
 		<div class="description">
-		<?php 
+		<?php
 		if(trim($m->description=="")) {
 			echo 'No description. Would you like to <a href="https://sourceforge.net/p/arianne/patches/new/?summary=Monster%20'.urlencode($m->name).'&description=%3C%3CPlease%20enter%20description%20here%3E%3E#top_nav">write one</a>?';
 		} else {
@@ -135,7 +134,7 @@ foreach($this->monsters as $m) {
 					<div class="data">Drops <?php echo renderAmount($k["quantity"]); ?></div>
 					<div class="data">Probability: <?php echo $k["probability"]; ?>%</div>
 				</div>
-			<?php 
+			<?php
 			}
 			?>
 		</div>
@@ -148,15 +147,15 @@ foreach($this->monsters as $m) {
     /*
      * Obtain data from database
      */
-    $m->fillKillKilledData();   
-    
+    $m->fillKillKilledData();
+
     startBox(ucfirst($m->name)." killed by players, per day");
       $data='';
       foreach($m->kills as $day=>$amount) {
 	$date = date('M-d', time() - $day * 86400);
 	$data .= $date . '_' . $amount . ',';
       }
-    ?>  
+    ?>
     <img style="padding: 4px; border: 1px solid black;" src="/bargraph.php?data=<?php echo $data; ?>" alt="<?php echo $data; ?>" title="Killed creature" >
     <?php
     endBox();
@@ -165,9 +164,9 @@ foreach($this->monsters as $m) {
       $data='';
       foreach($m->killed as $day=>$amount) {
         $date = date('M-d', time() - $day * 86400);
-	$data.= $date . '_' . $amount . ','; 
+	$data.= $date . '_' . $amount . ',';
       }
-    ?>  
+    ?>
     <img style="padding: 4px; border: 1px solid black;" src="/bargraph.php?data=<?php echo $data; ?>" alt="<?php echo $data; ?>" title="Killed Players" >
     <?php
     endBox();

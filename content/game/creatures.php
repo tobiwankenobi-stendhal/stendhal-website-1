@@ -27,7 +27,7 @@ class CreaturesPage extends Page {
 $monsters=getMonsters();
 $classes=Monster::getClasses();
 ?>
- 
+
 <div style="float: left; width: 100%"><?php
 
 startBox('<h1>Creatures</h1>');
@@ -42,7 +42,7 @@ startBox('<h1>Creatures</h1>');
 </div>
 
 <div class="cards">
-<?php 
+<?php
 foreach($monsters as $m) {
 	echo '<div class="creature"><a class="creature" href="'.rewriteURL('/creature/'.surlencode($m->name).'.html').'">';
 	echo '  <img class="creature" src="'.$m->gfx.'" alt="">';

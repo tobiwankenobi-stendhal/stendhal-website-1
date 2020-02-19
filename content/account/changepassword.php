@@ -47,12 +47,12 @@ function validateParameters() {
 
 function changePassword() {
 	$username = $_SESSION['account']->username;
-	
+
 	/* Verify that user is in database */
 	$md5newpass = strtoupper(md5($_POST['newpass']));
 	$q = "update account set password='".mysql_real_escape_string(Account::sha512crypt($md5newpass))."' where username = '".mysql_real_escape_string($username)."'";
 	$result = DB::game()->exec($q);
-	
+
 	if ($result != 1) {
 		die('Problem updating database');
 	}
@@ -88,7 +88,7 @@ class ChangePasswordPage extends Page {
 			$this->process();
 		}
 	}
-	
+
 	function process() {
 
 /**
@@ -105,7 +105,7 @@ if(isset($_POST['sublogin'])){
 	} else {
 		handleValidationError($error);
 	}
-	
+
 } else {
 startBox("<h1>Change password</h1>");
 if (!$_SESSION['account']->password) {

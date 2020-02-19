@@ -31,7 +31,7 @@ class PharauroaDeserializer {
 	/**
 	 * This method reads a byte
 	 *
-	 * @return int the byte 
+	 * @return int the byte
 	 */
 	public function readByte() {
 		if (strlen($this->data) < 1) {
@@ -45,7 +45,7 @@ class PharauroaDeserializer {
 	/**
 	 * This method reads a byte
 	 *
-	 * @return int the shot 
+	 * @return int the shot
 	 */
 	public function readShort() {
 		if (strlen($this->data) < 2) {
@@ -53,7 +53,7 @@ class PharauroaDeserializer {
 		}
 		$output = unpack("s", $this->data);
 		$this->data = substr($this->data, 2);
-		return $output[1]; 
+		return $output[1];
 	}
 
 	/**
@@ -67,7 +67,7 @@ class PharauroaDeserializer {
 		}
 		$output = unpack("I", $this->data);
 		$this->data = substr($this->data, 4);
-		return $output[1]; 
+		return $output[1];
 	}
 
 	/**

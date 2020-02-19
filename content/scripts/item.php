@@ -5,7 +5,7 @@ function renderAmount($amount) {
   $amount=str_replace("[","",$amount);
   $amount=str_replace("]","",$amount);
   list($min,$max)=explode(",",$amount);
-  
+
   if($min!=$max) {
     return 'between ' . formatNumber($min) . ' and ' . formatNumber($max) . '.';
   }
@@ -54,7 +54,7 @@ class ItemPage extends Page {
 
 		if (($this->isExact || $this->counter==1) && (strpos($_REQUEST['class'], ' ') !== FALSE || strpos($_REQUEST['name'], ' ') !== FALSE || $_REQUEST['class'] == 'all')) {
 			header('HTTP/1.0 301 Moved permanently.');
-			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&", 
+			header("Location: ".$protocol."://".$_SERVER['HTTP_HOST'].preg_replace("/&amp;/", "&",
 				rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($this->name).'.html')));
 			echo ($this->isExact || $this->counter==1);
 			return false;
@@ -71,7 +71,7 @@ class ItemPage extends Page {
 
 	function writeContent() {
 
-	
+
 if ($this->isExact && !$this->found) {
 	startBox("<h1>No such Item</h1>");
 	?>
@@ -93,7 +93,7 @@ foreach($this->items as $m) {
       <div class="type">This item is of <?php echo $m->class ?> class</div>
       <img class="item" src="<?php echo $m->gfx; ?>" alt="">
       <div class="description">
-        <?php 
+        <?php
           if(trim($m->description)=="") {
             echo 'No description. Would you like to <a href="https://sourceforge.net/p/arianne/patches/new/?summary=Item%20Description%20'.urlencode($m->name).'&description=%3C%3CPlease%20enter%20description%20here%3E%3E#top_nav">write one</a>?';
           } else {
@@ -101,7 +101,7 @@ foreach($this->items as $m) {
           }
         ?>
       </div>
-      
+
       <div class="table">
         <div class="title">Attributes</div>
   	      <?php
@@ -116,7 +116,7 @@ foreach($this->items as $m) {
 			if($label=="min_level") {
 				$minlevel=$data;
 				// did player fill in his level yet?
-				if(!empty($_POST['level'])) {	
+				if(!empty($_POST['level'])) {
 					$level = $_POST['level'];
 					if ($level<$minlevel) {
 						// scale factor for rate and def
@@ -138,7 +138,7 @@ foreach($this->items as $m) {
 				?>
 				<div class="label">EFFECTIVE RATE for player level <?php echo htmlspecialchars($level); ?> </div>
 		    	<div class="data"><?php echo $rate; ?></div>
-			<?php } 
+			<?php }
 			}
 			if($label=="def") {
 					if($factor!=1) {
@@ -146,7 +146,7 @@ foreach($this->items as $m) {
 				?>
 				<div class="label">EFFECTIVE DEF for player level <?php echo  htmlspecialchars($level); ?></div>
 				<div class="data"><?php echo $def; ?></div>
-			<?php } 
+			<?php }
 			}
 			if($label=="min_level") {
 				?>
@@ -156,7 +156,7 @@ foreach($this->items as $m) {
 						<input type="text" name="level" size="3" maxlength="3">
 					<input type="submit" value="Check stats">
 					</form>
-				<?php 
+				<?php
 			}
 		}
 	?>
@@ -196,7 +196,7 @@ foreach($this->items as $m) {
               </div>
               <?php
               }
-            } 
+            }
           }
           ?>
           </div>

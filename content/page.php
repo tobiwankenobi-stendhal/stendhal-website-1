@@ -23,7 +23,7 @@
  * @author hendrik
  */
 class Page {
-	
+
 	/**
 	 * this method can write additional http headers, for example for cache control.
 	 *

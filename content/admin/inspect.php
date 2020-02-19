@@ -3,7 +3,7 @@
 class InspectPage extends Page {
 	private static $KEYED_SLOTS = array("!quests", "!features", "!tutorial", "skills", "!kills", "!visited");
 	private static $CHARACTER_SLOTS = array("head", "rhand", "armor", "lhand", "finger", "armor", "cloak", "legs", "feet");
-	
+
 	public function writeHtmlHeader() {
 		echo '<title>Inspect'.STENDHAL_TITLE.'</title>';
 	}

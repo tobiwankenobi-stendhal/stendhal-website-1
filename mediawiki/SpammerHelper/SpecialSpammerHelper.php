@@ -1,10 +1,10 @@
 <?php
 class SpecialSpammerHelper extends SpecialPage {
-	
+
         function __construct() {
                 parent::__construct( 'SpammerHelper' );
         }
- 
+
         function execute( $par ) {
                 $this->setHeaders();
                 global $wgOut, $wgUser; // this is where we can put our output
@@ -16,7 +16,7 @@ class SpecialSpammerHelper extends SpecialPage {
         		$conds = array('ipb_user IS NULL', "ar_timestamp > '20120101000000'");
         		$options = array('GROUP BY' => 'user_name', 'HAVING' => 'archived > 1 AND NOT edits > archived',
         						'ORDER BY' => 'user_name');
-        		$join_conds = array('archive' => array('JOIN', 'user_id = ar_user'), 
+        		$join_conds = array('archive' => array('JOIN', 'user_id = ar_user'),
         						'ipblocks' => array('LEFT JOIN', 'user_id = ipb_user'));
         		$limit = 50;
         		$res = $dbr->select($tables, $vars, $conds, __METHOD__, $options, $join_conds);
@@ -27,7 +27,7 @@ class SpecialSpammerHelper extends SpecialPage {
         		}
         		$wgOut->addWikiText('');
         }
-        
+
         private function buildUserRow( $row, $wgUser ) {
         	$skin = $wgUser->getSkin();
         	$result = '';
@@ -36,5 +36,4 @@ class SpecialSpammerHelper extends SpecialPage {
         	$result .= $skin->userToolLinks( $rc_user, $rc_user_text );
         	return $result;
         }
-        
 }

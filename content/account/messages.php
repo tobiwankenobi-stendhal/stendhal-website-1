@@ -40,7 +40,7 @@ class MessagesPage extends Page {
 			$this->closeTabs();
 		}
 	}
-	
+
 	function getFilter($filter) {
 		if ($filter=="to-me") {
 			$where="characters.charname = postman.target AND messagetype <>'N' AND deleted != 'R'";
@@ -60,7 +60,7 @@ class MessagesPage extends Page {
 		$this->filterWhere=$this->getFilter($this->filter);
 		// TODO: 404 on invalid filter variable
 	}
-	
+
 	function writeTabs() {
 		$playerId = $_SESSION['account']->id;
 //		<input name="pushNotificationButton" id="pushNotificationButton" type="checkbox" disabled>
@@ -84,7 +84,7 @@ class MessagesPage extends Page {
 
 
 	function closeTabs() {
-		?></td></tr></table><?php 
+		?></td></tr></table><?php
 	}
 
 	function getTabClass($tab) {
@@ -133,9 +133,9 @@ class MessagesPage extends Page {
 		if ($this->filter=="to-me") {
 			$which =  ' to  ';
 		} else if ($this->filter=="to-me-npcs") {
-			$which = ' from NPCs to '; 
+			$which = ' from NPCs to ';
 		}else if ($this->filter=="from-me") {
-			$which = ' from '; 
+			$which = ' from ';
 		}
 		echo '<p>This is a list of the recent messages'.$which.'your characters.';
 
@@ -172,10 +172,10 @@ class MessagesPage extends Page {
 		echo '</table>';
 		echo '<input type="submit" value="Delete marked messages">';
 		echo '</form>';
-		endBox(); 
+		endBox();
 
 	}
-	
+
 }
 $page = new MessagesPage();
 ?>

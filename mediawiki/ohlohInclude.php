@@ -72,4 +72,3 @@ if (defined('MEDIAWIKI')) {
 	$wgHooks['LanguageGetMagic'][] = array($wgOhlohInclude, 'parserFunctionMagic');
 
 }
-

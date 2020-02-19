@@ -36,7 +36,7 @@ class GadgetPage extends Page {
 		// OUR   Ourselves and/or entities acting as our agents or entities for whom we are acting as an agent      An agent in this instance is defined as a third party that processes data only on behalf of the service provider for the completion of the stated purposes. (e.g., the service provider and its printing bureau which prints address labels and does nothing further with the information.)
 		//
 		// ONL   Online Contact Information   Information that allows an individual to be contacted or located on the Internet -- such as email. Often, this information is independent of the specific computer used to access the network. (See the category "Computer Information")
-		// UNI   unique Identifiers           Non-financial identifiers, excluding government-issued identifiers, issued for purposes of consistently identifying or recognizing the individual. These include identifiers issued by a Web site or service. 
+		// UNI   unique Identifiers           Non-financial identifiers, excluding government-issued identifiers, issued for purposes of consistently identifying or recognizing the individual. These include identifiers issued by a Web site or service.
 		// COM   Computer Information         Information about the computer system that the individual is using to access the network -- such as the IP number, domain name, browser type or operating system.
 		// ...i  opt - in (account creation in our case)
 		header('P3P: CP="CUR ADM OUR ONLi UNIi COM"');
@@ -55,7 +55,7 @@ class GadgetPage extends Page {
 		<style type="text/css">
 .gadgetcanvas {
 
-	width: 570px; 
+	width: 570px;
 	border: 1px solid black
 	margin: 0;
 	padding: 0;

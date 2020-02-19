@@ -23,7 +23,6 @@ class NewsArchivePage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>News'.STENDHAL_TITLE.'</title>';
 		echo '<link rel="alternate" type="application/rss+xml" title="Stendhal News" href="/rss/news.rss" >';
-		
 	}
 
 	function writeContent() {
@@ -37,7 +36,7 @@ class NewsArchivePage extends Page {
 		}
 		echo '</div>';
 
-		
+
 		startBox('<h2>More News</h2>');
 		echo '<ul class="menu">';
 		if (isset($_REQUEST['recent'])) {

@@ -45,4 +45,3 @@ if (defined('MEDIAWIKI')) {
 	$wgHooks['LanguageGetMagic'][] = array($wgVideoInclude, 'parserFunctionMagic');
 
 }
-

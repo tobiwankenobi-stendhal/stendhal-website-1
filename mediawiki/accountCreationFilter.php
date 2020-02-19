@@ -21,7 +21,7 @@ function acfPreventTalkPageWithoutMainPage($editpage) {
 		&& (!$wgTitle->exists())
 		&& ($wgTitle->getText() == $wgUser->getName())
 		&& (!Title::makeTitle($wgTitle->getSubjectNsText(), $wgUser->getName())->exists())) {
-		
+
 		$editpage->spamPageWithContent();
 		return false;
 	}

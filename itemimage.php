@@ -21,14 +21,14 @@ require_once 'configuration.php';
 
 /**
  * There is a Quest that request the player to identify a fish.
- * So to avoid revealing the quest the fish image is replaced 
+ * So to avoid revealing the quest the fish image is replaced
  * with a generic one.
  *
  * @param string $resource
  */
 function hideFishes($resource) {
   $shouldHide=false;
-  
+
   $listOfFishes=array(
     '/arctic_char.png',
     '/clown-fish.png',
@@ -46,12 +46,12 @@ function hideFishes($resource) {
       break;
     }
   }
-  
+
   $result=$resource;
   if($shouldHide) {
     $result="images/game/generic_fish.png";
   }
-  
+
   return $result;
 }
 

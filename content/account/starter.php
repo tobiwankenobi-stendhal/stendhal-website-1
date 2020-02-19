@@ -30,7 +30,7 @@ class StarterPage extends Page {
 		if (isset($_SESSION['account']->username)) {
 			$this->username = $_SESSION['account']->username;
 			$this->loggedIn = true;
-			$this->character = $_REQUEST['character'];		
+			$this->character = $_REQUEST['character'];
 			if ($this->loggedIn && isset($this->character) && strlen($this->character) > 0) {
 				$this->characterOkay = verifyCharacterBelongsToUsername($this->username, $this->character);
 			}
@@ -40,7 +40,7 @@ class StarterPage extends Page {
 	public function writeHttpHeader() {
 		header('Cache-Control: must-revalidate, private');
 		header('Pragma: cache', true);
-		
+
 		// if everything is okay, we proceed with the login process
 		if ($this->loggedIn && $this->characterOkay) {
 			$this->createSeed();
@@ -49,7 +49,7 @@ class StarterPage extends Page {
 			return false;
 		}
 
-		// something went wrong, render the normal web page 
+		// something went wrong, render the normal web page
 		// and add an error message later
 		return true;
 	}
@@ -82,7 +82,7 @@ class StarterPage extends Page {
 		}
 		storeSeed($this->username, $_SERVER['REMOTE_ADDR'], $this->seed, 1);
 	}
-	
+
 	private function streamWebstart() {
 		$version = '1.20';
 		if (isset($_REQUEST['test'])) {

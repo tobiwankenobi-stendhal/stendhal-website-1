@@ -26,5 +26,3 @@ function a_an($string) {
 		return 'a';
 	}
 }
-
-

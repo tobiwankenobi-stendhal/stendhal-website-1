@@ -32,7 +32,7 @@ class GalleryPage extends Page {
 		$images = $this->getGalleryImages($this->title);
 
 		$cnt = count($images);
-		$index = $this->getIndex($cnt);		
+		$index = $this->getIndex($cnt);
 		$image = $images[$index];
 
 		$hash = md5($image['image']);
@@ -50,7 +50,7 @@ class GalleryPage extends Page {
 		}
 		return $index;
 	}
-	
+
 	// TODO: put into scripts-folder
 	function getGalleryImages($title) {
 		$sql = "SELECT page_title As image, cl_sortkey As description FROM categorylinks, page "

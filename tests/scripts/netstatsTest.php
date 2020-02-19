@@ -58,7 +58,7 @@ class NetstatsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 			array(TracerouteLine::create(10, null, '82.83.238.224', null, 0, array(25.492, '!H', '*', 23.120))),
 			$netstats->parseLine('10  82.83.238.224  25.492 ms !H * 23.120 ms', 4));
-		
+
 		$this->assertEquals(
 			array(TracerouteLine::create(7, null, '', null, 0, array('*', '*', '*'))),
 			$netstats->parseLine(' 7  * * *', 3));

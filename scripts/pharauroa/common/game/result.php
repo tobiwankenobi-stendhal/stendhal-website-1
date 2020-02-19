@@ -86,7 +86,7 @@ class PharauroaResult {
 	 * @since 3.8.5
 	 */
 	const FAILED_OFFLINE = 14;
-	
+
 	static $reasons = array("Account was created correctly.",
 		"Account was not created because one of the important parameters was missing.",
 		"Account was not created because an invalid character (special letters, signs, numbers) was used.",

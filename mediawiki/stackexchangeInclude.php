@@ -56,4 +56,3 @@ if (defined('MEDIAWIKI')) {
 	$wgHooks['LanguageGetMagic'][] = array($wgStackExchangeInclude, 'parserFunctionMagic');
 
 }
-

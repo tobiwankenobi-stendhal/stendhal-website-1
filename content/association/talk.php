@@ -85,10 +85,10 @@ class TalkPage extends Page {
 		$content = file_get_contents(STENDHAL_TALK_DIRECTORY.'/'.$this->path.'/outline0.html');
 		echo '<!DOCTYPE HTML>';
 		echo '<html><head><title>nav</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head><body><ul>';
-		
+
 		$slides = array();
 		preg_match_all('|<a href="JavaScript:parent.NavigateAbs.[0-9]+.">([^<]*)</a>|', $content, $slides);
-		
+
 		$i = 0;
 		foreach ($slides[1] as $slide) {
 			echo '<li><a href="/?id=content/association/talk&amp;frame=rightframe&amp;no='.($i).'&amp;path='.urlencode($this->path);
@@ -122,7 +122,7 @@ class TalkPage extends Page {
 
 		echo '</body></html>';
 	}
-	
+
 
 	/**
 	 * render forward and backward navigation
@@ -156,14 +156,14 @@ class TalkPage extends Page {
 			echo '<div><audio controls="controls" autoplay="autoplay">
 					<source src="/talk-files/'.$this->path.'/'.urlencode($_REQUEST['no']).'.ogg" type="audio/ogg" />
 					<source src="/talk-files/'.$this->path.'/'.urlencode($_REQUEST['no']).'.mp3" type="audio/mp3" />
-	
+
 					<div id="audioPlayer" style="margin:0px"></div>
 					<script type="text/javascript" src="/lib/flashaudioplayer/swfobject.js"></script>
 					<script type="text/javascript">
 						var flashvars = {};
 						flashvars.audio = "/talk-files/'.$this->path.'/'.urlencode($_REQUEST['no']).'.mp3";
-						flashvars.autoplay = "true"; 
-						flashvars.loop = "false";  
+						flashvars.autoplay = "true";
+						flashvars.loop = "false";
 						var params = {};
 							params.scale = "noscale";
 							params.allowfullscreen = "true";

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  Copyright (C) 2011 Faiumoni
 
@@ -21,7 +21,7 @@ class DocumentPage extends Page {
 	private $filename;
 	private $justFilename;
 	private $relativeFilename;
-	
+
 	public function __construct() {
 		$file = '';
 		if (isset($_REQUEST['file'])) {
@@ -42,7 +42,7 @@ class DocumentPage extends Page {
 			return true;
 		}
 
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['view_documents'] != '1')) {
 			header('HTTP/1.0 403 Forbidden.');
 			return true;
@@ -64,7 +64,7 @@ class DocumentPage extends Page {
 
 		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
 			echo '<p>'.t('You need to').' <a href="'.STENDHAL_LOGIN_TARGET.'/?id=content/association/login">'.t('login').'</a></p>';
-		} else if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		} else if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['view_documents'] != '1')) {
 			echo '<p>'.t('Sorry, internal documents are only available to members.').'</p>';
 		} else if (is_dir($this->filename)) {

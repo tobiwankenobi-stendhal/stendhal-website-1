@@ -1,16 +1,16 @@
 <?php
 
 if (!isset($_SERVER['SERVER_NAME'])) {
-	
+
 	if (count($_SERVER['argv']) != 5) {
 		echo "Call php mail.php player_id username token email.\r\n";
 		exit;
 	}
-	
+
 	set_include_path('../..');
-	
+
 	require_once('scripts/website.php');
-	
+
 	$playerId = $_SERVER['argv'][1];
 	$username = $_SERVER['argv'][2];
 	$token = $_SERVER['argv'][3];

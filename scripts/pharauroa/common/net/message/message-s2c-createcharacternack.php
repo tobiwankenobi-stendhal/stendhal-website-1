@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class PharauroaMessageS2CCreateCharacterNACK extends PharauroaMessage{
 
@@ -20,7 +20,7 @@ class PharauroaMessageS2CCreateCharacterNACK extends PharauroaMessage{
 	}
 
 	/**
-	 * This method returns a String that represent the resolution 
+	 * This method returns a String that represent the resolution
 	 * of the character creation
 	 *
 	 * @return string representing the resolution.

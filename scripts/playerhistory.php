@@ -34,7 +34,7 @@ class PlayerHistoryEntry {
 	public $param1;
 	/* parameters */
 	public $param2;
-  
+
 	function __construct($timedate, $source, $event, $param1, $param2) {
 		$this->timedate = $timedate;
 		$this->source = $source;
@@ -63,7 +63,7 @@ class PlayerHistoryEntry {
 	function _getPlayerHistoryEntries($query) {
 	    $rows = DB::game()->query($query);
 	    $list = array();
-	    foreach($rows as $row) {            
+	    foreach($rows as $row) {
 			$list[]=new PlayerHistoryEntry($row['timedate'],
 	        	$row['source'], $row['event'], $row['param1'],$row['param2']);
 	    }

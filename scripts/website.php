@@ -20,7 +20,7 @@
 
 
  /*
- * This file is the PHP code that generate each of the website sections. 
+ * This file is the PHP code that generate each of the website sections.
  */
 
 require_once('configuration.php');
@@ -122,7 +122,7 @@ function queryWithCache($query, $ttl, $db) {
 function formatNumber($value, $digits = 6) {
 	$decimalSeparator =  '.';
 	$thousandsSeparator = ',';
-	
+
 	$sNumber = number_format($value, $digits, $decimalSeparator, $thousandsSeparator);
 
 	// $sNumber could possibly contain trailing zeros, e.g. '10,000.000000'.
@@ -151,7 +151,7 @@ function profilePoint($name) {
 
 /**
  * read pages from the Stendal wiki to embed them into the Stendhal Website.
- * 
+ *
  * @author hendrik
  */
 class Wiki {
@@ -175,7 +175,7 @@ class Wiki {
 		$path = '/var/www/stendhal/w/images/cache/'.$md5[0].'/'.$md5[0].$md5[1]
 			.'/'.str_replace('/', '%2F', urlencode($page)).'.html';
 		$content = @file_get_contents($path);
-		
+
 		if ($content === false) {
 			// do not use ?action=render because that does not write file cache
 			$url = 'https://stendhalgame.org/wiki/'.surlencode($page);
@@ -195,8 +195,8 @@ class Wiki {
 	}
 
 	public function findPage() {
-		$sql = "SELECT page_id, page_title As title, p2.pp_value As displaytitle FROM a1111_wiki.page, a1111_wiki.page_props as p1, a1111_wiki.page_props as p2 " 
-		." WHERE p1.pp_propname='externalcanonical' AND p1.pp_value = :url" 
+		$sql = "SELECT page_id, page_title As title, p2.pp_value As displaytitle FROM a1111_wiki.page, a1111_wiki.page_props as p1, a1111_wiki.page_props as p2 "
+		." WHERE p1.pp_propname='externalcanonical' AND p1.pp_value = :url"
 		." AND page.page_namespace=0 AND page.page_id=p1.pp_page"
 		." AND p2.pp_propname='externaltitle' AND page.page_id=p2.pp_page";
 
@@ -244,13 +244,13 @@ class Wiki {
 
 	private function rewriteLinks($pageId, $content) {
 		$sql = "SELECT page_title, pp_value FROM a1111_wiki.page_props, a1111_wiki.page, a1111_wiki.pagelinks"
-			." WHERE pp_propname='externalcanonical' AND page.page_namespace=0 AND page.page_id=page_props.pp_page" 
+			." WHERE pp_propname='externalcanonical' AND page.page_namespace=0 AND page.page_id=page_props.pp_page"
 			." AND pl_namespace=0 AND page_title=pl_title AND pl_from=".intval($pageId);
 		$rows = DB::game()->query($sql);
-		
+
 		$prefix = '<a href="';
 		foreach ($rows as $row) {
-			$content = str_replace($prefix.'/wiki/'.$this->wikiUrlEncode($row['page_title']).'"', 
+			$content = str_replace($prefix.'/wiki/'.$this->wikiUrlEncode($row['page_title']).'"',
 				$prefix.$this->wikiUrlEncode($row['pp_value']).'"', $content);
 		}
 		return $content;
@@ -281,7 +281,7 @@ class Wiki {
 		$content = $this->clean($content);
 		$content = $this->rewriteLinks($this->page['page_id'], $content);
 		$content = $this->rewriteImageLinks($content);
-		
+
 		return $content;
 	}
 
@@ -303,9 +303,9 @@ class Wiki {
 	 */
 	public static function findRelatedPages($propName, $category) {
 		$sql = "SELECT stendhal_category_search.entitytype, pp_title.pp_value As title, stendhal_category_search.category As category, pp_url.pp_value As path
-				FROM a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search, 
+				FROM a1111_wiki.categorylinks, a1111_wiki.stendhal_category_search,
 				     a1111_wiki.page_props As pp_url, a1111_wiki.page_props As pp_title, a1111_wiki.page_props As pp_keyword
-				WHERE pp_url.pp_propname='externalcanonical' 
+				WHERE pp_url.pp_propname='externalcanonical'
 				AND pp_keyword.pp_page=pp_title.pp_page AND pp_title.pp_propname='externaltitle'
 				AND pp_url.pp_page=pp_keyword.pp_page AND pp_keyword.pp_propname=:pp_propname
 				AND categorylinks.cl_from=pp_keyword.pp_page AND stendhal_category_search.category=categorylinks.cl_to

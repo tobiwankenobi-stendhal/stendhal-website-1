@@ -52,7 +52,7 @@ class Searcher {
 				array_splice($terms, $offset, 1);
 			}
 		}
-		
+
 		$sql = "SELECT s0.entitytype, s0.entityname, s0.searchscore * "
 				. count($terms) ." As score FROM searchindex s0 WHERE s0.searchterm = '"
 						. mysql_real_escape_string($this->searchTerm) ."' ORDER BY s0.searchscore DESC";
@@ -79,12 +79,12 @@ class Searcher {
 		//join character_stats because very old, unused accoutns don't have an entry there
 		$sql = "SELECT 'P' As entitytype, charname As entityname, if(account.status='active', if(character_stats.level=0, 0, 1), -1) * 3050 As score"
 				. " FROM characters, account, character_stats"
-				. " WHERE characters.status='active' AND characters.charname=character_stats.name AND charname = '" 
+				. " WHERE characters.status='active' AND characters.charname=character_stats.name AND charname = '"
 				. mysql_real_escape_string($this->searchTerm) . "' AND account.id=characters.player_id"
 				. " AND (age > 5 OR level > 0)";
 		$result = array_merge($result, fetchToArray($sql, DB::game()));
 		profilePoint($sql);
-		
+
 
 		// wiki
 		$sql = "SELECT stendhal_category_search.entitytype, IFNULL(pp_title.pp_value, page.page_title) As entityname, (stendhal_category_search.searchscore + 2000) * "
@@ -96,9 +96,9 @@ class Searcher {
 				. " WHERE page_id=si_page AND MATCH(si_title) AGAINST('+".mysql_real_escape_string(str_replace(' ', ' +', $this->searchTerm))
 				. "' IN BOOLEAN MODE) AND page_is_redirect=0 AND page_namespace=0 AND categorylinks.cl_from=page.page_id"
 				. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
-		
+
 		$result = array_merge($result, fetchToArray($sql, DB::game()));
-		
+
 		profilePoint($sql);
 
 		$sql = "SELECT stendhal_category_search.entitytype, IFNULL(pp_title.pp_value, page.page_title) As entityname, (stendhal_category_search.searchscore + 1000) * "
@@ -112,7 +112,7 @@ class Searcher {
 						. " AND stendhal_category_search.category=categorylinks.cl_to LIMIT 100";
 		$result = array_merge($result, fetchToArray($sql, DB::game()));
 		profilePoint($sql);
-		
+
 		return $result;
 	}
 

@@ -34,7 +34,7 @@ class MemberdataPage extends Page {
 			$this->printForm();
 		}
 	}
-	
+
 	function printForm() {
 		$playerId = $_SESSION['account']->id;
 		$saved = saveMemberdata($playerId);
@@ -108,7 +108,7 @@ class MemberdataPage extends Page {
 
 		<?php
 
-		endBox(); 
+		endBox();
 
 	}
 }

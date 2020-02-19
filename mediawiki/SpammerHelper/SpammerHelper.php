@@ -7,7 +7,7 @@ require_once( "$IP/extensions/spammerHelper/SpammerHelper.php" );
 EOT;
         exit( 1 );
 }
- 
+
 $wgExtensionCredits['specialpage'][] = array(
         'path' => __FILE__,
         'name' => 'Spammer Helper',
@@ -16,9 +16,9 @@ $wgExtensionCredits['specialpage'][] = array(
         'descriptionmsg' => 'spammerhelper-desc',
         'version' => '0.0.1',
 );
- 
+
 $dir = dirname(__FILE__) . '/';
- 
+
 $wgAutoloadClasses['SpecialSpammerHelper'] = $dir . 'SpecialSpammerHelper.php'; # Location of the SpecialMyExtension class (Tell MediaWiki to load this file)
 $wgExtensionMessagesFiles['SpammerHelper'] = $dir . 'SpammerHelper.i18n.php'; # Location of a messages file (Tell MediaWiki to load this file)
 $wgExtensionMessagesFiles['SpammerHelperAlias'] = $dir . 'SpammerHelper.alias.php'; # Location of an aliases file (Tell MediaWiki to load this file)

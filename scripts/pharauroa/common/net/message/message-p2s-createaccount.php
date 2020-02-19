@@ -36,7 +36,7 @@ class PharauroaMessageP2SCreateAccount extends PharauroaMessage{
 		$this->email = $email;
 	}
 
-	
+
 	/**
 	 * Returns desired account's username
 	 *

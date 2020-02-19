@@ -24,7 +24,7 @@ class HistoryPage extends Page {
 	}
 
 	public function writeHttpHeader() {
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['view_history'] != '1')) {
 			header('HTTP/1.1 403 Forbidden');
 		}
@@ -52,7 +52,7 @@ class HistoryPage extends Page {
 			endBox();
 			return;
 		}
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['view_history'] != '1')) {
 			startBox(t('History'));
 			echo '<p>'.t('You are missing the required permission for this action.').'</p>';

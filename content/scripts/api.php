@@ -71,7 +71,7 @@ class APIPage extends Page {
 		if (!$ip || getAdminLevel() < 100) {
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
-		
+
 
 		// validate ip
 		if (!preg_match('/^[0-9a-fA-F.:]+$/', $ip)) {
@@ -151,8 +151,8 @@ class APIPage extends Page {
 		}
 		echo json_encode($data);
 	}
-	
-	
+
+
 	public function pushNotification($param) {
 		if (!checkLogin()) {
 			http_response_code(403);

@@ -5,7 +5,7 @@ function getVariable($xmlStats, $type) {
 	  return $j['value'];
 	}
   }
-  
+
   return 0;
 }
 
@@ -61,15 +61,15 @@ startBox("<h1>Detailed statistics</h1>");
   <div class="title">Players handled</div>
   <?php
   $list=array("login","invalid login","logout","timeout");
-  
+
   foreach($list as $action) {
     ?>
     <div class="table">
       <div class="label"><?php echo ucfirst($action); ?></div>
       <div class="data"><?php echo number_format(getVariable($xmlStats,"Players ".$action), 0, '.', ' '); ?></div>
     </div>
-  <?php  
-  } 
+  <?php
+  }
   ?>
 </div>
 
@@ -81,15 +81,15 @@ startBox("<h1>Detailed statistics</h1>");
   </div>
   <?php
   $list=array("move","chat","attack","inspect","who","where");
-  
+
   foreach($list as $action) {
     ?>
     <div class="table">
       <div class="label"><?php echo ucfirst($action); ?></div>
       <div class="data"><?php echo number_format(getVariable($xmlStats,"Actions ".$action), 0, '.', ' '); ?></div>
     </div>
-  <?php  
-  } 
+  <?php
+  }
   ?>
 </div>
 <?php

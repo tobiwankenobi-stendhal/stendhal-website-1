@@ -207,13 +207,13 @@ function getMostKilledMonster($monsters) {
 	$stmt->execute();
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();
-	
+
 	$monster = array(getMonster($row['killed']), $row['amount']);
 	return $monster;
 }
 
 function getBestKillerMonster($monsters) {
-	$query = "SELECT killer, count(*) As amount 
+	$query = "SELECT killer, count(*) As amount
 		FROM kills
 		WHERE killer_type='C' AND killed_type='P' AND date_sub(curdate(), INTERVAL 7 DAY) < day
 		GROUP BY killer
@@ -239,7 +239,7 @@ function getMonsters() {
 		Monster::$monsters = $cache->fetchAsArray('stendhal_creatures');
 		Monster::$classes = $cache->fetchAsArray('stendhal_creatures_classes');
 	}
-	
+
 	if ((Monster::$monsters !== false) && (sizeof(Monster::$monsters) != 0)) {
  		return Monster::$monsters;
 	}
@@ -275,7 +275,7 @@ function getMonsters() {
 						continue;
 					}
 				}
-				
+
 				/*
 				 * We omit hidden creatures.
 				 */
@@ -314,7 +314,7 @@ function getMonsters() {
 						}
 					}
 				}
-				
+
 				$drops = array();
 				if (isset($creatures[$i]['drops'])) {
 					$temp = $creatures[$i]['drops'][0];

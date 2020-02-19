@@ -36,7 +36,7 @@ class PharauroaMessageP2SCreateCharacter extends PharauroaMessage{
 		$this->template = $template;
 	}
 
-	
+
 	/**
 	 * Returns account's username
 	 *

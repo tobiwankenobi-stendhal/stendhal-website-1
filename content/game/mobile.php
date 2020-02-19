@@ -85,22 +85,22 @@ class MobilePage extends Page {
 		<h1>Stendhal Creatures</h1>
 		<a data-rel="back" href="#page-start">Back</a>
 		</div>';
-	
+
 		echo '<div data-role="content">
 		<div data-role="collapsible-set" data-filter="true">';
-		
-	
+
+
 		foreach(MobilePage::$creatures as $creature) {
 			if($item->class==$class) {
 				echo '<div data-role="collapsible" data-collapsed="true">
 				<h3><span class="tileset-creatureicon creatureicon-'.str_replace('/', '-', substr($creature->gfx, 17, -4)).'"></span>';
-	
+
 				echo htmlspecialchars(ucfirst($creature->name)).'</h3>';
 				$this->writeCreatureDetails($creature);
 				echo '</div>';
 			}
 		}
-	
+
 		echo '</div></div></div>';
 	}
 
@@ -110,11 +110,11 @@ class MobilePage extends Page {
 		<h1>Stendhal Creatures</h1>
 		<a data-rel="back" href="#page-start">Back</a>
 		</div>';
-	
+
 		echo '<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="true">';
-		
-	
+
+
 		foreach(MobilePage::$creatures as $creature) {
 			echo '<li class="Xtileset-creatureicon creatureicon-'.str_replace('/', '-', substr($creature->gfx, 17, -4)).'">'
 			.'<a href="#page-creature-'.htmlspecialchars($creature->name).'">'
@@ -130,7 +130,7 @@ class MobilePage extends Page {
 		<h1>'.htmlspecialchars(ucfirst($creature->name)).' - Stendhal Creatures</h1>
 		<a data-rel="back" href="#page-start">Back</a>
 		</div>';
-	
+
 		echo '<div data-role="content">
 			<h3><span class="tileset-creatureicon creatureicon-'.str_replace('/', '-', substr($creature->gfx, 17, -4)).'"></span>';
 		echo htmlspecialchars(ucfirst($creature->name)).'</h3>';
@@ -138,7 +138,7 @@ class MobilePage extends Page {
 
 		echo '</div></div>';
 	}
-	
+
 
 	private function writeCreatureDetails($creature) {
 		echo '<div>';
@@ -148,8 +148,8 @@ class MobilePage extends Page {
 			echo htmlspecialchars($creature->description);
 		}
 		echo '</div>';
-	
-	
+
+
 		if (count($creature->attributes) > 0) {
 			echo '<h4>Attributes</h4>';
 			echo '<table>';
@@ -181,9 +181,8 @@ class MobilePage extends Page {
 			echo '</table>';
 		}
 	}
-	
-	
-	
+
+
 	private function writeItemClassesPage() {
 		?>
 		<div data-role="page" id="page-itemclasses">
@@ -222,23 +221,23 @@ class MobilePage extends Page {
 			<h1>'.htmlspecialchars(ucfirst($class)).' - Stendhal Items</h1>
 			<a data-rel="back" href="#page-itemclasses">Back</a>
 			</div>';
-		
+
 		echo '<div data-role="content">
 			<h2>'.htmlspecialchars(ucfirst($class)).'</h2>
 			<div data-role="collapsible-set">';
-		
+
 
 		foreach(MobilePage::$items as $item) {
 			if($item->class==$class) {
 				echo '<div data-role="collapsible" data-collapsed="true">
 					<h3><span class="tileset-itemicon itemicon-'.str_replace('/', '-', substr($item->gfx, 13, -4)).'"></span>';
-				
+
 				echo htmlspecialchars(ucfirst($item->name)).'</h3>';
  				$this->writeItemDetails($item);
  				echo '</div>';
 			}
 		}
-		
+
 		echo '</div></div></div>';
 	}
 
@@ -307,7 +306,7 @@ class MobilePage extends Page {
 	function writeContent() {
 		// do nothing
 	}
-	
+
 }
 $page = new MobilePage();
 ?>

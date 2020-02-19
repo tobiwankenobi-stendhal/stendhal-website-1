@@ -131,7 +131,7 @@ class LoginPage extends Page {
 		header('Location: '.STENDHAL_LOGIN_TARGET.$this->getUrl());
 		return true;
 	}
-	
+
 	public function writeHtmlHeader() {
 		echo '<title>Login'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
@@ -158,7 +158,7 @@ class LoginPage extends Page {
 		}
 		return false;
 	}
-	
+
 	function checkLogin() {
 		if (!isset($_SESSION) || !isset($_SESSION['account'])) {
 			return false;
@@ -169,7 +169,7 @@ class LoginPage extends Page {
 			if (!$okay) {
 				unset($_SESSION['account']);
 				unset($_SESSION['csrf']);
-				$_SESSION = array(); 
+				$_SESSION = array();
 				session_destroy();
 			}
 			return $okay;
@@ -283,11 +283,11 @@ class LoginPage extends Page {
 			</td>
 		</tr></tbody>
 		</table>
-		<?php 
+		<?php
 		if (isset($_REQUEST['url'])) {
 			echo '<input type="hidden" name="url" value="'.htmlspecialchars($_REQUEST['url']).'">';
 		}
-	
+
 		if (isset($this->openid->error)) {
 			echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
 		}

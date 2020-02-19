@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
     Stendhal website - a website to manage and ease playing of Stendhal game
     Copyright (C) 2008-2010  Miguel Angel Blanch Lardin, The Arianne Project
@@ -26,14 +26,14 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
 	$protocol = 'https';
 	ini_set('session.cookie_secure', 1);
 	session_start();
-	
+
 	if ((!isset($_SESSION)) || (!isset($_SESSION['account']))) {
 		header('cache-control: public', true);
 		header('Pragma: cache');
 	}
 
 	header('Strict-Transport-Security: max-age=15552000; includeSubDomains');
-	
+
 } else {
 	if (!STENDHAL_SECURE_SESSION) {
 		session_start();

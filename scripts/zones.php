@@ -61,7 +61,7 @@ class Zone {
 		// read list of xml files from disk
 		$configurationFile="data/conf/zones.xml";
 		$configurationBase='data/conf/';
-		
+
 		$content = file($configurationFile);
 		$temp = implode('',$content);
 		$files = XML_unserialize($temp);
@@ -69,7 +69,7 @@ class Zone {
 
 		$zoneXmlMap = array();
 		$zoneAttrMap = array();
-		
+
 		// create a map of xml fragements
 		foreach ($files as $file) {
 			if (isset($file['uri'])) {
@@ -115,7 +115,7 @@ class Zone {
 				if (!isset($destZone)) {
 					continue;
 				}
-				
+
 				if (!isset($destZone['x'])) {
 					continue;
 				}
@@ -178,8 +178,8 @@ class Zone {
 			if (isset($children['title'])) {
 				$title = $children['title'][0];
 			}
-			$res[$children['name'][0]] = new PointofInterest($zone->name, 
-				$attr['x'], $attr['y'], 
+			$res[$children['name'][0]] = new PointofInterest($zone->name,
+				$attr['x'], $attr['y'],
 				$zone->x + intval($attr['x']), $zone->y + intval($attr['y']),
 				$children['name'][0], $title, $children['type'][0],
 				$children['description'][0], $children['url'][0]);
@@ -252,10 +252,9 @@ class PointofInterest {
 		if((PointofInterest::$pois !== false) && (sizeof(PointofInterest::$pois) != 0)) {
 			return PointofInterest::$pois;
 		}
-		
+
 		Zone::loadZoneXmlData();
 		PointofInterest::$pois = $cache->fetchAsArray('stendhal_pois');
 		return PointofInterest::$pois;
 	}
 }
- 

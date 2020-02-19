@@ -44,7 +44,7 @@ class OpenID {
 
 	/**
 	 * creates an AccountLink object based on the openid identification
-	 * 
+	 *
 	 * @return AccountLink or <code>FALSE</code> if  the validation failed
 	 */
 	public function createAccountLink() {
@@ -91,7 +91,7 @@ class OpenID {
 
 	/**
 	 * handles a succesful openid authentication
-	 * 
+	 *
 	 * @param AccountLink $accountLink the account link created for the login
 	 */
 	public function merge($accountLink) {
@@ -121,4 +121,3 @@ class OpenID {
 		fixSessionPermission();
 	}
 }
-

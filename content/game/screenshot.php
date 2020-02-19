@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ScreenshotPage extends Page {
 	private $screenshots;

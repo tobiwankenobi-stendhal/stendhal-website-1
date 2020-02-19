@@ -79,7 +79,7 @@ class MainPage extends Page {
 		echo '</form>';
 		endBox();
 */
-		
+
 		// login form
 		startBox('<h1>Register</h1>');
 		echo '<p>Stendhal is completely free and open source.</p>';

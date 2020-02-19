@@ -29,7 +29,7 @@ function saveMemberdata($playerId) {
 
 		$stmt = DB::web()->prepare($sql);
 		return $stmt->execute(array(
-			':realname' => $_POST["realname"], 
+			':realname' => $_POST["realname"],
 			':street' => $_POST["street"],
 			':city' => $_POST["city"],
 			':country' => $_POST["country"],
@@ -38,7 +38,7 @@ function saveMemberdata($playerId) {
 			':visibleemail' => $_POST["visibleemail"],
 			':player_id' => $playerId
 			));
-		 
+
 	}
 	return false;
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class PharauroaMessageS2CLoginACK extends PharauroaMessage{
 

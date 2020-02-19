@@ -41,12 +41,12 @@ class OutfitDrawer {
 			return "0" . $i;
 		}
 		return "" . $i;
-	
+
 	}
 
 	/**
 	 * Color an image roughly like Stendhal Blend. TrueColor does.
-	 * 
+	 *
 	 * @param Imagick image
 	 * @param int color
 	 */
@@ -54,7 +54,7 @@ class OutfitDrawer {
 		// Ensure the target image does not have 0 saturation. First grayscale
 		// it, and then recolour it with known saturation.
 		$image->modulateImage(100, 0, 100); // grayscale
-		$overlay = new Imagick();	
+		$overlay = new Imagick();
 		$overlay->newImage($image->getImageWidth(),
 			$image->getImageHeight(), 'red', 'png');
 		$clone = $image->clone();
@@ -62,7 +62,7 @@ class OutfitDrawer {
 		$clone->compositeImage($overlay, imagick::COMPOSITE_SRCIN, 0, 0);
 		$image->compositeImage($clone, imagick::COMPOSITE_OVERLAY, 0, 0);
 		$clone->destroy();
-	
+
 		// color layer
 		$overlay->newImage($image->getImageWidth(),
 			$image->getImageHeight(), $this->color_name($color), 'png');
@@ -71,13 +71,13 @@ class OutfitDrawer {
 		$clone = $image->clone();
 		$clone->compositeImage($overlay, imagick::COMPOSITE_SRCIN, 0, 0);
 		$overlay->destroy();
-	
+
 		// this is otherwise the usual hue blend, except that it
 		// overwrites alpha, sigh
 		$image->compositeImage($clone, imagick::COMPOSITE_HUE, 0, 0);
 		$clone->destroy();
-	
-		// Imagick saturation filter is broken for low saturations. 
+
+		// Imagick saturation filter is broken for low saturations.
 		// Calculate adjustment.
 		$r = (($color >> 16) & 0xff) / 255.0;
 		$g = (($color >> 8) & 0xff) / 255.0;
@@ -111,7 +111,7 @@ class OutfitDrawer {
 	function load_part($part_name, $index, $offset) {
 		global $OUTFITS_BASE;
 		$location = $OUTFITS_BASE . '/' . $part_name . '/' . $part_name . '_' . $index . '.png';
-		
+
 		// A workaround for imagick crashing when the file does not
 		// exist.
 		if (file_exists($location)) {
@@ -149,7 +149,7 @@ class OutfitDrawer {
 	        $hairColor = hexdec($completeOutfit[2]);
 	        $dressColor = hexdec($completeOutfit[4]);
 	    }
-	    
+
 	    // body:
 	    $index = $code % 100;
 	    $bodyIndex = $index;
@@ -159,7 +159,7 @@ class OutfitDrawer {
 	        $outfit = new Imagick();
 	        $outfit->newImage(48, 64, 'transparent', 'png');
 	    }
-	    
+
 	    // dress
 	    $code /= 100;
 	    $index = $code % 100;
@@ -172,7 +172,7 @@ class OutfitDrawer {
 	        $tmp = 0;
 	    }
 	    $this->composite_with_color($outfit, $tmp, $dressColor);
-	    
+
 	    // head
 	    $code /= 100;
 	    $index = $code % 100;
@@ -180,7 +180,7 @@ class OutfitDrawer {
 	    if ($tmp) {
 	        $outfit->compositeImage($tmp, imagick::COMPOSITE_OVER, 0, 0);
 	    }
-	    
+
 	    // hair
 	    $code /= 100;
 	    $index = $code % 100;
@@ -190,7 +190,7 @@ class OutfitDrawer {
 	        $tmp = 0;
 	    }
 	    $this->composite_with_color($outfit, $tmp, $hairColor);
-	    
+
 	    // detail
 	    $code /= 100;
 	    $index = $code % 100;
@@ -200,7 +200,7 @@ class OutfitDrawer {
 	        $tmp = 0;
 	    }
 	    $this->composite_with_color($outfit, $tmp, $detailColor);
-	    
+
 	    return $outfit;
 	}
 	/**
@@ -216,10 +216,10 @@ class OutfitDrawer {
 	        $color = hexdec($l[2]);
     	    $this->composite_with_color($outfit, $image, $color);
         }
-	    
+
 	    return $outfit;
 	}
-	
+
 	/**
 	 * tries to load an outfit from the file cache, creates and stores it otherwise
 	 *
@@ -272,22 +272,22 @@ class NPCAndCreatureDrawer {
 
 		if (strpos($url, "/ent/") !== false) {
 			// Ent images are tiles of 1x2 so we choose a single tile.
-			$w=$w;
-			$h=$h/2;
-			$loc=0;
+			$w = $w;
+			$h = $h / 2;
+			$loc = 0;
 		} else if (strpos($url, "/alternative/") === false) {
 			// Images are tiles of 3x4 so we choose a single tile.
-			$w=$w/3;
-			$h=$h/4;
-			$loc=$h*2;
+			$w = $w / 3;
+			$h = $h / 4;
+			$loc = $h * 2;
 		}
 
-		$result=imagecreate($w,$h);
-		$white=imagecolorallocate($result,255,255,255);
-		imagefilledrectangle($result, 0,0,$w,$h,$white);
+		$result = imagecreate($w, $h);
+		$white = imagecolorallocate($result, 255, 255, 255);
+		imagefilledrectangle($result, 0, 0, $w, $h, $white);
 
 		$baseIm=imagecreatefrompng($url);
-		imagecopy($result,$baseIm,0,0,0,$loc,$w,$h);
+		imagecopy($result, $baseIm, 0, 0, 0, $loc, $w, $h);
 		return $result;
-	}	
+	}
 }

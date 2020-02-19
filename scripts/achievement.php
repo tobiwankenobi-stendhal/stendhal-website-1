@@ -28,7 +28,7 @@ class Achievement {
 	public $description;
 	public $count;
 	public $reachedOn;
- 
+
 	function __construct($id, $identifier, $title, $category, $base_score, $description, $count, $reachedOn = null) {
 		$this->id = $id;
 		$this->identifier = $identifier;
@@ -61,7 +61,7 @@ class Achievement {
 		$popup .= $this->title;
 		$popup .= '</a>';
 		$popup .= '</span>';
-		
+
 		$popup .= '<br />';
 		if (isset($this->reachedOn)) {
 			$popup .= 'Earned on ' . htmlspecialchars($this->reachedOn) . '<br />';
@@ -69,7 +69,7 @@ class Achievement {
 			$popup .= 'Not reached, yet. <br />';
 		}
 		$popup .= 'Achieved by ' . htmlspecialchars($this->count) . ' players<br />';
-		
+
 		if (isset($this->description) && ($this->description != '')) {
 			$popup .= '<br />' . $this->description . '<br />';
 		}
@@ -165,19 +165,19 @@ class Achievement {
 			. " ORDER BY character_stats.name LIMIT 100";
 		return DB::game()->query($query);
 	}
-	
-	
+
+
 	public static function getAwardedInCategory($category) {
 		$query = "SELECT character_stats.name, character_stats.outfit, character_stats.outfit_colors, character_stats.outfit_layers, achievement.title, achievement.description, reached_achievement.timedate "
 			. "FROM character_stats JOIN reached_achievement "
 			. "ON character_stats.name=reached_achievement.charname "
 			. "JOIN achievement ON achievement.id = reached_achievement.achievement_id "
-			. "AND achievement.category = '".mysql_real_escape_string($category)."' " 
+			. "AND achievement.category = '".mysql_real_escape_string($category)."' "
 			. REMOVE_ADMINS_AND_POSTMAN
 			. " ORDER BY reached_achievement.timedate DESC;";
 		return DB::game()->query($query);
 	}
-	
+
 	private static function _getAchievements($query) {
 		$rows = DB::game()->query($query);
 		$list = array();
@@ -187,10 +187,9 @@ class Achievement {
 			} else {
 				$reachedOn = null;
 			}
-			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'], 
+			$list[] = new Achievement($row['id'], $row['identifier'], $row['title'],
 				$row['category'], $row['base_score'], $row['description'], $row['cnt'], $reachedOn);
 		}
 		return $list;
 	}
 }
-

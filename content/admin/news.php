@@ -5,7 +5,7 @@ class AdminNewsPage extends Page {
 if(getAdminLevel()<400) {
  die("Ooops!");
 }
-   
+
 if(isset($_POST['action'])) {
   if($_REQUEST['action']=='submit') {
     startBox("Adding news item");
@@ -24,8 +24,8 @@ if(isset($_POST['action'])) {
   }
 }
 
-if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {  
-  $id=mysql_real_escape_string($_REQUEST['edit']);  
+if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
+  $id=mysql_real_escape_string($_REQUEST['edit']);
   $newstoEdit=getNews('where news.id="'.$id.'"');
   if(sizeof($newstoEdit)==0) {
     startBox("<h1>Edit news item</h1>");
@@ -33,12 +33,12 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
     endBox();
   } else {
     $edited=$newstoEdit[0];
-  } 
+  }
 }
 
   /*
    * Show all the previous news items, just header and to tickets approbed and deleted.
-   */ 
+   */
   $news=getNews('', 'created desc','');
   startBox("<h1>Admin on existing news</h1>");
   ?>
@@ -54,11 +54,11 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
     </div>
     <?php
     }
-  ?> 
+  ?>
   <div style="text-align: right;"><input type="submit" value="Delete"></div>
   </form>
   <?php
-  endBox();  
+  endBox();
 ?>
 
 <a name="editform"></a>
@@ -80,9 +80,9 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 		<tr><td><input name="onelinedescription" <?php if(isset($edited)) echo 'value="'.$edited->oneLineDescription.'"'; ?>></td></tr>
 		<tr><td>News Type</td></tr>
 		<tr><td>
-		
+
 			<select name="newsTypeId">
-			<?php 
+			<?php
 				$types = getNewsTypes();
 				foreach($types as $type) {
 					echo '<option value="'.htmlspecialchars($type['id']).'"';
@@ -94,7 +94,7 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 			?>
 			</select>
 		</td></tr>
-		
+
 		<tr><td>Body</td></tr>
 		<tr><td><textarea rows="24" name="description"><?php if(isset($edited)) echo $edited->extendedDescription; ?></textarea></td></tr>
 

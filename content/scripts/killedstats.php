@@ -24,7 +24,7 @@ function getVariable($xmlStats, $type) {
 	  return $j['value'];
 	}
   }
-  
+
   return 0;
 }
 
@@ -107,7 +107,7 @@ endBox();
 <div style="clear: left;"></div>
 <?php
 	}
-	
+
 	function getMostKilledMonsterXml($xmlStats, $monsters) {
 		$cnt = 0;
 		$monster = null;

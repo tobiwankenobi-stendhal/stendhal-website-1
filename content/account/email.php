@@ -1,6 +1,6 @@
 <?php
 /*
- Stendhal website - a website to manage and ease playing of Stendhal game
+Stendhal website - a website to manage and ease playing of Stendhal game
 Copyright (C) 2012-2016 The Arianne Project
 
 This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,7 @@ class EMailPage extends Page {
 			$this->showHistory();
 		}
 	}
-	
+
 	function process() {
 		if(isset($_POST['save'])) {
 			$email = trim($_REQUEST['email']);
@@ -131,15 +131,15 @@ class EMailPage extends Page {
 	}
 
 	function isConfirmed($row) {
-		return isset($row['confirmed']) 
-			&& ($row['confirmed'] != '') 
+		return isset($row['confirmed'])
+			&& ($row['confirmed'] != '')
 			&& (strpos($row['confirmed'], '0000') === false);
 	}
-	
+
 	function isAutoConfirmed($row) {
-		return (!isset($row['token']) || ($row['token'] == '')) 
+		return (!isset($row['token']) || ($row['token'] == ''))
 			&& $this->isConfirmed($row);
 	}
-	
+
 }
 $page = new EMailPage();

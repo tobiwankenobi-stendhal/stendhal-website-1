@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class PharauroaMessageS2CCreateAccountACK extends PharauroaMessage{
 
@@ -34,5 +34,4 @@ class PharauroaMessageS2CCreateAccountACK extends PharauroaMessage{
 			throw new PharauroaIOException('Invalid message type in readObject');
 		}
 	}
-
 }

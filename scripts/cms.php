@@ -50,7 +50,7 @@ class CMS {
 
 	/**
 	 * gets the most recent version of the specified page
-	 * 
+	 *
 	 * @param string $lang language
 	 * @param string $title page title
 	 */
@@ -76,7 +76,7 @@ class CMS {
 
 	/**
 	 * gets the specified version of a page
-	 * 
+	 *
 	 * @param int $id page_version.id
 	 * @param string $title page title
 	 */
@@ -97,7 +97,7 @@ class CMS {
 
 	/**
 	 * reads the history
-	 * 
+	 *
 	 * @param string $lang language
 	 * @param string $title page title
 	 */
@@ -108,7 +108,7 @@ class CMS {
 			." AND page_version.account_id = stendhal.account.id";
 		$var = array();
 		if (isset($title) && $title != '') {
-			$sql = $sql 
+			$sql = $sql
 				." AND page.language = :language "
 				." AND page.title = :title ";
 			$var = array(
@@ -117,12 +117,12 @@ class CMS {
 			);
 		}
 		$sql = $sql . ' ORDER BY page_version.id DESC';
-		
+
 		$stmt = DB::web()->prepare($sql);
 		$stmt->execute($var);
 		$res = array();
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-			$res[] = new CMSPageVersion($row['content'], $row['displaytitle'], 
+			$res[] = new CMSPageVersion($row['content'], $row['displaytitle'],
 					$row['account_id'], $row['timedate'], $row['id'], $row['title'],
 					$row['language'], $row['commitcomment'], $row['username']);
 		}
@@ -166,7 +166,7 @@ class CMS {
 
 	/**
 	 * gets the id of specified page, creating the page if it does not exists
-	 * 
+	 *
 	 * @param string $lang language
 	 * @param string $title page title
 	 * @return int   id of page
@@ -183,7 +183,7 @@ class CMS {
 
 	/**
 	 * gets the id of specified page
-	 * 
+	 *
 	 * @param string $lang language
 	 * @param string $title page title
 	 * @return int id of page or <code>null</code>.
@@ -195,7 +195,7 @@ class CMS {
 			':language' => $lang,
 			':title' => $title
 		));
-			
+
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$stmt->closeCursor();
 		if ($row) {

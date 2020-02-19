@@ -41,7 +41,7 @@ class LoginHistoryPage extends Page {
 			}
 		}
 	}
-	
+
 	function printLoginHistory() {
 		$playerId = $_SESSION['account']->id;
 		$events = PlayerLoginEntry::getLoginHistory($playerId);
@@ -52,7 +52,7 @@ class LoginHistoryPage extends Page {
 			.'If you suspect unauthorized access to your account, please '
 			. '<a href="'.rewriteURL('/account/change-password.html').'">change your password</a>'
 			.' immediately and contact <code>/support</code> in game.</p>';
-		
+
 		echo '<p>For reference, the current server time is '.date('Y-m-d G:i').'.</p>';
 
 		echo '<table class="prettytable"><tr><th>server time</th><th>ip-address</th><th>service</th><th>result</th></tr>';
@@ -73,7 +73,7 @@ class LoginHistoryPage extends Page {
 			echo '</td></tr>';
 		}
 		echo '</table>';
-		endBox(); 
+		endBox();
 	}
 
 	private function getHost($ip) {
@@ -92,7 +92,7 @@ class LoginHistoryPage extends Page {
 		$this->ipCacheDirty = true;
 		return $host;
 	}
-	
+
 }
 $page = new LoginHistoryPage();
 ?>

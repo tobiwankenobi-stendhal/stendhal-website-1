@@ -21,12 +21,12 @@ class AdminLogsPage extends Page {
      Timestamps are in server time.
     </p>
     <p>
-    
+
 <?php
 $lines = explode("\n", file_get_contents($directory.$date . ".log"));
 for ($i = 0; $i < count($lines); $i++) {
 	$line = $lines[$i];
-	
+
 	## make it pretty, yes this code is ugly.
 	$class = "irctext";
 	if (substr($line, 5, 5) == ' -!- ') {
@@ -44,8 +44,8 @@ for ($i = 0; $i < count($lines); $i++) {
 		} else if (strpos($line, 'rented a sign saying') > 10) {
 			$class = "ircsign";
 		}
-	} 
-	
+	}
+
 	echo '<span class="'.$class.'">'.htmlspecialchars($line).'</span><br>'."\n";
 }
 
@@ -61,13 +61,13 @@ for ($i = 0; $i < count($lines); $i++) {
             }
         }
         closedir($dir);
-        
+
         rsort($filearray);
 ?>
     <ul>
 <?php
-        
-        
+
+
         foreach ($filearray as $file) {
             $file = substr($file, 0, 10);
 ?>

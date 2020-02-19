@@ -12,7 +12,7 @@ startBox("<h1>Stendhal, Arianne, and You</h1>"); ?>
 <img src = "/images/ariannelogo.png"  style="float:right;" alt="Arianne Logo"  />
 Stendhal is an open source project, written and released under the GNU GPL license by the <a href="https://arianne-project.org">Arianne project</a>. We aim to make it easy to get involved and there are many ways to contribute. If you have an idea for a feature or something you would like different, you're very encouraged to make it happen!
 <p>
-You can contribute if you are a beginner or experienced Java coder, or just want to learn, artist, map maker, musician, writer, designer, and if you're not sure where you would fit in, you probably do, just take a look around. 
+You can contribute if you are a beginner or experienced Java coder, or just want to learn, artist, map maker, musician, writer, designer, and if you're not sure where you would fit in, you probably do, just take a look around.
 <p>
 There are loads of tutorials on our wiki including how to set up the Eclipse development environment and get started with your first Java code for a quest, so it's an ideal project for beginners to programming, supported by a friendly development team.
 <?php endBox(); ?>
@@ -26,7 +26,7 @@ There are loads of tutorials on our wiki including how to set up the Eclipse dev
 	<li><a href="/wiki/StendhalRefactoringAtlas"><img src="/images/buttons/atlas_button.png" alt="">Maps</a> - for map areas which need improvement</li>
 	<li><a href="/wiki/HowToAddCreaturesStendhal"><img src="/images/buttons/creatures_button.png" alt="">Creatures</a> - mostly for your information</li>
 </ul>
-If you plan to help with Stendhal development it is a very good idea to talk about it with the developers and contributors at the <a href="<?php echo rewriteURL('/development/chat.html');?>">irc channel #arianne on freenode.</a>.  
+If you plan to help with Stendhal development it is a very good idea to talk about it with the developers and contributors at the <a href="<?php echo rewriteURL('/development/chat.html');?>">irc channel #arianne on freenode.</a>.
 <?php endBox(); ?>
 <?php startBox("<h1>Video</h1>"); ?>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/x4OpqCWAYaU" name="videoframe" frameborder="0" allowfullscreen></iframe>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ChatPage extends Page {
 	public function writeHtmlHeader() {
@@ -6,7 +6,7 @@ class ChatPage extends Page {
 		echo '<meta name="robots" content="noindex">'."\n";
 		$this->includeJs();
 	}
-	
+
 	function writeContent() {
 		$this->writeIntroduction();
 		if (isset($_GET['date']) && preg_match("/^\d\d\d\d-\d\d-\d\d$/", $_GET['date'])) {
@@ -16,7 +16,7 @@ class ChatPage extends Page {
 		}
 		$this->writeChatFooter();
 	}
-	
+
 
 	function writeIntroduction() {
 		startBox("<h1>Chat to other users and developers</h1>");
@@ -26,7 +26,7 @@ You can get an IRC client and connect to:
 <p><b>irc.freenode.net</b> (see <a href="http://freenode.net">http://freenode.net</a> for more information) then</p>
 
 <p>Alternatively, you can simply use freenode's webchat service, below. Feel free to change the nick to for example, your player name.</p>
-<ul> 
+<ul>
 <li><a href="https://webchat.freenode.net/?channels=arianne">#arianne</a> (for ideas, contributions and support)</li>
 <li><a href="https://webchat.freenode.net/?channels=arianne-chat">#arianne-chat</a> (for off topic chat not related to Arianne/Stendhal)</li>
 </ul>
@@ -52,12 +52,12 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 		if (!file_exists($filename)) {
 			$filename = $directory.substr($date, 0, 4).'/'.$date.'.log';
 		}
-		
+
 		$lines = explode("\n", file_get_contents($filename));
 		echo '<div class="chattable">';
 		for ($i = 0; $i < count($lines); $i++) {
 			$line = $lines[$i];
-			
+
 			## make it pretty, yes this code is ugly.
 			$class = "irctext";
 			if (substr($line, 5, 5) == ' -!- ') {
@@ -79,13 +79,13 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 					$nick = $matches[3];
 				}
 				$line = $matches[4];
-			
+
 				$line = htmlspecialchars($line);
 				$line = preg_replace('/@/', '&lt;(a)&gt;', $line);
 				$line = preg_replace(
 						'!(http|https)://(|www\.)(faiumoni.de|stendhalgame.org|arianne.sf.net|arianne-project.org|arianne.sourceforge.net|sourceforge.net|sf.net|download.oracle.com|libregamewiki.org|freesound.org|opengameart.org|openclipart.org|github.io|github.com|arianne.github.io|postsai.github.io)(/[^ ]*)?!',
 						'<a href="$1://$2$3$4$5">$1://$2$3$4$5</a>', $line);
-		
+
 				if ($line != '') {
 					echo '<div class="chatrow '.$class.'"><span class="chatcell c1">'
 						.htmlspecialchars($time).'</span><span class="chatcell c2">'
@@ -94,11 +94,11 @@ If you are new to IRC it is well worth reading this <a href="http://www.irchelp.
 				}
 			}
 		}
-		
-		
+
+
 		echo '<p><a href="'.rewriteURL('/chat/'.date_format(date_sub(date_create($date), date_interval_create_from_date_string('1 day')), 'Y-m-d').'.html#log');
 		echo '">Older</a> &nbsp;&nbsp;&nbsp; * &nbsp;&nbsp;&nbsp; <a href="'.rewriteURL('/chat/'.date_format(date_add(date_create($date), date_interval_create_from_date_string('1 day')), 'Y-m-d').'.html#log').'">Newer</a>';
-		
+
 		echo '</div>';
 		endBox();
 	}

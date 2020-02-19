@@ -15,7 +15,7 @@ class PharauroaAttributes {
 		$out->writeString(""); // rpClass.getName()
 		$out->writeInt(count($this->content));
 
-		foreach ($this->content As $key => $value) {	
+		foreach ($this->content As $key => $value) {
 			$out->writeShort(-1);
 			$out->writeString($key);
 			$out->writeString($value);

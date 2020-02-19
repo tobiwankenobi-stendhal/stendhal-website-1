@@ -94,8 +94,8 @@ class InspectParser {
 	 * @param $line
 	 */
 	private function parseRPObject($line) {
-		//   RPObject with Attributes of Class(): [visit_semos_tavern=1][first_poisoned=1][timed_outfit=1][visit_kikareukin_cave=1][visit_magic_city_n=1][visit_magic_city=1][first_death=1][visit_sub2_semos_catacombs=1][id=6][new_release77=1][first_private_message=1][db_id=90080][new_release75=1][first_attacked=1][first_login=1][visit_semos_dungeon_2=1][return_guardhouse=1][new_release=1][visit_semos_caves=1][first_kill=1][visit_semos_plains=1][visit_semos_dungeon=1][first_move=1][visit_semos_city=1][visit_imperial_caves=1][new_release69=1][new_release80=1][timed_naked=1][timed_rules=1] and RPSlots  with maps and RPLink  and RPEvents 
-		//   Item, RPObject with Attributes of Class(item): [visibility=100][width=1][class=cloak][type=item][logid=10196][id=1][height=1][def=4][description=][name=dwarf cloak][subclass=dwarf_cloak][resistance=0][y=0][x=0] and RPSlots  with maps and RPLink  and RPEvents 
+		//   RPObject with Attributes of Class(): [visit_semos_tavern=1][first_poisoned=1][timed_outfit=1][visit_kikareukin_cave=1][visit_magic_city_n=1][visit_magic_city=1][first_death=1][visit_sub2_semos_catacombs=1][id=6][new_release77=1][first_private_message=1][db_id=90080][new_release75=1][first_attacked=1][first_login=1][visit_semos_dungeon_2=1][return_guardhouse=1][new_release=1][visit_semos_caves=1][first_kill=1][visit_semos_plains=1][visit_semos_dungeon=1][first_move=1][visit_semos_city=1][visit_imperial_caves=1][new_release69=1][new_release80=1][timed_naked=1][timed_rules=1] and RPSlots  with maps and RPLink  and RPEvents
+		//   Item, RPObject with Attributes of Class(item): [visibility=100][width=1][class=cloak][type=item][logid=10196][id=1][height=1][def=4][description=][name=dwarf cloak][subclass=dwarf_cloak][resistance=0][y=0][x=0] and RPSlots  with maps and RPLink  and RPEvents
 		$res = array();
 		preg_match_all('/\[[^\]]*\]/', $line, $matches);
 		foreach ($matches[0] as $match) {

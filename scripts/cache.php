@@ -37,7 +37,7 @@ interface Cache {
 	function fetch($key, &$success = false);
 
 	/**
-	 * fetches an array value from the cache that was previously converted into an ArrayObject 
+	 * fetches an array value from the cache that was previously converted into an ArrayObject
 	 *
 	 * @param $key     object key to access the value
 	 * @param $success true, if the fetch was succesful

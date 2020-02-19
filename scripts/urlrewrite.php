@@ -22,7 +22,7 @@
 
 /*
 
-You need to enable mod_rewrite by creating a symlink 
+You need to enable mod_rewrite by creating a symlink
 /etc/apache2/mods-enabled/rewrite.load pointing to ../mods-available/rewrite.load
 
 Then edit your sites-enabled virtual host configuration file and add these commands:
@@ -235,7 +235,7 @@ Then edit your sites-enabled virtual host configuration file and add these comma
 
                 # other
                 RewriteRule ^/hudson(.*)$ /jenkins$1 [R=301,L]
-                
+
                 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
                 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-d
                 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-l
@@ -369,7 +369,7 @@ function rewriteURL($url, $force = false) {
 	} else if (preg_match('|^/download\.html$|', $url)) {
 		return preg_replace('|^/download\.html$|', $folder.'/?id=content/game/download', $url);
 
-		
+
 	// items
 	} else if (preg_match('|^/item.*|', $url)) {
 		if (preg_match('|^/item/?$|', $url)) {
@@ -387,7 +387,7 @@ function rewriteURL($url, $force = false) {
 		} else if (preg_match('|^/news/.*|', $url)) {
 			return preg_replace('|^/news/(.*)$|', $folder.'/?id=content/news/news&amp;news=$1', $url);
 		}
-	
+
 
 	// npcs
 	} else if (preg_match('|^/npc.*|', $url)) {
@@ -413,7 +413,7 @@ function rewriteURL($url, $force = false) {
 
 	// world
 	} else if (preg_match('|^/world.*|', $url)) {
-		
+
 		if (preg_match('|^/world/atlas\.html$|', $url)) {
 			return preg_replace('|^/world/atlas\.html$|', $folder.'/?id=content/world/atlas', $url);
 		} else if (preg_match('|^/world/events\.html$|', $url)) {
@@ -435,7 +435,7 @@ function rewriteURL($url, $force = false) {
 		} else if (preg_match('|^/world/server-stats\.html$|', $url)) {
 			return preg_replace('|^/world/server-stats\.html$|', $folder.'/?id=content/scripts/serverstats', $url);
 		}
-		
+
 	// stats
 	} else if (preg_match('|^/stats/.*|', $url)) {
 		if (preg_match('|^/stats/net\.html$|', $url)) {

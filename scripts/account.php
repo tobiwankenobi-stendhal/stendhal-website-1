@@ -383,7 +383,7 @@ class Account {
 		if (!Account::checkIpBan()) {
 			return "Your IP Address has been banned.";
 		}
-		
+
 		// ask database
 		if ($type == 'password' || $type == 'passwordchange') {
 			$banMessage = Account::checkBlocked($username, $_SERVER['REMOTE_ADDR']);
@@ -395,7 +395,7 @@ class Account {
 				if ($account->status === "deleted") {
 					return "This account name is reserved. Accounts names will be reserved if they are missleading (e. g. the name might indicate an admin status) or if an account with that name existed in the past.";
 				}
-				
+
 				if (isset($account)) {
 					$success = $account->checkPassword($password);
 					if ($success == 0) {
@@ -431,7 +431,7 @@ class Account {
 		} else {
 			PlayerLoginEntry::logUserPasswordChange($username, $_SERVER['REMOTE_ADDR'], $passhash, $success);
 		}
-		
+
 		// if the account is banned
 		if (isset($banMessage)) {
 			return $banMessage;
@@ -443,7 +443,7 @@ class Account {
 		// TODO: implement me
 		return true;
 	}
-	
+
 	/**
 	 * reads an account object based on the account id.
 	 *
@@ -493,7 +493,7 @@ class Account {
 			. " account.password As password, email.email As email, "
 			. " account.timedate As timedate, account.status As status, "
 			. " accountLink.id As usedAccountLink"
-			. " FROM accountLink INNER JOIN account ON (account.id = accountLink.player_id) "  
+			. " FROM accountLink INNER JOIN account ON (account.id = accountLink.player_id) "
 			. " LEFT JOIN email ON (account.id = email.player_id) "
 			. " WHERE accountLink.type='".mysql_real_escape_string($type)."'"
 			. " AND accountLink.username='".mysql_real_escape_string($username)."'";
@@ -539,7 +539,7 @@ class Account {
 		if ($md5pass == $this->password) {
 			return 1;
 		}
-		
+
 		// We need to check the pre-Marauroa 2.0 passwords
 		$md5pass = strtoupper(md5(md5($password, true)));
 		if ($md5pass == $this->password) {
@@ -547,12 +547,12 @@ class Account {
 		}
 		return 0;
 	}
-	
+
 	public static function checkBlocked($username, $ip) {
 		$sql = "SELECT count(*) as amount FROM loginEvent"
 			. " WHERE address='" . mysql_real_escape_string($ip) . "'"
 			. " AND result != 1 and timedate > date_sub(CURRENT_TIMESTAMP(), INTERVAL 10 MINUTE)";
-		
+
 		$count = queryFirstCell($sql, DB::game());
 		if ($count > 3) {
 			return "There have been too many failed login attempts from your network. Please wait a couple of minutes or contact support.";
@@ -562,14 +562,14 @@ class Account {
 			. " WHERE loginEvent.player_id=account.id"
 			. " AND username='" . mysql_real_escape_string($username) . "'"
 			. " AND loginEvent.result != 1 and loginEvent.timedate > date_sub(CURRENT_TIMESTAMP(), INTERVAL 10 MINUTE)";
-		
+
 		$count = queryFirstCell($sql, DB::game());
 		if ($count > 10) {
 			return "There have been too many failed login attempts for your account. Please wait a couple of minutes or contact support.";
 		}
-						
+
 		return null;
-	} 
+	}
 
 	private function readAccountBan() {
 		$sql = "SELECT reason, expire FROM accountban "
@@ -586,7 +586,7 @@ class Account {
 
 	/**
 	 * get a message telling the player why the account is not active
-	 * 
+	 *
 	 * @return string message or <code>null</code> if the account is active
 	 */
 	public function getAccountStatusMessage() {
@@ -630,7 +630,7 @@ class Account {
 		}
 		return $res;
 	}
-	
+
 	/**
 	 * tries to convert a proposed username into a valid one
 	 *
@@ -652,7 +652,7 @@ class Account {
 
 	/**
 	 * Creates a sha512crypt hash of the password hash, unless it is disabled in configuration
-	 * 
+	 *
 	 * @param string $passwordHash password hash
 	 * @return string sha512crypt hash
 	 */
@@ -692,10 +692,10 @@ class Account {
 		$sql = "SELECT email, token, address, timedate, confirmed "
 		. " FROM email WHERE player_id=" . intval($playerId)
 		. " ORDER BY id DESC";
-	
+
 		return fetchToArray($sql, DB::game());
 	}
-	
+
 	/**
 	 * changes the email-address
 	 *
@@ -781,7 +781,7 @@ class Account {
 			}
 			$res = $res.'://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 		}
-		
+
 		$res = $res.'?id='.urlencode($_REQUEST['id']);
 		if (isset($_REQUEST['url'])) {
 			$res .= '&url='.urlencode($_REQUEST['url']);
@@ -804,7 +804,7 @@ class Account {
 	public static function loginOrCreateByAccountLink($accountLink) {
 		unset($_SESSION['account']);
 		$account = Account::tryLogin($accountLink->type, $accountLink->username, null);
-		
+
 		if (!$account || is_string($account)) {
 			$account = $accountLink->createAccount();
 		}
@@ -826,7 +826,7 @@ class Account {
 			return false;
 		}
 
-		$sql = "UPDATE email SET address='".mysql_real_escape_string($_SERVER['REMOTE_ADDR']) 
+		$sql = "UPDATE email SET address='".mysql_real_escape_string($_SERVER['REMOTE_ADDR'])
 			. "', confirmed=NOW() WHERE token='".mysql_real_escape_string($token)
 			. "' AND confirmed IS NULL";
 		DB::game()->exec($sql);
@@ -834,10 +834,10 @@ class Account {
 	}
 
 
-	public static $SELFBAN_RESULT_OK = 0; 
-	public static $SELFBAN_RESULT_NOT_CONFIGURED = 1; 
-	public static $SELFBAN_INVALID_TOKEN = 2; 
-	public static $SELFBAN_ACCOUNT_ALREADY_BANNED = 3; 
+	public static $SELFBAN_RESULT_OK = 0;
+	public static $SELFBAN_RESULT_NOT_CONFIGURED = 1;
+	public static $SELFBAN_INVALID_TOKEN = 2;
+	public static $SELFBAN_ACCOUNT_ALREADY_BANNED = 3;
 	public static $SELFBAN_ACCOUNT_NOT_ACTIVE = 4;
 
 	/**
@@ -870,8 +870,8 @@ class Account {
 		}
 
 		//TODO
-		
-		
+
+
 		return Account::SELFBAN_RESULT_OK;
 	}
 }
@@ -981,7 +981,7 @@ class AccountLink {
 	public function createAccount() {
 		// suggest usernames
 		$proposedUsernames = $this->proposeUsernames();
-		
+
 		// create sql statement to check which suggestions exist
 		DB::game()->beginTransaction();
 		$first = true;
@@ -1025,7 +1025,7 @@ class AccountLink {
 		$account->insert();
 		$this->playerId = $account->id;
 		$this->insert();
-		
+
 		DB::game()->commit();
 
 		return $account;

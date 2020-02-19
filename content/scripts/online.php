@@ -44,7 +44,7 @@ class OnlinePage extends Page {
 	function writeOnlinePlayers() {
 		$players = getOnlinePlayers();
 		startBox('<h1>Online Players</h1>');
-		
+
 		if(sizeof($players)==0) {
 			echo 'There are no players logged in at the moment.';
 		}

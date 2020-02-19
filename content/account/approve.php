@@ -37,7 +37,7 @@ class ApprovePage extends Page {
 		$stmt->execute(array(':confirmhash' => $signature));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$stmt->closeCursor();
-		
+
 		if ($row) {
 			$username=$row["username"];
 
@@ -69,7 +69,7 @@ class ApprovePage extends Page {
 			<p>Back to <a href="/">Main</a>
 			<?php
 			endBox();
-		}						
+		}
 	}
 }
 

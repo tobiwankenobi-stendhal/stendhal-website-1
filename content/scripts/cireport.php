@@ -41,7 +41,7 @@ class CIReportPage extends Page {
 		startBox('<h1>Testresults</h1>');
 		$files = glob('/srv/upload/testresults_*');
 		$content = file_get_contents($files[count($files)-1]);
-		
+
 		$failures = 0;
 		$root = new SimpleXMLElement($content);
 		foreach ($root as $testsuite) {
@@ -55,11 +55,11 @@ class CIReportPage extends Page {
 				}
 			}
 		}
-		
+
 		if ($failures == 0) {
-			echo 'Yay! All test pass.';	
+			echo 'Yay! All test pass.';
 		}
-		
+
 		endBox();
 	}
 }

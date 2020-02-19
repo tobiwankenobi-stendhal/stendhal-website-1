@@ -16,7 +16,7 @@ class AdminPlayerHistoryPage extends Page {
 		<input type="submit" name="sublogin" value="Search">
 	</form>
 <?php
-	endBox(); 
+	endBox();
 
 	if (isset($name)) {
 		startBox('<h1>History for player '. htmlspecialchars($name).'</h1>');
@@ -39,7 +39,7 @@ class AdminPlayerHistoryPage extends Page {
 		echo '</table>';
 		echo '<p><b>These logs are for administrators eyes ONLY and should not be copied or pasted to others.</b></p>';
 
-		endBox(); 
+		endBox();
 	}
 
 

@@ -67,7 +67,7 @@ class DB {
 			}
 		}
 		return DB::$wiki;
-	}	
+	}
 }
 
 
@@ -114,7 +114,7 @@ function queryFirstCell($query, $connection) {
 function fetchToArray($query, $connection) {
 	$rows = $connection->query($query);
 	$res = array();
-	
+
 	foreach($rows as $row) {
 		$res[] = $row;
 	}

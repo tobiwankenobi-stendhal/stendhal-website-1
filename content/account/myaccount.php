@@ -38,7 +38,7 @@ class MyAccountPage extends Page {
 
 		return true;
 	}
-	
+
 	public function writeHtmlHeader() {
 		echo '<meta name="robots" content="noindex">'."\n";
 		echo '<title>My Account'.STENDHAL_TITLE.'</title>';
@@ -55,7 +55,7 @@ class MyAccountPage extends Page {
 startBox("<h1>My Account</h1>"); ?>
 	<p>You are logged in as <b><?php echo htmlspecialchars($_SESSION['account']->username);?></b>.</p>
 <ul id="dmenu" >
-	<?php 
+	<?php
 		echo '<li><a href="'.rewriteURL('/account/mycharacters.html').'"><img src="/images/buttons/players_button.png" alt=" "> My Characters</a></li>';
 		echo '<li><a href="'.rewriteURL('/account/messages.html').'"><img src="/images/buttons/postman_button.png" alt=" "> Messages</a></li>';
 		echo '<li><a href="'.rewriteURL('/account/history.html').'"><img src="/images/buttons/history_button.png" alt=" "> Login History</a></li>';

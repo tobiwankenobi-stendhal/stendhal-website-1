@@ -1,11 +1,11 @@
 <?php
 
 class EventsPage extends Page {
-	
+
 	public function __construct() {
 		$this->setupFilter();
 	}
-	
+
 	function writeHttpHeader() {
 		if ($this->filter=="friends" && !isset($_SESSION['account'])) {
 			header('Location: '.STENDHAL_LOGIN_TARGET.'/index.php?id=content/account/login&url='.urlencode(rewriteURL('/world/events/'.urlencode($this->filter).'.html')));
@@ -23,7 +23,7 @@ class EventsPage extends Page {
 		$this->printRecentEvents();
 		// $this->closeTabs();
 	}
-	
+
 	function writeTabs() {
         ?>
         <br>
@@ -41,7 +41,7 @@ class EventsPage extends Page {
 
 
     function closeTabs() {
-        ?></td></tr></table><?php 
+        ?></td></tr></table><?php
     }
 
     function getTabClass($tab) {
@@ -51,14 +51,14 @@ class EventsPage extends Page {
             return 'backgroundTab';
         }
     }
-	
+
 	function setupFilter() {
 		$this->filter = 'all';
 		if (isset($_REQUEST['filter'])) {
 			$this->filter = urlencode($_REQUEST['filter']);
 		}
  	}
-	
+
 	function printRecentEvents(){
 		global $cache;
 		if (!isset($_REQUEST['profiling'])) {
@@ -93,9 +93,9 @@ class EventsPage extends Page {
 			echo '</pre>';
 			return;
 		}
-	
-		
-		
+
+
+
 		function cmp($a, $b)
 			{
 			if ($a->timedate == $b->timedate) {
@@ -103,9 +103,9 @@ class EventsPage extends Page {
 			}
 			return ($a->timedate < $b->timedate) ? 1 : -1;
 		}
-		
+
 		usort($events,"cmp");
-		
+
 		startBox('<h1>A selection of recent events</h1>');
 		echo 'The current server time is '.date('G:i');
 		if(sizeof($events)==0) {
@@ -116,13 +116,13 @@ class EventsPage extends Page {
 		foreach($events as $e) {
 			$e->addPlayersToList($players);
 		}
-		
+
 		$outfits = getOutfitsForPlayers($players);
-		
+
 		foreach($events as $e) {
 			echo $e->getHtml($outfits);
 		}
-		
+
 		echo '</div>';
 		endBox();
 	}

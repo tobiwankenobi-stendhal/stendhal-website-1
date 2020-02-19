@@ -76,7 +76,7 @@ echo ' class="layout"';
  		</div>
 
 	<div id="topMenu">
-	<?php 
+	<?php
 		$this->navigationMenu($page);
 		$this->breadcrubs($page);
 	?>
@@ -88,7 +88,7 @@ echo ' class="layout"';
 			$page->writeContent();
 		?>
 	</div>
-	
+
 	<div id="footerArea">
 		<span class="copyright">&copy; 1999-2016 <a href="https://arianne-project.org">Arianne Project</a></span>
 	</div>
@@ -187,7 +187,7 @@ $page->writeAfterJS();
 			echo '<li><a id="menuAdminPlayerhistory" href="/?id=content/admin/playerhistory">Player History</a></ul>';
 		}
 
-		if (checkLogin()) { 
+		if (checkLogin()) {
 			$messageCount = StoredMessage::getCountUndeliveredMessages($_SESSION['account']->id, "characters.charname = postman.target AND deleted != 'R'");
 			echo '<li><a '.$noclick.'href="/account/myaccount.html">'.htmlspecialchars(substr($_SESSION['account']->username, 0, 10)).'</a><ul>';
 			echo '<li><a id="menuAccountCharacters" href="/account/mycharacters.html">My Characters</a>';

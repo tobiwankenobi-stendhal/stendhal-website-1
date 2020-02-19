@@ -19,7 +19,7 @@
 class MainPage extends Page {
 	private $cmsPage;
 	private $title;
-	
+
 	public function __construct() {
 		global $lang, $internalTitle;
 		$this->cmsPage = CMS::readNewestVersion($lang, $internalTitle);

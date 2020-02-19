@@ -8,10 +8,10 @@ require_once('content/game/sourcelog.php');
  * @author hendrik
  */
 class SourceLogPageTest extends PHPUnit_Framework_TestCase {
-	
+
 	public function testFormatLine() {
 		$page = new SourceLogPage();
-		
+
 		$line = '18:59 < CIA-15> arianne_rpg: kymara * stendhal/src/games/stendhal/server/maps/quests/KillGnomes.java: fix typo';
 		$exspected = '<span class="sourcetime">2011-02 18:59</span> <span class="sourceuser">kymara</span>   <span class="sourcemodule">stendhal</span> <span class="sourcefiles">src/games/stendhal/server/maps/quests/KillGnomes.java</span>:<br><span class="sourcecommit"> fix typo';
 		$this->assertEquals($exspected, $page->formatLine('2011', '02', $line));

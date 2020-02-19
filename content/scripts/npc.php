@@ -20,7 +20,7 @@ class NPCPage extends Page {
 			header('Location: '.$protocol.'://'.$_SERVER['SERVER_NAME'].preg_replace('/&amp;/', '&', rewriteURL('/npc/'.preg_replace('/[ ]/', '_', $this->name.'.html'))));
 			return false;
 		}
-	
+
 		return true;
 	}
 
@@ -46,7 +46,7 @@ class NPCPage extends Page {
 		echo '<div class="title">Details</div>';
 		echo '<img class="bordered_image" src="'.htmlspecialchars($npc->imagefile).'" alt="">';
 		echo '<div class="statslabel">Name:</div><div class="data">'.htmlspecialchars($npc->name).'</div>';
-		echo '<div class="statslabel">Zone:</div><div class="data">'; 
+		echo '<div class="statslabel">Zone:</div><div class="data">';
 		if ($npc->pos != '') {
 			echo '<a href="/world/atlas.html?poi='.htmlspecialchars($npc->name).'">'.htmlspecialchars($npc->zone).' '.htmlspecialchars($npc->pos).'</a>';
 		} else {
@@ -75,7 +75,7 @@ class NPCPage extends Page {
 		if (sizeof($this->npcs) == 0) {
 			return null;
 		}
-	
+
 		return array('World Guide', '/world.html',
 				'NPC', '/npc/',
 				ucfirst($this->name), '/npc/'.$this->name.'.html'

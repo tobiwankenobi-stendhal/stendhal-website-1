@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class PharauroaMessageS2CCreateCharacterACK extends PharauroaMessage{
 
@@ -7,7 +7,7 @@ class PharauroaMessageS2CCreateCharacterACK extends PharauroaMessage{
 
 	/** the approved avatar configuration */
 	private $template;
-	
+
 	/** Constructor for allowing creation of an empty message */
 	public function __construct() {
 		parent::__construct(PharauroaMessageType::S2C_CREATECHARACTER_ACK);

@@ -6,7 +6,7 @@ class PharauroaClientFramework {
 	private $server;
 	private $port;
 	private $credentials;
-	
+
 	/**
 	 * creates a new PharauroaClientFramework
 	 *
@@ -34,7 +34,7 @@ class PharauroaClientFramework {
 			error_log($e);
 			return new PharauroaResult(PharauroaResult::FAILED_OFFLINE);
 		}
-	
+
 		if ($answer instanceof PharauroaMessageS2CCreateAccountACK) {
 			return new PharauroaResult(PharauroaResult::OK_CREATED);
 		} else if ($answer instanceof PharauroaMessageS2CCreateAccountNACK) {

@@ -81,7 +81,7 @@ class CreateCharacterPage extends Page {
 			return false;
 		}
 	}
-	
+
 
 	function show($createURL) {
 		if (isset($_POST['name']) && ($_POST['csrf'] != $_SESSION['csrf'])) {
@@ -142,8 +142,8 @@ class CreateCharacterPage extends Page {
 
 <div style="float:left; width: 50%; padding-top: 2em">
 <input id="outfitcode" name="outfitcode" type="hidden" value="01010101">
-<label for="name" >Name: </label><input id="name" name="name" type="text" maxlength="20" 
-<?php 
+<label for="name" >Name: </label><input id="name" name="name" type="text" maxlength="20"
+<?php
 	if (isset($_REQUEST['name'])) {
 		echo 'value="'.htmlspecialchars($_REQUEST['name']).'"';
 	} else {

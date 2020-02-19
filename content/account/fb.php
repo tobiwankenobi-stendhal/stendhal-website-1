@@ -2,12 +2,12 @@
 
 class Facebook {
 	public $isAuth = false;
-	
+
 	public function doRedirect() {
 		header('Location: https://www.facebook.com/dialog/oauth?client_id=' . FACEBOOK_APP_ID
 			.'&redirect_uri=' . urlencode(Account::createReturnUrl()));
 	}
-	
+
 	public function doRedirectWithCSRFToken($token) {
 		header('Location: https://www.facebook.com/dialog/oauth?client_id=' . FACEBOOK_APP_ID
 		.'&redirect_uri=' . urlencode(Account::createReturnUrl())
@@ -16,14 +16,14 @@ class Facebook {
 
 	/**
 	 * creates an AccountLink object based on the facebook identification
-	 * 
+	 *
 	 * @return AccountLink or <code>FALSE</code> if  the validation failed
 	 */
 	public function createAccountLink() {
 		$tokenUrl = "https://graph.facebook.com/oauth/access_token?"
-			. "client_id=" . FACEBOOK_APP_ID 
+			. "client_id=" . FACEBOOK_APP_ID
 			. "&redirect_uri=" . urlencode(Account::createReturnUrl())
-			. "&client_secret=" . FACEBOOK_APP_SECRET 
+			. "&client_secret=" . FACEBOOK_APP_SECRET
 			. "&code=" . $_REQUEST['code'];
 		$response = file_get_contents($tokenUrl);
 		$params = null;
@@ -42,12 +42,12 @@ class Facebook {
 		if (!isset($_REQUEST['signed_request'])) {
 			return null;
 		}
-	
+
 		$params = $this->parseSignedRequest($_REQUEST['signed_request']);
 		if (!isset($params) || !isset($params['oauth_token'])) {
 			return null;
 		}
-	
+
 		return $this->createAccountLinkFromAccessToken($params['oauth_token']);
 	}
 
@@ -64,13 +64,13 @@ class Facebook {
 		} else {
 			$nickname = str_replace(" ", "", strtolower($user['name']));
 		}
-		
+
 		// ["id"]=> "100001372455913" ["name"]=>"Petra Portal" ["first_name"]=>"Petra" ["last_name"]=>"Portal"
-		
+
 		$accountLink = new AccountLink(null, null, 'facebook', $user['id'], $nickname, null, null);
 		return $accountLink;
 	}
-	
+
 	/**
 	 * handles an requested account merge
  	 *
@@ -79,7 +79,7 @@ class Facebook {
 	public function merge($accountLink) {
 		$oldAccount = $_SESSION['account'];
 		$newAccount = Account::readAccountByLink('facebook', $accountLink->username, null);
-	
+
 		if (!$newAccount || is_string($newAccount)) {
 			$accountLink->playerId = $oldAccount->id;
 			$accountLink->insert();

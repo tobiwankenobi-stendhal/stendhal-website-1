@@ -70,11 +70,11 @@ class SearchsPage extends Page {
 		usort($rows, 'searchScoreCallback');
 		$known = array();
 		$filteredResults = false;
-		
+
 		echo '<div class="searchresults">';
-		
+
 		foreach ($rows As $row) {
-		
+
 			// filter duplicated entries
 			$key = $row['entitytype'].$row['entityname'].$row['path'];
 			if (isset($known[$key])) {
@@ -157,10 +157,10 @@ class SearchsPage extends Page {
 
 	function renderAchievement($name) {
 		$entry = Achievement::getAchievement($name);
-		$this->renderEntry($name, 
-			'Achievement', 
-			'/achievement/', 
-			'/images/achievements/'.htmlspecialchars(strtolower($entry->category)).'.png', 
+		$this->renderEntry($name,
+			'Achievement',
+			'/achievement/',
+			'/images/achievements/'.htmlspecialchars(strtolower($entry->category)).'.png',
 			$entry->description);
 	}
 

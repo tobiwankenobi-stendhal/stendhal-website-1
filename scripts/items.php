@@ -67,7 +67,7 @@ class Item {
 		if (isset($title)) {
 			$popup .= '<div>'.htmlspecialchars($title).'</div>';
 		}
-		
+
 		$popup .= '<span class="stendhalItemIcon">';
 		$popup .= '<img src="' . htmlspecialchars($this->gfx) . '" />';
 		$popup .= '</span>';
@@ -76,7 +76,7 @@ class Item {
 		$popup .= $this->name;
 		$popup .= '</a>';
 		$popup .= '</span>';
-		
+
 		$popup .= '<br />';
 		$popup .= 'Class: ' . htmlspecialchars(ucfirst($this->class)) . '<br />';
 		foreach($this->attributes as $label=>$data) {
@@ -87,7 +87,7 @@ class Item {
 			$popup .= '<br />' . $this->description . '<br />';
 		}
 		$popup .= '</div>';
-		
+
 		return '<a href="'.rewriteURL('/item/'.surlencode($this->class).'/'.surlencode($this->name).'.html').'" class="overliblink" title="'.htmlspecialchars($this->name).'" data-popup="'.htmlspecialchars($popup).'">'
 				. '<img src="'.htmlspecialchars($this->showImage()).'" alt=""></a>';
 	}
@@ -116,8 +116,8 @@ function getItems() {
 		return Item::$items;
 	}
 	Item::$classes = array();
-	
-	
+
+
 	$itemsXMLConfigurationFile="data/conf/items.xml";
 	$itemsXMLConfigurationBase='data/conf/';
 

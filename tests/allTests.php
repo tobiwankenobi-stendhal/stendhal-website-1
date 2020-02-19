@@ -20,7 +20,7 @@ class AllTests {
 		$suite->addTestSuite('AccountTest');
 		$suite->addTestSuite('AccountLinkTest');
 		$suite->addTestSuite('NetstatsTest');
-		
+
 		return $suite;
 	}
 }

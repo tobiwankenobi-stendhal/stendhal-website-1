@@ -73,7 +73,7 @@ class ItemLog {
 	}
 
 	/**
-	 * gets an array of itemlog entries 
+	 * gets an array of itemlog entries
 	 *
 	 *
 	 * @param string $query sql query on itemlog table
@@ -84,7 +84,7 @@ class ItemLog {
 		$res = array();
 		foreach ($rows as $row) {
 			$res[] = new ItemLogEntry($row['id'], $row['timedate'],
-				$row['itemid'], $row['source'], $row['event'], 
+				$row['itemid'], $row['source'], $row['event'],
 				$row['param1'], $row['param2'], $row['param3'], $row['param4']);
 		}
 		return $res;

@@ -65,7 +65,7 @@ class XMLSerializer {
 		xml_set_element_handler($this->parser, 'open','close');
 		xml_set_character_data_handler($this->parser, 'data');
 	}
-	function destruct(){ 
+	function destruct(){
 		xml_parser_free($this->parser);
 	}
 	function parse(&$data){
@@ -77,9 +77,9 @@ class XMLSerializer {
 	function open(&$parser, $tag, $attributes){
 		$this->data = ''; #stores temporary cdata
 		$this->last_opened_tag = $tag;
-        
+
 		$key = count_numeric_items($this->parent[$tag]);
-        
+
         if($attributes) $this->parent[$tag]["$key attr"] = $attributes;
         $this->parent[$tag][$key]=array();
 		$this->parent  = &$this->parent[$tag][$key];
@@ -101,6 +101,5 @@ class XMLSerializer {
 function count_numeric_items(&$array){
 	return is_array($array) ? count(array_filter(array_keys($array), 'is_numeric')) : 0;
 }
-
 
 ?>

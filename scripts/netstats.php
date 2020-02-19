@@ -9,7 +9,7 @@ class Netstats {
 			$cmd = $cmd.$pingCmd.escapeshellcmd($target).';';
 		}
 		echo $cmd;
-		
+
 		/*
  --- 82.83.205.169 ping statistics ---
 5 packets transmitted, 5 received, 0% packet loss, time 804ms
@@ -217,7 +217,7 @@ PING 83.83.205.120 (83.83.205.120) 56(84) bytes of data.
 		}
 		return $res;
 	}
-	
+
 	public function isErrorToken($token) {
 		return (($token == "*") || (strpos($token, '!') === 0));
 	}

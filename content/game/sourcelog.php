@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class SourceLogPage extends Page {
 
@@ -18,7 +18,7 @@ class SourceLogPage extends Page {
 
 	function writeContent() {
 startBox("<h1>Source Code</h1>"); ?>
-<p>The Arianne project is hosted on <a href="http://sourceforge.net/projects/arianne">Sourceforge</a> and uses CVS (Concurrent Versions System) and Git to manage changes to our source code. </p> 
+<p>The Arianne project is hosted on <a href="http://sourceforge.net/projects/arianne">Sourceforge</a> and uses CVS (Concurrent Versions System) and Git to manage changes to our source code. </p>
 
 <p>You can use a Git client to <a href="https://sourceforge.net/p/arianne/stendhal/ci/master/tree/">download our Stendhal source code</a> or <a href="https://sourceforge.net/p/arianne/marauroa/ci/master/tree/">our Marauroa source code</a>.</p>
 
@@ -61,12 +61,12 @@ for ($day = 1; $day <= 31; $day++) {
 
 			## make it pretty, yes this code is ugly.
 			if (((strpos($line, '< CIA-') > 0) || (strpos($line, 'postman') > 0)) && (strpos($line, '> arianne_rpg: ') > 0)) {
-				
+
 				if (preg_match('/^[0-9][0-9]:[0-9][0-9] < .*> arianne_rpg: [^ ]*( [^ ]*)? \*/', $line)) {
 					if ($res != '') {
 						echo '<li>' . $res . "</span></li>\n";
 					}
-				
+
 
 					$res = $this->formatLine($month, $daystr, $line);
 

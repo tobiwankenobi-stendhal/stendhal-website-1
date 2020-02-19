@@ -21,7 +21,7 @@ class WikiPage extends Page {
 	private $wiki;
 	private $pageTitle;
 	private $url;
-	
+
 	public function __construct() {
 		$this->wiki = new Wiki($_REQUEST["title"]);
 		$temp = $this->wiki->findPage();
@@ -31,7 +31,7 @@ class WikiPage extends Page {
 		$this->url = $temp['title'];
 		$this->pageTitle =  $temp['displaytitle'];
 	}
-	
+
 
 	public function writeHttpHeader() {
 		if (!isset($this->pageTitle)) {
@@ -53,7 +53,7 @@ class WikiPage extends Page {
 		if (!isset($this->pageTitle)) {
 			$this->write404();
 		} else {
-			
+
 			startBox('<h1>'.htmlspecialchars($this->pageTitle).'</h1>');
 			echo $this->wiki->render();
 			endBox();
@@ -80,11 +80,11 @@ class WikiPage extends Page {
 		}
 
 		$categories = $this->wiki->getCategories();
-		
+
 		echo '<!-- Categories: ';
 		var_dump($categories);
 		echo '-->';
-		
+
 		if (in_array('Stendhal_Quest', $categories)) {
 			if ($_REQUEST["title"] == '/quest.html') {
 				return array('World Guide', '/world.html', 'Quest', '/quest.html');

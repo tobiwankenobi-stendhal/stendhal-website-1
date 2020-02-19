@@ -19,7 +19,7 @@
 class BalancePage extends Page {
 
 	public function writeHttpHeader() {
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['view_documents'] != '1')) {
 			header('HTTP/1.1 403 Forbidden');
 		}
@@ -40,7 +40,7 @@ class BalancePage extends Page {
 			endBox();
 			return;
 		}
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 		|| ($_SESSION['accountPermissions']['view_documents'] != '1')) {
 			startBox(t('Balance'));
 			echo '<p>'.t('You are missing the required permission for this action.').'</p>';

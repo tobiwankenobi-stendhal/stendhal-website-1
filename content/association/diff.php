@@ -19,7 +19,7 @@
 class DiffPage extends Page {
 
 	public function writeHttpHeader() {
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['view_history'] != '1')) {
 			header('HTTP/1.1 403 Forbidden');
 		}
@@ -54,7 +54,7 @@ ins {
 			endBox();
 			return;
 		}
-		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions']) 
+		if (!isset($_SESSION) || !isset($_SESSION['accountPermissions'])
 			|| ($_SESSION['accountPermissions']['view_history'] != '1')) {
 			startBox(t('Diff'));
 			echo '<p>'.t('You are missing the required permission for this action.').'</p>';
@@ -93,7 +93,7 @@ ins {
 		require_once 'lib/finediff/finediff.php';
 		$opcodes = FineDiff::getDiffOpcodes($oldText, $new->content, FineDiff::wordDelimiters);
 		$diff = FineDiff::renderDiffToHTMLFromOpcodes($old->content, $opcodes);
-		echo str_replace('&lt;br&gt;', '<br>', str_replace('&lt;/p&gt;', '', str_replace('&lt;p&gt;', '<br>', $diff))); 
+		echo str_replace('&lt;br&gt;', '<br>', str_replace('&lt;/p&gt;', '', str_replace('&lt;p&gt;', '<br>', $diff)));
 		endBox();
 	}
 }

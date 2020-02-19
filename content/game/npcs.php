@@ -26,7 +26,7 @@ class NPCsPage extends Page {
 	function writeContent() {
 $npcs=NPC::getNPCs();
 ?>
- 
+
 <div style="float: left; width: 100%"><?php
 
 startBox('<h1>NPCs</h1>');
@@ -42,7 +42,7 @@ startBox('<h1>NPCs</h1>');
 </div>
 
 <div class="cards">
-<?php 
+<?php
 
 foreach($npcs as $npc) {
 	echo '<div class="npc"><a class="npc" href="'.rewriteURL('/npc/'.surlencode($npc->name).'.html').'">';

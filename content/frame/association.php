@@ -165,13 +165,13 @@ body {
 	#contentArea {
 		margin: 0;
 	}
-	a:after, a:link:after  { 
+	a:after, a:link:after  {
 		color: #000000;
-		background-color:transparent; 
+		background-color:transparent;
 		content: " [" attr(href) "] ";
 	}
 	a:visited:after {
-		color:#000000; 
+		color:#000000;
 		background-color:transparent;
 		content: " [Link " attr(href) "] ";
 	}
@@ -201,12 +201,12 @@ body {
 
 	<div id="leftArea">
 		<div id="header">
-		<?php 
+		<?php
 			$websiteRoot = STENDHAL_FOLDER.rewriteURL('/'.$lang.'/start.html');
 			if (
 					( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ||
 						(strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'de') !== 0)
-					) 
+					)
 					&& ($lang == 'en')) {
 				$websiteRoot = STENDHAL_FOLDER.'/';
 			}
@@ -214,7 +214,7 @@ body {
 			echo '<img style="border: 0;" src="'.STENDHAL_FOLDER.'/images/association/logo.png" alt=""></a>';
 		?>
 		</div>
-	<?php 
+	<?php
 		startBox(t('Association'));
 		echo '<ul id="associationmenu" class="menu">';
 			echo '<li><a id="menuAssociationAbout" href="'.rewriteURL('/'.$lang.'/about.html').'">'.t('Faiumoni e. V.').'</a></li>'."\n";
@@ -274,7 +274,7 @@ body {
 </body>
 </html>
 
-<?php 
+<?php
 	}
 }
 $frame = new AssociationFrame();

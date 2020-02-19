@@ -121,7 +121,7 @@ class CreateAccountPage extends Page {
 <input id="serverpath" name="serverpath" type="hidden" value="<?php echo STENDHAL_FOLDER;?>">
 <input name="submit" style="margin-top: 2em" type="submit" value="Create Account">
 </form>
-<?php 
+<?php
 
 endBox();
 
@@ -154,11 +154,11 @@ startBox("<h2>External Account</h2>");
 			</td>
 		</tr></tbody>
 		</table>
-		<?php 
+		<?php
 		if (isset($_REQUEST['url'])) {
 			echo '<input type="hidden" name="url" value="'.htmlspecialchars($_REQUEST['url']).'">';
 		}
-	
+
 		if (isset($this->openid->error)) {
 			echo '<div class="error">'.htmlspecialchars($this->openid->error).'</div>';
 		}
@@ -173,18 +173,18 @@ startBox("<h2>External Account</h2>");
 <br>
 <?php startBox("<h2>Logging and privacy</h2>");?>
 <p>
-<font size="-1">On login information which identifies your computer on the internet will be 
-logged to prevent abuse (like many attempts to guess a password in order to
-hack an account or creation of many accounts to cause trouble).</font></p>
+<font size="-1">On login information which identifies your computer on the internet will be
+ logged to prevent abuse (like many attempts to guess a password in order to
+ hack an account or creation of many accounts to cause trouble).</font></p>
 
 <p><font size="-1">
-Furthermore all events and actions that happen within the game-world 
-(like solving quests, attacking monsters) are logged. This information is 
-used to analyse bugs and in rare cases for abuse handling.</font></p>
-<?php 
+Furthermore all events and actions that happen within the game-world
+ (like solving quests, attacking monsters) are logged. This information is
+ used to analyse bugs and in rare cases for abuse handling.</font></p>
+<?php
 		endBox();
 	}
-	
+
 }
 
 $page = new CreateAccountPage();

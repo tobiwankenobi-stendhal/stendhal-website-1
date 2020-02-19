@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 class DownloadPage extends Page {
 	public function writeHtmlHeader() {
 		echo '<title>Downloads'.STENDHAL_TITLE.'</title>';
 		echo '<meta name="robots" content="noindex">'."\n";
 	}
-	
+
 	function writeContent() {
 		startBox("<h1>Download</h1>");
 		echo '<p>Stendhal is completely open source. Both client and server are licensed under the GNU General Public License.</p>';
 		endBox();
-		
+
 		startBox('<h2>For players</h2>');
 		echo '<p>You most likely want this download:</p>';
 		echo '<ul>';

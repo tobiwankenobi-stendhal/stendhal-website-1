@@ -57,9 +57,9 @@ class DefaultFrame extends PageFrame {
 
 	<div id="leftArea">
 
-		<?php 
+		<?php
 		startBox('Game System');
-			echo '<ul id="gamemenu" class="menu">'; 
+			echo '<ul id="gamemenu" class="menu">';
 			echo '<li><a id="menuAtlas" href="https://stendhalgame.org/wiki/StendhalAtlas">Atlas</a></li>'."\n";
 			echo '</ul>';
 		endBox();
@@ -85,15 +85,15 @@ class DefaultFrame extends PageFrame {
 	</div>
 
 	<div id="contentArea">
-	
-	
+
+
 		<?php
-		
+
 			startBox('Setup instructions.');
 			echo '<p> This is the default navigation frame.</p><p>You can create your own file in content/frame and specify it in the STENDHAL_FRAME variable in configuration.php.</p>';
 			endBox();
-		
-		
+
+
 			// The central area of the website.
 			$page->writeContent();
 		?>

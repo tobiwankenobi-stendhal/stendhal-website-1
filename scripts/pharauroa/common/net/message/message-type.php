@@ -1,4 +1,4 @@
-<?php 
+<?php
 	class PharauroaMessageType {
 		const C2S_ACTION = 0;
 		const C2S_CHOOSECHARACTER = 1;

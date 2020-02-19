@@ -41,7 +41,7 @@ class Player {
   public $money;
   /* Equipment the player has in slots in a array slot=>item */
   public $equipment;
-  
+
   /* When was this player last seen */
   public $lastseen;
 
@@ -129,7 +129,7 @@ class Player {
 	$stmt = DB::game()->query($sql);
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();
-	
+
     $account["register"]=$row["timedate"];
     $account["status"]=$row["status"];
     $account["charstatus"]=$row["charstatus"];

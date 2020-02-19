@@ -81,7 +81,7 @@ class News {
 			$heading .= '<h1>'.$this->title.'</h1>';
 		}
 		$heading .= '</div>';
-		
+
 		startBox($heading);
 
 		// image for type of news and social network buttons
@@ -111,7 +111,7 @@ class News {
 		if ($detail) {
 			echo '<div class="newsContent newsDetail">'.$this->detailedDescription.'</div>';
 		}
-		
+
 		endBox();
 		/* END NOTE */
 	}
@@ -130,7 +130,7 @@ class News {
 
 	/**
 	 * Creates a button for posting tweets about this message
-	 * 
+	 *
 	 * @return string the html code for a fitting tweet button
 	 */
 	function renderTweetButton() {
@@ -141,20 +141,20 @@ class News {
 		$urlLength = strlen($url);
 		$titleLength = strlen($this->title);
 		$tagLength = strlen($tag);
-		
+
 		$message = '';
 		if($urlLength < 141) {
 			$message = $message.$url;
 		}
-		
+
 		if(strlen($message) + $titleLength < 141) {
 		    $message = $message.' '.urlencode($this->title);
 		}
-		
+
 		if(strlen($message) + $tagLength < 141) {
 			$message = $message.' '.$tag;
 		}
-		
+
 		$res = '<a href="http://twitter.com/home?status=';
 		$res = $res.$message;
 		$res = $res.'" target="_blank" title="Twitter">';
@@ -162,10 +162,10 @@ class News {
 		$res = $res.'</a>';
 		return $res;
 	}
-	
+
 	/**
 	 * Creates a button for sharing this news on facebook
-	 * 
+	 *
 	 * @return string the html code for a fitting share button
 	 */
 	function renderFacebookButton() {
@@ -178,7 +178,7 @@ class News {
 		$res = $res.'</a>';
 		return $res;
 	}
-	
+
 };
 
 
@@ -191,13 +191,13 @@ function getNews($where='', $sortby='created desc', $cond='limit 3') {
 		.'news.shortDescription As shortDescription, '
 		.'news.extendedDescription As extendedDescription, '
 		.'news.detailedDescription As detailedDescription, news.active As active, '
-		.'news_type.id As type_id, news_type.title As type_title, news_type.image_url As image_url, ' 
+		.'news_type.id As type_id, news_type.title As type_title, news_type.image_url As image_url, '
 		.'news.updateCount As updateCount '
 		.'FROM news LEFT JOIN news_type ON news.news_type_id=news_type.id '.$where.' order by '.$sortby.' '.$cond;
 
 	$result = DB::web()->query($sql);
 	$list=array();
-	
+
 	foreach($result as $row) {
 		$images=array();
 
@@ -273,7 +273,7 @@ function updateNews($id, $title, $oneline, $body, $images, $details, $type, $inc
 	} catch(PDOException $e) {
 		echo '<span class="error">There has been a problem while updating news</span>';
 		error_log('ERROR updateNews: ' . $e->getMessage());
-	}	
+	}
 }
 
 /**

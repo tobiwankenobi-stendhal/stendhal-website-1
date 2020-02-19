@@ -114,11 +114,11 @@ $account=$choosen->getAccountInfo();
 <?php
 foreach($choosen->equipment as $slot=>$content) {
 	$old = array("head", "armor", "lhand", "rhand", "legs", "feet", "cloak", "finger");
-	$new = array("head", "armor", "left hand", "right hand", "legs", "feet", "cloak", "finger"); 
+	$new = array("head", "armor", "left hand", "right hand", "legs", "feet", "cloak", "finger");
 
 	?>
 	<div class="equiprow <?php echo $slot;?>">
-	<?php 
+	<?php
 	if($content!="") {
 		$item = getItem($content);
 		if (isset($item)) {
@@ -167,7 +167,7 @@ foreach($choosen->equipment as $slot=>$content) {
 
 </div>
 
-<?php 
+<?php
 	if(STENDHAL_ACHIEVEMENTS && $choosen->adminlevel < 600) {
 		$this->renderAchievements();
 	}
@@ -193,7 +193,7 @@ foreach($choosen->equipment as $slot=>$content) {
 				if($monster->name==$source) {
 			?>
 	<div class="row">
-		<?php 
+		<?php
 		$monster->showImageWithPopup();
 		?>
 		Killed by <?php echo a_an($monster->name) ?> <span class="label"><?php echo htmlspecialchars($monster->name); ?></span>
