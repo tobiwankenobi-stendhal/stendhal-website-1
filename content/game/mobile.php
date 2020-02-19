@@ -33,7 +33,7 @@ class MobilePage extends Page {
 		MobilePage::$items = getItems();
 		MobilePage::$classes = Item::getClasses();
 		MobilePage::$creatures = getMonsters();
-		
+
 		$this->writeHeader();
 		$this->writeMobileContent();
 		$this->writeFooter();
@@ -120,7 +120,7 @@ class MobilePage extends Page {
 			.'<a href="#page-creature-'.htmlspecialchars($creature->name).'">'
 			.htmlspecialchars(ucfirst($creature->name)).'</a></li>';
 		}
-	
+
 		echo '</ul></div></div>';
 	}
 
@@ -192,7 +192,7 @@ class MobilePage extends Page {
 
 		<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="false">
-		<?php 
+		<?php
 		foreach (MobilePage::$classes as $class => $temp) {
 			echo '<li><a href="#page-itemclass-'.htmlspecialchars($class).'">';
 
@@ -206,7 +206,7 @@ class MobilePage extends Page {
 			if ($icon) {
 				echo '<span class="tileset-itemicon itemicon-'.str_replace('/', '-', substr($icon, 13, -4)).'"></span>';
 			}
-				
+
 			echo htmlspecialchars(ucfirst($class)).'</a></li>';
 		}
 		?>
