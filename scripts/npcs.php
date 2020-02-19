@@ -35,7 +35,7 @@ class NPC {
 	public $description;
 	public $job;
 	public $altimage;
- 
+
 	function __construct($name, $title, $class, $outfit, $level, $hp, $base_hp, $zone, $pos, $x, $y, $description, $job, $altimage) {
 		$this->name=$name;
 		$this->title=$title;
@@ -66,7 +66,7 @@ class NPC {
 	 */
 	static function getNPC($name) {
 		$npcs = NPC::_getNPCs('select * from npcs where name="'.mysql_real_escape_string($name).'" limit 1');
-		return $npcs[0];	
+		return $npcs[0];
 	}
 
 
@@ -84,7 +84,7 @@ class NPC {
 			'Azazel', 'Cherubiel', 'Gabriel', 'Ophaniel', 'Raphael', 'Uriel', 'Zophiel',
 			'Ben', 'Goran', 'Mary', 'Zak',
 			'Easter Bunny', 'Rose Leigh', 'Santa',
-			'Amber', 'Skye', 
+			'Amber', 'Skye',
 			'Red Crystal', 'Purple Crystal', 'Yellow Crystal', 'Pink Crystal', 'Blue Crystal');
 
 		$result = DB::game()->query($query);
