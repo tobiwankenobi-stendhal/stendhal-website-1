@@ -42,15 +42,15 @@ $.fn.extend({
 	height: function() {
 		if ( this[0] == window )
 			return self.innerHeight ||
-				$.boxModel && document.documentElement.clientHeight || 
+				$.boxModel && document.documentElement.clientHeight ||
 				document.body.clientHeight;
-		
+
 		if ( this[0] == document )
 			return Math.max( document.body.scrollHeight, document.body.offsetHeight );
-		
+
 		return height.apply(this, arguments);
 	},
-	
+
 	/**
 	 * If used on document, returns the document's width (innerWidth)
 	 * If used on window, returns the viewport's (window) width
@@ -80,7 +80,7 @@ $.fn.extend({
 
 		return width.apply(this, arguments);
 	},
-	
+
 	/**
 	 * Returns the inner height value (without border) for the first matched element.
 	 * If used on document, returns the document's height (innerHeight)
@@ -100,7 +100,7 @@ $.fn.extend({
 				this[0].offsetHeight - num(this, 'borderTopWidth') - num(this, 'borderBottomWidth') :
 				this.height() + num(this, 'paddingTop') + num(this, 'paddingBottom');
 	},
-	
+
 	/**
 	 * Returns the inner width value (without border) for the first matched element.
 	 * If used on document, returns the document's Width (innerWidth)
@@ -120,7 +120,7 @@ $.fn.extend({
 				this[0].offsetWidth - num(this, 'borderLeftWidth') - num(this, 'borderRightWidth') :
 				this.width() + num(this, 'paddingLeft') + num(this, 'paddingRight');
 	},
-	
+
 	/**
 	 * Returns the outer height value (including border) for the first matched element.
 	 * Cannot be used on document or window.
@@ -139,7 +139,7 @@ $.fn.extend({
 				this[0].offsetHeight :
 				this.height() + num(this,'borderTopWidth') + num(this, 'borderBottomWidth') + num(this, 'paddingTop') + num(this, 'paddingBottom');
 	},
-	
+
 	/**
 	 * Returns the outer width value (including border) for the first matched element.
 	 * Cannot be used on document or window.
@@ -158,7 +158,7 @@ $.fn.extend({
 				this[0].offsetWidth :
 				this.width() + num(this, 'borderLeftWidth') + num(this, 'borderRightWidth') + num(this, 'paddingLeft') + num(this, 'paddingRight');
 	},
-	
+
 	/**
 	 * Returns how many pixels the user has scrolled to the right (scrollLeft).
 	 * Works on containers with overflow: auto and window/document.
@@ -191,16 +191,16 @@ $.fn.extend({
 				else
 					this.scrollLeft = val;
 			});
-		
+
 		// return the scroll left offest in pixels
 		if ( this[0] == window || this[0] == document )
 			return self.pageXOffset ||
 				$.boxModel && document.documentElement.scrollLeft ||
 				document.body.scrollLeft;
-				
+
 		return this[0].scrollLeft;
 	},
-	
+
 	/**
 	 * Returns how many pixels the user has scrolled to the bottom (scrollTop).
 	 * Works on containers with overflow: auto and window/document.
@@ -233,7 +233,7 @@ $.fn.extend({
 				else
 					this.scrollTop = val;
 			});
-		
+
 		// return the scroll top offset in pixels
 		if ( this[0] == window || this[0] == document )
 			return self.pageYOffset ||
@@ -242,15 +242,15 @@ $.fn.extend({
 
 		return this[0].scrollTop;
 	},
-	
-	/** 
+
+	/**
 	 * Returns the top and left positioned offset in pixels.
 	 * The positioned offset is the offset between a positioned
 	 * parent and the element itself.
 	 *
 	 * @example $("#testdiv").position()
 	 * @result { top: 100, left: 100 }
-	 * 
+	 *
 	 * @name position
 	 * @param Map options Optional settings to configure the way the offset is calculated.
 	 * @option Boolean margin Should the margin of the element be included in the calculations? False by default.
@@ -265,10 +265,10 @@ $.fn.extend({
 		var elem = this[0], parent = elem.parentNode, op = elem.offsetParent,
 		    options = $.extend({ margin: false, border: false, padding: false, scroll: false }, options || {}),
 			x = elem.offsetLeft,
-			y = elem.offsetTop, 
-			sl = elem.scrollLeft, 
+			y = elem.offsetTop,
+			sl = elem.scrollLeft,
 			st = elem.scrollTop;
-			
+
 		// Mozilla and IE do not add the border
 		if ($.browser.mozilla || $.browser.msie) {
 			// add borders to offset
@@ -287,18 +287,18 @@ $.fn.extend({
 				if (parent == op) break; // break if we are already at the offestParent
 			} while ((parent = parent.parentNode) && (parent.tagName.toLowerCase() != 'body' || parent.tagName.toLowerCase() != 'html'));
 		}
-		
+
 		var returnValue = handleOffsetReturn(elem, options, x, y, sl, st);
-		
+
 		if (returnObject) { $.extend(returnObject, returnValue); return this; }
 		else              { return returnValue; }
 	},
-	
+
 	/**
 	 * Returns the location of the element in pixels from the top left corner of the viewport.
 	 *
 	 * For accurate readings make sure to use pixel values for margins, borders and padding.
-	 * 
+	 *
 	 * Known issues:
 	 *  - Issue: A div positioned relative or static without any content before it and its parent will report an offsetTop of 0 in Safari
 	 *    Workaround: Place content before the relative div ... and set height and width to 0 and overflow to hidden
@@ -320,7 +320,7 @@ $.fn.extend({
 	 * @option Boolean padding Should the padding of the element be included in the calculations? False by default.
 	 * @option Boolean scroll Should the scroll offsets of the parent elements be included in the calculations? True by default.
 	 *                        When true it adds the totla scroll offets of all parents to the total offset and also adds two properties
-	 *                        to the returned object, scrollTop and scrollLeft. 
+	 *                        to the returned object, scrollTop and scrollLeft.
 	 * @options Boolean lite Will use offsetLite instead of offset when set to true. False by default.
 	 * @param Object returnObject An object to store the return value in, so as not to break the chain. If passed in the
 	 *                            chain will not be broken and the result will be assigned to this object.
@@ -331,12 +331,12 @@ $.fn.extend({
 		var x = 0, y = 0, sl = 0, st = 0,
 		    elem = this[0], parent = this[0], op, parPos, elemPos = $.css(elem, 'position'),
 		    mo = $.browser.mozilla, ie = $.browser.msie, sf = $.browser.safari, oa = $.browser.opera,
-		    absparent = false, relparent = false, 
+		    absparent = false, relparent = false,
 		    options = $.extend({ margin: true, border: false, padding: false, scroll: true, lite: false }, options || {});
-		
+
 		// Use offsetLite if lite option is true
 		if (options.lite) return this.offsetLite(options, returnObject);
-		
+
 		if (elem.tagName.toLowerCase() == 'body') {
 			// Safari is the only one to get offsetLeft and offsetTop properties of the body "correct"
 			// Except they all mess up when the body is positioned absolute or relative
@@ -360,7 +360,7 @@ $.fn.extend({
 		} else {
 			do {
 				parPos = $.css(parent, 'position');
-			
+
 				x += parent.offsetLeft;
 				y += parent.offsetTop;
 
@@ -384,13 +384,13 @@ $.fn.extend({
 							sl += parent.scrollLeft;
 							st += parent.scrollTop;
 						}
-				
+
 						// Mozilla does not add the border for a parent that has overflow set to anything but visible
 						if (mo && parent != elem && $.css(parent, 'overflow') != 'visible') {
 							x += num(parent, 'borderLeftWidth');
 							y += num(parent, 'borderTopWidth');
 						}
-				
+
 						parent = parent.parentNode;
 					} while (parent != op);
 				}
@@ -404,7 +404,7 @@ $.fn.extend({
 					}
 					// Mozilla does not include the border on body if an element isn't positioned absolute and is without an absolute parent
 					// IE does not include the border on the body if an element is positioned static and without an absolute or relative parent
-					if ( (mo && !absparent && elemPos != 'fixed') || 
+					if ( (mo && !absparent && elemPos != 'fixed') ||
 					     (ie && elemPos == 'static' && !relparent) ) {
 						x += num(parent, 'borderLeftWidth');
 						y += num(parent, 'borderTopWidth');
@@ -419,7 +419,7 @@ $.fn.extend({
 		if (returnObject) { $.extend(returnObject, returnValue); return this; }
 		else              { return returnValue; }
 	},
-	
+
 	/**
 	 * Returns the location of the element in pixels from the top left corner of the viewport.
 	 * This method is much faster than offset but not as accurate. This method can be invoked
@@ -432,16 +432,16 @@ $.fn.extend({
 	 * @option Boolean padding Should the padding of the element be included in the calculations? False by default.
 	 * @option Boolean scroll Should the scroll offsets of the parent elements be included in the calculations? True by default.
 	 *                        When true it adds the totla scroll offets of all parents to the total offset and also adds two properties
-	 *                        to the returned object, scrollTop and scrollLeft. 
+	 *                        to the returned object, scrollTop and scrollLeft.
 	 * @param Object returnObject An object to store the return value in, so as not to break the chain. If passed in the
 	 *                            chain will not be broken and the result will be assigned to this object.
 	 * @type Object
 	 * @cat Plugins/Dimensions
 	 */
 	offsetLite: function(options, returnObject) {
-		var x = 0, y = 0, sl = 0, st = 0, parent = this[0], op, 
+		var x = 0, y = 0, sl = 0, st = 0, parent = this[0], op,
 		    options = $.extend({ margin: true, border: false, padding: false, scroll: true }, options || {});
-				
+
 		do {
 			x += parent.offsetLeft;
 			y += parent.offsetTop;
@@ -496,7 +496,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
 		x += num(elem, 'paddingLeft');
 		y += num(elem, 'paddingTop');
 	}
-	
+
 	// do not include scroll offset on the element
 	if ( options.scroll ) {
 		sl -= elem.scrollLeft;
@@ -519,7 +519,7 @@ var handleOffsetReturn = function(elem, options, x, y, sl, st) {
  * Copyright (c) 2006 - 2008 Jörn Zaefferer
  *
  * $Id: script.js,v 1.4 2014/01/10 18:07:06 nhnb Exp $
- * 
+ *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
@@ -671,7 +671,7 @@ var openid = {
 			}
 		}
 
-		$('.openidlink').click(function(event) { 
+		$('.openidlink').click(function(event) {
 			openid.signin($(this).attr("data-openid"));
 			event.preventDefault();
 		});
@@ -872,7 +872,7 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 						})
 						.addTo(map)
 						.bindPopup("<div style=\"max-width:400px\"><b><a target=\"_blank\" href=\""
-							 + poi.url + "\">" 
+							 + poi.url + "\">"
 							 + poi.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
 							 + "</a></b><p>" + poi.description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
 							 + " » " + "<a target=\"_blank\" href=\"" + poi.url + "\">details</a></p></div>");
@@ -935,7 +935,7 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 			} else {
 				color = "#A000A0"
 			}
-			    L.rectangle([worldToLatLng(map, [parseInt(zones[key]["x"], 10) + 1, parseInt(zones[key]["y"], 10) + 1]),  
+			    L.rectangle([worldToLatLng(map, [parseInt(zones[key]["x"], 10) + 1, parseInt(zones[key]["y"], 10) + 1]),
 			             worldToLatLng(map, [parseInt(zones[key]["x"], 10) + parseInt(zones[key]["width"], 10) - 2, parseInt(zones[key]["y"], 10) + parseInt(zones[key]["height"], 10) - 2])],
 			             {color: color, weight: 2, fill: false, opacity: 1}).addTo(map);
 		}
@@ -954,7 +954,7 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
 
 		addActivePOIs(map);
 		addMe(map);
-		
+
 		// addZoneDanger(map);
 
 		// zone labels
@@ -991,10 +991,10 @@ o.DomUtil.addClass(t,"leaflet-vml-shape"),this.options.clickable&&o.DomUtil.addC
  * Simple and fancy lightbox alternative
  *
  * Examples and documentation at: http://fancybox.net
- * 
+ *
  * Copyright (c) 2008 - 2010 Janis Skarnelis
  * That said, it is hardly a one-person project. Many people have submitted bugs, code, and offered their advice freely. Their support is greatly appreciated.
- * 
+ *
  * Version: 1.3.4 (11/11/2010)
  * Requires: jQuery v1.3+
  *
@@ -1285,7 +1285,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			createCharacterMinLengthOnceReached = true;
 			return true;
 		}
-		
+
 		if (createCharacterMinLengthOnceReached) {
 			document.getElementById("warn").innerHTML = "Must be at least 6 letters.";
 		}
@@ -1401,7 +1401,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 				window.attachEvent( 'onbeforeunload', beforeUnload );
 			}*/
 		}
-	
+
 	}
 
 
@@ -1412,31 +1412,31 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 
 	// http://yensdesign.com/2008/09/how-to-create-a-stunning-and-smooth-popup-using-jquery/
 
-	var popupStatus = 0;  
+	var popupStatus = 0;
 
 	function loadPopup(e) {
 		if (popupStatus == 0) {
-			var popupHeight = $("#popup").height();  
-			var popupWidth = $("#popup").width();  
+			var popupHeight = $("#popup").height();
+			var popupWidth = $("#popup").width();
 			$("#popup").css({
 				"position": "absolute",
-				"top": e.offset().top - popupHeight / 2,  
-				"left": e.offset().left - popupWidth / 2  
+				"top": e.offset().top - popupHeight / 2,
+				"left": e.offset().left - popupWidth / 2
 			});
-			$("#backgroundPopup").css({  
+			$("#backgroundPopup").css({
 				"height": document.documentElement.clientHeight
 			});
 
-			$("#backgroundPopup").css({"opacity": "0.7"});  
+			$("#backgroundPopup").css({"opacity": "0.7"});
 			$("#backgroundPopup").fadeIn("slow");
 			$("#popup").fadeIn("slow");
 			popupStatus = 1;
 		}
 	}
 
-	function disablePopup() {  
-		if (popupStatus == 1) {  
-			$("#backgroundPopup").fadeOut("slow");  
+	function disablePopup() {
+		if (popupStatus == 1) {
+			$("#backgroundPopup").fadeOut("slow");
 			$("#popup").fadeOut("slow");
 			popupStatus = 0;
 		}
@@ -1463,17 +1463,17 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 		$(".socialmedia").click(function () {
 			popupHandler($(this));
 			loadPopup($(this));
-		});  
+		});
 		$("#popupClose").click(function () {
 			disablePopup();
-		});  
-		$("#backgroundPopup").click(function () {  
+		});
+		$("#backgroundPopup").click(function () {
 			disablePopup();
-		});  
-		$(document).keypress(function (e) {  
-			if(e.keyCode==27 && popupStatus==1) {  
-				disablePopup();  
-			}  
+		});
+		$(document).keypress(function (e) {
+			if(e.keyCode==27 && popupStatus==1) {
+				disablePopup();
+			}
 		});
 	}
 
@@ -1504,8 +1504,8 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 	}
 
 	function initPush() {
-		if ('serviceWorker' in navigator) {  
-			navigator.serviceWorker.register('/service-worker.js').then(initialisePushState);  
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('/service-worker.js').then(initialisePushState);
 		} else {
 			$("#pushNotificationBox").text("Stendhal can send push notification when you receive an offline message. But your browser does not support push notifications, yet. Please use Chrome on Android for example.");
 		}
@@ -1542,7 +1542,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 						var serverpath = document.getElementById("serverpath").value;
 						$.post(serverpath + "/index.php?id=content/scripts/api"
 								+ "&method=pushnotification&param=check"
-								+ "&csrf=" + $("#csrf").val(), {subscriptionId: endpointWorkaround(subscription)}, 
+								+ "&csrf=" + $("#csrf").val(), {subscriptionId: endpointWorkaround(subscription)},
 								function(data) {
 									renderSubscribeButton(!data.remaining);
 								});
@@ -1559,7 +1559,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			console.warn('Error during serviceWorker.ready', err);
 		});
 	}
-	
+
 	function renderSubscribeButton(subscribe) {
 		if (subscribe) {
 			$("#pushNotificationBox").html("<button id=\"pushNotificationButton\">Subscribe</button>");
@@ -1673,7 +1673,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			$('#createAccountForm #name').blur(function () {
 				return createAccountBlurName(this);
 			});
-	
+
 			$('#createAccountForm #pw').change(function () {
 				return createAccountValidateMinLengthOk(this);
 			});
@@ -1708,8 +1708,8 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			e.preventDefault();
 		});
 
-		$('.overliblink').tooltip({ 
-			bodyHandler: function () { 
+		$('.overliblink').tooltip({
+			bodyHandler: function () {
 				return $(this).attr("data-popup");
 			},
 			showURL: false,
@@ -1765,7 +1765,7 @@ easingOut:"swing",showCloseButton:true,showNavArrows:true,enableEscapeButton:tru
 			audio.currentTime = 0;
 		}
 	});
-	
+
 	if (document.getElementById("pushNotificationBox") != null) {
 		initPush();
 	}

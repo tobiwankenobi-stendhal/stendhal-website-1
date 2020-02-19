@@ -219,7 +219,7 @@ if(o3_status!="")return true;else if(!(OLop7&&event&&event.type=='mouseover'))re
 // Loads o3_ variables
 function OLload(c){var i,m=c.split(',');for(i=0;i<m.length;i++)eval('o3_'+m[i]+'=ol_'+m[i]);}
 
-// Chooses LGF 
+// Chooses LGF
 function OLdoLGF(){
 return (o3_background!=''||o3_fullhtml)?OLcontentBackground(o3_text,o3_background,o3_fullhtml):
 (o3_cap=="")?OLcontentSimple(o3_text):
@@ -476,7 +476,7 @@ function OLpageLoc(o,t){
 var l=0;while(o.offsetParent&&o.offsetParent.tagName.toLowerCase()!='html'){
 l+=o['offset'+t];o=o.offsetParent;}l+=o['offset'+t];
 return l;
-} 
+}
 
 // Moves layer
 function OLmouseMove(e){
@@ -693,4 +693,3 @@ else OLcmdLine[OLcmdLine.length++]=f;
 }
 
 OLloaded=1;
-
