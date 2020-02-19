@@ -72,4 +72,3 @@
 
 	<target name="build" depends="clean,prepare, phpdoc, pdepend, phpunit, phpcs" />
 </project>
-

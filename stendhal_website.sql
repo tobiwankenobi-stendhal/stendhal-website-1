@@ -4,7 +4,7 @@ create table screenshots (
   description text,
   created timestamp default CURRENT_TIMESTAMP,
   approved boolean default false,
-  
+
   primary key(id)
 );
 
@@ -16,7 +16,7 @@ create table movies (
   description text,
   created timestamp default CURRENT_TIMESTAMP,
   approved boolean default false,
-  
+
   primary key(id)
 );
 
@@ -25,7 +25,7 @@ create table movies (
 create table news (
   id int auto_increment not null,
   title varchar(256),
-  shortDescription varchar(256), 
+  shortDescription varchar(256),
   extendedDescription text,
   detailedDescription text,
   active int default 1,
@@ -60,16 +60,16 @@ create table news_images (
   url varchar(256),
   description text,
   created timestamp default CURRENT_TIMESTAMP,
-  
+
   primary key(id, news_id)
 );
 
 create table remind_password (
   username varchar(32) not null,
   confirmhash varchar(32) not null,
-  
+
   requested timestamp default CURRENT_TIMESTAMP,
-  
+
   primary key(username, confirmhash)
 );
 
