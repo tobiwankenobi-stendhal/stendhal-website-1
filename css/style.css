@@ -83,7 +83,7 @@ body {
 }
 
 #headersearchform div {
-	background-color:#FFF; 
+	background-color:#FFF;
 	border: 1px solid #AAA;
 	padding: 0.2em;
 	border-radius: 5px;
@@ -91,7 +91,7 @@ body {
 }
 
 #headersearchform button {
-	background-color:#FFF; 
+	background-color:#FFF;
 	border: none;
 }
 
@@ -233,7 +233,7 @@ img.screenshot {
 	padding: 0.3em;
 }
 
-.prettytable th { 
+.prettytable th {
 	background: #DDD;
 }
 
@@ -312,7 +312,7 @@ img.screenshot {
 
 .small_notice {
 	font-size: 10px;
-	padding: 4px;	
+	padding: 4px;
 }
 
 .small_notice a {
@@ -352,7 +352,7 @@ img.screenshot {
 	border: 1px black solid;
 	background-color: rgb(180, 180, 180);
 	padding: 2px 0 0 2px;
-	
+
 	clear: left;
 	font-family: "Courier New", Courier, "Liberation Mono", monospace;
 	font-size: 10px;
@@ -585,7 +585,7 @@ img.screenshot {
 /* Tabs for e.g. hall of fame */
 
 .activeTab {
-	padding: 0.5em; 
+	padding: 0.5em;
 	text-align: center;
 	background-color: transparent;
 	line-height: 0.95em;
@@ -597,8 +597,8 @@ img.screenshot {
 
 
 .activeTabA {
-	color: #000; 
-	text-decoration: none; 
+	color: #000;
+	text-decoration: none;
 	display: block
 }
 
@@ -613,18 +613,18 @@ img.screenshot {
 }
 
 .backgroundTabA {
-	color: #FFF; 
-	text-decoration: none; 
+	color: #FFF;
+	text-decoration: none;
 	display: block
 }
 
 .backgroundTabA:hover {
-	font-weight:bold; 
+	font-weight:bold;
 	text-decoration: underline
 }
 
 .barTab{
-	border-bottom: 2px solid #000; 
+	border-bottom: 2px solid #000;
 }
 
 .tabPageContent{
@@ -634,39 +634,39 @@ img.screenshot {
 
 /* popup */
 
-#backgroundPopup{  
-	display:none;  
-	position:fixed;  
-	_position:absolute; /* hack for internet explorer 6*/  
-	height:100%;  
-	width:100%;  
-	top:0;  
-	left:0;  
-	background:#000;  
-	z-index:1;  
-}  
-#popup{  
-	display:none;  
-	position:fixed;  
-	_position:absolute; /* hack for internet explorer 6*/  
-	width:410px;  
-	background:#FFF;  
-	border:2px solid #CCC;  
-	z-index:2;  
-	padding:12px;  
-	font-size:13px;
-	text-align: left;  
+#backgroundPopup{
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	background:#000;
+	z-index:1;
 }
-#popupClose{  
-	font-size:14px;  
-	line-height:14px;  
-	right:6px;  
-	top:4px;  
-	position:absolute;  
-	font-weight:700;  
+#popup{
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	width:410px;
+	background:#FFF;
+	border:2px solid #CCC;
+	z-index:2;
+	padding:12px;
+	font-size:13px;
+	text-align: left;
+}
+#popupClose{
+	font-size:14px;
+	line-height:14px;
+	right:6px;
+	top:4px;
+	position:absolute;
+	font-weight:700;
 	display:block;
-	cursor: default; 
-}  
+	cursor: default;
+}
 
 .socialmedia{
 	cursor: pointer;
@@ -682,12 +682,12 @@ img.screenshot {
 
 
 iframe#facebook {
-	background-image: url(/images/spinner.gif); 
-	background-repeat: no-repeat; 
+	background-image: url(/images/spinner.gif);
+	background-repeat: no-repeat;
 	background-position: center center;
 	border:none;
-	overflow:visible; 
-	width:400px; 
+	overflow:visible;
+	width:400px;
 	height:35px;
 }
 
@@ -1071,10 +1071,10 @@ nav ul li ul li a:hover{
  * Simple and fancy lightbox alternative
  *
  * Examples and documentation at: http://fancybox.net
- * 
+ *
  * Copyright (c) 2008 - 2010 Janis Skarnelis
  * That said, it is hardly a one-person project. Many people have submitted bugs, code, and offered their advice freely. Their support is greatly appreciated.
- * 
+ *
  * Version: 1.3.4 (11/11/2010)
  * Requires: jQuery v1.3+
  *
@@ -1289,7 +1289,7 @@ nav ul li ul li a:hover{
 	bottom: -20px;
 	right: -20px;
 	background-image: url('images/fancybox.png');
-	background-position: -40px -182px; 
+	background-position: -40px -182px;
 }
 
 #fancybox-bg-s {
@@ -1516,8 +1516,8 @@ dl {
 
 
 
-div.cards div.creature, div.cards div.npc, 
-div.cards div.item, div.cards div.f3cols, 
+div.cards div.creature, div.cards div.npc,
+div.cards div.item, div.cards div.f3cols,
 div.cards div.player, div.cards div.playerDetail {
 	border: 1px solid #000;
 	border-radius: 10px;
@@ -1574,7 +1574,7 @@ span.chatcell {
 }
 
 @media screen and (max-width: 500px), handheld {
-	#playArea, 
+	#playArea,
 	#downloadArea {display: none}
 }
 
@@ -1585,7 +1585,7 @@ span.chatcell {
 		word-wrap:break-word;
 		width:100%;
 	}
-	
+
 	div.chatrow {
 		display: block;
 		background-color: #DDD;
@@ -1597,7 +1597,7 @@ span.chatcell {
 	span.chatcell {
 		display: block
 	}
-	
+
 	.c1 {
 		width: auto;
 		float:left;

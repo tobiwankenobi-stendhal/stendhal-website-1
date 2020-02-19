@@ -1,4 +1,4 @@
-div.npc { 
+div.npc {
 	height: 114px;
 	min-height: 114px;
 	width: 75px;
@@ -23,4 +23,3 @@ div.npc_name {
 	font-size: 12px;
 	font-weight: bolder;
 }
-
