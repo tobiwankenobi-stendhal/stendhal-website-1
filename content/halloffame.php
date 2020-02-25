@@ -268,4 +268,3 @@ class HallOfFamePage extends Page {
 
 
 $page = new HallOfFamePage();
-?>

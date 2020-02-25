@@ -69,4 +69,3 @@ and with the (up to date!) TEST-client to the TEST-server
 	}
 }
 $page = new BugPage();
-?>

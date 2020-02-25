@@ -150,4 +150,3 @@ header('Content-Type: text/html; charset=utf-8')
 }
 // Close connection to databases.
 disconnect();
-?>

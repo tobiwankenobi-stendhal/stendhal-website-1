@@ -66,4 +66,3 @@ class BalancePage extends Page {
 	}
 }
 $page = new BalancePage();
-?>

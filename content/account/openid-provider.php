@@ -38,4 +38,3 @@ class OpenIDProviderPage extends Page {
 
 }
 $page = new OpenIDProviderPage();
-?>

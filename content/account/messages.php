@@ -178,4 +178,3 @@ class MessagesPage extends Page {
 
 }
 $page = new MessagesPage();
-?>

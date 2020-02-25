@@ -15,4 +15,3 @@ You can obtain more info and more detailed views at our Wiki at <a href="http://
 	}
 }
 $page = new AtlasPage();
-?>

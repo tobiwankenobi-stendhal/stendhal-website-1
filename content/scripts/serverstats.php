@@ -97,4 +97,3 @@ endBox();
 	}
 }
 $page = new ServerStatsPage();
-?>

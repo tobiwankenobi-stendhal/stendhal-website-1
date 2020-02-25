@@ -207,4 +207,3 @@ class InspectPage extends Page {
 }
 
 $page = new InspectPage();
-?>

@@ -24,4 +24,3 @@ class AllTests {
 		return $suite;
 	}
 }
-?>

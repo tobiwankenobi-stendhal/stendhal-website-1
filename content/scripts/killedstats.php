@@ -122,4 +122,3 @@ endBox();
 	}
 }
 $page = new KilledStatsPage();
-?>

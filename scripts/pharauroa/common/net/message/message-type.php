@@ -35,5 +35,3 @@
 		const P2S_CREATECHARACTER = 32;
 		const P2S_CREATEACCOUNT = 33;
 	}
-
-?>

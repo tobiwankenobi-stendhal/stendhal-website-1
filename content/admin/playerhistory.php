@@ -46,4 +46,3 @@ class AdminPlayerHistoryPage extends Page {
 	}
 }
 $page = new AdminPlayerHistoryPage();
-?>

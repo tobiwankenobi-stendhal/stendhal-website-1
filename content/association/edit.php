@@ -110,4 +110,3 @@ class EditPage extends Page {
 	}
 }
 $page = new EditPage();
-?>

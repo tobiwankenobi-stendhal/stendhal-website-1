@@ -24,4 +24,3 @@ class PharauroaInvalidVersionException extends Exception {
 		return $this->invalidVersion;
 	}
 }
-?>

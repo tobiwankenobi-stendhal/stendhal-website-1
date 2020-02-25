@@ -40,4 +40,3 @@ class CacheInfoPage extends Page {
 }
 
 $page = new CacheInfoPage();
-?>

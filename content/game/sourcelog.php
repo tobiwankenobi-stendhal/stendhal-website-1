@@ -168,4 +168,3 @@ for ($day = 1; $day <= 31; $day++) {
 	}
 }
 $page = new SourceLogPage();
-?>

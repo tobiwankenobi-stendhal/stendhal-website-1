@@ -92,4 +92,3 @@ class PharauroaClientFramework {
 		return $answer;
 	}
 }
-?>

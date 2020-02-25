@@ -124,4 +124,3 @@ for($i=0;$i<$columns;$i++) {
 
 header ("Content-type: image/png");
 imagepng($im);
-?>

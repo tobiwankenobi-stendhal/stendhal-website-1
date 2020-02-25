@@ -95,4 +95,3 @@ class LoginHistoryPage extends Page {
 
 }
 $page = new LoginHistoryPage();
-?>

@@ -43,4 +43,3 @@ class ScreenshotPage extends Page {
 	}
 }
 $page = new ScreenshotPage();
-?>

@@ -223,4 +223,3 @@ foreach($this->items as $m) {
 	}
 }
 $page = new ItemPage();
-?>

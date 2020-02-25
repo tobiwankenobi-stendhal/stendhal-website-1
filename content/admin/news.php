@@ -115,4 +115,3 @@ if ((isset($_REQUEST['action'])) && $_REQUEST['action']=='edit') {
 	}
 }
 $page = new AdminNewsPage();
-?>

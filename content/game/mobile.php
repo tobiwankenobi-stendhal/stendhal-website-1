@@ -309,4 +309,3 @@ class MobilePage extends Page {
 
 }
 $page = new MobilePage();
-?>

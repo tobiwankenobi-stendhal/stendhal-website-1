@@ -75,4 +75,3 @@ class AdminItemlogPage extends Page {
 	}
 }
 $page = new AdminItemlogPage();
-?>

@@ -187,5 +187,3 @@ function getItems() {
 	$cache->store('stendhal_items_classes', new ArrayObject(Item::$classes));
 	return $list;
 }
-
-?>

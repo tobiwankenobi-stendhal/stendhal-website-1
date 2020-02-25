@@ -133,4 +133,3 @@ endBox();
 	}
 }
 $page = new ChangePasswordPage();
-?>

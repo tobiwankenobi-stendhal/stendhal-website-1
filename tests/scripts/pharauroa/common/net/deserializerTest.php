@@ -201,4 +201,3 @@ class PharauroaDeserializerTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 }
-?>

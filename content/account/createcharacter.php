@@ -173,5 +173,3 @@ if (isset($_REQUEST['outfitcode'])) {
 }
 
 $page = new CreateCharacterPage();
-
-?>

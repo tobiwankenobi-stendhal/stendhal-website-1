@@ -104,4 +104,3 @@ class MainPage extends Page {
 	}
 }
 $page = new MainPage();
-?>

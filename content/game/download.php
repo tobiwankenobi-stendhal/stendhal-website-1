@@ -48,4 +48,3 @@ class DownloadPage extends Page {
 }
 
 $page = new DownloadPage();
-?>

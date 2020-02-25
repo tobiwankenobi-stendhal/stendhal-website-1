@@ -61,4 +61,3 @@ class GalleryPage extends Page {
 	}
 }
 $page = new GalleryPage();
-?>

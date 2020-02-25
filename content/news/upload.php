@@ -43,4 +43,3 @@ class UploadPage extends Page {
 	}
 }
 $page = new UploadPage();
-?>

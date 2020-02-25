@@ -27,4 +27,3 @@ class LogoutPage extends Page {
 	}
 }
 $page = new LogoutPage();
-?>

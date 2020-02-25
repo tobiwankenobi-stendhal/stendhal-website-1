@@ -134,4 +134,3 @@ class DocumentPage extends Page {
 }
 
 $page = new DocumentPage();
-?>

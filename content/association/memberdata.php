@@ -113,4 +113,3 @@ class MemberdataPage extends Page {
 	}
 }
 $page = new MemberdataPage();
-?>

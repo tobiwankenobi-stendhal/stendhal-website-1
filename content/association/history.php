@@ -81,4 +81,3 @@ class HistoryPage extends Page {
 	}
 }
 $page = new HistoryPage();
-?>

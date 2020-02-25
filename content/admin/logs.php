@@ -92,4 +92,3 @@ for ($i = 0; $i < count($lines); $i++) {
 	}
 }
 $page = new AdminLogsPage();
-?>

@@ -129,4 +129,3 @@ class EventsPage extends Page {
 }
 
 $page = new EventsPage();
-?>

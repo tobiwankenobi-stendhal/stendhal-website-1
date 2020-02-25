@@ -300,4 +300,3 @@ class LoginPage extends Page {
 	}
 }
 $page = new LoginPage();
-?>

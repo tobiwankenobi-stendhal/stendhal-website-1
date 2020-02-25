@@ -248,4 +248,3 @@ class AccountMerge extends Page {
 
 }
 $page = new AccountMerge();
-?>

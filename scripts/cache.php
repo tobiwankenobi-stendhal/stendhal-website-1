@@ -144,4 +144,3 @@ if (function_exists('apc_store')) {
 	$cache = new NonPersistentCacheImpl();
 }
 $cache->clearCacheIfOutdate();
-?>
