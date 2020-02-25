@@ -117,7 +117,7 @@ class OutfitDrawer {
 		if (file_exists($location)) {
 			$image = new Imagick($location);
 			$w = $image->getImageWidth() / 3;
-			$x_pos = $w * 2; // use center frame
+			$x_pos = $w; // use center frame
 			$image->cropImage(48, 64, $x_pos, $offset * 64);
 			return $image;
 		}
@@ -281,7 +281,7 @@ class NPCAndCreatureDrawer {
 			// Images are tiles of 3x4 so we choose a single tile.
 			$w = $w / 3;
 			$h = $h / 4;
-			$x_loc = $w * 2; // use center frame
+			$x_loc = $w; // use center frame
 			$y_loc = $h * 2; // use south-facing frame
 		}
 
