@@ -37,6 +37,7 @@
 # Website database to store news, events and other useful stuff.
 #
 @define('STENDHAL_WEB_HOSTNAME','127.0.0.1');
+@define('STENDHAL_WEB_CONNECTION','mysql:host=localhost;dbname=stendhal_website');
 @define('STENDHAL_WEB_USERNAME','username');
 @define('STENDHAL_WEB_PASSWORD','password');
 @define('STENDHAL_WEB_DB','stendhal_website');
@@ -49,6 +50,7 @@
 #  grant select,insert,update,delete on stendhal.account to FOO@localhost identified by 'BAR';
 #
 @define('STENDHAL_GAME_HOSTNAME','127.0.0.1');
+@define('STENDHAL_GAME_CONNECTION','mysql:host=localhost;dbname=stendhal');
 @define('STENDHAL_GAME_USERNAME','username');
 @define('STENDHAL_GAME_PASSWORD','password');
 @define('STENDHAL_GAME_DB','stendhal');
