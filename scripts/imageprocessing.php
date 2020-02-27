@@ -284,8 +284,12 @@ class NPCAndCreatureDrawer {
 			$y_loc = $h * 2; // use south-facing frame
 		}
 
-		$result = imagecreate($w, $h);
-		$white = imagecolorallocate($result, 255, 255, 255);
+		$result = imagecreatetruecolor($w, $h);
+		// preserve alpha
+		imagealphablending($result, false);
+		imagesavealpha($result, true);
+
+		$white = imagecolorallocatealpha($result, 255, 255, 255, 127);
 		imagefilledrectangle($result, 0, 0, $w, $h, $white);
 
 		$baseIm=imagecreatefrompng($url);

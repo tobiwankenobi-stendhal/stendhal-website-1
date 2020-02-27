@@ -61,8 +61,11 @@ function createImageData($url) {
 	$url = hideFishes($url);
 
 	$result=imagecreate(32, 32);
+	// preserve alpha
+	imagealphablending($result, false);
+	imagesavealpha($result, true);
 
-	$white=imagecolorallocate($result, 255, 255, 255);
+	$white=imagecolorallocatealpha($result, 255, 255, 255, 127);
 	imagefilledrectangle($result, 0, 0,32, 32, $white);
 
 	$baseIm=imagecreatefrompng($url);
