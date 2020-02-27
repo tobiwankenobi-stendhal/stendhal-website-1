@@ -275,7 +275,6 @@ class NPCAndCreatureDrawer {
 
 		if (strpos($url, "/ent/") !== false) {
 			// Ent images are tiles of 1x2 so we choose a single tile.
-			$w = $w;
 			$h = $h / 2;
 		} else if (strpos($url, "/alternative/") === false) {
 			// Images are tiles of 3x4 so we choose a single tile.
