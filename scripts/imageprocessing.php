@@ -230,7 +230,15 @@ class OutfitDrawer {
 	 * @param int $offset direction, needs to be validated before
 	 */
 	function loadOrCreate($completeOutfit, $offset) {
-		$cacheIdentifier = '/tmp/outfits/'.$completeOutfit.'-'.$offset.'.png';
+		$tmp_dir = getenv("TEMP");
+		if (is_null($tmp_dir)) {
+			$tmp_dir = getenv("TMP");
+		}
+		if (is_null($tmp_dir)) {
+			$tmp_dir = "/tmp";
+		}
+
+		$cacheIdentifier = $tmp_dir.'/outfits/'.$completeOutfit.'-'.$offset.'.png';
 
 		if (file_exists($cacheIdentifier)) {
 			readfile($cacheIdentifier);
@@ -243,8 +251,8 @@ class OutfitDrawer {
 		    $data = $this->create_outfit_old(explode('_', $completeOutfit), $offset);
 		}
 
-		if (!file_exists('/tmp/outfits')) {
-			mkdir('/tmp/outfits', 0755);
+		if (!file_exists($tmp_dir.'/outfits')) {
+			mkdir($tmp_dir.'/outfits', 0755);
 		}
 		$fp = fopen($cacheIdentifier, 'xb');
 		fwrite($fp, $data);
