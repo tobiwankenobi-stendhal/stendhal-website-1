@@ -2,9 +2,14 @@
 
 
 function renderAmount($amount) {
-  $amount=str_replace("[","",$amount);
-  $amount=str_replace("]","",$amount);
-  list($min,$max)=explode(",",$amount);
+  if (!is_numeric($amount)) {
+	  $amount=str_replace("[","",$amount);
+	  $amount=str_replace("]","",$amount);
+	  list($min,$max)=explode(",",$amount);
+  } else {
+	  $min = $amount;
+	  $max = $amount;
+  }
 
   if($min!=$max) {
     return 'between ' . formatNumber($min) . ' and ' . formatNumber($max) . '.';
