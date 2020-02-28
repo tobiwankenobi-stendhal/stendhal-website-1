@@ -49,7 +49,7 @@ class Achievement {
 		$popup = '<div class="stendhalAchievement"><span class="stendhalAchievementIconNameBanner">';
 
 		$popup .= '<span class="stendhalAchievementIcon">';
-		$popup .= '<img src="/images/achievements/'.htmlspecialchars(strtolower($this->category)).'.png">';
+		$popup .= '<img src="/data/sprites/achievements/'.htmlspecialchars(strtolower($this->category)).'.png">';
 		$popup .= '</span>';
 
 		$targetName = $this->title;
@@ -76,7 +76,7 @@ class Achievement {
 		$popup .= '</div>';
 
 		echo '<a href="'.rewriteURL('/achievement/'.surlencode($targetName).'.html').'" class="overliblink" title="'.htmlspecialchars($this->title).': '.htmlspecialchars($this->description).'" data-popup="'.htmlspecialchars($popup).'">';
-		echo '<img style="margin:1px; border: none" class="'.$class.'" src="/images/achievements/'.htmlspecialchars(strtolower($this->category)).'.png" alt=""></a>';
+		echo '<img style="margin:1px; border: none" class="'.$class.'" src="/data/sprites/achievements/'.htmlspecialchars(strtolower($this->category)).'.png" alt=""></a>';
 	}
 
 
