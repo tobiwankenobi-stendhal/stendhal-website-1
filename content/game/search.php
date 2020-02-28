@@ -160,7 +160,7 @@ class SearchsPage extends Page {
 		$this->renderEntry($name,
 			'Achievement',
 			'/achievement/',
-			'/images/achievements/'.htmlspecialchars(strtolower($entry->category)).'.png',
+			'/data/sprites/achievements/'.htmlspecialchars(strtolower($entry->category)).'.png',
 			$entry->description);
 	}
 
