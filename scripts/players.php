@@ -165,7 +165,7 @@ function getPlayer($name) {
 }
 
 function getBestPlayer($tableSuffix, $where='') {
-	$query = "select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit, character_stats.outfit_colors, character_stats.outfit_layers, character_stats.sentence, count(*) as achievements"
+	$query = "select halloffame_archive.points, halloffame_archive.charname, character_stats.age, character_stats.level, character_stats.xp, character_stats.outfit_layers As outfit, character_stats.sentence, count(*) as achievements"
 	. " from halloffame_archive_".$tableSuffix." As halloffame_archive join character_stats on (halloffame_archive.charname=name) join reached_achievement on (reached_achievement.charname=name) "
 	. $where
 	. " and day = CURRENT_DATE() and fametype = 'R'"
